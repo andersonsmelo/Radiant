@@ -592,37 +592,37 @@
           "id": "i3",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule três partes do osso longo, tocando na ficha e no ponto. A figura mostra a ponta de um osso longo, deitada, em corte, com a ponta larga à direita.",
+          "prompt": "Rotule três partes do osso longo, tocando na ficha e no ponto. A figura mostra um osso longo inteiro, deitado.",
           "diagramId": "osso-longo",
           "points": [
             {
-              "label": "Epífise",
-              "alvo": "Epífise",
-              "x": 0.68,
-              "y": 0.36,
-              "where": "à direita, a ponta larga de osso esponjoso cinza"
+              "label": "Epífise proximal",
+              "alvo": "Epífise proximal",
+              "x": 0.23,
+              "y": 0.41,
+              "where": "à esquerda, na região dos trocanteres, antes do corpo"
             },
             {
               "label": "Diáfise",
               "alvo": "Diáfise",
-              "x": 0.38,
-              "y": 0.47,
-              "where": "à esquerda, a parede âmbar de cima, no trecho reto"
+              "x": 0.5,
+              "y": 0.48,
+              "where": "no meio, o corpo longo e estreito do osso"
             },
             {
-              "label": "Cavidade medular",
-              "alvo": "Cavidade medular",
-              "x": 0.34,
-              "y": 0.68,
-              "where": "à esquerda, o espaço azul dentro do tubo, após a medula"
+              "label": "Epífise distal",
+              "alvo": "Epífise distal",
+              "x": 0.85,
+              "y": 0.61,
+              "where": "à direita, na ponta larga, antes da capa ciano"
             }
           ],
           "distractors": [
             "Ligamento"
           ],
           "feedbackCorrect": "Isso: cada ficha está sobre a parte certa do osso longo.",
-          "feedbackIncorrect": "Alguma ficha está no ponto errado: a diáfise é o tubo, e a epífise, a ponta larga.",
-          "help": "Comece pela ponta larga e vá em direção ao tubo do osso.",
+          "feedbackIncorrect": "Alguma ficha está no ponto errado: a diáfise é o trecho do meio, e as epífises, as pontas largas.",
+          "help": "Comece pelas pontas largas e vá em direção ao corpo do osso, entre elas.",
           "sourceIds": [
             "openstax-ap-6-3"
           ]
@@ -704,7 +704,7 @@
       ],
       "closing": {
         "title": "Você nomeia as partes de um osso longo",
-        "body": "Agora você consegue classificar um osso pela forma, apontar, num osso longo, a diáfise, a epífise e a cavidade medular, e reconhecer a cartilagem articular e a placa de crescimento.",
+        "body": "Agora você consegue classificar um osso pela forma, apontar, num osso longo, a diáfise e as epífises, e reconhecer a cavidade medular, a cartilagem articular e a placa de crescimento.",
         "line": {
           "speaker": "lia",
           "text": "Agora vamos a um conjunto de ossos de forma bem diferente: a coluna."

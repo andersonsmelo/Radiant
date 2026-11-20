@@ -539,14 +539,13 @@ export const FIGURES = {
       id: 'osso-longo',
       name: 'ossoLongo',
       header: `// Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
-// Obra: "Bone cross-section" (Pbroks13, 2008), Wikimedia Commons, CC BY 3.0. Sem as linhas de chamada e os textos do autor,
-// recolorida para a paleta do app e achatada para atributos de apresentação (sem <style>, classe ou filtro). Saíram do grupo g4604
-// só as 8 linhas de chamada e os 8 textos do autor; os 37 caminhos da arte ficam, sem apagar nem dividir nenhum, e os degradês em cadeia
-// do Inkscape (xlink:href) foram resolvidos na receita, para cada um levar os seus <stop>. O que não cabe sai pelo viewBox (160 -5 620 465, 4:3). Quadro 320x240, parado.
-// Fonte versionada: scripts/content/figuras/fontes/osso-longo.svg. Extremidade proximal de um osso longo (como a do fêmur) deitada,
-// com a ponta larga à direita e o corpo saindo à esquerda; corte longitudinal, com o osso do corpo aberto como uma janela.
-// Cores: osso esponjoso e periósteo cinza, osso compacto âmbar, cartilagem articular ciano, medula azul, vasos azul escuro.`,
-      alt: 'Extremidade de um osso longo deitada, em corte: ponta larga à direita com osso esponjoso cinza, parede âmbar, capa ciano e uma medula azul no corpo.',
+// Obra: "Femur" (slide "Femur", grupo "Group 50", do kit SMART-Bones, Servier Medical Art, CC BY 4.0; https://smart.servier.com/smart_image/femur/),
+// vetores copiados do pptx do kit e girados 90 graus (cabeça à esquerda, côndilos à direita), sem outra mudança de forma: o fêmur inteiro,
+// sem corte, com os 45 caminhos do autor. Recolorida para a paleta do app e achatada para atributos de apresentação (sem <style>, classe ou
+// filtro). Quadro 320x240, parado; viewBox da fonte 43 -4452.5 4200 3150 (4:3). Fonte versionada: scripts/content/figuras/fontes/osso-longo.svg.
+// Cores do autor: osso âmbar (tons claros e escuros) e as capas de cartilagem articular em ciano (cabeça do fêmur e côndilos), peças próprias
+// do desenho. Sem placa de crescimento, cavidade medular nem osso esponjoso (a arte é externa).`,
+      alt: 'Fêmur inteiro deitado: ponta com a cabeça arredondada à esquerda, corpo longo no meio e ponta larga à direita; capas ciano nas duas pontas.',
       transform: (o) => noQuadro(o.viewBox),
     }),
   },

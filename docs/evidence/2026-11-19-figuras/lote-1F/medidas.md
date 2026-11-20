@@ -12,7 +12,7 @@ Fonte (`scripts/content/figuras/fontes/<id>.svg`) e spec renderizados na mesma t
 | --- | --- |
 | `pelve-de-frente` | 110 (0,016%) |
 | `pelve-de-frente-recorte` | 34 (0,005%) |
-| `osso-longo` | 0 (0,000%) |
+| `osso-longo` | 0 (0,000%), com a arte da Pbroks13 da rodada 1; com o fêmur do Servier, também 0 (seção abaixo) |
 | `coluna-sagital-e-axial` | 193 (0,028%) |
 
 O defeito do achado 1: o conversor (`convert.mjs`) descarta `xlink:href`, e os degradês em cadeia do Inkscape do osso longo chegavam ao spec sem `<stop>`, o que apagava sete preenchimentos (5,86% do quadro, medido na revisão). A correção está na receita `osso-longo.mjs`, que copia os `<stop>` do degradê-base para cada degradê que o referencia e tira o `xlink:href` (7 degradês). As outras três figuras não usam `xlink:href`: o spec delas já batia com a fonte.
@@ -41,17 +41,32 @@ Leitura: a sacroilíaca é a linha entre o sacro e o ílio, e a área dela cobre
 
 A área certa não cobre a estrutura de nenhum erro típico: 0,1% de sínfise e 0% do forame oposto. O "fundo" da região certa é a própria abertura do forame, que o autor desenha vazada, e aparece escuro sobre o fundo do app. O selo de 36 x 24 pt ocupa 26% da caixa da região (0,129 x 0,114 do quadro contra 0,211 x 0,267) e cobre o canto de cima e da esquerda da abertura; o agente de arte mediu 72,6% da abertura à vista (não repeti essa conta). As regiões são as caixas declaradas, sem esticar.
 
-## osso-longo (m18-02, `i3`, rótulo), spec corrigido
+## osso-longo (m18-02, `i3`, rótulo), fêmur inteiro do Servier (decisão do dono S1, 2026-11-20 à tarde)
+
+Substitui a seção da arte da Pbroks13, que saiu do repositório (as medidas dela, com as posições e a cartilagem, estão no histórico do git, no commit 7aa103c1). Mesmo método do início deste arquivo: spec renderizado em 960 x 720 sobre #171920 e sobre branco; classes de cor do mesmo `medir.py` (aqui, "osso compacto (âmbar)" é o âmbar do autor e "cinza-azul" é o âmbar claro, o tom mais claro do mesmo osso, porque o autor desenhou só âmbar e ciano). Scripts em `.superpowers/sdd/2026-11-20-figuras-1F/medidas-osso-servier/` (`render.mjs`, `medir.py`, `diff.py`, `caixas.py`, `escolher.py`; fora do repositório).
+
+**Regiões declaradas** (`osso-longo.alvos.json`, S3): a caixa justa de cada trecho do desenho, medida no alfa do spec (alfa >= 0,1), sem inflar. Epífise proximal (0,037; 0,325; 0,222 x 0,231), Diáfise (0,400; 0,421; 0,200 x 0,124), Epífise distal (0,829; 0,460; 0,141 x 0,212), e as capas de cartilagem do autor, pela cor ciano: da cabeça (0,040; 0,443; 0,089 x 0,110) e do côndilo (0,903; 0,476; 0,066 x 0,185). **A caixa da Diáfise é a caixa justa do trecho x 0,40 a 0,60 do corpo**, que já tem 0,124 de altura porque o corpo é inclinado (nas faixas de 0,10 de largura entre x 0,2 e 0,8, a caixa justa mede de 0,096 a 0,126): não precisou passar da caixa justa para chegar ao mínimo de 0,08. As capas não são usadas em aula.
+
+**Quanto de cada epífise o marcador esconde** (pixels do osso, alfa >= 0,1, dentro da caixa declarada da epífise, sob o disco de 28 pt, raio 14 pt = 0,05 do quadro em x):
+
+| Ponto (x; y) | Epífise (px) | Escondido pelo marcador | Marcador sobre osso | Sobre a capa ciano |
+| --- | --- | --- | --- | --- |
+| Epífise proximal (0,23; 0,41), proposta do agente de arte (0,165; 0,41) | 19.317 | **26,1%** (proposta: 35,3%) | 84,1% (proposta: 94%) | 0% |
+| Epífise distal (0,85; 0,61), proposta do agente de arte (0,85; 0,56) | 16.449 | **24,8%** (proposta: 33,0%) | 65,1% (proposta: 96%) | 0% |
+
+Os pontos foram escolhidos por busca em grade de 0,01, dentro da caixa declarada, com o centro sobre o osso e o marcador em ao menos 55% sobre a própria caixa e o osso, entre os que escondem menos da epífise (o mínimo sem a restrição de ficar dentro da caixa, 14,3% em (0,25; 0,45) e 11,6% em (0,82; 0,51), põe o marcador sobre o corpo ou fora da caixa, e foi descartado). O marcador 1 fica na região dos trocanteres, antes do corpo; o 3, na ponta larga, antes da capa ciano. No meio da caixa distal, (0,90; 0,56), o marcador esconderia 43,9%. As duas capas ciano ficam inteiras à vista.
 
 | Ponto (x; y) | Área de 44 pt | Sob o marcador de 28 pt | Caixas declaradas sob a área |
 | --- | --- | --- | --- |
-| Epífise (0,68; 0,36) | cinza-azul (esponjoso) 74,2%, âmbar 16,1%, fundo 7,8%, azul 2,0% | cinza-azul 86,5%, âmbar 11,0%, azul 2,5% | Epífise 100% |
-| Diáfise (0,38; 0,47), parede âmbar de cima | âmbar 36,3%, fundo 35,4%, cinza-azul 17,9%, azul 10,4% | âmbar 63,2%, fundo 21,5%, cinza-azul 10,6%, azul 4,8% | Diáfise 56%, Cavidade medular 19% |
-| Cavidade medular (0,34; 0,68), espaço azul dentro do tubo | azul (medula) 60,6%, âmbar 26,6%, cinza-azul 12,8% | azul 82,3%, âmbar 9,0%, cinza-azul 8,6% | Diáfise 100%, Cavidade medular 93% |
+| Epífise proximal (0,23; 0,41) | âmbar 47,7%, fundo 49,7%, contorno 1,3%, âmbar claro 1,3% | âmbar 81,3%, fundo 15,6%, contorno 1,7% | Epífise proximal 62% |
+| Diáfise (0,50; 0,48) | fundo 64,6%, âmbar 30,4%, âmbar claro 3,8%, contorno 1,2% | âmbar 57,3%, âmbar claro 6,8%, fundo 34,0%, contorno 1,8% | Diáfise 59% |
+| Epífise distal (0,85; 0,61) | âmbar 50,7%, fundo 40,4%, ciano 6,0%, âmbar claro 1,9%, contorno 1,0% | âmbar 61,4%, fundo 34,9%, âmbar claro 2,5%, contorno 1,2% | Epífise distal 50%, Cartilagem do côndilo 12% |
 
-**Posições, e o desvio do parecer.** O parecer propôs Cavidade em (0,34; 0,62) e Diáfise em (0,24; 0,78). As duas áreas de 44 pt se sobrepõem aí (a distância é 0,10 em x e 0,16 em y; o verificador exige 0,157 em x ou 0,21 em y), e o verificador reprova (`alvos muito próximos`). A Diáfise tem de ficar dentro da caixa declarada dela (x 0,17 a 0,45, y 0,45 a 0,81), e uma Diáfise fora dela reprova em `figure-target-off-region`. Mantive a Cavidade no espaço azul, desci-a a (0,34; 0,68) e pus a Diáfise na parede âmbar de cima, em (0,38; 0,47), a 0,21 de distância em y. A Cavidade em (0,34; 0,62) dava 99,3% de azul sob o marcador e 74,3% na área; em (0,34; 0,68) dá 82,3% e 60,6%, ainda a maior parte. A Diáfise na parede de baixo, em (0,24; 0,78), dava 60,5% de âmbar sob o marcador, e a de cima dá 63,2%. Nenhuma das duas áreas da Diáfise toca a caixa da Epífise (x até 0,459; a caixa da epífise começa em 0,52), e o erro típico (trocar epífise e diáfise) não está sob a área da Diáfise: cinza-azul 17,9% contra âmbar 36,3%.
+Leitura. Nenhuma área de 44 pt toca a caixa de outro alvo da aula: o erro típico (trocar epífise e diáfise) não está sob nenhuma área (a área da proximal vai de x 0,152 a 0,309, e a Diáfise começa em 0,40; a da distal, de 0,771 a 0,929, e a Diáfise termina em 0,60). O corpo é mais fino do que o marcador (~0,10 contra 0,133 do quadro), por isso o marcador 2 tem 34% de fundo em qualquer posição do corpo (no melhor ponto medido, 64 a 66% sobre osso); o ponto fica na maior parte sobre a estrutura. A área de 44 pt tem 40% a 65% de fundo, porque o osso é uma faixa fina deitada no quadro.
 
-Medido sobre o fundo do app, a medula e a cavidade aparecem (o periósteo cinza e o espaço azul eram o que faltava no spec antigo). **Cartilagem articular saiu do rótulo (item adaptado, decisão do controlador a levar ao dono).** A cartilagem do autor é uma faixa de ~0,02 a 0,04 do quadro sobre a epífise; no melhor ponto permitido pela régua, (0,84; 0,68), a área de 44 pt tem 13% de ciano contra 38% de fundo, e a m18-02 tem exatamente 5 interações e nenhuma `true-false`, então a placa de crescimento também não virou verdadeiro ou falso. A cartilagem segue cobrada no `i4` (ligar) e no checkpoint; a placa, no conceito e no segundo item do checkpoint. Nenhuma resposta certa mudou. (As percentagens da cartilagem são do primeiro passe, sobre branco, e foram repetidas pelo parecer; não as refiz sobre #171920.)
+## Spec contra fonte, osso-longo (fêmur do Servier), sobre #171920
+
+Spec e fonte `scripts/content/figuras/fontes/osso-longo.svg` na mesma transformação, 960 x 720: **0 de 691.200 pixels diferem em mais de 40/255** (passe de 2026-11-20 à tarde). A tabela do início deste arquivo traz a mesma conta da rodada 1, feita com a arte da Pbroks13.
 
 ## coluna-sagital-e-axial (m28-04, `i2`, rótulo)
 

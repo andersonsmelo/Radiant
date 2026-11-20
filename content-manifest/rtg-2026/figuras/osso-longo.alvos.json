@@ -1,5 +1,7 @@
 [
-  { "nome": "Epífise", "x": 0.52, "y": 0.08, "width": 0.4, "height": 0.55 },
-  { "nome": "Diáfise", "x": 0.17, "y": 0.45, "width": 0.28, "height": 0.36 },
-  { "nome": "Cavidade medular", "x": 0.18, "y": 0.53, "width": 0.26, "height": 0.24 }
+  { "nome": "Epífise proximal", "x": 0.037, "y": 0.325, "width": 0.222, "height": 0.231 },
+  { "nome": "Diáfise", "x": 0.4, "y": 0.421, "width": 0.2, "height": 0.124 },
+  { "nome": "Epífise distal", "x": 0.829, "y": 0.46, "width": 0.141, "height": 0.212 },
+  { "nome": "Cartilagem da cabeça", "x": 0.04, "y": 0.443, "width": 0.089, "height": 0.11 },
+  { "nome": "Cartilagem do côndilo", "x": 0.903, "y": 0.476, "width": 0.066, "height": 0.185 }
 ]
