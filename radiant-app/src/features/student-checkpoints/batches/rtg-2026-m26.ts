@@ -6,7 +6,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m26",
-  "materialSha256": "a09453aa12351b6265ab940ab93f3e9f9caf5c36d78dcea90736424d36996743",
+  "materialSha256": "97127e634466efe641d79ec9316c5a97b4a043a104c1e589d9b2b95b464bd566",
   "trackId": "track:rtg-2026:m26",
   "unitId": "unit:rtg-2026:m26",
   "contentVersion": "rtg-2026-m26-v1",
@@ -1644,34 +1644,34 @@ export const RTG_2026_M26: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m26:aula-05:i2:1",
                   "label": "Fígado",
-                  "x": 0.17,
-                  "y": 0.22,
-                  "width": 0.33,
-                  "height": 0.26
+                  "x": 0.346,
+                  "y": 0.245,
+                  "width": 0.154,
+                  "height": 0.21
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-05:i2:2",
                   "label": "Estômago",
-                  "x": 0.56,
-                  "y": 0.23,
-                  "width": 0.19,
-                  "height": 0.29
+                  "x": 0.542,
+                  "y": 0.36,
+                  "width": 0.08,
+                  "height": 0.14
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-05:i2:3",
                   "label": "Intestino delgado",
-                  "x": 0.35,
-                  "y": 0.7,
-                  "width": 0.36,
-                  "height": 0.21
+                  "x": 0.471,
+                  "y": 0.649,
+                  "width": 0.138,
+                  "height": 0.228
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-05:i2:4",
                   "label": "Intestino grosso",
-                  "x": 0.21,
-                  "y": 0.58,
-                  "width": 0.09,
-                  "height": 0.38
+                  "x": 0.335,
+                  "y": 0.526,
+                  "width": 0.08,
+                  "height": 0.369
                 }
               ],
               "correctRegionIds": [
@@ -6620,7 +6620,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a09453aa12351b6265ab940ab93f3e9f9caf5c36d78dcea90736424d36996743"
+      "materialSha256": "97127e634466efe641d79ec9316c5a97b4a043a104c1e589d9b2b95b464bd566"
     },
     {
       "schemaVersion": 1,
@@ -6629,7 +6629,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a09453aa12351b6265ab940ab93f3e9f9caf5c36d78dcea90736424d36996743"
+      "materialSha256": "97127e634466efe641d79ec9316c5a97b4a043a104c1e589d9b2b95b464bd566"
     },
     {
       "schemaVersion": 1,
@@ -6638,7 +6638,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a09453aa12351b6265ab940ab93f3e9f9caf5c36d78dcea90736424d36996743"
+      "materialSha256": "97127e634466efe641d79ec9316c5a97b4a043a104c1e589d9b2b95b464bd566"
     },
     {
       "schemaVersion": 1,
@@ -6647,7 +6647,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a09453aa12351b6265ab940ab93f3e9f9caf5c36d78dcea90736424d36996743"
+      "materialSha256": "97127e634466efe641d79ec9316c5a97b4a043a104c1e589d9b2b95b464bd566"
     },
     {
       "schemaVersion": 1,
@@ -6656,7 +6656,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a09453aa12351b6265ab940ab93f3e9f9caf5c36d78dcea90736424d36996743"
+      "materialSha256": "97127e634466efe641d79ec9316c5a97b4a043a104c1e589d9b2b95b464bd566"
     },
     {
       "schemaVersion": 1,
@@ -6665,7 +6665,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a09453aa12351b6265ab940ab93f3e9f9caf5c36d78dcea90736424d36996743"
+      "materialSha256": "97127e634466efe641d79ec9316c5a97b4a043a104c1e589d9b2b95b464bd566"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

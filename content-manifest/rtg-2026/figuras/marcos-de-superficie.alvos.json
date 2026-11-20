@@ -1,0 +1,8 @@
+[
+  { "nome": "Incisura jugular", "x": 0.465, "y": 0.095, "width": 0.07, "height": 0.07 },
+  { "nome": "Processo xifoide", "x": 0.48, "y": 0.31, "width": 0.04, "height": 0.075 },
+  { "nome": "Margem costal inferior", "x": 0.355, "y": 0.4, "width": 0.11, "height": 0.165 },
+  { "nome": "Crista ilíaca", "x": 0.55, "y": 0.62, "width": 0.115, "height": 0.08 },
+  { "nome": "Sínfise púbica", "x": 0.485, "y": 0.85, "width": 0.03, "height": 0.055 },
+  { "nome": "Trocânter maior", "x": 0.628, "y": 0.82, "width": 0.056, "height": 0.08 }
+]

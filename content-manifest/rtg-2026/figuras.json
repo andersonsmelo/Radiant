@@ -75,5 +75,38 @@
     "retrievedAt": "2026-11-20",
     "sha256Original": "aea4da9207f631ba0a4d47b5627b00b7b3e4b04309331f7bf5df1abd1161833c",
     "modification": "A página do Commons declara CC BY 2.5 e os metadados do próprio SVG declaram CC BY 3.0; vale a licença da página. Original original.svg (Wikimedia Commons, 'Knee skeleton lateral anterior views.svg', sha256 acima; sem texto algum). As silhuetas foram divididas em ossos (fêmur, tíbia, fíbula e, no perfil, patela) só ao longo de traços que o próprio autor desenhou, sem alterar os contornos (de frente, o traço que contorna a tíbia e a separa da cabeça da fíbula; de perfil, as bordas inferiores do fêmur e o contorno da fíbula); recolorido para a paleta do app (fêmur cinza claro, tíbia âmbar, fíbula ciano, patela azul, traços internos quase pretos); fundo transparente; recortado em altura (y 110 a 440 do original, cortes planos nas diáfises); a vista de perfil deslocada 85 unidades para a esquerda para aproximar as duas vistas; enquadrado em 320x240; caminhos achatados em polígonos simplificados (tolerância 0,12). Nenhum rótulo existia na arte. Nenhuma divisa de cor é linha digitada pelo projeto. Os traços de frente entre tíbia e fíbula existem no original, mas ficam sob a silhueta e não aparecem na figura publicada; aqui aparecem, junto com cerca de 20 outros traços do autor da tíbia e da fíbula de frente, desenhados por cima da silhueta."
+  },
+  {
+    "id": "ossos-do-pe",
+    "origem": "acervo",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:202110_Dorsal_view_of_bones_of_right_foot.svg",
+    "author": "DataBase Center for Life Science (DBCLS)",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "bea59d292c8b6eded0295d219ffbad10eb788d8df0edaea193ef2b409022319e",
+    "modification": "Pé direito em vista dorsal, sem alterar as formas: removidos o fundo e a folha de estilo do original; recolorido por osso para a paleta do app (tarso em tons de branco e cinza claro que alternam entre ossos vizinhos, metatarsos e sesamoide em azul, falanges em âmbar, capas articulares em tom mais claro); girado 90 graus no sentido horário, para o calcanhar ficar à esquerda, os dedos à direita e o hálux em cima; enquadrado em 320x240 e achatado para atributos de apresentação. Sem rótulos na arte original."
+  },
+  {
+    "id": "trato-digestivo",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/complete-overview-digestive-apparatus/",
+    "author": "Servier Medical Art (Servier)",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "6acab3f2cb530644c75997db1c3e169f396050b34767b0780c6841fdc1627e53",
+    "modification": "Vetores copiados do pptx do kit SMART-Digestive-system (https://smart.servier.com/wp-content/uploads/2016/10/SMART-Digestive-system.pptx, slide 3, grupo \"Group 5\", sha256 acima; páginas do kit: smart_image/complete-digestive-apparatus e smart_image/complete-overview-digestive-apparatus, ambas CC BY 4.0). Das 965 formas do grupo, 215 foram removidas (cabeça, boca, nariz, faringe e a ponta do reto, todas fora do quadro); as 750 restantes (esôfago, fígado, estômago, pâncreas, intestinos delgado e grosso, vesícula, vasos, baço e os traços de apoio que ficam dentro do quadro) foram mantidas inteiras, sem alterar nenhum traçado. Recoloridas por estrutura, pela ordem de pintura da arte, para a paleta do app (fígado âmbar, esôfago cinza claro, pâncreas ciano, estômago e delgado em azuis, grosso cinza médio, vesícula, vasos e baço em cinza escuro), com os realces em tons mais claros do mesmo matiz; gradientes e sombreados achatados em atributos de apresentação; sem fundo; corte do esôfago ao reto e enquadramento em 320x240. O autor desenha estômago, duodeno e intestino delgado sobre um único contorno de base, então os dois órgãos compartilham o azul de base e se distinguem só pelo tom das camadas de sombra."
+  },
+  {
+    "id": "marcos-de-superficie",
+    "origem": "acervo",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Human_skeleton_front_no-text_no-color.svg",
+    "author": "LadyofHats (Mariana Ruiz Villarreal)",
+    "license": "Domínio público",
+    "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Licensing#Public_domain",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "f1528562040533dacc0a4326e82f5369a21f531f29e8183d3e3eafd67e561521",
+    "modification": "Recorte do tronco e da pelve (sem cabeça e pernas; antebraços e mãos só até onde entram no quadro); removidos o fundo branco e os caminhos fora do recorte (520 dos 915 caminhos ficam); recolorido por região para a paleta do app (esterno âmbar, costelas azuis, coluna ciano, pelve branca, fêmures âmbar claro, clavículas, escápulas e braços cinza); contorno do corpo em cinza; coordenadas dos caminhos a uma casa decimal, para caber no teto de peso. Nenhuma forma foi alterada além desse arredondamento; sem rótulos na arte original."
   }
 ]

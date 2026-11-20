@@ -1603,32 +1603,36 @@
           "regions": [
             {
               "label": "Fígado",
-              "x": 0.17,
-              "y": 0.22,
-              "width": 0.33,
-              "height": 0.26
+              "x": 0.346,
+              "y": 0.245,
+              "width": 0.154,
+              "height": 0.21,
+              "alvo": "Fígado"
             },
             {
               "label": "Estômago",
-              "x": 0.56,
-              "y": 0.23,
-              "width": 0.19,
-              "height": 0.29,
-              "correct": true
+              "x": 0.542,
+              "y": 0.36,
+              "width": 0.08,
+              "height": 0.14,
+              "correct": true,
+              "alvo": "Estômago"
             },
             {
               "label": "Intestino delgado",
-              "x": 0.35,
-              "y": 0.7,
-              "width": 0.36,
-              "height": 0.21
+              "x": 0.471,
+              "y": 0.649,
+              "width": 0.138,
+              "height": 0.228,
+              "alvo": "Intestino delgado"
             },
             {
               "label": "Intestino grosso",
-              "x": 0.21,
-              "y": 0.58,
-              "width": 0.09,
-              "height": 0.38
+              "x": 0.335,
+              "y": 0.526,
+              "width": 0.08,
+              "height": 0.369,
+              "alvo": "Intestino grosso"
             }
           ],
           "feedbackCorrect": "Isso: depois do esôfago o bário chega ao estômago e segue até o duodeno.",

@@ -1533,7 +1533,7 @@
         "lines": [
           {
             "speaker": "duda",
-            "text": "Nessa figura há pontos amarelos, mas eu só enxergo o contorno do corpo e uns ossos fracos."
+            "text": "Nessa figura eu só enxergo os ossos do tronco e da pelve, e nenhuma legenda."
           },
           {
             "speaker": "caio",
@@ -1593,48 +1593,47 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule seis marcos de superfície, tocando na ficha e no ponto. A figura mostra o paciente de frente.",
+          "prompt": "Rotule cinco marcos de superfície, tocando na ficha e no ponto. A figura mostra o paciente de frente.",
           "diagramId": "marcos-de-superficie",
           "points": [
             {
               "label": "Incisura jugular",
               "x": 0.5,
-              "y": 0.12,
-              "where": "no alto, o afundamento na base do pescoço"
+              "y": 0.13,
+              "where": "no alto, o afundamento na base do pescoço",
+              "alvo": "Incisura jugular"
             },
             {
               "label": "Processo xifoide",
               "x": 0.5,
-              "y": 0.404,
-              "where": "no centro do peito, a ponta de baixo do osso reto"
+              "y": 0.358,
+              "where": "no centro do peito, a ponta de baixo do osso reto",
+              "alvo": "Processo xifoide"
             },
             {
               "label": "Crista ilíaca",
-              "x": 0.65,
-              "y": 0.65,
-              "where": "lado esquerdo do paciente, a borda curva da cintura"
-            },
-            {
-              "label": "Espinha ilíaca ântero-superior",
-              "x": 0.331,
-              "y": 0.762,
-              "where": "lado direito do paciente, a ponta arredondada do quadril"
+              "x": 0.615,
+              "y": 0.645,
+              "where": "lado esquerdo do paciente, a borda curva da cintura",
+              "alvo": "Crista ilíaca"
             },
             {
               "label": "Sínfise púbica",
-              "x": 0.5,
+              "x": 0.502,
               "y": 0.875,
-              "where": "embaixo no centro, onde os dois ossos se encontram"
+              "where": "embaixo no centro, onde os dois ossos se encontram",
+              "alvo": "Sínfise púbica"
             },
             {
               "label": "Trocânter maior",
-              "x": 0.719,
-              "y": 0.867,
-              "where": "lado esquerdo do paciente, a saliência lateral da coxa"
+              "x": 0.667,
+              "y": 0.875,
+              "where": "lado esquerdo do paciente, a saliência lateral da coxa",
+              "alvo": "Trocânter maior"
             }
           ],
           "feedbackCorrect": "Isso: cada marco está sobre o relevo certo, do pescoço até a coxa.",
-          "feedbackIncorrect": "Algum marco ficou no lugar errado: lembre que crista, espinha e trocânter aparecem de um lado só nesta tarefa.",
+          "feedbackIncorrect": "Algum marco ficou no lugar errado: lembre que crista e trocânter aparecem de um lado só nesta tarefa.",
           "help": "Comece pelo alto, na base do pescoço, e desça pelo corpo.",
           "sourceIds": [
             "openstax-ap-7-4",
@@ -1654,36 +1653,41 @@
               "x": 0.46,
               "y": 0.08,
               "width": 0.08,
-              "height": 0.08
+              "height": 0.12,
+              "alvo": "Incisura jugular"
             },
             {
               "label": "Margem costal inferior",
-              "x": 0.2975,
-              "y": 0.506,
-              "width": 0.08,
-              "height": 0.08,
-              "correct": true
+              "x": 0.34,
+              "y": 0.4,
+              "width": 0.135,
+              "height": 0.17,
+              "correct": true,
+              "alvo": "Margem costal inferior"
             },
             {
               "label": "Crista ilíaca",
-              "x": 0.61,
-              "y": 0.61,
+              "x": 0.575,
+              "y": 0.585,
               "width": 0.08,
-              "height": 0.08
+              "height": 0.12,
+              "alvo": "Crista ilíaca"
             },
             {
               "label": "Sínfise púbica",
-              "x": 0.46,
-              "y": 0.835,
+              "x": 0.462,
+              "y": 0.815,
               "width": 0.08,
-              "height": 0.08
+              "height": 0.12,
+              "alvo": "Sínfise púbica"
             },
             {
               "label": "Trocânter maior",
-              "x": 0.679,
-              "y": 0.827,
+              "x": 0.627,
+              "y": 0.815,
               "width": 0.08,
-              "height": 0.08
+              "height": 0.12,
+              "alvo": "Trocânter maior"
             }
           ],
           "feedbackCorrect": "Isso: a margem costal inferior é a borda de baixo do tórax, acima do abdome.",
@@ -1747,7 +1751,7 @@
       ],
       "closing": {
         "title": "Você nomeia os marcos do tronco e da pelve",
-        "body": "Agora você consegue nomear e localizar, numa figura de frente, a incisura jugular, o processo xifoide, a margem costal, a crista ilíaca, a espinha ilíaca ântero-superior, a sínfise púbica e o trocânter maior.",
+        "body": "Agora você consegue nomear e localizar, numa figura de frente, a incisura jugular, o processo xifoide, a margem costal, a crista ilíaca, a sínfise púbica e o trocânter maior, e ligar a espinha ilíaca ântero-superior à ponta da frente da crista.",
         "line": {
           "speaker": "lia",
           "text": "Na próxima aula, você usa dois marcos para achar uma região inteira."
@@ -1953,44 +1957,42 @@
               "x": 0.46,
               "y": 0.08,
               "width": 0.08,
-              "height": 0.08,
-              "correct": true
-            },
-            {
-              "label": "Margem costal inferior",
-              "x": 0.2975,
-              "y": 0.506,
-              "width": 0.08,
-              "height": 0.08
+              "height": 0.12,
+              "correct": true,
+              "alvo": "Incisura jugular"
             },
             {
               "label": "Processo xifoide",
               "x": 0.46,
-              "y": 0.364,
+              "y": 0.298,
               "width": 0.08,
-              "height": 0.08,
-              "correct": true
+              "height": 0.12,
+              "correct": true,
+              "alvo": "Processo xifoide"
             },
             {
               "label": "Crista ilíaca",
-              "x": 0.61,
-              "y": 0.61,
+              "x": 0.575,
+              "y": 0.585,
               "width": 0.08,
-              "height": 0.08
+              "height": 0.12,
+              "alvo": "Crista ilíaca"
             },
             {
               "label": "Sínfise púbica",
-              "x": 0.46,
-              "y": 0.835,
+              "x": 0.462,
+              "y": 0.815,
               "width": 0.08,
-              "height": 0.08
+              "height": 0.12,
+              "alvo": "Sínfise púbica"
             },
             {
               "label": "Trocânter maior",
-              "x": 0.679,
-              "y": 0.827,
+              "x": 0.627,
+              "y": 0.815,
               "width": 0.08,
-              "height": 0.08
+              "height": 0.12,
+              "alvo": "Trocânter maior"
             }
           ],
           "feedbackCorrect": "Isso: o esterno vai da incisura jugular, no alto, ao processo xifoide, na ponta de baixo.",

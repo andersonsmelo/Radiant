@@ -6,7 +6,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m20",
-  "materialSha256": "517aeda4a8d9bf7e7b1a9eedcf1f8af6da480cc9b30ed01f3552ae0b7db4b6cb",
+  "materialSha256": "781cff318bb300f1a1d49af8fc45b3f54317b9acde6b1435672f925f0a5561b9",
   "trackId": "track:rtg-2026:m20",
   "unitId": "unit:rtg-2026:m20",
   "contentVersion": "rtg-2026-m20-v1",
@@ -977,43 +977,43 @@ export const RTG_2026_M20: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m20:aula-03:i2:1",
-                  "x": 0.5,
-                  "y": 0.12,
+                  "x": 0.513,
+                  "y": 0.122,
                   "where": "tubo fino que desce pelo alto, no meio do tronco",
                   "correctLabelId": "label:rtg-2026:m20:aula-03:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m20:aula-03:i2:2",
-                  "x": 0.3,
-                  "y": 0.3,
+                  "x": 0.405,
+                  "y": 0.333,
                   "where": "massa grande no alto, do lado direito do paciente",
                   "correctLabelId": "label:rtg-2026:m20:aula-03:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m20:aula-03:i2:3",
-                  "x": 0.68,
-                  "y": 0.38,
+                  "x": 0.585,
+                  "y": 0.34,
                   "where": "bolsa curva no alto, do lado esquerdo do paciente",
                   "correctLabelId": "label:rtg-2026:m20:aula-03:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m20:aula-03:i2:4",
-                  "x": 0.5,
-                  "y": 0.58,
-                  "where": "faixa azul sob a bolsa curva",
+                  "x": 0.464,
+                  "y": 0.552,
+                  "where": "massa ciano sob a bolsa curva",
                   "correctLabelId": "label:rtg-2026:m20:aula-03:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m20:aula-03:i2:5",
-                  "x": 0.53,
-                  "y": 0.8,
+                  "x": 0.537,
+                  "y": 0.781,
                   "where": "tubo enovelado no centro da barriga",
                   "correctLabelId": "label:rtg-2026:m20:aula-03:i2:5"
                 },
                 {
                   "id": "point:rtg-2026:m20:aula-03:i2:6",
-                  "x": 0.25,
-                  "y": 0.78,
+                  "x": 0.376,
+                  "y": 0.781,
                   "where": "tubo largo em moldura, subindo do lado direito do paciente",
                   "correctLabelId": "label:rtg-2026:m20:aula-03:i2:6"
                 }
@@ -2074,25 +2074,25 @@ export const RTG_2026_M20: ProductionBatchV1 = {
                   "id": "region:rtg-2026:m20:aula-06:i2:1",
                   "label": "Estômago",
                   "x": 0.542,
-                  "y": 0.203,
-                  "width": 0.24,
-                  "height": 0.36
+                  "y": 0.36,
+                  "width": 0.08,
+                  "height": 0.14
                 },
                 {
                   "id": "region:rtg-2026:m20:aula-06:i2:2",
                   "label": "Fígado",
-                  "x": 0.141,
-                  "y": 0.175,
-                  "width": 0.38,
-                  "height": 0.3
+                  "x": 0.346,
+                  "y": 0.245,
+                  "width": 0.154,
+                  "height": 0.21
                 },
                 {
                   "id": "region:rtg-2026:m20:aula-06:i2:3",
                   "label": "Intestino delgado",
-                  "x": 0.305,
-                  "y": 0.698,
-                  "width": 0.44,
-                  "height": 0.22
+                  "x": 0.471,
+                  "y": 0.649,
+                  "width": 0.138,
+                  "height": 0.228
                 }
               ],
               "correctRegionIds": [
@@ -6713,7 +6713,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "517aeda4a8d9bf7e7b1a9eedcf1f8af6da480cc9b30ed01f3552ae0b7db4b6cb"
+      "materialSha256": "781cff318bb300f1a1d49af8fc45b3f54317b9acde6b1435672f925f0a5561b9"
     },
     {
       "schemaVersion": 1,
@@ -6722,7 +6722,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "517aeda4a8d9bf7e7b1a9eedcf1f8af6da480cc9b30ed01f3552ae0b7db4b6cb"
+      "materialSha256": "781cff318bb300f1a1d49af8fc45b3f54317b9acde6b1435672f925f0a5561b9"
     },
     {
       "schemaVersion": 1,
@@ -6731,7 +6731,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "517aeda4a8d9bf7e7b1a9eedcf1f8af6da480cc9b30ed01f3552ae0b7db4b6cb"
+      "materialSha256": "781cff318bb300f1a1d49af8fc45b3f54317b9acde6b1435672f925f0a5561b9"
     },
     {
       "schemaVersion": 1,
@@ -6740,7 +6740,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "517aeda4a8d9bf7e7b1a9eedcf1f8af6da480cc9b30ed01f3552ae0b7db4b6cb"
+      "materialSha256": "781cff318bb300f1a1d49af8fc45b3f54317b9acde6b1435672f925f0a5561b9"
     },
     {
       "schemaVersion": 1,
@@ -6749,7 +6749,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "517aeda4a8d9bf7e7b1a9eedcf1f8af6da480cc9b30ed01f3552ae0b7db4b6cb"
+      "materialSha256": "781cff318bb300f1a1d49af8fc45b3f54317b9acde6b1435672f925f0a5561b9"
     },
     {
       "schemaVersion": 1,
@@ -6758,7 +6758,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "517aeda4a8d9bf7e7b1a9eedcf1f8af6da480cc9b30ed01f3552ae0b7db4b6cb"
+      "materialSha256": "781cff318bb300f1a1d49af8fc45b3f54317b9acde6b1435672f925f0a5561b9"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

@@ -6,7 +6,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m18",
-  "materialSha256": "4fcc387f6cde7cda420ccc102c6dd64a10b1783508c9b910d8270bb626284ec7",
+  "materialSha256": "67eac77c46090fa3607853eaa6b8aa6767163eb81f607af588569b08e9dee2c5",
   "trackId": "track:rtg-2026:m18",
   "unitId": "unit:rtg-2026:m18",
   "contentVersion": "rtg-2026-m18-v1",
@@ -1612,7 +1612,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
               "lines": [
                 {
                   "speaker": "duda",
-                  "text": "Nessa figura há pontos amarelos, mas eu só enxergo o contorno do corpo e uns ossos fracos."
+                  "text": "Nessa figura eu só enxergo os ossos do tronco e da pelve, e nenhuma legenda."
                 },
                 {
                   "speaker": "caio",
@@ -1699,73 +1699,58 @@ export const RTG_2026_M18: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule seis marcos de superfície, tocando na ficha e no ponto. A figura mostra o paciente de frente."
+              "label": "Rotular a imagem: Rotule cinco marcos de superfície, tocando na ficha e no ponto. A figura mostra o paciente de frente."
             },
             "help": "Comece pelo alto, na base do pescoço, e desça pelo corpo.",
             "type": "label",
             "feedback": {
               "correct": "Isso: cada marco está sobre o relevo certo, do pescoço até a coxa.",
-              "incorrect": "Algum marco ficou no lugar errado: lembre que crista, espinha e trocânter aparecem de um lado só nesta tarefa."
+              "incorrect": "Algum marco ficou no lugar errado: lembre que crista e trocânter aparecem de um lado só nesta tarefa."
             },
             "payload": {
-              "prompt": "Rotule seis marcos de superfície, tocando na ficha e no ponto. A figura mostra o paciente de frente.",
+              "prompt": "Rotule cinco marcos de superfície, tocando na ficha e no ponto. A figura mostra o paciente de frente.",
               "imageRef": "diagram:marcos-de-superficie",
               "points": [
                 {
                   "id": "point:rtg-2026:m18:aula-05:i2:1",
                   "x": 0.5,
-                  "y": 0.12,
+                  "y": 0.13,
                   "where": "no alto, o afundamento na base do pescoço",
                   "correctLabelId": "label:rtg-2026:m18:aula-05:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-05:i2:2",
                   "x": 0.5,
-                  "y": 0.404,
+                  "y": 0.358,
                   "where": "no centro do peito, a ponta de baixo do osso reto",
                   "correctLabelId": "label:rtg-2026:m18:aula-05:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-05:i2:3",
-                  "x": 0.65,
-                  "y": 0.65,
+                  "x": 0.615,
+                  "y": 0.645,
                   "where": "lado esquerdo do paciente, a borda curva da cintura",
                   "correctLabelId": "label:rtg-2026:m18:aula-05:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-05:i2:4",
-                  "x": 0.331,
-                  "y": 0.762,
-                  "where": "lado direito do paciente, a ponta arredondada do quadril",
+                  "x": 0.502,
+                  "y": 0.875,
+                  "where": "embaixo no centro, onde os dois ossos se encontram",
                   "correctLabelId": "label:rtg-2026:m18:aula-05:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-05:i2:5",
-                  "x": 0.5,
+                  "x": 0.667,
                   "y": 0.875,
-                  "where": "embaixo no centro, onde os dois ossos se encontram",
-                  "correctLabelId": "label:rtg-2026:m18:aula-05:i2:5"
-                },
-                {
-                  "id": "point:rtg-2026:m18:aula-05:i2:6",
-                  "x": 0.719,
-                  "y": 0.867,
                   "where": "lado esquerdo do paciente, a saliência lateral da coxa",
-                  "correctLabelId": "label:rtg-2026:m18:aula-05:i2:6"
+                  "correctLabelId": "label:rtg-2026:m18:aula-05:i2:5"
                 }
               ],
               "labels": [
                 {
-                  "id": "label:rtg-2026:m18:aula-05:i2:1",
-                  "label": "Incisura jugular"
-                },
-                {
                   "id": "label:rtg-2026:m18:aula-05:i2:2",
                   "label": "Processo xifoide"
-                },
-                {
-                  "id": "label:rtg-2026:m18:aula-05:i2:6",
-                  "label": "Trocânter maior"
                 },
                 {
                   "id": "label:rtg-2026:m18:aula-05:i2:3",
@@ -1773,11 +1758,15 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                 },
                 {
                   "id": "label:rtg-2026:m18:aula-05:i2:4",
-                  "label": "Espinha ilíaca ântero-superior"
+                  "label": "Sínfise púbica"
                 },
                 {
                   "id": "label:rtg-2026:m18:aula-05:i2:5",
-                  "label": "Sínfise púbica"
+                  "label": "Trocânter maior"
+                },
+                {
+                  "id": "label:rtg-2026:m18:aula-05:i2:1",
+                  "label": "Incisura jugular"
                 }
               ]
             }
@@ -1812,39 +1801,39 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                   "x": 0.46,
                   "y": 0.08,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-05:i3:2",
                   "label": "Margem costal inferior",
-                  "x": 0.2975,
-                  "y": 0.506,
-                  "width": 0.08,
-                  "height": 0.08
+                  "x": 0.34,
+                  "y": 0.4,
+                  "width": 0.135,
+                  "height": 0.17
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-05:i3:3",
                   "label": "Crista ilíaca",
-                  "x": 0.61,
-                  "y": 0.61,
+                  "x": 0.575,
+                  "y": 0.585,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-05:i3:4",
                   "label": "Sínfise púbica",
-                  "x": 0.46,
-                  "y": 0.835,
+                  "x": 0.462,
+                  "y": 0.815,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-05:i3:5",
                   "label": "Trocânter maior",
-                  "x": 0.679,
-                  "y": 0.827,
+                  "x": 0.627,
+                  "y": 0.815,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 }
               ],
               "correctRegionIds": [
@@ -1953,7 +1942,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Você nomeia os marcos do tronco e da pelve",
-            "body": "Agora você consegue nomear e localizar, numa figura de frente, a incisura jugular, o processo xifoide, a margem costal, a crista ilíaca, a espinha ilíaca ântero-superior, a sínfise púbica e o trocânter maior.",
+            "body": "Agora você consegue nomear e localizar, numa figura de frente, a incisura jugular, o processo xifoide, a margem costal, a crista ilíaca, a sínfise púbica e o trocânter maior, e ligar a espinha ilíaca ântero-superior à ponta da frente da crista.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -2096,52 +2085,44 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                   "x": 0.46,
                   "y": 0.08,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-06:i2:2",
-                  "label": "Margem costal inferior",
-                  "x": 0.2975,
-                  "y": 0.506,
+                  "label": "Processo xifoide",
+                  "x": 0.46,
+                  "y": 0.298,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-06:i2:3",
-                  "label": "Processo xifoide",
-                  "x": 0.46,
-                  "y": 0.364,
+                  "label": "Crista ilíaca",
+                  "x": 0.575,
+                  "y": 0.585,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-06:i2:4",
-                  "label": "Crista ilíaca",
-                  "x": 0.61,
-                  "y": 0.61,
+                  "label": "Sínfise púbica",
+                  "x": 0.462,
+                  "y": 0.815,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-06:i2:5",
-                  "label": "Sínfise púbica",
-                  "x": 0.46,
-                  "y": 0.835,
-                  "width": 0.08,
-                  "height": 0.08
-                },
-                {
-                  "id": "region:rtg-2026:m18:aula-06:i2:6",
                   "label": "Trocânter maior",
-                  "x": 0.679,
-                  "y": 0.827,
+                  "x": 0.627,
+                  "y": 0.815,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 }
               ],
               "correctRegionIds": [
                 "region:rtg-2026:m18:aula-06:i2:1",
-                "region:rtg-2026:m18:aula-06:i2:3"
+                "region:rtg-2026:m18:aula-06:i2:2"
               ]
             }
           }
@@ -5235,37 +5216,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m18:aula-05:i2:6",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-7-4",
-        "source:rtg-2026:m18:openstax-ap-8-3",
-        "source:rtg-2026:m18:openstax-ap-8-4"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m18:aula-05:i2:1",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-7-4",
-        "source:rtg-2026:m18:openstax-ap-8-3",
-        "source:rtg-2026:m18:openstax-ap-8-4"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m18:aula-05:i2:2",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-7-4",
-        "source:rtg-2026:m18:openstax-ap-8-3",
-        "source:rtg-2026:m18:openstax-ap-8-4"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m18:aula-05:i2:6",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5296,6 +5247,16 @@ export const RTG_2026_M18: ProductionBatchV1 = {
     },
     {
       "claimId": "label:rtg-2026:m18:aula-05:i2:5",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m18:openstax-ap-7-4",
+        "source:rtg-2026:m18:openstax-ap-8-3",
+        "source:rtg-2026:m18:openstax-ap-8-4"
+      ]
+    },
+    {
+      "claimId": "label:rtg-2026:m18:aula-05:i2:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5879,14 +5840,6 @@ export const RTG_2026_M18: ProductionBatchV1 = {
     },
     {
       "claimId": "region:rtg-2026:m18:aula-06:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-7-4"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m18:aula-06:i2:6",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -6793,7 +6746,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4fcc387f6cde7cda420ccc102c6dd64a10b1783508c9b910d8270bb626284ec7"
+      "materialSha256": "67eac77c46090fa3607853eaa6b8aa6767163eb81f607af588569b08e9dee2c5"
     },
     {
       "schemaVersion": 1,
@@ -6802,7 +6755,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4fcc387f6cde7cda420ccc102c6dd64a10b1783508c9b910d8270bb626284ec7"
+      "materialSha256": "67eac77c46090fa3607853eaa6b8aa6767163eb81f607af588569b08e9dee2c5"
     },
     {
       "schemaVersion": 1,
@@ -6811,7 +6764,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4fcc387f6cde7cda420ccc102c6dd64a10b1783508c9b910d8270bb626284ec7"
+      "materialSha256": "67eac77c46090fa3607853eaa6b8aa6767163eb81f607af588569b08e9dee2c5"
     },
     {
       "schemaVersion": 1,
@@ -6820,7 +6773,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4fcc387f6cde7cda420ccc102c6dd64a10b1783508c9b910d8270bb626284ec7"
+      "materialSha256": "67eac77c46090fa3607853eaa6b8aa6767163eb81f607af588569b08e9dee2c5"
     },
     {
       "schemaVersion": 1,
@@ -6829,7 +6782,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4fcc387f6cde7cda420ccc102c6dd64a10b1783508c9b910d8270bb626284ec7"
+      "materialSha256": "67eac77c46090fa3607853eaa6b8aa6767163eb81f607af588569b08e9dee2c5"
     },
     {
       "schemaVersion": 1,
@@ -6838,7 +6791,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4fcc387f6cde7cda420ccc102c6dd64a10b1783508c9b910d8270bb626284ec7"
+      "materialSha256": "67eac77c46090fa3607853eaa6b8aa6767163eb81f607af588569b08e9dee2c5"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

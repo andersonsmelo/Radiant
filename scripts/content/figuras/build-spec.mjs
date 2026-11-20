@@ -272,6 +272,68 @@ export const FIGURES = {
       transform: () => caixa([0, 110, 440, 330]),
     }),
   },
+  'ossos-do-pe': {
+    file: 'ossos-do-pe.ts',
+    options: { dropBackground: true },
+    render: importada({
+      id: 'ossos-do-pe',
+      name: 'ossosDoPe',
+      header: `// ${ACERVO}
+// Obra: "Dorsal view of bones of right foot" (DataBase Center for Life Science, DBCLS), Wikimedia Commons,
+// CC BY 4.0. Sem fundo, recolorida por osso para a paleta do app, girada 90 graus (calcanhar à esquerda,
+// dedos à direita, lado do hálux em cima) e achatada para atributos de apresentação.
+// Fonte versionada: scripts/content/figuras/fontes/ossos-do-pe.svg. Quadro 320x240, parado; o desenho
+// ocupa a caixa 300x111.905 centrada.
+// Cores: tarso em tons de branco e cinza claro (calcâneo, navicular, tálus, cuboide e cuneiformes alternam),
+// metatarsos e sesamoide azuis, falanges âmbar; capas articulares em tom mais claro.`,
+      alt: 'Pé direito visto de cima e deitado: calcanhar à esquerda, dedos à direita, hálux em cima. Tarso em tons de branco, metatarsos azuis e falanges âmbar.',
+      transform: () => caixa([-389, 130, 378, 141]),
+    }),
+  },
+  'trato-digestivo': {
+    file: 'trato-digestivo.ts',
+    options: { dropBackground: true },
+    render: importada({
+      id: 'trato-digestivo',
+      name: 'tratoDigestivo',
+      header: `// ${ACERVO}
+// Obra: "Complete digestive apparatus" (Servier Medical Art, kit SMART-Digestive-system, CC BY 4.0), vetores
+// copiados do pptx do kit. Sem a cabeça (o corte vai do esôfago ao reto), recolorida para a paleta do app e
+// achatada para atributos de apresentação (sem <style>, classe, gradiente ou filtro). Dos 965 caminhos do grupo,
+// 750 ficam (os 215 que saem são cabeça, boca, faringe e a ponta do reto, todos fora do quadro).
+// Quadro 320x240, parado; tronco de frente: o lado direito do paciente fica à esquerda de quem vê.
+// Cores: fígado âmbar, esôfago cinza claro, estômago e intestino delgado em azul (a arte desenha os dois como um
+// só tubo), pâncreas ciano, intestino grosso cinza médio; vesícula, vasos e baço em cinza escuro de apoio.`,
+      alt: 'Tronco de frente, do esôfago ao reto: órgãos do abdome superior em cores diferentes e, abaixo, alças intestinais cercadas por um tubo largo em moldura.',
+      // Fonte em px locais de 244 x 899 (viewBox da fonte); corte do esôfago (y 300) ao reto (y 850) no quadro, com 4 de margem em cima.
+      transform: (o) => {
+        const [vx, vy, vw] = o.viewBox.split(/[ ,]+/).map(Number);
+        const k = 244 / vw, S = 232 / 550;
+        const r4 = (n) => Math.round(n * 10000) / 10000;
+        return `translate(${r4(160 - 122 * S - vx * k * S)} ${r4(4 - 300 * S - vy * k * S)}) scale(${r4(k * S)})`;
+      },
+    }),
+  },
+  'marcos-de-superficie': {
+    file: 'marcos-de-superficie.ts',
+    options: { dropBackground: true },
+    render: importada({
+      id: 'marcos-de-superficie',
+      name: 'marcosDeSuperficie',
+      header: `// ${ACERVO}
+// Obra: "Human skeleton front no-text no-color" (LadyofHats, Mariana Ruiz Villarreal), Wikimedia Commons,
+// domínio público declarado pela autora. Recortada no tronco e na pelve (sem cabeça e pernas; antebraços e mãos
+// só até onde entram no quadro), sem fundo e recolorida por região para a paleta do app, achatada para atributos
+// de apresentação, com as coordenadas dos caminhos a 0,1 para caber no teto de 240 KiB.
+// Fonte versionada: scripts/content/figuras/fontes/marcos-de-superficie.svg. Quadro 320x240, parado;
+// o desenho ocupa a caixa 319.6x240.04 centrada. Paciente de frente: o lado direito dele fica à esquerda de quem vê.
+// Cores: esterno âmbar, costelas azuis, coluna ciano, pelve em branco, fêmures âmbar claro, clavículas, escápulas e braços cinza;
+// o contorno do corpo, em cinza fino.`,
+      alt: 'Esqueleto de frente, do pescoço à coxa: esterno âmbar, costelas azuis, coluna ciano, pelve branca e fêmures âmbar claro, dentro do contorno do corpo.',
+      // O recorte [-7, 148, 470, 353] da fonte em escala 0,68, com a linha média (x 207) no centro do quadro.
+      transform: () => `translate(${r(160 - 207 * 0.68)} ${r((240 - 353 * 0.68) / 2 - 148 * 0.68)}) scale(0.68)`,
+    }),
+  },
   'cranio-de-perfil-ossos': { file: 'cranio-de-perfil-ossos.ts', options: { dropBackground: true }, render: cranio },
   'raio-x-movel-no-leito': {
     file: 'raio-x-movel-no-leito.ts',

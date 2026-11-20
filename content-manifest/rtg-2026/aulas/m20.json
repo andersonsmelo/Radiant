@@ -878,39 +878,45 @@
           "points": [
             {
               "label": "Esôfago",
-              "x": 0.5,
-              "y": 0.12,
-              "where": "tubo fino que desce pelo alto, no meio do tronco"
+              "x": 0.513,
+              "y": 0.122,
+              "where": "tubo fino que desce pelo alto, no meio do tronco",
+              "alvo": "Esôfago"
             },
             {
               "label": "Fígado",
-              "x": 0.3,
-              "y": 0.3,
-              "where": "massa grande no alto, do lado direito do paciente"
+              "x": 0.405,
+              "y": 0.333,
+              "where": "massa grande no alto, do lado direito do paciente",
+              "alvo": "Fígado"
             },
             {
               "label": "Estômago",
-              "x": 0.68,
-              "y": 0.38,
-              "where": "bolsa curva no alto, do lado esquerdo do paciente"
+              "x": 0.585,
+              "y": 0.34,
+              "where": "bolsa curva no alto, do lado esquerdo do paciente",
+              "alvo": "Estômago"
             },
             {
               "label": "Pâncreas",
-              "x": 0.5,
-              "y": 0.58,
-              "where": "faixa azul sob a bolsa curva"
+              "x": 0.464,
+              "y": 0.552,
+              "where": "massa ciano sob a bolsa curva",
+              "alvo": "Pâncreas"
             },
             {
               "label": "Intestino delgado",
-              "x": 0.53,
-              "y": 0.8,
-              "where": "tubo enovelado no centro da barriga"
+              "x": 0.537,
+              "y": 0.781,
+              "where": "tubo enovelado no centro da barriga",
+              "alvo": "Intestino delgado"
             },
             {
               "label": "Intestino grosso",
-              "x": 0.25,
-              "y": 0.78,
-              "where": "tubo largo em moldura, subindo do lado direito do paciente"
+              "x": 0.376,
+              "y": 0.781,
+              "where": "tubo largo em moldura, subindo do lado direito do paciente",
+              "alvo": "Intestino grosso"
             }
           ],
           "distractors": [
@@ -1899,24 +1905,27 @@
             {
               "label": "Estômago",
               "x": 0.542,
-              "y": 0.203,
-              "width": 0.24,
-              "height": 0.36
+              "y": 0.36,
+              "width": 0.08,
+              "height": 0.14,
+              "alvo": "Estômago"
             },
             {
               "label": "Fígado",
-              "x": 0.141,
-              "y": 0.175,
-              "width": 0.38,
-              "height": 0.3,
-              "correct": true
+              "x": 0.346,
+              "y": 0.245,
+              "width": 0.154,
+              "height": 0.21,
+              "correct": true,
+              "alvo": "Fígado"
             },
             {
               "label": "Intestino delgado",
-              "x": 0.305,
-              "y": 0.698,
-              "width": 0.44,
-              "height": 0.22
+              "x": 0.471,
+              "y": 0.649,
+              "width": 0.138,
+              "height": 0.228,
+              "alvo": "Intestino delgado"
             }
           ],
           "feedbackCorrect": "Isso mesmo: o fígado fica fora do tubo, não tem as ondas da parede e se move sobretudo com a respiração.",

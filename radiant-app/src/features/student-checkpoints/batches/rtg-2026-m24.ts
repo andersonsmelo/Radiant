@@ -6,7 +6,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m24",
-  "materialSha256": "8a0341eab48a270e9098da7ba2eee3bde60c77ee16923b37b479592c1e954084",
+  "materialSha256": "bc5eb14343a6c458734bd0afef64612b2ac2cd5fd21d2de83cf1a2d52181cf38",
   "trackId": "track:rtg-2026:m24",
   "unitId": "unit:rtg-2026:m24",
   "contentVersion": "rtg-2026-m24-v1",
@@ -190,37 +190,37 @@ export const RTG_2026_M24: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m24:aula-01:i2:1",
-                  "x": 0.085,
-                  "y": 0.537,
+                  "x": 0.0875,
+                  "y": 0.533,
                   "where": "no extremo esquerdo, o maior osso branco",
                   "correctLabelId": "label:rtg-2026:m24:aula-01:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-01:i2:2",
-                  "x": 0.244,
-                  "y": 0.423,
+                  "x": 0.25,
+                  "y": 0.458,
                   "where": "acima e à frente do maior osso, peça arredondada",
                   "correctLabelId": "label:rtg-2026:m24:aula-01:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-01:i2:3",
-                  "x": 0.404,
-                  "y": 0.607,
-                  "where": "embaixo no meio, peça quase quadrada em branco",
+                  "x": 0.4156,
+                  "y": 0.55,
+                  "where": "embaixo no meio, peça quase quadrada, em cinza claro",
                   "correctLabelId": "label:rtg-2026:m24:aula-01:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-01:i2:4",
-                  "x": 0.61,
-                  "y": 0.467,
+                  "x": 0.6406,
+                  "y": 0.525,
                   "where": "as cinco hastes azuis compridas, no meio do pé",
                   "correctLabelId": "label:rtg-2026:m24:aula-01:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-01:i2:5",
-                  "x": 0.788,
-                  "y": 0.555,
-                  "where": "as peças amarelas em fila, na ponta do quarto dedo",
+                  "x": 0.828,
+                  "y": 0.533,
+                  "where": "as peças amarelas em fila, nas pontas dos dedos",
                   "correctLabelId": "label:rtg-2026:m24:aula-01:i2:5"
                 }
               ],
@@ -6827,7 +6827,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "8a0341eab48a270e9098da7ba2eee3bde60c77ee16923b37b479592c1e954084"
+      "materialSha256": "bc5eb14343a6c458734bd0afef64612b2ac2cd5fd21d2de83cf1a2d52181cf38"
     },
     {
       "schemaVersion": 1,
@@ -6836,7 +6836,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "8a0341eab48a270e9098da7ba2eee3bde60c77ee16923b37b479592c1e954084"
+      "materialSha256": "bc5eb14343a6c458734bd0afef64612b2ac2cd5fd21d2de83cf1a2d52181cf38"
     },
     {
       "schemaVersion": 1,
@@ -6845,7 +6845,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "8a0341eab48a270e9098da7ba2eee3bde60c77ee16923b37b479592c1e954084"
+      "materialSha256": "bc5eb14343a6c458734bd0afef64612b2ac2cd5fd21d2de83cf1a2d52181cf38"
     },
     {
       "schemaVersion": 1,
@@ -6854,7 +6854,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "8a0341eab48a270e9098da7ba2eee3bde60c77ee16923b37b479592c1e954084"
+      "materialSha256": "bc5eb14343a6c458734bd0afef64612b2ac2cd5fd21d2de83cf1a2d52181cf38"
     },
     {
       "schemaVersion": 1,
@@ -6863,7 +6863,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "8a0341eab48a270e9098da7ba2eee3bde60c77ee16923b37b479592c1e954084"
+      "materialSha256": "bc5eb14343a6c458734bd0afef64612b2ac2cd5fd21d2de83cf1a2d52181cf38"
     },
     {
       "schemaVersion": 1,
@@ -6872,7 +6872,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "8a0341eab48a270e9098da7ba2eee3bde60c77ee16923b37b479592c1e954084"
+      "materialSha256": "bc5eb14343a6c458734bd0afef64612b2ac2cd5fd21d2de83cf1a2d52181cf38"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

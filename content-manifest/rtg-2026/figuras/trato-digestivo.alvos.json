@@ -1,0 +1,9 @@
+[
+  { "nome": "Esôfago", "x": 0.497, "y": 0, "width": 0.03, "height": 0.25 },
+  { "nome": "Fígado", "x": 0.345, "y": 0.23, "width": 0.257, "height": 0.27 },
+  { "nome": "Estômago", "x": 0.458, "y": 0.307, "width": 0.169, "height": 0.237 },
+  { "nome": "Pâncreas", "x": 0.425, "y": 0.485, "width": 0.095, "height": 0.105 },
+  { "nome": "Intestino delgado", "x": 0.431, "y": 0.649, "width": 0.178, "height": 0.228 },
+  { "nome": "Intestino grosso", "x": 0.343, "y": 0.526, "width": 0.069, "height": 0.369 },
+  { "nome": "Vesícula biliar", "x": 0.372, "y": 0.352, "width": 0.058, "height": 0.07 }
+]
