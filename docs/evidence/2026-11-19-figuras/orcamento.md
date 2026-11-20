@@ -110,3 +110,18 @@ O plano escreveu a regra antes da medição: "se a projeção passar de 8 MiB de
 ## iOS, segunda tentativa (2026-11-19, 18h35)
 
 Com cerca de 11 GiB livres no disco, o roteiro gerado `radiant-app/.maestro/figuras/m25-aula-01.yaml` rodou até o fim no simulador de iPhone e gravou as duas capturas do crânio com os alvos remarcados: `capturas/ios-cranio-passo4.jpg` (rotular) e `capturas/ios-cranio-passo6.jpg` (tocar em regiões). Visto nas imagens: a arte nova aparece, e os pontos e as regiões caem sobre os ossos. Defeito visto no passo 6: nas regiões baixas (occipital e mandíbula) o número da região aparece cortado, porque a etiqueta não cabe na altura da região. O roteiro da M25-05 (leito) não chegou a rodar: a sessão foi interrompida para o reinício do Mac. Não visto no iOS depois da remarcação: o leito.
+
+## 7. Remedição com as figuras reais da fase 1 (2026-11-20)
+
+Medido em 2026-11-20 no commit `3f7ae5d8`, pela soma de `layer.svg.length` que o teste do registro usa (`radiant-app/src/ui/diagrams/diagramRegistry.test.ts`): **11 figuras de acervo no app somam 1.553.030 bytes de SVG (1,48 MiB)**, média de 141.185 bytes por figura. A projeção da seção 2 usava o crânio como referência de acervo, com 75.211 bytes: a figura real de anatomia pesa 1,9 vez isso. As mais pesadas são o esqueleto, os marcos de superfície e o trato digestivo, todas entre 205 e 240 KiB, encostadas no teto por figura.
+
+O que muda na projeção para as 72 figuras:
+
+| | Conta | Bytes | MiB |
+| --- | --- | ---: | ---: |
+| Anatomia já no app | medido | 1.553.030 | 1,48 |
+| As outras 13 de anatomia, se pesarem como a média medida | 13 × 141.185 | 1.835.405 | 1,75 |
+| Cenas e equipamento (22), pela referência do leito | 22 × 225.380 | 4.958.360 | 4,73 |
+| Soma de SVG importado | | 8.346.795 | 7,96 |
+
+A soma projetada (8.346.795) passa do teto do teste (8.116.109) em 230.686 bytes, cerca de 3%. O teto não foi alterado. Duas ressalvas: 13 das 24 figuras de anatomia ficaram fora do método de acervo e ainda não têm método nem peso, e nenhuma cena da fase 2 foi medida além do leito do piloto. O bundle não foi exportado de novo nesta remedição; pela razão de 1,008 medida na seção 1, as 11 figuras acrescentam cerca de 1,5 MiB crus ao bundle em relação às versões em código.

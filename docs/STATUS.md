@@ -166,6 +166,33 @@ temporários. As PRs #89 a #95 seguem com a arte antiga. Esperam o dono: o méto
 gráficos, fluxos e esquemas de radiografia, o destino da pilha de PRs e a retomada dos
 lotes 5 e 6.
 
+**Fase 1 das figuras, anatomia por acervo (medido em 2026-11-20).** Na branch
+`claude/figuras-fase-1`, PR #97 em rascunho sobre a #96, sem merge. Das 24 figuras de
+anatomia do plano, **11 estão no app em arte de acervo**, com crédito, alvos presos e
+aulas ajustadas: crânio de perfil, esqueleto axial e apendicular, articulação sinovial,
+linhas do crânio, regiões da coluna, vértebra típica, joelho de frente e de perfil,
+ossos do pé, trato digestivo, marcos de superfície e sistema nervoso. **13 ficaram
+fora** e seguem com a figura antiga: seios da face (parte da obra é CC BY-SA), osso
+longo, pelve de frente, coluna em duas vistas, fêmur e quadril (a composição punha o
+fêmur fora da articulação), sistema urinário (a uretra não tem área de toque sem cobrir
+a bexiga), respiração e circulação dupla (laços, sem arte em camadas), contraste no
+corpo, composição do corpo inteiro (é esquema de exame, não anatomia) e os três cortes
+axiais da m28 (não há corte axial desenhado com licença aceita). Cada lote teve
+integração, revisão independente por IA e correções
+([1A](evidence/2026-11-19-figuras/lote-1A.md), [1B](evidence/2026-11-19-figuras/lote-1B.md),
+[1C](evidence/2026-11-19-figuras/lote-1C.md), [1D](evidence/2026-11-19-figuras/lote-1D.md)).
+Itens de aula adaptados pela política "adaptar o item" em m18, m20, m24 e m25. As 11
+figuras somam 1,48 MiB de SVG, média de 141 KiB, quase o dobro da referência do plano; a
+projeção para as 72 passa do teto do teste em cerca de 3%
+([orçamento, seção 7](evidence/2026-11-19-figuras/orcamento.md)). **Visto no simulador de
+iPhone: as figuras dos lotes 1A, 1B e 1C. Não visto: Android e aparelho físico para
+essas figuras.** Nos itens de rotular, o selo numerado cobre parte da estrutura que
+nomeia (cuboide, marcos da m18); os marcadores da coluna ficam ao lado dela, como
+exceção provisória. O roteiro `m18-aula-05` reprovou no "Continuar" depois do passo da
+figura, sem causa investigada. A fase 2 não começou. Esperam o dono: o que fazer com as
+13 figuras fora, a exceção da coluna, o enquadramento do esqueleto e do sistema nervoso
+(corpo inteiro fica pequeno no quadro) e o limite de peso.
+
 **Decisão aberta para o dono, medida em 2026-11-19:** com 310 aulas concluídas, o
 armazenamento da revisão espaçada fica em 1,64 MiB no caso comum, abaixo do teto de
 1,9 MiB medido no emulador Android, mas passa do teto se todas as conferências forem
