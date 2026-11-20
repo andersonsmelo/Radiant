@@ -52,3 +52,16 @@ Regeneração: `node scripts/content/figuras/build-spec.mjs <id>` a partir de `f
 - Peso: soma do SVG das 7 figuras importadas, cerca de 830 KiB (estimativa a partir da medida anterior, 880,1 KiB com as 8, sem o fêmur de 52,6 KiB e com o joelho de 35 KiB em vez de 31,8), contra o teto de 8.116.109 bytes do teste do registro (o teste passa, sem subir o teto).
 
 Não rodado: o gate completo (`EXPO_NO_DOTENV=1 npm run quality`), o simulador e o Android.
+
+## Capturas no iPhone
+
+Simulador "Radiant F7" (iOS 26.5), dev client com Metro local, em 2026-11-20 entre 05h44 e 05h56 (hora do simulador). Roteiros de `radiant-app/.maestro/figuras/` com o Maestro, um por vez; nenhum foi editado. Imagens em `capturas/`.
+
+- `capturas/ios-coluna-regioes-m18-aula03-passo2.jpg` (conceito): coluna de perfil inteira, cervical em ciano, torácica em azul, lombar em âmbar, sacro e cóccix em cinza, legível no fundo escuro; a moldura toca a ponta do cóccix.
+- `capturas/ios-coluna-regioes-m18-aula03-passo4.jpg` (rotular): quatro selos (1 cervical, 2 torácica, 3 lombar, 4 sacro) ao lado direito da coluna, fora dela; nenhum cobre vértebra.
+- `capturas/ios-vertebra-tipica-m24-aula05-passo4.jpg` (rotular): vértebra lombar vista de cima, inteira; selos 1 (corpo), 2 (na junção do corpo com o arco, à esquerda, sobre a borda do forame), 3 (processo transverso, na ponta) e 4 (processo espinhoso, na ponta) legíveis.
+- `capturas/ios-joelho-frente-e-perfil-m24-aula02-passo2.jpg` (conceito): frente e perfil lado a lado; a moldura corta a tíbia e a fíbula embaixo (a figura pede rolagem ou ela já é recortada), patela azul separada no perfil.
+- `capturas/ios-joelho-frente-e-perfil-m24-aula02-passo4.jpg` (rotular): quatro selos inteiros: 1 côndilo do fêmur (frente), 2 tuberosidade da tíbia, 3 cabeça da fíbula (borda esquerda, selo sobre o topo do osso), 4 patela (perfil). Tíbia e fíbula inteiras na moldura.
+- `capturas/ios-joelho-frente-e-perfil-m24-aula06-passo4.jpg` (tocar numa região, com cinco regiões sombreadas): o selo 2 e a região da cabeça da fíbula cobrem a ponta superior do osso; a região 3 sombreia a tuberosidade da tíbia e a 5 sombreia boa parte da tíbia no perfil.
+
+Roteiros: `m18-03`, `m24-02`, `m24-05` e `m24-06` passaram. Não visto: Android, som, resposta errada, os demais passos dessas aulas.

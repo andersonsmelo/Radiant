@@ -57,3 +57,18 @@ Rodada de correções de 2026-11-20 (revisão do lote): crédito do pé com todo
 - `m26-05`: a área de toque do intestino grosso (região de 0,08 de largura) cobre alças do delgado, que são distratores com o mesmo retorno (M4).
 
 Não rodado: o gate completo (`EXPO_NO_DOTENV=1 npm run quality`), o simulador e o Android.
+
+## Capturas no iPhone
+
+Simulador "Radiant F7" (iOS 26.5), dev client com Metro local, em 2026-11-20 entre 05h45 e 05h56 (hora do simulador). Roteiros de `radiant-app/.maestro/figuras/` com o Maestro, um por vez; nenhum foi editado. Imagens em `capturas/`.
+
+- `capturas/ios-ossos-do-pe-m24-aula01-passo4.jpg` (rotular, pé direito visto de cima): pé inteiro, calcâneo em branco à esquerda, falanges em âmbar à direita. Selos 1 (calcâneo), 2 (tálus), 3 (cuboide), 4 (metatarsos) e 5 (falanges) inteiros. O selo 3 cobre boa parte do osso à frente do calcâneo que a aula dá como cuboide, que só se vê pelas bordas; o selo 1 encosta na borda esquerda da moldura.
+- `capturas/ios-trato-digestivo-m20-aula03-passo4.jpg` (rotular): trato inteiro (esôfago, fígado, estômago, alças, cólon). Seis selos numerados (1 no esôfago, 2 no fígado, 3 à direita do estômago, 4 entre estômago e alças, 5 e 6 nas alças; a numeração não foi conferida com o gabarito). O selo 4 fica na faixa entre estômago e alças, onde o pâncreas estaria, e o pâncreas não se distingue como estrutura própria na figura, com ou sem selo.
+- `capturas/ios-trato-digestivo-m20-aula06-passo2.jpg` (conceito): fígado, estômago, alças e cólon legíveis; a moldura corta o cólon e as alças embaixo (pede rolagem).
+- `capturas/ios-trato-digestivo-m20-aula06-passo4.jpg` (tocar em região): três regiões sombreadas (1 estômago, 2 fígado, 3 alças) com selos; o sombreado e o selo 2 escurecem boa parte do fígado.
+- `capturas/ios-trato-digestivo-m26-aula05-passo4.jpg` (tocar em região): quatro regiões (1 fígado, 2 estômago, 3 alças, 4 cólon descendente, retângulo estreito na borda esquerda); o selo 3 e a região das alças cobrem o delgado, como já previa a nota do M4.
+- `capturas/ios-marcos-de-superficie-m18-aula05-passo2.jpg` (conceito): esqueleto do tronco de frente com esterno em âmbar, costelas em azul, coluna e sacro em ciano, pelve em cinza; a moldura corta a pelve e os fêmures embaixo (pede rolagem).
+- `capturas/ios-marcos-de-superficie-m18-aula05-passo4.jpg` (rotular): cinco selos: 1 incisura jugular, 2 processo xifoide, 3 crista ilíaca, 4 sínfise púbica, 5 trocânter maior. Cada selo cobre o próprio marco (incisura, xifoide, crista, sínfise ficam escondidos sob o selo); a estrutura ao redor segue visível.
+- `capturas/ios-marcos-de-superficie-m18-aula06-passo4.jpg` (tocar no marco): mesma figura com selos escuros e arcos ciano abaixo de cada um, que mostram onde fica o marco. Os selos 1, 2, 3 e 4 ficam sobre a estrutura que o aluno procura; só os arcos a indicam.
+
+Roteiros: `m20-03`, `m20-06`, `m24-01`, `m26-05` e `m18-06` passaram. `m18-05` reprovou no toque em "Continuar" do passo seguinte ao da captura (a captura do passo 4 foi feita antes). Não investigada a causa (roteiro ou aula); a figura apareceu certa nas capturas do passo 2 e do passo 4. Não visto: Android, som, `m28-04`, resposta errada.
