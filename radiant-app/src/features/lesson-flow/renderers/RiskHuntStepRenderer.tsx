@@ -57,7 +57,10 @@ export function RiskHuntStepRenderer({ payload, accessibilityLabel, value, onCha
                 alt={accessibilityLabel}
                 resolveImage={resolveImageSource}
             >
-                {frame => payload.regions.map((region, index) => {
+                {frame => {
+                    const seals = badgeBoxes(payload.regions, frame);
+                    return <>
+                        {payload.regions.map(region => {
                     const on = chosen.includes(region.id);
                     return (
                         <Pressable
@@ -74,15 +77,26 @@ export function RiskHuntStepRenderer({ payload, accessibilityLabel, value, onCha
                             accessibilityRole="checkbox"
                             accessibilityState={{ checked: on, ...(submitted ? { disabled: true } : {}) }}
                             style={[styles.region, place(region), on && styles.regionOn]}
-                        >
-                            {on ? (
-                                <View testID="risk-hunt-selected-mark" style={[styles.badge, badgeStyle(badgeBoxes(payload.regions, frame)[index])]}>
-                                    <CheckIcon size={20} color={galaxy.textPrimary} />
-                                </View>
-                            ) : null}
-                        </Pressable>
+                        />
                     );
-                })}
+                        })}
+                        {/* A marca é irmã das regiões: fica fora da caixa da região, e o toque nela alterna a região dona. */}
+                        {payload.regions.map((region, index) => chosen.includes(region.id) ? (
+                            <Pressable
+                                key={`marca-${region.id}`}
+                                testID="risk-hunt-selected-mark"
+                                onPress={() => toggle(region.id)}
+                                disabled={submitted}
+                                accessible={false}
+                                accessibilityElementsHidden
+                                importantForAccessibility="no-hide-descendants"
+                                style={[styles.badge, badgeStyle(seals[index])]}
+                            >
+                                <CheckIcon size={20} color={galaxy.textPrimary} />
+                            </Pressable>
+                        ) : null)}
+                    </>;
+                }}
             </InteractionFigure>
 
             <Text accessibilityLiveRegion="polite" style={f2Styles.gold}>{chosen.length === 1 ? '1 marcada' : `${chosen.length} marcadas`}</Text>

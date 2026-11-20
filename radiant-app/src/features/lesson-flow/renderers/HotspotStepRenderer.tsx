@@ -48,7 +48,10 @@ export function HotspotStepRenderer({
                 alt={accessibilityLabel}
                 resolveImage={resolveImageSource}
             >
-                {frame => payload.regions.map((region, index) => {
+                {frame => {
+                    const seals = badgeBoxes(payload.regions, frame);
+                    return <>
+                        {payload.regions.map(region => {
                     const selected = selectedRegionId === region.id;
                     return (
                         <Pressable
@@ -66,15 +69,30 @@ export function HotspotStepRenderer({
                                 regionPosition(region),
                                 selected && styles.selected,
                             ]}
-                        >
-                            {selected ? (
-                                <View testID="hotspot-selected-mark" style={[styles.hotspotBadge, badgeStyle(badgeBoxes(payload.regions, frame)[index])]}>
-                                    <CheckIcon size={20} color={galaxy.textPrimary} />
-                                </View>
-                            ) : <Text testID={`hotspot-index-${index + 1}`} style={[styles.hotspotIndex, badgeStyle(badgeBoxes(payload.regions, frame)[index])]}>{index + 1}</Text>}
-                        </Pressable>
+                        />
                     );
-                })}
+                        })}
+                        {/* Os selos vêm depois das regiões, como irmãos delas: ficam fora da caixa da região, e o toque no selo seleciona a região dona. */}
+                        {payload.regions.map((region, index) => {
+                            const selected = selectedRegionId === region.id;
+                            return (
+                                <Pressable
+                                    key={`selo-${region.id}`}
+                                    testID={selected ? 'hotspot-selected-mark' : `hotspot-index-${index + 1}`}
+                                    onPress={() => { if (!submitted) onSelect(region.id); }}
+                                    disabled={submitted}
+                                    // O leitor de tela usa a região e a lista: o selo só repete o número.
+                                    accessible={false}
+                                    accessibilityElementsHidden
+                                    importantForAccessibility="no-hide-descendants"
+                                    style={[styles.hotspotBadge, badgeStyle(seals[index])]}
+                                >
+                                    {selected ? <CheckIcon size={20} color={galaxy.textPrimary} /> : <Text style={styles.hotspotIndex}>{index + 1}</Text>}
+                                </Pressable>
+                            );
+                        })}
+                    </>;
+                }}
             </InteractionFigure>
 
             <View style={styles.textAlternatives}>
@@ -124,9 +142,6 @@ const styles = StyleSheet.create({
     hotspotIndex: {
         ...typography.bodyStrong,
         color: galaxy.textPrimary,
-        backgroundColor: galaxyColors.background,
-        borderRadius: radius.rMd,
-        overflow: 'hidden',
         textAlign: 'center',
     },
     // Mesmo selo do número, com a marca desenhada no lugar dele.

@@ -38,53 +38,56 @@ export function touchRectInside(rect: TouchRect, frame: { width: number; height:
     return rect.left >= -eps && rect.top >= -eps && rect.left + rect.width <= frame.width + eps && rect.top + rect.height <= frame.height + eps;
 }
 
-/** Selo do número (ou da marca) sobre a região, em pontos. */
+/** Selo do número (ou da marca) junto da região, em pontos. */
 export const BADGE_SIZE = { width: 36, height: 24 };
 
-/** Borda da região, em pontos: o selo absoluto parte de dentro dela. */
-const REGION_BORDER = 2;
+/** Faixa que o selo também deixa livre em volta da área de toque dos OUTROS alvos, em pontos. */
+const TOUCH_MARGIN = 4;
 
 type Frame = { width: number; height: number };
 type Box = { left: number; top: number; width: number; height: number };
 
 const fits = (box: Box, frame: Frame) => box.left >= 0 && box.top >= 0 && box.left + box.width <= frame.width && box.top + box.height <= frame.height;
 const clamp = (value: number, max: number) => Math.max(0, Math.min(value, max));
+const grow = (box: Box, by: number): Box => ({ left: box.left - by, top: box.top - by, width: box.width + 2 * by, height: box.height + 2 * by });
 const overlapArea = (a: Box, b: Box) =>
     Math.max(0, Math.min(a.left + a.width, b.left + b.width) - Math.max(a.left, b.left))
     * Math.max(0, Math.min(a.top + a.height, b.top + b.height) - Math.max(a.top, b.top));
 const areaOn = (box: Box, others: Box[]) => others.reduce((sum, other) => sum + overlapArea(box, other), 0);
 
 /**
- * Escolhe a posição do selo de um item entre as candidatas, já na ordem de preferência.
- * (a) a primeira que não se sobrepõe a selo já posto nem cobre outra região; se nenhuma, (b) a que não
- * se sobrepõe a selo e cobre menos área de outras regiões; se nem isso existir (quadro apertado demais),
- * (c) a de menor sobreposição total entre selos. Empate fica com a mais cedo na ordem.
+ * Escolhe a posição do selo de um item entre as candidatas, já na ordem de preferência. Três áreas a evitar,
+ * da mais grave à menos: selo já posto, o que os OUTROS alvos mostram (região ou ponto) e a área de toque de
+ * 44 pt dos outros alvos (com uma faixa de 4 pt em volta). Vale a candidata de menor área, nessa ordem de gravidade;
+ * a primeira livre das três ganha, e o empate fica com a mais cedo na ordem.
  */
-function pick(candidates: Box[], placed: Box[], others: Box[]): Box {
-    const scored = candidates.map(box => ({ box, onBadges: areaOn(box, placed), onOthers: areaOn(box, others) }));
-    const free = scored.find(entry => entry.onBadges === 0 && entry.onOthers === 0);
-    if (free) return free.box;
-    const clear = scored.filter(entry => entry.onBadges === 0);
-    const pool = clear.length ? clear : scored;
-    return pool.reduce((best, entry) => {
-        const better = clear.length
-            ? entry.onOthers < best.onOthers
-            : entry.onBadges < best.onBadges || (entry.onBadges === best.onBadges && entry.onOthers < best.onOthers);
-        return better ? entry : best;
-    }).box;
+function pick(candidates: Box[], placed: Box[], structures: Box[], touches: Box[]): Box {
+    const score = (box: Box) => [areaOn(box, placed), areaOn(box, structures), areaOn(box, touches)];
+    const lower = (a: number[], b: number[]) => {
+        for (let i = 0; i < a.length; i += 1) if (a[i] !== b[i]) return a[i] < b[i];
+        return false;
+    };
+    let best = candidates[0];
+    let bestScore = score(best);
+    for (const box of candidates.slice(1)) {
+        const current = score(box);
+        if (lower(current, bestScore)) { best = box; bestScore = current; }
+    }
+    return best;
 }
 
 /**
  * Onde os selos de um item ficam no quadro (em pontos), um por região, na ordem dos índices: FORA da
  * região, para não esconder o objeto que ela mostra. Para cada região, a ordem de preferência é acima
- * (alinhado à esquerda, depois à direita), abaixo (idem), à esquerda (no alto, depois embaixo), à direita (idem), e `pick` escolhe a primeira que
- * cabe no quadro e não pisa em selo já posto nem em outra região. Só se nenhuma couber inteira no quadro,
- * o selo fica dentro da região. 
- * `offset` é a posição relativa à região, para o selo absoluto dentro dela.
+ * (alinhado à esquerda, depois à direita), abaixo (idem), à esquerda (no alto, depois embaixo), à direita (idem),
+ * e `pick` escolhe, entre as que cabem no quadro, a que não pisa em selo já posto, em outra região nem na
+ * área de toque de outra região. Só se nenhuma couber inteira no quadro, o selo fica dentro da região.
+ * O selo é um irmão da região (não filho): a caixa dele está fora da dela, e o toque nele seleciona a região dona.
  */
 export function badgeBoxes(regions: TouchTarget[], frame: Frame) {
     const { width, height } = BADGE_SIZE;
     const rects: Box[] = regions.map(region => ({ left: region.x * frame.width, top: region.y * frame.height, width: (region.width ?? 0) * frame.width, height: (region.height ?? 0) * frame.height }));
+    const touches: Box[] = regions.map(region => grow(touchRect(region, frame), TOUCH_MARGIN));
     const placed: Box[] = [];
     return regions.map((_, index) => {
         const r = rects[index];
@@ -104,22 +107,23 @@ export function badgeBoxes(regions: TouchTarget[], frame: Frame) {
             { left: r.left + r.width, top: alignedTop },
             { left: r.left + r.width, top: alignedBottom },
         ] as { left: number; top: number }[]).map(at => ({ ...at, width, height })).filter(box => fits(box, frame));
+        const others = (list: Box[]) => list.filter((_, other) => other !== index);
         const box = outside.length
-            ? pick(outside, placed, rects.filter((_, other) => other !== index))
+            ? pick(outside, placed, others(rects), others(touches))
             : { left: alignedLeft, top: alignedTop, width, height };
         placed.push(box);
-        return { left: box.left, top: box.top, width, height, offset: { left: box.left - r.left - REGION_BORDER, top: box.top - r.top - REGION_BORDER } };
+        return box;
     });
 }
 
-/** O selo de uma região sozinha: o mesmo que `badgeBoxes` devolve para um item de uma região só. */
+/** O selo de uma região sozinha. */
 export function badgeBox(region: TouchTarget, frame: Frame) {
     return badgeBoxes([region], frame)[0];
 }
 
-/** Estilo do selo absoluto dentro da região, a partir da caixa que `badgeBoxes` devolveu. */
-export function badgeStyle(box: { offset: { left: number; top: number }; width: number; height: number }) {
-    return { position: 'absolute' as const, ...box.offset, width: box.width, height: box.height };
+/** Estilo do selo: absoluto no quadro da figura, na caixa que `badgeBoxes` ou `labelBadgeBoxes` devolveu. */
+export function badgeStyle(box: Box) {
+    return { position: 'absolute' as const, left: box.left, top: box.top, width: box.width, height: box.height };
 }
 
 /** Lado do ponto que marca o alvo do `label`, em pontos: pequeno para não cobrir o que se rotula. */
@@ -127,13 +131,15 @@ export const LABEL_DOT = 12;
 
 /**
  * Selos do número do `label`, um por ponto, na ordem dos índices: acima e à direita do ponto, encostado;
- * se não couber ou pisar em outro selo ou ponto, abaixo e à direita, acima e à esquerda, abaixo e à esquerda,
- * depois acima e abaixo alinhados a cada canto do ponto (escolha de `pick`). Sempre inteiro no quadro.
+ * se não couber ou pisar em selo já posto, em outro ponto ou na área de toque de 44 pt de outro ponto, abaixo e à
+ * direita, acima e à esquerda, abaixo e à esquerda, depois acima e abaixo alinhados a cada canto do ponto
+ * (escolha de `pick`). Sempre inteiro no quadro.
  */
 export function labelBadgeBoxes(points: { x: number; y: number }[], frame: Frame) {
     const { width, height } = BADGE_SIZE;
     const half = LABEL_DOT / 2;
     const dots: Box[] = points.map(point => ({ left: point.x * frame.width - half, top: point.y * frame.height - half, width: LABEL_DOT, height: LABEL_DOT }));
+    const touches: Box[] = points.map(point => grow(touchRect(point, frame), TOUCH_MARGIN));
     const placed: Box[] = [];
     return points.map((point, index) => {
         const cx = point.x * frame.width;
@@ -150,8 +156,9 @@ export function labelBadgeBoxes(points: { x: number; y: number }[], frame: Frame
             { left: cx + half - width, top: cy + half },
         ] as { left: number; top: number }[]).map(at => ({ ...at, width, height }));
         const inside = all.filter(box => fits(box, frame));
+        const others = (list: Box[]) => list.filter((_, other) => other !== index);
         // shortcut: quadro tão pequeno que nada cabe cai no primeiro, preso ao quadro.
-        const chosen = inside.length ? pick(inside, placed, dots.filter((_, other) => other !== index)) : all[0];
+        const chosen = inside.length ? pick(inside, placed, others(dots), others(touches)) : all[0];
         const box = { left: clamp(chosen.left, frame.width - width), top: clamp(chosen.top, frame.height - height), width, height };
         placed.push(box);
         return box;

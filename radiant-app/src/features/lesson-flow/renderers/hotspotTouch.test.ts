@@ -1,4 +1,7 @@
-import { TOUCH_FIGURE_WIDTH_PT, touchRect, touchRectInside, touchRectsOverlap, touchSlop, badgeBox, badgeBoxes, labelBadgeBox, labelBadgeBoxes, LABEL_DOT, BADGE_SIZE } from './hotspotTouch';
+import fs from 'fs';
+import path from 'path';
+import { DIAGRAMS } from '../../../ui/diagrams/diagramRegistry';
+import { TOUCH_FIGURE_WIDTH_PT, touchRect, touchRectInside, touchRectsOverlap, touchSlop, badgeBox, badgeBoxes, labelBadgeBox, labelBadgeBoxes, LABEL_DOT, BADGE_SIZE, badgeStyle } from './hotspotTouch';
 
 const frame = (width: number, height: number) => ({ width: TOUCH_FIGURE_WIDTH_PT, height: (TOUCH_FIGURE_WIDTH_PT * height) / width });
 
@@ -116,10 +119,9 @@ describe('badgeBox fora da região (E11)', () => {
         expect(box.top + box.height).toBeCloseTo(0.5 * 210);
     });
 
-    it('o offset do selo absoluto dentro da região leva a mesma posição, descontada a borda de 2 pt', () => {
-        const region = { x: 0.3, y: 0.5, width: 0.3, height: 0.2 };
-        const box = badgeBox(region, quadro);
-        expect(box.offset).toEqual({ left: box.left - 0.3 * 280 - 2, top: box.top - 0.5 * 210 - 2 });
+    it('o estilo do selo é absoluto no quadro, na própria caixa (o selo é irmão da região, não filho)', () => {
+        const box = badgeBox({ x: 0.3, y: 0.5, width: 0.3, height: 0.2 }, quadro);
+        expect(badgeStyle(box)).toEqual({ position: 'absolute', left: box.left, top: box.top, width: 36, height: 24 });
     });
 });
 
@@ -207,11 +209,6 @@ describe('selos de um item em conjunto (E11, integrador)', () => {
         boxes.forEach((box, i) => boxes.slice(i + 1).forEach(other => expect(touchRectsOverlap(box, other)).toBe(false)));
     });
 
-    it('um item de uma região só dá o mesmo selo que o de antes', () => {
-        const region = { x: 0.3, y: 0.5, width: 0.3, height: 0.2 };
-        expect(badgeBox(region, quadro)).toEqual(badgeBoxes([region], quadro)[0]);
-    });
-
     it('rotular: dois pontos vizinhos não ganham selos sobrepostos nem selo sobre o ponto do outro', () => {
         const pontos = [{ x: 0.5, y: 0.5 }, { x: 0.55, y: 0.5 }];
         const [one, two] = labelBadgeBoxes(pontos, quadro);
@@ -219,5 +216,109 @@ describe('selos de um item em conjunto (E11, integrador)', () => {
         for (const [box, p] of [[one, pontos[1]], [two, pontos[0]]] as const) {
             expect(touchRectsOverlap(box, { left: p.x * 280 - LABEL_DOT / 2, top: p.y * 210 - LABEL_DOT / 2, width: LABEL_DOT, height: LABEL_DOT })).toBe(false);
         }
+    });
+});
+
+const areaOn = (a: { left: number; top: number; width: number; height: number }, b: { left: number; top: number; width: number; height: number }) =>
+    Math.max(0, Math.min(a.left + a.width, b.left + b.width) - Math.max(a.left, b.left)) * Math.max(0, Math.min(a.top + a.height, b.top + b.height) - Math.max(a.top, b.top));
+
+// E12: o selo de um alvo não pisa na área de toque de 44 pt de outro alvo do mesmo item.
+describe('selos fora da área de toque dos outros alvos (E12)', () => {
+    const quadro = { width: 280, height: 210 };
+    const noQuadro = (b: { left: number; top: number; width: number; height: number }) => b.left >= 0 && b.top >= 0 && b.left + b.width <= 280 && b.top + b.height <= 210;
+
+    it('rotular: havendo posição livre, o selo de um ponto não cai na área de toque de outro ponto', () => {
+        // B está acima e à direita de A: fora do ponto de A e do primeiro selo (que fica ao lado de A),
+        // mas a área de 44 pt de B alcança o selo "acima e à direita" de A.
+        const a = { x: 0.5, y: 0.6 };
+        const b = { x: 0.5 + 60 / 280, y: 0.6 - 18 / 210 };
+        const [seloA] = labelBadgeBoxes([a, b], quadro);
+        expect(touchRectsOverlap(seloA, touchRect(b, quadro))).toBe(false);
+        // Validade: o selo continua inteiro no quadro e encostado no ponto de A (a menos de 1 pt dele).
+        expect(noQuadro(seloA)).toBe(true);
+        const dotA = { left: a.x * 280 - LABEL_DOT / 2, top: a.y * 210 - LABEL_DOT / 2, width: LABEL_DOT, height: LABEL_DOT };
+        expect(Math.max(Math.abs(seloA.left - (dotA.left + dotA.width)), 0) < 1 || Math.abs(seloA.left + seloA.width - dotA.left) < 1 || Math.abs(seloA.top + seloA.height - dotA.top) < 1 || Math.abs(seloA.top - (dotA.top + dotA.height)) < 1).toBe(true);
+    });
+
+    it('tocar: havendo posição livre, o selo de uma região não cai na área de toque de outra região', () => {
+        // B é pequena e fica logo acima de A, sem tocar o selo "acima" de A, mas com a área de 44 pt por cima dele.
+        const a = { x: 0.3, y: 0.5, width: 0.1, height: 0.1 };
+        const b = { x: 0.3, y: 0.5 - 46 / 210, width: 0.1, height: 16 / 210 };
+        const [seloA] = badgeBoxes([a, b], quadro);
+        expect(touchRectsOverlap(seloA, touchRect(b, quadro))).toBe(false);
+        expect(noQuadro(seloA)).toBe(true);
+    });
+
+    it('sem posição livre, vale a de menor área sobre a área de toque alheia, e os selos não se sobrepõem', () => {
+        // Pontos em fila a cada 28 pt: toda posição pisa em alguma área alheia.
+        const pontos = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7].map(x => ({ x, y: 0.5 }));
+        const caixas = labelBadgeBoxes(pontos, quadro);
+        const sobre = (box: { left: number; top: number; width: number; height: number }, i: number) =>
+            pontos.reduce((sum, p, j) => (j === i ? sum : sum + areaOn(box, touchRect(p, quadro))), 0);
+        pontos.forEach((p, i) => {
+            const cx = p.x * 280, cy = p.y * 210;
+            const primeiro = { left: cx + LABEL_DOT / 2, top: cy - LABEL_DOT / 2 - 24, width: 36, height: 24 };
+            expect(sobre(caixas[i], i)).toBeLessThanOrEqual(sobre(primeiro, i));
+        });
+        caixas.forEach((c, i) => caixas.slice(i + 1).forEach(o => expect(touchRectsOverlap(c, o)).toBe(false)));
+    });
+});
+
+// Guarda de conteúdo: os itens reais das 40 unidades, na régua de 280 pt (achado 1 da revisão do 2A).
+describe('selos nos itens reais das 40 unidades (E12)', () => {
+    type Box = { left: number; top: number; width: number; height: number };
+    type Item = { unit: string; id: string; diagramId: string; points?: { x: number; y: number }[]; regions?: { x: number; y: number; width: number; height: number }[] };
+    const dir = path.resolve(__dirname, '../../../../../content-manifest/rtg-2026/aulas');
+    const items: Item[] = [];
+    for (const file of fs.readdirSync(dir).filter(name => name.endsWith('.json')).sort()) {
+        const walk = (node: unknown) => {
+            if (Array.isArray(node)) { node.forEach(walk); return; }
+            if (!node || typeof node !== 'object') return;
+            const n = node as Record<string, unknown> & Partial<Item>;
+            if (n.diagramId && (n.points || n.regions) && (DIAGRAMS as Record<string, unknown>)[n.diagramId]) items.push({ unit: file.replace('.json', ''), id: String(n.id), diagramId: n.diagramId, points: n.points, regions: n.regions });
+            Object.values(node).forEach(walk);
+        };
+        walk(JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8')));
+    }
+    const frameOf = (item: Item) => { const spec = (DIAGRAMS as Record<string, { width: number; height: number }>)[item.diagramId]; return { width: 280, height: (280 * spec.height) / spec.width }; };
+    const gap = (a: Box, b: Box) =>
+        Math.hypot(Math.max(0, a.left - (b.left + b.width), b.left - (a.left + a.width)), Math.max(0, a.top - (b.top + b.height), b.top - (a.top + a.height)));
+    const labels = items.filter(item => item.points && item.points.length > 1);
+
+    it('encontra os 89 itens de figura das 40 unidades', () => {
+        expect(items.length).toBe(89);
+    });
+
+    it('rotular: nenhum selo cobre o ponto de outro alvo nem fica mais perto dele que do próprio ponto (mais 8 pt)', () => {
+        const falhas: string[] = [];
+        for (const item of labels) {
+            const frame = frameOf(item);
+            const seals = labelBadgeBoxes(item.points!, frame);
+            const dots = item.points!.map(p => ({ left: p.x * frame.width - LABEL_DOT / 2, top: p.y * frame.height - LABEL_DOT / 2, width: LABEL_DOT, height: LABEL_DOT }));
+            seals.forEach((seal, i) => dots.forEach((dot, j) => {
+                if (i !== j && gap(seal, dot) < gap(seal, dots[i]) + 8) falhas.push(`${item.unit} ${item.id} selo ${i + 1} perto do ponto ${j + 1}`);
+            }));
+        }
+        expect(falhas).toEqual([]);
+    });
+
+    it('m17-05 i2 (itens de emergência): o selo do "5" fica fora da área de toque do botão de chamada (ponto 4)', () => {
+        const item = items.find(entry => entry.unit === 'm17' && entry.diagramId === 'itens-de-emergencia-da-sala' && entry.points)!;
+        const frame = frameOf(item);
+        const seals = labelBadgeBoxes(item.points!, frame);
+        expect(touchRectsOverlap(seals[4], touchRect(item.points![3], frame))).toBe(false);
+    });
+
+    it('tocar e caça ao risco: nenhum selo encosta (menos de 3 pt) em outra região', () => {
+        const falhas: string[] = [];
+        for (const item of items.filter(entry => entry.regions && entry.regions.length > 1)) {
+            const frame = frameOf(item);
+            const seals = badgeBoxes(item.regions!, frame);
+            const rects = item.regions!.map(r => ({ left: r.x * frame.width, top: r.y * frame.height, width: r.width * frame.width, height: r.height * frame.height }));
+            seals.forEach((seal, i) => rects.forEach((rect, j) => {
+                if (i !== j && gap(seal, rect) < 3) falhas.push(`${item.unit} ${item.id} selo ${i + 1} junto da região ${j + 1}`);
+            }));
+        }
+        expect(falhas).toEqual([]);
     });
 });

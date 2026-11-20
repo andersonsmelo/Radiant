@@ -151,16 +151,45 @@ describe('LabelStepRenderer', () => {
             // A caixa de toque, de 44 pt, continua centrada no ponto e o marcador, centrado nela.
             expect(target.left + target.width / 2).toBeCloseTo(point.x * 280);
             expect(target.top + target.height / 2).toBeCloseTo(point.y * 210);
-            const seal = StyleSheet.flatten(screen.getByTestId(`label-point-badge-${index + 1}`).props.style);
-            const centerX = target.width / 2, centerY = target.height / 2;
-            const apart = seal.left >= centerX + dot.width / 2 - 1e-9 || seal.left + seal.width <= centerX - dot.width / 2 + 1e-9
-                || seal.top >= centerY + dot.height / 2 - 1e-9 || seal.top + seal.height <= centerY - dot.height / 2 + 1e-9;
+            // O selo é irmão do ponto: o estilo dele já vem em pontos do quadro.
+            const seal = StyleSheet.flatten(screen.getByTestId(`label-point-badge-${index + 1}`, { includeHiddenElements: true }).props.style);
+            const cx = point.x * 280, cy = point.y * 210;
+            const apart = seal.left >= cx + dot.width / 2 - 1e-9 || seal.left + seal.width <= cx - dot.width / 2 + 1e-9
+                || seal.top >= cy + dot.height / 2 - 1e-9 || seal.top + seal.height <= cy - dot.height / 2 + 1e-9;
             expect(apart).toBe(true);
-            // Inteiro no quadro: posição absoluta = canto da caixa de toque + deslocamento.
-            expect(target.left + seal.left).toBeGreaterThanOrEqual(0);
-            expect(target.top + seal.top).toBeGreaterThanOrEqual(0);
-            expect(target.left + seal.left + seal.width).toBeLessThanOrEqual(280);
-            expect(target.top + seal.top + seal.height).toBeLessThanOrEqual(210);
+            // Inteiro no quadro.
+            expect(seal.left).toBeGreaterThanOrEqual(0);
+            expect(seal.top).toBeGreaterThanOrEqual(0);
+            expect(seal.left + seal.width).toBeLessThanOrEqual(280);
+            expect(seal.top + seal.height).toBeLessThanOrEqual(210);
         });
+    });
+
+    // E13: o selo fica fora da caixa de 44 pt do ponto; é irmão dela, e o toque nele vale o toque no ponto dono.
+    it('tocar no selo faz o que tocar no ponto dono faz, e o selo não é filho de ponto nenhum', () => {
+        render(<Harness />);
+        measure();
+        for (let index = 1; index <= 3; index += 1) {
+            const badge = screen.getByTestId(`label-point-badge-${index}`, { includeHiddenElements: true });
+            for (let node = badge.parent; node; node = node.parent) expect(String(node.props.testID ?? '')).not.toMatch(/^label-point-\d/);
+        }
+        fireEvent.press(screen.getByTestId('label-chip-Ânodo'));
+        // O selo 2 recebe a ficha do ponto 2, e só do 2.
+        fireEvent.press(screen.getByTestId('label-point-badge-2', { includeHiddenElements: true }));
+        expect(probe()).toBe('{"p2":"l-anodo"}|false');
+        // Tocar no selo de um ponto rotulado devolve a ficha ao banco, como tocar no ponto.
+        fireEvent.press(screen.getByTestId('label-point-badge-2', { includeHiddenElements: true }));
+        expect(probe()).toBe('{}|false');
+        expect(screen.getByTestId('label-chip-Ânodo').props.accessibilityState.selected).toBe(true);
+    });
+
+    it('depois de conferir, o número e o ícone do veredito cabem no selo de 36 pt, com a borda', () => {
+        render(<Harness submitted initial='{"p1":"l-catodo"}' />);
+        measure();
+        const badge = StyleSheet.flatten(screen.getByTestId('label-point-badge-1', { includeHiddenElements: true }).props.style);
+        let svg = screen.getByTestId('label-point-verdict-correct', { includeHiddenElements: true }).parent;
+        while (svg && svg.props.viewBox === undefined) svg = svg.parent;
+        // Um dígito de Sora Bold 16 mede até ~12 pt; 2 pt de borda de cada lado.
+        expect(2 * 2 + 12 + badge.gap + svg!.props.width).toBeLessThanOrEqual(badge.width);
     });
 });

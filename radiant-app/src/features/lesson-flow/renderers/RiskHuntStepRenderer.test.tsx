@@ -104,12 +104,28 @@ describe('RiskHuntStepRenderer', () => {
         measure();
         const style = StyleSheet.flatten(screen.getByTestId('risk-hunt-selected-mark', { includeHiddenElements: true }).props.style);
         const region = risk.payload.regions.find(entry => entry.id === 'biombo')!;
-        const box = { left: 280 * region.x + 2 + style.left, top: 210 * region.y + 2 + style.top, width: style.width, height: style.height };
+        // A marca é irmã da região: o estilo já vem em pontos do quadro.
+        const box = { left: style.left, top: style.top, width: style.width, height: style.height };
         const area = { left: 280 * region.x, top: 210 * region.y, width: 280 * region.width, height: 210 * region.height };
         expect(box.left < area.left + area.width && area.left < box.left + box.width && box.top < area.top + area.height && area.top < box.top + box.height).toBe(false);
         expect(box.left).toBeGreaterThanOrEqual(0);
         expect(box.top).toBeGreaterThanOrEqual(0);
         expect(box.left + box.width).toBeLessThanOrEqual(280);
         expect(box.top + box.height).toBeLessThanOrEqual(210);
+    });
+
+    // E13: a marca fica fora da caixa da região; é irmã dela, e o toque nela alterna a região dona.
+    it('tocar na marca alterna a região dona dela, e a marca não é filha de região nenhuma', () => {
+        render(<Harness initial='["porta","campo"]' />);
+        measure();
+        const marks = screen.getAllByTestId('risk-hunt-selected-mark', { includeHiddenElements: true });
+        expect(marks).toHaveLength(2);
+        marks.forEach(mark => {
+            for (let node = mark.parent; node; node = node.parent) expect(String(node.props.testID ?? '')).not.toMatch(/^risk-region-/);
+        });
+        fireEvent.press(marks[1]);
+        expect(probe()).toBe('["porta"]|false');
+        fireEvent.press(screen.getAllByTestId('risk-hunt-selected-mark', { includeHiddenElements: true })[0]);
+        expect(probe()).toBe('[]|false');
     });
 });

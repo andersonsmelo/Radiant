@@ -88,10 +88,10 @@ describe('HotspotStepRenderer', () => {
             />,
         );
 
-        const badge = StyleSheet.flatten(getByTestId('hotspot-selected-mark').props.style);
+        const badge = StyleSheet.flatten(getByTestId('hotspot-selected-mark', { includeHiddenElements: true }).props.style);
         expect(badge.backgroundColor).toBe(galaxyColors.background);
         // O traço da marca, só dentro da marca: a cor do texto aparece em outros nós da tela.
-        const strokes = getByTestId('hotspot-selected-mark').findAllByType(Path).map((path: { props: { stroke?: string } }) => path.props.stroke);
+        const strokes = getByTestId('hotspot-selected-mark', { includeHiddenElements: true }).findAllByType(Path).map((path: { props: { stroke?: string } }) => path.props.stroke);
         expect(strokes.length).toBeGreaterThan(0);
         expect(strokes.every((stroke: string | undefined) => stroke === semanticColors.galaxy.textPrimary)).toBe(true);
         expect(queryByText('✓')).toBeNull();
@@ -112,8 +112,8 @@ describe('HotspotStepRenderer', () => {
 
     // E11: o selo não pode esconder o objeto que a região mostra.
     it('o selo do número e a marca de selecionado ficam fora da região, inteiros no quadro', () => {
-        const absolute = (style: { left: number; top: number; width: number; height: number }, region: { x: number; y: number }) =>
-            ({ left: 280 * region.x + 2 + style.left, top: 210 * region.y + 2 + style.top, width: style.width, height: style.height });
+        // O selo é irmão da região: o estilo já vem em pontos do quadro.
+        const absolute = (style: { left: number; top: number; width: number; height: number }) => ({ left: style.left, top: style.top, width: style.width, height: style.height });
         const overlap = (a: { left: number; top: number; width: number; height: number }, b: { left: number; top: number; width: number; height: number }) =>
             a.left < b.left + b.width && b.left < a.left + a.width && a.top < b.top + b.height && b.top < a.top + a.height;
         for (const selectedRegionId of [undefined, 'detector']) {
@@ -122,8 +122,8 @@ describe('HotspotStepRenderer', () => {
             );
             fireEvent(getByTestId('interaction-figure'), 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 280, height: 210 } } });
             payload.regions.forEach((region, index) => {
-                const node = selectedRegionId === region.id ? getByTestId('hotspot-selected-mark') : getByTestId(`hotspot-index-${index + 1}`);
-                const box = absolute(StyleSheet.flatten(node.props.style), region);
+                const node = selectedRegionId === region.id ? getByTestId('hotspot-selected-mark', { includeHiddenElements: true }) : getByTestId(`hotspot-index-${index + 1}`, { includeHiddenElements: true });
+                const box = absolute(StyleSheet.flatten(node.props.style));
                 const area = { left: 280 * region.x, top: 210 * region.y, width: 280 * region.width, height: 210 * region.height };
                 expect(overlap(box, area)).toBe(false);
                 expect(box.left).toBeGreaterThanOrEqual(0);
@@ -149,11 +149,37 @@ describe('HotspotStepRenderer', () => {
         const { getByTestId } = render(<HotspotStepRenderer payload={compact} accessibilityLabel="Toque" onSelect={jest.fn()} />);
         fireEvent(getByTestId('interaction-figure'), 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 280, height: 210 } } });
         const boxes = compact.regions.map((region, index) => {
-            const style = StyleSheet.flatten(getByTestId(`hotspot-index-${index + 1}`).props.style);
-            return { left: 280 * region.x + 2 + style.left, top: 210 * region.y + 2 + style.top, width: style.width, height: style.height };
+            const style = StyleSheet.flatten(getByTestId(`hotspot-index-${index + 1}`, { includeHiddenElements: true }).props.style);
+            return { left: style.left, top: style.top, width: style.width, height: style.height };
         });
         boxes.forEach((a, i) => boxes.slice(i + 1).forEach(b => {
             expect(a.left < b.left + b.width && b.left < a.left + a.width && a.top < b.top + b.height && b.top < a.top + a.height).toBe(false);
         }));
+    });
+
+    // E13: o número é parte do alvo. O selo fica fora da caixa da região, então não pode ser filho dela
+    // (o toque nativo não alcança filho fora dos limites do pai): é irmão, com o próprio onPress.
+    it('tocar no selo seleciona a região dona dele, e o selo não é filho de região nenhuma', () => {
+        const onSelect = jest.fn();
+        const { getByTestId } = render(<HotspotStepRenderer payload={payload} accessibilityLabel="Geometria" onSelect={onSelect} />);
+        fireEvent(getByTestId('interaction-figure'), 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 280, height: 210 } } });
+        payload.regions.forEach((region, index) => {
+            const badge = getByTestId(`hotspot-index-${index + 1}`, { includeHiddenElements: true });
+            for (let node = badge.parent; node; node = node.parent) {
+                expect(String(node.props.accessibilityLabel ?? '')).not.toMatch(/^Selecionar .* na imagem$/);
+            }
+            onSelect.mockClear();
+            fireEvent.press(badge);
+            expect(onSelect).toHaveBeenCalledTimes(1);
+            expect(onSelect).toHaveBeenCalledWith(region.id);
+        });
+    });
+
+    it('depois de conferir, o toque no selo não seleciona nada', () => {
+        const onSelect = jest.fn();
+        const { getByTestId } = render(<HotspotStepRenderer payload={payload} accessibilityLabel="Geometria" onSelect={onSelect} submitted />);
+        fireEvent(getByTestId('interaction-figure'), 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 280, height: 210 } } });
+        fireEvent.press(getByTestId('hotspot-index-1', { includeHiddenElements: true }));
+        expect(onSelect).not.toHaveBeenCalled();
     });
 });
