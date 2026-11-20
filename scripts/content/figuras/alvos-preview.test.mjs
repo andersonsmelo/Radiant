@@ -26,3 +26,10 @@ test('a região de hotspot sai com o selo de 36 x 24 pt fora da região, dentro 
   const [, x, y] = [...canto.matchAll(/<rect x="([\d.]+)" y="([\d.]+)" width="[\d.]+" height="[\d.]+" rx="4"/g)].at(-1).map(Number).concat();
   assert.ok(Math.abs(x - (320 - largura)) < 1e-6 && Math.abs(y - (216 - altura)) < 1e-6, `selo em ${x},${y}`);
 });
+test('os selos de pontos vizinhos do mesmo item saem em posições diferentes, sem se sobrepor', () => {
+  const html = previewHtml('cranio-de-perfil-ossos', regions, [{ label: 'A', n: 1, x: 0.5, y: 0.5 }, { label: 'B', n: 2, x: 0.55, y: 0.5 }]);
+  const selos = [...html.matchAll(/<rect x="([\d.]+)" y="([\d.]+)" width="([\d.]+)" height="([\d.]+)" rx="4"/g)].map((m) => m.slice(1).map(Number));
+  assert.equal(selos.length, 2);
+  const [[ax, ay, aw, ah], [bx, by, bw, bh]] = selos;
+  assert.ok(ax + aw <= bx || bx + bw <= ax || ay + ah <= by || by + bh <= ay, 'selos se sobrepõem');
+});

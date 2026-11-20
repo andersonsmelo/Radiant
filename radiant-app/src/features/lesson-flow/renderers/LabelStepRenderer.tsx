@@ -8,7 +8,7 @@ import { radius, space, typography } from '../../../ui/styles';
 import { InteractionFigure, isFigureAvailable } from './InteractionFigure';
 import type { InteractionImageResolver } from './InteractionImageSource';
 import { decodeCategorizeValue } from './InteractionAnswerValue';
-import { LABEL_DOT, labelBadgeBox, touchRect } from './hotspotTouch';
+import { LABEL_DOT, labelBadgeBoxes, touchRect } from './hotspotTouch';
 import { EnterView, TapChip, f2Styles } from './TapChip';
 
 type Props = {
@@ -100,7 +100,7 @@ export function LabelStepRenderer({ payload, accessibilityLabel, value, onChange
                         >
                             <View testID={`label-point-marker-${index + 1}`} style={[styles.marker, (selected || current) && styles.markerOn, selected && styles.markerFocus]} />
                             {/* O número vai num selo fora do ponto: o ponto fica exatamente sobre o alvo. */}
-                            <View testID={`label-point-badge-${index + 1}`} style={[styles.badge, (selected || current) && styles.markerOn, selected && styles.markerFocus, badgeOffset(point, frame)]}>
+                            <View testID={`label-point-badge-${index + 1}`} style={[styles.badge, (selected || current) && styles.markerOn, selected && styles.markerFocus, badgeOffset(payload.points, index, frame)]}>
                                 <Text style={styles.markerNumber}>{index + 1}</Text>
                                 {verdict ? <VerdictIcon verdict={verdict} size={16} testID={`label-point-verdict-${verdict}`} /> : null}
                             </View>
@@ -139,9 +139,9 @@ function touchRectStyle(point: { x: number; y: number }, frame: { width: number;
 }
 
 /** Posição do selo na caixa de toque (o pai absoluto): a do quadro menos o canto da caixa. */
-function badgeOffset(point: { x: number; y: number }, frame: { width: number; height: number }) {
-    const box = touchRect(point, frame);
-    const seal = labelBadgeBox(point, frame);
+function badgeOffset(points: { x: number; y: number }[], index: number, frame: { width: number; height: number }) {
+    const box = touchRect(points[index], frame);
+    const seal = labelBadgeBoxes(points, frame)[index];
     return { position: 'absolute' as const, left: seal.left - box.left, top: seal.top - box.top, width: seal.width, height: seal.height };
 }
 

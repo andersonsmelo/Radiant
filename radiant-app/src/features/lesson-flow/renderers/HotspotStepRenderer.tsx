@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { InteractionFigure, isFigureAvailable } from './InteractionFigure';
 import type { InteractionImageResolver } from './InteractionImageSource';
-import { badgeStyle, touchSlop } from './hotspotTouch';
+import { badgeBoxes, badgeStyle, touchSlop } from './hotspotTouch';
 import type { HotspotPayload, NormalizedRegion } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
@@ -68,10 +68,10 @@ export function HotspotStepRenderer({
                             ]}
                         >
                             {selected ? (
-                                <View testID="hotspot-selected-mark" style={[styles.hotspotBadge, badgeStyle(region, frame)]}>
+                                <View testID="hotspot-selected-mark" style={[styles.hotspotBadge, badgeStyle(badgeBoxes(payload.regions, frame)[index])]}>
                                     <CheckIcon size={20} color={galaxy.textPrimary} />
                                 </View>
-                            ) : <Text testID={`hotspot-index-${index + 1}`} style={[styles.hotspotIndex, badgeStyle(region, frame)]}>{index + 1}</Text>}
+                            ) : <Text testID={`hotspot-index-${index + 1}`} style={[styles.hotspotIndex, badgeStyle(badgeBoxes(payload.regions, frame)[index])]}>{index + 1}</Text>}
                         </Pressable>
                     );
                 })}

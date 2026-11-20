@@ -1,4 +1,4 @@
-import { TOUCH_FIGURE_WIDTH_PT, touchRect, touchRectInside, touchRectsOverlap, touchSlop, badgeBox, labelBadgeBox, LABEL_DOT, BADGE_SIZE } from './hotspotTouch';
+import { TOUCH_FIGURE_WIDTH_PT, touchRect, touchRectInside, touchRectsOverlap, touchSlop, badgeBox, badgeBoxes, labelBadgeBox, labelBadgeBoxes, LABEL_DOT, BADGE_SIZE } from './hotspotTouch';
 
 const frame = (width: number, height: number) => ({ width: TOUCH_FIGURE_WIDTH_PT, height: (TOUCH_FIGURE_WIDTH_PT * height) / width });
 
@@ -151,5 +151,68 @@ describe('labelBadgeBox (E11)', () => {
         const box = labelBadgeBox(p, quadro);
         expect(dentro(box)).toBe(true);
         expect(touchRectsOverlap(box, dotRect(p))).toBe(false);
+    });
+});
+
+describe('selos de um item em conjunto (E11, integrador)', () => {
+    const quadro = { width: 280, height: 210 };
+    const rectOf = (r: { x: number; y: number; width: number; height: number }) =>
+        ({ left: r.x * 280, top: r.y * 210, width: r.width * 280, height: r.height * 210 });
+    // Regiões reais do item de tocar da m19-06 (tubo-raios-x, figura compacta): cátodo, ânodo, janela, ampola.
+    const m19_06 = [
+        { x: 0.2188, y: 0.3083, width: 0.1437, height: 0.2417 },
+        { x: 0.5094, y: 0.0854, width: 0.4578, height: 0.2646 },
+        { x: 0.475, y: 0.4, width: 0.1453, height: 0.1167 },
+        { x: 0.2578, y: 0.0625, width: 0.1875, height: 0.1979 },
+    ];
+
+    it('m19-06: nenhum selo se sobrepõe a outro, todos dentro do quadro e fora da própria região', () => {
+        const boxes = badgeBoxes(m19_06, quadro);
+        boxes.forEach((box, i) => {
+            expect(box.left).toBeGreaterThanOrEqual(0);
+            expect(box.top).toBeGreaterThanOrEqual(0);
+            expect(box.left + box.width).toBeLessThanOrEqual(280);
+            expect(box.top + box.height).toBeLessThanOrEqual(210);
+            expect(touchRectsOverlap(box, rectOf(m19_06[i]))).toBe(false);
+            boxes.slice(i + 1).forEach(other => expect(touchRectsOverlap(box, other)).toBe(false));
+        });
+    });
+
+    it('um selo que pisaria em outra região, havendo posição livre, vai para a livre', () => {
+        // B logo acima de A: o selo de A acima cobriria B; abaixo está livre.
+        const a = { x: 0.3, y: 0.5, width: 0.2, height: 0.2 };
+        const b = { x: 0.3, y: 0.38, width: 0.2, height: 0.1 };
+        const [boxA] = badgeBoxes([a, b], quadro);
+        expect(touchRectsOverlap(boxA, rectOf(b))).toBe(false);
+        expect(boxA.top).toBeCloseTo(0.7 * 210);
+    });
+
+    it('dois selos vizinhos não se sobrepõem: o segundo escolhe a próxima posição', () => {
+        const a = { x: 0.3, y: 0.5, width: 0.05, height: 0.1 };
+        const b = { x: 0.32, y: 0.5, width: 0.05, height: 0.1 };
+        const [boxA, boxB] = badgeBoxes([a, b], quadro);
+        expect(touchRectsOverlap(boxA, boxB)).toBe(false);
+    });
+
+    it('sem posição que cubra nenhuma região, escolhe a que cobre menos (m19-06: o selo do ânodo)', () => {
+        const [, anodo] = badgeBoxes(m19_06, quadro);
+        const janela = rectOf(m19_06[2]);
+        const coberto = Math.max(0, Math.min(anodo.left + anodo.width, janela.left + janela.width) - Math.max(anodo.left, janela.left))
+            * Math.max(0, Math.min(anodo.top + anodo.height, janela.top + janela.height) - Math.max(anodo.top, janela.top));
+        expect(coberto).toBeLessThan(0.5 * janela.width * janela.height);
+    });
+
+    it('um item de uma região só dá o mesmo selo que o de antes', () => {
+        const region = { x: 0.3, y: 0.5, width: 0.3, height: 0.2 };
+        expect(badgeBox(region, quadro)).toEqual(badgeBoxes([region], quadro)[0]);
+    });
+
+    it('rotular: dois pontos vizinhos não ganham selos sobrepostos nem selo sobre o ponto do outro', () => {
+        const pontos = [{ x: 0.5, y: 0.5 }, { x: 0.55, y: 0.5 }];
+        const [one, two] = labelBadgeBoxes(pontos, quadro);
+        expect(touchRectsOverlap(one, two)).toBe(false);
+        for (const [box, p] of [[one, pontos[1]], [two, pontos[0]]] as const) {
+            expect(touchRectsOverlap(box, { left: p.x * 280 - LABEL_DOT / 2, top: p.y * 210 - LABEL_DOT / 2, width: LABEL_DOT, height: LABEL_DOT })).toBe(false);
+        }
     });
 });

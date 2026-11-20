@@ -8,7 +8,7 @@ import { radius } from '../../../ui/styles';
 import { InteractionFigure, isFigureAvailable } from './InteractionFigure';
 import type { InteractionImageResolver } from './InteractionImageSource';
 import { decodeInteractionIdSequence, encodeInteractionIdSequence } from './InteractionAnswerValue';
-import { badgeStyle, touchSlop } from './hotspotTouch';
+import { badgeBoxes, badgeStyle, touchSlop } from './hotspotTouch';
 import { EnterView, TapChip, f2Styles } from './TapChip';
 
 type Props = {
@@ -57,7 +57,7 @@ export function RiskHuntStepRenderer({ payload, accessibilityLabel, value, onCha
                 alt={accessibilityLabel}
                 resolveImage={resolveImageSource}
             >
-                {frame => payload.regions.map(region => {
+                {frame => payload.regions.map((region, index) => {
                     const on = chosen.includes(region.id);
                     return (
                         <Pressable
@@ -76,7 +76,7 @@ export function RiskHuntStepRenderer({ payload, accessibilityLabel, value, onCha
                             style={[styles.region, place(region), on && styles.regionOn]}
                         >
                             {on ? (
-                                <View testID="risk-hunt-selected-mark" style={[styles.badge, badgeStyle(region, frame)]}>
+                                <View testID="risk-hunt-selected-mark" style={[styles.badge, badgeStyle(badgeBoxes(payload.regions, frame)[index])]}>
                                     <CheckIcon size={20} color={galaxy.textPrimary} />
                                 </View>
                             ) : null}

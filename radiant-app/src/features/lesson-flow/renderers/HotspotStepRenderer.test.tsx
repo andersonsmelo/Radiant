@@ -134,4 +134,26 @@ describe('HotspotStepRenderer', () => {
             unmount();
         }
     });
+
+    // E11, integrador: os selos de um item não se escondem entre si (m19-06, figura compacta).
+    it('os selos do número de um item compacto não se sobrepõem', () => {
+        const compact = {
+            prompt: 'Onde fica o ânodo?', imageRef: 'diagram:tubo-raios-x', correctRegionIds: ['anodo'],
+            regions: [
+                { id: 'catodo', label: 'Cátodo', x: 0.2188, y: 0.3083, width: 0.1437, height: 0.2417 },
+                { id: 'anodo', label: 'Ânodo', x: 0.5094, y: 0.0854, width: 0.4578, height: 0.2646 },
+                { id: 'janela', label: 'Janela', x: 0.475, y: 0.4, width: 0.1453, height: 0.1167 },
+                { id: 'ampola', label: 'Ampola', x: 0.2578, y: 0.0625, width: 0.1875, height: 0.1979 },
+            ],
+        };
+        const { getByTestId } = render(<HotspotStepRenderer payload={compact} accessibilityLabel="Toque" onSelect={jest.fn()} />);
+        fireEvent(getByTestId('interaction-figure'), 'layout', { nativeEvent: { layout: { x: 0, y: 0, width: 280, height: 210 } } });
+        const boxes = compact.regions.map((region, index) => {
+            const style = StyleSheet.flatten(getByTestId(`hotspot-index-${index + 1}`).props.style);
+            return { left: 280 * region.x + 2 + style.left, top: 210 * region.y + 2 + style.top, width: style.width, height: style.height };
+        });
+        boxes.forEach((a, i) => boxes.slice(i + 1).forEach(b => {
+            expect(a.left < b.left + b.width && b.left < a.left + a.width && a.top < b.top + b.height && b.top < a.top + a.height).toBe(false);
+        }));
+    });
 });
