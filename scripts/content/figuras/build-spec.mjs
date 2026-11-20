@@ -219,6 +219,85 @@ export const FIGURES = {
       extra: LINHAS_CRANIO,
     }),
   },
+  'coluna-regioes': {
+    file: 'coluna-regioes.ts',
+    options: { dropBackground: true },
+    render: importada({
+      id: 'coluna-regioes',
+      name: 'colunaRegioes',
+      header: `// ${ACERVO}
+// Obra: "Vertebral column (spine)" (DataBase Center for Life Science, DBCLS), Wikimedia Commons, CC BY 4.0.
+// Só a vista de perfil, espelhada na horizontal (a frente do corpo fica à esquerda), sem a vista de
+// frente, recolorida para a paleta do app e achatada para atributos de apresentação.
+// Fonte versionada: scripts/content/figuras/fontes/coluna-regioes.svg. Quadro 320x240, parado; o desenho
+// ocupa a caixa 39.843x220 centrada.
+// Cores: cervical ciano, torácica azul, lombar âmbar, sacro cinza claro, cóccix cinza; discos escuros.`,
+      alt: 'Coluna vertebral de perfil, com a frente do corpo à esquerda: cinco trechos em cores diferentes, do pescoço ao cóccix, e as curvas em S.',
+      transform: () => caixa([105.64, 7.57, 69.7, 384.86]),
+    }),
+  },
+  'vertebra-tipica': {
+    file: 'vertebra-tipica.ts',
+    options: { dropBackground: true },
+    render: importada({
+      id: 'vertebra-tipica',
+      name: 'vertebraTipica',
+      header: `// ${ACERVO}
+// Obra: vértebra vista de cima do slide "Vertebra" do kit SMART-Bones, Servier Medical Art, CC BY 4.0
+// (vetores copiados do pptx do kit, sem alterar as formas), sem rótulos, recolorida para a paleta do app
+// e achatada para atributos de apresentação. Fonte versionada: scripts/content/figuras/fontes/vertebra-tipica.svg.
+// Quadro 320x240, parado; o desenho ocupa a caixa 224.123x220 centrada. Vértebra lombar com a frente do
+// corpo para o alto e o processo espinhoso para baixo (como veio, sem girar).
+// Cores: corpo vertebral âmbar; arco (pedículos, lâminas, processos transversos e espinhoso) azul;
+// facetas dos processos articulares ciano; o forame vertebral é o furo transparente no centro.`,
+      alt: 'Vértebra lombar vista de cima: corpo largo no alto, arco com furo no meio, hastes finas para os lados, haste mais grossa para baixo.',
+      // O bbox do conversor ignora as transformações dos caminhos: o enquadramento usa o viewBox da fonte.
+      transform: () => caixa([3931, 1013, 1522, 1494]),
+    }),
+  },
+  'femur-proximal-e-quadril': {
+    file: 'femur-proximal-e-quadril.ts',
+    options: { dropBackground: true },
+    render: importada({
+      id: 'femur-proximal-e-quadril',
+      name: 'femurProximalEQuadril',
+      header: `// ${ACERVO}
+// Obra: composição de duas artes do mesmo kit, SMART-Bones, Servier Medical Art, CC BY 4.0: pelve de frente (slide
+// "Bones of pelvis", "Group 308") e fêmur (slide "Femur", "Group 50"), vetores copiados do pptx sem alterar as formas,
+// sem rótulos, recoloridos para a paleta do app e achatados para atributos de apresentação. O fêmur foi espelhado
+// (a arte original é de outro lado) e posto sobre a pelve com a cabeça junto à borda do acetábulo; a posição e a
+// escala relativas das duas peças são do projeto (a olho), não do kit. Fonte versionada:
+// scripts/content/figuras/fontes/femur-proximal-e-quadril.svg.
+// Quadro 320x240, parado; recorte do quadril direito de frente que sangra nas bordas (a pelve e a diáfise continuam
+// fora do quadro): lado de fora do paciente à esquerda, linha média à direita.
+// Cores: osso do quadril azul (acetábulo é a parte dele que abraça a cabeça); cabeça do fêmur ciano;
+// colo, trocânteres e diáfise âmbar; sínfise púbica cinza claro.`,
+      alt: 'Quadril direito de frente: osso do quadril em azul, cabeça do fêmur ciano junto dele, colo inclinado, trocânteres e a diáfise em âmbar; lado de fora à esquerda.',
+      // Sangra nas bordas: a caixa cobre o quadro inteiro (escala 320x240 em vez de 300x220).
+      transform: () => {
+        const [bx, by, bw, bh] = [2700, 2300, 1700, 1275];
+        const s = Math.min(320 / bw, 240 / bh);
+        return `translate(${r((320 - bw * s) / 2 - bx * s)} ${r((240 - bh * s) / 2 - by * s)}) scale(${r(s)})`;
+      },
+    }),
+  },
+  'joelho-frente-e-perfil': {
+    file: 'joelho-frente-e-perfil.ts',
+    options: { dropBackground: true },
+    render: importada({
+      id: 'joelho-frente-e-perfil',
+      name: 'joelhoFrenteEPerfil',
+      header: `// ${ACERVO}
+// Obra: "Knee skeleton lateral anterior views" (Patrick J. Lynch, medical illustrator; C. Carl Jaffe), Wikimedia Commons,
+// CC BY 2.5 (o SVG traz CC BY 3.0 nos metadados). Sem rótulos, recolorida por osso para a paleta do app, com as silhuetas
+// divididas em ossos por cortes do projeto e recortada em altura. Fonte versionada: scripts/content/figuras/fontes/joelho-frente-e-perfil.svg.
+// Quadro 320x240, parado; o desenho ocupa a caixa 293.333x220 centrada. Joelho direito: à esquerda, de frente
+// (lado de fora à esquerda de quem vê); à direita, de perfil pelo lado de fora, com a frente para a direita.
+// Cores: fêmur cinza claro, tíbia âmbar, fíbula ciano, patela azul (só no perfil; na vista de frente é o contorno sobre o fêmur).`,
+      alt: 'Joelho direito em duas vistas lado a lado, de frente à esquerda e de perfil à direita, com os ossos em cores diferentes.',
+      transform: () => caixa([0, 110, 440, 330]),
+    }),
+  },
   'cranio-de-perfil-ossos': { file: 'cranio-de-perfil-ossos.ts', options: { dropBackground: true }, render: cranio },
   'raio-x-movel-no-leito': {
     file: 'raio-x-movel-no-leito.ts',

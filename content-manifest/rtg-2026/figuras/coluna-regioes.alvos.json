@@ -1,0 +1,6 @@
+[
+  { "nome": "Região cervical", "x": 0.43, "y": 0.05, "width": 0.16, "height": 0.17 },
+  { "nome": "Região torácica", "x": 0.43, "y": 0.23, "width": 0.16, "height": 0.38 },
+  { "nome": "Região lombar", "x": 0.42, "y": 0.62, "width": 0.16, "height": 0.17 },
+  { "nome": "Sacro e cóccix", "x": 0.42, "y": 0.8, "width": 0.16, "height": 0.16 }
+]

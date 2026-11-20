@@ -1,9 +1,13 @@
 {
   "ids": [
     "articulacao-sinovial",
+    "coluna-regioes",
     "cranio-de-perfil-ossos",
     "esqueleto-axial-apendicular",
+    "femur-proximal-e-quadril",
+    "joelho-frente-e-perfil",
     "linhas-do-cranio",
-    "raio-x-movel-no-leito"
+    "raio-x-movel-no-leito",
+    "vertebra-tipica"
   ]
 }

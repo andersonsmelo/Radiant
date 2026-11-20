@@ -6,7 +6,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m18",
-  "materialSha256": "809a8d078d7974a56424a1e3a86da60c817eb8cd059963ecfd5848c991632775",
+  "materialSha256": "4e479cfac501005a3b4334310e0aee61f7782e75ed750e8c5ef69cb38cec1da0",
   "trackId": "track:rtg-2026:m18",
   "unitId": "unit:rtg-2026:m18",
   "contentVersion": "rtg-2026-m18-v1",
@@ -983,29 +983,29 @@ export const RTG_2026_M18: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m18:aula-03:i2:1",
-                  "x": 0.4531,
-                  "y": 0.1292,
+                  "x": 0.545,
+                  "y": 0.115,
                   "where": "no alto, o trecho mais curto e delgado",
                   "correctLabelId": "label:rtg-2026:m18:aula-03:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-03:i2:2",
-                  "x": 0.5369,
-                  "y": 0.3834,
+                  "x": 0.54,
+                  "y": 0.41,
                   "where": "o trecho longo, que se abaula para trás",
                   "correctLabelId": "label:rtg-2026:m18:aula-03:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-03:i2:3",
-                  "x": 0.455,
-                  "y": 0.6709,
+                  "x": 0.535,
+                  "y": 0.66,
                   "where": "o trecho de blocos maiores, que se abaula para a frente",
                   "correctLabelId": "label:rtg-2026:m18:aula-03:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-03:i2:4",
-                  "x": 0.525,
-                  "y": 0.8833,
+                  "x": 0.53,
+                  "y": 0.87,
                   "where": "na base, o bloco único em forma de cunha",
                   "correctLabelId": "label:rtg-2026:m18:aula-03:i2:4"
                 }
@@ -6793,7 +6793,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "809a8d078d7974a56424a1e3a86da60c817eb8cd059963ecfd5848c991632775"
+      "materialSha256": "4e479cfac501005a3b4334310e0aee61f7782e75ed750e8c5ef69cb38cec1da0"
     },
     {
       "schemaVersion": 1,
@@ -6802,7 +6802,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "809a8d078d7974a56424a1e3a86da60c817eb8cd059963ecfd5848c991632775"
+      "materialSha256": "4e479cfac501005a3b4334310e0aee61f7782e75ed750e8c5ef69cb38cec1da0"
     },
     {
       "schemaVersion": 1,
@@ -6811,7 +6811,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "809a8d078d7974a56424a1e3a86da60c817eb8cd059963ecfd5848c991632775"
+      "materialSha256": "4e479cfac501005a3b4334310e0aee61f7782e75ed750e8c5ef69cb38cec1da0"
     },
     {
       "schemaVersion": 1,
@@ -6820,7 +6820,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "809a8d078d7974a56424a1e3a86da60c817eb8cd059963ecfd5848c991632775"
+      "materialSha256": "4e479cfac501005a3b4334310e0aee61f7782e75ed750e8c5ef69cb38cec1da0"
     },
     {
       "schemaVersion": 1,
@@ -6829,7 +6829,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "809a8d078d7974a56424a1e3a86da60c817eb8cd059963ecfd5848c991632775"
+      "materialSha256": "4e479cfac501005a3b4334310e0aee61f7782e75ed750e8c5ef69cb38cec1da0"
     },
     {
       "schemaVersion": 1,
@@ -6838,7 +6838,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "809a8d078d7974a56424a1e3a86da60c817eb8cd059963ecfd5848c991632775"
+      "materialSha256": "4e479cfac501005a3b4334310e0aee61f7782e75ed750e8c5ef69cb38cec1da0"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

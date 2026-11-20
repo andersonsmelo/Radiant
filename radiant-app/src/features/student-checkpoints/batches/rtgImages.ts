@@ -131,6 +131,42 @@ export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = [
     "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Licensing#Public_domain",
     "sourcePage": "https://commons.wikimedia.org/wiki/File:Human_skull_front_bones.svg",
     "modification": "Vista de frente: removidos fundo branco, rótulos e linhas de chamada de \"Human skull front bones\" (https://commons.wikimedia.org/wiki/File:Human_skull_front_bones.svg, sha256 acima); vista de perfil: \"Human skull side bones\" (https://commons.wikimedia.org/wiki/File:Human_skull_side_bones.svg, mesma autora, domínio público; original com sha256 05ad89627de45b71c7a759b6275bc23e8fcf93635602ff6813298c57cd736da6, já limpo em fontes/cranio-de-perfil-ossos.svg). Os dois crânios foram recoloridos em tons neutros (sem as cores dos ossos), compostos lado a lado no quadro 320x240 e achatados para atributos de apresentação. As linhas orbitomeatal, infraorbitomeatal, interpupilar e o plano sagital mediano são código do projeto, numa camada própria por cima da arte."
+  },
+  {
+    "id": "coluna-regioes",
+    "alt": "Coluna vertebral de perfil, com a frente do corpo à esquerda: cinco trechos em cores diferentes, do pescoço ao cóccix, e as curvas em S.",
+    "author": "DataBase Center for Life Science (DBCLS)",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:202410_Vertebral_column_spine.svg",
+    "modification": "Mantida só a vista de perfil (a vista de frente foi removida); espelhada na horizontal, para a frente do corpo ficar à esquerda; recoloridas as cinco regiões (cervical ciano, torácica azul, lombar âmbar, sacro cinza claro, cóccix cinza) e os discos e contornos para tons escuros; sem fundo; enquadrada em 320x240 e achatada para atributos de apresentação. Sem rótulos na arte original."
+  },
+  {
+    "id": "vertebra-tipica",
+    "alt": "Vértebra lombar vista de cima: corpo largo no alto, arco com furo no meio, hastes finas para os lados, haste mais grossa para baixo.",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourcePage": "https://smart.servier.com/smart_image/vertebra-bone-view/",
+    "modification": "Vetores do grupo \"Group 139\" do slide \"Vertebra\" de SMART-Bones.pptx (original.pptx, sha256 acima; kit https://smart.servier.com/wp-content/uploads/2016/10/SMART-Bones.pptx), renderizados em SVG sem alterar as formas; recolorido para a paleta do app (corpo âmbar, arco azul, facetas dos processos articulares ciano, contornos quase pretos); fundo transparente; enquadrado em 320x240; nenhum rótulo existia na arte."
+  },
+  {
+    "id": "femur-proximal-e-quadril",
+    "alt": "Quadril direito de frente: osso do quadril em azul, cabeça do fêmur ciano junto dele, colo inclinado, trocânteres e a diáfise em âmbar; lado de fora à esquerda.",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourcePage": "https://smart.servier.com/smart_image/male-pelvis/ e https://smart.servier.com/smart_image/femur/",
+    "modification": "Composição de duas obras do mesmo kit (SMART-Bones.pptx, original.pptx, sha256 acima; https://smart.servier.com/wp-content/uploads/2016/10/SMART-Bones.pptx): pelve de frente (slide \"Bones of pelvis\", \"Group 308\", masculina) e fêmur (slide \"Femur\", \"Group 50\"), formas renderizadas em SVG sem alteração. O fêmur foi espelhado na horizontal (a arte vem do outro lado), ampliado em 5% e posto sobre a pelve com a cabeça junto à borda do acetábulo; a posição e a escala relativas das duas peças são do projeto, ajustadas a olho, e não vêm do kit (cada peça é uma obra separada: pelve em https://smart.servier.com/smart_image/male-pelvis/, fêmur em https://smart.servier.com/smart_image/femur/); recorte do quadril direito no quadro 320x240. Recolorido para a paleta do app (pelve azul, cabeça do fêmur ciano, fêmur âmbar, sínfise cinza, contornos quase pretos); fundo transparente; nenhum rótulo existia na arte."
+  },
+  {
+    "id": "joelho-frente-e-perfil",
+    "alt": "Joelho direito em duas vistas lado a lado, de frente à esquerda e de perfil à direita, com os ossos em cores diferentes.",
+    "author": "Patrick J. Lynch, medical illustrator (crédito pedido pelo autor: Patrick J. Lynch, medical illustrator; C. Carl Jaffe, MD, cardiologist), Yale University Center for Advanced Instructional Media",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Knee_skeleton_lateral_anterior_views.svg",
+    "modification": "A página do Commons declara CC BY 2.5 e os metadados do próprio SVG declaram CC BY 3.0; vale a licença da página. Original original.svg (Wikimedia Commons, 'Knee skeleton lateral anterior views.svg', sha256 acima; sem texto algum). As silhuetas foram divididas em ossos por cortes poligonais (fêmur, tíbia, fíbula e, no perfil, patela) sem alterar os contornos; recolorido para a paleta do app (fêmur cinza claro, tíbia âmbar, fíbula ciano, patela azul, traços internos quase pretos); fundo transparente; recortado em altura (y 110 a 440 do original, cortes planos nas diáfises); a vista de perfil deslocada 85 unidades para a esquerda para aproximar as duas vistas; enquadrado em 320x240; caminhos achatados em polígonos simplificados (tolerância 0,12). Nenhum rótulo existia na arte. Os cortes entre os ossos são do projeto: o original traz cada vista como silhueta única, sem linha entre tíbia e fíbula na vista de frente, e a divisão por cor nessa vista é um corte reto sem traço."
   }
 ];
 

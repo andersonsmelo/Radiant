@@ -911,27 +911,31 @@
           "points": [
             {
               "label": "Região cervical",
-              "x": 0.4531,
-              "y": 0.1292,
-              "where": "no alto, o trecho mais curto e delgado"
+              "x": 0.545,
+              "y": 0.115,
+              "where": "no alto, o trecho mais curto e delgado",
+              "alvo": "Região cervical"
             },
             {
               "label": "Região torácica",
-              "x": 0.5369,
-              "y": 0.3834,
-              "where": "o trecho longo, que se abaula para trás"
+              "x": 0.54,
+              "y": 0.41,
+              "where": "o trecho longo, que se abaula para trás",
+              "alvo": "Região torácica"
             },
             {
               "label": "Região lombar",
-              "x": 0.455,
-              "y": 0.6709,
-              "where": "o trecho de blocos maiores, que se abaula para a frente"
+              "x": 0.535,
+              "y": 0.66,
+              "where": "o trecho de blocos maiores, que se abaula para a frente",
+              "alvo": "Região lombar"
             },
             {
               "label": "Sacro e cóccix",
-              "x": 0.525,
-              "y": 0.8833,
-              "where": "na base, o bloco único em forma de cunha"
+              "x": 0.53,
+              "y": 0.87,
+              "where": "na base, o bloco único em forma de cunha",
+              "alvo": "Sacro e cóccix"
             }
           ],
           "feedbackCorrect": "Isso: cada região ocupa o seu trecho, do alto até a base da coluna.",

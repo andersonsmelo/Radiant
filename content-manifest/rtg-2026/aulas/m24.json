@@ -474,27 +474,31 @@
           "points": [
             {
               "label": "Côndilo lateral do fêmur",
-              "x": 0.154,
-              "y": 0.446,
-              "where": "de frente, a saliência redonda à esquerda, embaixo do fêmur"
+              "x": 0.137,
+              "y": 0.317,
+              "where": "de frente, a saliência redonda à esquerda, embaixo do fêmur",
+              "alvo": "Côndilo lateral do fêmur, de frente"
             },
             {
               "label": "Côndilos da tíbia",
-              "x": 0.326,
-              "y": 0.559,
-              "where": "de frente, a superfície larga e plana no alto da tíbia"
+              "x": 0.298,
+              "y": 0.539,
+              "where": "de frente, a superfície larga e plana no alto da tíbia",
+              "alvo": "Côndilos da tíbia, de frente"
             },
             {
               "label": "Cabeça da fíbula",
-              "x": 0.116,
-              "y": 0.663,
-              "where": "de frente, a ponta de cima do osso fino, à esquerda da tíbia"
+              "x": 0.096,
+              "y": 0.561,
+              "where": "de frente, a ponta de cima do osso fino, à esquerda da tíbia",
+              "alvo": "Cabeça da fíbula, de frente"
             },
             {
               "label": "Patela",
-              "x": 0.888,
-              "y": 0.392,
-              "where": "de perfil, o oval azul na frente do fêmur"
+              "x": 0.904,
+              "y": 0.198,
+              "where": "de perfil, a peça azul, estreita, na frente do fêmur",
+              "alvo": "Patela, de perfil"
             }
           ],
           "distractors": [
@@ -822,39 +826,45 @@
           "points": [
             {
               "label": "Acetábulo",
-              "x": 0.632,
-              "y": 0.138,
-              "where": "no alto, o arco azul que cobre a parte redonda do fêmur"
+              "x": 0.47,
+              "y": 0.106,
+              "where": "no alto, o osso azul do quadril, acima da parte redonda",
+              "alvo": "Acetábulo"
             },
             {
               "label": "Cabeça do fêmur",
-              "x": 0.672,
-              "y": 0.359,
-              "where": "a parte redonda de cima, encaixada sob o arco azul"
+              "x": 0.5,
+              "y": 0.32,
+              "where": "a bola ciano, encostada no osso azul do quadril",
+              "alvo": "Cabeça do fêmur"
             },
             {
               "label": "Colo do fêmur",
-              "x": 0.506,
-              "y": 0.446,
-              "where": "a parte estreita e inclinada, entre a parte redonda e o tubo"
+              "x": 0.38,
+              "y": 0.53,
+              "where": "a parte estreita e inclinada, entre a parte redonda e o tubo",
+              "alvo": "Colo do fêmur"
             },
             {
               "label": "Trocânter maior",
-              "x": 0.325,
-              "y": 0.433,
-              "where": "a saliência larga à esquerda, do lado de fora do osso"
+              "x": 0.22,
+              "y": 0.5,
+              "where": "a saliência larga à esquerda, do lado de fora do osso",
+              "alvo": "Trocânter maior"
             },
             {
               "label": "Trocânter menor",
-              "x": 0.538,
-              "y": 0.675,
-              "where": "a saliência pequena à direita, abaixo do estreitamento"
+              "x": 0.43,
+              "y": 0.77,
+              "where": "a saliência pequena à direita, abaixo do estreitamento",
+              "alvo": "Trocânter menor"
             },
             {
               "label": "Diáfise do fêmur",
-              "x": 0.472,
-              "y": 0.888,
-              "where": "o tubo longo que desce, na parte de baixo da figura"
+              "x": 0.27,
+              "y": 0.88,
+              "where": "o tubo longo que desce, na parte de baixo da figura",
+              "alvo": "Diáfise do fêmur"
             }
           ],
           "distractors": [
@@ -862,7 +872,7 @@
           ],
           "feedbackCorrect": "Isso mesmo: a cabeça no acetábulo, o colo estreito e as duas saliências no lugar.",
           "feedbackIncorrect": "Alguma ficha está fora do lugar: siga o osso de cima para baixo e separe lado de fora e lado de dentro.",
-          "help": "Comece pelo que encaixa no arco azul, no alto.",
+          "help": "Comece pela bola ciano, que encaixa no osso azul do quadril.",
           "sourceIds": [
             "openstax-ap2e-membro-inferior",
             "openstax-ap2e-pelve"
@@ -1500,44 +1510,42 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule cinco partes de uma vértebra lombar vista de cima, tocando na ficha e no ponto. A frente do corpo fica no alto da figura.",
+          "prompt": "Rotule quatro partes de uma vértebra lombar vista de cima, tocando na ficha e no ponto. A frente do corpo fica no alto da figura.",
           "diagramId": "vertebra-tipica",
           "points": [
             {
               "label": "Corpo vertebral",
               "x": 0.5,
-              "y": 0.234,
-              "where": "no alto da figura, o bloco grande e arredondado"
-            },
-            {
-              "label": "Forame vertebral",
-              "x": 0.5,
-              "y": 0.517,
-              "where": "o espaço escuro no centro, cercado pelo anel de osso"
+              "y": 0.2,
+              "where": "no alto da figura, o bloco grande e arredondado",
+              "alvo": "Corpo vertebral"
             },
             {
               "label": "Pedículo",
-              "x": 0.341,
-              "y": 0.484,
-              "where": "à esquerda do furo, o bloco curto ligado ao bloco grande"
+              "x": 0.375,
+              "y": 0.49,
+              "where": "à esquerda do furo, o osso curto que liga o bloco ao anel",
+              "alvo": "Pedículo"
             },
             {
               "label": "Processo transverso",
-              "x": 0.785,
-              "y": 0.5,
-              "where": "a haste comprida que sai para o lado direito da figura"
+              "x": 0.79,
+              "y": 0.6,
+              "where": "a haste comprida que sai para o lado direito da figura",
+              "alvo": "Processo transverso"
             },
             {
               "label": "Processo espinhoso",
               "x": 0.5,
-              "y": 0.884,
-              "where": "a haste que desce na parte de baixo, para trás"
+              "y": 0.8,
+              "where": "a haste que desce na parte de baixo, para trás",
+              "alvo": "Processo espinhoso"
             }
           ],
           "distractors": [
             "Disco intervertebral"
           ],
-          "feedbackCorrect": "Isso mesmo: o corpo na frente, o forame no centro e as hastes para os lados e para trás.",
+          "feedbackCorrect": "Isso mesmo: o corpo na frente, o pedículo junto a ele e as hastes para os lados e para trás.",
           "feedbackIncorrect": "Alguma ficha está fora do lugar: o corpo é a parte da frente, e o resto forma o anel atrás dele.",
           "help": "Comece pelo bloco grande do alto, que suporta o peso.",
           "sourceIds": [
@@ -1901,39 +1909,44 @@
           "regions": [
             {
               "label": "Côndilo lateral do fêmur, de frente",
-              "x": 0.088,
-              "y": 0.367,
-              "width": 0.131,
-              "height": 0.158
+              "x": 0.083,
+              "y": 0.181,
+              "width": 0.108,
+              "height": 0.24,
+              "alvo": "Côndilo lateral do fêmur, de frente"
             },
             {
               "label": "Cabeça da fíbula, de frente",
-              "x": 0.075,
-              "y": 0.6,
-              "width": 0.081,
-              "height": 0.125,
-              "correct": true
+              "x": 0.046,
+              "y": 0.464,
+              "width": 0.1,
+              "height": 0.194,
+              "correct": true,
+              "alvo": "Cabeça da fíbula, de frente"
             },
             {
               "label": "Côndilos da tíbia, de frente",
-              "x": 0.244,
-              "y": 0.5,
-              "width": 0.163,
-              "height": 0.117
+              "x": 0.184,
+              "y": 0.464,
+              "width": 0.228,
+              "height": 0.15,
+              "alvo": "Côndilos da tíbia, de frente"
             },
             {
               "label": "Patela, de perfil",
-              "x": 0.846,
-              "y": 0.283,
-              "width": 0.08,
-              "height": 0.217
+              "x": 0.856,
+              "y": 0.064,
+              "width": 0.096,
+              "height": 0.267,
+              "alvo": "Patela, de perfil"
             },
             {
               "label": "Tíbia, de perfil",
-              "x": 0.694,
-              "y": 0.708,
-              "width": 0.125,
-              "height": 0.233
+              "x": 0.681,
+              "y": 0.542,
+              "width": 0.158,
+              "height": 0.417,
+              "alvo": "Tíbia, de perfil"
             }
           ],
           "feedbackCorrect": "Isso: a fíbula fica ao lado da tíbia e não forma a articulação do joelho, que reúne fêmur, tíbia e patela.",
