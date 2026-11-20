@@ -6,7 +6,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m18",
-  "materialSha256": "7f3be1a1564210f1a51d25b07a88ee07cd440bccdbc3b0a2e8afdb80916f09b9",
+  "materialSha256": "df5dc1aa62a4dedcccf58c8f3e7cbec462dc48c196a32aac6ac560550abf68ba",
   "trackId": "track:rtg-2026:m18",
   "unitId": "unit:rtg-2026:m18",
   "contentVersion": "rtg-2026-m18-v1",
@@ -663,16 +663,16 @@ export const RTG_2026_M18: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule três partes do osso longo, tocando na ficha e no ponto. A figura mostra um osso longo inteiro, deitado."
+              "label": "Rotular a imagem: Rotule três partes do osso longo, tocando na ficha e no ponto. A figura mostra um fêmur inteiro, deitado, com a cabeça, que encaixa no quadril, à esquerda."
             },
             "help": "Comece pelas pontas largas e vá em direção ao corpo do osso, entre elas.",
             "type": "label",
             "feedback": {
               "correct": "Isso: cada ficha está sobre a parte certa do osso longo.",
-              "incorrect": "Alguma ficha está no ponto errado: a diáfise é o trecho do meio, e as epífises, as pontas largas."
+              "incorrect": "Alguma ficha está no ponto errado: a diáfise é o trecho do meio; as epífises são as pontas largas, e a proximal é a da cabeça, mais perto do tronco."
             },
             "payload": {
-              "prompt": "Rotule três partes do osso longo, tocando na ficha e no ponto. A figura mostra um osso longo inteiro, deitado.",
+              "prompt": "Rotule três partes do osso longo, tocando na ficha e no ponto. A figura mostra um fêmur inteiro, deitado, com a cabeça, que encaixa no quadril, à esquerda.",
               "imageRef": "diagram:osso-longo",
               "points": [
                 {
@@ -6719,7 +6719,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7f3be1a1564210f1a51d25b07a88ee07cd440bccdbc3b0a2e8afdb80916f09b9"
+      "materialSha256": "df5dc1aa62a4dedcccf58c8f3e7cbec462dc48c196a32aac6ac560550abf68ba"
     },
     {
       "schemaVersion": 1,
@@ -6728,7 +6728,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7f3be1a1564210f1a51d25b07a88ee07cd440bccdbc3b0a2e8afdb80916f09b9"
+      "materialSha256": "df5dc1aa62a4dedcccf58c8f3e7cbec462dc48c196a32aac6ac560550abf68ba"
     },
     {
       "schemaVersion": 1,
@@ -6737,7 +6737,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7f3be1a1564210f1a51d25b07a88ee07cd440bccdbc3b0a2e8afdb80916f09b9"
+      "materialSha256": "df5dc1aa62a4dedcccf58c8f3e7cbec462dc48c196a32aac6ac560550abf68ba"
     },
     {
       "schemaVersion": 1,
@@ -6746,7 +6746,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7f3be1a1564210f1a51d25b07a88ee07cd440bccdbc3b0a2e8afdb80916f09b9"
+      "materialSha256": "df5dc1aa62a4dedcccf58c8f3e7cbec462dc48c196a32aac6ac560550abf68ba"
     },
     {
       "schemaVersion": 1,
@@ -6755,7 +6755,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7f3be1a1564210f1a51d25b07a88ee07cd440bccdbc3b0a2e8afdb80916f09b9"
+      "materialSha256": "df5dc1aa62a4dedcccf58c8f3e7cbec462dc48c196a32aac6ac560550abf68ba"
     },
     {
       "schemaVersion": 1,
@@ -6764,7 +6764,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7f3be1a1564210f1a51d25b07a88ee07cd440bccdbc3b0a2e8afdb80916f09b9"
+      "materialSha256": "df5dc1aa62a4dedcccf58c8f3e7cbec462dc48c196a32aac6ac560550abf68ba"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

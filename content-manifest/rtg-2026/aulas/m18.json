@@ -592,7 +592,7 @@
           "id": "i3",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule três partes do osso longo, tocando na ficha e no ponto. A figura mostra um osso longo inteiro, deitado.",
+          "prompt": "Rotule três partes do osso longo, tocando na ficha e no ponto. A figura mostra um fêmur inteiro, deitado, com a cabeça, que encaixa no quadril, à esquerda.",
           "diagramId": "osso-longo",
           "points": [
             {
@@ -621,7 +621,7 @@
             "Ligamento"
           ],
           "feedbackCorrect": "Isso: cada ficha está sobre a parte certa do osso longo.",
-          "feedbackIncorrect": "Alguma ficha está no ponto errado: a diáfise é o trecho do meio, e as epífises, as pontas largas.",
+          "feedbackIncorrect": "Alguma ficha está no ponto errado: a diáfise é o trecho do meio; as epífises são as pontas largas, e a proximal é a da cabeça, mais perto do tronco.",
           "help": "Comece pelas pontas largas e vá em direção ao corpo do osso, entre elas.",
           "sourceIds": [
             "openstax-ap-6-3"
