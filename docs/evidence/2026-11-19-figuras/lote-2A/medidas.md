@@ -67,13 +67,13 @@ Data das medidas: 2026-11-20. Nove interações usam as seis figuras novas; toda
 
 ## Quanto o selo e o marcador escondem, com a posição nova (E11)
 
-Posições lidas de `badgeBox` e `labelBadgeBox` (`hotspotTouch.ts`, commit 4bd7adce): o selo de tocar (36 x 24 pt) fica fora da região (acima, senão abaixo, à esquerda, à direita); o ponto do rotular tem 12 pt e o número vai num selo de 36 x 24 pt acima e à direita do ponto (ou na posição livre seguinte). "Antes" é a posição da versão anterior (selo dentro da região, marcador de 28 pt sobre o ponto). "Outro objeto cobrado" é o objeto de outro alvo do mesmo item; "outras peças", o resto da cena (porta, receptor, vidro etc., só o que passa de 1 %). Percentuais do objeto inteiro.
+Posições lidas de `badgeBoxes` e `labelBadgeBoxes` (`hotspotTouch.ts`, commits 4bd7adce, 12a22b42 e 8f463dc2): os selos de um item são postos em conjunto, com oito posições candidatas, sem selo sobre selo e evitando cobrir outra região; o selo de tocar (36 x 24 pt) fica fora da região; o ponto do rotular tem 12 pt e o número vai num selo de 36 x 24 pt ao lado. "Antes" é a posição da versão anterior (selo dentro da região, marcador de 28 pt sobre o ponto). "Outro objeto cobrado" é o objeto de outro alvo do mesmo item; "outras peças", o resto da cena (porta, receptor, vidro etc., só o que passa de 1 %). Percentuais do objeto inteiro.
 
 ### m17-01 i2 (rotular) conferencia-de-identidade
 
 | ponto | marcador antes (28 pt) | ponto de 12 pt esconde do objeto | selo do número esconde do objeto | selo cobre OUTRO objeto cobrado | selo cobre outras peças |
 |---|---|---|---|---|---|
-| L1 Pulseira no punho | 100 % | 81,8 % | 0 % | Fala do paciente (cabeça) 20,5 % | paciente 20,5 % |
+| L1 Pulseira no punho | 100 % | 81,8 % | 0 % | nenhum | maca 14,9 % |
 | L2 Pedido impresso | 39,6 % | 12,1 % | 0 % | nenhum | profissional 10,4 % |
 | L3 Registro na tela | 43,8 % | 8,4 % | 16 % | nenhum | nenhum |
 | L4 Fala do paciente (cabeça) | 9,3 % | 2 % | 0 % | nenhum | nenhum |
@@ -94,7 +94,7 @@ Posições lidas de `badgeBox` e `labelBadgeBox` (`hotspotTouch.ts`, commit 4bd7
 |---|---|---|---|---|---|
 | L1 Porta de saída | 15,4 % | 2,8 % | 7,9 % | nenhum | nenhum |
 | L2 Carrinho de emergência | 30,6 % | 5,4 % | 10,8 % | nenhum | nenhum |
-| L3 Saída de oxigênio | 37,6 % | 6,7 % | 11,5 % | Botão de chamada 18,9 % | botao 18,9 % |
+| L3 Saída de oxigênio | 37,6 % | 6,7 % | 16,3 % | Botão de chamada 3,8 % | botao 3,8 % |
 | L4 Botão de chamada | 42,6 % | 8,2 % | 11,3 % | nenhum | nenhum |
 | L5 Telefone da parede | 34,5 % | 6,4 % | 14,6 % | Botão de chamada 19,5 % | botao 19,5 % |
 
@@ -121,20 +121,16 @@ Posições lidas de `badgeBox` e `labelBadgeBox` (`hotspotTouch.ts`, commit 4bd7
 
 | alvo | certa | selo antes (dentro da região) | selo agora esconde do próprio objeto | cobre OUTRO objeto cobrado do item | cobre outras peças da cena |
 |---|---|---|---|---|---|
-| 1 Cátodo com filamento | não | 44,8 % | 0 % | Ampola de vidro 19,8 % | vidro 5,3 % |
-| 2 Ânodo | sim | 15,2 % | 0 % | Janela de saída 44,4 % | elétrons 40,3 %; vidro 5,4 %; janela 44,4 %; feixe 2,3 % |
-| 3 Janela de saída | não | 91,9 % | 0 % | Ânodo 8,2 % | ânodo 11,7 %; elétrons 45,7 %; vidro 5,3 % |
-| 4 Ampola de vidro | não | 29,9 % | 0 % | Cátodo com filamento 17,2 % | cátodo 12,5 % |
+| 1 Cátodo com filamento | não | 44,8 % | 0 % | nenhum | nenhum |
+| 2 Ânodo | sim | 15,2 % | 0 % | nenhum | nenhum |
+| 3 Janela de saída | não | 91,9 % | 0 % | nenhum | feixe 11,7 % |
+| 4 Ampola de vidro | não | 29,9 % | 0 % | nenhum | nenhum |
 
-## Limitações e vizinhos (posição nova do selo, E11)
+## Limitações e vizinhos (posição final do selo, E11)
 
-Com o selo fora da região, **nenhum selo de tocar esconde mais o próprio objeto** (0 % nas 14 regiões) e o ponto de 12 pt do rotular esconde de 2 % a 9 % dos objetos, exceto a pulseira (81,8 %: o objeto é uma faixa de 0,056 x 0,077 do quadro, menor que o ponto mais o seu contorno). O selo do número esconde de 0 a 30 % do próprio objeto (o pior é a janela do tubo, 29,7 %). O que o selo novo passou a fazer é cair sobre vizinhos; os que passam de 10 % de um OUTRO objeto cobrado do mesmo item:
+Com os selos postos em conjunto, **nenhum selo de tocar esconde mais de 2 % do próprio objeto** (0 % em 13 das 14 regiões; o apoio do receptor, 2 %) e **nenhum selo de tocar cobre outro objeto cobrado** (0 % nas 14 regiões, inclusive no m19-06, onde antes o selo do ânodo cobria 44 % da janela). O ponto de 12 pt do rotular esconde de 2 % a 9 % dos objetos, exceto a pulseira (81,8 %: a faixa mede 0,056 x 0,077 do quadro, menos que o ponto mais o contorno). O selo do número do rotular esconde de 0 a 30 % do próprio objeto; o pior é a janela do tubo (29,7 %), seguido do oxigênio (16,3 %) e da tela (16 %).
 
-- **m19-06 (hotspot, tubo):** o selo 2, do ânodo (a resposta certa), cai abaixo da região (não cabe acima) e cobre **44,4 %** da janela (e 40,3 % da fila de elétrons); o selo 4, da ampola, cobre 17,2 % do cátodo; o selo 1, do cátodo, cobre 19,8 % da ampola. Além disso, os selos se sobrepõem uns aos outros: o 1 fica atrás do 4 e o 2 atrás do 3 na prévia, e os números 1 e 2 ficam ilegíveis. A causa é a figura ser compacta (regiões vizinhas de 0,08 a 0,15 do quadro): é pendência de layout do app ou de região, não da arte.
-- **m17-01 (rotular, conferência):** o selo 1, da pulseira, cobre 20,5 % da cabeça do paciente ("Fala do paciente").
-- **m17-05 (rotular, emergência):** os selos 3 (oxigênio) e 5 (telefone) cobrem 18,9 % e 19,5 % do botão de chamada.
-
-Nas demais interações nenhum selo cobre mais de 10 % de outro objeto cobrado: m17-04 e m17-06 têm 0 % em todos (os selos de m17-04 caem sobre peças que não são alvo: a porta, o receptor, o tubo e o comando, de 19 a 48 %).
+Sobra, nos rotulares, um selo sobre vizinho acima de 10 %: m17-05, o selo do telefone cobre **19,5 %** do botão de chamada. Os demais cruzamentos: oxigênio sobre botão 3,8 %, carrinho sobre oxigênio 0,4 %, e m19-03, o selo do cátodo cobre 8,9 % da ampola. Nos hotspots do m17-04 os selos caem sobre peças que não são alvo (porta 22 %, receptor 19 %, tubo 48 %, comando 23 %); no m19-06, o selo da janela cobre 11,7 % do feixe.
 
 ## Spec contra fonte
 
