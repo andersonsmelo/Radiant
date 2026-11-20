@@ -1,15 +1,23 @@
 {
   "ids": [
     "articulacao-sinovial",
+    "bexiga-e-uretra",
+    "circulacao-dupla",
     "coluna-regioes",
+    "contraste-no-corpo",
     "cranio-de-perfil-ossos",
     "esqueleto-axial-apendicular",
+    "femur-proximal-e-quadril",
     "joelho-frente-e-perfil",
     "linhas-do-cranio",
     "marcos-de-superficie",
     "ossos-do-pe",
     "raio-x-movel-no-leito",
+    "respiracao-diafragma",
+    "seios-da-face",
+    "seios-da-face-frente",
     "sistema-nervoso",
+    "sistema-urinario",
     "trato-digestivo",
     "vertebra-tipica"
   ]

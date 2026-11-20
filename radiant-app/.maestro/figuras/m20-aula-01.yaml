@@ -1,0 +1,105 @@
+appId: com.ascendcreative.radiant
+name: 'Figuras M20 aula-01'
+tags:
+  - figuras
+  - generated
+---
+# Gerado por scripts/qa/figuras-no-simulador.mjs a partir das aulas-fonte. Não edite à mão.
+# Entrada pelo link da rota /learn, como os roteiros da trilha, respondendo certo até o passo da figura. Não medido em aparelho.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
+    clearState: true
+    permissions:
+      all: deny
+- runFlow: ../subflows/dismiss-dev-client.yaml
+- runFlow: ../subflows/dismiss-first-run.yaml
+- assertVisible:
+    id: journey-trail
+- openLink: 'radiantapp://learn?blockId=activity%3Artg-2026%3Am20%3Aaula-01&nodeId=node%3Aactivity%3Artg-2026%3Am20%3Aaula-01'
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+- assertVisible: 'Passo 1 de 8'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 2 de 8'
+- takeScreenshot: 'figura-respiracao-diafragma-m20-aula-01-passo2'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 3 de 8'
+# interaction i1 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m20:aula-01:i1:a'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m20:aula-01:i1:a'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 4 de 8'
+# interaction i2 ordering
+- scrollUntilVisible:
+    element:
+      text: 'Subir Os músculos da respiração se contraem'
+- tapOn: 'Subir Os músculos da respiração se contraem'
+- scrollUntilVisible:
+    element:
+      text: 'Subir Os músculos da respiração se contraem'
+- tapOn: 'Subir Os músculos da respiração se contraem'
+- scrollUntilVisible:
+    element:
+      text: 'Subir Os músculos da respiração se contraem'
+- tapOn: 'Subir Os músculos da respiração se contraem'
+- scrollUntilVisible:
+    element:
+      text: 'Subir Os músculos da respiração se contraem'
+- tapOn: 'Subir Os músculos da respiração se contraem'
+- scrollUntilVisible:
+    element:
+      text: 'Subir O tórax aumenta e os pulmões o acompanham'
+- tapOn: 'Subir O tórax aumenta e os pulmões o acompanham'
+- scrollUntilVisible:
+    element:
+      text: 'Subir O tórax aumenta e os pulmões o acompanham'
+- tapOn: 'Subir O tórax aumenta e os pulmões o acompanham'
+- scrollUntilVisible:
+    element:
+      text: 'Subir A pressão nos pulmões fica menor que a do ar de fora'
+- tapOn: 'Subir A pressão nos pulmões fica menor que a do ar de fora'
+- scrollUntilVisible:
+    element:
+      text: 'Selecionar esta ordem'
+- tapOn: 'Selecionar esta ordem'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 5 de 8'
+# interaction i3 true-false
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- assertVisible: 'Afirmação 2 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- assertVisible: 'Afirmação 3 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- assertVisible: 'Afirmação 4 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-errado'
+- tapOn:
+    id: 'true-false-errado'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 6 de 8'
+- takeScreenshot: 'figura-respiracao-diafragma-m20-aula-01-passo6'

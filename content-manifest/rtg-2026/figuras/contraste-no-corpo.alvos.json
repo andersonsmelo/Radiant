@@ -1,0 +1,12 @@
+[
+  { "nome": "Esôfago", "x": 0.22, "y": 0.1, "width": 0.08, "height": 0.3 },
+  { "nome": "Fígado", "x": 0.155, "y": 0.42, "width": 0.16, "height": 0.17 },
+  { "nome": "Estômago", "x": 0.24, "y": 0.47, "width": 0.1, "height": 0.14 },
+  { "nome": "Intestino delgado", "x": 0.21, "y": 0.7, "width": 0.1, "height": 0.13 },
+  { "nome": "Cólon", "x": 0.295, "y": 0.62, "width": 0.08, "height": 0.25 },
+  { "nome": "Rim direito", "x": 0.45, "y": 0.06, "width": 0.12, "height": 0.25 },
+  { "nome": "Rim esquerdo", "x": 0.725, "y": 0.05, "width": 0.12, "height": 0.25 },
+  { "nome": "Ureter direito", "x": 0.555, "y": 0.36, "width": 0.08, "height": 0.3 },
+  { "nome": "Ureter esquerdo", "x": 0.69, "y": 0.36, "width": 0.08, "height": 0.3 },
+  { "nome": "Bexiga", "x": 0.56, "y": 0.68, "width": 0.17, "height": 0.2 }
+]

@@ -1960,35 +1960,39 @@
           "type": "hotspot",
           "role": "practice",
           "prompt": "Na cistouretrografia, na fase da micção, o contraste sai da bexiga. Toque na estrutura por onde ele passa.",
-          "diagramId": "sistema-urinario",
+          "diagramId": "bexiga-e-uretra",
           "regions": [
             {
-              "label": "Rim do lado direito do paciente",
-              "x": 0.27,
-              "y": 0.1,
-              "width": 0.15,
-              "height": 0.21
+              "label": "Ureter do lado direito do paciente",
+              "x": 0.306,
+              "y": 0.058,
+              "width": 0.08,
+              "height": 0.133,
+              "alvo": "Ureter do lado direito do paciente"
             },
             {
-              "label": "Rim do lado esquerdo do paciente",
-              "x": 0.57,
-              "y": 0.07,
-              "width": 0.15,
-              "height": 0.21
+              "label": "Ureter do lado esquerdo do paciente",
+              "x": 0.645,
+              "y": 0.058,
+              "width": 0.08,
+              "height": 0.133,
+              "alvo": "Ureter do lado esquerdo do paciente"
             },
             {
               "label": "Bexiga",
-              "x": 0.41,
-              "y": 0.56,
-              "width": 0.18,
-              "height": 0.2
+              "x": 0.256,
+              "y": 0.233,
+              "width": 0.488,
+              "height": 0.498,
+              "alvo": "Bexiga"
             },
             {
               "label": "Uretra",
-              "x": 0.46,
-              "y": 0.77,
-              "width": 0.08,
-              "height": 0.2,
+              "x": 0.45,
+              "y": 0.7333,
+              "width": 0.1,
+              "height": 0.26,
+              "alvo": "Uretra",
               "correct": true
             }
           ],

@@ -1,0 +1,27 @@
+# Vermelho: peso da respiração por figura (2026-11-20), antes da exceção nomeada. Comando: cd radiant-app && npx jest src/ui/diagrams/diagramRegistry.test.ts -t respiracao-diafragma
+FAIL src/ui/diagrams/diagramRegistry.test.ts
+  paleta dos diagramas
+  registro de diagramas
+    ✕ respiracao-diafragma (importada): sem texto, imagem, script, link, CSS nem efeito que o react-native-svg ignora (7 ms)
+
+  ● registro de diagramas › respiracao-diafragma (importada): sem texto, imagem, script, link, CSS nem efeito que o react-native-svg ignora
+
+    expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 245760
+    Received:    395611
+
+      116 |     }
+      117 |     // Teto medido em 2026-11-19: crânio 75 KiB, leito 222 KiB de SVG. Arte acima disso vai para imagem.
+    > 118 |     expect(spec.layers.reduce((n, l) => n + l.svg.length, 0)).toBeLessThanOrEqual(240 * 1024);
+          |                                                               ^
+      119 |   });
+      120 |
+      121 |   it('a soma do SVG de todas as figuras importadas cabe no orçamento do plano', () => {
+
+      at toBeLessThanOrEqual (src/ui/diagrams/diagramRegistry.test.ts:118:63)
+
+Test Suites: 1 failed, 1 total
+Snapshots:   0 total
+Time:        0.438 s, estimated 1 s
+Ran all test suites matching /src\/ui\/diagrams\/diagramRegistry.test.ts/i with tests matching "respiracao-diafragma \(importada\)".

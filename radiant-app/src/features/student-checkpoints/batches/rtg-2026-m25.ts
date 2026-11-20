@@ -6,7 +6,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m25",
-  "materialSha256": "314bfee0d17b79d7e6cec9c780740f0d3ccda2a79fd9f479ba425b9a64d5011a",
+  "materialSha256": "45456571e07cfe056be142499b0d8672041d284fa8dba0fe665347336505dc71",
   "trackId": "track:rtg-2026:m25",
   "unitId": "unit:rtg-2026:m25",
   "contentVersion": "rtg-2026-m25-v1",
@@ -1225,12 +1225,13 @@ export const RTG_2026_M25: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Quatro grupos de seios",
-            "body": "Os seios da face são espaços dentro dos ossos. O seio frontal fica no osso frontal, acima dos olhos e das sobrancelhas. Os etmoidais são várias câmaras pequenas de cada lado do osso etmoide, entre o nariz e a parede de dentro de cada órbita: de frente, ficam entre os olhos. Os maxilares ficam abaixo das órbitas e são os maiores. O esfenoidal fica na linha média, dentro do corpo do esfenoide, atrás dos olhos, e é o mais posterior. A órbita é o encaixe ósseo do olho.",
+            "body": "Os seios da face são espaços dentro dos ossos. O seio frontal fica no osso frontal, acima dos olhos e das sobrancelhas. Os etmoidais são várias câmaras pequenas de cada lado do etmoide, ao lado do nariz. Os maxilares ficam abaixo das órbitas e são os maiores. O esfenoidal fica na linha média, dentro do corpo do esfenoide, atrás dos olhos. A órbita é o encaixe ósseo do olho. No corte lateral, o frontal é azul e o esfenoidal, âmbar.",
             "keyPoints": [
               "Frontal, etmoidal, maxilar e esfenoidal.",
               "Frontal acima dos olhos; esfenoidal atrás deles, o mais posterior.",
               "Maxilares: abaixo das órbitas, os maiores."
-            ]
+            ],
+            "visual": "seios-da-face"
           }
         },
         {
@@ -1291,52 +1292,38 @@ export const RTG_2026_M25: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule cinco partes do esquema da face, tocando na ficha e no ponto. À esquerda está a vista de frente e à direita, a de perfil."
+              "label": "Rotular a imagem: Rotule três partes do esquema do rosto de frente, tocando na ficha e no ponto."
             },
             "help": "Comece pelo que fica no alto e acima dos olhos.",
             "type": "label",
             "feedback": {
-              "correct": "Isso mesmo: você achou os quatro grupos de seios e o encaixe do olho.",
+              "correct": "Isso mesmo: você achou os três grupos de seios vistos de frente.",
               "incorrect": "Algum ponto ficou fora do lugar: releia onde cada grupo fica, da frente para trás."
             },
             "payload": {
-              "prompt": "Rotule cinco partes do esquema da face, tocando na ficha e no ponto. À esquerda está a vista de frente e à direita, a de perfil.",
-              "imageRef": "diagram:seios-da-face",
+              "prompt": "Rotule três partes do esquema do rosto de frente, tocando na ficha e no ponto.",
+              "imageRef": "diagram:seios-da-face-frente",
               "points": [
                 {
                   "id": "point:rtg-2026:m25:aula-04:i2:1",
-                  "x": 0.25,
-                  "y": 0.25,
-                  "where": "de frente, o par de lóbulos no alto, acima dos olhos",
+                  "x": 0.383,
+                  "y": 0.281,
+                  "where": "de frente, o lóbulo azul do alto, acima do olho",
                   "correctLabelId": "label:rtg-2026:m25:aula-04:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m25:aula-04:i2:2",
-                  "x": 0.25,
-                  "y": 0.466,
-                  "where": "de frente, as câmaras em fileira entre os círculos grandes",
+                  "x": 0.365,
+                  "y": 0.565,
+                  "where": "de frente, as câmaras ciano ao lado do nariz, junto ao olho",
                   "correctLabelId": "label:rtg-2026:m25:aula-04:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m25:aula-04:i2:3",
-                  "x": 0.131,
-                  "y": 0.683,
-                  "where": "na vista de frente, a massa à esquerda, sob o círculo grande",
+                  "x": 0.344,
+                  "y": 0.785,
+                  "where": "de frente, a massa azul de baixo, abaixo do olho",
                   "correctLabelId": "label:rtg-2026:m25:aula-04:i2:3"
-                },
-                {
-                  "id": "point:rtg-2026:m25:aula-04:i2:4",
-                  "x": 0.8313,
-                  "y": 0.479,
-                  "where": "no perfil, o bloco cinza sob a curva em U, atrás da fileira",
-                  "correctLabelId": "label:rtg-2026:m25:aula-04:i2:4"
-                },
-                {
-                  "id": "point:rtg-2026:m25:aula-04:i2:5",
-                  "x": 0.6625,
-                  "y": 0.433,
-                  "where": "no perfil, o círculo cinza na frente do rosto",
-                  "correctLabelId": "label:rtg-2026:m25:aula-04:i2:5"
                 }
               ],
               "labels": [
@@ -1345,20 +1332,12 @@ export const RTG_2026_M25: ProductionBatchV1 = {
                   "label": "Seio etmoidal"
                 },
                 {
-                  "id": "label:rtg-2026:m25:aula-04:i2:4",
-                  "label": "Seio esfenoidal"
-                },
-                {
-                  "id": "label:rtg-2026:m25:aula-04:i2:3",
-                  "label": "Seio maxilar"
-                },
-                {
                   "id": "label:rtg-2026:m25:aula-04:i2:1",
                   "label": "Seio frontal"
                 },
                 {
-                  "id": "label:rtg-2026:m25:aula-04:i2:5",
-                  "label": "Órbita"
+                  "id": "label:rtg-2026:m25:aula-04:i2:3",
+                  "label": "Seio maxilar"
                 }
               ]
             }
@@ -1492,39 +1471,31 @@ export const RTG_2026_M25: ProductionBatchV1 = {
             },
             "payload": {
               "prompt": "Um pedido de seios da face fala no maior dos quatro grupos de seios. Duda quer ver onde ele fica: toque num deles na vista de frente.",
-              "imageRef": "diagram:seios-da-face",
+              "imageRef": "diagram:seios-da-face-frente",
               "regions": [
                 {
                   "id": "region:rtg-2026:m25:aula-04:i5:1",
                   "label": "Seio frontal",
-                  "x": 0.1938,
-                  "y": 0.1667,
-                  "width": 0.1125,
-                  "height": 0.1667
+                  "x": 0.2,
+                  "y": 0.12,
+                  "width": 0.22,
+                  "height": 0.21
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-04:i5:2",
                   "label": "Seio etmoidal",
-                  "x": 0.2062,
-                  "y": 0.3917,
-                  "width": 0.0875,
-                  "height": 0.15
+                  "x": 0.27,
+                  "y": 0.335,
+                  "width": 0.12,
+                  "height": 0.2
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-04:i5:3",
                   "label": "Seio maxilar",
-                  "x": 0.0813,
-                  "y": 0.6083,
-                  "width": 0.1,
-                  "height": 0.15
-                },
-                {
-                  "id": "region:rtg-2026:m25:aula-04:i5:4",
-                  "label": "Seio esfenoidal",
-                  "x": 0.7813,
-                  "y": 0.425,
-                  "width": 0.1,
-                  "height": 0.1083
+                  "x": 0.2,
+                  "y": 0.56,
+                  "width": 0.27,
+                  "height": 0.29
                 }
               ],
               "correctRegionIds": [
@@ -4555,43 +4526,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m25:aula-04:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m25:openstax-ap-cranio",
-        "source:rtg-2026:m25:wiki-seios"
-      ]
-    },
-    {
-      "claimId": "point:rtg-2026:m25:aula-04:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m25:openstax-ap-cranio",
-        "source:rtg-2026:m25:wiki-seios"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m25:aula-04:i2:2",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m25:openstax-ap-cranio",
-        "source:rtg-2026:m25:wiki-seios"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m25:aula-04:i2:4",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m25:openstax-ap-cranio",
-        "source:rtg-2026:m25:wiki-seios"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m25:aula-04:i2:3",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4609,7 +4544,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "label:rtg-2026:m25:aula-04:i2:5",
+      "claimId": "label:rtg-2026:m25:aula-04:i2:3",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4796,14 +4731,6 @@ export const RTG_2026_M25: ProductionBatchV1 = {
     },
     {
       "claimId": "region:rtg-2026:m25:aula-04:i5:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m25:openstax-ap-cranio"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m25:aula-04:i5:4",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -6746,7 +6673,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "314bfee0d17b79d7e6cec9c780740f0d3ccda2a79fd9f479ba425b9a64d5011a"
+      "materialSha256": "45456571e07cfe056be142499b0d8672041d284fa8dba0fe665347336505dc71"
     },
     {
       "schemaVersion": 1,
@@ -6755,7 +6682,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "314bfee0d17b79d7e6cec9c780740f0d3ccda2a79fd9f479ba425b9a64d5011a"
+      "materialSha256": "45456571e07cfe056be142499b0d8672041d284fa8dba0fe665347336505dc71"
     },
     {
       "schemaVersion": 1,
@@ -6764,7 +6691,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "314bfee0d17b79d7e6cec9c780740f0d3ccda2a79fd9f479ba425b9a64d5011a"
+      "materialSha256": "45456571e07cfe056be142499b0d8672041d284fa8dba0fe665347336505dc71"
     },
     {
       "schemaVersion": 1,
@@ -6773,7 +6700,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "314bfee0d17b79d7e6cec9c780740f0d3ccda2a79fd9f479ba425b9a64d5011a"
+      "materialSha256": "45456571e07cfe056be142499b0d8672041d284fa8dba0fe665347336505dc71"
     },
     {
       "schemaVersion": 1,
@@ -6782,7 +6709,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "314bfee0d17b79d7e6cec9c780740f0d3ccda2a79fd9f479ba425b9a64d5011a"
+      "materialSha256": "45456571e07cfe056be142499b0d8672041d284fa8dba0fe665347336505dc71"
     },
     {
       "schemaVersion": 1,
@@ -6791,7 +6718,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "314bfee0d17b79d7e6cec9c780740f0d3ccda2a79fd9f479ba425b9a64d5011a"
+      "materialSha256": "45456571e07cfe056be142499b0d8672041d284fa8dba0fe665347336505dc71"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

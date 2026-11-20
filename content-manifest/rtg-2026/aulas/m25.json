@@ -1200,12 +1200,13 @@
       },
       "concept": {
         "title": "Quatro grupos de seios",
-        "body": "Os seios da face são espaços dentro dos ossos. O seio frontal fica no osso frontal, acima dos olhos e das sobrancelhas. Os etmoidais são várias câmaras pequenas de cada lado do osso etmoide, entre o nariz e a parede de dentro de cada órbita: de frente, ficam entre os olhos. Os maxilares ficam abaixo das órbitas e são os maiores. O esfenoidal fica na linha média, dentro do corpo do esfenoide, atrás dos olhos, e é o mais posterior. A órbita é o encaixe ósseo do olho.",
+        "body": "Os seios da face são espaços dentro dos ossos. O seio frontal fica no osso frontal, acima dos olhos e das sobrancelhas. Os etmoidais são várias câmaras pequenas de cada lado do etmoide, ao lado do nariz. Os maxilares ficam abaixo das órbitas e são os maiores. O esfenoidal fica na linha média, dentro do corpo do esfenoide, atrás dos olhos. A órbita é o encaixe ósseo do olho. No corte lateral, o frontal é azul e o esfenoidal, âmbar.",
         "keyPoints": [
           "Frontal, etmoidal, maxilar e esfenoidal.",
           "Frontal acima dos olhos; esfenoidal atrás deles, o mais posterior.",
           "Maxilares: abaixo das órbitas, os maiores."
-        ]
+        ],
+        "visual": "seios-da-face"
       },
       "interactions": [
         {
@@ -1244,41 +1245,32 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule cinco partes do esquema da face, tocando na ficha e no ponto. À esquerda está a vista de frente e à direita, a de perfil.",
-          "diagramId": "seios-da-face",
+          "prompt": "Rotule três partes do esquema do rosto de frente, tocando na ficha e no ponto.",
+          "diagramId": "seios-da-face-frente",
           "points": [
             {
               "label": "Seio frontal",
-              "x": 0.25,
-              "y": 0.25,
-              "where": "de frente, o par de lóbulos no alto, acima dos olhos"
+              "alvo": "Seio frontal",
+              "x": 0.383,
+              "y": 0.281,
+              "where": "de frente, o lóbulo azul do alto, acima do olho"
             },
             {
               "label": "Seio etmoidal",
-              "x": 0.25,
-              "y": 0.466,
-              "where": "de frente, as câmaras em fileira entre os círculos grandes"
+              "alvo": "Seio etmoidal",
+              "x": 0.365,
+              "y": 0.565,
+              "where": "de frente, as câmaras ciano ao lado do nariz, junto ao olho"
             },
             {
               "label": "Seio maxilar",
-              "x": 0.131,
-              "y": 0.683,
-              "where": "na vista de frente, a massa à esquerda, sob o círculo grande"
-            },
-            {
-              "label": "Seio esfenoidal",
-              "x": 0.8313,
-              "y": 0.479,
-              "where": "no perfil, o bloco cinza sob a curva em U, atrás da fileira"
-            },
-            {
-              "label": "Órbita",
-              "x": 0.6625,
-              "y": 0.433,
-              "where": "no perfil, o círculo cinza na frente do rosto"
+              "alvo": "Seio maxilar",
+              "x": 0.344,
+              "y": 0.785,
+              "where": "de frente, a massa azul de baixo, abaixo do olho"
             }
           ],
-          "feedbackCorrect": "Isso mesmo: você achou os quatro grupos de seios e o encaixe do olho.",
+          "feedbackCorrect": "Isso mesmo: você achou os três grupos de seios vistos de frente.",
           "feedbackIncorrect": "Algum ponto ficou fora do lugar: releia onde cada grupo fica, da frente para trás.",
           "help": "Comece pelo que fica no alto e acima dos olhos.",
           "sourceIds": [
@@ -1347,36 +1339,32 @@
           "type": "hotspot",
           "role": "transfer",
           "prompt": "Um pedido de seios da face fala no maior dos quatro grupos de seios. Duda quer ver onde ele fica: toque num deles na vista de frente.",
-          "diagramId": "seios-da-face",
+          "diagramId": "seios-da-face-frente",
           "regions": [
             {
               "label": "Seio frontal",
-              "x": 0.1938,
-              "y": 0.1667,
-              "width": 0.1125,
-              "height": 0.1667
+              "alvo": "Seio frontal",
+              "x": 0.2,
+              "y": 0.12,
+              "width": 0.22,
+              "height": 0.21
             },
             {
               "label": "Seio etmoidal",
-              "x": 0.2062,
-              "y": 0.3917,
-              "width": 0.0875,
-              "height": 0.15
+              "alvo": "Seio etmoidal",
+              "x": 0.27,
+              "y": 0.335,
+              "width": 0.12,
+              "height": 0.2
             },
             {
               "label": "Seio maxilar",
-              "x": 0.0813,
-              "y": 0.6083,
-              "width": 0.1,
-              "height": 0.15,
+              "alvo": "Seio maxilar",
+              "x": 0.2,
+              "y": 0.56,
+              "width": 0.27,
+              "height": 0.29,
               "correct": true
-            },
-            {
-              "label": "Seio esfenoidal",
-              "x": 0.7813,
-              "y": 0.425,
-              "width": 0.1,
-              "height": 0.1083
             }
           ],
           "feedbackCorrect": "Isso: os maxilares ficam abaixo das órbitas e são os maiores dos quatro grupos.",

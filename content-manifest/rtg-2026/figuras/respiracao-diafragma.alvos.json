@@ -1,0 +1,8 @@
+[
+  {"nome":"Diafragma","x":0.5,"y":0.614,"width":0.464,"height":0.146},
+  {"nome":"Pulmão do lado direito do paciente","x":0.572,"y":0.19,"width":0.13,"height":0.25},
+  {"nome":"Pulmão do lado esquerdo do paciente","x":0.77,"y":0.19,"width":0.14,"height":0.25},
+  {"nome":"Costelas do lado direito do paciente","x":0.5,"y":0.5,"width":0.085,"height":0.24},
+  {"nome":"Costelas do lado esquerdo do paciente","x":0.9,"y":0.5,"width":0.085,"height":0.24},
+  {"nome":"Esterno","x":0.69,"y":0.17,"width":0.08,"height":0.4}
+]

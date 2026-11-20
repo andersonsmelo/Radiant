@@ -194,6 +194,78 @@ export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = [
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
     "sourcePage": "https://smart.servier.com/smart_image/nervous-system/",
     "modification": "Vetores copiados do pptx do kit SMART-Nervous-system (https://smart.servier.com/wp-content/uploads/2016/10/SMART-Nervous-system.pptx, sha256 acima; arquivo slide29.xml do pacote, grupo \"Group 3\", ilustração \"Nervous system\" da página de origem, CC BY 4.0). Mantidas todas as 360 formas do grupo (corpo, encéfalo, medula e nervos), sem alterar nenhum traçado; as duas circunferências dos mamilos, que o extrator ignorava, foram incluídas. Sem rótulos (a arte original não tem). Recoloridas por classe de cor para a paleta do app: encéfalo e medula espinal em âmbar (cerebelo em âmbar mais escuro), nervos periféricos em ciano, corpo em cinza-azulado escuro com contorno cinza; sem fundo; gradientes achatados em atributos de apresentação; enquadrada em 320x240. Licença: vale a CC BY 4.0 declarada pelo Servier na página de origem (consultada em 2026-11-20); a Commons marca cópias PNG do mesmo kit como CC BY-SA 3.0, divergência registrada, e a arte veio do pptx do site, não da Commons."
+  },
+  {
+    "id": "femur-proximal-e-quadril",
+    "alt": "Quadril direito de frente: osso do quadril em azul, cabeça do fêmur ciano junto dele, colo inclinado, trocânteres e a diáfise em âmbar; lado de fora à esquerda.",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourcePage": "https://smart.servier.com/smart_image/male-pelvis/ e https://smart.servier.com/smart_image/femur/",
+    "modification": "Composição de duas peças do mesmo kit (SMART-Bones.pptx, original.pptx, sha256 acima; https://smart.servier.com/wp-content/uploads/2016/10/SMART-Bones.pptx): pelve de frente (slide \"Bones of pelvis\", \"Group 308\", masculina) e fêmur (slide \"Femur\", \"Group 50\"), formas renderizadas em SVG sem alteração. O kit nunca põe as duas peças juntas; a posição do fêmur segue critério anatômico MEDIDO na fonte, só por translação (o espelhamento horizontal e a escala de 1,05 do fêmur, que a arte original exige, ficam): (a) a cabeça fica fora do forame obturado, com a borda medial da cabeça 37 unidades da fonte (0,09 do diâmetro) à esquerda da borda lateral do forame; (b) a linha de Shenton é contínua: a borda inferomedial do colo e o teto do forame (margem inferior do ramo superior do púbis) caem num mesmo arco, com desvio máximo de 6 unidades no colo e 13 no teto. Translação final do fêmur: translate(3415 2610) em unidades da fonte; proporção e ângulo colo-diáfise são os do desenho do autor. O acetábulo não é desenhado pela arte. Recolorido para a paleta do app (pelve azul, cabeça do fêmur ciano, fêmur âmbar, sínfise cinza, contornos quase pretos); fundo transparente; nenhum rótulo existia na arte. Recorte do quadril direito no quadro 320x240. Licença: vale a oferta do Servier (CC BY 4.0, na página do próprio autor); as cópias do mesmo kit no Wikimedia Commons marcadas CC BY-SA 3.0 não foram usadas. Receita: scripts/content/figuras/receitas/femur-proximal-e-quadril.mjs (sem variáveis de ambiente reproduz a fonte)."
+  },
+  {
+    "id": "respiracao-diafragma",
+    "alt": "Dois desenhos do tórax de frente, lado a lado, com costelas, esterno, pulmões azuis e uma linha âmbar em cúpula: à esquerda a expiração, à direita a inspiração.",
+    "author": "Servier Medical Art (Les Laboratoires Servier)",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourcePage": "https://smart.servier.com/",
+    "modification": "Os dois desenhos do autor (expiração à esquerda, inspiração à direita), inteiros e parados, lado a lado na mesma escala e alinhados pelo topo e pelo eixo do esterno. Removidos só a seta, o texto \"Inspiration\"/\"Expiry\" e o retângulo de recorte; todos os demais caminhos mantidos (texturas, brilhos, contornos). Recolorido para a paleta do app (pulmões azul, ossos cinza claro, diafragma âmbar), coordenadas na grade de 0,1 da unidade do autor (desvio máximo 0,05 unidade = 0,023 pt do quadro), sem fundo, enquadrado em 320x240 e achatado para atributos de apresentação. Sem traqueia. Nenhuma forma redesenhada. Arquivos obtidos do catálogo Bioicons (https://github.com/duerrsimon/bioicons/tree/main/static/icons/cc-by-3.0/Human_physiology/Servier, breathing-inspiration.svg e breathing-expiration.svg, que o catálogo marca CC BY 3.0); autoria e licença vigente na página do Servier (CC BY 4.0, que vale); as cópias do Commons marcadas CC BY-SA 3.0 não foram usadas. Os caminhos vizinhos de mesmo preenchimento foram unidos num só (545 caminhos do autor viram 228 na fonte; os 1503 subcaminhos, todos os traços, ficam)."
+  },
+  {
+    "id": "circulacao-dupla",
+    "alt": "Pulmões no alto, coração de quatro câmaras no meio e um corpo embaixo, ligados por dois circuitos de vasos azuis e âmbar com setas brancas.",
+    "author": "erico (design); JSHG e DBCLS (edição), Togopic / DataBase Center for Life Science (DBCLS)",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:202410_Systemic_and_pulmonary_circulation.svg",
+    "modification": "Removidos os dados privados do Illustrator (metadata); recolorido para a paleta do app (vermelho do autor virou âmbar, azul e cinzas da paleta, pulmões em ciano escuro); os cinco recortes (clipPath) do original foram resolvidos em caminhos por interseção do recorte com a forma (skia-pathops), com o mesmo preenchimento (dois degradês girados levaram a rotação para o gradientTransform), sem apagar nenhuma forma; os cinco clipPath saem do arquivo; recorte do quadro 4:3 pelo viewBox (-30 -3 460 345): pulmões, coração e corpo com a rede capilar, pernas fora; fundo transparente; parado (sem movimento)."
+  },
+  {
+    "id": "seios-da-face",
+    "alt": "Corte lateral do nariz com a face para a esquerda: o seio frontal em azul no alto e o esfenoidal em âmbar atrás da cavidade nasal escura.",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-ENT",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourcePage": "https://smart.servier.com/smart_image/nasal-cavity/",
+    "modification": "Original: kit SMART-ENT.pptx (slide 4). Formas livres convertidas em SVG sem alterar traçado; nenhum caminho do autor removido (347 de 347); o que passa do quadro sai pelo enquadramento; recolorido para a paleta do app (frontal e maxilar azul, etmoidal ciano, esfenoidal âmbar, tecidos em cinzas); fundo transparente; quadro 320 x 240. Licença: vale a oferta do Servier (CC BY 4.0, na página do próprio autor); as cópias do mesmo kit no Wikimedia Commons marcadas CC BY-SA 3.0 não foram usadas."
+  },
+  {
+    "id": "seios-da-face-frente",
+    "alt": "Rosto de frente, do alto da testa à boca, com os seios em azul e ciano: massas grandes no alto e embaixo e câmaras pequenas ao lado do nariz.",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-ENT",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourcePage": "https://smart.servier.com/smart_image/paranasal-sinuses/",
+    "modification": "Original: kit SMART-ENT.pptx (slide 7). Formas livres convertidas em SVG sem alterar traçado; nenhum caminho do autor removido (114 de 114); o que passa do quadro sai pelo enquadramento; recolorido para a paleta do app (frontal e maxilar azul, etmoidal ciano, esfenoidal âmbar, tecidos em cinzas); fundo transparente; quadro 320 x 240. Licença: vale a oferta do Servier (CC BY 4.0, na página do próprio autor); as cópias do mesmo kit no Wikimedia Commons marcadas CC BY-SA 3.0 não foram usadas."
+  },
+  {
+    "id": "sistema-urinario",
+    "alt": "Sistema urinário de frente: um rim inteiro e outro em corte no alto, dois ureteres compridos descendo até a bexiga, que se abre numa uretra curta.",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Urinary-system",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourcePage": "https://smart.servier.com/smart_image/urinary-tract/",
+    "modification": "Figura inteira (sistema urinário feminino de frente) enquadrada em 320x240, 222 de altura, centrada. Servier Medical Art, kit SMART-Urinary-system (https://smart.servier.com/wp-content/uploads/2016/10/SMART-Urinary-system.pptx), slide 3 \"Urinary tract\", grupo \"Group 3\" (494 formas: dois rins, um inteiro e outro em corte, dois ureteres e a bexiga aberta com a uretra), conferido na página do próprio Servier (CC BY 4.0). Divergência registrada: as cópias do Commons dessa arte dizem CC BY-SA 3.0; usa-se só a licença da página do autor, e nenhuma cópia do Commons. Sem rótulos (a arte não tem). As duas elipses de 10x5 e 7x5 unidades do grupo, menores que meio ponto no quadro, não foram convertidas (o conversor do pptx lê só formas livres). Recolorida por estrutura, mantendo a luminosidade original de cada forma (rins âmbar, ureteres ciano, bexiga e uretra azuis); gradientes achatados em atributos de apresentação; sem fundo; todas as formas do autor mantidas, coordenadas originais sem arredondamento."
+  },
+  {
+    "id": "bexiga-e-uretra",
+    "alt": "Bexiga aberta, com o relevo interno, e uma uretra curta saindo da base; as pontas dos dois ureteres chegam à bexiga por cima.",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Urinary-system",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourcePage": "https://smart.servier.com/smart_image/urinary-tract/",
+    "modification": "Recorte ampliado (escala 0,25) da mesma arte de sistema-urinario, sem redesenho: as formas que cruzam a borda ficam inteiras e o quadro corta; as que ficam todas fora do quadro não foram copiadas. Servier Medical Art, kit SMART-Urinary-system (https://smart.servier.com/wp-content/uploads/2016/10/SMART-Urinary-system.pptx), slide 3 \"Urinary tract\", grupo \"Group 3\" (494 formas: dois rins, um inteiro e outro em corte, dois ureteres e a bexiga aberta com a uretra), conferido na página do próprio Servier (CC BY 4.0). Divergência registrada: as cópias do Commons dessa arte dizem CC BY-SA 3.0; usa-se só a licença da página do autor, e nenhuma cópia do Commons. Sem rótulos (a arte não tem). As duas elipses de 10x5 e 7x5 unidades do grupo, menores que meio ponto no quadro, não foram convertidas (o conversor do pptx lê só formas livres). Recolorida por estrutura, mantendo a luminosidade original de cada forma (rins âmbar, ureteres ciano, bexiga e uretra azuis); gradientes achatados em atributos de apresentação; sem fundo; todas as formas do autor mantidas, coordenadas originais sem arredondamento."
+  },
+  {
+    "id": "contraste-no-corpo",
+    "alt": "Dois painéis: à esquerda, esôfago, estômago e intestinos em âmbar; à direita, dois rins, dois ureteres e a bexiga em azul.",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kits SMART-Digestive-system e SMART-Urinary-system",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourcePage": "https://smart.servier.com/smart_image/urinary-tract/",
+    "modification": "Duas peças do mesmo autor (Servier Medical Art, CC BY 4.0, ambas conferidas na página do próprio Servier; as cópias do Commons, CC BY-SA 3.0, não foram usadas) postas lado a lado no quadro 320x240, sem sobreposição e com a mesma linha de base: à esquerda o trato digestivo (kit SMART-Digestive-system, slide 3, grupo \"Group 5\", página https://smart.servier.com/smart_image/complete-overview-digestive-apparatus/, sha256 do pptx 6acab3f2cb530644c75997db1c3e169f396050b34767b0780c6841fdc1627e53, as mesmas 750 formas da figura trato-digestivo, sem a cabeça e a boca, que ficam fora de qualquer quadro), à direita o sistema urinário feminino (kit SMART-Urinary-system, https://smart.servier.com/wp-content/uploads/2016/10/SMART-Urinary-system.pptx, slide 3, grupo \"Group 3\", sha256 acima, 494 formas: dois rins, dois ureteres e a bexiga como o autor os desenhou numa só peça; as duas elipses de 10x5 e 7x5 unidades do grupo, menores que meio ponto no quadro, não foram convertidas). Cada sistema foi posto inteiro, como o autor desenhou, sem posição relativa inventada entre eles. Sem rótulos (o grupo não os tem). Recolorido por sistema: o trato digestivo todo em âmbar e o urinário todo em azul, cada um com tons pela luminosidade original de cada forma; gradientes achatados em atributos de apresentação; sem fundo; coordenadas dos caminhos arredondadas por igual a unidades inteiras e reescritas em relativo para caber no teto de 240 KiB."
   }
 ];
 

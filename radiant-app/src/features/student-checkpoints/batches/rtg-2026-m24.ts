@@ -6,7 +6,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m24",
-  "materialSha256": "bc5eb14343a6c458734bd0afef64612b2ac2cd5fd21d2de83cf1a2d52181cf38",
+  "materialSha256": "95b529e477e62b9385a43918521278a93cc3bfc1293cdab3fc5c8e72e3bbf986",
   "trackId": "track:rtg-2026:m24",
   "unitId": "unit:rtg-2026:m24",
   "contentVersion": "rtg-2026-m24-v1",
@@ -920,89 +920,78 @@ export const RTG_2026_M24: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule seis partes do quadril direito visto de frente, tocando na ficha e no ponto. O lado de fora fica à esquerda."
+              "label": "Rotular a imagem: Rotule cinco partes do quadril direito visto de frente, tocando na ficha e no ponto. O lado de fora fica à esquerda."
             },
-            "help": "Comece pelo que encaixa no arco azul, no alto.",
+            "help": "Comece pela bola ciano, no alto.",
             "type": "label",
             "feedback": {
-              "correct": "Isso mesmo: a cabeça no acetábulo, o colo estreito e as duas saliências no lugar.",
+              "correct": "Isso mesmo: a cabeça no alto, o colo estreito e as duas saliências no lugar.",
               "incorrect": "Alguma ficha está fora do lugar: siga o osso de cima para baixo e separe lado de fora e lado de dentro."
             },
             "payload": {
-              "prompt": "Rotule seis partes do quadril direito visto de frente, tocando na ficha e no ponto. O lado de fora fica à esquerda.",
+              "prompt": "Rotule cinco partes do quadril direito visto de frente, tocando na ficha e no ponto. O lado de fora fica à esquerda.",
               "imageRef": "diagram:femur-proximal-e-quadril",
               "points": [
                 {
                   "id": "point:rtg-2026:m24:aula-03:i2:1",
-                  "x": 0.632,
-                  "y": 0.138,
-                  "where": "no alto, o arco azul que cobre a parte redonda do fêmur",
+                  "x": 0.47,
+                  "y": 0.16,
+                  "where": "a bola ciano, no alto, junto ao osso azul",
                   "correctLabelId": "label:rtg-2026:m24:aula-03:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-03:i2:2",
-                  "x": 0.672,
-                  "y": 0.359,
-                  "where": "a parte redonda de cima, encaixada sob o arco azul",
+                  "x": 0.3,
+                  "y": 0.36,
+                  "where": "a parte estreita e inclinada, entre a bola e a haste",
                   "correctLabelId": "label:rtg-2026:m24:aula-03:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-03:i2:3",
-                  "x": 0.506,
-                  "y": 0.446,
-                  "where": "a parte estreita e inclinada, entre a parte redonda e o tubo",
+                  "x": 0.14,
+                  "y": 0.37,
+                  "where": "a saliência larga à esquerda, do lado de fora do osso",
                   "correctLabelId": "label:rtg-2026:m24:aula-03:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-03:i2:4",
-                  "x": 0.325,
-                  "y": 0.433,
-                  "where": "a saliência larga à esquerda, do lado de fora do osso",
+                  "x": 0.35,
+                  "y": 0.665,
+                  "where": "a saliência pequena à direita, abaixo do estreitamento",
                   "correctLabelId": "label:rtg-2026:m24:aula-03:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-03:i2:5",
-                  "x": 0.538,
-                  "y": 0.675,
-                  "where": "a saliência pequena à direita, abaixo do estreitamento",
+                  "x": 0.28,
+                  "y": 0.89,
+                  "where": "a haste longa que desce, na parte de baixo da figura",
                   "correctLabelId": "label:rtg-2026:m24:aula-03:i2:5"
-                },
-                {
-                  "id": "point:rtg-2026:m24:aula-03:i2:6",
-                  "x": 0.472,
-                  "y": 0.888,
-                  "where": "o tubo longo que desce, na parte de baixo da figura",
-                  "correctLabelId": "label:rtg-2026:m24:aula-03:i2:6"
                 }
               ],
               "labels": [
                 {
                   "id": "label:rtg-2026:m24:aula-03:i2:1",
-                  "label": "Acetábulo"
+                  "label": "Cabeça do fêmur"
                 },
                 {
                   "id": "label:rtg-2026:m24:aula-03:i2:4",
-                  "label": "Trocânter maior"
-                },
-                {
-                  "id": "label:rtg-2026:m24:aula-03:i2:5",
                   "label": "Trocânter menor"
                 },
                 {
-                  "id": "label:rtg-2026:m24:aula-03:i2:6",
+                  "id": "label:rtg-2026:m24:aula-03:i2:5",
                   "label": "Diáfise do fêmur"
                 },
                 {
-                  "id": "label:rtg-2026:m24:aula-03:i2:7",
+                  "id": "label:rtg-2026:m24:aula-03:i2:6",
                   "label": "Eminência intercondilar"
                 },
                 {
                   "id": "label:rtg-2026:m24:aula-03:i2:3",
-                  "label": "Colo do fêmur"
+                  "label": "Trocânter maior"
                 },
                 {
                   "id": "label:rtg-2026:m24:aula-03:i2:2",
-                  "label": "Cabeça do fêmur"
+                  "label": "Colo do fêmur"
                 }
               ]
             }
@@ -4034,15 +4023,6 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m24:aula-03:i2:6",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m24:openstax-ap2e-membro-inferior",
-        "source:rtg-2026:m24:openstax-ap2e-pelve"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m24:aula-03:i2:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -4071,15 +4051,6 @@ export const RTG_2026_M24: ProductionBatchV1 = {
     },
     {
       "claimId": "label:rtg-2026:m24:aula-03:i2:6",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m24:openstax-ap2e-membro-inferior",
-        "source:rtg-2026:m24:openstax-ap2e-pelve"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m24:aula-03:i2:7",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
@@ -6827,7 +6798,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bc5eb14343a6c458734bd0afef64612b2ac2cd5fd21d2de83cf1a2d52181cf38"
+      "materialSha256": "95b529e477e62b9385a43918521278a93cc3bfc1293cdab3fc5c8e72e3bbf986"
     },
     {
       "schemaVersion": 1,
@@ -6836,7 +6807,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bc5eb14343a6c458734bd0afef64612b2ac2cd5fd21d2de83cf1a2d52181cf38"
+      "materialSha256": "95b529e477e62b9385a43918521278a93cc3bfc1293cdab3fc5c8e72e3bbf986"
     },
     {
       "schemaVersion": 1,
@@ -6845,7 +6816,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bc5eb14343a6c458734bd0afef64612b2ac2cd5fd21d2de83cf1a2d52181cf38"
+      "materialSha256": "95b529e477e62b9385a43918521278a93cc3bfc1293cdab3fc5c8e72e3bbf986"
     },
     {
       "schemaVersion": 1,
@@ -6854,7 +6825,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bc5eb14343a6c458734bd0afef64612b2ac2cd5fd21d2de83cf1a2d52181cf38"
+      "materialSha256": "95b529e477e62b9385a43918521278a93cc3bfc1293cdab3fc5c8e72e3bbf986"
     },
     {
       "schemaVersion": 1,
@@ -6863,7 +6834,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bc5eb14343a6c458734bd0afef64612b2ac2cd5fd21d2de83cf1a2d52181cf38"
+      "materialSha256": "95b529e477e62b9385a43918521278a93cc3bfc1293cdab3fc5c8e72e3bbf986"
     },
     {
       "schemaVersion": 1,
@@ -6872,7 +6843,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bc5eb14343a6c458734bd0afef64612b2ac2cd5fd21d2de83cf1a2d52181cf38"
+      "materialSha256": "95b529e477e62b9385a43918521278a93cc3bfc1293cdab3fc5c8e72e3bbf986"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

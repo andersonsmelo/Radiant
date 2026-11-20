@@ -826,52 +826,51 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule seis partes do quadril direito visto de frente, tocando na ficha e no ponto. O lado de fora fica à esquerda.",
+          "prompt": "Rotule cinco partes do quadril direito visto de frente, tocando na ficha e no ponto. O lado de fora fica à esquerda.",
           "diagramId": "femur-proximal-e-quadril",
           "points": [
             {
-              "label": "Acetábulo",
-              "x": 0.632,
-              "y": 0.138,
-              "where": "no alto, o arco azul que cobre a parte redonda do fêmur"
-            },
-            {
               "label": "Cabeça do fêmur",
-              "x": 0.672,
-              "y": 0.359,
-              "where": "a parte redonda de cima, encaixada sob o arco azul"
+              "x": 0.47,
+              "y": 0.16,
+              "where": "a bola ciano, no alto, junto ao osso azul",
+              "alvo": "Cabeça do fêmur"
             },
             {
               "label": "Colo do fêmur",
-              "x": 0.506,
-              "y": 0.446,
-              "where": "a parte estreita e inclinada, entre a parte redonda e o tubo"
+              "x": 0.3,
+              "y": 0.36,
+              "where": "a parte estreita e inclinada, entre a bola e a haste",
+              "alvo": "Colo do fêmur"
             },
             {
               "label": "Trocânter maior",
-              "x": 0.325,
-              "y": 0.433,
-              "where": "a saliência larga à esquerda, do lado de fora do osso"
+              "x": 0.14,
+              "y": 0.37,
+              "where": "a saliência larga à esquerda, do lado de fora do osso",
+              "alvo": "Trocânter maior"
             },
             {
               "label": "Trocânter menor",
-              "x": 0.538,
-              "y": 0.675,
-              "where": "a saliência pequena à direita, abaixo do estreitamento"
+              "x": 0.35,
+              "y": 0.665,
+              "where": "a saliência pequena à direita, abaixo do estreitamento",
+              "alvo": "Trocânter menor"
             },
             {
               "label": "Diáfise do fêmur",
-              "x": 0.472,
-              "y": 0.888,
-              "where": "o tubo longo que desce, na parte de baixo da figura"
+              "x": 0.28,
+              "y": 0.89,
+              "where": "a haste longa que desce, na parte de baixo da figura",
+              "alvo": "Diáfise do fêmur"
             }
           ],
           "distractors": [
             "Eminência intercondilar"
           ],
-          "feedbackCorrect": "Isso mesmo: a cabeça no acetábulo, o colo estreito e as duas saliências no lugar.",
+          "feedbackCorrect": "Isso mesmo: a cabeça no alto, o colo estreito e as duas saliências no lugar.",
           "feedbackIncorrect": "Alguma ficha está fora do lugar: siga o osso de cima para baixo e separe lado de fora e lado de dentro.",
-          "help": "Comece pelo que encaixa no arco azul, no alto.",
+          "help": "Comece pela bola ciano, no alto.",
           "sourceIds": [
             "openstax-ap2e-membro-inferior",
             "openstax-ap2e-pelve"

@@ -1,0 +1,5 @@
+[
+  { "nome": "Pulmões", "x": 0.39, "y": 0.02, "width": 0.19, "height": 0.22 },
+  { "nome": "Coração", "x": 0.4, "y": 0.34, "width": 0.2, "height": 0.25 },
+  { "nome": "Corpo", "x": 0.41, "y": 0.78, "width": 0.17, "height": 0.19 }
+]

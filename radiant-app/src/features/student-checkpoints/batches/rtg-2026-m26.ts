@@ -6,7 +6,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m26",
-  "materialSha256": "97127e634466efe641d79ec9316c5a97b4a043a104c1e589d9b2b95b464bd566",
+  "materialSha256": "abce3af5defa8b824278baaf0fc8bf245022d1d73c231d391e9f6977e8f0e841",
   "trackId": "track:rtg-2026:m26",
   "unitId": "unit:rtg-2026:m26",
   "contentVersion": "rtg-2026-m26-v1",
@@ -2036,39 +2036,39 @@ export const RTG_2026_M26: ProductionBatchV1 = {
             },
             "payload": {
               "prompt": "Na cistouretrografia, na fase da micção, o contraste sai da bexiga. Toque na estrutura por onde ele passa.",
-              "imageRef": "diagram:sistema-urinario",
+              "imageRef": "diagram:bexiga-e-uretra",
               "regions": [
                 {
                   "id": "region:rtg-2026:m26:aula-06:i3:1",
-                  "label": "Rim do lado direito do paciente",
-                  "x": 0.27,
-                  "y": 0.1,
-                  "width": 0.15,
-                  "height": 0.21
+                  "label": "Ureter do lado direito do paciente",
+                  "x": 0.306,
+                  "y": 0.058,
+                  "width": 0.08,
+                  "height": 0.133
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-06:i3:2",
-                  "label": "Rim do lado esquerdo do paciente",
-                  "x": 0.57,
-                  "y": 0.07,
-                  "width": 0.15,
-                  "height": 0.21
+                  "label": "Ureter do lado esquerdo do paciente",
+                  "x": 0.645,
+                  "y": 0.058,
+                  "width": 0.08,
+                  "height": 0.133
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-06:i3:3",
                   "label": "Bexiga",
-                  "x": 0.41,
-                  "y": 0.56,
-                  "width": 0.18,
-                  "height": 0.2
+                  "x": 0.256,
+                  "y": 0.233,
+                  "width": 0.488,
+                  "height": 0.498
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-06:i3:4",
                   "label": "Uretra",
-                  "x": 0.46,
-                  "y": 0.77,
-                  "width": 0.08,
-                  "height": 0.2
+                  "x": 0.45,
+                  "y": 0.7333,
+                  "width": 0.1,
+                  "height": 0.26
                 }
               ],
               "correctRegionIds": [
@@ -6620,7 +6620,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "97127e634466efe641d79ec9316c5a97b4a043a104c1e589d9b2b95b464bd566"
+      "materialSha256": "abce3af5defa8b824278baaf0fc8bf245022d1d73c231d391e9f6977e8f0e841"
     },
     {
       "schemaVersion": 1,
@@ -6629,7 +6629,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "97127e634466efe641d79ec9316c5a97b4a043a104c1e589d9b2b95b464bd566"
+      "materialSha256": "abce3af5defa8b824278baaf0fc8bf245022d1d73c231d391e9f6977e8f0e841"
     },
     {
       "schemaVersion": 1,
@@ -6638,7 +6638,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "97127e634466efe641d79ec9316c5a97b4a043a104c1e589d9b2b95b464bd566"
+      "materialSha256": "abce3af5defa8b824278baaf0fc8bf245022d1d73c231d391e9f6977e8f0e841"
     },
     {
       "schemaVersion": 1,
@@ -6647,7 +6647,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "97127e634466efe641d79ec9316c5a97b4a043a104c1e589d9b2b95b464bd566"
+      "materialSha256": "abce3af5defa8b824278baaf0fc8bf245022d1d73c231d391e9f6977e8f0e841"
     },
     {
       "schemaVersion": 1,
@@ -6656,7 +6656,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "97127e634466efe641d79ec9316c5a97b4a043a104c1e589d9b2b95b464bd566"
+      "materialSha256": "abce3af5defa8b824278baaf0fc8bf245022d1d73c231d391e9f6977e8f0e841"
     },
     {
       "schemaVersion": 1,
@@ -6665,7 +6665,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "97127e634466efe641d79ec9316c5a97b4a043a104c1e589d9b2b95b464bd566"
+      "materialSha256": "abce3af5defa8b824278baaf0fc8bf245022d1d73c231d391e9f6977e8f0e841"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

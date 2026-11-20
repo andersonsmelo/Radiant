@@ -120,10 +120,14 @@ ${layers.join('\n')}
 }
 
 /** Molde das figuras de acervo paradas (fase 1): uma camada de arte, mais camadas de código em `extra`. */
-function importada({ id, name, header, alt, transform, nota, extra = [] }) {
+function importada({ id, name, header, alt, transform, nota, notas, extra = [] }) {
   return (o) => {
-    const art = clean(o.layers[0].svg);
-    const layers = [{ note: nota, svg: transform ? `<g transform="${transform(o)}">${art}</g>` : art }, ...extra];
+    // Uma camada de arte por padrão; `notas` (por nome da camada do split) vale para figuras com várias camadas de arte.
+    const arte = o.layers.map((l, i) => {
+      const art = clean(l.svg);
+      return { note: notas ? notas[l.name] : i === 0 ? nota : undefined, svg: transform ? `<g transform="${transform(o)}">${art}</g>` : art };
+    });
+    const layers = [...arte, ...extra];
     const items = layers.map(({ note, svg }) => `    {\n${note ? `      // ${note}\n` : ''}      svg: ${JSON.stringify(svg)},\n    },`);
     return `import type { DiagramSpec } from '../diagramTypes';
 
@@ -141,6 +145,13 @@ ${items.join('\n')}
 `;
   };
 }
+
+// Enquadra o viewBox da fonte no quadro 320x240, centrado e sem margem (a fonte já está na razão do quadro).
+const noQuadro = (viewBox) => {
+  const [bx, by, bw, bh] = viewBox.split(/[ ,]+/).map(Number);
+  const s = Math.min(320 / bw, 240 / bh);
+  return `translate(${r((320 - bw * s) / 2 - bx * s)} ${r((240 - bh * s) / 2 - by * s)}) scale(${Math.round(s * 1e5) / 1e5})`;
+};
 
 // Enquadra a caixa [x, y, w, h] do desenho no quadro 320x240, centrada, com 10 de margem.
 const caixa = ([bx, by, bw, bh]) => {
@@ -350,6 +361,140 @@ export const FIGURES = {
       // Escala 0,07 (o corpo ocupa 233,6 das 240 unidades de altura, com 3,2 de margem em cima e embaixo; com 10 de margem seria 220):
       // a margem fechada dá ao corpo 6% mais altura e largura. A caixa da fonte (812 719 1293 3337) vem do agente de arte; o topo real do contorno fica 1,1 abaixo dela.
       transform: () => 'translate(57.905 -47.13) scale(0.07)',
+    }),
+  },
+  'femur-proximal-e-quadril': {
+    file: 'femur-proximal-e-quadril.ts',
+    options: {},
+    render: importada({
+      id: 'femur-proximal-e-quadril',
+      name: 'femurProximalEQuadril',
+      header: `// Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
+// Obra: slides "Bones of pelvis" (pelve de frente) e "Femur" do kit SMART-Bones, Servier Medical Art, CC BY 4.0
+// (vetores copiados do pptx do kit, sem alterar as formas), sem rótulos, recolorida para a paleta do app e achatada
+// para atributos de apresentação. Composição de duas peças do mesmo kit: o fêmur foi espelhado na horizontal (a arte
+// original é do outro lado) e só TRANSLADADO sobre a pelve, em (3415, 2610) na fonte, por critério medido (cabeça fora do
+// forame obturado; arco de Shenton contínuo do colo ao teto do forame). O acetábulo não é desenhado pela arte.
+// Fonte versionada: scripts/content/figuras/fontes/femur-proximal-e-quadril.svg.
+// Quadro 320x240, parado; recorte do quadril direito de frente que sangra nas bordas (a pelve e a diáfise continuam
+// fora do quadro): lado de fora do paciente à esquerda, linha média à direita.
+// Cores: osso do quadril azul; cabeça do fêmur ciano; colo, trocânteres e diáfise âmbar; sínfise púbica cinza claro.`,
+      alt: 'Quadril direito de frente: osso do quadril em azul, cabeça do fêmur ciano junto dele, colo inclinado, trocânteres e a diáfise em âmbar; lado de fora à esquerda.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'respiracao-diafragma': {
+    file: 'respiracao-diafragma.ts',
+    options: {
+      dropBackground: true,
+      split: "(svg) => ['expiracao', 'inspiracao'].map((id) => ({ name: id, nodes: [svg.querySelector('#' + id)] }))",
+    },
+    render: importada({
+      id: 'respiracao-diafragma',
+      name: 'respiracaoDiafragma',
+      header: `// Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
+// Obras: "breathing-expiration" e "breathing-inspiration" (Servier Medical Art, CC BY), vetores de https://bioicons.com.
+// Os dois desenhos do autor inteiros, parados, lado a lado e na mesma escala, alinhados pelo topo e pelo eixo do esterno
+// (o esterno da inspiração mede 3,8% menos que o da expiração no original; não corrigido). Sem a seta e o texto da arte,
+// recolorida para a paleta do app e achatada para atributos de apresentação. Coordenadas na grade de 0,1 da fonte.
+// Fonte versionada: scripts/content/figuras/fontes/respiracao-diafragma.svg. Quadro 320x240.
+// Lado direito do paciente à esquerda de quem vê. Pulmões azul, costelas e esterno cinza claro, diafragma (linha em cúpula) âmbar.`,
+      alt: 'Dois desenhos do tórax de frente, lado a lado, com costelas, esterno, pulmões azuis e uma linha âmbar em cúpula: à esquerda a expiração, à direita a inspiração.',
+      notas: {
+        expiracao: 'Expiração (desenho do autor), à esquerda: costelas fechadas, cúpula do diafragma alta, pulmões menores.',
+        inspiracao: 'Inspiração (desenho do autor), à direita, na mesma escala: costelas abertas, diafragma mais baixo, pulmões maiores.',
+      },
+    }),
+  },
+  'circulacao-dupla': {
+    file: 'circulacao-dupla.ts',
+    options: {},
+    render: importada({
+      id: 'circulacao-dupla',
+      name: 'circulacaoDupla',
+      header: `// Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
+// Obra: "Systemic and pulmonary circulation" (202410), DBCLS / TogoTV: desenhada por erico, editada por JSHG e DBCLS;
+// Wikimedia Commons, CC BY 4.0. Sem alteração de forma: só recolorida para a paleta do app e recortada pelo viewBox
+// (-30 -3 460 345, 4:3) para o trecho que a aula usa: pulmões, coração e o corpo com a rede capilar; as pernas ficam fora do quadro.
+// Parada, sem movimento: as setas brancas são do autor. Quadro 320x240.
+// Cores: azul = sangue pobre em oxigênio (coração direito do paciente, veias, artéria pulmonar), âmbar = rico (coração esquerdo,
+// aorta, veias pulmonares); pulmões em ciano escuro, corpo cinza claro. Lado direito do paciente à esquerda de quem vê.`,
+      alt: 'Pulmões no alto, coração de quatro câmaras no meio e um corpo embaixo, ligados por dois circuitos de vasos azuis e âmbar com setas brancas.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'seios-da-face': {
+    file: 'seios-da-face.ts',
+    options: {},
+    render: importada({
+      id: 'seios-da-face',
+      name: 'seiosDaFace',
+      header: `// Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
+// Obra: Servier Medical Art (Laboratoires Servier), kit SMART-ENT, CC BY 4.0. Aqui: corte sagital mediano do nariz (obra "Nasal cavity"), face para a esquerda, com o seio frontal (azul) e o esfenoidal (âmbar).
+// Todos os caminhos do autor estão na fonte; o que passa do quadro 320x240 sai pelo enquadramento.
+// Só recolorida para a paleta do app: azul (frontal e maxilar, uma só forma no desenho do autor), ciano (etmoidal), âmbar (esfenoidal).`,
+      alt: 'Corte lateral do nariz com a face para a esquerda: o seio frontal em azul no alto e o esfenoidal em âmbar atrás da cavidade nasal escura.',
+    }),
+  },
+  'seios-da-face-frente': {
+    file: 'seios-da-face-frente.ts',
+    options: {},
+    render: importada({
+      id: 'seios-da-face-frente',
+      name: 'seiosDaFaceFrente',
+      header: `// Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
+// Obra: Servier Medical Art (Laboratoires Servier), kit SMART-ENT, CC BY 4.0. Aqui: rosto de frente (obra "Paranasal sinuses"; lado direito do paciente à esquerda de quem vê), com frontal e maxilar numa só massa azul e as células etmoidais em ciano.
+// Todos os caminhos do autor estão na fonte; o que passa do quadro 320x240 sai pelo enquadramento.
+// Só recolorida para a paleta do app: azul (frontal e maxilar, uma só forma no desenho do autor), ciano (etmoidal), âmbar (esfenoidal).`,
+      alt: 'Rosto de frente, do alto da testa à boca, com os seios em azul e ciano: massas grandes no alto e embaixo e câmaras pequenas ao lado do nariz.',
+    }),
+  },
+  'sistema-urinario': {
+    file: 'sistema-urinario.ts',
+    options: {},
+    render: importada({
+      id: 'sistema-urinario',
+      name: 'sistemaUrinario',
+      header: `// Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
+// Obra: "Urinary tract" (Servier Medical Art, kit SMART-Urinary-system, slide 3, grupo "Group 3", CC BY 4.0; https://smart.servier.com/smart_image/urinary-tract/),
+// vetores copiados do pptx do kit; sem rótulos (a arte não tem). Recolorida para a paleta do app (cor por estrutura, luminosidade original de cada forma) e achatada para atributos de apresentação.
+// Fonte versionada: scripts/content/figuras/fontes/sistema-urinario.svg. Quadro 320x240, parado; o desenho (sistema feminino de frente) ocupa 222 de altura, centrado.
+// Lado do paciente: o rim direito do paciente fica à ESQUERDA de quem vê e está inteiro (visto de fora); o rim esquerdo, à direita de quem vê, está em corte (mostra a pelve e as pirâmides).
+// Cores: rins âmbar, ureteres ciano, bexiga e uretra azuis.`,
+      alt: 'Sistema urinário de frente: um rim inteiro e outro em corte no alto, dois ureteres compridos descendo até a bexiga, que se abre numa uretra curta.',
+      transform: () => 'translate(39.127 -55.038) scale(0.089)',
+    }),
+  },
+  'bexiga-e-uretra': {
+    file: 'bexiga-e-uretra.ts',
+    options: {},
+    render: importada({
+      id: 'bexiga-e-uretra',
+      name: 'bexigaEUretra',
+      header: `// Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
+// Obra: "Urinary tract" (Servier Medical Art, kit SMART-Urinary-system, slide 3, grupo "Group 3", CC BY 4.0; https://smart.servier.com/smart_image/urinary-tract/).
+// Recorte ampliado da MESMA arte de sistema-urinario (mesmas formas do autor, só outro enquadramento; as que cruzam a borda ficam inteiras e o quadro corta; as que ficam todas fora do quadro não foram copiadas).
+// Fonte versionada: scripts/content/figuras/fontes/bexiga-e-uretra.svg. Quadro 320x240, parado, escala 0,25 sobre a caixa [719 2263.02 1280 960] do desenho.
+// Cores: bexiga e uretra azuis, as pontas dos ureteres ciano.`,
+      alt: 'Bexiga aberta, com o relevo interno, e uma uretra curta saindo da base; as pontas dos dois ureteres chegam à bexiga por cima.',
+      transform: () => 'translate(-179.75 -565.755) scale(0.25)',
+    }),
+  },
+  'contraste-no-corpo': {
+    file: 'contraste-no-corpo.ts',
+    options: {},
+    render: importada({
+      id: 'contraste-no-corpo',
+      name: 'contrasteNoCorpo',
+      header: `// Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
+// Obras: "Complete digestive apparatus" e "Urinary tract" (feminino), ambas do Servier Medical Art (CC BY 4.0), vetores copiados
+// dos pptx dos kits SMART-Digestive-system (slide 3, grupo "Group 5") e SMART-Urinary-system (slide 3, grupo "Group 3").
+// Duas peças do mesmo autor postas lado a lado no quadro 320x240, sem sobreposição, com a mesma linha de base: o trato digestivo
+// à esquerda e o sistema urinário à direita, cada um como o autor desenhou, sem posição relativa entre eles.
+// Fontes versionadas: scripts/content/figuras/fontes/contraste-no-corpo.svg. Quadro parado; lado direito do paciente à esquerda de quem vê.
+// Cores: trato digestivo todo em tons de âmbar (#FFC21A); sistema urinário todo em tons de azul (#4A9EFF); cada tom varia com a luminosidade da arte.
+// Coordenadas dos caminhos arredondadas por igual.`,
+      alt: 'Dois painéis: à esquerda, esôfago, estômago e intestinos em âmbar; à direita, dois rins, dois ureteres e a bexiga em azul.',
     }),
   },
   'cranio-de-perfil-ossos': { file: 'cranio-de-perfil-ossos.ts', options: { dropBackground: true }, render: cranio },
