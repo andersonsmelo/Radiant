@@ -173,6 +173,7 @@ const LINHAS_CRANIO = [
 ];
 
 const ACERVO = 'Arte importada (art: \'imported\'), gerada por script a partir do acervo; não editar à mão.';
+const ANATOMY = 'Arte importada (art: \'imported\'), cena isométrica própria do projeto, feita em código com o kit da skill `anatomy` (scripts/content/figuras/kit/); gerada por script, não editar à mão. Sem arte de terceiros.';
 
 export const FIGURES = {
   'esqueleto-axial-apendicular': {
@@ -562,6 +563,84 @@ export const FIGURES = {
 // O id diz "e-axial" por história: a vista axial da lâmina não está mais no quadro, que mostra só o corte sagital.
 // Só recolorida para a paleta do app: osso âmbar, discos azuis, medula e raízes ciano, tecidos moles em cinza.`,
       alt: 'Corte sagital da coluna lombar, frente à esquerda: blocos com textura empilhados, faixas azuis entre eles, um canal com fios e peças em feijão atrás.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'tubo-raios-x': {
+    file: 'tubo-raios-x.ts',
+    options: {},
+    render: importada({
+      id: 'tubo-raios-x',
+      name: 'tuboRaiosX',
+      header: `// ${ANATOMY}
+// Ampola vista de lado e de cima: cátodo com filamento à esquerda, disco do ânodo com a face inclinada para o cátodo à direita, janela embaixo do ponto de impacto, fila de elétrons e feixe para baixo. Ângulo do alvo exagerado (22 graus; o real vai de 7 a 17).
+// Receita: scripts/content/figuras/cenas/tubo-raios-x.mjs; fonte versionada: scripts/content/figuras/fontes/tubo-raios-x.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Tubo de raios X com o vidro transparente: o cátodo à esquerda emite elétrons para o disco do ânodo, à direita; o feixe sai para baixo pela janela.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'tubo-emitindo': {
+    file: 'tubo-emitindo.ts',
+    options: {},
+    render: importada({
+      id: 'tubo-emitindo',
+      name: 'tuboEmitindo',
+      header: `// ${ANATOMY}
+// A mesma ampola de tubo-raios-x, parada (sem laço: decisão do dono de 2026-11-20), com o filamento aceso, cinco filas de elétrons, o ponto focal brilhando e o feixe pela janela.
+// Receita: scripts/content/figuras/cenas/tubo-emitindo.mjs; fonte versionada: scripts/content/figuras/fontes/tubo-emitindo.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Tubo de raios X em funcionamento: o filamento aceso do cátodo libera elétrons até o alvo do ânodo; do ponto de impacto sai o feixe, pela janela.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'anodo-giratorio': {
+    file: 'anodo-giratorio.ts',
+    options: {},
+    render: importada({
+      id: 'anodo-giratorio',
+      name: 'anodoGiratorio',
+      header: `// ${ANATOMY}
+// Disco do ânodo e cátodo de frente, parados (sem laço: decisão do dono de 2026-11-20): o giro se lê pela seta, pelas marcas radiais e pelo trecho aquecido da pista.
+// Receita: scripts/content/figuras/cenas/anodo-giratorio.mjs; fonte versionada: scripts/content/figuras/fontes/anodo-giratorio.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Disco do ânodo de frente, com a pista em anel: os elétrons batem num ponto fixo e dali sai o feixe; a seta mostra o giro e o trecho aquecido.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'conferencia-de-identidade': {
+    file: 'conferencia-de-identidade.ts',
+    options: {},
+    render: importada({
+      id: 'conferencia-de-identidade',
+      name: 'conferenciaDeIdentidade',
+      header: `// ${ANATOMY}
+// Paciente deitado na maca com pulseira no punho, profissional de pé com a folha do pedido e tela no pedestal; pulseira, folha e tela maiores que o real, de propósito.
+// Receita: scripts/content/figuras/cenas/conferencia-de-identidade.mjs; fonte versionada: scripts/content/figuras/fontes/conferencia-de-identidade.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Paciente deitado numa maca, com pulseira no punho; um profissional de pé segura a folha do pedido, e à direita há uma tela num suporte.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'pontos-de-contato-da-sala': {
+    file: 'pontos-de-contato-da-sala.ts',
+    options: {},
+    render: importada({
+      id: 'pontos-de-contato-da-sala',
+      name: 'pontosDeContatoDaSala',
+      header: `// ${ANATOMY}
+// Sala de exame com as superfícies de contato: maçaneta, barra de apoio do receptor, mesa de exame, manopla do tubo e teclado do comando; objetos pequenos maiores que o real, de propósito.
+// Receita: scripts/content/figuras/cenas/pontos-de-contato-da-sala.mjs; fonte versionada: scripts/content/figuras/fontes/pontos-de-contato-da-sala.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Sala de exame: porta com maçaneta, receptor vertical com barra de apoio, mesa de exame, tubo no teto com manopla e mesa do comando com teclado.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'itens-de-emergencia-da-sala': {
+    file: 'itens-de-emergencia-da-sala.ts',
+    options: {},
+    render: importada({
+      id: 'itens-de-emergencia-da-sala',
+      name: 'itensDeEmergenciaDaSala',
+      header: `// ${ANATOMY}
+// Parede de uma sala de exame com os cinco recursos de emergência e a mesa no chão; as placas de parede são maiores que o real, de propósito.
+// Receita: scripts/content/figuras/cenas/itens-de-emergencia-da-sala.mjs; fonte versionada: scripts/content/figuras/fontes/itens-de-emergencia-da-sala.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Parede de sala de exame: porta de saída, carrinho de emergência, saída de oxigênio, botão de chamada, telefone e mesa de exame no chão.',
       transform: (o) => noQuadro(o.viewBox),
     }),
   },
