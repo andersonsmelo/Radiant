@@ -1,5 +1,5 @@
 // Compõe pelve (Group 308, slide "Bones of pelvis") + fêmur (Group 50, slide "Femur") do SMART-Bones (Servier, CC BY 4.0).
-// Entradas: s11_Group_308.svg e s14_Group_50.svg nesta pasta (saída de pptx2svg.py sobre original.pptx).
+// Entradas, versionadas nesta pasta: s11_Group_308.svg (sha256 be524a5e...1883) e s14_Group_50.svg (sha256 d599565d...e84fe), saída de femur-proximal-e-quadril.pptx2svg.py sobre o original.pptx do kit (sha256 em figuras.json). Roda num checkout limpo.
 // Padrão = a figura entregue; variáveis só para exploração (TX, TY, VB, OUT).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';

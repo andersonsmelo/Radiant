@@ -6,7 +6,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m20",
-  "materialSha256": "edaad7d6b9ec57dcbbab9079be259442414b53672c9cf89c3a7e06f8bd2abf1e",
+  "materialSha256": "d3abfba8c7cb12ccea98a5201fac7d3d5d4999331324d2a3263fd0fa024c679d",
   "trackId": "track:rtg-2026:m20",
   "unitId": "unit:rtg-2026:m20",
   "contentVersion": "rtg-2026-m20-v1",
@@ -378,7 +378,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Toque na imagem: Compare os dois desenhos e toque, no desenho da inspiração, numa estrutura que muda de posição por ação de músculo para aumentar o tórax."
+              "label": "Toque na imagem: Compare os dois desenhos e toque numa estrutura que muda de posição por ação de músculo para aumentar o tórax."
             },
             "help": "Lembre o que Caio disse sobre o pulmão e procure o que se move em volta dele.",
             "type": "hotspot",
@@ -387,16 +387,16 @@ export const RTG_2026_M20: ProductionBatchV1 = {
               "incorrect": "Essa estrutura não se move por músculo próprio: os pulmões só acompanham o tórax."
             },
             "payload": {
-              "prompt": "Compare os dois desenhos e toque, no desenho da inspiração, numa estrutura que muda de posição por ação de músculo para aumentar o tórax.",
+              "prompt": "Compare os dois desenhos e toque numa estrutura que muda de posição por ação de músculo para aumentar o tórax.",
               "imageRef": "diagram:respiracao-diafragma",
               "regions": [
                 {
                   "id": "region:rtg-2026:m20:aula-01:i4:1",
                   "label": "Diafragma",
-                  "x": 0.66,
-                  "y": 0.5,
+                  "x": 0.1,
+                  "y": 0.53,
                   "width": 0.24,
-                  "height": 0.24
+                  "height": 0.21
                 },
                 {
                   "id": "region:rtg-2026:m20:aula-01:i4:2",
@@ -417,10 +417,10 @@ export const RTG_2026_M20: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m20:aula-01:i4:4",
                   "label": "Costelas do lado direito do paciente",
-                  "x": 0.5,
-                  "y": 0.5,
+                  "x": 0.495,
+                  "y": 0.64,
                   "width": 0.085,
-                  "height": 0.24
+                  "height": 0.2
                 }
               ],
               "correctRegionIds": [
@@ -1262,7 +1262,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Do rim ao lado de fora",
-            "body": "Os rins filtram o sangue e produzem a urina. De cada rim, a urina desce por um ureter, um tubo que a empurra por ondas musculares. A bexiga guarda a urina até ela sair pela uretra. O caminho é: rim, ureter, bexiga, uretra. Uma parte do contraste injetado na veia sai pela urina: é função normal dos rins, e dúvidas sobre cada paciente são da equipe. Na maioria das pessoas, o rim do lado direito fica um pouco mais baixo que o esquerdo; neste esquema os dois estão na mesma altura.",
+            "body": "Os rins filtram o sangue e produzem a urina. De cada rim, a urina desce por um ureter, um tubo que a empurra por ondas musculares. A bexiga guarda a urina até ela sair pela uretra. O caminho é: rim, ureter, bexiga, uretra. Uma parte do contraste injetado na veia sai pela urina: é função normal dos rins, e dúvidas sobre cada paciente são da equipe. Na maioria das pessoas, o rim do lado direito fica um pouco mais baixo que o esquerdo; neste esquema os dois estão quase na mesma altura.",
             "keyPoints": [
               "Rim, ureter, bexiga, uretra: o caminho da urina.",
               "Rim filtra, ureter leva, bexiga guarda, uretra elimina."
@@ -6635,7 +6635,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "edaad7d6b9ec57dcbbab9079be259442414b53672c9cf89c3a7e06f8bd2abf1e"
+      "materialSha256": "d3abfba8c7cb12ccea98a5201fac7d3d5d4999331324d2a3263fd0fa024c679d"
     },
     {
       "schemaVersion": 1,
@@ -6644,7 +6644,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "edaad7d6b9ec57dcbbab9079be259442414b53672c9cf89c3a7e06f8bd2abf1e"
+      "materialSha256": "d3abfba8c7cb12ccea98a5201fac7d3d5d4999331324d2a3263fd0fa024c679d"
     },
     {
       "schemaVersion": 1,
@@ -6653,7 +6653,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "edaad7d6b9ec57dcbbab9079be259442414b53672c9cf89c3a7e06f8bd2abf1e"
+      "materialSha256": "d3abfba8c7cb12ccea98a5201fac7d3d5d4999331324d2a3263fd0fa024c679d"
     },
     {
       "schemaVersion": 1,
@@ -6662,7 +6662,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "edaad7d6b9ec57dcbbab9079be259442414b53672c9cf89c3a7e06f8bd2abf1e"
+      "materialSha256": "d3abfba8c7cb12ccea98a5201fac7d3d5d4999331324d2a3263fd0fa024c679d"
     },
     {
       "schemaVersion": 1,
@@ -6671,7 +6671,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "edaad7d6b9ec57dcbbab9079be259442414b53672c9cf89c3a7e06f8bd2abf1e"
+      "materialSha256": "d3abfba8c7cb12ccea98a5201fac7d3d5d4999331324d2a3263fd0fa024c679d"
     },
     {
       "schemaVersion": 1,
@@ -6680,7 +6680,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "edaad7d6b9ec57dcbbab9079be259442414b53672c9cf89c3a7e06f8bd2abf1e"
+      "materialSha256": "d3abfba8c7cb12ccea98a5201fac7d3d5d4999331324d2a3263fd0fa024c679d"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

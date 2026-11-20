@@ -276,16 +276,16 @@
           "id": "i4",
           "type": "hotspot",
           "role": "practice",
-          "prompt": "Compare os dois desenhos e toque, no desenho da inspiração, numa estrutura que muda de posição por ação de músculo para aumentar o tórax.",
+          "prompt": "Compare os dois desenhos e toque numa estrutura que muda de posição por ação de músculo para aumentar o tórax.",
           "diagramId": "respiracao-diafragma",
           "regions": [
             {
               "label": "Diafragma",
-              "alvo": "Diafragma",
-              "x": 0.66,
-              "y": 0.5,
+              "alvo": "Diafragma na expiração",
+              "x": 0.1,
+              "y": 0.53,
               "width": 0.24,
-              "height": 0.24,
+              "height": 0.21,
               "correct": true
             },
             {
@@ -307,10 +307,10 @@
             {
               "label": "Costelas do lado direito do paciente",
               "alvo": "Costelas do lado direito do paciente",
-              "x": 0.5,
-              "y": 0.5,
+              "x": 0.495,
+              "y": 0.64,
               "width": 0.085,
-              "height": 0.24,
+              "height": 0.2,
               "correct": true
             }
           ],
@@ -1173,7 +1173,7 @@
       },
       "concept": {
         "title": "Do rim ao lado de fora",
-        "body": "Os rins filtram o sangue e produzem a urina. De cada rim, a urina desce por um ureter, um tubo que a empurra por ondas musculares. A bexiga guarda a urina até ela sair pela uretra. O caminho é: rim, ureter, bexiga, uretra. Uma parte do contraste injetado na veia sai pela urina: é função normal dos rins, e dúvidas sobre cada paciente são da equipe. Na maioria das pessoas, o rim do lado direito fica um pouco mais baixo que o esquerdo; neste esquema os dois estão na mesma altura.",
+        "body": "Os rins filtram o sangue e produzem a urina. De cada rim, a urina desce por um ureter, um tubo que a empurra por ondas musculares. A bexiga guarda a urina até ela sair pela uretra. O caminho é: rim, ureter, bexiga, uretra. Uma parte do contraste injetado na veia sai pela urina: é função normal dos rins, e dúvidas sobre cada paciente são da equipe. Na maioria das pessoas, o rim do lado direito fica um pouco mais baixo que o esquerdo; neste esquema os dois estão quase na mesma altura.",
         "keyPoints": [
           "Rim, ureter, bexiga, uretra: o caminho da urina.",
           "Rim filtra, ureter leva, bexiga guarda, uretra elimina."

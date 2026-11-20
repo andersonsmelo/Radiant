@@ -1,5 +1,5 @@
 // Compõe scripts/content/figuras/fontes/respiracao-diafragma.svg: os dois estados do autor (Servier Medical Art) lado a lado.
-// Uso: node compor.mjs <pasta-dos-originais> <saida.svg> [passo=0.1]
+// Uso: node compor.mjs <pasta-dos-originais> <saida.svg> [passo=0.1]  (sem variáveis de ambiente reproduz a fonte; S, YS, CXE, CXI só para exploração)
 // Cada painel é o desenho inteiro do autor (todos os caminhos, texturas e brilhos); só saem a seta, o texto, o retângulo de recorte.
 // O passo arredonda TODAS as coordenadas por igual, sem deixar a deriva dos comandos relativos acumular.
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -25,7 +25,7 @@ const snap = (v) => Math.round(v / Q) * Q;
 const NARGS = { m: 2, l: 2, h: 1, v: 1, c: 6, s: 4, q: 4, t: 2, a: 7, z: 0 };
 
 // Lê o `d` e o reescreve com as coordenadas absolutas encaixadas na grade e os comandos relativos recalculados contra o ponto JÁ
-// arredondado (sem deriva). O primeiro moveto sai sempre absoluto, para que a união de caminhos vizinhos seja segura.
+// arredondado (sem deriva)..
 function requant(d) {
   const re = /([a-zA-Z])|([-+]?(?:\d*\.\d+|\d+\.?)(?:[eE][-+]?\d+)?)/g;
   const toks = [];
@@ -88,18 +88,13 @@ const fix = (p) => {
   const rule = /fill-rule="([^"]*)"/.exec(p)?.[1];
   return { a: `<path fill="${MAP[fill]}"${rule ? ` fill-rule="${rule}"` : ''}`, d: requant(d), arrow: fill === '#6ac5dc' };
 };
-// Une caminhos vizinhos com os mesmos atributos (a ordem de pintura não muda).
-const merge = (list) => {
-  const o = [];
-  for (const p of list) { const l = o[o.length - 1]; if (l && l.a === p.a) l.d += p.d; else o.push({ ...p }); }
-  return o.map(({ a, d }) => `${a} d="${d}"/>`).join('');
-};
-const state = (f) => merge(paths(f).filter((p) => !/fill="#6ac5dc"/.test(p)).map(fix));
+// Sem união de caminhos: caminho `evenodd` unido a vizinhos cancela subcaminhos que se sobrepõem e apaga traço do autor.
+const state = (f) => paths(f).filter((p) => !/fill="#6ac5dc"/.test(p)).map(fix).map(({ a, d }) => `${a} d="${d}"/>`).join('');
 
 // Alinhamento: o topo do esterno (a silhueta #343434 do esterno inteiro) e o eixo dele no mesmo ponto de cada painel.
 // Medidas no original (getBBox): expiração x 112,2 a 186,0, topo 48,6; inspiração x 138,0 a 209,0, topo 37,9.
 const REF = { exp: [(112.2 + 186.0) / 2, 48.6], ins: [(138.0 + 209.0) / 2, 37.9] };
-const S = Number(process.env.S ?? 0.48), YS = Number(process.env.YS ?? 31), CX = [Number(process.env.CXE ?? 78), Number(process.env.CXI ?? 238)];
+const S = Number(process.env.S ?? 0.46), YS = Number(process.env.YS ?? 34), CX = [Number(process.env.CXE ?? 72), Number(process.env.CXI ?? 234)];
 const place = (ref, cx) => `translate(${fmt(cx - ref[0] * S)} ${fmt(YS - ref[1] * S)}) scale(${S})`;
 writeFileSync(out, `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240"><g id="expiracao" transform="${place(REF.exp, CX[0])}">${state('breathing-expiration')}</g><g id="inspiracao" transform="${place(REF.ins, CX[1])}">${state('breathing-inspiration')}</g></svg>`);
 console.log('KiB', (readFileSync(out).length / 1024).toFixed(1));

@@ -5,7 +5,7 @@ Quadro 320 x 240, escala 0,25 sobre a caixa [719 2263 1280 960] do desenho (`tra
 | Medida | SEER (versão anterior) | Servier (esta) |
 |---|---|---|
 | Uretra: tamanho do tubo | 11 x 37 unidades, sem relevo | ~20 x 62 unidades (dois lábios com a luz ao meio) |
-| Área de toque da Uretra (região 0,1 x 0,26; retângulo 50,3 x 62,4, y 176 a 238) com bexiga dentro | 5,4% da área | 2,1% da área (a base da bexiga acima de y 177); 0,37% da bexiga cai na área |
+| Área de toque da Uretra (região 0,1 x 0,26; retângulo 50,3 x 62,4, y 176 a 238) com bexiga dentro | 5,4% da área | 11 a 14% da área (a base arredondada da bexiga ocupa a largura toda até y ≈ 0,757 e o funil vai até ≈ 0,78; medida do revisor em 2026-11-20, que corrige 2,1% e 0,37% do agente de arte); tudo isso fica sob o selo opaco (y 0,733 a 0,847), então o aluno não vê nem mira bexiga ali |
 | Selo da Uretra (y 176 a 203) | cobria o colo da bexiga | cobre o início do tubo; ficam à vista y 203 a 238: 35 de 62 unidades do tubo (56%, ~31 de 55 pt) |
 | Sobreposição entre retângulos de toque | nenhuma | nenhuma (`targetErrors`, razão 320:240, sem erro) |
 
