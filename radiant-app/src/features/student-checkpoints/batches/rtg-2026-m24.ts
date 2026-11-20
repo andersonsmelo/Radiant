@@ -6,7 +6,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m24",
-  "materialSha256": "95b529e477e62b9385a43918521278a93cc3bfc1293cdab3fc5c8e72e3bbf986",
+  "materialSha256": "baa5f8ffee014a954825c5af3459d332bf46cc9926248216316e7fdeecfb0269",
   "trackId": "track:rtg-2026:m24",
   "unitId": "unit:rtg-2026:m24",
   "contentVersion": "rtg-2026-m24-v1",
@@ -1289,55 +1289,56 @@ export const RTG_2026_M24: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule cinco partes da pelve vista de frente, tocando na ficha e no ponto. O lado direito do paciente fica à esquerda da figura."
+              "label": "Rotular a imagem: Rotule quatro partes da pelve vista de frente, tocando na ficha e no ponto. O lado direito do paciente fica à esquerda da figura."
             },
             "help": "Comece pelo osso do meio, com os furinhos em pares.",
             "type": "label",
             "feedback": {
-              "correct": "Isso mesmo: você achou o ílio, o sacro, as duas uniões e o encaixe do fêmur.",
-              "incorrect": "Alguma ficha está fora do lugar: separe o que é osso, o que é união entre ossos e o que é encaixe."
+              "correct": "Isso mesmo: você achou o ílio, o sacro e as duas uniões.",
+              "incorrect": "Alguma ficha está fora do lugar: separe o que é osso e o que é união entre ossos."
             },
             "payload": {
-              "prompt": "Rotule cinco partes da pelve vista de frente, tocando na ficha e no ponto. O lado direito do paciente fica à esquerda da figura.",
+              "prompt": "Rotule quatro partes da pelve vista de frente, tocando na ficha e no ponto. O lado direito do paciente fica à esquerda da figura.",
               "imageRef": "diagram:pelve-de-frente",
               "points": [
                 {
                   "id": "point:rtg-2026:m24:aula-04:i2:1",
-                  "x": 0.219,
-                  "y": 0.254,
-                  "where": "à esquerda da figura, a asa larga e azul, no alto",
+                  "x": 0.22,
+                  "y": 0.3,
+                  "where": "à esquerda da figura, a asa larga, no alto",
                   "correctLabelId": "label:rtg-2026:m24:aula-04:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-04:i2:2",
-                  "x": 0.475,
-                  "y": 0.375,
+                  "x": 0.5,
+                  "y": 0.555,
                   "where": "no centro, o osso triangular com quatro pares de furos",
                   "correctLabelId": "label:rtg-2026:m24:aula-04:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-04:i2:3",
-                  "x": 0.644,
-                  "y": 0.384,
-                  "where": "à direita, a linha entre o osso central e a asa azul",
+                  "x": 0.645,
+                  "y": 0.3,
+                  "where": "à direita, a linha entre o osso central e a asa larga",
                   "correctLabelId": "label:rtg-2026:m24:aula-04:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-04:i2:4",
                   "x": 0.5,
-                  "y": 0.779,
-                  "where": "embaixo, na linha média, a linha entre as peças amarelas",
+                  "y": 0.8,
+                  "where": "embaixo, na linha média, a peça clara entre os dois púbis",
                   "correctLabelId": "label:rtg-2026:m24:aula-04:i2:4"
-                },
-                {
-                  "id": "point:rtg-2026:m24:aula-04:i2:5",
-                  "x": 0.231,
-                  "y": 0.618,
-                  "where": "à esquerda, o arco branco aberto embaixo, como um copo",
-                  "correctLabelId": "label:rtg-2026:m24:aula-04:i2:5"
                 }
               ],
               "labels": [
+                {
+                  "id": "label:rtg-2026:m24:aula-04:i2:3",
+                  "label": "Articulação sacroilíaca"
+                },
+                {
+                  "id": "label:rtg-2026:m24:aula-04:i2:5",
+                  "label": "Cabeça do fêmur"
+                },
                 {
                   "id": "label:rtg-2026:m24:aula-04:i2:4",
                   "label": "Sínfise púbica"
@@ -1345,18 +1346,6 @@ export const RTG_2026_M24: ProductionBatchV1 = {
                 {
                   "id": "label:rtg-2026:m24:aula-04:i2:2",
                   "label": "Sacro"
-                },
-                {
-                  "id": "label:rtg-2026:m24:aula-04:i2:6",
-                  "label": "Cabeça do fêmur"
-                },
-                {
-                  "id": "label:rtg-2026:m24:aula-04:i2:5",
-                  "label": "Acetábulo"
-                },
-                {
-                  "id": "label:rtg-2026:m24:aula-04:i2:3",
-                  "label": "Articulação sacroilíaca"
                 },
                 {
                   "id": "label:rtg-2026:m24:aula-04:i2:1",
@@ -1387,43 +1376,35 @@ export const RTG_2026_M24: ProductionBatchV1 = {
             },
             "payload": {
               "prompt": "Toque na abertura entre o ísquio e o púbis, do lado esquerdo do paciente.",
-              "imageRef": "diagram:pelve-de-frente",
+              "imageRef": "diagram:pelve-de-frente-recorte",
               "regions": [
                 {
                   "id": "region:rtg-2026:m24:aula-04:i3:1",
-                  "label": "Sacro",
-                  "x": 0.4,
-                  "y": 0.258,
-                  "width": 0.15,
-                  "height": 0.233
+                  "label": "Forame obturado, à direita da figura",
+                  "x": 0.651,
+                  "y": 0.436,
+                  "width": 0.211,
+                  "height": 0.267
                 },
                 {
                   "id": "region:rtg-2026:m24:aula-04:i3:2",
-                  "label": "Sacroilíaca, à direita da figura",
-                  "x": 0.581,
-                  "y": 0.25,
-                  "width": 0.125,
+                  "label": "Forame obturado, à esquerda da figura",
+                  "x": 0.139,
+                  "y": 0.436,
+                  "width": 0.21,
                   "height": 0.267
                 },
                 {
                   "id": "region:rtg-2026:m24:aula-04:i3:3",
-                  "label": "Forame obturado, à direita da figura",
-                  "x": 0.619,
-                  "y": 0.692,
-                  "width": 0.088,
-                  "height": 0.167
-                },
-                {
-                  "id": "region:rtg-2026:m24:aula-04:i3:4",
-                  "label": "Forame obturado, à esquerda da figura",
-                  "x": 0.293,
-                  "y": 0.692,
-                  "width": 0.088,
-                  "height": 0.167
+                  "label": "Sínfise púbica",
+                  "x": 0.46,
+                  "y": 0.415,
+                  "width": 0.08,
+                  "height": 0.294
                 }
               ],
               "correctRegionIds": [
-                "region:rtg-2026:m24:aula-04:i3:3"
+                "region:rtg-2026:m24:aula-04:i3:1"
               ]
             }
           }
@@ -4626,12 +4607,18 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m24:aula-04:i2:5",
-      "claimKind": "prompt",
+      "claimId": "label:rtg-2026:m24:aula-04:i2:3",
+      "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m24:openstax-ap2e-pelve"
       ]
+    },
+    {
+      "claimId": "label:rtg-2026:m24:aula-04:i2:5",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "label:rtg-2026:m24:aula-04:i2:4",
@@ -4643,28 +4630,6 @@ export const RTG_2026_M24: ProductionBatchV1 = {
     },
     {
       "claimId": "label:rtg-2026:m24:aula-04:i2:2",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m24:openstax-ap2e-pelve"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m24:aula-04:i2:6",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "label:rtg-2026:m24:aula-04:i2:5",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m24:openstax-ap2e-pelve"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m24:aula-04:i2:3",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4721,14 +4686,6 @@ export const RTG_2026_M24: ProductionBatchV1 = {
     },
     {
       "claimId": "region:rtg-2026:m24:aula-04:i3:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m24:openstax-ap2e-pelve"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m24:aula-04:i3:4",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -6798,7 +6755,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "95b529e477e62b9385a43918521278a93cc3bfc1293cdab3fc5c8e72e3bbf986"
+      "materialSha256": "baa5f8ffee014a954825c5af3459d332bf46cc9926248216316e7fdeecfb0269"
     },
     {
       "schemaVersion": 1,
@@ -6807,7 +6764,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "95b529e477e62b9385a43918521278a93cc3bfc1293cdab3fc5c8e72e3bbf986"
+      "materialSha256": "baa5f8ffee014a954825c5af3459d332bf46cc9926248216316e7fdeecfb0269"
     },
     {
       "schemaVersion": 1,
@@ -6816,7 +6773,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "95b529e477e62b9385a43918521278a93cc3bfc1293cdab3fc5c8e72e3bbf986"
+      "materialSha256": "baa5f8ffee014a954825c5af3459d332bf46cc9926248216316e7fdeecfb0269"
     },
     {
       "schemaVersion": 1,
@@ -6825,7 +6782,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "95b529e477e62b9385a43918521278a93cc3bfc1293cdab3fc5c8e72e3bbf986"
+      "materialSha256": "baa5f8ffee014a954825c5af3459d332bf46cc9926248216316e7fdeecfb0269"
     },
     {
       "schemaVersion": 1,
@@ -6834,7 +6791,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "95b529e477e62b9385a43918521278a93cc3bfc1293cdab3fc5c8e72e3bbf986"
+      "materialSha256": "baa5f8ffee014a954825c5af3459d332bf46cc9926248216316e7fdeecfb0269"
     },
     {
       "schemaVersion": 1,
@@ -6843,7 +6800,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "95b529e477e62b9385a43918521278a93cc3bfc1293cdab3fc5c8e72e3bbf986"
+      "materialSha256": "baa5f8ffee014a954825c5af3459d332bf46cc9926248216316e7fdeecfb0269"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

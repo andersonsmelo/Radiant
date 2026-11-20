@@ -50,6 +50,7 @@ import { ossosDoPe } from './specs/ossos-do-pe';
 import { joelhoFrenteEPerfil } from './specs/joelho-frente-e-perfil';
 import { femurProximalEQuadril } from './specs/femur-proximal-e-quadril';
 import { pelveDeFrente } from './specs/pelve-de-frente';
+import { pelveDeFrenteRecorte } from './specs/pelve-de-frente-recorte';
 import { vertebraTipica } from './specs/vertebra-tipica';
 import { corteAbdomeSuperior } from './specs/corte-abdome-superior';
 import { cortePelve } from './specs/corte-pelve';
@@ -140,6 +141,7 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [joelhoFrenteEPerfil.id]: joelhoFrenteEPerfil,
   [femurProximalEQuadril.id]: femurProximalEQuadril,
   [pelveDeFrente.id]: pelveDeFrente,
+  [pelveDeFrenteRecorte.id]: pelveDeFrenteRecorte,
   [vertebraTipica.id]: vertebraTipica,
   [corteAbdomeSuperior.id]: corteAbdomeSuperior,
   [cortePelve.id]: cortePelve,

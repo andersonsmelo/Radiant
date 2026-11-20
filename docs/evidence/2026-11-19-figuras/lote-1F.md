@@ -1,0 +1,68 @@
+# Lote 1F de figuras importadas (2026-11-20)
+
+Três figuras entram, em quatro ids: `pelve-de-frente` e `pelve-de-frente-recorte` (id novo), `osso-longo` e `coluna-sagital-e-axial`. Prévias dos alvos com os marcadores do app (marcador de 28 pt do rótulo, selo de 36 x 24 pt da região; âmbar = região declarada pela figura, ciano = alvos da aula) em `lote-1F/<id>.png`. O que há sob cada área de toque, medido por cor: [`lote-1F/medidas.md`](lote-1F/medidas.md). Decisões do controlador aplicadas: pelve inteira com os 129 caminhos do autor e sem divisão do osso do quadril (D1), recorte ampliado da mesma fonte para o `i3` (D2), osso longo em corte da Pbroks13 (D3), coluna só com o corte sagital (D4), regiões = caixa da estrutura (D5).
+
+## Figuras que entraram
+
+| Figura | Aula | Autor | Licença | Página |
+| --- | --- | --- | --- | --- |
+| `pelve-de-frente` | m24-04 (`i2`) | Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones, slide "Bones of pelvis", grupo "Group 308" | CC BY 4.0 | https://smart.servier.com/smart_image/male-pelvis/ |
+| `pelve-de-frente-recorte` (id novo) | m24-04 (`i3`) | idem, mesmo desenho, outro enquadramento (viewBox) | CC BY 4.0 | idem |
+| `osso-longo` | m18-02 (`i3`) | Pbroks13, "Bone cross-section", 2008 (Wikimedia Commons) | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Bone_cross-section.svg |
+| `coluna-sagital-e-axial` | m28-04 (`i2`) | Servier Medical Art, kit SMART-Bones, slide 9 "Vertebral Column (2)", grupo "Group 3" | CC BY 4.0 | https://smart.servier.com/smart_image/vertebral-column/ |
+
+Registro e crédito em `content-manifest/rtg-2026/figuras.json`, com a data de consulta 2026-11-20. **Licença do Servier:** vale a página de termos do próprio Servier (CC BY 4.0); as cópias do mesmo kit no Wikimedia Commons marcadas CC BY-SA 3.0 não foram usadas, e a divergência está no campo `modification` de cada entrada do Servier. Na coluna, a página exata do slide no site do Servier não foi confirmada pelo agente de arte: o kit e o slide são a fonte exata. `pelve-de-frente-recorte` é id novo em `diagramRegistry.ts`, `figuras.json`, `build-spec.mjs`, no arquivo de alvos (`figuras/pelve-de-frente-recorte.alvos.json`), no índice do roteiro do simulador (`.maestro/figuras/indice.json`) e no crédito gerado (`rtgImages.ts`).
+
+**Desvio da lição do lote 1A para o dono** (decisão do controlador, D3): "só uma ponta do osso não serve". A figura do osso longo mostra só a extremidade proximal, deitada, com a ponta larga à direita; o fêmur inteiro do Servier ficou minúsculo no quadro (osso em ~34% da altura, marcadores sobre as epífises, região da diáfise inflada). O prompt da aula diz que a figura mostra a ponta de um osso longo.
+
+## Itens alterados (uma linha cada; antes e depois em `.superpowers/sdd/2026-11-20-figuras-1F/itens-alterados.md`)
+
+1. m24-04 `i2` (rótulo): cinco fichas viram quatro, sem o Acetábulo (a arte não o desenha, e ele segue cobrado por texto no `i1`); `where` sem "azul" e sem "peças amarelas"; retornos sem "o encaixe do fêmur".
+2. m24-04 `i3` (hotspot): passa a `pelve-de-frente-recorte`; saem Sacro e Sacroilíaca, entra Sínfise púbica; regiões = caixas declaradas; pergunta e resposta certa intactas.
+3. m18-02 `i3` (rótulo): quatro fichas viram três (Epífise, Diáfise, Cavidade medular; distrator Ligamento): saem a Placa de crescimento (faixa de ~0,02 do quadro) e a Cartilagem articular (faixa fina sobre a epífise; ver `medidas.md`); entra a Cavidade medular; prompt, `help` e retorno sem "pontas" no plural nem "trecho do meio"; `closing.body` sem prometer apontar a cartilagem e a placa.
+4. m28-04 `i2` (rótulo): seis fichas viram quatro, sem as duas "vista axial"; "Disco, vista sagital" e "Canal, vista sagital" viram Disco intervertebral e Canal vertebral.
+5. m28-04: sem "linha tracejada" e "esquema de duas vistas" (fala do Caio, conceito, `i3` prompt, `i5` prompt); resposta certa do `i5` inalterada.
+
+A divisão do osso do quadril em ílio, ísquio e púbis (D1) e a placa de crescimento (D3) não ganharam afirmação de verdadeiro ou falso: o `true-false` aceita de 3 a 4 afirmações e a m24-04 `i5` já tem 4, e a m18-02 não tem `true-false` (o verificador exige exatamente 5 interações). Os dois fatos continuam cobertos: o ílio, o ísquio e o púbis no `i4` (ligar) e no `i5` da m24-04 (ísquio), e a placa de crescimento no conceito e no segundo item do checkpoint da m18-02.
+
+## Figuras fora do lote
+
+Nenhuma. Ficam como alternativas para o dono, fora do repositório (`.superpowers/sdd/2026-11-20-figuras-1F/*/alternativa-*`): o fêmur inteiro do Servier para o osso longo; o disco axial em perspectiva (`coluna-axial`) e o item novo da m28-04, recusados por serem disco em perspectiva e não corte axial; e a pelve DBCLS/Togopic, que desenha o acetábulo, mas com forame obturado pequeno.
+
+## Contagem de caminhos, fonte contra original
+
+- `pelve-de-frente` e `pelve-de-frente-recorte`: 129 caminhos no `s11_Group_308.svg` (receitas/), 129 em cada fonte, 129 `<path>` em cada spec. Nenhum apagado, unido ou recortado; o recorte é a mesma fonte com outro `viewBox`.
+- `osso-longo`: 45 caminhos no original; a fonte tem 37. Diferença: **8 linhas de chamada** do grupo `g4604` (o script confere que só há linhas e os 8 textos do autor dentro dele). Os 37 desenhos do autor ficam na mesma ordem, sem união nem divisão. **Filtros removidos pelo agente de arte antes do conversor**: 6 usos de 5 filtros de desfoque (`filter3925`, σ 1,52, em `path3252` e `path3256`, sombras da dobra do cilindro de periósteo; `filter4545`, `4549`, `4553` e `4557`, σ ~0,97, em quatro brilhos brancos de 59% sobre os vasos, `path3214`, `3221`, `3242` e `3265`); sem o desfoque ficam nítidos, no mesmo lugar. Coordenadas arredondadas por igual na grade de 0,5 unidade do autor (com 0,1 o spec passava de 240 KiB). O agente mediu o render da fonte contra o do original na mesma transformação: 0,07% do quadro difere em mais de 64 de 255, só contornos de 1 px (não repeti essa conta).
+- `coluna-sagital-e-axial`: 2158 caminhos no original; a fonte tem 869. Os 1289 que faltam estão **inteiramente fora do quadro** (a receita testa a caixa de cada caminho contra o `viewBox`, somando a espessura do traço). Conferi: a receita com o corte desligado, renderizada no mesmo `viewBox`, contra a fonte cortada: **0 de 691.200 pixels diferem** (960 x 720).
+- As receitas (`scripts/content/figuras/receitas/<id>.mjs`) rodam num checkout limpo, sem variável de ambiente, e reproduzem as fontes byte a byte (conferido com `cmp`); os originais de que dependem estão em `receitas/` (`osso-longo.original.svg`, sha256 093178e2...596da; `coluna-sagital-e-axial.original.svg`, sha256 150285d6...efc1; `s11_Group_308.svg`, sha256 be524a5e...1883). O `build-spec.mjs` regenera os quatro specs idênticos aos entregues pelos agentes (conferido com `cmp`), só com o `alt` da coluna encurtado de 162 para 155 caracteres (o teto do registro é 160).
+
+## Alvos: o que medi
+
+Regra do brief e do controlador: região declarada = caixa da estrutura, sem esticar; ponto de rótulo na maior parte sobre a estrutura; área certa não cobre a estrutura do erro típico. Percentuais por classe de cor, caixa a caixa, em [`lote-1F/medidas.md`](lote-1F/medidas.md). Resumo:
+
+- m24-04 `i3` (recorte): região certa 100% sobre a caixa do forame, 0,2% de sínfise e 0% do forame oposto. O selo ocupa 26% da caixa; o agente de arte mediu 72,6% da abertura à vista.
+- m24-04 `i2` (pelve inteira): marcadores sobre o osso (ílio 100%, sacro 94%, sacroilíaca 97%); a sínfise é uma peça de 0,038 do quadro, e o marcador cobre 38% dela.
+- m18-02 `i3`: epífise 74% e 87% (área e marcador), diáfise âmbar 41% mais o interior do tubo 41%, cavidade 90% sob o marcador. Nenhuma área da diáfise toca a caixa da epífise. **A cartilagem não passou na medida** (13% de ciano na melhor área, contra 37% de fundo), por isso saiu do rótulo.
+- m28-04 `i2`: corpo 97%, processo espinhoso 93%, disco 71% (25% de corpo vizinho, inevitável: o disco mede 27 pt) e canal 48% (2% de osso do processo espinhoso).
+
+## Números (2026-11-20, Node 20.20.2, esta árvore)
+
+- Verificador de aulas nas 40 unidades: 40 de 40 OK.
+- `build-rtg-batches.mjs --check`: saída 0. `generate-rtg-maestro.mjs --check` m18, m24 e m28: saída 0. `figuras-no-simulador.mjs --check` (sem ids): saída 0 (24 ids no índice, 26 roteiros).
+- `node --test scripts/content/figuras/*.test.mjs`: 17 testes, 16 passam, 1 pula (o que vale só sem Chrome), 0 falham.
+- `node --test scripts/content/*.test.mjs scripts/qa/*.test.mjs`: 452 testes, 451 passam, 1 falha (a conhecida, `registerSource normalizes metadata for the pilot book`).
+- `cd radiant-app && node --test scripts/copy-style-contract.test.mjs`: 65 de 65, depois de subir o teto de `eyebrow` de `rtgImages.ts` de 16 para 20 em `scripts/copy-style-baseline.json` (número medido: a licença em maiúsculas das quatro entradas novas).
+- `npx jest src/ui/diagrams src/features/lesson-flow src/features/student-checkpoints src/features/settings src/features/journey/services`: 88 suítes, 1658 testes, todos passam. `npx tsc --noEmit`: saída 0.
+- `npx eslint` nos 9 arquivos `.ts` tocados: saída 0. `npm run test:maestro-contract`: 13 de 13.
+- Não rodado: o gate completo (`EXPO_NO_DOTENV=1 npm run quality`), o simulador e o Android.
+
+## Peso
+
+- Soma do SVG das 23 figuras importadas: 3.115.744 bytes (3042,8 KiB, 2,97 MiB), contra o teto de 8.116.109 bytes (7925,9 KiB) do teste do registro; o teto não mudou. As do lote (camada de arte): `osso-longo` 224,4 KiB (teto por figura de 240 KiB; maior figura sem exceção), `coluna-sagital-e-axial` 161,6 KiB, `pelve-de-frente` 38,6 KiB, `pelve-de-frente-recorte` 38,6 KiB. Nenhuma exceção nova por figura.
+
+## Para o dono olhar no simulador
+
+- m18-02 `i3`: a figura é só a ponta do osso, deitada (desvio da lição do 1A). Os três marcadores (epífise, diáfise, cavidade medular) leem bem? A placa de crescimento aparece como faixa fina sem rótulo.
+- m24-04 `i3`: o recorte ampliado deixa a abertura do forame fácil de tocar? O selo cobre o canto de cima e da esquerda dela.
+- m24-04 `i2`: a sínfise é a peça cinza clara entre os dois púbis; o marcador 4 cobre quase toda ela.
+- m28-04 `i2`: a figura é um recorte de cerca de duas vértebras e meia, e os níveis não são identificáveis; o disco mede 27 pt.

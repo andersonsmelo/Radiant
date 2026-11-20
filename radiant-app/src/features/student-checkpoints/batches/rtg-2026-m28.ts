@@ -6,7 +6,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m28",
-  "materialSha256": "937a7396e7c75a0e47eb8c2365c3389446d448ab8aba7ad727e8bef9c2048f11",
+  "materialSha256": "8d0cfecb982cec2ffdfc516f241210b102c176ceaa8d14dd7705513dc14ddcde",
   "trackId": "track:rtg-2026:m28",
   "unitId": "unit:rtg-2026:m28",
   "contentVersion": "rtg-2026-m28-v1",
@@ -1295,7 +1295,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
                 },
                 {
                   "speaker": "caio",
-                  "text": "É a mesma coisa cortada em direções diferentes. A linha tracejada diz onde o corte axial passa."
+                  "text": "É a mesma coisa cortada em direções diferentes. Cada corte passa por uma altura: o sagital pega a pilha inteira, o axial pega uma só altura."
                 },
                 {
                   "speaker": "pixel",
@@ -1311,7 +1311,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Pilha de lado, anel de cima",
-            "body": "No corte sagital, a coluna é uma pilha: corpos vertebrais com discos entre eles, e o canal atrás de todos. No corte axial na altura de um disco, o disco aparece na frente do canal, com um núcleo mole dentro. Na altura de um corpo, aparece a vértebra vista de cima, como na figura: corpo à frente, furo no meio, processo espinhoso atrás. No esquema de duas vistas, a axial é ampliada.",
+            "body": "No corte sagital, a coluna é uma pilha: corpos vertebrais com discos entre eles, e o canal atrás de todos. No corte axial na altura de um disco, o disco aparece na frente do canal, com um núcleo mole dentro. Na altura de um corpo, aparece a vértebra vista de cima, como na figura: corpo à frente, furo no meio, processo espinhoso atrás.",
             "keyPoints": [
               "Sagital: corpos e discos empilhados, canal atrás.",
               "Axial no disco: disco na frente, canal atrás dele.",
@@ -1378,85 +1378,63 @@ export const RTG_2026_M28: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule seis partes da coluna lombar nas duas vistas, tocando na ficha e no ponto. A vista sagital está à esquerda e a axial, à direita."
+              "label": "Rotular a imagem: Rotule quatro partes da coluna lombar neste corte sagital, tocando na ficha e no ponto."
             },
-            "help": "Comece pela vista da esquerda, que é a pilha vista de lado.",
+            "help": "Olhe a pilha de lado: corpos grandes, discos azuis entre eles e o canal atrás.",
             "type": "label",
             "feedback": {
-              "correct": "Isso: você achou cada parte nas duas vistas e não confundiu uma vista com a outra.",
-              "incorrect": "Alguma ficha ficou fora do lugar: confira em qual das duas vistas cada parte aparece."
+              "correct": "Isso: você achou cada parte da coluna no corte de lado.",
+              "incorrect": "Alguma ficha ficou fora do lugar: confira o que fica na pilha, o que fica entre os corpos e o que corre atrás."
             },
             "payload": {
-              "prompt": "Rotule seis partes da coluna lombar nas duas vistas, tocando na ficha e no ponto. A vista sagital está à esquerda e a axial, à direita.",
+              "prompt": "Rotule quatro partes da coluna lombar neste corte sagital, tocando na ficha e no ponto.",
               "imageRef": "diagram:coluna-sagital-e-axial",
               "points": [
                 {
                   "id": "point:rtg-2026:m28:aula-04:i2:1",
-                  "x": 0.175,
-                  "y": 0.287,
-                  "where": "bloco claro e quadrado na pilha da esquerda, à frente",
+                  "x": 0.26,
+                  "y": 0.47,
+                  "where": "bloco grande e claro, com pintas, na pilha da esquerda",
                   "correctLabelId": "label:rtg-2026:m28:aula-04:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-04:i2:2",
-                  "x": 0.163,
-                  "y": 0.55,
-                  "where": "faixa fina com um oval, entre dois blocos da pilha",
+                  "x": 0.29,
+                  "y": 0.76,
+                  "where": "faixa azul entre dois blocos, inclinada embaixo",
                   "correctLabelId": "label:rtg-2026:m28:aula-04:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-04:i2:3",
-                  "x": 0.284,
-                  "y": 0.813,
-                  "where": "espaço escuro e estreito atrás dos blocos, embaixo",
+                  "x": 0.6,
+                  "y": 0.62,
+                  "where": "faixa em ciano atrás dos blocos, com fios finos",
                   "correctLabelId": "label:rtg-2026:m28:aula-04:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-04:i2:4",
-                  "x": 0.375,
-                  "y": 0.292,
-                  "where": "ponta que sai para trás, na altura de um bloco",
+                  "x": 0.77,
+                  "y": 0.39,
+                  "where": "peça clara em feijão, atrás do canal, ao lado de um bloco",
                   "correctLabelId": "label:rtg-2026:m28:aula-04:i2:4"
-                },
-                {
-                  "id": "point:rtg-2026:m28:aula-04:i2:5",
-                  "x": 0.781,
-                  "y": 0.262,
-                  "where": "forma grande de rim, com um oval azul, na vista da direita",
-                  "correctLabelId": "label:rtg-2026:m28:aula-04:i2:5"
-                },
-                {
-                  "id": "point:rtg-2026:m28:aula-04:i2:6",
-                  "x": 0.781,
-                  "y": 0.483,
-                  "where": "espaço escuro em triângulo, abaixo da forma de rim",
-                  "correctLabelId": "label:rtg-2026:m28:aula-04:i2:6"
                 }
               ],
               "labels": [
                 {
-                  "id": "label:rtg-2026:m28:aula-04:i2:5",
-                  "label": "Disco, vista axial"
+                  "id": "label:rtg-2026:m28:aula-04:i2:3",
+                  "label": "Canal vertebral"
                 },
                 {
                   "id": "label:rtg-2026:m28:aula-04:i2:4",
                   "label": "Processo espinhoso"
                 },
                 {
-                  "id": "label:rtg-2026:m28:aula-04:i2:6",
-                  "label": "Canal, vista axial"
+                  "id": "label:rtg-2026:m28:aula-04:i2:2",
+                  "label": "Disco intervertebral"
                 },
                 {
                   "id": "label:rtg-2026:m28:aula-04:i2:1",
                   "label": "Corpo vertebral"
-                },
-                {
-                  "id": "label:rtg-2026:m28:aula-04:i2:3",
-                  "label": "Canal, vista sagital"
-                },
-                {
-                  "id": "label:rtg-2026:m28:aula-04:i2:2",
-                  "label": "Disco, vista sagital"
                 }
               ]
             }
@@ -1473,7 +1451,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada parte e vista da coluna ao que aparece no esquema."
+              "label": "Associação: Ligue cada parte e vista da coluna ao que se vê em cada corte."
             },
             "help": "No sagital as partes se repetem de cima para baixo; no axial há uma só altura.",
             "type": "matching",
@@ -1482,7 +1460,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
               "incorrect": "Pense no que o corte atravessa: no sagital a pilha inteira, no axial uma só altura."
             },
             "payload": {
-              "prompt": "Ligue cada parte e vista da coluna ao que aparece no esquema.",
+              "prompt": "Ligue cada parte e vista da coluna ao que se vê em cada corte.",
               "pairs": [
                 {
                   "id": "pair:rtg-2026:m28:aula-04:i3:1",
@@ -1567,7 +1545,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: No esquema de duas vistas, imagine a linha tracejada descendo do disco para o meio do corpo vertebral de baixo. No novo corte axial, o que deixa de aparecer na frente do canal?"
+              "label": "Múltipla escolha: Imagine um corte axial que passa pelo meio de um disco intervertebral e outro que passa pelo meio do corpo vertebral logo abaixo. No segundo corte, o que deixa de aparecer na frente do canal?"
             },
             "help": "Pense no que o corte atravessa em cada altura da pilha.",
             "type": "multiple-choice",
@@ -1576,7 +1554,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "prompt": "No esquema de duas vistas, imagine a linha tracejada descendo do disco para o meio do corpo vertebral de baixo. No novo corte axial, o que deixa de aparecer na frente do canal?",
+              "prompt": "Imagine um corte axial que passa pelo meio de um disco intervertebral e outro que passa pelo meio do corpo vertebral logo abaixo. No segundo corte, o que deixa de aparecer na frente do canal?",
               "options": [
                 {
                   "id": "option:rtg-2026:m28:aula-04:i5:a",
@@ -4830,23 +4808,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m28:aula-04:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m28:openstax-ap-7-3"
-      ]
-    },
-    {
-      "claimId": "point:rtg-2026:m28:aula-04:i2:6",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m28:openstax-ap-7-3"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m28:aula-04:i2:5",
+      "claimId": "label:rtg-2026:m28:aula-04:i2:3",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4862,7 +4824,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "label:rtg-2026:m28:aula-04:i2:6",
+      "claimId": "label:rtg-2026:m28:aula-04:i2:2",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4871,22 +4833,6 @@ export const RTG_2026_M28: ProductionBatchV1 = {
     },
     {
       "claimId": "label:rtg-2026:m28:aula-04:i2:1",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m28:openstax-ap-7-3"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m28:aula-04:i2:3",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m28:openstax-ap-7-3"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m28:aula-04:i2:2",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -6915,7 +6861,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "937a7396e7c75a0e47eb8c2365c3389446d448ab8aba7ad727e8bef9c2048f11"
+      "materialSha256": "8d0cfecb982cec2ffdfc516f241210b102c176ceaa8d14dd7705513dc14ddcde"
     },
     {
       "schemaVersion": 1,
@@ -6924,7 +6870,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "937a7396e7c75a0e47eb8c2365c3389446d448ab8aba7ad727e8bef9c2048f11"
+      "materialSha256": "8d0cfecb982cec2ffdfc516f241210b102c176ceaa8d14dd7705513dc14ddcde"
     },
     {
       "schemaVersion": 1,
@@ -6933,7 +6879,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "937a7396e7c75a0e47eb8c2365c3389446d448ab8aba7ad727e8bef9c2048f11"
+      "materialSha256": "8d0cfecb982cec2ffdfc516f241210b102c176ceaa8d14dd7705513dc14ddcde"
     },
     {
       "schemaVersion": 1,
@@ -6942,7 +6888,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "937a7396e7c75a0e47eb8c2365c3389446d448ab8aba7ad727e8bef9c2048f11"
+      "materialSha256": "8d0cfecb982cec2ffdfc516f241210b102c176ceaa8d14dd7705513dc14ddcde"
     },
     {
       "schemaVersion": 1,
@@ -6951,7 +6897,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "937a7396e7c75a0e47eb8c2365c3389446d448ab8aba7ad727e8bef9c2048f11"
+      "materialSha256": "8d0cfecb982cec2ffdfc516f241210b102c176ceaa8d14dd7705513dc14ddcde"
     },
     {
       "schemaVersion": 1,
@@ -6960,7 +6906,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "937a7396e7c75a0e47eb8c2365c3389446d448ab8aba7ad727e8bef9c2048f11"
+      "materialSha256": "8d0cfecb982cec2ffdfc516f241210b102c176ceaa8d14dd7705513dc14ddcde"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

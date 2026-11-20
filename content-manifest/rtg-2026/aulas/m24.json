@@ -1156,45 +1156,43 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule cinco partes da pelve vista de frente, tocando na ficha e no ponto. O lado direito do paciente fica à esquerda da figura.",
+          "prompt": "Rotule quatro partes da pelve vista de frente, tocando na ficha e no ponto. O lado direito do paciente fica à esquerda da figura.",
           "diagramId": "pelve-de-frente",
           "points": [
             {
               "label": "Ílio",
-              "x": 0.219,
-              "y": 0.254,
-              "where": "à esquerda da figura, a asa larga e azul, no alto"
+              "alvo": "Ílio, à esquerda da figura",
+              "x": 0.22,
+              "y": 0.3,
+              "where": "à esquerda da figura, a asa larga, no alto"
             },
             {
               "label": "Sacro",
-              "x": 0.475,
-              "y": 0.375,
+              "alvo": "Sacro",
+              "x": 0.5,
+              "y": 0.555,
               "where": "no centro, o osso triangular com quatro pares de furos"
             },
             {
               "label": "Articulação sacroilíaca",
-              "x": 0.644,
-              "y": 0.384,
-              "where": "à direita, a linha entre o osso central e a asa azul"
+              "alvo": "Sacroilíaca, à direita da figura",
+              "x": 0.645,
+              "y": 0.3,
+              "where": "à direita, a linha entre o osso central e a asa larga"
             },
             {
               "label": "Sínfise púbica",
+              "alvo": "Sínfise púbica",
               "x": 0.5,
-              "y": 0.779,
-              "where": "embaixo, na linha média, a linha entre as peças amarelas"
-            },
-            {
-              "label": "Acetábulo",
-              "x": 0.231,
-              "y": 0.618,
-              "where": "à esquerda, o arco branco aberto embaixo, como um copo"
+              "y": 0.8,
+              "where": "embaixo, na linha média, a peça clara entre os dois púbis"
             }
           ],
           "distractors": [
             "Cabeça do fêmur"
           ],
-          "feedbackCorrect": "Isso mesmo: você achou o ílio, o sacro, as duas uniões e o encaixe do fêmur.",
-          "feedbackIncorrect": "Alguma ficha está fora do lugar: separe o que é osso, o que é união entre ossos e o que é encaixe.",
+          "feedbackCorrect": "Isso mesmo: você achou o ílio, o sacro e as duas uniões.",
+          "feedbackIncorrect": "Alguma ficha está fora do lugar: separe o que é osso e o que é união entre ossos.",
           "help": "Comece pelo osso do meio, com os furinhos em pares.",
           "sourceIds": [
             "openstax-ap2e-pelve"
@@ -1205,36 +1203,32 @@
           "type": "hotspot",
           "role": "practice",
           "prompt": "Toque na abertura entre o ísquio e o púbis, do lado esquerdo do paciente.",
-          "diagramId": "pelve-de-frente",
+          "diagramId": "pelve-de-frente-recorte",
           "regions": [
             {
-              "label": "Sacro",
-              "x": 0.4,
-              "y": 0.258,
-              "width": 0.15,
-              "height": 0.233
-            },
-            {
-              "label": "Sacroilíaca, à direita da figura",
-              "x": 0.581,
-              "y": 0.25,
-              "width": 0.125,
-              "height": 0.267
-            },
-            {
               "label": "Forame obturado, à direita da figura",
-              "x": 0.619,
-              "y": 0.692,
-              "width": 0.088,
-              "height": 0.167,
+              "alvo": "Forame obturado, à direita da figura",
+              "x": 0.651,
+              "y": 0.436,
+              "width": 0.211,
+              "height": 0.267,
               "correct": true
             },
             {
               "label": "Forame obturado, à esquerda da figura",
-              "x": 0.293,
-              "y": 0.692,
-              "width": 0.088,
-              "height": 0.167
+              "alvo": "Forame obturado, à esquerda da figura",
+              "x": 0.139,
+              "y": 0.436,
+              "width": 0.21,
+              "height": 0.267
+            },
+            {
+              "label": "Sínfise púbica",
+              "alvo": "Sínfise púbica",
+              "x": 0.46,
+              "y": 0.415,
+              "width": 0.08,
+              "height": 0.294
             }
           ],
           "feedbackCorrect": "Isso: é o forame obturado, e o lado esquerdo do paciente aparece à direita de quem olha a pelve de frente.",

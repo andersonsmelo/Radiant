@@ -497,6 +497,73 @@ export const FIGURES = {
       alt: 'Dois painéis: à esquerda, esôfago, estômago e intestinos em âmbar; à direita, dois rins, dois ureteres e a bexiga em azul.',
     }),
   },
+  'pelve-de-frente': {
+    file: 'pelve-de-frente.ts',
+    options: {},
+    render: importada({
+      id: 'pelve-de-frente',
+      name: 'pelveDeFrente',
+      header: `// Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
+// Obra: slide "Bones of pelvis" (pelve de frente, masculina) do kit SMART-Bones, Servier Medical Art (Les Laboratoires Servier),
+// CC BY 4.0 (vetores copiados do pptx do kit, sem alterar as formas), sem rótulos, recolorida para a paleta do app e achatada
+// para atributos de apresentação. Fonte versionada: scripts/content/figuras/fontes/pelve-de-frente.svg.
+// Quadro 320x240, parado; pelve inteira de frente, lado direito do paciente à esquerda de quem vê. O autor não separa ílio, ísquio
+// e púbis por cor nem por divisa: o osso do quadril é uma peça só. O acetábulo não é desenhado pela arte.
+// Cores: osso azul (com tons derivados do sombreado do autor); sínfise púbica cinza claro; contornos quase pretos.`,
+      alt: 'Pelve de frente, lado direito do paciente à esquerda: dois ossos do quadril largos, o sacro no meio com quatro pares de furos e a sínfise púbica clara embaixo.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'pelve-de-frente-recorte': {
+    file: 'pelve-de-frente-recorte.ts',
+    options: {},
+    render: importada({
+      id: 'pelve-de-frente-recorte',
+      name: 'pelveDeFrenteRecorte',
+      header: `// Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
+// Obra: slide "Bones of pelvis" (pelve de frente, masculina) do kit SMART-Bones, Servier Medical Art (Les Laboratoires Servier),
+// CC BY 4.0 (vetores copiados do pptx do kit, sem alterar as formas), sem rótulos, recolorida para a paleta do app e achatada
+// para atributos de apresentação. É o MESMO desenho de pelve-de-frente (os mesmos 129 caminhos), só com outro enquadramento
+// (viewBox 3444 2257 1345 1009): recorte ampliado da parte de baixo, com os dois forames obturados, a sínfise púbica e os púbis; o resto
+// sangra para fora do quadro. Fonte versionada: scripts/content/figuras/fontes/pelve-de-frente-recorte.svg.
+// Quadro 320x240, parado; lado direito do paciente à esquerda de quem vê.
+// Cores: osso azul (tons derivados do sombreado do autor); sínfise púbica cinza claro; contornos quase pretos.`,
+      alt: 'Parte de baixo da pelve de frente, ampliada: as duas aberturas dos forames obturados, a peça clara da sínfise púbica entre os púbis e a ponta do cóccix acima.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'osso-longo': {
+    file: 'osso-longo.ts',
+    options: {},
+    render: importada({
+      id: 'osso-longo',
+      name: 'ossoLongo',
+      header: `// Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
+// Obra: "Bone cross-section" (Pbroks13, 2008), Wikimedia Commons, CC BY 3.0. Sem as linhas de chamada e os textos do autor,
+// recolorida para a paleta do app e achatada para atributos de apresentação (sem <style>, classe ou filtro). Nenhum caminho
+// do autor foi apagado nem dividido; o que não cabe sai pelo viewBox (160 -5 620 465, 4:3). Quadro 320x240, parado.
+// Fonte versionada: scripts/content/figuras/fontes/osso-longo.svg. Extremidade proximal de um osso longo (como a do fêmur) deitada,
+// com a ponta larga à direita e o corpo saindo à esquerda; corte longitudinal, com o osso do corpo aberto como uma janela.
+// Cores: osso esponjoso e periósteo cinza, osso compacto âmbar, cartilagem articular ciano, medula azul, vasos azul escuro.`,
+      alt: 'Extremidade de um osso longo deitada, em corte: ponta larga à direita com osso esponjoso cinza, parede âmbar, capa ciano e uma medula azul no corpo.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'coluna-sagital-e-axial': {
+    file: 'coluna-sagital-e-axial.ts',
+    options: {},
+    render: importada({
+      id: 'coluna-sagital-e-axial',
+      name: 'colunaSagitalEAxial',
+      header: `// Arte importada (art: 'imported'), gerada por script a partir do acervo; não editar à mão.
+// Obra: "Vertebral Column (2)" (Servier Medical Art, kit SMART-Bones, slide 9, grupo "Group 3", CC BY 4.0; https://smart.servier.com/),
+// vetores copiados do pptx do kit, sem rótulos (a arte não tem). Corte sagital mediano da coluna lombar, frente do corpo para a esquerda.
+// Todos os caminhos do autor estão na fonte (scripts/content/figuras/fontes/coluna-sagital-e-axial.svg); o que passa do quadro 320x240 sai pelo enquadramento (recorte de 4:3 pelo viewBox).
+// Só recolorida para a paleta do app: osso âmbar, discos azuis, medula e raízes ciano, tecidos moles em cinza.`,
+      alt: 'Corte sagital da coluna lombar, frente à esquerda: corpos vertebrais com textura, discos azuis entre eles, canal com a medula e o processo espinhoso atrás.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
   'cranio-de-perfil-ossos': { file: 'cranio-de-perfil-ossos.ts', options: { dropBackground: true }, render: cranio },
   'raio-x-movel-no-leito': {
     file: 'raio-x-movel-no-leito.ts',

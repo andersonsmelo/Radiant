@@ -207,5 +207,49 @@
     "retrievedAt": "2026-11-20",
     "sha256Original": "49a500bd2e70c173fae5e556414ea7f3d23051a62f881b4ae2a531727f78c397",
     "modification": "Duas peças do mesmo autor (Servier Medical Art, CC BY 4.0, ambas conferidas na página do próprio Servier; as cópias do Commons, CC BY-SA 3.0, não foram usadas) postas lado a lado no quadro 320x240, sem sobreposição e com a mesma linha de base: à esquerda o trato digestivo (kit SMART-Digestive-system, slide 3, grupo \"Group 5\", página https://smart.servier.com/smart_image/complete-overview-digestive-apparatus/, sha256 do pptx 6acab3f2cb530644c75997db1c3e169f396050b34767b0780c6841fdc1627e53, as mesmas 750 formas da figura trato-digestivo, sem a cabeça e a boca, que ficam fora de qualquer quadro), à direita o sistema urinário feminino (kit SMART-Urinary-system, https://smart.servier.com/wp-content/uploads/2016/10/SMART-Urinary-system.pptx, slide 3, grupo \"Group 3\", sha256 acima, 494 formas: dois rins, dois ureteres e a bexiga como o autor os desenhou numa só peça; as duas elipses de 10x5 e 7x5 unidades do grupo, menores que meio ponto no quadro, não foram convertidas). Cada sistema foi posto inteiro, como o autor desenhou, sem posição relativa inventada entre eles. Sem rótulos (o grupo não os tem). Recolorido por sistema: o trato digestivo todo em âmbar e o urinário todo em azul, cada um com tons pela luminosidade original de cada forma; gradientes achatados em atributos de apresentação; sem fundo; coordenadas dos caminhos arredondadas por igual a unidades inteiras e reescritas em relativo para caber no teto de 240 KiB."
+  },
+  {
+    "id": "pelve-de-frente",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/male-pelvis/",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "48f389211210de0a4383ab588ee04b9a30e57e990909475bdbfb15fa0fc566ee",
+    "modification": "Uma peça do kit SMART-Bones (SMART-Bones.pptx, original.pptx, sha256 acima; https://smart.servier.com/wp-content/uploads/2016/10/SMART-Bones.pptx): slide \"Bones of pelvis\", \"Group 308\" (pelve masculina de frente, com a base da quinta lombar), formas renderizadas em SVG sem alteração (129 caminhos do autor, todos mantidos, nenhum unido, apagado ou recortado). Só recolorido para a paleta do app (osso azul #4A9EFF com os tons derivados do sombreado do autor, sínfise púbica cinza claro, contornos quase pretos), fundo transparente e enquadrado em 320x240 (viewBox 2713 1137 2807 2105 na unidade da fonte, 3% de margem em cima e embaixo). O autor desenha o osso do quadril como uma peça só: ílio, ísquio e púbis não têm cor nem divisa próprias, e nada foi acrescentado. O acetábulo não é desenhado pela arte. Nenhum rótulo existia na arte. Licença: vale a oferta do Servier (CC BY 4.0, na página de termos do próprio autor, https://smart.servier.com/); as cópias do mesmo kit no Wikimedia Commons marcadas CC BY-SA 3.0 não foram usadas. Receita: scripts/content/figuras/receitas/pelve-de-frente.mjs (entrada: scripts/content/figuras/receitas/s11_Group_308.svg, versionada, saída de femur-proximal-e-quadril.pptx2svg.py sobre o original.pptx)."
+  },
+  {
+    "id": "pelve-de-frente-recorte",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/male-pelvis/",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "48f389211210de0a4383ab588ee04b9a30e57e990909475bdbfb15fa0fc566ee",
+    "modification": "Mesmo desenho de pelve-de-frente (slide \"Bones of pelvis\", \"Group 308\", kit SMART-Bones; os mesmos 129 caminhos do autor, nenhum apagado, unido, recortado ou acrescentado), só com outro enquadramento: viewBox 3444 2257 1345 1009 na unidade da fonte (recorte ampliado da parte de baixo da pelve, com os dois forames obturados, a sínfise púbica, os púbis e a ponta do cóccix; o resto sai do quadro pelo viewBox). Recolorido como pelve-de-frente (osso azul, sínfise cinza claro, contornos quase pretos), fundo transparente, 320x240. Fonte: scripts/content/figuras/fontes/pelve-de-frente-recorte.svg (cópia da fonte de pelve-de-frente com outro viewBox; o conversor lê o viewBox do próprio arquivo). Licença: oferta do Servier (CC BY 4.0, página de termos); as cópias do Commons CC BY-SA 3.0 não foram usadas. Receita: scripts/content/figuras/receitas/pelve-de-frente-recorte.mjs (depois de pelve-de-frente.mjs)."
+  },
+  {
+    "id": "osso-longo",
+    "origem": "acervo",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Bone_cross-section.svg",
+    "author": "Pbroks13 (Wikimedia Commons)",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "093178e2ded1109b309f89bec340fbe8758fa2ddb63a3d549772359154c596da",
+    "modification": "\"Bone cross-section\" (2008, trabalho próprio de Pbroks13, CC BY 3.0 declarada na página; sha1 da versão atual 176f3cb1af1a7c33b3bf8b2b9106968b641e3095 = a versão do autor de 2009-01-03; os envios de 2021 de outro usuário, feitos com a ferramenta de tradução, foram revertidos para a versão do autor, que é a que está no Commons e foi usada). Removidos só o grupo g4604 (8 linhas de chamada e os 8 textos do autor), os 5 filtros de desfoque (a conversão os removeria de qualquer modo), os metadados e atributos do Inkscape. Os 37 caminhos restantes (todos os desenhos do autor) ficam na mesma ordem, sem união nem divisão; nenhuma forma foi redesenhada nem pintada. Recolorido por parte para a paleta do app (osso esponjoso e periósteo em cinza, osso compacto em âmbar, cartilagem articular em ciano, medula em azul, vasos em azul escuro; tons derivados por luminância do original, inclusive nos gradientes). Coordenadas arredondadas por igual na grade de 0,5 unidade do autor (todos os comandos são absolutos, sem deriva). Enquadrado pelo viewBox 160 -5 620 465 (4:3) no quadro 320x240: o que não cabe (a ponta do corpo do osso, o cilindro de periósteo à esquerda e os vasos cortados) sai pelo viewBox, sem apagar traço. Fundo transparente. Receita: scripts/content/figuras/receitas/osso-longo.mjs (entrada: scripts/content/figuras/receitas/osso-longo.original.svg, versionada, sha256 acima); o spec sai de fontes/osso-longo.svg pelo build-spec.mjs. Mostra só a extremidade proximal, com a ponta larga à direita; a arte tem a placa de crescimento como faixa fina, mas ela não é alvo."
+  },
+  {
+    "id": "coluna-sagital-e-axial",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/vertebral-column/",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "48f389211210de0a4383ab588ee04b9a30e57e990909475bdbfb15fa0fc566ee",
+    "modification": "Vetores do grupo \"Group 3\" do slide 9 (\"Vertebral Column (2)\") de SMART-Bones.pptx (original.pptx, sha256 acima; kit https://smart.servier.com/wp-content/uploads/2016/10/SMART-Bones.pptx), renderizados em SVG sem alterar as formas; recolorido para a paleta do app (osso âmbar, discos azuis, medula e raízes ciano, tecidos moles em cinza, contornos quase pretos); fundo transparente; recortado em 4:3 pelo viewBox (mantidos os 869 de 2158 caminhos que tocam o recorte; os 1289 inteiramente fora do quadro não foram copiados); coordenadas intactas (render da fonte idêntico, 0 pixels diferentes, ao do original recolorido com o mesmo viewBox); nenhum rótulo existia na arte. Licença conferida na página do Servier (CC BY 4.0); as cópias do mesmo kit no Wikimedia Commons marcadas CC BY-SA 3.0 não foram usadas. A página exata do slide no site do Servier não foi confirmada: o kit e o slide acima são a fonte exata. Receita: scripts/content/figuras/receitas/coluna-sagital-e-axial.mjs (entrada: scripts/content/figuras/receitas/coluna-sagital-e-axial.original.svg, versionada, sha256 150285d6283c7ce12222821541c14884f33354a056262fe04cf84d35e5f4efc1, saída de vertebra-tipica.pptx2svg.py sobre o pptx do kit)."
   }
 ]

@@ -6,7 +6,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m18",
-  "materialSha256": "0673fd86c57b8b7f5d4ee0caac16eaf9d0e33cff6b0059766e1c1a9f218183d6",
+  "materialSha256": "1219050abe45dfcf77e7abeaec5ce5a022c277cdc6e43be0e7a6a81e882ff075",
   "trackId": "track:rtg-2026:m18",
   "unitId": "unit:rtg-2026:m18",
   "contentVersion": "rtg-2026-m18-v1",
@@ -663,51 +663,44 @@ export const RTG_2026_M18: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule quatro partes do osso longo, tocando na ficha e no ponto. A figura mostra o osso deitado, em corte."
+              "label": "Rotular a imagem: Rotule três partes do osso longo, tocando na ficha e no ponto. A figura mostra a ponta de um osso longo, deitada, em corte, com a ponta larga à direita."
             },
-            "help": "Comece pelas pontas largas e vá em direção ao meio do osso.",
+            "help": "Comece pela ponta larga e vá em direção ao tubo do osso.",
             "type": "label",
             "feedback": {
               "correct": "Isso: cada ficha está sobre a parte certa do osso longo.",
-              "incorrect": "Alguma ficha está no ponto errado: a diáfise é o trecho do meio, e a epífise, a ponta larga."
+              "incorrect": "Alguma ficha está no ponto errado: a diáfise é o tubo, e a epífise, a ponta larga."
             },
             "payload": {
-              "prompt": "Rotule quatro partes do osso longo, tocando na ficha e no ponto. A figura mostra o osso deitado, em corte.",
+              "prompt": "Rotule três partes do osso longo, tocando na ficha e no ponto. A figura mostra a ponta de um osso longo, deitada, em corte, com a ponta larga à direita.",
               "imageRef": "diagram:osso-longo",
               "points": [
                 {
                   "id": "point:rtg-2026:m18:aula-02:i3:1",
-                  "x": 0.119,
-                  "y": 0.4,
-                  "where": "à esquerda, a ponta larga e arredondada",
+                  "x": 0.68,
+                  "y": 0.36,
+                  "where": "à direita, a ponta larga de osso esponjoso cinza",
                   "correctLabelId": "label:rtg-2026:m18:aula-02:i3:1"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-02:i3:2",
-                  "x": 0.2188,
-                  "y": 0.6333,
-                  "where": "faixa fina e vertical perto da ponta esquerda",
+                  "x": 0.39,
+                  "y": 0.52,
+                  "where": "à esquerda, a parede âmbar de cima, no trecho reto",
                   "correctLabelId": "label:rtg-2026:m18:aula-02:i3:2"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-02:i3:3",
-                  "x": 0.3906,
-                  "y": 0.425,
-                  "where": "no meio, a parede do trecho estreito e reto",
+                  "x": 0.22,
+                  "y": 0.6,
+                  "where": "à esquerda, o espaço dentro do tubo, junto da medula azul",
                   "correctLabelId": "label:rtg-2026:m18:aula-02:i3:3"
-                },
-                {
-                  "id": "point:rtg-2026:m18:aula-02:i3:4",
-                  "x": 0.9188,
-                  "y": 0.3667,
-                  "where": "à direita, no alto, a capa clara sobre a ponta",
-                  "correctLabelId": "label:rtg-2026:m18:aula-02:i3:4"
                 }
               ],
               "labels": [
                 {
                   "id": "label:rtg-2026:m18:aula-02:i3:3",
-                  "label": "Diáfise"
+                  "label": "Cavidade medular"
                 },
                 {
                   "id": "label:rtg-2026:m18:aula-02:i3:1",
@@ -715,15 +708,11 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                 },
                 {
                   "id": "label:rtg-2026:m18:aula-02:i3:4",
-                  "label": "Cartilagem articular"
-                },
-                {
-                  "id": "label:rtg-2026:m18:aula-02:i3:5",
                   "label": "Ligamento"
                 },
                 {
                   "id": "label:rtg-2026:m18:aula-02:i3:2",
-                  "label": "Placa de crescimento"
+                  "label": "Diáfise"
                 }
               ]
             }
@@ -842,7 +831,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Você nomeia as partes de um osso longo",
-            "body": "Agora você consegue classificar um osso pela forma e apontar, num osso longo, a diáfise, as epífises, a cartilagem articular e a placa de crescimento.",
+            "body": "Agora você consegue classificar um osso pela forma, apontar, num osso longo, a diáfise, a epífise e a cavidade medular, e reconhecer a cartilagem articular e a placa de crescimento.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -3485,14 +3474,6 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m18:aula-02:i3:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-6-3"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m18:aula-02:i3:3",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -3510,14 +3491,6 @@ export const RTG_2026_M18: ProductionBatchV1 = {
     },
     {
       "claimId": "label:rtg-2026:m18:aula-02:i3:4",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-6-3"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m18:aula-02:i3:5",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
@@ -6746,7 +6719,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "0673fd86c57b8b7f5d4ee0caac16eaf9d0e33cff6b0059766e1c1a9f218183d6"
+      "materialSha256": "1219050abe45dfcf77e7abeaec5ce5a022c277cdc6e43be0e7a6a81e882ff075"
     },
     {
       "schemaVersion": 1,
@@ -6755,7 +6728,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "0673fd86c57b8b7f5d4ee0caac16eaf9d0e33cff6b0059766e1c1a9f218183d6"
+      "materialSha256": "1219050abe45dfcf77e7abeaec5ce5a022c277cdc6e43be0e7a6a81e882ff075"
     },
     {
       "schemaVersion": 1,
@@ -6764,7 +6737,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "0673fd86c57b8b7f5d4ee0caac16eaf9d0e33cff6b0059766e1c1a9f218183d6"
+      "materialSha256": "1219050abe45dfcf77e7abeaec5ce5a022c277cdc6e43be0e7a6a81e882ff075"
     },
     {
       "schemaVersion": 1,
@@ -6773,7 +6746,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "0673fd86c57b8b7f5d4ee0caac16eaf9d0e33cff6b0059766e1c1a9f218183d6"
+      "materialSha256": "1219050abe45dfcf77e7abeaec5ce5a022c277cdc6e43be0e7a6a81e882ff075"
     },
     {
       "schemaVersion": 1,
@@ -6782,7 +6755,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "0673fd86c57b8b7f5d4ee0caac16eaf9d0e33cff6b0059766e1c1a9f218183d6"
+      "materialSha256": "1219050abe45dfcf77e7abeaec5ce5a022c277cdc6e43be0e7a6a81e882ff075"
     },
     {
       "schemaVersion": 1,
@@ -6791,7 +6764,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "0673fd86c57b8b7f5d4ee0caac16eaf9d0e33cff6b0059766e1c1a9f218183d6"
+      "materialSha256": "1219050abe45dfcf77e7abeaec5ce5a022c277cdc6e43be0e7a6a81e882ff075"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

@@ -1225,7 +1225,7 @@
           },
           {
             "speaker": "caio",
-            "text": "É a mesma coisa cortada em direções diferentes. A linha tracejada diz onde o corte axial passa."
+            "text": "É a mesma coisa cortada em direções diferentes. Cada corte passa por uma altura: o sagital pega a pilha inteira, o axial pega uma só altura."
           },
           {
             "speaker": "pixel",
@@ -1235,7 +1235,7 @@
       },
       "concept": {
         "title": "Pilha de lado, anel de cima",
-        "body": "No corte sagital, a coluna é uma pilha: corpos vertebrais com discos entre eles, e o canal atrás de todos. No corte axial na altura de um disco, o disco aparece na frente do canal, com um núcleo mole dentro. Na altura de um corpo, aparece a vértebra vista de cima, como na figura: corpo à frente, furo no meio, processo espinhoso atrás. No esquema de duas vistas, a axial é ampliada.",
+        "body": "No corte sagital, a coluna é uma pilha: corpos vertebrais com discos entre eles, e o canal atrás de todos. No corte axial na altura de um disco, o disco aparece na frente do canal, com um núcleo mole dentro. Na altura de um corpo, aparece a vértebra vista de cima, como na figura: corpo à frente, furo no meio, processo espinhoso atrás.",
         "keyPoints": [
           "Sagital: corpos e discos empilhados, canal atrás.",
           "Axial no disco: disco na frente, canal atrás dele.",
@@ -1280,49 +1280,41 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule seis partes da coluna lombar nas duas vistas, tocando na ficha e no ponto. A vista sagital está à esquerda e a axial, à direita.",
+          "prompt": "Rotule quatro partes da coluna lombar neste corte sagital, tocando na ficha e no ponto.",
           "diagramId": "coluna-sagital-e-axial",
           "points": [
             {
               "label": "Corpo vertebral",
-              "x": 0.175,
-              "y": 0.287,
-              "where": "bloco claro e quadrado na pilha da esquerda, à frente"
+              "alvo": "Corpo vertebral",
+              "x": 0.26,
+              "y": 0.47,
+              "where": "bloco grande e claro, com pintas, na pilha da esquerda"
             },
             {
-              "label": "Disco, vista sagital",
-              "x": 0.163,
-              "y": 0.55,
-              "where": "faixa fina com um oval, entre dois blocos da pilha"
+              "label": "Disco intervertebral",
+              "alvo": "Disco intervertebral",
+              "x": 0.29,
+              "y": 0.76,
+              "where": "faixa azul entre dois blocos, inclinada embaixo"
             },
             {
-              "label": "Canal, vista sagital",
-              "x": 0.284,
-              "y": 0.813,
-              "where": "espaço escuro e estreito atrás dos blocos, embaixo"
+              "label": "Canal vertebral",
+              "alvo": "Canal vertebral",
+              "x": 0.6,
+              "y": 0.62,
+              "where": "faixa em ciano atrás dos blocos, com fios finos"
             },
             {
               "label": "Processo espinhoso",
-              "x": 0.375,
-              "y": 0.292,
-              "where": "ponta que sai para trás, na altura de um bloco"
-            },
-            {
-              "label": "Disco, vista axial",
-              "x": 0.781,
-              "y": 0.262,
-              "where": "forma grande de rim, com um oval azul, na vista da direita"
-            },
-            {
-              "label": "Canal, vista axial",
-              "x": 0.781,
-              "y": 0.483,
-              "where": "espaço escuro em triângulo, abaixo da forma de rim"
+              "alvo": "Processo espinhoso",
+              "x": 0.77,
+              "y": 0.39,
+              "where": "peça clara em feijão, atrás do canal, ao lado de um bloco"
             }
           ],
-          "feedbackCorrect": "Isso: você achou cada parte nas duas vistas e não confundiu uma vista com a outra.",
-          "feedbackIncorrect": "Alguma ficha ficou fora do lugar: confira em qual das duas vistas cada parte aparece.",
-          "help": "Comece pela vista da esquerda, que é a pilha vista de lado.",
+          "feedbackCorrect": "Isso: você achou cada parte da coluna no corte de lado.",
+          "feedbackIncorrect": "Alguma ficha ficou fora do lugar: confira o que fica na pilha, o que fica entre os corpos e o que corre atrás.",
+          "help": "Olhe a pilha de lado: corpos grandes, discos azuis entre eles e o canal atrás.",
           "sourceIds": [
             "openstax-ap-7-3"
           ]
@@ -1331,7 +1323,7 @@
           "id": "i3",
           "type": "matching",
           "role": "practice",
-          "prompt": "Ligue cada parte e vista da coluna ao que aparece no esquema.",
+          "prompt": "Ligue cada parte e vista da coluna ao que se vê em cada corte.",
           "pairs": [
             {
               "left": "Disco, no corte sagital",
@@ -1379,7 +1371,7 @@
           "id": "i5",
           "type": "multiple-choice",
           "role": "transfer",
-          "prompt": "No esquema de duas vistas, imagine a linha tracejada descendo do disco para o meio do corpo vertebral de baixo. No novo corte axial, o que deixa de aparecer na frente do canal?",
+          "prompt": "Imagine um corte axial que passa pelo meio de um disco intervertebral e outro que passa pelo meio do corpo vertebral logo abaixo. No segundo corte, o que deixa de aparecer na frente do canal?",
           "options": [
             {
               "label": "O processo espinhoso",
