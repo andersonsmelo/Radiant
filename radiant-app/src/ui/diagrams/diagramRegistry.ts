@@ -65,7 +65,6 @@ import { gestanteCampoEFeixe } from './specs/gestante-campo-e-feixe';
 import { cranioDePerfilOssos } from './specs/cranio-de-perfil-ossos';
 import { linhasDoCranio } from './specs/linhas-do-cranio';
 import { seiosDaFace } from './specs/seios-da-face';
-import { seiosDaFaceFrente } from './specs/seios-da-face-frente';
 import { raioXMovelNoLeito } from './specs/raio-x-movel-no-leito';
 import { traumaRaioHorizontal } from './specs/trauma-raio-horizontal';
 import { cicloDeTestes } from './specs/ciclo-de-testes';
@@ -154,7 +153,6 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [cranioDePerfilOssos.id]: cranioDePerfilOssos,
   [linhasDoCranio.id]: linhasDoCranio,
   [seiosDaFace.id]: seiosDaFace,
-  [seiosDaFaceFrente.id]: seiosDaFaceFrente,
   [raioXMovelNoLeito.id]: raioXMovelNoLeito,
   [traumaRaioHorizontal.id]: traumaRaioHorizontal,
   [cicloDeTestes.id]: cicloDeTestes,

@@ -163,53 +163,7 @@ const LINHAS_CRANIO = [
 
 const ACERVO = 'Arte importada (art: \'imported\'), gerada por script a partir do acervo; não editar à mão.';
 
-// Recorte ampliado de uma figura já enquadrada por `caixa` (a arte dos seios): a caixa [x, y, w] em coordenadas do
-// quadro 320x240 da arte inteira vira o quadro novo (altura w * 3/4), ampliada em 320 / w.
-const SEIOS_CAIXA = [10, 10, 632, 356];
-const recorte = ([x, y, w]) => {
-  const s = Math.min(300 / SEIOS_CAIXA[2], 220 / SEIOS_CAIXA[3]);
-  const t = [(320 - SEIOS_CAIXA[2] * s) / 2 - SEIOS_CAIXA[0] * s, (240 - SEIOS_CAIXA[3] * s) / 2 - SEIOS_CAIXA[1] * s];
-  const k = 320 / w;
-  return `translate(${r(k * (t[0] - x))} ${r(k * (t[1] - y))}) scale(${r(s * k)})`;
-};
-const SEIOS_OBRA = `Obra: "Paranasal sinuses" (Patrick J. Lynch, ilustrador; derivada de "Head anatomy anterior lateral views"),
-// Wikimedia Commons, CC BY 2.5. Sem a legenda, o fundo e a textura de padrão, recolorida para a paleta do
-// app e achatada para atributos de apresentação (sem <style>, classe, padrão ou filtro). Fonte versionada:
-// scripts/content/figuras/fontes/seios-da-face.svg, a mesma das duas figuras; cada uma é um recorte ampliado dela.
-// Cores: frontal âmbar, etmoidal ciano, maxilar azul, esfenoidal coral; osso cinza, silhueta da cabeça escura.`;
-const SEIOS_PERFIL = [130, 70, 114];
-const SEIOS_FRENTE = [20, 70, 105];
-
 export const FIGURES = {
-  'seios-da-face': {
-    file: 'seios-da-face.ts',
-    fonte: 'seios-da-face',
-    options: {},
-    render: importada({
-      id: 'seios-da-face',
-      name: 'seiosDaFace',
-      header: `// ${ACERVO}
-// ${SEIOS_OBRA}
-// Quadro 320x240, parado. Recorte do PERFIL ampliado (cabeça com a face para a esquerda), com os quatro grupos de seios.`,
-      alt: 'Cabeça de perfil, com a face para a esquerda, e os seios da face coloridos por grupo sobre o crânio.',
-      transform: () => recorte(SEIOS_PERFIL),
-    }),
-  },
-  'seios-da-face-frente': {
-    file: 'seios-da-face-frente.ts',
-    fonte: 'seios-da-face',
-    options: {},
-    render: importada({
-      id: 'seios-da-face-frente',
-      name: 'seiosDaFaceFrente',
-      header: `// ${ACERVO}
-// ${SEIOS_OBRA}
-// Quadro 320x240, parado. Recorte da FRENTE ampliada (lado direito do paciente à esquerda de quem vê), com os seios
-// frontal, etmoidal e maxilares; o esfenoidal não aparece de frente.`,
-      alt: 'Face de frente, com os seios frontal, etmoidal e maxilares coloridos por grupo sobre o crânio.',
-      transform: () => recorte(SEIOS_FRENTE),
-    }),
-  },
   'esqueleto-axial-apendicular': {
     file: 'esqueleto-axial-apendicular.ts',
     options: { dropBackground: true },
