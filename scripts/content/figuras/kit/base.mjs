@@ -37,10 +37,12 @@ export const grp = (cls, svg) => `<g class="${cls}">${svg}</g>`;
 
 // ---- achatar CSS em atributos hex, via Chrome headless; reescrever d="" em relativo ----
 import { execFileSync } from "node:child_process";
+import { findChrome } from "../convert.mjs";
 import { writeFileSync, mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+// O mesmo Chrome do conversor e dos testes (respeita CHROME_PATH); sem ele, falha dizendo por quê.
+const chrome = () => findChrome() ?? (() => { throw new Error("Chrome não encontrado (defina CHROME_PATH)"); })();
 const BASEARGS = ["--headless=new", "--disable-gpu", "--no-sandbox", "--allow-file-access-from-files", "--hide-scrollbars"];
 const tmp = mkdtempSync(join(tmpdir(), "kit-"));
 const FLAT = `<script>
@@ -118,7 +120,7 @@ export function optimizeD(d0) {
 export function achatar(svgText) {
   const f = join(tmp, "flat" + Math.random().toString(36).slice(2) + ".html");
   writeFileSync(f, `<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0">${svgText}${FLAT}</body></html>`);
-  const dom = execFileSync(CHROME, [...BASEARGS, "--dump-dom", "file://" + f], { maxBuffer: 1 << 28, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] });
+  const dom = execFileSync(chrome(), [...BASEARGS, "--dump-dom", "file://" + f], { maxBuffer: 1 << 28, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] });
   const m = dom.match(/<script type="text\/plain" id="out">([\s\S]*?)<\/script>/);
   if (!m) throw new Error("achatar falhou");
   return m[1].replace(/ d="([^"]*)"/g, (_, d) => ` d="${optimizeD(d)}"`).replace(/ xmlns:xlink="[^"]*"/, "").replace(/&nbsp;/g, " ");
@@ -127,7 +129,7 @@ export const svgBruto = (inner, W, H, label = "", sc = 2) => `<svg xmlns="http:/
 export function shot(html, png, w, h) {
   const f = join(tmp, "p" + Math.random().toString(36).slice(2) + ".html");
   writeFileSync(f, html);
-  execFileSync(CHROME, [...BASEARGS, `--screenshot=${png}`, `--window-size=${w},${h}`, "--force-device-scale-factor=1", "file://" + f], { stdio: "ignore" });
+  execFileSync(chrome(), [...BASEARGS, `--screenshot=${png}`, `--window-size=${w},${h}`, "--force-device-scale-factor=1", "file://" + f], { stdio: "ignore" });
 }
 export const page = (inner, w, h, bg = "#171920") => `<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:${bg};width:${w}px;height:${h}px;overflow:hidden">${inner}</body></html>`;
 // prova rapida de uma peca: svg bruto -> png, sem achatar

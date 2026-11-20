@@ -1,6 +1,6 @@
 # Geometria isométrica da skill `anatomy` (cópia sem alteração)
 
-Origem: skill `anatomy` (MIT, Copyright (c) 2026 Ryan), pasta `kit/` instalada em `~/.agents/skills/anatomy/kit/`. Copiada em 2026-11-20, byte a byte, para o kit isométrico das cenas (`../../base.mjs` e `../../paleta.mjs`) não depender de arquivo fora do repositório. Licença em [`LICENSE`](LICENSE). Não edite: para atualizar, copie de novo e refaça o sha256.
+Origem: skill `anatomy` (MIT, Copyright (c) 2026 Ryan), repositório público <https://github.com/wheresryan22/anatomy>, commit `1482e846` (2026-10-18), pasta `kit/`; copiada de `~/.agents/skills/anatomy/kit/`, cujos três arquivos têm os mesmos sha256 do repositório público (conferido em 2026-11-20). Copiada em 2026-11-20, byte a byte, para o kit isométrico das cenas (`../../base.mjs` e `../../paleta.mjs`) não depender de arquivo fora do repositório. Licença em [`LICENSE`](LICENSE). Não edite: para atualizar, copie de novo e refaça o sha256.
 
 | arquivo | sha256 |
 |---|---|

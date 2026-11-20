@@ -148,7 +148,7 @@
             {
               "label": "Pulseira no punho",
               "x": 0.3223,
-              "y": 0.4966,
+              "y": 0.5237,
               "where": "sobre o braço do paciente deitado, a faixa azul curta",
               "alvo": "Pulseira no punho"
             },
@@ -1595,7 +1595,7 @@
               "label": "Saída de oxigênio",
               "x": 0.5245,
               "y": 0.4698,
-              "where": "na parede, o painel quadrado com um círculo azul no meio",
+              "where": "na parede, o painel quadrado com um círculo verde no meio",
               "alvo": "Saída de oxigênio"
             },
             {

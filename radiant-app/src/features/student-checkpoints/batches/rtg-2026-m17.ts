@@ -6,7 +6,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m17",
-  "materialSha256": "01b2ffa3d723144cd66be2169999109d4cba68565f6e3bdb5dabf49112db86d7",
+  "materialSha256": "a60e7158c7a01ea1a4c9042b7b7a03d8d7685f8cd301436dc80743160bf2da33",
   "trackId": "track:rtg-2026:m17",
   "unitId": "unit:rtg-2026:m17",
   "contentVersion": "rtg-2026-m17-v1",
@@ -209,7 +209,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
                 {
                   "id": "point:rtg-2026:m17:aula-01:i2:1",
                   "x": 0.3223,
-                  "y": 0.4966,
+                  "y": 0.5237,
                   "where": "sobre o braço do paciente deitado, a faixa azul curta",
                   "correctLabelId": "label:rtg-2026:m17:aula-01:i2:1"
                 },
@@ -1664,7 +1664,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
                   "id": "point:rtg-2026:m17:aula-05:i2:3",
                   "x": 0.5245,
                   "y": 0.4698,
-                  "where": "na parede, o painel quadrado com um círculo azul no meio",
+                  "where": "na parede, o painel quadrado com um círculo verde no meio",
                   "correctLabelId": "label:rtg-2026:m17:aula-05:i2:3"
                 },
                 {
@@ -6819,7 +6819,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "01b2ffa3d723144cd66be2169999109d4cba68565f6e3bdb5dabf49112db86d7"
+      "materialSha256": "a60e7158c7a01ea1a4c9042b7b7a03d8d7685f8cd301436dc80743160bf2da33"
     },
     {
       "schemaVersion": 1,
@@ -6828,7 +6828,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "01b2ffa3d723144cd66be2169999109d4cba68565f6e3bdb5dabf49112db86d7"
+      "materialSha256": "a60e7158c7a01ea1a4c9042b7b7a03d8d7685f8cd301436dc80743160bf2da33"
     },
     {
       "schemaVersion": 1,
@@ -6837,7 +6837,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "01b2ffa3d723144cd66be2169999109d4cba68565f6e3bdb5dabf49112db86d7"
+      "materialSha256": "a60e7158c7a01ea1a4c9042b7b7a03d8d7685f8cd301436dc80743160bf2da33"
     },
     {
       "schemaVersion": 1,
@@ -6846,7 +6846,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "01b2ffa3d723144cd66be2169999109d4cba68565f6e3bdb5dabf49112db86d7"
+      "materialSha256": "a60e7158c7a01ea1a4c9042b7b7a03d8d7685f8cd301436dc80743160bf2da33"
     },
     {
       "schemaVersion": 1,
@@ -6855,7 +6855,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "01b2ffa3d723144cd66be2169999109d4cba68565f6e3bdb5dabf49112db86d7"
+      "materialSha256": "a60e7158c7a01ea1a4c9042b7b7a03d8d7685f8cd301436dc80743160bf2da33"
     },
     {
       "schemaVersion": 1,
@@ -6864,7 +6864,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "01b2ffa3d723144cd66be2169999109d4cba68565f6e3bdb5dabf49112db86d7"
+      "materialSha256": "a60e7158c7a01ea1a4c9042b7b7a03d8d7685f8cd301436dc80743160bf2da33"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

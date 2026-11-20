@@ -26,11 +26,11 @@ node --test scripts/content/figuras/cenas/cenas.test.mjs    # cada cena regenera
 node --test scripts/content/figuras/kit/kit.test.mjs        # cada peça do kit passa nas réguas e na paleta
 ```
 
-**O que precisa estar na máquina.** Node 20 e o Chrome (o `achatar` do kit resolve o CSS pelo Chrome headless). A geometria isométrica da skill `anatomy` (`iso-kit.mjs`, `lathe.mjs`, `tube.mjs`) vem copiada, sem alteração, em [`../kit/vendor/anatomy/`](../kit/vendor/anatomy/README.md); nenhum arquivo fora do repositório é lido. Sem Chrome, `cenas.test.mjs` pula com a razão dita; o CI não roda esta pasta (o glob dele é `scripts/content/*.test.mjs`).
+**O que precisa estar na máquina.** Node 20 e o Chrome (o `achatar` do kit resolve o CSS pelo Chrome headless). A geometria isométrica da skill `anatomy` (`iso-kit.mjs`, `lathe.mjs`, `tube.mjs`) vem copiada, sem alteração, em [`../kit/vendor/anatomy/`](../kit/vendor/anatomy/README.md); nenhum arquivo fora do repositório é lido. O Chrome é o de `findChrome()` (respeita `CHROME_PATH`, o mesmo do conversor e dos testes). Sem Chrome, `cenas.test.mjs` pula com a razão dita; o CI não roda esta pasta (o glob dele é `scripts/content/*.test.mjs`).
 
 ## Decisões de arte que os alvos e as aulas já assumem
 
 - **Parada.** Decisão do dono de 2026-11-20: figura de movimento entra parada (`tubo-emitindo` e `anodo-giratorio` deixaram de ser laços). O giro do ânodo se lê pela seta, pelas marcas radiais e pelo trecho aquecido da pista.
 - **Ângulo do alvo do ânodo exagerado para 22 graus** (o real vai de 7 a 17), para o bisel aparecer no tamanho do app; dimensões do tubo esquemáticas (ampola de 41 cm contra 30 a 35 reais).
-- **Objetos pequenos das cenas da m17 maiores que o real, de propósito**, para o marcador do app (28 pt) e o selo (36 x 24 pt) esconderem menos: pulseira, folha, tela, maçaneta, barra de apoio, manopla, teclado e as placas de oxigênio, botão e telefone (quanto cada um cresceu está em [`docs/evidence/2026-11-19-figuras/lote-2A.md`](../../../../docs/evidence/2026-11-19-figuras/lote-2A.md)).
+- **Objetos pequenos das cenas da m17 maiores que o real, de propósito**, para o ponto de 12 pt do rotular e o selo (36 x 24 pt) do app esconderem menos: pulseira, folha, tela, maçaneta, barra de apoio, manopla, teclado e as placas de oxigênio, botão e telefone (quanto cada um cresceu está em [`docs/evidence/2026-11-19-figuras/lote-2A.md`](../../../../docs/evidence/2026-11-19-figuras/lote-2A.md)).
 - **Regiões declaradas** em `content-manifest/rtg-2026/figuras/<id>.alvos.json` = caixa justa do objeto no desenho (mínimo de 0,08 por eixo), nunca do tamanho da área de toque nem esticada para o fundo.

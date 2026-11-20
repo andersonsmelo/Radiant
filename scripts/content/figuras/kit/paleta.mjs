@@ -29,7 +29,7 @@ export const TONS = {
   wall: manual("#2A303D", "#262C38", "#222834", "#1E232E", "#1A1F29"),
 };
 const BASE = { paper: "#1C212B", face: "#263040", top: "#3A4558", s0: "#1F2531", s1: "#252C3A", s2: "#2C3445", s3: "#343E51", hi: "#E6E8EE", mid: "#9AA3B5", lo: "#5D6679", faint: "#3B4456", lit: "#FFFFFF", dot: "#E6E8EE", blue: "#4A9EFF" };
-export const EFEITOS = { sombra: "#07090D", feixe: "#FFC21A", nucleo: "#FFE08A", tela: "#5EEAF7", brilho: "#4A9EFF", brilhoBorda: "#9CCBFF", led: "#FFC21A" };
+export const EFEITOS = { sombra: "#07090D", feixe: "#FFC21A", nucleo: "#FFE08A", tela: "#5EEAF7", brilho: "#4A9EFF", brilhoBorda: "#9CCBFF", led: "#FFC21A", verde: "#3FA66A", verdeBorda: "#A6E3BC" };
 
 const css1 = (t) => `--anatomy-top:${t.top};--anatomy-shade-3:${t.s3};--anatomy-shade-2:${t.s2};--anatomy-shade-1:${t.s1};--anatomy-shade-0:${t.s0};--anatomy-paper:${t.paper};` + (t.hi ? `--anatomy-hi:${t.hi};` : "") + (t.blue ? `--anatomy-blue:${t.blue};` : "");
 export const CSS = `.iso{--anatomy-paper:${BASE.paper};--anatomy-face:${BASE.face};--anatomy-top:${BASE.top};--anatomy-shade-0:${BASE.s0};--anatomy-shade-1:${BASE.s1};--anatomy-shade-2:${BASE.s2};--anatomy-shade-3:${BASE.s3};--anatomy-hi:${BASE.hi};--anatomy-mid:${BASE.mid};--anatomy-lo:${BASE.lo};--anatomy-faint:${BASE.faint};--anatomy-lit:${BASE.lit};--anatomy-dot:${BASE.dot};--anatomy-blue:${BASE.blue};--anatomy-weight:.7px}

@@ -3,7 +3,7 @@
 import { k, helpers } from "../../kit/base.mjs";
 export const AZ = 68, YW = -150, W = 640, H = 480;
 export const projecao = (pts) => k.fitProjection(pts, W, H, { pad: 10, azimuth: AZ });
-const hx = { amarelo: "#FFC21A", nucleo: "#FFE08A", azul: "#4A9EFF", azulBorda: "#9CCBFF", mid: "#9AA3B5", lo: "#5D6679", papel: "#1C212B", claro: "#E6E8EE" };
+const hx = { amarelo: "#FFC21A", nucleo: "#FFE08A", azul: "#4A9EFF", azulBorda: "#9CCBFF", mid: "#9AA3B5", lo: "#5D6679", papel: "#1C212B", claro: "#E6E8EE", verde: "#3FA66A", verdeBorda: "#A6E3BC" };
 export { hx };
 // desenho cru sobre o plano da parede (y fixo): pontos [x, z]
 export const wp = (P, y, pts, attrs, closed = true) => `<path d="${k.pathOf(pts.map(([x, z]) => k.iso([x, y, z], P)), closed)}" ${attrs}/>`;

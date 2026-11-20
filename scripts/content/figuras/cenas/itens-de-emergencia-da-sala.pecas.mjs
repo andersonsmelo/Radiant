@@ -22,12 +22,12 @@ export function carrinho(P, { cx, cy = YW + 36 }) {
   return o.join("");
 }
 export const FO = 2.2, FB = 2.5, FT = 2.0; // crescimento do desenho sobre o tamanho real // pecas de parede maiores que o real, para ler no quadro e no toque
-// saida de oxigenio: placa na parede, encaixe redondo azul e a entrada no centro
+// saida de oxigenio: placa na parede, encaixe redondo verde (cor do oxigenio na rede de gases medicinais) e a entrada no centro
 export function oxigenio(P, { x, z = 112 }) {
   const { slab } = helpers(P);
   const y = YW + 4.4;
   return slab({ x: x - 19 * FO, y: YW, w: 38 * FO, d: 4, r: 5 }, z, 40 * FO, { tone: "mid", className: "c-dark" }, 3, 0.5)
-    + wcirc(P, y, x, z + 20 * FO, 12.5 * FO, ln(hx.azul, 1.5), 24) + wcirc(P, y, x, z + 20 * FO, 4.2 * FO, cor(hx.azul, hx.azulBorda, 0.4), 12);
+    + wcirc(P, y, x, z + 20 * FO, 12.5 * FO, ln(hx.verde, 1.5), 24) + wcirc(P, y, x, z + 20 * FO, 4.2 * FO, cor(hx.verde, hx.verdeBorda, 0.4), 12);
 }
 // botao de chamada: placa, disco amarelo e cordao com argola
 export function botao(P, { x, z = 150 }) {
