@@ -32,3 +32,14 @@ Uma amostra de quatro figuras, refeitas por outros métodos e mostradas lado a l
 - Toda figura importada tem origem, licença e crédito registrados em `content-manifest/rtg-2026/figuras.json`.
 - A skill `anatomy` desenha gente como manequim de cilindros e esferas; o plano inclui um kit próprio de pessoas, que passa pelo dono antes das cenas.
 - Custo estimado da troca das 72 figuras usadas: de seis a dez janelas de uso de cinco horas, em vários dias.
+
+## Adendo de 2026-11-20 (decisões do dono sobre as figuras fora do acervo)
+
+- **Decisor:** Anderson Melo (dono do produto). Aplicadas no lote 1E ([evidência](../evidence/2026-11-19-figuras/lote-1E.md)).
+
+Quatro decisões, para as figuras que a fase 1 não conseguiu cobrir com uma única obra de acervo:
+
+1. **Imagem gerada para as seis figuras sem arte aberta.** Entram com a conferência de exatidão registrada, como na decisão 4 acima, e o dono vê a primeira amostra antes de o resto entrar (decisão 5 acima).
+2. **Composição de peças do mesmo autor é aceita, com critério medido.** Duas peças do mesmo autor e da mesma licença podem ser postas juntas, sem deformar nem redesenhar, quando a posição de uma sobre a outra tem critério anatômico medido na própria arte (fêmur sobre a pelve: cabeça fora do forame obturado e linha de Shenton contínua) ou quando as peças ficam lado a lado sem sobreposição (contraste em dois painéis, digestivo e urinário).
+3. **Recorte ampliado na m26.** A m26-06 usa um recorte ampliado da mesma arte do sistema urinário (figura `bexiga-e-uretra`), sem mudar a pergunta.
+4. **Figuras de movimento entram paradas.** A respiração entra com os dois estados do autor lado a lado (expiração e inspiração) e a circulação entra parada, com as setas do autor. O texto das aulas deixa de dizer que a figura se move.

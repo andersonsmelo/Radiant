@@ -1,0 +1,4 @@
+# Medidas (2026-11-20)
+- Alinhamento: o topo do esterno (silhueta #343434 do esterno inteiro, getBBox no original) e o eixo dele. Expiração: x 112,2 a 186,0, topo 48,6. Inspiração: x 138,0 a 209,0, topo 37,9. Mesma escala (0,48) nos dois; centros em x 78 e 238, topo do esterno em y 31.
+- Ressalva medida: o esterno da inspiração é 3,8% menor que o da expiração (largura 71,0 contra 73,8; comprimento 239,3 contra 248,8). Um osso rígido não encurta: ou o autor desenhou a inspiração a 96% da escala, ou encurtou o esterno. Mesma escala nas unidades do autor (como pedido) subestima em ~4% a caixa da inspiração.
+- Traqueia: sem referência utilizável. O tronco de trachea-bronchi ficaria atrás do manubrio e entre os pulmões (escondido); a parte visível seria o trecho entre os arcos das primeiras costelas, cerca de 17 x 10 pt, abaixo do mínimo de alvo (0,12 x 0,08 do quadro = 29 x 26 pt), e o comprimento acima do tórax não existe na arte. Fica fora.
