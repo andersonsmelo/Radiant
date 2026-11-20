@@ -194,12 +194,17 @@ describe('selos de um item em conjunto (E11, integrador)', () => {
         expect(touchRectsOverlap(boxA, boxB)).toBe(false);
     });
 
-    it('sem posição que cubra nenhuma região, escolhe a que cobre menos (m19-06: o selo do ânodo)', () => {
-        const [, anodo] = badgeBoxes(m19_06, quadro);
-        const janela = rectOf(m19_06[2]);
-        const coberto = Math.max(0, Math.min(anodo.left + anodo.width, janela.left + janela.width) - Math.max(anodo.left, janela.left))
-            * Math.max(0, Math.min(anodo.top + anodo.height, janela.top + janela.height) - Math.max(anodo.top, janela.top));
-        expect(coberto).toBeLessThan(0.5 * janela.width * janela.height);
+    it('m19-06: com oito posições, o selo do ânodo não cobre a janela nem outra região', () => {
+        const boxes = badgeBoxes(m19_06, quadro);
+        boxes.forEach((box, i) => m19_06.forEach((other, j) => {
+            if (i !== j) expect(touchRectsOverlap(box, rectOf(other))).toBe(false);
+        }));
+    });
+
+    it('rotular: com os cantos do ponto, selos de pontos colados não se sobrepõem entre si', () => {
+        const pontos = [{ x: 0.5, y: 0.5 }, { x: 0.53, y: 0.5 }, { x: 0.56, y: 0.5 }];
+        const boxes = labelBadgeBoxes(pontos, quadro);
+        boxes.forEach((box, i) => boxes.slice(i + 1).forEach(other => expect(touchRectsOverlap(box, other)).toBe(false)));
     });
 
     it('um item de uma região só dá o mesmo selo que o de antes', () => {

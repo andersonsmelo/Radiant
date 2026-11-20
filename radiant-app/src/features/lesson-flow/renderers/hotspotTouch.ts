@@ -77,9 +77,9 @@ function pick(candidates: Box[], placed: Box[], others: Box[]): Box {
 /**
  * Onde os selos de um item ficam no quadro (em pontos), um por região, na ordem dos índices: FORA da
  * região, para não esconder o objeto que ela mostra. Para cada região, a ordem de preferência é acima
- * (alinhado à borda esquerda, encostado), abaixo, à esquerda, à direita, e `pick` escolhe a primeira que
+ * (alinhado à esquerda, depois à direita), abaixo (idem), à esquerda (no alto, depois embaixo), à direita (idem), e `pick` escolhe a primeira que
  * cabe no quadro e não pisa em selo já posto nem em outra região. Só se nenhuma couber inteira no quadro,
- * o selo fica dentro da região. Acima e abaixo escorregam na horizontal, esquerda e direita na vertical.
+ * o selo fica dentro da região. 
  * `offset` é a posição relativa à região, para o selo absoluto dentro dela.
  */
 export function badgeBoxes(regions: TouchTarget[], frame: Frame) {
@@ -88,17 +88,25 @@ export function badgeBoxes(regions: TouchTarget[], frame: Frame) {
     const placed: Box[] = [];
     return regions.map((_, index) => {
         const r = rects[index];
-        const sideLeft = clamp(r.left, frame.width - width);
-        const sideTop = clamp(r.top, frame.height - height);
+        const alignedLeft = clamp(r.left, frame.width - width);
+        const alignedRight = clamp(r.left + r.width - width, frame.width - width);
+        const alignedTop = clamp(r.top, frame.height - height);
+        const alignedBottom = clamp(r.top + r.height - height, frame.height - height);
+        // Oito posições, sempre encostadas na região: acima, abaixo, à esquerda, à direita, cada uma
+        // alinhada a um dos dois cantos; o que escorrega para caber no quadro continua encostado.
         const outside = ([
-            { left: sideLeft, top: r.top - height },
-            { left: sideLeft, top: r.top + r.height },
-            { left: r.left - width, top: sideTop },
-            { left: r.left + r.width, top: sideTop },
+            { left: alignedLeft, top: r.top - height },
+            { left: alignedRight, top: r.top - height },
+            { left: alignedLeft, top: r.top + r.height },
+            { left: alignedRight, top: r.top + r.height },
+            { left: r.left - width, top: alignedTop },
+            { left: r.left - width, top: alignedBottom },
+            { left: r.left + r.width, top: alignedTop },
+            { left: r.left + r.width, top: alignedBottom },
         ] as { left: number; top: number }[]).map(at => ({ ...at, width, height })).filter(box => fits(box, frame));
         const box = outside.length
             ? pick(outside, placed, rects.filter((_, other) => other !== index))
-            : { left: sideLeft, top: sideTop, width, height };
+            : { left: alignedLeft, top: alignedTop, width, height };
         placed.push(box);
         return { left: box.left, top: box.top, width, height, offset: { left: box.left - r.left - REGION_BORDER, top: box.top - r.top - REGION_BORDER } };
     });
@@ -119,8 +127,8 @@ export const LABEL_DOT = 12;
 
 /**
  * Selos do número do `label`, um por ponto, na ordem dos índices: acima e à direita do ponto, encostado;
- * se não couber ou pisar em outro selo ou ponto, abaixo e à direita, depois acima e à esquerda, depois
- * abaixo e à esquerda (escolha de `pick`). Sempre inteiro no quadro.
+ * se não couber ou pisar em outro selo ou ponto, abaixo e à direita, acima e à esquerda, abaixo e à esquerda,
+ * depois acima e abaixo alinhados a cada canto do ponto (escolha de `pick`). Sempre inteiro no quadro.
  */
 export function labelBadgeBoxes(points: { x: number; y: number }[], frame: Frame) {
     const { width, height } = BADGE_SIZE;
@@ -135,6 +143,11 @@ export function labelBadgeBoxes(points: { x: number; y: number }[], frame: Frame
             { left: cx + half, top: cy + half },
             { left: cx - half - width, top: cy - half - height },
             { left: cx - half - width, top: cy + half },
+            // Alinhados a um canto do ponto, acima e abaixo.
+            { left: cx - half, top: cy - half - height },
+            { left: cx + half - width, top: cy - half - height },
+            { left: cx - half, top: cy + half },
+            { left: cx + half - width, top: cy + half },
         ] as { left: number; top: number }[]).map(at => ({ ...at, width, height }));
         const inside = all.filter(box => fits(box, frame));
         // shortcut: quadro tão pequeno que nada cabe cai no primeiro, preso ao quadro.
