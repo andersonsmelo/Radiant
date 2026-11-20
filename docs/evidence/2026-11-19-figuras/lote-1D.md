@@ -50,3 +50,10 @@ Declaradas em `figuras/sistema-nervoso.alvos.json`: as sete regiões (encéfalo,
 - Os nervos são linhas finas (uns 0,5 unidade): visíveis em ciano, mas finos num iPhone estreito.
 
 Não rodado: o gate completo (`EXPO_NO_DOTENV=1 npm run quality`), o simulador e o Android.
+
+## Capturas no iPhone
+
+Simulador "Radiant F7" (iOS 26.5), dev client com Metro local, em 2026-11-20 por volta de 06h33 (hora do simulador). Roteiro `radiant-app/.maestro/figuras/m20-aula-05.yaml` passou inteiro, sem edição; ele captura só o passo 4.
+
+- `capturas/ios-sistema-nervoso-m20-aula05-passo4.jpg` (tocar em região, i2): corpo inteiro de frente, da cabeça aos pés, dentro da moldura. Encéfalo em âmbar, medula em âmbar ao longo da coluna, nervos em ciano. Os nervos finos se veem no tamanho real, mas as pernas e o plexo da pelve ficam densos. Selo 1 cobre a metade de baixo do encéfalo (a calota com giros fica à vista), selo 2 sobre a mão e o quadril do lado esquerdo da imagem, selo 3 sobre a coxa direita, ao lado de nervos. As três áreas de toque não são desenhadas; os selos ficam sobre o corpo. A figura ocupa só cerca de um quarto da largura da moldura (corpo estreito).
+- Não capturado: o passo do conceito da aula (o roteiro não o fotografa).
