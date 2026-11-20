@@ -1231,7 +1231,7 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule quatro partes da articulação sinovial, tocando na ficha e no ponto. A figura mostra a articulação em corte.",
+          "prompt": "Rotule três partes da articulação sinovial, tocando na ficha e no ponto. A figura mostra a articulação em corte.",
           "diagramId": "articulacao-sinovial",
           "points": [
             {
@@ -1247,13 +1247,6 @@
               "y": 0.52,
               "where": "à esquerda, a faixa azul viva que envolve o espaço",
               "alvo": "Cápsula articular"
-            },
-            {
-              "label": "Cartilagem articular",
-              "x": 0.55,
-              "y": 0.509,
-              "where": "a faixa ciano sob a ponta de cima",
-              "alvo": "Cartilagem articular"
             },
             {
               "label": "Cavidade articular",
@@ -1372,6 +1365,11 @@
               "text": "Baixar o braço até encostá-lo no tronco é adução.",
               "correct": true,
               "feedback": "Adução aproxima o membro da linha média, como ao baixar o braço até o tronco."
+            },
+            {
+              "text": "A cartilagem articular cobre as pontas dos ossos dentro da cápsula.",
+              "correct": true,
+              "feedback": "Dentro da cápsula, a cartilagem cobre as pontas dos ossos e deixa o movimento liso."
             },
             {
               "text": "O tendão liga um osso a outro e limita o movimento excessivo.",

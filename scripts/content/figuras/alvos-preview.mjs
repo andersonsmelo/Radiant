@@ -19,8 +19,13 @@ const SCALE = 3;
 // centrado no ponto; hotspotTouch.ts: selo de 36 x 24 pt no canto da região). Em unidades do quadro, para a prévia mostrar
 // o que fica escondido embaixo.
 const FRAME_PT = 280;
-export const MARKER_PT = 28;
-export const BADGE_PT = { width: 36, height: 24 };
+// As medidas vêm do app: o selo, de hotspotTouch.ts; o marcador, do texto do LabelStepRenderer (const privada de um .tsx
+// com React Native, que o carregador de contrato não executa), e a leitura falha alto se a constante sumir.
+const { BADGE_SIZE } = loadAppContract('features/lesson-flow/renderers/hotspotTouch.ts');
+const marker = /^const MARKER = (\d+);/m.exec(readFileSync(path.join(root, 'radiant-app/src/features/lesson-flow/renderers/LabelStepRenderer.tsx'), 'utf8'));
+if (!marker) throw new Error('LabelStepRenderer.tsx não declara mais "const MARKER = <número>;"');
+export const MARKER_PT = Number(marker[1]);
+export const BADGE_PT = { width: BADGE_SIZE.width, height: BADGE_SIZE.height };
 
 export function previewHtml(id, regions, lessonTargets) {
   const spec = DIAGRAMS[id];

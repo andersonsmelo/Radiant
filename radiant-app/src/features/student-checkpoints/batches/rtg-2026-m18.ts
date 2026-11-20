@@ -6,7 +6,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m18",
-  "materialSha256": "e8165a126c248cfb78ed7efc3a5f74371b43235986cf9ee974366960ee49fb9d",
+  "materialSha256": "809a8d078d7974a56424a1e3a86da60c817eb8cd059963ecfd5848c991632775",
   "trackId": "track:rtg-2026:m18",
   "unitId": "unit:rtg-2026:m18",
   "contentVersion": "rtg-2026-m18-v1",
@@ -1328,7 +1328,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule quatro partes da articulação sinovial, tocando na ficha e no ponto. A figura mostra a articulação em corte."
+              "label": "Rotular a imagem: Rotule três partes da articulação sinovial, tocando na ficha e no ponto. A figura mostra a articulação em corte."
             },
             "help": "Comece pelo osso, no alto, e desça até as pontas.",
             "type": "label",
@@ -1337,7 +1337,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
               "incorrect": "Alguma ficha está no ponto errado: a cápsula envolve o espaço por fora, e a cavidade fica entre as pontas dos ossos."
             },
             "payload": {
-              "prompt": "Rotule quatro partes da articulação sinovial, tocando na ficha e no ponto. A figura mostra a articulação em corte.",
+              "prompt": "Rotule três partes da articulação sinovial, tocando na ficha e no ponto. A figura mostra a articulação em corte.",
               "imageRef": "diagram:articulacao-sinovial",
               "points": [
                 {
@@ -1356,17 +1356,10 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-04:i2:3",
-                  "x": 0.55,
-                  "y": 0.509,
-                  "where": "a faixa ciano sob a ponta de cima",
-                  "correctLabelId": "label:rtg-2026:m18:aula-04:i2:3"
-                },
-                {
-                  "id": "point:rtg-2026:m18:aula-04:i2:4",
                   "x": 0.37,
                   "y": 0.535,
                   "where": "o espaço azul-petróleo entre as pontas",
-                  "correctLabelId": "label:rtg-2026:m18:aula-04:i2:4"
+                  "correctLabelId": "label:rtg-2026:m18:aula-04:i2:3"
                 }
               ],
               "labels": [
@@ -1376,10 +1369,6 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                 },
                 {
                   "id": "label:rtg-2026:m18:aula-04:i2:3",
-                  "label": "Cartilagem articular"
-                },
-                {
-                  "id": "label:rtg-2026:m18:aula-04:i2:4",
                   "label": "Cavidade articular"
                 },
                 {
@@ -1387,7 +1376,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                   "label": "Osso"
                 },
                 {
-                  "id": "label:rtg-2026:m18:aula-04:i2:5",
+                  "id": "label:rtg-2026:m18:aula-04:i2:4",
                   "label": "Tendão"
                 }
               ]
@@ -1559,12 +1548,18 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                 },
                 {
                   "id": "statement:rtg-2026:m18:aula-04:i5:6",
+                  "text": "A cartilagem articular cobre as pontas dos ossos dentro da cápsula.",
+                  "isTrue": true,
+                  "explanation": "Dentro da cápsula, a cartilagem cobre as pontas dos ossos e deixa o movimento liso."
+                },
+                {
+                  "id": "statement:rtg-2026:m18:aula-04:i5:7",
                   "text": "O tendão liga um osso a outro e limita o movimento excessivo.",
                   "isTrue": false,
                   "explanation": "Quem liga osso a osso é o ligamento; o tendão liga músculo a osso."
                 }
               ],
-              "passCount": 5
+              "passCount": 6
             }
           }
         },
@@ -4589,14 +4584,6 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m18:aula-04:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-9-4"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m18:aula-04:i2:2",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -4613,14 +4600,6 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "label:rtg-2026:m18:aula-04:i2:4",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-9-4"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m18:aula-04:i2:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -4629,7 +4608,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "label:rtg-2026:m18:aula-04:i2:5",
+      "claimId": "label:rtg-2026:m18:aula-04:i2:4",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
@@ -4864,6 +4843,16 @@ export const RTG_2026_M18: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m18:aula-04:i5:6",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m18:openstax-ap-9-1",
+        "source:rtg-2026:m18:openstax-ap-9-4",
+        "source:rtg-2026:m18:openstax-ap-9-5"
+      ]
+    },
+    {
+      "claimId": "statement:rtg-2026:m18:aula-04:i5:7",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
@@ -6804,7 +6793,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e8165a126c248cfb78ed7efc3a5f74371b43235986cf9ee974366960ee49fb9d"
+      "materialSha256": "809a8d078d7974a56424a1e3a86da60c817eb8cd059963ecfd5848c991632775"
     },
     {
       "schemaVersion": 1,
@@ -6813,7 +6802,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e8165a126c248cfb78ed7efc3a5f74371b43235986cf9ee974366960ee49fb9d"
+      "materialSha256": "809a8d078d7974a56424a1e3a86da60c817eb8cd059963ecfd5848c991632775"
     },
     {
       "schemaVersion": 1,
@@ -6822,7 +6811,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e8165a126c248cfb78ed7efc3a5f74371b43235986cf9ee974366960ee49fb9d"
+      "materialSha256": "809a8d078d7974a56424a1e3a86da60c817eb8cd059963ecfd5848c991632775"
     },
     {
       "schemaVersion": 1,
@@ -6831,7 +6820,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e8165a126c248cfb78ed7efc3a5f74371b43235986cf9ee974366960ee49fb9d"
+      "materialSha256": "809a8d078d7974a56424a1e3a86da60c817eb8cd059963ecfd5848c991632775"
     },
     {
       "schemaVersion": 1,
@@ -6840,7 +6829,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e8165a126c248cfb78ed7efc3a5f74371b43235986cf9ee974366960ee49fb9d"
+      "materialSha256": "809a8d078d7974a56424a1e3a86da60c817eb8cd059963ecfd5848c991632775"
     },
     {
       "schemaVersion": 1,
@@ -6849,7 +6838,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e8165a126c248cfb78ed7efc3a5f74371b43235986cf9ee974366960ee49fb9d"
+      "materialSha256": "809a8d078d7974a56424a1e3a86da60c817eb8cd059963ecfd5848c991632775"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",
