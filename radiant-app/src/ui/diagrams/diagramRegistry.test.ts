@@ -155,3 +155,15 @@ describe('registro de diagramas', () => {
     expect(parseDiagramRef('diagram:')).toBeNull();
   });
 });
+
+// O react-native-svg do iOS aborta (SIGABRT em RNSVGSvgView definePainter) ao registrar degradê sem id.
+describe('servidores de pintura', () => {
+  it.each(DIAGRAM_IDS)('%s: todo degradê tem id', (id) => {
+    const semId: string[] = [];
+    for (const layer of DIAGRAMS[id].layers) {
+      // Lê a abertura de cada elemento, não o texto solto: um comentário não casa.
+      for (const [open] of layer.svg.matchAll(/<(?:linear|radial)Gradient\b[^>]*>/g)) if (!/\sid="[^"]+"/.test(open)) semId.push(open);
+    }
+    expect(semId).toEqual([]);
+  });
+});

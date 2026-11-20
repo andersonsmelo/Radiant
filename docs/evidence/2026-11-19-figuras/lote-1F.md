@@ -49,6 +49,10 @@ Regra do brief e do controlador: região declarada = caixa da estrutura, sem est
 
 Pixels que diferem em mais de 40 de 255 entre o spec e a fonte, na mesma transformação: `pelve-de-frente` 110, `pelve-de-frente-recorte` 34, `osso-longo` 0 e `coluna-sagital-e-axial` 193, de 691.200 cada, só serrilhado. Detalhe e método em `lote-1F/medidas.md`. As prévias e todas as medidas por cor passaram a ser sobre o fundo do app; o primeiro passe era sobre branco, e foi isso que escondeu o defeito dos degradês do osso longo.
 
+## Conserto: degradê sem id
+
+No simulador, o app abortava (SIGABRT) ao abrir o passo da M18.02 com a figura `osso-longo`: exceção `-[__NSDictionaryM setObject:forKey:]` em `-[RNSVGSvgView definePainter:painterName:]`, chamada por `-[RNSVGLinearGradient parseReference]` (dois relatórios iguais). Causa: o spec trazia 7 `<linearGradient>` sem `id` (os degradês-base da cadeia do Inkscape, cujas paradas a receita já copia para quem os referencia); o conversor tirava o `id` do degradê que nenhuma forma usa, mas mantinha o elemento, e o react-native-svg do iOS o registra com nome nulo. O conversor (`convert.mjs`) agora remove esses degradês inteiros; o teste `convert.test.mjs` cobre o caso, e a guarda "todo degradê tem id" em `diagramRegistry.test.ts` percorre todos os specs (rastro vermelho, só no `osso-longo`, em `lote-1F/vermelho-degrade-sem-id.txt`). Regenerados todos os specs importados: só o `osso-longo` mudou (-7 degradês); 0 pixels diferem do spec anterior sobre #171920. Não verificado no simulador.
+
 ## Números (2026-11-20, Node 20.20.2, esta árvore)
 
 - Verificador de aulas nas 40 unidades: 40 de 40 OK.

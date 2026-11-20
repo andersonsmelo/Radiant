@@ -17,6 +17,8 @@ Fonte (`scripts/content/figuras/fontes/<id>.svg`) e spec renderizados na mesma t
 
 O defeito do achado 1: o conversor (`convert.mjs`) descarta `xlink:href`, e os degradês em cadeia do Inkscape do osso longo chegavam ao spec sem `<stop>`, o que apagava sete preenchimentos (5,86% do quadro, medido na revisão). A correção está na receita `osso-longo.mjs`, que copia os `<stop>` do degradê-base para cada degradê que o referencia e tira o `xlink:href` (7 degradês). As outras três figuras não usam `xlink:href`: o spec delas já batia com a fonte.
 
+Conserto do degradê sem id (2026-11-20, rodada de correções, osso-longo): spec novo contra o do commit 2b1556a2, ambos sobre #171920, 960x720: 0 pixels diferem acima de 40/255 (e 0 em qualquer nível). A prévia `osso-longo.png` não muda.
+
 ## pelve-de-frente (m24-04, `i2`, rótulo)
 
 | Ponto (x; y) | Área de 44 pt | Sob o marcador de 28 pt | Caixas declaradas sob a área |

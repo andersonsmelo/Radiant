@@ -64,6 +64,8 @@ function flatten(svg, strokeScale) {
     for (const a of [...el.attributes]) if (!keep.has(a.name)) { report.removedAttrs[a.name] = (report.removedAttrs[a.name] || 0) + 1; el.removeAttribute(a.name); }
     for (const [k, v] of Object.entries(set)) el.setAttribute(k, v);
   }
+  // Degradê sem id (ninguém o usa por url(#)) não pinta nada, e o react-native-svg do iOS aborta ao registrá-lo.
+  for (const g of svg.querySelectorAll('linearGradient, radialGradient')) if (!g.id) g.remove();
   // Grupo sem atributo não muda nada: some, e os filhos sobem.
   for (const g of [...svg.querySelectorAll('g')].reverse()) if (!g.attributes.length) g.replaceWith(...g.childNodes);
 }
