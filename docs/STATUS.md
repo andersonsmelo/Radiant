@@ -183,12 +183,14 @@ no lote 1F em 2026-11-20** ([1F](evidence/2026-11-19-figuras/lote-1F.md)): a pel
 frente inteira (Servier) para o rotular da M24.04, agora com três fichas (acetábulo e
 sínfise saíram: a arte não desenha o primeiro e o marcador esconde 97% da segunda); o
 recorte ampliado `pelve-de-frente-recorte` para o tocar do forame obturado; o osso longo
-em corte (Pbroks13, CC BY 3.0), que mostra só a extremidade proximal, contra a lição do
-1A, porque o fêmur inteiro do Servier ficou minúsculo no quadro (a decisão é do
-controlador e espera o aval do dono; o rotular da M18.02 ficou com três fichas, sem a
-placa de crescimento e a cartilagem articular); e a coluna, agora **só em corte
+como o **fêmur inteiro do Servier**, por escolha do dono em 2026-11-20 depois de ver lado
+a lado essa arte e a do Pbroks13 em corte (só uma ponta). O rotular da M18.02 ficou com
+epífise proximal, diáfise e epífise distal; a cavidade, o osso esponjoso, a placa de
+crescimento e a cartilagem ficam no texto da aula, e o marcador esconde cerca de um quarto
+de cada epífise. Espera o dono a fala da cena da M18.02 ("Cortei este fêmur de modelo ao
+meio"), que destoa da figura inteira; e a coluna, agora **só em corte
 sagital** (Servier), porque a vista axial disponível era um disco em perspectiva, e não
-um corte. **No lote 1F, o osso longo derrubava o app no iOS** (SIGABRT no
+um corte. **No lote 1F, a arte anterior do osso longo derrubava o app no iOS** (SIGABRT no
 `react-native-svg`, degradê sem `id`): o conversor passou a remover degradê sem
 referência, e uma guarda no teste do registro barra qualquer spec com degradê sem `id`.
 **Ficam com a figura antiga:** os três cortes axiais da m28 (sem
@@ -200,17 +202,16 @@ correções ([1A](evidence/2026-11-19-figuras/lote-1A.md),
 [1B](evidence/2026-11-19-figuras/lote-1B.md), [1C](evidence/2026-11-19-figuras/lote-1C.md),
 [1D](evidence/2026-11-19-figuras/lote-1D.md), [1E](evidence/2026-11-19-figuras/lote-1E.md),
 [1F](evidence/2026-11-19-figuras/lote-1F.md)).
-Gate do app em `61116210`, Node 20.20.2: 297 suítes, 4.547 testes, saída 0. Itens de aula
+Gate do app em `442a8e7e`, Node 20.20.2: 297 suítes, 4.547 testes, saída 0. Itens de aula
 adaptados pela política "adaptar o item" em m18, m20, m24, m25, m26 e m28. As 23 figuras
-somam 3.116.966 bytes de SVG (medido em `0d481398`), contra o teto de 8.116.109 do teste;
+somam 2.900.381 bytes de SVG (medido em `368029c3`), contra o teto de 8.116.109 do teste;
 a respiração tem uma exceção
 nomeada de peso (401 KiB, teto de 480 só para ela), não medida no Android
 ([orçamento, seção 7](evidence/2026-11-19-figuras/orcamento.md), medido com 11 figuras).
 **Visto no simulador de iPhone em 2026-11-20: as 23 figuras, em pelo menos um passo de
-aula cada. Não visto: Android e aparelho físico para essas figuras.** No iPhone, o osso
-esponjoso do osso longo sai cinza-azulado, e não bege como na prévia do Chrome; a forma
-está toda lá. O roteiro `m18-aula-02` reprova no passo de classificar (a rolagem não leva
-ficha e grupo à tela), e a captura do 1F saiu por uma cópia fora do repositório. Nos itens de
+aula cada. Não visto: Android e aparelho físico para essas figuras.** O roteiro
+`m18-aula-02` reprova no passo de classificar (a rolagem não leva ficha e grupo à tela),
+e a captura do osso longo saiu por uma cópia fora do repositório. Nos itens de
 rotular e de tocar, o selo numerado cobre parte da estrutura que nomeia (cuboide,
 marcos da m18, encéfalo, bexiga); os marcadores da coluna ficam ao lado dela, como
 exceção provisória; o corpo inteiro fica pequeno no quadro 4:3 (esqueleto, sistema

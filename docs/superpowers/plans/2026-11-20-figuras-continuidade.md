@@ -19,7 +19,7 @@
 | 1C | `ossos-do-pe`, `trato-digestivo`, `marcos-de-superficie` | [lote-1C](../../evidence/2026-11-19-figuras/lote-1C.md) |
 | 1D | `sistema-nervoso` | [lote-1D](../../evidence/2026-11-19-figuras/lote-1D.md) |
 | 1E | `femur-proximal-e-quadril`, `respiracao-diafragma`, `circulacao-dupla`, `seios-da-face`, `seios-da-face-frente`, `sistema-urinario`, `bexiga-e-uretra`, `contraste-no-corpo` | [lote-1E](../../evidence/2026-11-19-figuras/lote-1E.md) |
-| 1F | `pelve-de-frente`, `pelve-de-frente-recorte`, `osso-longo`, `coluna-sagital-e-axial` (2026-11-20; gate em `61116210`, 4.547 testes) | [lote-1F](../../evidence/2026-11-19-figuras/lote-1F.md) |
+| 1F | `pelve-de-frente`, `pelve-de-frente-recorte`, `osso-longo`, `coluna-sagital-e-axial` (2026-11-20; gate em `442a8e7e`, 4.547 testes; o osso longo é o fêmur inteiro do Servier, escolha do dono) | [lote-1F](../../evidence/2026-11-19-figuras/lote-1F.md) |
 
 Com o 1F são 23 figuras no app (as 19 acima até o 1E, mais 4), todas vistas no simulador de iPhone. Lição do 1F para quem continua: confira prévia e medida sobre o fundo do app (#171920), nunca sobre branco, e só aceite uma figura depois de vê-la abrir no simulador. O gate não renderiza SVG nativo: um degradê sem `id` derrubava o app no iOS com todos os testes verdes.
 
@@ -47,7 +47,7 @@ Nunca, em nenhuma hipótese: imagem de exame gerada por modelo; forma pintada so
 
 ### 3.1 Lote 1F: três figuras de anatomia (FEITO em 2026-11-20)
 
-> Feito em 2026-11-20, commits `77b1607b` a `bef0f5c0`, evidência em [lote-1F](../../evidence/2026-11-19-figuras/lote-1F.md). Entraram `pelve-de-frente`, `pelve-de-frente-recorte` (novo), `osso-longo` (Pbroks13, só a extremidade proximal, decisão do controlador que espera o dono) e `coluna-sagital-e-axial` (só a vista sagital). O texto abaixo é o pedido original.
+> Feito em 2026-11-20, commits `77b1607b` a `442a8e7e` e a captura seguinte, evidência em [lote-1F](../../evidence/2026-11-19-figuras/lote-1F.md). Entraram `pelve-de-frente`, `pelve-de-frente-recorte` (novo), `osso-longo` (fêmur inteiro do Servier, escolhido pelo dono depois de ver lado a lado essa arte e a do Pbroks13 em corte, que chegou a entrar e saiu) e `coluna-sagital-e-axial` (só a vista sagital). O texto abaixo é o pedido original.
 
 `pelve-de-frente`, `osso-longo`, `coluna-sagital-e-axial`. Método decidido: arte de acervo como o autor a desenhou, e o item adaptado para o que a arte não mostra.
 
