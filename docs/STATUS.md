@@ -213,13 +213,17 @@ nomeada de peso (401 KiB, teto de 480 só para ela), não medida no Android
 aula cada. Não visto: Android e aparelho físico para essas figuras.** O roteiro
 `m18-aula-02` reprova no passo de classificar (a rolagem não leva ficha e grupo à tela),
 e a captura do osso longo saiu por uma cópia fora do repositório. Nos itens de
-rotular e de tocar, o selo numerado cobre parte da estrutura que nomeia (cuboide,
-marcos da m18, encéfalo, bexiga); os marcadores da coluna ficam ao lado dela, como
-exceção provisória; o corpo inteiro fica pequeno no quadro 4:3 (esqueleto, sistema
+rotular e de tocar, o selo numerado cobria parte da estrutura que nomeia (cuboide,
+marcos da m18, encéfalo, bexiga); **em 2026-11-20 o app passou a pôr o selo FORA da região
+e do ponto, sem pisar na área de toque dos outros alvos (decisões E11 a E13 do lote 2A, medido
+nos 89 itens das 40 unidades, em [lote-2A](evidence/2026-11-19-figuras/lote-2A.md)); ainda
+sobra selo sobre a estrutura de OUTRO ponto de rotular (o app não recebe a caixa do alvo), e a
+exceção provisória da coluna precisa ser revista no simulador**; o corpo inteiro fica pequeno no quadro 4:3 (esqueleto, sistema
 nervoso, circulação). Os roteiros `m18-aula-05` e `m25-aula-04` reprovam no "Continuar"
 depois do passo de rotular: é o defeito conhecido do roteiro (a rolagem acha os pontos
-sob o cabeçalho fixo), e as figuras saíram certas antes disso. A fase 2 não começou;
-existe só uma amostra da cena do leito
+sob o cabeçalho fixo), e as figuras saíram certas antes disso. **A fase 2 começou em 2026-11-20 com o lote 2A** (seis cenas isométricas da m17 e da m19, com
+revisão independente e correções; [lote-2A](evidence/2026-11-19-figuras/lote-2A.md); não visto no simulador);
+sobre a figura humana há a amostra do leito
 ([amostra](evidence/2026-11-19-figuras/amostra-fase-2/relatorio.md)). **Quem continua esta
 frente começa pelo [plano de continuidade](superpowers/plans/2026-11-20-figuras-continuidade.md),
 escrito em 2026-11-20**: o que falta, as decisões do dono, o passo a passo de um lote e

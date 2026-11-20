@@ -21,6 +21,8 @@
 | 1E | `femur-proximal-e-quadril`, `respiracao-diafragma`, `circulacao-dupla`, `seios-da-face`, `seios-da-face-frente`, `sistema-urinario`, `bexiga-e-uretra`, `contraste-no-corpo` | [lote-1E](../../evidence/2026-11-19-figuras/lote-1E.md) |
 | 1F | `pelve-de-frente`, `pelve-de-frente-recorte`, `osso-longo`, `coluna-sagital-e-axial` (2026-11-20; gate em `442a8e7e`, 4.547 testes; o osso longo é o fêmur inteiro do Servier, escolha do dono) | [lote-1F](../../evidence/2026-11-19-figuras/lote-1F.md) |
 
+**Lote 2A (2026-11-20, fase 2):** `tubo-raios-x`, `tubo-emitindo`, `anodo-giratorio`, `conferencia-de-identidade`, `pontos-de-contato-da-sala` e `itens-de-emergencia-da-sala`, desenhadas em código pelo kit `scripts/content/figuras/kit/` (geometria da skill `anatomy` copiada em `kit/vendor/anatomy/`, MIT). Evidência e correções da revisão em [lote-2A](../../evidence/2026-11-19-figuras/lote-2A.md). Junto com ele o app passou a pôr o selo do número fora do objeto e fora da área de toque dos outros alvos. Não visto no simulador.
+
 Com o 1F são 23 figuras no app (as 19 acima até o 1E, mais 4), todas vistas no simulador de iPhone. Lição do 1F para quem continua: confira prévia e medida sobre o fundo do app (#171920), nunca sobre branco, e só aceite uma figura depois de vê-la abrir no simulador. O gate não renderiza SVG nativo: um degradê sem `id` derrubava o app no iOS com todos os testes verdes.
 
 - Pareceres dos revisores, como exemplo do rigor esperado: [`docs/evidence/2026-11-19-figuras/revisoes/`](../../evidence/2026-11-19-figuras/revisoes/1E.md) (1A a 1E).

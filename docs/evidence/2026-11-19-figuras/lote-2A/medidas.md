@@ -65,72 +65,74 @@ Data das medidas: 2026-11-20. Nove interações usam as seis figuras novas; toda
 | 3 Janela de saída | não | 101 x 101 | 42,7 % | 6,4 % | ânodo 20,8 %; elétrons 2 %; vidro 58,2 %; feixe 44,2 % |
 | 4 Ampola de vidro | não | 120 x 101 | 77,9 % | 22,1 % | nenhuma |
 
-## Quanto o selo e o marcador escondem, com a posição nova (E11)
+## Quanto o selo e o marcador escondem, com a posição do selo depois da correção da revisão (E11 e E12)
 
-Posições lidas de `badgeBoxes` e `labelBadgeBoxes` (`hotspotTouch.ts`, commits 4bd7adce, 12a22b42 e 8f463dc2): os selos de um item são postos em conjunto, com oito posições candidatas, sem selo sobre selo e evitando cobrir outra região; o selo de tocar (36 x 24 pt) fica fora da região; o ponto do rotular tem 12 pt e o número vai num selo de 36 x 24 pt ao lado. "Antes" é a posição da versão anterior (selo dentro da região, marcador de 28 pt sobre o ponto). "Outro objeto cobrado" é o objeto de outro alvo do mesmo item; "outras peças", o resto da cena (porta, receptor, vidro etc., só o que passa de 1 %). Percentuais do objeto inteiro.
+Posições lidas de `badgeBoxes` e `labelBadgeBoxes` (`hotspotTouch.ts`), chamando as funções, na régua de 280 pt. "Antes" é a ponta `14a15897` (oito posições, sem olhar a área de toque dos outros alvos); "depois" é a posição de hoje, em que o selo de um alvo também não pisa na área de toque de 44 pt, nem na faixa de 4 pt em volta dela, de nenhum outro alvo do mesmo item, quando há posição livre (E12). O selo de tocar (36 x 24 pt) fica fora da região e é irmão dela no app (o toque nele seleciona a região dona, E13); o ponto do rotular tem 12 pt e o número vai num selo de 36 x 24 pt ao lado, também irmão. "Marcador (28 pt)" e "selo dentro da região" são os valores da versão original, só para comparar. Método desta tabela: cada peça da cena renderizada sozinha em 640 x 480 sobre fundo transparente (alfa maior que 8); o ponto de 12 pt é um círculo, o selo, a caixa de 36 x 24 pt; percentuais do objeto inteiro. "Outro objeto cobrado" é o objeto de outro alvo do mesmo item; "outras peças" é o resto da cena (porta, receptor etc.), só o que passa de 1 %, e não mudou com a correção salvo onde dito. A pulseira usa o ponto novo (0,3223; 0,5237), sobre a borda de baixo da faixa; antes, (0,3223; 0,4966).
 
 ### m17-01 i2 (rotular) conferencia-de-identidade
 
-| ponto | marcador antes (28 pt) | ponto de 12 pt esconde do objeto | selo do número esconde do objeto | selo cobre OUTRO objeto cobrado | selo cobre outras peças |
+| ponto | marcador (28 pt) | ponto de 12 pt esconde do objeto | selo do número esconde do objeto, antes → depois | selo cobre OUTRO objeto cobrado, antes → depois | selo cobre outras peças |
 |---|---|---|---|---|---|
-| L1 Pulseira no punho | 100 % | 81,8 % | 0 % | nenhum | maca 14,9 % |
-| L2 Pedido impresso | 39,6 % | 12,1 % | 0 % | nenhum | profissional 10,4 % |
-| L3 Registro na tela | 43,8 % | 8,4 % | 16 % | nenhum | nenhum |
-| L4 Fala do paciente (cabeça) | 9,3 % | 2 % | 0 % | nenhum | nenhum |
+| L1 Pulseira no punho | 100 % | 64,5 % → **33,0 %** | 0 % → 0 % | Fala do paciente 0,8 % → 3,6 % | maca 7,9 % |
+| L2 Pedido impresso | 39,6 % | 11 % | 0 % → 0 % | nenhum | profissional 9,3 % |
+| L3 Registro na tela | 43,8 % | 6,2 % | 16,3 % → 16,3 % | nenhum | nenhum |
+| L4 Fala do paciente (cabeça) | 9,3 % | 1,2 % | 0 % → 0 % | nenhum | nenhum |
 
 ### m17-04 i2 (hotspot) pontos-de-contato-da-sala
 
-| alvo | certa | selo antes (dentro da região) | selo agora esconde do próprio objeto | cobre OUTRO objeto cobrado do item | cobre outras peças da cena |
+| alvo | certa | selo dentro da região (original) | selo esconde do próprio objeto, antes → depois | cobre OUTRO objeto cobrado | cobre outras peças da cena, depois |
 |---|---|---|---|---|---|
-| 1 Maçaneta da porta | não | 100 % | 0 % | nenhum | porta 22,4 % |
-| 2 Apoio do receptor vertical | sim | 62,2 % | 2 % | nenhum | receptor 19,1 % |
-| 3 Mesa de exame | sim | 21,3 % | 0 % | nenhum | nenhum |
-| 4 Manopla do tubo | não | 100 % | 0 % | nenhum | tubo 48,4 % |
-| 5 Teclado do comando | não | 73 % | 0 % | nenhum | comando 23,4 % |
+| 1 Maçaneta da porta | não | 100 % | 0 % → 0 % | nenhum | porta 19,8 % |
+| 2 Apoio do receptor vertical | sim | 62,2 % | 2,4 % → 0 % | nenhum | receptor 25,7 % (antes 16,7 %) |
+| 3 Mesa de exame | sim | 21,3 % | 0 % → **13,3 %** (o selo foi para baixo, sobre o pedestal) | nenhum | nenhum |
+| 4 Manopla do tubo | não | 100 % | 0 % → 0 % | nenhum | tubo 42,9 % (antes 42,9 %) |
+| 5 Teclado do comando | não | 73 % | 0,2 % → 0,2 % | nenhum | comando 12,2 % |
 
 ### m17-05 i2 (rotular) itens-de-emergencia-da-sala
 
-| ponto | marcador antes (28 pt) | ponto de 12 pt esconde do objeto | selo do número esconde do objeto | selo cobre OUTRO objeto cobrado | selo cobre outras peças |
+| ponto | marcador (28 pt) | ponto de 12 pt esconde do objeto | selo do número esconde do objeto, antes → depois | selo cobre OUTRO objeto cobrado, antes → depois | selo cobre outras peças |
 |---|---|---|---|---|---|
-| L1 Porta de saída | 15,4 % | 2,8 % | 7,9 % | nenhum | nenhum |
-| L2 Carrinho de emergência | 30,6 % | 5,4 % | 10,8 % | nenhum | nenhum |
-| L3 Saída de oxigênio | 37,6 % | 6,7 % | 16,3 % | Botão de chamada 3,8 % | botao 3,8 % |
-| L4 Botão de chamada | 42,6 % | 8,2 % | 11,3 % | nenhum | nenhum |
-| L5 Telefone da parede | 34,5 % | 6,4 % | 14,6 % | Botão de chamada 19,5 % | botao 19,5 % |
+| L1 Porta de saída | 15,4 % | 2,2 % | 7,8 % → 7,8 % | nenhum | nenhum |
+| L2 Carrinho de emergência | 30,6 % | 3,8 % | 9,8 % → 12,5 % | Oxigênio 0,5 % → nenhum | mesa 2,5 % (depois) |
+| L3 Saída de oxigênio | 37,6 % | 5,2 % | 16,4 % → 16 % | Botão 3,8 % → nenhum | nenhum |
+| L4 Botão de chamada | 42,6 % | 5,8 % | 11,1 % → 11,1 % | Telefone 0,1 % | nenhum |
+| L5 Telefone da parede | 34,5 % | 4,8 % | 14,7 % → 11,1 % | Botão de chamada **18,7 % → nenhum** (a área de toque do botão agora fica livre; o selo 5 cobre 9,8 % da caixa declarada do botão, que inclui o cordão) | nenhum |
 
 ### m17-06 i2 (hotspot) itens-de-emergencia-da-sala
 
-| alvo | certa | selo antes (dentro da região) | selo agora esconde do próprio objeto | cobre OUTRO objeto cobrado do item | cobre outras peças da cena |
+| alvo | certa | selo dentro da região (original) | selo esconde do próprio objeto, antes → depois | cobre OUTRO objeto cobrado | cobre outras peças da cena |
 |---|---|---|---|---|---|
-| 1 Porta de saída | não | 10,2 % | 0 % | nenhum | nenhum |
-| 2 Carrinho de emergência | não | 14,5 % | 0 % | nenhum | nenhum |
-| 3 Saída de oxigênio | não | 35,1 % | 0 % | nenhum | nenhum |
-| 4 Botão de chamada | sim | 40,3 % | 0 % | nenhum | nenhum |
-| 5 Telefone da parede | sim | 29,6 % | 0 % | nenhum | nenhum |
+| 1 Porta de saída | não | 10,2 % | 0 % → 0 % | nenhum | nenhum |
+| 2 Carrinho de emergência | não | 14,5 % | 0 % → 0 % | nenhum | nenhum |
+| 3 Saída de oxigênio | não | 35,1 % | 0 % → 0 % | nenhum | nenhum |
+| 4 Botão de chamada | sim | 40,3 % | 0 % → 0 % | nenhum | nenhum |
+| 5 Telefone da parede | sim | 29,6 % | 0 % → 0 % | nenhum | nenhum |
 
 ### m19-03 i2 (rotular) tubo-raios-x
 
-| ponto | marcador antes (28 pt) | ponto de 12 pt esconde do objeto | selo do número esconde do objeto | selo cobre OUTRO objeto cobrado | selo cobre outras peças |
+| ponto | marcador (28 pt) | ponto de 12 pt esconde do objeto | selo do número esconde do objeto, antes → depois | selo cobre OUTRO objeto cobrado, antes → depois | selo cobre outras peças |
 |---|---|---|---|---|---|
-| L1 Cátodo com filamento | 22,4 % | 6,4 % | 0 % | Ampola de vidro 8,9 % | vidro 5,4 % |
-| L2 Ânodo | 15,8 % | 3 % | 3,4 % | nenhum | vidro 5,4 % |
-| L3 Janela de saída | 39,9 % | 9 % | 29,7 % | nenhum | ânodo 7,6 %; vidro 4,5 % |
-| L4 Ampola de vidro | 29,6 % | 6,5 % | 10,1 % | nenhum | nenhum |
+| L1 Cátodo com filamento | 22,4 % | 4,7 % | 0 % → **25,3 %** | Ampola 5,4 % → 4,8 % | nenhum |
+| L2 Ânodo | 15,8 % | 2,6 % | 2,7 % → 2,7 % | Ampola 5,4 % | nenhum |
+| L3 Janela de saída | 39,9 % | 9,4 % | 29,6 % → 29,6 % | Ânodo 7,9 % | nenhum |
+| L4 Ampola de vidro | 29,6 % | 0,7 % | 2,1 % → 0,5 % | nenhum | nenhum |
 
 ### m19-06 i2 (hotspot) tubo-raios-x
 
-| alvo | certa | selo antes (dentro da região) | selo agora esconde do próprio objeto | cobre OUTRO objeto cobrado do item | cobre outras peças da cena |
+| alvo | certa | selo dentro da região (original) | selo esconde do próprio objeto, antes → depois | cobre OUTRO objeto cobrado | cobre outras peças da cena |
 |---|---|---|---|---|---|
-| 1 Cátodo com filamento | não | 44,8 % | 0 % | nenhum | nenhum |
-| 2 Ânodo | sim | 15,2 % | 0 % | nenhum | nenhum |
-| 3 Janela de saída | não | 91,9 % | 0 % | nenhum | feixe 11,7 % |
-| 4 Ampola de vidro | não | 29,9 % | 0 % | nenhum | nenhum |
+| 1 Cátodo com filamento | não | 44,8 % | 0 % → 0 % | nenhum | nenhum |
+| 2 Ânodo | sim | 15,2 % | 0 % → 0 % | Ampola 0 % | nenhum |
+| 3 Janela de saída | não | 91,9 % | 0,2 % → 0,2 % | nenhum | feixe 11,7 % |
+| 4 Ampola de vidro | não | 29,9 % | 0,9 % → 0,9 % | nenhum | nenhum |
 
-## Limitações e vizinhos (posição final do selo, E11)
+## Limitações e vizinhos (posição do selo depois da correção da revisão, E12)
 
-Com os selos postos em conjunto, **nenhum selo de tocar esconde mais de 2 % do próprio objeto** (0 % em 13 das 14 regiões; o apoio do receptor, 2 %) e **nenhum selo de tocar cobre outro objeto cobrado** (0 % nas 14 regiões, inclusive no m19-06, onde antes o selo do ânodo cobria 44 % da janela). O ponto de 12 pt do rotular esconde de 2 % a 9 % dos objetos, exceto a pulseira (81,8 %: a faixa mede 0,056 x 0,077 do quadro, menos que o ponto mais o contorno). O selo do número do rotular esconde de 0 a 30 % do próprio objeto; o pior é a janela do tubo (29,7 %), seguido do oxigênio (16,3 %) e da tela (16 %).
+**Tocar:** nenhum selo cobre outro objeto cobrado (0 % nas 14 regiões, antes e depois) e nenhum esconde mais de 0,2 % do próprio objeto, com uma exceção nova: o selo da mesa de exame (m17-04) foi para baixo e cobre 13,3 % do objeto "mesa", que é o pedestal, não o tampo, onde fica a área de toque.
 
-Sobra, nos rotulares, um selo sobre vizinho acima de 10 %: m17-05, o selo do telefone cobre **19,5 %** do botão de chamada. Os demais cruzamentos: oxigênio sobre botão 3,8 %, carrinho sobre oxigênio 0,4 %, e m19-03, o selo do cátodo cobre 8,9 % da ampola. Nos hotspots do m17-04 os selos caem sobre peças que não são alvo (porta 22 %, receptor 19 %, tubo 48 %, comando 23 %); no m19-06, o selo da janela cobre 11,7 % do feixe.
+**Rotular:** o ponto de 12 pt esconde de 0,7 % a 11 % dos objetos, e a pulseira, que escondia 64,5 % (81,8 % pela medida do integrador, que contava o contorno e a caixa do ponto), esconde 33 % com o ponto na borda de baixo da faixa, o mínimo que cabe com os pontos vizinhos a 44 pt: mover mais para a esquerda ou para a direita faz a área de 44 pt tocar a do ponto da cabeça ou a do pedido. O selo do número esconde de 0 a 30 % do próprio objeto; o pior segue sendo a janela do tubo (29,6 %). A correção trouxe o custo do E12: no m19-03, o selo do cátodo foi para baixo e à esquerda e passou a cobrir 25,3 % do cátodo (antes 0 %), porque acima e à direita caíam na área de toque da ampola e da janela. O selo de rotular não conhece a caixa do próprio alvo (o app só recebe os pontos), então a escolha trocou "cobrir a área de toque do vizinho" por "cobrir parte do próprio objeto".
+
+Cruzamentos com vizinhos, no rotular: o selo do telefone (m17-05) deixou de cobrir 18,7 % do botão de chamada e deixou de pisar na área de toque dele; o do oxigênio deixou de cobrir o botão (3,8 % → 0 %); no m19-03, o selo do cátodo cobre 4,8 % da ampola (antes 5,4 %) e o da janela, 7,9 % do ânodo. Nos hotspots do m17-04, os selos caem sobre peças que não são alvo (porta 19,8 %, receptor 25,7 %, tubo 42,9 %, comando 12,2 %); no m19-06, o selo da janela cobre 11,7 % do feixe. O selo da manopla (m17-04) cobria 48,4 % do tubo de teto pela medida do integrador (42,9 % pela desta tabela, que usa a peça sozinha): é o mesmo selo, na mesma posição; a correção do achado 10 não mudou o desenho (ver a evidência do lote).
 
 ## Spec contra fonte
 
