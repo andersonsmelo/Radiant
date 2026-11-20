@@ -1,0 +1,79 @@
+# Lote 2A: cenas isométricas da M17 e da M19 (fase 2, kit da skill `anatomy`)
+
+Data: 2026-11-20. Branch `claude/figuras-fase-1`, sobre 842ac5a2. Decisões do controlador E0 a E8 (pedido do dono de 2026-11-20, "continue precisamos finalizar o planejamento sem interrupções").
+
+## Resumo
+
+Seis figuras entram, todas desenhadas em código com o kit isométrico da skill `anatomy` (`scripts/content/figuras/kit/`), sem arte de terceiros e sem imagem gerada por modelo. Cada uma tem a cena em `scripts/content/figuras/cenas/<id>.mjs`, a fonte versionada em `scripts/content/figuras/fontes/<id>.svg` (gerada pela cena; 6 de 6 regeneram byte a byte, teste `cenas.test.mjs`), o spec gerado por `build-spec.mjs`, os alvos em `content-manifest/rtg-2026/figuras/<id>.alvos.json` e a entrada em `figuras.json` (origem `anatomy`, autor "Radiant", sem licença de terceiro, com o caminho da receita). Prévias finais sobre #171920, com os marcadores do app da interação que usa a figura, em `lote-2A/<id>.png`. O que há sob cada área de toque, medido por cor: [`lote-2A/medidas.md`](lote-2A/medidas.md).
+
+| id | unidade e uso | fonte (KiB) | spec (KiB) | caminhos |
+|---|---|---|---|---|
+| `tubo-raios-x` | m19-03 i2 (rotular), m19-06 i2 (hotspot) | 19,1 | 18,1 | 102 |
+| `tubo-emitindo` | m19-03 (visual do conceito; sem item) | 20,6 | 19,6 | 112 |
+| `anodo-giratorio` | m19-04 e m19-06 (visual do conceito; sem item) | 17,2 | 16,4 | 76 |
+| `conferencia-de-identidade` | m17-01 i2 (rotular) | 62,5 | 59,5 | 377 |
+| `pontos-de-contato-da-sala` | m17-04 i2 (hotspot) | 47,8 | 45,2 | 346 |
+| `itens-de-emergencia-da-sala` | m17-05 i2 (rotular), m17-06 i2 (hotspot) | 32,5 | 30,7 | 233 |
+
+Peso: o spec das seis soma 171,5 KiB (175.990 bytes); a soma de todas as 29 figuras importadas é 3.094.371 bytes contra o teto do teste do registro, 8.116.109 (folga de 5.021.738). Nenhuma passa do teto de 240 KiB por figura (a maior das seis, `conferencia-de-identidade`, tem 59,5 KiB).
+
+## Decisões aplicadas
+
+- **E3, figuras paradas:** `tubo-emitindo` e `anodo-giratorio` deixaram de ser laço (sem `periodMs`, `posterAt` nem camada móvel). O giro do ânodo se lê pela seta, pelas marcas radiais e pelo trecho aquecido da pista. Guarda nova em `diagramRegistry.test.ts` (as duas, imported e sem laço), vista falhando com o defeito que ela nomeia: com `periodMs: 4800` posto no spec do `anodo-giratorio`, o teste reprova com `Expected: undefined / Received: 4800`; sem ele, passa.
+- **E5, ângulo do alvo do ânodo exagerado para 22 graus** (o real vai de 7 a 17), para o bisel aparecer no tamanho do app; dimensões do tubo esquemáticas (ampola de 41 cm contra 30 a 35 reais; disco de 14,4 cm). Elétrons em linha reta e paralela ao eixo: simplificação. Registrado na entrada de `figuras.json` e no cabeçalho do spec.
+- **E4, regiões declaradas e de aula = caixa justa do objeto**, com o mínimo de 0,08 por eixo; nunca do tamanho da área de toque, nunca esticadas. `conferencia-de-identidade`: a pulseira (caixa de 0,056 x 0,077) cresce, centrada, ao mínimo de 0,08 x 0,08; as demais caixas são as do desenho. Os pontos de rotular ficam sobre o objeto que nomeiam.
+- **Objetos pequenos das cenas da m17 maiores que o real, de propósito** (decisão R12 do controlador), para o marcador do app (28 pt) e o selo (36 x 24 pt) esconderem menos:
+
+| cena | objeto | antes (rodada 2 do construtor) | agora | real aproximado |
+|---|---|---|---|---|
+| conferência | pulseira | 10 cm de largura, raio 6,2 cm | 20 cm, raio 8 cm | 2,5 cm, raio 3 cm |
+| conferência | folha do pedido | 28 x 36 cm, de perfil | 40 x 52 cm, virada para o espectador | A4: 21 x 30 cm |
+| conferência | tela | 56 x 40 cm | 84 x 60 cm (pedestal junto) | cerca de 50 x 30 cm |
+| contato | maçaneta | alavanca de 38 cm | 58 cm, espelho de 15 x 36 cm | 16 cm |
+| contato | barra de apoio | 68 cm, 4 cm de diâmetro | 92 cm, 8,4 cm | cerca de 50 cm, 3 cm |
+| contato | manopla do tubo | 26 x 23 cm, 4 cm | 36 x 36 cm, 9 cm | cerca de 14 cm |
+| contato | teclado e mesa do comando | 72 x 30 cm; mesa de 108 cm | 88 x 36 cm; mesa de 124 cm | 45 x 15 cm |
+| emergência | saída de oxigênio | placa de 65 x 68 cm | 84 x 88 cm | cerca de 10 cm |
+| emergência | botão de chamada | placa de 51 x 58 cm; cordão de 70 cm | 75 x 85 cm; cordão de 42 cm | cerca de 8 cm |
+| emergência | telefone | 54 x 78 cm | 64 x 92 cm | |
+
+## Itens alterados (uma linha cada; antes e depois em `.superpowers/sdd/2026-11-20-figuras-fases-2-6/itens-alterados-2A.md`)
+
+Nenhuma pergunta, nenhum enunciado, nenhuma ficha, nenhuma resposta certa e nenhum retorno mudou (E7), e nenhum item foi adaptado: toda ficha e toda região continuam cobradas. Mudou a posição de cada alvo, o campo `alvo` que o prende à região declarada e duas frases de localização.
+
+- m17-01 i2 (rotular, conferência de identidade): os 4 pontos foram para cima da pulseira, da folha, da tela e da cabeça da arte nova; `alvo` nos 4.
+- m17-04 i2 (hotspot, pontos de contato): as 5 regiões foram para a caixa dos objetos novos (maçaneta, apoio do receptor, mesa, manopla, teclado); `alvo` nas 5; as duas certas (apoio e mesa) seguem certas.
+- m17-05 i2 (rotular, itens de emergência): os 5 pontos foram para porta, carrinho, oxigênio, botão e telefone da arte nova; `alvo` nos 5 (a ficha "Telefone" liga-se ao alvo "Telefone da parede" por `rotulos`).
+- m17-06 i2 (hotspot, itens de emergência): as 5 regiões foram para a caixa dos objetos novos; `alvo` nas 5; as duas certas (botão e telefone) seguem certas.
+- m19-03 i2 (rotular, tubo de raios X): os 4 pontos foram para a arte nova (cátodo 0,339; 0,360, ânodo 0,580; 0,200, janela 0,537; 0,508, ampola 0,350; 0,140); `alvo` nos 4; os dois `where` que descreviam a arte antiga foram corrigidos ("à direita, o bloco inclinado de borda branca" virou "à direita, o disco com a face inclinada, ligado a uma haste"; "embaixo à direita, a abertura no vidro" virou "embaixo, a abertura redonda no vidro, de onde sai o feixe").
+- m19-06 i2 (hotspot, tubo de raios X): as 4 regiões foram para a caixa das peças novas (a do ânodo cresceu de 0,13 x 0,24 para 0,458 x 0,265, porque o ânodo agora é disco, rotor e haste); `alvo` nas 4; o ânodo segue como resposta certa.
+- **Texto que não mudou e merece decisão do controlador:** m19-04 diz, na fala da Duda, "Vi no desenho que o disco gira"; a figura agora é parada e mostra o giro por uma seta. A frase segue verdadeira, mas a figura só se lê inteira com a explicação da seta e do trecho aquecido, que não coube no corpo do conceito (80 palavras, o máximo do verificador com `visual`).
+
+## Figuras fora do lote
+
+Nenhuma das seis ficou de fora. `radiografia-roteiro` saiu do lote 2A por decisão R13 do controlador (imagem raster não cabe no spec; troca de interação da m23): é outro lote.
+
+## Registro de arquivos e réguas
+
+- `figuras.json`: 6 entradas novas, origem `anatomy`, com `fonte`, `author: "Radiant"`, `license`, `receita` e `modification`. O teste do registro e o `rtg-figuras.test.mjs` aceitam a origem (a figura `art: 'imported'` registrada como `codigo` é barrada; as seis estão como `anatomy`).
+- `diagramRegistry.ts` não mudou: os seis ids já estavam registrados e o spec gerado exporta o mesmo nome (`tuboRaiosX`, `tuboEmitindo`, `anodoGiratorio`, `conferenciaDeIdentidade`, `pontosDeContatoDaSala`, `itensDeEmergenciaDaSala`).
+- `alt` de cada spec em até 160 caracteres (o teto do registro); os `alt` sugeridos pelo construtor passavam disso e foram encurtados.
+- `.maestro/figuras/indice.json` ganhou os 6 ids; os roteiros novos são `m17-aula-01`, `m17-aula-04`, `m17-aula-05`, `m17-aula-06`, `m19-aula-03`, `m19-aula-04` e `m19-aula-06`; os de `generate-rtg-maestro` (m17 e m19) não mudaram. `radiant-app/scripts/copy-style-baseline.json` não mudou (nenhuma figura nova tem crédito de terceiro).
+
+## Números dos testes (Node 20.20.2, 2026-11-20)
+
+- Verificador (`rtg-lesson-lint.mjs`) nas 40 unidades: 40 de 40 OK (m17 e m19 com os alvos novos).
+- `build-rtg-batches.mjs --check`: ok. `generate-rtg-maestro.mjs --check` m17 e m19: ok (os roteiros dessas duas não mudaram). `figuras-no-simulador.mjs --check` com os 30 ids (24 antigos mais os 6 novos) e sem ids: ok; 7 roteiros novos em `.maestro/figuras/`.
+- `node --test scripts/content/figuras/*.test.mjs scripts/content/figuras/kit/*.test.mjs scripts/content/figuras/cenas/*.test.mjs`: 44 testes, 43 passam, 0 falham, 1 pulado (o que só vale sem Chrome, `sem Chrome o aviso diz o que fazer`). Dentro dele, `cenas.test.mjs`: 7 de 7, e o `kit.test.mjs`: 19 de 19. Vista falhando, a guarda de regeneração: com uma espessura de traço mudada na `fontes/tubo-emitindo.svg`, `cenas.test.mjs` reprova (`tubo-emitindo: regenera a fonte versionada byte a byte...`, 6 passam e 1 falha); restaurada a fonte, 7 de 7.
+- `cd radiant-app && node --test scripts/copy-style-contract.test.mjs`: 65 de 65.
+- `cd radiant-app && npx jest --runInBand src/ui/diagrams src/features/lesson-flow src/features/student-checkpoints`: 66 suítes, 1573 testes, todos passam (inclui `diagramRegistry.test.ts` com as duas guardas novas de figura parada).
+- `npx tsc --noEmit`: saída 0. `npx eslint` nos 9 arquivos de `radiant-app` tocados (`diagramRegistry.test.ts`, os 6 specs e `rtg-2026-m17.ts` e `rtg-2026-m19.ts`): saída 0. `npm run test:maestro-contract`: 13 de 13.
+- Soma de peso das figuras importadas: 3.094.371 bytes (29 figuras) contra o teto do teste, 8.116.109: dentro.
+- **`node --test scripts/content/*.test.mjs scripts/qa/*.test.mjs`: 452 testes, 413 passam, 39 falham.** Uma é a falha alheia conhecida (`registerSource normalizes metadata for the pilot book`). **As outras 38 são deste lote e NÃO estão resolvidas:** as fixtures `scripts/content/fixtures/unidade-formatos.json`, `scripts/content/rtg-formatos.test.mjs` e `scripts/content/rtg-lesson-lint.test.mjs` usam `tubo-raios-x` como figura "de código, sem arquivo de alvos" (hotspot e rotular sintéticos). Agora `tubo-raios-x` é arte importada com alvos, então esses testes recebem `figure-target-unlinked`. Os três arquivos estão fora da lista do run (E8), então não os toquei. Correção medida numa cópia fora do repositório: trocar `tubo-raios-x` por `sala-com-riscos` (figura de código, parada) nos três arquivos (26 linhas; patch em `.superpowers/sdd/2026-11-20-figuras-fases-2-6/fix-fixtures-2A.patch`, aplica com `git apply`); com ela, as duas suítes passam (169 de 170 na cópia; o 1 que sobrou é artefato da cópia, que não leva as imagens da M08).
+
+## O que fica incerto
+
+- **O kit depende de arquivos fora do repositório.** `kit/base.mjs` e `kit/paleta.mjs` importam `iso-kit.mjs`, `lathe.mjs` e `tube.mjs` da skill `anatomy` por caminho absoluto (`~/.agents/skills/anatomy/kit/`). Numa máquina sem a skill, `kit.test.mjs` falha na importação e `cenas.test.mjs` pula com a razão dita; as fontes e os specs versionados continuam valendo, mas as cenas não se regeneram. Os três arquivos não entraram porque estão fora da lista do run (E8). O CI não roda essas pastas.
+- **Não rodei simulador nem aparelho.** O spec passa nos testes do registro (réguas, paleta, degradê com id) e é idêntico à fonte em pixels; a leitura no tamanho do app e o toque no aparelho não foram vistos.
+- **Selo e marcador do app** ainda escondem 100 % de pulseira, maçaneta e manopla (E4; pendência do dono, fora do lote). No m19-06, o selo esconde 91,9 % da janela (alvo errado).
+- As cenas foram desenhadas por modelo, em código, com o kit; o dono reprovou antes figuras de anatomia desenhadas por modelo (2026-11-19). Estas são equipamento e salas, e a pessoa é o módulo único do kit (aceito pelo controlador, R1 e R8), mas o aceite visual final é dele.
