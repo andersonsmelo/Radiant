@@ -167,31 +167,43 @@ gráficos, fluxos e esquemas de radiografia, o destino da pilha de PRs e a retom
 lotes 5 e 6.
 
 **Fase 1 das figuras, anatomia por acervo (medido em 2026-11-20).** Na branch
-`claude/figuras-fase-1`, PR #97 em rascunho sobre a #96, sem merge. Das 24 figuras de
-anatomia do plano, **11 estão no app em arte de acervo**, com crédito, alvos presos e
-aulas ajustadas: crânio de perfil, esqueleto axial e apendicular, articulação sinovial,
-linhas do crânio, regiões da coluna, vértebra típica, joelho de frente e de perfil,
-ossos do pé, trato digestivo, marcos de superfície e sistema nervoso. **13 ficaram
-fora** e seguem com a figura antiga: seios da face (parte da obra é CC BY-SA), osso
-longo, pelve de frente, coluna em duas vistas, fêmur e quadril (a composição punha o
-fêmur fora da articulação), sistema urinário (a uretra não tem área de toque sem cobrir
-a bexiga), respiração e circulação dupla (laços, sem arte em camadas), contraste no
-corpo, composição do corpo inteiro (é esquema de exame, não anatomia) e os três cortes
-axiais da m28 (não há corte axial desenhado com licença aceita). Cada lote teve
-integração, revisão independente por IA e correções
-([1A](evidence/2026-11-19-figuras/lote-1A.md), [1B](evidence/2026-11-19-figuras/lote-1B.md),
-[1C](evidence/2026-11-19-figuras/lote-1C.md), [1D](evidence/2026-11-19-figuras/lote-1D.md)).
-Itens de aula adaptados pela política "adaptar o item" em m18, m20, m24 e m25. As 11
-figuras somam 1,48 MiB de SVG, média de 141 KiB, quase o dobro da referência do plano; a
-projeção para as 72 passa do teto do teste em cerca de 3%
-([orçamento, seção 7](evidence/2026-11-19-figuras/orcamento.md)). **Visto no simulador de
-iPhone: as figuras dos lotes 1A, 1B e 1C. Não visto: Android e aparelho físico para
-essas figuras.** Nos itens de rotular, o selo numerado cobre parte da estrutura que
-nomeia (cuboide, marcos da m18); os marcadores da coluna ficam ao lado dela, como
-exceção provisória. O roteiro `m18-aula-05` reprovou no "Continuar" depois do passo da
-figura, sem causa investigada. A fase 2 não começou. Esperam o dono: o que fazer com as
-13 figuras fora, a exceção da coluna, o enquadramento do esqueleto e do sistema nervoso
-(corpo inteiro fica pequeno no quadro) e o limite de peso.
+`claude/figuras-fase-1`, PR #97 em rascunho sobre a #96, sem merge. **19 figuras estão
+no app em arte de acervo** (Servier Medical Art, DBCLS/Togopic, LadyofHats e outros,
+todas CC BY ou domínio público), com crédito, alvos presos e aulas ajustadas. Onze
+entraram nos lotes 1A a 1D: crânio de perfil, esqueleto, articulação sinovial, linhas
+do crânio, regiões da coluna, vértebra típica, joelho, ossos do pé, trato digestivo,
+marcos de superfície e sistema nervoso. Oito entraram no lote 1E, depois de o dono
+decidir, em 2026-11-20, o que fazer com as que o acervo não cobria
+([ADR, adendo de 2026-11-20](adr/ADR-2026-11-19-figuras-por-tipo.md)): fêmur e quadril
+(composição de duas peças do mesmo autor, com a posição medida pela linha de Shenton),
+respiração e circulação dupla (paradas; a respiração traz dois estados lado a lado),
+seios da face em duas figuras (corte e frente), sistema urinário, o recorte ampliado de
+bexiga e uretra para a M26.06 e o contraste no corpo em dois painéis. **Ficam com a
+figura antiga:** pelve de frente, osso longo e coluna em duas vistas (entram por
+acervo com o item adaptado, lote 1F, não iniciado), os três cortes axiais da m28 (sem
+arte aberta; método a decidir junto com gráficos e esquemas) e a composição do corpo
+inteiro (é esquema de exame, passa à fase dos esquemas). **Imagem gerada foi testada e
+abandonada para anatomia em 2026-11-20:** duas tentativas da pelve de frente erraram
+posição e limite de osso. Cada lote teve integração, revisão independente por IA e
+correções ([1A](evidence/2026-11-19-figuras/lote-1A.md),
+[1B](evidence/2026-11-19-figuras/lote-1B.md), [1C](evidence/2026-11-19-figuras/lote-1C.md),
+[1D](evidence/2026-11-19-figuras/lote-1D.md), [1E](evidence/2026-11-19-figuras/lote-1E.md)).
+Gate do app em `ee193fa9`: 4.454 testes, saída 0. Itens de aula adaptados pela política
+"adaptar o item" em m18, m20, m24, m25 e m26. As 19 figuras somam 2,52 MiB de SVG
+(2.641.375 bytes), contra o teto de 8.116.109 do teste; a respiração tem uma exceção
+nomeada de peso (401 KiB, teto de 480 só para ela), não medida no Android
+([orçamento, seção 7](evidence/2026-11-19-figuras/orcamento.md), medido com 11 figuras).
+**Visto no simulador de iPhone em 2026-11-20: as 19 figuras, em pelo menos um passo de
+aula cada. Não visto: Android e aparelho físico para essas figuras.** Nos itens de
+rotular e de tocar, o selo numerado cobre parte da estrutura que nomeia (cuboide,
+marcos da m18, encéfalo, bexiga); os marcadores da coluna ficam ao lado dela, como
+exceção provisória; o corpo inteiro fica pequeno no quadro 4:3 (esqueleto, sistema
+nervoso, circulação). Os roteiros `m18-aula-05` e `m25-aula-04` reprovam no "Continuar"
+depois do passo de rotular: é o defeito conhecido do roteiro (a rolagem acha os pontos
+sob o cabeçalho fixo), e as figuras saíram certas antes disso. A fase 2 não começou;
+existe só uma amostra da cena do leito, fora do repositório. Esperam o dono: a exceção
+da coluna, o enquadramento do corpo inteiro, a figura humana da fase 2 e o método das
+fases 3 a 5.
 
 **Decisão aberta para o dono, medida em 2026-11-19:** com 310 aulas concluídas, o
 armazenamento da revisão espaçada fica em 1,64 MiB no caso comum, abaixo do teto de
