@@ -167,8 +167,8 @@ gráficos, fluxos e esquemas de radiografia, o destino da pilha de PRs e a retom
 lotes 5 e 6.
 
 **Fase 1 das figuras, anatomia por acervo (medido em 2026-11-20).** Na branch
-`claude/figuras-fase-1`, PR #97 em rascunho sobre a #96, sem merge. **19 figuras estão
-no app em arte de acervo** (Servier Medical Art, DBCLS/Togopic, LadyofHats e outros,
+`claude/figuras-fase-1`, PR #97 em rascunho sobre a #96, sem merge. **23 figuras estão
+no app em arte de acervo** (19 até o lote 1E e 4 do lote 1F) (Servier Medical Art, DBCLS/Togopic, LadyofHats e outros,
 todas CC BY ou domínio público), com crédito, alvos presos e aulas ajustadas. Onze
 entraram nos lotes 1A a 1D: crânio de perfil, esqueleto, articulação sinovial, linhas
 do crânio, regiões da coluna, vértebra típica, joelho, ossos do pé, trato digestivo,
@@ -178,23 +178,39 @@ decidir, em 2026-11-20, o que fazer com as que o acervo não cobria
 (composição de duas peças do mesmo autor, com a posição medida pela linha de Shenton),
 respiração e circulação dupla (paradas; a respiração traz dois estados lado a lado),
 seios da face em duas figuras (corte e frente), sistema urinário, o recorte ampliado de
-bexiga e uretra para a M26.06 e o contraste no corpo em dois painéis. **Ficam com a
-figura antiga:** pelve de frente, osso longo e coluna em duas vistas (entram por
-acervo com o item adaptado, lote 1F, não iniciado), os três cortes axiais da m28 (sem
+bexiga e uretra para a M26.06 e o contraste no corpo em dois painéis. **Quatro entraram
+no lote 1F em 2026-11-20** ([1F](evidence/2026-11-19-figuras/lote-1F.md)): a pelve de
+frente inteira (Servier) para o rotular da M24.04, agora com três fichas (acetábulo e
+sínfise saíram: a arte não desenha o primeiro e o marcador esconde 97% da segunda); o
+recorte ampliado `pelve-de-frente-recorte` para o tocar do forame obturado; o osso longo
+em corte (Pbroks13, CC BY 3.0), que mostra só a extremidade proximal, contra a lição do
+1A, porque o fêmur inteiro do Servier ficou minúsculo no quadro (a decisão é do
+controlador e espera o aval do dono; o rotular da M18.02 ficou com três fichas, sem a
+placa de crescimento e a cartilagem articular); e a coluna, agora **só em corte
+sagital** (Servier), porque a vista axial disponível era um disco em perspectiva, e não
+um corte. **No lote 1F, o osso longo derrubava o app no iOS** (SIGABRT no
+`react-native-svg`, degradê sem `id`): o conversor passou a remover degradê sem
+referência, e uma guarda no teste do registro barra qualquer spec com degradê sem `id`.
+**Ficam com a figura antiga:** os três cortes axiais da m28 (sem
 arte aberta; método a decidir junto com gráficos e esquemas) e a composição do corpo
 inteiro (é esquema de exame, passa à fase dos esquemas). **Imagem gerada foi testada e
 abandonada para anatomia em 2026-11-20:** duas tentativas da pelve de frente erraram
 posição e limite de osso. Cada lote teve integração, revisão independente por IA e
 correções ([1A](evidence/2026-11-19-figuras/lote-1A.md),
 [1B](evidence/2026-11-19-figuras/lote-1B.md), [1C](evidence/2026-11-19-figuras/lote-1C.md),
-[1D](evidence/2026-11-19-figuras/lote-1D.md), [1E](evidence/2026-11-19-figuras/lote-1E.md)).
-Gate do app em `ee193fa9`: 4.454 testes, saída 0. Itens de aula adaptados pela política
-"adaptar o item" em m18, m20, m24, m25 e m26. As 19 figuras somam 2,52 MiB de SVG
-(2.641.375 bytes), contra o teto de 8.116.109 do teste; a respiração tem uma exceção
+[1D](evidence/2026-11-19-figuras/lote-1D.md), [1E](evidence/2026-11-19-figuras/lote-1E.md),
+[1F](evidence/2026-11-19-figuras/lote-1F.md)).
+Gate do app em `61116210`, Node 20.20.2: 297 suítes, 4.547 testes, saída 0. Itens de aula
+adaptados pela política "adaptar o item" em m18, m20, m24, m25, m26 e m28. As 23 figuras
+somam 3.116.966 bytes de SVG (medido em `0d481398`), contra o teto de 8.116.109 do teste;
+a respiração tem uma exceção
 nomeada de peso (401 KiB, teto de 480 só para ela), não medida no Android
 ([orçamento, seção 7](evidence/2026-11-19-figuras/orcamento.md), medido com 11 figuras).
-**Visto no simulador de iPhone em 2026-11-20: as 19 figuras, em pelo menos um passo de
-aula cada. Não visto: Android e aparelho físico para essas figuras.** Nos itens de
+**Visto no simulador de iPhone em 2026-11-20: as 23 figuras, em pelo menos um passo de
+aula cada. Não visto: Android e aparelho físico para essas figuras.** No iPhone, o osso
+esponjoso do osso longo sai cinza-azulado, e não bege como na prévia do Chrome; a forma
+está toda lá. O roteiro `m18-aula-02` reprova no passo de classificar (a rolagem não leva
+ficha e grupo à tela), e a captura do 1F saiu por uma cópia fora do repositório. Nos itens de
 rotular e de tocar, o selo numerado cobre parte da estrutura que nomeia (cuboide,
 marcos da m18, encéfalo, bexiga); os marcadores da coluna ficam ao lado dela, como
 exceção provisória; o corpo inteiro fica pequeno no quadro 4:3 (esqueleto, sistema
