@@ -178,6 +178,36 @@ describe('registro de diagramas', () => {
     expect(moving).toBeLessThanOrEqual(4);
   });
 
+  // Laço sem corte (revisão da fase 3): em t = 0 as curvas ainda têm opacidade 1 sob a cortina, então a cortina tem de
+  // cobrir as pontas redondas (traço de 3,5, meio traço de 1,75 além da última coordenada) e o cursor que corre com ela
+  // tem de nascer em cima do eixo vertical. Difere e é válido: a cortina cobre E o cursor está sobre o eixo.
+  // Cortina que anda para a direita (os feixes de grandezas-de-dose descem: dy).
+  const isSweep = (layer: (typeof DIAGRAMS)[string]['layers'][number]) => layer.motion?.kind === 'translate' && layer.motion.dx > 0 && layer.motion.keys?.[1]?.[1] === 0;
+  it.each(GRAFICOS_EM_LACO)('%s: em t = 0 a cortina cobre as pontas das curvas', (id) => {
+    const { layers } = DIAGRAMS[id];
+    layers.forEach((layer, i) => {
+      if (!isSweep(layer)) return;
+      const ink = [...layers.slice(0, i)].reverse().find((l) => l.motion?.kind === 'fade');
+      const xs = [...(ink?.svg.matchAll(/points="([^"]+)"/g) ?? [])].flatMap((m) => m[1].trim().split(/\s+/).map((pair) => Number(pair.split(',')[0])));
+      if (xs.length === 0) return; // fluoroscopia: o sinal é desenhado em path; o cursor é conferido abaixo
+      const rect = /<rect x="([\d.-]+)" y="[\d.-]+" width="([\d.]+)"/.exec(layer.svg);
+      expect(rect).not.toBeNull();
+      const [left, right] = [Number(rect![1]), Number(rect![1]) + Number(rect![2])];
+      expect(left).toBeLessThanOrEqual(Math.min(...xs) - 1.75);
+      expect(right).toBeGreaterThanOrEqual(Math.max(...xs) + 1.75);
+    });
+  });
+  it.each(GRAFICOS_EM_LACO)('%s: o cursor da cortina parte de cima de um eixo vertical', (id) => {
+    const { layers } = DIAGRAMS[id];
+    const staticSvg = layers.filter((l) => !l.motion).map((l) => l.svg).join('');
+    for (const layer of layers.filter(isSweep)) {
+      for (const m of layer.svg.matchAll(/<line x1="([\d.-]+)" y1="[\d.-]+" x2="([\d.-]+)"/g)) {
+        expect(m[1]).toBe(m[2]);
+        expect(staticSvg).toContain(`M${m[1]} `);
+      }
+    }
+  });
+
   it('diagramRef e parseDiagramRef são inversas', () => {
     for (const id of DIAGRAM_IDS) expect(parseDiagramRef(diagramRef(id))).toBe(id);
     expect(parseDiagramRef('licensed-image-1')).toBeNull();

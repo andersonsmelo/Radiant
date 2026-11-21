@@ -37,13 +37,14 @@ const axes = (x0: number) =>
 <polygon points="${x0},28 ${x0 - 5.5},41 ${x0 + 5.5},41" fill="${P.muted}"/>`;
 
 const W = SPAN + 8;
-const curtain = (x0: number) => `<rect x="${x0 + 2}" y="26" width="${W}" height="${OY + 12 - 26}" fill="${P.fill}"/>`;
+// A cortina começa 2 antes da origem: o início das curvas (ponta redonda, junto ao eixo) fica sob ela em t = 0.
+const curtain = (x0: number) => `<rect x="${x0 - 2}" y="26" width="${W}" height="${OY + 12 - 26}" fill="${P.fill}"/>`;
 const sweep = { kind: 'translate', dx: W, dy: 0, mode: 'loop', keys: [[0, 0], [0.06, 0], [0.6, 1], [1, 1]], ease: 'linear' } as const;
 const clear = { kind: 'fade', from: 1, to: 0, mode: 'loop', keys: [[0, 0], [0.9, 0], [1, 1]], ease: 'inOut' } as const;
 
 export const relaxacaoT1T2: DiagramSpec = {
   id: 'relaxacao-t1-t2',
-  alt: 'Dois gráficos de sinal no tempo: num, duas curvas sobem até o mesmo patamar, uma rápida e uma lenta; no outro, duas curvas caem rumo a zero, rápida e lenta.',
+  alt: 'Dois gráficos no tempo: a magnetização longitudinal sobe (esquerda) e o sinal transversal cai (direita), cada um com uma curva rápida e outra lenta.',
   width: 320,
   height: 240,
   periodMs: 7000,

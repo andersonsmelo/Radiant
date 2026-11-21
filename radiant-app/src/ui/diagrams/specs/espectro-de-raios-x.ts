@@ -25,8 +25,10 @@ const us = (from: number, to: number) => {
   return out;
 };
 const solid = us(0.06, 1).map((u) => `${r1(px(u))},${yF(u)}`);
-const dashed = us(0.21, 0.55).map((u) => `${r1(px(u))},${yU(u)}`);
-const cut = us(0.08, 0.55);
+// A tracejada e a faixa removida terminam em u = 0,36: mais adiante a filtração quase não tira nada, e o ponto da curva
+// (u = 0,41) fica sobre a curva real, e não sobre a tracejada.
+const dashed = us(0.21, 0.36).map((u) => `${r1(px(u))},${yU(u)}`);
+const cut = us(0.08, 0.36);
 const lost = [...cut.map((u) => `${r1(px(u))},${yU(u)}`), ...[...cut].reverse().map((u) => `${r1(px(u))},${yF(u)}`)];
 
 /** Linha característica: haste de 4,5 com ponta redonda, da curva até h acima dela. */

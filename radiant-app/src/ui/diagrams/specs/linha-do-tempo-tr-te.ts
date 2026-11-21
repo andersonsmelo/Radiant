@@ -26,9 +26,11 @@ const brace = (x1: number, x2: number, y: number, dir: 1 | -1) =>
 const dots = (x: number, y1: number, y2: number) =>
   `<line x1="${x}" y1="${y1}" x2="${x}" y2="${y2}" stroke="${P.line}" stroke-width="2" stroke-dasharray="2 5" stroke-linecap="round" stroke-opacity="0.75"/>`;
 
-const CUR = 30;
-const curtain = `<rect x="${CUR}" y="26" width="290" height="186" fill="${P.fill}"/>
-<line x1="${CUR}" y1="30" x2="${CUR}" y2="210" stroke="${P.line}" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.85"/>`;
+// O cursor parte exatamente de cima do eixo vertical (traço 2 sob o de 2,5): só aparece quando começa a correr, e
+// tem a extensão do eixo (de 41 a 164).
+const CUR = 24;
+const curtain = `<rect x="${CUR}" y="26" width="296" height="186" fill="${P.fill}"/>
+<line x1="${CUR}" y1="41" x2="${CUR}" y2="164" stroke="${P.line}" stroke-width="2" stroke-linecap="round" stroke-opacity="0.85"/>`;
 
 export const linhaDoTempoTrTe: DiagramSpec = {
   id: 'linha-do-tempo-tr-te',
@@ -47,7 +49,7 @@ export const linhaDoTempoTrTe: DiagramSpec = {
     },
     {
       svg: curtain,
-      motion: { kind: 'translate', dx: 288, dy: 0, mode: 'loop', keys: [[0, 0], [0.06, 0], [0.62, 1], [1, 1]], ease: 'linear' },
+      motion: { kind: 'translate', dx: 296, dy: 0, mode: 'loop', keys: [[0, 0], [0.06, 0], [0.62, 1], [1, 1]], ease: 'linear' },
     },
     {
       // Eixo do tempo (a meio do sinal) e eixo do sinal, sempre visíveis.

@@ -42,7 +42,8 @@ const axes = (b: number) =>
 <polygon points="304,${b} 291,${b - 5.5} 291,${b + 5.5}" fill="${P.muted}"/>
 <polygon points="32,${b - 52} 26.5,${b - 39} 37.5,${b - 39}" fill="${P.muted}"/>`;
 
-const W = X1 - 36;
+// A cortina passa 4 do fim dos perfis: a ponta redonda (traço 3,5) fica inteira sob ela em t = 0.
+const W = X1 - 36 + 4;
 
 export const realceESuavizacao: DiagramSpec = {
   id: 'realce-e-suavizacao',

@@ -27,10 +27,13 @@ const axes = (g: { base: number }, tip: number) =>
 <polygon points="${X0},${tip} ${X0 - 5.5},${tip + 13} ${X0 + 5.5},${tip + 13}" fill="${P.muted}"/>`;
 const pulses = [0, 1, 2, 3, 4, 5].map((k) => A + STEP * k);
 
-// Cortina da cor do painel com o cursor na borda esquerda; sai pela direita, sob a moldura.
-const CUR = 34;
-const curtain = `<rect x="${CUR}" y="26" width="290" height="186" fill="${P.fill}"/>
-<line x1="${CUR}" y1="30" x2="${CUR}" y2="210" stroke="${P.line}" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.85"/>`;
+// Cortina da cor do painel com o cursor na borda esquerda; sai pela direita, sob a moldura. Em t = 0 o cursor está
+// exatamente sobre o eixo vertical de cada gráfico (traço 2 sob o eixo de 2,5), então só aparece quando começa a
+// correr; e ele cobre só a extensão de cada eixo, como o eixo.
+const CUR = X0;
+const cursor = (g: { base: number }, tip: number) =>
+  `<line x1="${CUR}" y1="${tip + 12}" x2="${CUR}" y2="${g.base}" stroke="${P.line}" stroke-width="2" stroke-linecap="round" stroke-opacity="0.85"/>`;
+const curtain = `<rect x="${CUR}" y="26" width="296" height="186" fill="${P.fill}"/>${cursor(TOP, 28)}${cursor(BOT, 124)}`;
 
 export const fluoroscopiaPulsada: DiagramSpec = {
   id: 'fluoroscopia-pulsada',

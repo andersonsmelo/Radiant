@@ -14,10 +14,10 @@ const HEIGHTS = [140, 60, 0, 0, 0, 0, 20, 45, 70, 90, 100, 95, 105, 85, 70, 45, 
 const BASE = 200;
 const BX = 40; // primeira barra
 const bar = (h: number, i: number, color: string) => {
-  const v = Math.max(h, 2);
-  return `<rect x="${BX + 5 * i}" y="${BASE - v}" width="3.6" height="${v}" rx="1" fill="${color}"/>`;
+  return `<rect x="${BX + 5 * i}" y="${BASE - h}" width="3.6" height="${h}" rx="1" fill="${color}"/>`;
 };
-const bars = (from: number, to: number, color: string) => HEIGHTS.map((h, i) => (i >= from && i <= to ? bar(h, i, color) : '')).join('');
+// Classe vazia (h = 0) não desenha barra: um risquinho em cada uma formaria uma régua de passos iguais.
+const bars = (from: number, to: number, color: string) => HEIGHTS.map((h, i) => (i >= from && i <= to && h > 0 ? bar(h, i, color) : '')).join('');
 const r1 = (v: number) => Math.round(v * 10) / 10;
 
 const axes = (x0: number, tip: number) =>

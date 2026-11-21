@@ -5,7 +5,7 @@ import type { DiagramSpec } from '../diagramTypes';
 // Coluna 1 (dose absorvida): fótons entram num bloco de tecido (poço escuro) e a energia que ficou nele são pontos.
 // Coluna 2 (dose equivalente): o mesmo bloco, com um fóton (traço fino, âmbar) e uma partícula pesada (barra grossa,
 // branca); a marca de dano da partícula é bem maior que a do fóton. Coluna 3 (dose efetiva): corpo de frente com
-// órgãos de intensidades diferentes (azul; quanto mais opaco, maior o fator do tecido).
+// órgãos de intensidades diferentes (azul; quanto mais opaco, maior o fator do tecido na ICRP 103: pulmão e estômago, gônadas, tireoide).
 // Movimento (um relógio, laço): 0 a 0,06 só o quadro parado; 0,06 a 0,4 os feixes descem, lineares, até o bloco;
 // 0,4 a 0,5 a energia fica nos blocos; 0,45 a 0,58 os órgãos se acendem; 0,58 a 0,9 o quadro completo, que é também o
 // quadro parado (posterAt 0,75); 0,9 a 1 tudo se apaga. Os feixes partem de fora do painel (a moldura os esconde) e a
@@ -66,12 +66,12 @@ ${dot(142, 134)}
       motion: { kind: 'fade', from: 0, to: 1, mode: 'loop', keys: [[0, 0], [0.4, 0], [0.5, 1], [0.9, 1], [1, 0]], ease: 'inOut' },
     },
     {
-      // Órgãos: pulmões (fator maior), estômago, tireoide e gônadas (menor).
+      // Órgãos, com a opacidade na ordem dos fatores de tecido da ICRP 103: pulmões e estômago (0,12), gônadas (0,08), tireoide (0,04).
       svg: `<ellipse cx="252" cy="88" rx="8" ry="13" fill="${P.accent}" fill-opacity="0.85" stroke="${P.accent}" stroke-width="2"/>
 <ellipse cx="272" cy="88" rx="8" ry="13" fill="${P.accent}" fill-opacity="0.85" stroke="${P.accent}" stroke-width="2"/>
-<ellipse cx="262" cy="120" rx="12" ry="7" fill="${P.accent}" fill-opacity="0.55" stroke="${P.accent}" stroke-width="2"/>
-<ellipse cx="262" cy="54.5" rx="6" ry="2.5" fill="${P.accent}" fill-opacity="0.35" stroke="${P.accent}" stroke-width="2"/>
-<circle cx="262" cy="139" r="5" fill="${P.accent}" fill-opacity="0.2" stroke="${P.accent}" stroke-width="2"/>`,
+<ellipse cx="262" cy="120" rx="12" ry="7" fill="${P.accent}" fill-opacity="0.85" stroke="${P.accent}" stroke-width="2"/>
+<ellipse cx="262" cy="54.5" rx="6" ry="2.5" fill="${P.accent}" fill-opacity="0.2" stroke="${P.accent}" stroke-width="2"/>
+<circle cx="262" cy="139" r="5" fill="${P.accent}" fill-opacity="0.5" stroke="${P.accent}" stroke-width="2"/>`,
       motion: { kind: 'fade', from: 0, to: 1, mode: 'loop', keys: [[0, 0], [0.45, 0], [0.58, 1], [0.9, 1], [1, 0]], ease: 'inOut' },
     },
     {

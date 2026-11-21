@@ -3,7 +3,7 @@ import type { DiagramSpec } from '../diagramTypes';
 
 // Gramática de gráficos (fase 3). Quadro 320x240, parado (tem alvo de toque), sem texto. Painel opaco; DNA em escada
 // reta: as duas fitas azuis (3,5) e degraus finos (muted). Fóton âmbar (traço ondulado com ponta).
-// Alvos da aula (m21): impacto direto (64,160) na fita de cima; água atingida (214,70) no O grande; radical (239,124)
+// Alvos da aula (m21): impacto direto (64,160) na fita de cima; água atingida (214,70) no O grande; radical (226,127)
 // no meio do trilho tracejado; quebra simples (136,196) na fita de baixo; quebra dupla (256,178), entre as duas fitas.
 // Cor segue a entidade: azul é a molécula (fitas e O da água), âmbar é a radiação (fótons e marca do impacto), branco
 // marca o que é pontual (radical, pontas rompidas). Alvos a 54 ou mais um do outro (toque de 44 pt sem sobrepor).
@@ -63,11 +63,11 @@ export const danoAoDna: DiagramSpec = {
 <circle cx="230" cy="94" r="6" fill="none" stroke="${P.line}" stroke-width="2.5"/>`,
     },
     {
-      // O radical sai da água, anda pelo trilho tracejado até a fita, rumo à quebra dupla.
-      svg: `<path d="M230 104 L250 150" fill="none" stroke="${P.muted}" stroke-width="2.5" stroke-dasharray="4 5" stroke-linecap="round"/>
-<polyline points="243,144 251,153 254,142" fill="none" stroke="${P.muted}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="239" cy="124" r="7" fill="${P.line}" stroke="${P.fill}" stroke-width="2.5"/>
-<circle cx="239" cy="124" r="13" fill="none" stroke="${P.line}" stroke-width="2" stroke-opacity="0.6"/>`,
+      // O radical sai da água e anda pelo trilho tracejado até a fita de cima, longe da quebra dupla (a quebra do radical é simples).
+      svg: `<path d="M229 106 L223 150" fill="none" stroke="${P.muted}" stroke-width="2.5" stroke-dasharray="4 5" stroke-linecap="round"/>
+<polyline points="217,143 222,153 228,144" fill="none" stroke="${P.muted}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="226" cy="127" r="7" fill="${P.line}" stroke="${P.fill}" stroke-width="2.5"/>
+<circle cx="226" cy="127" r="13" fill="none" stroke="${P.line}" stroke-width="2" stroke-opacity="0.6"/>`,
     },
   ],
 };

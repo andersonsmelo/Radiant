@@ -42,7 +42,8 @@ const axes = (base: number, top: number, bottom: number) =>
 <polygon points="32,${top} 26.5,${top + 13} 37.5,${top + 13}" fill="${P.muted}"/>
 <line x1="${X0}" y1="${base - PEAK}" x2="${X1}" y2="${base - PEAK}" stroke="${P.line}" stroke-width="2" stroke-dasharray="6 5" stroke-linecap="round" stroke-opacity="0.7"/>`;
 
-const W = X1 - 38;
+// A cortina passa 4 do fim dos traçados: a ponta redonda (traço 3,5) fica inteira sob ela em t = 0.
+const W = X1 - 38 + 4;
 
 export const retificacaoDeOnda: DiagramSpec = {
   id: 'retificacao-de-onda',
