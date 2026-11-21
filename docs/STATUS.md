@@ -222,7 +222,7 @@ exceção provisória da coluna precisa ser revista no simulador**; o corpo inte
 nervoso, circulação). Os roteiros `m18-aula-05` e `m25-aula-04` reprovam no "Continuar"
 depois do passo de rotular: é o defeito conhecido do roteiro (a rolagem acha os pontos
 sob o cabeçalho fixo), e as figuras saíram certas antes disso. **A fase 2 começou em 2026-11-20 com o lote 2A** (seis cenas isométricas da m17 e da m19, com
-revisão independente e correções; [lote-2A](evidence/2026-11-19-figuras/lote-2A.md); não visto no simulador);
+revisão independente e correções; [lote-2A](evidence/2026-11-19-figuras/lote-2A.md); não visto no simulador); **o lote 2B, medido em 2026-11-20,** trouxe cinco cenas (transferência maca-mesa, raio X móvel no leito, trauma, dosímetros e produto dose-área; m17, m21 e m25), com revisão independente e correções ([lote-2B](evidence/2026-11-19-figuras/lote-2B.md); não visto no simulador);
 sobre a figura humana há a amostra do leito
 ([amostra](evidence/2026-11-19-figuras/amostra-fase-2/relatorio.md)). **Quem continua esta
 frente começa pelo [plano de continuidade](superpowers/plans/2026-11-20-figuras-continuidade.md),
