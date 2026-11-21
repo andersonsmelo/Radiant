@@ -466,20 +466,24 @@ function figureSelectorValues(node, key = '') {
 // O checador de um roteiro de figura sobre os comandos já analisados; devolve as violações.
 function figureFlowProblems(commands) {
   const problems = [];
-  const shots = commands.filter((command) => 'takeScreenshot' in command)
-    .map((command) => (typeof command.takeScreenshot === 'string' ? command.takeScreenshot : command.takeScreenshot?.path));
+  // O Maestro aceita comando em texto (`- stopRecording`): ele vale como o comando de mesmo nome.
+  const has = (command, key) => command === key || (command !== null && typeof command === 'object' && key in command);
+  // A prova de uma figura é a captura parada ou, nos roteiros de laço, a gravação.
+  const shots = commands.filter((command) => has(command, 'takeScreenshot') || has(command, 'startRecording'))
+    .map((command) => command.takeScreenshot ?? command.startRecording)
+    .map((proof) => (typeof proof === 'string' ? proof : proof?.path));
   if (!shots.some((name) => typeof name === 'string' && name.startsWith('figura-'))) problems.push('no takeScreenshot named figura-*');
 
   commands.forEach((command, index) => {
-    if ('startRecording' in command && !commands.slice(index + 1).some((later) => 'stopRecording' in later)) {
+    if (has(command, 'startRecording') && !commands.slice(index + 1).some((later) => has(later, 'stopRecording'))) {
       problems.push('startRecording without a later stopRecording');
     }
   });
 
-  const launches = commands.filter((command) => command.launchApp);
+  const launches = commands.filter((command) => has(command, 'launchApp'));
   if (launches.length !== 1) problems.push('expected exactly one launchApp');
   // '1' congela o fundo (captura parada); '0' deixa o laço correr (gravação). Booleano chegaria sem o "-" e seria ignorado.
-  else if (!/^[01]$/.test(launches[0].launchApp.arguments?.radiantReduceMotion ?? '')) problems.push("radiantReduceMotion must be the string '0' or '1'");
+  else if (!/^[01]$/.test(launches[0].launchApp?.arguments?.radiantReduceMotion ?? '')) problems.push("radiantReduceMotion must be the string '0' or '1'");
 
   for (const selector of figureSelectorValues(commands)) {
     if (UNESCAPED_QUESTION_MARK.test(selector)) problems.push(`unescaped "?" in selector ${selector}`);
@@ -515,6 +519,13 @@ test('figure flow rules each reject their own defect', () => {
   assert.deepEqual(figureFlowProblems([...base, { runFlow: { when: { visible: 'Falhou?' }, commands: [{ tapOn: 'Ok' }] } }]), ['unescaped "?" in selector Falhou?']);
   assert.deepEqual(figureFlowProblems([...base, { scrollUntilVisible: { element: { id: 'a?b' } } }]), ['unescaped "?" in selector a?b']);
   assert.deepEqual(figureFlowProblems([...base, { openLink: 'radiantapp://learn?blockId=1' }, { assertVisible: 'Falhou\\?' }]), []);
+  // Comando em texto (`- stopRecording`) é válido no Maestro: não quebra, conta como o comando, e a falta dele continua barrada.
+  assert.deepEqual(figureFlowProblems([...base, { startRecording: 'a' }, 'stopRecording']), []);
+  assert.deepEqual(figureFlowProblems([...base, { startRecording: 'a' }, 'waitForAnimationToEnd']), ['startRecording without a later stopRecording']);
+  assert.deepEqual(figureFlowProblems(['launchApp', base[1]]), ["radiantReduceMotion must be the string '0' or '1'"]);
+  assert.deepEqual(figureFlowProblems([base[0], { startRecording: 'figura-x-laco' }, 'stopRecording']), []);
+  assert.deepEqual(figureFlowProblems([base[0], { startRecording: 'captura-x' }, 'stopRecording']), ['no takeScreenshot named figura-*']);
+  assert.deepEqual(figureFlowProblems([...base, 'stopRecording', 'hideKeyboard']), []);
 });
 
 test('selector parser detects an unescaped question mark in synthetic commands', () => {
