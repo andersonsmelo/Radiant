@@ -1,6 +1,6 @@
 # Lote 2CD: medidas por cor sob as áreas do app
 
-Data das medidas: 2026-11-20 (Node 20.20.2). Onze figuras, dezesseis usos (quatorze interações e dois visuais de conceito, o da gestante e o do posicionamento do DXA, que a aula só mostra; só o da gestante tem tabela, porque o do DXA mostra a mesma figura da interação m30-03 i2). Os percentuais são do render do spec, peça por peça, sobre #171920, com a posição atual do selo e do marcador do app (`badgeBoxes`, `labelBadgeBoxes`, `LABEL_DOT` de `hotspotTouch.ts`, quadro de 280 x 210 pt), refeitos pelo integrador a partir das aulas já aplicadas; o construtor media sobre a fonte.
+Data das medidas: 2026-11-21 (Node 20.20.2), refeitas depois da correção da revisão independente (idoso, fluoroscopia, contenção e posicionamento do DXA redesenhados; as outras seis figuras não mudaram e as medidas delas são as de 2026-11-20). Onze figuras, dezesseis usos (quatorze interações e dois visuais de conceito, o da gestante e o do posicionamento do DXA, que a aula só mostra; só o da gestante tem tabela, porque o do DXA mostra a mesma figura da interação m30-03 i2). Os percentuais são do render do spec, peça por peça, sobre #171920, com a posição atual do selo e do marcador do app (`badgeBoxes`, `labelBadgeBoxes`, `LABEL_DOT` de `hotspotTouch.ts`, quadro de 280 x 210 pt), refeitos a partir das aulas já aplicadas; o construtor media sobre a fonte.
 
 **Como ler.** *Região*: caixa declarada do alvo. *Área de toque*: a da conta do app (a região ou o ponto, ampliada em torno do centro até 44 pt por eixo). *Objeto*: pixels da(s) peça(s) do alvo DENTRO da região declarada dele (o corpo de uma pessoa é uma peça só e o alvo é um trecho dele: pernas, pescoço, mão; as peças translúcidas, como o campo de luz e o leque de espalhamento, contam pela pegada inteira). *Fundo*: pixel sem desenho (cor #171920), da sala ou do piso. *Resposta errada*: o objeto de cada outro alvo do mesmo item sob a área de toque. *Selo cobre*: parte do objeto que o selo de 36 x 24 pt, ou o ponto de 12 pt do rotular, esconde. Medido por peça: cada peça sozinha contra o render completo.
 
@@ -13,19 +13,19 @@ Data das medidas: 2026-11-20 (Node 20.20.2). Onze figuras, dezesseis usos (quato
 
 | ponto (nome declarado) | objeto na área de 44 pt do ponto | fundo | resposta errada na área | outras peças na área | ponto de 12 pt cobre do objeto | selo do número cobre do objeto |
 |---|---|---|---|---|---|---|
-| L1 Tubo de raios X (sob a mesa) | 32,2 % | 28,7 % | nenhum | arco 3,3; mesa 28,1 % | 18 % | 1,4 % |
-| L2 Receptor de imagem (acima do paciente) | 58,6 % | 5,3 % | nenhum | mesa 0,6; paciente 20,7 % | 7 % | 11,6 % |
-| L3 Monitor (num suporte) | 83,8 % | 13,8 % | nenhum | monitor-suporte 0,7 % | 5,9 % | 11,2 % |
-| L4 Pedal (no chão) | 31,5 % | 53,4 % | nenhum | operador 7; mesa 2,5 % | 18,8 % | 0,7 % |
+| L1 Tubo de raios X (sob a mesa) | 43,3 % | 23,7 % | nenhum | arco 3,1; mesa 22,2 % | 13,7 % | 6,5 % |
+| L2 Receptor de imagem (acima do paciente) | 89,7 % | 1,9 % | nenhum | arco 4,8; paciente 1,3 % | 5,3 % | 11,5 % |
+| L3 Monitor (num suporte) | 93,9 % | 5,3 % | nenhum | nenhum | 4,5 % | 17,6 % |
+| L4 Pedal (no chão) | 40,4 % | 50,2 % | nenhum | operador 4,5 % | 14,7 % | 5,7 % |
 
 ## m26-04 i3 risk-hunt: sala-de-fluoroscopia-espalhada
 
 | alvo (nome declarado) | certa | objeto na região | fundo na região | objeto na área de toque | fundo na área | resposta errada na área | outras peças na área | selo cobre do objeto |
 |---|---|---|---|---|---|---|---|---|
-| 1 Pernas do operador, atrás do saiote | não | 51,4 % | 37,8 % | 28 % | 52 % | nenhum | biombo 5,6; saiote 3,5 % | 0 % |
-| 2 Abaixo da mesa, do lado do tubo | não | 22,3 % | 42,6 % | 22,3 % | 42,6 % | nenhum | saiote 6,7; mesa 26,8; paciente 0,8 % | 0 % |
-| 3 Pessoa afastada, atrás do biombo | não | 38,3 % | 32,9 % | 25,4 % | 42 % | nenhum | biombo 28,8 % | 0 % |
-| 4 Pescoço do operador | não | 59,8 % | 27,3 % | 11,7 % | 53,2 % | nenhum | biombo 6,9; oculos 1,9; raios-finos 0,5 % | 0 % |
+| 1 Pernas do operador, atrás do saiote | não | 63,1 % | 24,7 % | 34,1 % | 40,2 % | nenhum | biombo 1,6; saiote 14,3 % | 0 % |
+| 2 Abaixo da mesa, do lado do tubo | não | 32,4 % | 9,4 % | 25,3 % | 13,2 % | nenhum | mesa 11,1; tubo 15,1; paciente 0,6; saiote 29,7 % | 0 % |
+| 3 Pessoa afastada, atrás do biombo | não | 44,5 % | 30,9 % | 35,7 % | 37,4 % | nenhum | biombo 24,3 % | 0 % |
+| 4 Pescoço do operador | não | 75,5 % | 19,8 % | 14,7 % | 38,1 % | nenhum | biombo 7,3; mesa 2,1; paciente 3,2; oculos 2,4 % | 0 % |
 
 ## m27-01 i3 hotspot: contencao-pediatrica
 
@@ -43,7 +43,7 @@ Data das medidas: 2026-11-20 (Node 20.20.2). Onze figuras, dezesseis usos (quato
 | 1 Mão do acompanhante | não | 31 % | 14,6 % | 24,6 % | 17,1 % | nenhum | mesa 22,5; crianca 22,7 % | 0 % |
 | 2 Faixa sobre as pernas | sim | 61,1 % | 4,9 % | 30,8 % | 17,5 % | nenhum | mesa 28,1; crianca 20 % | 0 % |
 | 3 Campo de luz | não | 75,5 % | 1,3 % | 38,7 % | 6,7 % | nenhum | mesa 11; crianca 24,8 % | 0 % |
-| 4 Apoio de espuma | sim | 84,9 % | 0 % | 39,4 % | 1,5 % | nenhum | mesa 45,9; crianca 9,3 % | 0 % |
+| 4 Apoio de espuma | sim | 85,2 % | 4 % | 35 % | 20,2 % | nenhum | mesa 35,8; crianca 6 % | 0 % |
 | 5 Pessoa junto aos pés da mesa | não | 64 % | 26,4 % | 64 % | 26,4 % | nenhum | mesa 3 % | 0 % |
 
 ## m27-03 i2 hotspot: colimacao-pediatrica
@@ -59,21 +59,21 @@ Data das medidas: 2026-11-20 (Node 20.20.2). Onze figuras, dezesseis usos (quato
 
 | alvo (nome declarado) | certa | objeto na região | fundo na região | objeto na área de toque | fundo na área | resposta errada na área | outras peças na área | selo cobre do objeto |
 |---|---|---|---|---|---|---|---|---|
-| 1 Barra de apoio junto ao receptor | não | 25,4 % | 42,3 % | 9,6 % | 71,8 % | nenhum | receptor 3,6; idosa 11,9 % | 0 % |
-| 2 Degrau no chão | não | 74,8 % | 18,1 % | 49,3 % | 45,2 % | nenhum | nenhum | 0 % |
-| 3 Banco ao lado | não | 50,5 % | 24,5 % | 44,5 % | 31,9 % | nenhum | nenhum | 0 % |
-| 4 Tapete com a ponta solta | não | 60,1 % | 35,6 % | 30,4 % | 67,4 % | nenhum | nenhum | 0 % |
-| 5 Andador longe da pessoa | não | 31,5 % | 47,1 % | 31,5 % | 47,1 % | nenhum | nenhum | 0 % |
+| 1 Barra de apoio junto ao receptor | não | 23,2 % | 46 % | 7,9 % | 72,9 % | nenhum | receptor 4,8; idosa 11,2 % | 0 % |
+| 2 Degrau no chão | não | 74,1 % | 19 % | 42,1 % | 52,5 % | nenhum | nenhum | 0 % |
+| 3 Banco ao lado | não | 53 % | 22,7 % | 36,8 % | 35,4 % | nenhum | receptor 2; idosa 5,5 % | 0 % |
+| 4 Tapete com a ponta solta | não | 60,7 % | 35,1 % | 27,9 % | 70 % | nenhum | nenhum | 0 % |
+| 5 Andador longe da pessoa | não | 30,6 % | 47,8 % | 30,6 % | 47,8 % | nenhum | nenhum | 0 % |
 
 ## m27-06 i3 hotspot: idoso-apoios-e-riscos
 
 | alvo (nome declarado) | certa | objeto na região | fundo na região | objeto na área de toque | fundo na área | resposta errada na área | outras peças na área | selo cobre do objeto |
 |---|---|---|---|---|---|---|---|---|
-| 1 Barra de apoio junto ao receptor | não | 25,4 % | 42,3 % | 9,6 % | 71,8 % | nenhum | receptor 3,6; idosa 11,9 % | 0 % |
-| 2 Banco ao lado | não | 50,5 % | 24,5 % | 44,5 % | 31,9 % | nenhum | nenhum | 0 % |
-| 3 Degrau no chão | não | 74,8 % | 18,1 % | 49,3 % | 45,2 % | nenhum | nenhum | 0 % |
-| 4 Tapete com a ponta solta | não | 60,1 % | 35,6 % | 30,4 % | 67,4 % | nenhum | nenhum | 0 % |
-| 5 Andador longe da pessoa | sim | 31,5 % | 47,1 % | 31,5 % | 47,1 % | nenhum | nenhum | 0 % |
+| 1 Barra de apoio junto ao receptor | não | 23,2 % | 46 % | 7,9 % | 72,9 % | nenhum | receptor 4,8; idosa 11,2 % | 0 % |
+| 2 Banco ao lado | não | 53 % | 22,7 % | 36,8 % | 35,4 % | nenhum | receptor 2; idosa 5,5 % | 0 % |
+| 3 Degrau no chão | não | 74,1 % | 19 % | 42,1 % | 52,5 % | nenhum | nenhum | 0 % |
+| 4 Tapete com a ponta solta | não | 60,7 % | 35,1 % | 27,9 % | 70 % | nenhum | nenhum | 0 % |
+| 5 Andador longe da pessoa | sim | 30,6 % | 47,8 % | 30,6 % | 47,8 % | nenhum | nenhum | 0 % |
 
 ## sem interação (visual do conceito): gestante-campo-e-feixe
 
@@ -107,11 +107,11 @@ Selo sobre o objeto de OUTRO alvo: selo 3 cobre Paciente deitada de costas 11,8 
 
 | alvo (nome declarado) | certa | objeto na região | fundo na região | objeto na área de toque | fundo na área | resposta errada na área | outras peças na área | selo cobre do objeto |
 |---|---|---|---|---|---|---|---|---|
-| 1 Coluna reta sobre a mesa | não | 97,3 % | 0 % | 97,3 % | 0 % | nenhum | mesaA 1,9 % | 0 % |
-| 2 Bloco sob as pernas | não | 57,4 % | 0,1 % | 57,4 % | 0,1 % | nenhum | mesaA 11,9; mesaB 5,1; pacienteA 22,8 % | 0 % |
-| 3 Posicionador entre os pés | não | 87,4 % | 0 % | 58 % | 0 % | nenhum | mesaB 38,1; faixa 0,9 % | 0 % |
-| 4 Pé à esquerda do desenho (girado, preso) | sim | 45,7 % | 0 % | 20,4 % | 0,4 % | nenhum | mesaB 67,2; faixa 3,1 % | 0 % |
-| 5 Pé à direita do desenho | não | 44,6 % | 43,3 % | 16,9 % | 53,4 % | nenhum | mesaB 18,6 % | 0 % |
+| 1 Coluna reta sobre a mesa | não | 92,1 % | 0 % | 92,1 % | 0 % | nenhum | mesaA 6,4 % | 0 % |
+| 2 Bloco sob as pernas | não | 57,2 % | 0 % | 57,2 % | 0 % | nenhum | mesaA 8,9; pacienteA 29,9 % | 0 % |
+| 3 Posicionador entre os pés | não | 92,4 % | 0 % | 56,8 % | 0 % | nenhum | mesaB 37,7; faixa 1,8 % | 0 % |
+| 4 Pé à esquerda do desenho (girado, preso) | sim | 66,5 % | 0 % | 16,2 % | 0 % | nenhum | mesaB 70,9; faixa 3,2 % | 0 % |
+| 5 Pé à direita do desenho | não | 74,5 % | 0 % | 19,8 % | 0 % | nenhum | mesaB 69,9 % | 0 % |
 
 ## m31-01 i2 hotspot: radiografia-veterinaria
 
@@ -153,6 +153,77 @@ Selo sobre o objeto de OUTRO alvo: selo 3 cobre Paciente deitada de costas 11,8 
 | L5 Mostrador | 54,2 % | 9,6 % | Lâminas de filtro 17,1; Medidor 1,9 % | mesa 1,4; coluna 12,6; medidor 1,9; suporte 12,8; laminas 4,3 % | 3,6 % | 5,7 % |
 
 Selo sobre o objeto de OUTRO alvo: selo 2 cobre Lâminas de filtro 0,6 %.
+
+## Antes e depois da correção (cinco figuras redesenhadas)
+
+Objeto na área de toque, selo e resposta errada na área, de 2026-11-20 (antes) para 2026-11-21 (depois). Por alvo; "-" quando o item não existia.
+
+### m26-02 i2 label: fluoroscopia-cadeia
+
+| alvo | objeto na área de toque | selo cobre do objeto | resposta errada na área |
+|---|---|---|---|
+| 1 Tubo de raios X (sob a mesa) | 32,2 % → 43,3 % | 1,4 % → 6,5 % | nenhum → nenhum |
+| 2 Receptor de imagem (acima do paciente) | 58,6 % → 89,7 % | 11,6 % → 11,5 % | nenhum → nenhum |
+| 3 Monitor (num suporte) | 83,8 % → 93,9 % | 11,2 % → 17,6 % | nenhum → nenhum |
+| 4 Pedal (no chão) | 31,5 % → 40,4 % | 0,7 % → 5,7 % | nenhum → nenhum |
+
+### m26-04 i3 risk-hunt: sala-de-fluoroscopia-espalhada
+
+| alvo | objeto na área de toque | selo cobre do objeto | resposta errada na área |
+|---|---|---|---|
+| 1 Pernas do operador, atrás do saiote | 28 % → 34,1 % | 0 % → 0 % | nenhum → nenhum |
+| 2 Abaixo da mesa, do lado do tubo | 22,3 % → 25,3 % | 0 % → 0 % | nenhum → nenhum |
+| 3 Pessoa afastada, atrás do biombo | 25,4 % → 35,7 % | 0 % → 0 % | nenhum → nenhum |
+| 4 Pescoço do operador | 11,7 % → 14,7 % | 0 % → 0 % | nenhum → nenhum |
+
+### m27-01 i3 hotspot: contencao-pediatrica
+
+| alvo | objeto na área de toque | selo cobre do objeto | resposta errada na área |
+|---|---|---|---|
+| 1 Acompanhante à cabeceira | 58,9 % → 58,9 % | 0 % → 0 % | nenhum → nenhum |
+| 2 Faixa sobre as pernas | 30,8 % → 30,8 % | 0 % → 0 % | nenhum → nenhum |
+| 3 Pessoa junto aos pés da mesa | 64 % → 64 % | 0 % → 0 % | nenhum → nenhum |
+| 4 Campo de luz | 38,7 % → 38,7 % | 0 % → 0 % | nenhum → nenhum |
+
+### m27-02 i2 hotspot: contencao-pediatrica
+
+| alvo | objeto na área de toque | selo cobre do objeto | resposta errada na área |
+|---|---|---|---|
+| 1 Mão do acompanhante | 24,6 % → 24,6 % | 0 % → 0 % | nenhum → nenhum |
+| 2 Faixa sobre as pernas | 30,8 % → 30,8 % | 0 % → 0 % | nenhum → nenhum |
+| 3 Campo de luz | 38,7 % → 38,7 % | 0 % → 0 % | nenhum → nenhum |
+| 4 Apoio de espuma | 39,4 % → 35 % | 0 % → 0 % | nenhum → nenhum |
+| 5 Pessoa junto aos pés da mesa | 64 % → 64 % | 0 % → 0 % | nenhum → nenhum |
+
+### m27-04 i4 risk-hunt: idoso-apoios-e-riscos
+
+| alvo | objeto na área de toque | selo cobre do objeto | resposta errada na área |
+|---|---|---|---|
+| 1 Barra de apoio junto ao receptor | 9,6 % → 7,9 % | 0 % → 0 % | nenhum → nenhum |
+| 2 Degrau no chão | 49,3 % → 42,1 % | 0 % → 0 % | nenhum → nenhum |
+| 3 Banco ao lado | 44,5 % → 36,8 % | 0 % → 0 % | nenhum → nenhum |
+| 4 Tapete com a ponta solta | 30,4 % → 27,9 % | 0 % → 0 % | nenhum → nenhum |
+| 5 Andador longe da pessoa | 31,5 % → 30,6 % | 0 % → 0 % | nenhum → nenhum |
+
+### m27-06 i3 hotspot: idoso-apoios-e-riscos
+
+| alvo | objeto na área de toque | selo cobre do objeto | resposta errada na área |
+|---|---|---|---|
+| 1 Barra de apoio junto ao receptor | 9,6 % → 7,9 % | 0 % → 0 % | nenhum → nenhum |
+| 2 Banco ao lado | 44,5 % → 36,8 % | 0 % → 0 % | nenhum → nenhum |
+| 3 Degrau no chão | 49,3 % → 42,1 % | 0 % → 0 % | nenhum → nenhum |
+| 4 Tapete com a ponta solta | 30,4 % → 27,9 % | 0 % → 0 % | nenhum → nenhum |
+| 5 Andador longe da pessoa | 31,5 % → 30,6 % | 0 % → 0 % | nenhum → nenhum |
+
+### m30-03 i2 hotspot: dxa-posicionamento
+
+| alvo | objeto na área de toque | selo cobre do objeto | resposta errada na área |
+|---|---|---|---|
+| 1 Coluna reta sobre a mesa | 97,3 % → 92,1 % | 0 % → 0 % | nenhum → nenhum |
+| 2 Bloco sob as pernas | 57,4 % → 57,2 % | 0 % → 0 % | nenhum → nenhum |
+| 3 Posicionador entre os pés | 58 % → 56,8 % | 0 % → 0 % | nenhum → nenhum |
+| 4 Pé à esquerda do desenho (girado, preso) | 20,4 % → 16,2 % | 0 % → 0 % | nenhum → nenhum |
+| 5 Pé à direita do desenho | 16,9 % → 19,8 % | 0 % → 0 % | nenhum → nenhum |
 
 ## Objetos que ficam mais de 50 % escondidos
 

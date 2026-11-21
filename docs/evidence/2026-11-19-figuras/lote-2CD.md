@@ -8,14 +8,14 @@ Todas são arte própria do projeto (autor Radiant, sem licença de terceiro), d
 
 | figura | onde aparece | fonte (KiB) | spec (KiB) | prévia |
 |---|---|---|---|---|
-| `fluoroscopia-cadeia` | m26-02 i2 (rotular) | 71,5 | 68,1 | [`lote-2CD/fluoroscopia-cadeia.png`](lote-2CD/fluoroscopia-cadeia.png) |
-| `sala-de-fluoroscopia-espalhada` | m26-04 i3 (caça ao risco) | 100,5 | 95,8 | [`lote-2CD/sala-de-fluoroscopia-espalhada.png`](lote-2CD/sala-de-fluoroscopia-espalhada.png) |
+| `fluoroscopia-cadeia` | m26-02 i2 (rotular) | 73,3 | 69,9 | [`lote-2CD/fluoroscopia-cadeia.png`](lote-2CD/fluoroscopia-cadeia.png) |
+| `sala-de-fluoroscopia-espalhada` | m26-04 i3 (caça ao risco) | 100,7 | 95,8 | [`lote-2CD/sala-de-fluoroscopia-espalhada.png`](lote-2CD/sala-de-fluoroscopia-espalhada.png) |
 | `contencao-pediatrica` | m27-01 i3 e m27-02 i2 (tocar) | 95,6 | 91,5 | [`lote-2CD/contencao-pediatrica.png`](lote-2CD/contencao-pediatrica.png) |
 | `colimacao-pediatrica` | m27-03 i2 (tocar) | 60,5 | 58 | [`lote-2CD/colimacao-pediatrica.png`](lote-2CD/colimacao-pediatrica.png) |
-| `idoso-apoios-e-riscos` | m27-04 i4 (caça ao risco) e m27-06 i3 (tocar) | 52,9 | 50,2 | [`lote-2CD/idoso-apoios-e-riscos.png`](lote-2CD/idoso-apoios-e-riscos.png) |
+| `idoso-apoios-e-riscos` | m27-04 i4 (caça ao risco) e m27-06 i3 (tocar) | 52,2 | 49,5 | [`lote-2CD/idoso-apoios-e-riscos.png`](lote-2CD/idoso-apoios-e-riscos.png) |
 | `gestante-campo-e-feixe` | m27-05 (visual do conceito) | 36,4 | 34,6 | [`lote-2CD/gestante-campo-e-feixe.png`](lote-2CD/gestante-campo-e-feixe.png) |
 | `dxa-dois-feixes` | m30-01 i2 (rotular) e i4 (tocar) | 35,4 | 33,6 | [`lote-2CD/dxa-dois-feixes.png`](lote-2CD/dxa-dois-feixes.png) |
-| `dxa-posicionamento` | m30-03 i2 (tocar) e m30-06 (visual do conceito) | 60,8 | 58,1 | [`lote-2CD/dxa-posicionamento.png`](lote-2CD/dxa-posicionamento.png) |
+| `dxa-posicionamento` | m30-03 i2 (tocar) e m30-06 (visual do conceito) | 60,5 | 57,8 | [`lote-2CD/dxa-posicionamento.png`](lote-2CD/dxa-posicionamento.png) |
 | `radiografia-veterinaria` | m31-01 i2 e m31-02 i2 (tocar) | 106,3 | 101,1 | [`lote-2CD/radiografia-veterinaria.png`](lote-2CD/radiografia-veterinaria.png) |
 | `radiografia-de-objeto` | m31-06 i2 (tocar) | 69,3 | 65,7 | [`lote-2CD/radiografia-de-objeto.png`](lote-2CD/radiografia-de-objeto.png) |
 | `teste-de-feixe` | m32-02 i2 (rotular) | 34,2 | 32,3 | [`lote-2CD/teste-de-feixe.png`](lote-2CD/teste-de-feixe.png) |
@@ -26,10 +26,10 @@ Nenhuma passa de 240 KiB (a maior, a veterinária, tem 108,9 KiB de fonte). Sem 
 
 As duas cópias locais da pessoa (`lote-2C/comum/pessoa-local.mjs` e `lote-2D/comum/pessoa-d.mjs`) foram fundidas em `scripts/content/figuras/kit/pessoa.mjs`, sem cópia local:
 
-- **Do 2C:** a cabeça da criança (comprimento do perfil escalado por 0,82 e raio por 0,7, em vez de só pelo K da criança, que a deixava comprida e fina na deitada), `opt.curva` (inclina o tronco em pé para a frente, em graus) e `opt.cabelo` (classe do cabelo; cabelo branco da pessoa do idoso).
+- **Do 2C:** a cabeça da criança (comprimento do perfil escalado por 0,82 e raio por 0,7, em vez de só pelo K da criança, que a deixava achatada, mais larga que longa, na deitada), `opt.curva` (inclina o tronco em pé para a frente, em graus) e `opt.cabelo` (classe do cabelo; cabelo branco da pessoa do idoso).
 - **Do 2D:** `opt.perna[sd] = { thigh, shin, toe }` (vetores para dobrar o quadril e o joelho e girar o pé), `opt.extras` (peças que entram na ordenação por profundidade, como a faixa e o posicionador) e `opt.saida.pernas[sd]` (devolve os pontos da perna para as cenas colarem a faixa).
 - **As cenas antigas continuaram idênticas:** as onze cenas dos lotes 2A e 2B regeneram as fontes byte a byte depois da fusão (`cenas.test.mjs`, 11 de 11), e o `kit.test.mjs` passa inteiro. Nenhuma delas usa criança nem as opções novas; sem as opções, o código de antes roda igual.
-- **Teste novo** em `kit.test.mjs`: a cabeça da criança deitada tem a proporção comprimento/largura do adulto (dentro de 25 %) e é menor que a dele (e maior que 60 % da largura). Visto falhando antes, com o defeito específico (cabeça da criança sem escala própria): a execução vermelha está em `.superpowers/sdd/2026-11-20-figuras-fases-2-6/vermelho-2CD.txt` (proporção da criança 2,27 contra 1,21 do adulto; com a fusão, 1,40).
+- **Teste novo** em `kit.test.mjs`: a cabeça da criança deitada tem a proporção largura/comprimento do adulto (dentro de 25 %) e é menor que a dele (e maior que 60 % da largura). Visto falhando antes, com o defeito específico (cabeça da criança sem escala própria): a execução vermelha está em `.superpowers/sdd/2026-11-20-figuras-fases-2-6/vermelho-2CD.txt` (proporção da criança 2,27 contra 1,21 do adulto; com a fusão, 1,40).
 
 ## Itens alterados
 
@@ -52,10 +52,10 @@ Nenhuma pergunta, nenhum rótulo, nenhuma resposta certa e nenhum retorno de ace
 | m31/m31-06/i2 | `radiografia-de-objeto` | 6 regiões com coordenada nova e `alvo` |
 | m32/m32-02/i2 | `teste-de-feixe` | 5 pontos com coordenada nova e `alvo` |
 
-Cinco frases de localização, pela decisão H4 (correção mínima):
+Frases de localização, pela decisão H4 (correção mínima); depois da revisão, a da m26-04 foi revertida (item 2) e o `prompt` da m30-01 i2 perdeu "vistas de lado" (ver "Correções da revisão independente"):
 
 1. m26-02 i2, `where` do "Pedal": "pés da silhueta" → "pés de quem opera".
-2. m26-04, corpo do conceito: "saiote preso à lateral da mesa" → "saiote preso à borda da mesa, voltado para o operador".
+2. m26-04, corpo do conceito: "saiote preso à lateral da mesa" → "saiote preso à borda da mesa, voltado para o operador" (REVERTIDA em 2026-11-21: o saiote agora está na lateral, e a frase original voltou).
 3. m30-03 i2, enunciado: "Na vista de cima, toque no pé…" → "Na cena da direita, toque no pé…".
 4. m31-01 i2, enunciado: "Para que ninguém fique junto do feixe, a equipe pôs apoios no cão." → "Para que as mãos fiquem fora do feixe, a equipe pôs apoios no cão."
 5. m31-06 i4, opção: "Cordão em volta da área isolada" → "Cordão marcando o limite da área isolada" (mesmo gabarito).
@@ -72,31 +72,55 @@ Nenhuma: as onze entraram.
 
 ## Desvios aceitos pelo controlador (H5), registrados
 
-- Vista da m26 (azimute 112) e da `dxa-posicionamento` (vista dos pés, azimute 20) diferem das outras da mesma unidade, para as áreas de toque não se sobreporem.
-- Pernas da paciente do fêmur em V largo (cerca de 19,5 graus cada) e giro do pé exagerado (34 graus), pelo mesmo motivo.
+- Vista da m26 (azimute 112) e da `dxa-posicionamento` (vista dos pés, agora azimute 6 e elevação 50, com o quadro recortado na pelve e nos pés) diferem das outras da mesma unidade, para as áreas de toque não se sobreporem.
+- ~~Pernas da paciente do fêmur em V largo (cerca de 19,5 graus) e giro do pé de 34 graus~~: REVOGADO pela decisão I3 (2026-11-21). Agora as pernas ficam quase paralelas (9 graus cada) e o pé gira 20 graus para dentro; o posicionador fica adiante dos dedos, e o quadro foi recortado, para as áreas de toque não se sobreporem.
 - A pessoa do idoso é adulta, de cabelo branco, com o tronco inclinado 14 graus; o kit só tem adulto e criança.
 - A `gestante-campo-e-feixe` aparece só como `concept.visual` (m27-05).
 
+## Correções da revisão independente (2026-11-21, madrugada)
+
+Parecer em [`revisoes/2CD.md`](revisoes/2CD.md) (0 críticos, 3 importantes, 12 menores). Decisões I1 a I4 em `.superpowers/sdd/2026-11-20-figuras-fases-2-6/decisoes-2CD.md`. Prévias refeitas das cinco figuras redesenhadas (`lote-2CD/<id>.png`, abertas e conferidas), medidas refeitas em `lote-2CD/medidas.md` (com a tabela "Antes e depois"), itens antes e depois em `itens-alterados-2CD.md` (esta lista de trabalho, em `.superpowers/`).
+
+| achado | o que foi feito |
+|---|---|
+| 1 Importante, idoso | Banco encostado à parede atrás dela (x de -188 a -152, longe da rota); degrau (x -50 a -4) e tapete (x 22 a 72, canto levantado voltado para o andador) no caminho até o andador, que ficou a 104 cm. Retorno "fora do caminho dela" agora verdadeiro. Cinco regiões e medidas refeitas nas duas aulas. |
+| 2 Importante, fluoroscopia | As duas cenas da m26 redesenhadas: operador de pé ao lado da mesa, de costas para a câmera, na altura das pernas do paciente; saiote preso à lateral do tampo, entre ele e a mesa; raios grossos do ponto de entrada do feixe até o saiote. A frase do conceito voltou a "saiote preso à lateral da mesa". Quatro pontos e quatro regiões refeitos. |
+| 3 Importante, DXA do fêmur | Pernas quase paralelas (9 graus cada), pé a 20 graus, posicionador adiante dos dedos, vista de azimute 6 e elevação 50 e quadro na pelve e nos pés. Nenhuma das cinco áreas de toque se sobrepõe a outra (medido). |
+| 4 espuma da contenção | Encostada nas solas dos pés da criança (x de 50 a 68), com a região e a área de toque conferidas contra a da faixa (sem sobreposição). |
+| 5 XC do DXA (opcional) | Não aplicado (ver "Incertezas"). |
+| 6 "de lado" | `prompt` da m30-01 i2 sem "vistas de lado"; `alt` das duas de fluoroscopia: "em perspectiva". |
+| 7 cabeça da criança | Comentário e nome do teste e esta evidência dizem "achatada, mais larga que longa" e "largura/comprimento". |
+| 8 pessoa do idoso | A tampa da coxa vinha da ordem de pintura de costas (o bias de 14 cm do quadril), e não da roupa: nova opção `costas` do kit, com teste visto vermelho (`vermelho-2CD-correcao.txt`); "mão direita" virou "mão esquerda" em `figuras.json`. A postura de costas, sobre a qual o parecer pede o olhar do dono, ficou como está. |
+| 9 `alt` que dão a base da resposta | Forma neutra nos três (sala de fluoroscopia, contenção e colimação). |
+| 10 o que os selos escondem | Refeito com a posição atual: o selo do pedal (m26-02) cobre 5,7 % do pedal, o do colimador do teste de feixe cobre 10,9 % do colimador; nenhum objeto cobrado passa de 25 % (24,8 %, a fonte do DXA). |
+| 11 README | Linha do 2CD em `cenas/README.md`. |
+| 12 frase do H4 na lista | Sem efeito: a frase voltou à original (item 2). |
+| 13 técnica das demais (opcional) | Não aplicado: gestante (aproximar 8 a 10 cm do receptor e subir a barriga) e as notas de colimação, objeto e veterinária ficam para o dono. |
+| 14 região da pessoa afastada | Refeita com a caixa da pessoa (sem a sombra, que agora conta como fundo): (0,7531; 0,1021; 0,1266 x 0,5188). |
+| 15 origem dos raios grossos | Sob o ponto onde o feixe entra no paciente. |
+
 ## Números
 
-Node 20.20.2, árvore com só o trabalho deste lote.
+Node 20.20.2, árvore com só o trabalho deste lote (medido em 2026-11-21, depois das correções).
 
 - **Verificador** (`rtg-lesson-lint.mjs`) nas 40 unidades: 40 de 40 OK.
-- `build-rtg-batches.mjs` e `--check`: ok (40 unidades, gerador e --check). `generate-rtg-maestro.mjs` m26, m27, m30, m31, m32 e `--check`: ok (10 fluxos, gerador e --check). `figuras-no-simulador.mjs` com os 45 ids importados e `--check` sem ids: ok (gerador com os 45 ids e `--check` sem ids); 15 roteiros novos, todos na lista do run.
-- **`node --test`** (`scripts/content/*.test.mjs`, `scripts/qa/*.test.mjs`, `scripts/content/figuras/*.test.mjs`, `kit/*.test.mjs`, `cenas/*.test.mjs`): 514 testes, 512 passam, 1 falha alheia conhecida (`registerSource normalizes metadata for the pilot book`) e 1 pulado (o teste "sem Chrome", que só vale sem Chrome); inclui as 22 cenas e o teste novo da cabeça da criança.
-- **Jest** (`src/ui/diagrams`, `src/features/lesson-flow`, `src/features/student-checkpoints`, `--runInBand`, `EXPO_NO_DOTENV=1`): 66 suítes, 1608 testes, todos passam (inclui o registro de diagramas: 513 testes só em `src/ui/diagrams`).
-- `tsc --noEmit`: código de saída 0. `eslint` nos 16 arquivos TypeScript tocados (11 specs, 5 lotes): código de saída 0. `npm run test:maestro-contract`: 13 de 13, código de saída 0. `copy-style-contract.test.mjs`: 65 de 65 (`copy-style-contract.test.mjs`).
-- **Peso:** a soma do SVG das 45 figuras importadas é 4.132.420 bytes (4.035,6 KiB) contra o teto de 8.116.109 do teste do registro (folga de 3.983.689); as onze novas somam 688,9 KiB.
+- `build-rtg-batches.mjs` e `--check`: ok. `generate-rtg-maestro.mjs` m26, m27, m30, m31, m32 e `--check`: ok (10 fluxos). `figuras-no-simulador.mjs` com os 45 ids e `--check` sem ids: ok; os roteiros não mudaram.
+- **`node --test`** (`scripts/content/*.test.mjs`, `scripts/qa/*.test.mjs`, `scripts/content/figuras/*.test.mjs`, `kit/*.test.mjs`, `cenas/*.test.mjs`): 515 testes, 513 passam, 1 falha alheia conhecida (`registerSource normalizes metadata for the pilot book`) e 1 pulado (o teste "sem Chrome"); inclui as 22 cenas (as onze dos lotes 2A e 2B continuam idênticas byte a byte) e o teste novo do kit (`costas`), visto vermelho.
+- **Jest** (`src/ui/diagrams`, `src/features/lesson-flow`, `src/features/student-checkpoints`, `--runInBand`, `EXPO_NO_DOTENV=1`): 66 suítes, 1608 testes, todos passam.
+- `tsc --noEmit`: código de saída 0. `eslint` nos 9 arquivos TypeScript tocados (6 specs, 3 lotes): código de saída 0. `npm run test:maestro-contract`: 13 de 13. `npm run test:copy-style-contract`: 65 de 65.
+- **Peso:** a soma do SVG das 45 figuras importadas é 4.133.244 bytes (4.036,4 KiB) contra o teto de 8.116.109 do teste do registro.
 
 ## Objetos que ficam mais de 50 % escondidos pelo selo ou pelo ponto
 
-Nenhum nas quatorze interações. Maior valor: 24,8 % (ponto de 12 pt sobre a fonte de raios X do DXA, rotular); o selo cobre no máximo 11,6 % do objeto do próprio alvo (o receptor da fluoroscopia, no rotular). Tabelas completas em `lote-2CD/medidas.md`.
+Nenhum nas quatorze interações. Maior valor: 24,8 % (ponto de 12 pt sobre a fonte de raios X do DXA, rotular); o selo cobre no máximo 17,6 % do objeto do próprio alvo (o monitor da fluoroscopia, no rotular). Tabelas completas em `lote-2CD/medidas.md`.
 
 ## Incertezas
 
-- **Rotular do DXA, "Feixe":** a área de toque de 44 pt ao redor do ponto mostra 6 % de feixe e 60,9 % do corpo da paciente (objeto do ponto "Paciente"); o feixe é uma linha de 4 px. Não é uma escolha entre respostas, e as áreas de toque não se sobrepõem, mas é a parte mais fraca do lote.
-- **Objetos pequenos e finos:** triângulo de aviso (5,4 % de objeto na área de toque; 80 % de fundo) e cordão (11,3 %), na radiografia de objeto, mãos de luva (4 %) na veterinária, barra de apoio (9,6 %). São a caixa justa do objeto, sem inflar; a área de toque de 44 pt é o mínimo do app.
+- **Rotular do DXA, "Feixe":** a área de toque de 44 pt ao redor do ponto mostra 6 % de feixe e 60,9 % do corpo da paciente (objeto do ponto "Paciente"); o feixe é uma linha de 4 px. Não é uma escolha entre respostas, e as áreas de toque não se sobrepõem, mas é a parte mais fraca do lote. A correção opcional do parecer (mover o feixe para a lombar ou o colo do fêmur, `XC`) não foi aplicada.
+- **Objetos pequenos e finos:** triângulo de aviso (5,4 % de objeto na área de toque; 80 % de fundo) e cordão (11,3 %), na radiografia de objeto, mãos de luva (4 %) na veterinária, barra de apoio (7,9 %). São a caixa justa do objeto, sem inflar; a área de toque de 44 pt é o mínimo do app.
 - **Colimação pediátrica:** tórax e abdome da criança da direita usam o núcleo mínimo de 0,08 x 0,08 no centro de cada parte (as caixas inteiras ficariam a menos de 44 pt uma da outra); quem toca na borda do tórax erra por poucos pontos.
 - **Sem receptor de imagem** no teste de feixe (a aula tem "Receptor de imagem" como distrator, e a cena não tem receptor nem o mostra como alvo).
-- **"lateral da mesa"** continua em três trechos da m26-04 (opção do checkpoint e dois retornos): a decisão H4 só corrige o trecho do corpo; mexer na opção seria mexer numa resposta (lista em `itens-alterados-2CD.md`).
-- As cenas foram vistas só no Chrome; nenhuma captura no simulador (fora do escopo do integrador).
+- **Posicionador do DXA (m30-03 i2):** fica adiante dos dedos, entre os pés, e não ao lado dos calcanhares; o rótulo "Posicionador entre os pés" continua verdadeiro no sentido lateral, e o `alt` diz "adiante dos pés". O selo 3 da prévia cobre parte da faixa que liga o pé ao posicionador (a faixa não é alvo). O pé à esquerda do desenho e o à direita têm só 16 % e 20 % de objeto na área de toque (o resto é mesa), como a caixa justa de um pé obriga.
+- **Idosa de costas:** de costas, a cabeça (cabelo em cima, pele embaixo) ainda se lê também como um rosto de frente; não é alvo, e o dono deve olhar no simulador.
+- **Optativos do parecer não aplicados:** achado 5 (`XC` do DXA) e achado 13 (gestante: aproximar 8 a 10 cm do receptor e subir a barriga; as notas de colimação, objeto e veterinária).
+- As cenas foram vistas só no Chrome; nenhuma captura no simulador (fora do escopo).
