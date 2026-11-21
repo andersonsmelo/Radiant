@@ -232,6 +232,27 @@ alvos e pelo `where`, então escreva-os para serem entendidos sem ver a figura. 
 nenhuma interação da aula. Em `hotspot`, `label` e `risk-hunt` um diagrama em laço aparece parado, no
 quadro de pôster (desde 2026-11-19): escreva o item para esse quadro.
 
+**Origem das figuras hoje (medido em 2026-11-21).** O catálogo abaixo mistura três
+origens, e o `figuras.json` registra a de cada uma. **Acervo aberto** (anatomia, 23 figuras como crânio,
+esqueleto, coluna, pelve, fêmur e trato digestivo, de Servier, LadyofHats,
+DBCLS/Togopic e outros, em CC BY ou domínio público): arte do autor, recolorida sem redesenhar,
+com crédito no app. **Kit `anatomy`** (equipamento e cena de sala, 22 figuras das
+unidades m17, m19, m21, m25, m26, m27, m30, m31 e m32): cena isométrica desenhada em
+código pelo kit do repositório, arte própria do projeto. **Código antigo** (gráficos,
+fluxos e esquemas de radiografia, e as figuras das outras unidades): desenhos do primeiro
+catálogo, ainda não trocados; as fases 3 a 5 do
+[plano de troca](../superpowers/plans/2026-11-19-troca-das-figuras.md) decidem o destino.
+Se você escreve item para uma figura do acervo ou do kit, a figura é a que está no app:
+confira a prévia em `docs/evidence/2026-11-19-figuras/` antes de escrever o `where`.
+
+**Região é a caixa justa do objeto, e o selo do app fica fora dele.** Declare a região
+do tamanho do objeto no desenho, nunca do tamanho da área de toque de 44 pt nem esticada
+até o fundo vazio: o verificador passa e a pergunta deixa de medir o que diz. O app
+(desde 2026-11-20) põe o selo do número fora da região e fora da área de toque dos
+outros alvos, e o ponto de rotular tem 12 pt, com o número num selo ao lado; por isso o
+objeto pequeno não precisa ser inflado no item. Se o objeto ainda ficar escondido, o
+item muda (adaptar o item), a região não cresce.
+
 ### Catálogo de diagramas
 
 Texto do `alt` resumido. **Parado** não tem movimento. **Laço** repete sozinho; com

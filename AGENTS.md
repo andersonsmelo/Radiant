@@ -594,6 +594,39 @@ defeito que se queria pegar.
   briefs estão em
   [`docs/superpowers/plans/2026-11-20-figuras-continuidade.md`](docs/superpowers/plans/2026-11-20-figuras-continuidade.md).
 
+### Seis lições de 2026-11-20 e 21 (fase 2 das figuras, cenas do kit)
+
+- **Região do tamanho da área de toque é inflar.** Os construtores declararam a região
+  de objetos pequenos com 44 pt, e o verificador passou. Na prévia a caixa era maior que
+  o objeto, e a pergunta deixava de medir o que dizia. Região é a caixa justa do objeto
+  no desenho, com o mínimo de 0,08 do verificador. Se não couber, aproxime a câmera ou
+  aumente o objeto no desenho, dito na evidência; não estique a região.
+- **O selo e o marcador do app escondiam objeto pequeno, e o conserto foi no app.**
+  Medido por cor, o selo cobria 100% da maçaneta, da manopla e da pulseira. Aumentar o
+  objeto não bastou. O app passou a pôr o selo fora da região e fora da área de toque
+  dos outros alvos, posicionado em conjunto (sem selo sobre selo). Quando o defeito se
+  repete em toda figura, corrija o lugar que o produz, e meça de novo as figuras já
+  aprovadas: a posição nova também mexe nelas.
+- **A pessoa do kit é módulo único.** Dois construtores copiaram a pessoa e a
+  alteraram (cabeça da criança deitada, controle de pernas e pé). Duas pessoas
+  divergentes quebram a promessa de que trocar a pessoa regenera todas as cenas. Funda a
+  mudança em `kit/pessoa.mjs` na integração e confira que as cenas antigas regeneram
+  byte a byte (`cenas.test.mjs`).
+- **A lista do run precisa incluir os roteiros que o `figuras-no-simulador.mjs` cria.**
+  O 2B e o 2A fecharam sem validar por arquivo fora da lista (fixtures de teste e quatro
+  roteiros Maestro). Fechar o run e reabri-lo com a lista completa custa um ciclo.
+  Enumere os roteiros `aula-NN` das unidades antes de abrir, e não os crie nem edite
+  fora da lista.
+- **Técnica radiológica errada com prévia bonita: só o revisor independente viu.** Maca
+  em linha em vez de ao lado da mesa, saiote na ponta da mesa contra o checkpoint que diz
+  "lateral", pernas em V largo no DXA do fêmur, banco no caminho do idoso. A prévia e o
+  verificador passaram. Passe ao revisor o texto da aula e do checkpoint, e o desenho
+  segue a aula, não o contrário.
+- **Integrar dois lotes num run economiza um ciclo.** O 2C e o 2D foram integrados
+  juntos (11 cenas): um gate, uma revisão e um conjunto de correções em vez de dois.
+  Vale quando ambos estão prontos ao mesmo tempo e compartilham o módulo da pessoa; o
+  preço é um run maior, com lista de 146 caminhos.
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por
