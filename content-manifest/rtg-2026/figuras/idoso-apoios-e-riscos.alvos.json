@@ -1,7 +1,7 @@
 [
-  { "nome": "Barra de apoio junto ao receptor", "x": 0.1906, "y": 0.2631, "width": 0.1531, "height": 0.08, "rotulos": ["Barra de apoio"] },
-  { "nome": "Banco ao lado", "x": 0.2562, "y": 0.5354, "width": 0.1391, "height": 0.2292, "rotulos": ["Banco"] },
-  { "nome": "Degrau no chão", "x": 0.4156, "y": 0.775, "width": 0.1609, "height": 0.1375, "rotulos": ["Degrau"] },
-  { "nome": "Tapete com a ponta solta", "x": 0.5797, "y": 0.8187, "width": 0.1797, "height": 0.1062, "rotulos": ["Tapete"] },
-  { "nome": "Andador longe da pessoa", "x": 0.7828, "y": 0.4979, "width": 0.1844, "height": 0.4063, "rotulos": ["Andador"] }
+  { "nome": "Barra de apoio junto ao receptor", "x": 0.325, "y": 0.3235, "width": 0.1391, "height": 0.08, "rotulos": ["Barra de apoio"] },
+  { "nome": "Banco ao lado", "x": 0.0766, "y": 0.4521, "width": 0.1141, "height": 0.2021, "rotulos": ["Banco"] },
+  { "nome": "Degrau no chão", "x": 0.4141, "y": 0.6646, "width": 0.1469, "height": 0.1271, "rotulos": ["Degrau"] },
+  { "nome": "Tapete com a ponta solta", "x": 0.6031, "y": 0.7417, "width": 0.1641, "height": 0.0958, "rotulos": ["Tapete"] },
+  { "nome": "Andador longe da pessoa", "x": 0.8078, "y": 0.525, "width": 0.1688, "height": 0.3729, "rotulos": ["Andador"] }
 ]

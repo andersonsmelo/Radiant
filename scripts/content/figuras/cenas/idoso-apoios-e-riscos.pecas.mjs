@@ -48,9 +48,9 @@ export function andador(P, { x, y, w = 50, d = 44, h = 82 }) {
 export function pecas() {
   const YW = -74;
   const REC = { x: -120, y: YW }, BARRA = { x0: -92, x1: -42, y: -56, z: 108 }, ELD = { o: [-116, -34, alturaPelve()], facing: [0, -1, 0] };
-  const BANCO = { x: -60, y: -54 }, DEGRAU = { x: 14, y: -14 }, TAPETE = { x: 66, y: -34, w: 50, d: 34 }, ANDA = { x: 126, y: -74, w: 44, d: 38 };
+  const BANCO = { x: -188, y: -74, w: 36, d: 24 }, DEGRAU = { x: -50, y: -62 }, TAPETE = { x: 22, y: -70, w: 50, d: 34 }, ANDA = { x: 104, y: -74, w: 44, d: 38 }; // banco encostado à parede, atrás dela; degrau e tapete no caminho até o andador
   const box = (x0, x1, y0, y1, z0, z1) => k.boxCorners({ x: x0, y: y0, w: x1 - x0, d: y1 - y0 }, z0, z1);
-  const P = projecao([[-142, YW, 0], [-116, -34, 188], [ANDA.x + 50, ANDA.y, 0], [ANDA.x + 50, ANDA.y, 90], [TAPETE.x + 50, TAPETE.y + 62, 0], [-142, -30, 0]]);
+  const P = projecao([[BANCO.x - 4, YW, 0], [-116, -34, 188], [ANDA.x + 50, ANDA.y, 0], [ANDA.x + 50, ANDA.y, 90], [TAPETE.x + 50, -4, 0], [BANCO.x - 4, -4, 0]]);
   const CURVA = 14;
   const mao = alcancar({ curva: CURVA, o: ELD.o, pose: "em-pe", facing: ELD.facing, sd: -1, alvo: [-72, -55, 106] });
   const sombra = (o, r) => helpers(P).shadow({ x: o[0] - r, y: o[1] - r, w: 2 * r, d: 2 * r, r: r - 1 });
@@ -62,6 +62,6 @@ export function pecas() {
     { id: "degrau", svg: degrau(P, DEGRAU) },
     { id: "tapete", svg: tapete(P, TAPETE) },
     { id: "andador", svg: andador(P, ANDA) },
-    { id: "idosa", svg: sombra(ELD.o, 20) + pessoa(P, ELD.o, { pose: "em-pe", facing: ELD.facing, roupa: "camisola", cabelo: "c-shirt", curva: CURVA, bracos: { [-1]: { abd: mao.abd, bend: mao.bend } } }) },
+    { id: "idosa", svg: sombra(ELD.o, 20) + pessoa(P, ELD.o, { pose: "em-pe", facing: ELD.facing, roupa: "camisola", costas: true, cabelo: "c-shirt", curva: CURVA, bracos: { [-1]: { abd: mao.abd, bend: mao.bend } } }) },
   ];
 }

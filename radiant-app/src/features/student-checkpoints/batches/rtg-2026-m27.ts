@@ -6,7 +6,7 @@ export const RTG_2026_M27: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m27",
-  "materialSha256": "da641e569649bb5766fa445f1214cf1dfd990f7d9ad4f3b568132275d8724836",
+  "materialSha256": "dc1cd19ccf3bd535d062f7720b963d6ce4915912cc8bd632c14d1f6ad40b8597",
   "trackId": "track:rtg-2026:m27",
   "unitId": "unit:rtg-2026:m27",
   "contentVersion": "rtg-2026-m27-v1",
@@ -613,10 +613,10 @@ export const RTG_2026_M27: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m27:aula-02:i2:4",
                   "label": "Apoio de espuma",
-                  "x": 0.6156,
-                  "y": 0.6396,
-                  "width": 0.1047,
-                  "height": 0.1458
+                  "x": 0.6297,
+                  "y": 0.5813,
+                  "width": 0.0922,
+                  "height": 0.1479
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-02:i2:5",
@@ -1426,46 +1426,46 @@ export const RTG_2026_M27: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m27:aula-04:i4:1",
                   "label": "Barra de apoio junto ao receptor",
-                  "x": 0.1906,
-                  "y": 0.2631,
-                  "width": 0.1531,
+                  "x": 0.325,
+                  "y": 0.3235,
+                  "width": 0.1391,
                   "height": 0.08,
                   "explanation": "A barra firme junto ao receptor dá onde a pessoa se segurar: é apoio, e não risco."
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-04:i4:2",
                   "label": "Degrau no chão",
-                  "x": 0.4156,
-                  "y": 0.775,
-                  "width": 0.1609,
-                  "height": 0.1375,
+                  "x": 0.4141,
+                  "y": 0.6646,
+                  "width": 0.1469,
+                  "height": 0.1271,
                   "explanation": "Um degrau no chão é obstáculo para quem se equilibra mal: a equipe resolve o caminho antes do exame."
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-04:i4:3",
                   "label": "Banco ao lado",
-                  "x": 0.2562,
-                  "y": 0.5354,
-                  "width": 0.1391,
-                  "height": 0.2292,
+                  "x": 0.0766,
+                  "y": 0.4521,
+                  "width": 0.1141,
+                  "height": 0.2021,
                   "explanation": "O banco está ao lado, fora do caminho dela: aqui ele não é obstáculo. Se ela precisar sentar, a equipe confere se ele é firme."
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-04:i4:4",
                   "label": "Tapete com a ponta solta",
-                  "x": 0.5797,
-                  "y": 0.8187,
-                  "width": 0.1797,
-                  "height": 0.1062,
+                  "x": 0.6031,
+                  "y": 0.7417,
+                  "width": 0.1641,
+                  "height": 0.0958,
                   "explanation": "A ponta solta do tapete pode prender o pé: piso irregular é risco de queda para quem se equilibra mal."
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-04:i4:5",
                   "label": "Andador longe da pessoa",
-                  "x": 0.7828,
-                  "y": 0.4979,
-                  "width": 0.1844,
-                  "height": 0.4063,
+                  "x": 0.8078,
+                  "y": 0.525,
+                  "width": 0.1688,
+                  "height": 0.3729,
                   "explanation": "Ela usa o andador para se firmar, e ele ficou longe: avise a equipe antes de ela andar até ele, e siga o protocolo do serviço."
                 }
               ],
@@ -2147,42 +2147,42 @@ export const RTG_2026_M27: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m27:aula-06:i3:1",
                   "label": "Barra de apoio",
-                  "x": 0.1906,
-                  "y": 0.2631,
-                  "width": 0.1531,
+                  "x": 0.325,
+                  "y": 0.3235,
+                  "width": 0.1391,
                   "height": 0.08
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-06:i3:2",
                   "label": "Banco",
-                  "x": 0.2562,
-                  "y": 0.5354,
-                  "width": 0.1391,
-                  "height": 0.2292
+                  "x": 0.0766,
+                  "y": 0.4521,
+                  "width": 0.1141,
+                  "height": 0.2021
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-06:i3:3",
                   "label": "Degrau",
-                  "x": 0.4156,
-                  "y": 0.775,
-                  "width": 0.1609,
-                  "height": 0.1375
+                  "x": 0.4141,
+                  "y": 0.6646,
+                  "width": 0.1469,
+                  "height": 0.1271
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-06:i3:4",
                   "label": "Tapete",
-                  "x": 0.5797,
-                  "y": 0.8187,
-                  "width": 0.1797,
-                  "height": 0.1062
+                  "x": 0.6031,
+                  "y": 0.7417,
+                  "width": 0.1641,
+                  "height": 0.0958
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-06:i3:5",
                   "label": "Andador",
-                  "x": 0.7828,
-                  "y": 0.4979,
-                  "width": 0.1844,
-                  "height": 0.4063
+                  "x": 0.8078,
+                  "y": 0.525,
+                  "width": 0.1688,
+                  "height": 0.3729
                 }
               ],
               "correctRegionIds": [
@@ -6737,7 +6737,7 @@ export const RTG_2026_M27: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "da641e569649bb5766fa445f1214cf1dfd990f7d9ad4f3b568132275d8724836"
+      "materialSha256": "dc1cd19ccf3bd535d062f7720b963d6ce4915912cc8bd632c14d1f6ad40b8597"
     },
     {
       "schemaVersion": 1,
@@ -6746,7 +6746,7 @@ export const RTG_2026_M27: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "da641e569649bb5766fa445f1214cf1dfd990f7d9ad4f3b568132275d8724836"
+      "materialSha256": "dc1cd19ccf3bd535d062f7720b963d6ce4915912cc8bd632c14d1f6ad40b8597"
     },
     {
       "schemaVersion": 1,
@@ -6755,7 +6755,7 @@ export const RTG_2026_M27: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "da641e569649bb5766fa445f1214cf1dfd990f7d9ad4f3b568132275d8724836"
+      "materialSha256": "dc1cd19ccf3bd535d062f7720b963d6ce4915912cc8bd632c14d1f6ad40b8597"
     },
     {
       "schemaVersion": 1,
@@ -6764,7 +6764,7 @@ export const RTG_2026_M27: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "da641e569649bb5766fa445f1214cf1dfd990f7d9ad4f3b568132275d8724836"
+      "materialSha256": "dc1cd19ccf3bd535d062f7720b963d6ce4915912cc8bd632c14d1f6ad40b8597"
     },
     {
       "schemaVersion": 1,
@@ -6773,7 +6773,7 @@ export const RTG_2026_M27: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "da641e569649bb5766fa445f1214cf1dfd990f7d9ad4f3b568132275d8724836"
+      "materialSha256": "dc1cd19ccf3bd535d062f7720b963d6ce4915912cc8bd632c14d1f6ad40b8597"
     },
     {
       "schemaVersion": 1,
@@ -6782,7 +6782,7 @@ export const RTG_2026_M27: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "da641e569649bb5766fa445f1214cf1dfd990f7d9ad4f3b568132275d8724836"
+      "materialSha256": "dc1cd19ccf3bd535d062f7720b963d6ce4915912cc8bd632c14d1f6ad40b8597"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

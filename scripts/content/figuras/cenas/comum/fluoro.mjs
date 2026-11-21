@@ -14,12 +14,12 @@ export const POS = {
   rec: { cx: -30, w: 66, z0: 124, z1: 152 },         // receptor: face de baixo a 124 cm (46 cm acima do tampo), 28 cm de espessura
   coluna: { x: -30, y: -62 },                        // coluna do arco, atrás da mesa
   paciente: [-12, 0, 93],                            // pelve do paciente deitado, cabeça em -x
-  operador: [160, 0, alturaPelve()],                 // de pé no fim da mesa, olhando para -x
-  pedal: { x: 124, y: 0 },
-  monitor: { x: 232, y: 34 },
-  saiote: { x: 111 },
-  biombo: { x: 208 },
-  segunda: [252, -34, alturaPelve()],
+  operador: [58, 72, alturaPelve()],                 // de pé ao lado da mesa (lado +y, o do espectador), na altura das pernas do paciente, de frente para ela (-y)
+  pedal: { x: 102, y: 66 },
+  monitor: { x: 150, y: -60 },
+  saiote: { x0: -4, x1: 68, y: 30 },                 // preso à lateral do tampo, do lado do operador, entre a mesa e ele; a câmera vê a face de fora
+  biombo: { x: 136, y: -80 },
+  segunda: [198, -80, alturaPelve()],
 };
 export const Z_CAMPO = POS.rec.z0;
 const f3 = (x, y, z) => [x, y, z];
@@ -89,12 +89,14 @@ export function monitor(P, { parte = "pedestal" } = {}) {
   o.push(wp(P, yf + 0.1, [[cx, cz - 17], [cx, cz + 17]], ln(hx.papel, 1.2), false));
   return o.join("");
 }
-// saiote plumbífero preso ao fim do tampo, voltado para o operador, e o biombo móvel (painel perpendicular a x: barra o que vem de -x)
+// saiote plumbífero preso à lateral do tampo, do lado de quem opera (y = POS.saiote.y): a placa pende da barra da borda até perto do chão e a câmera
+// vê a face do lado da mesa, a que o espalhamento atinge; o biombo móvel é um painel perpendicular a x (barra o que vem de -x)
 export function saiote(P) {
   const { slab } = helpers(P);
-  const m = POS.mesa;
-  return slab({ x: POS.saiote.x, y: m.y + 2, w: 6, d: m.d - 4, r: 1 }, 10, m.z - 12 - 10 + 4, { tone: "hi", className: "c-lead" }, 3, 0.4)
-    + slab({ x: POS.saiote.x - 2, y: m.y, w: 10, d: m.d, r: 1.5 }, m.z - 8, 6, { tone: "mid", className: "c-dark" }, 3, 0.3);
+  const m = POS.mesa, { x0, x1, y } = POS.saiote;
+  const s = Math.sign(y), yp = s > 0 ? y + 1 : y - 5;
+  return slab({ x: x0, y: yp, w: x1 - x0, d: 4, r: 1 }, 12, m.z - 12 - 12 + 4, { tone: "hi", className: "c-apron" }, 3, 0.4)
+    + slab({ x: x0 - 2, y: s > 0 ? y - 1 : y - 7, w: x1 - x0 + 4, d: 8, r: 1.5 }, m.z - 10, 6, { tone: "mid", className: "c-dark" }, 3, 0.3);
 }
 export function biombo(P, { x = POS.biombo.x, y = 0, w = 84, h = 172 } = {}) {
   const { slab, shadow, wheel } = helpers(P);
@@ -109,23 +111,23 @@ export function biombo(P, { x = POS.biombo.x, y = 0, w = 84, h = 172 } = {}) {
   o.push(slab({ x: x - 1, y: y - w / 2 - 1, w: 8, d: w + 2, r: 2 }, h - 4, 4, { tone: "mid", className: "c-mach" }, 3, 0.4));
   return o.join("");
 }
-// óculos plumbíferos: duas lentes e a ponte, na altura dos olhos, na frente (-x) do rosto da pessoa em pé de frente para -x
+// óculos plumbíferos: duas lentes e a ponte, na altura dos olhos, na frente (-y) do rosto da pessoa em pé de frente para -y
 export function oculos(P, o3) {
   const { slab } = helpers(P);
-  const [px, py, pz] = o3, zE = pz + 57 + 12.5, xf = px - 8.2;
-  // lentes na frente do rosto e uma haste até a orelha, do lado que a câmera vê (+y)
-  return slab({ x: xf - 1.6, y: py - 7.6, w: 3.4, d: 15.2, r: 1 }, zE - 2.6, 5.2, { tone: "hi", className: "c-blue" }, 3, 0.2)
-    + slab({ x: xf, y: py + 7.0, w: 10, d: 1.8, r: 0.6 }, zE - 0.6, 1.8, { tone: "hi", className: "c-blue" }, 2, 0.1);
+  const [px, py, pz] = o3, zE = pz + 57 + 12.5, yf = py - 8.2;
+  // lentes na frente do rosto e uma haste até a orelha, do lado que a câmera vê (+x); de costas para a câmera, as lentes ficam atrás da cabeça
+  return slab({ x: px - 7.6, y: yf - 1.8, w: 15.2, d: 3.4, r: 1 }, zE - 2.6, 5.2, { tone: "hi", className: "c-blue" }, 3, 0.2)
+    + slab({ x: px + 7.0, y: yf, w: 1.8, d: 10, r: 0.6 }, zE - 0.6, 1.8, { tone: "hi", className: "c-blue" }, 2, 0.1);
 }
 
 export function pacienteOpt(saida) { return { pose: "deitada", facing: [1, 0, 0], roupa: "camisola", saida }; }
-export const operadorOpt = { pose: "em-pe", facing: [-1, 0, 0], roupa: "scrub", avental: true, bracos: { [-1]: { abd: 10, bend: 40 }, 1: { abd: 10, bend: 40 } } };
-export const segundaOpt = { pose: "em-pe", facing: [-1, 0, 0], roupa: "camisa", avental: true };
+export const operadorOpt = { pose: "em-pe", facing: [0, -1, 0], roupa: "scrub", avental: true, bracos: { [-1]: { abd: 10, bend: 40 }, 1: { abd: 10, bend: 40 } } };
+export const segundaOpt = { pose: "em-pe", facing: [0, 1, 0], roupa: "camisa", avental: true };
 export { pessoa };
 
 // camera: caixa de cada coisa que a cena mostra (mesmo azimute nas duas cenas)
 export const caixa = (x0, x1, y0, y1, z0, z1) => k.boxCorners({ x: x0, y: y0, w: x1 - x0, d: y1 - y0 }, z0, z1);
-// azimute 112 (espelho do 68 da sala da m17): a câmera fica do lado da cabeça do paciente e vê a frente do operador e a face do saiote voltada para o tubo
+// azimute 112 (espelho do 68 da sala da m17): a câmera fica do lado da cabeça do paciente e do operador, que vê de costas, com o saiote entre ele e a mesa
 export const AZM = 112;
 export const cameraDe = (caixas, M = 6) => k.fitProjection(caixas.flatMap(([x0, x1, y0, y1, z0, z1]) => caixa(x0 - M, x1 + M, y0 - M, y1 + M, Math.max(0, z0 - M), z1 + M)), 640, 480, { pad: 10, azimuth: AZM });
 export { at, G, f3 };

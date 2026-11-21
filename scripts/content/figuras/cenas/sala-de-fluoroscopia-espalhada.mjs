@@ -7,7 +7,7 @@ import { pecas } from "./sala-de-fluoroscopia-espalhada.pecas.mjs";
 
 export const FONTE = fileURLToPath(new URL("../fontes/sala-de-fluoroscopia-espalhada.svg", import.meta.url));
 export function gerar() {
-  const label = "Sala de fluoroscopia: paciente deitado na mesa, tubo sob a mesa e receptor acima; do paciente sai radiação espalhada em leque, com raios grossos sob a mesa, do lado do tubo, até o saiote de chumbo, e raios finos acima, até o operador de avental, protetor de tireoide e óculos; mais longe, o biombo e uma segunda pessoa.";
+  const label = "Sala de fluoroscopia: paciente deitado na mesa, tubo sob a mesa e receptor acima; do paciente sai radiação espalhada em leque, com raios grossos sob a mesa, do lado do tubo, até o saiote de chumbo preso à lateral da mesa, e raios finos acima, até o operador, ao lado da mesa, de avental, protetor de tireoide e óculos; mais longe, o biombo e uma segunda pessoa.";
   return emitir({ label, pecas: pecas() });
 }
 if (process.argv[1] === fileURLToPath(import.meta.url)) writeFileSync(FONTE, gerar());

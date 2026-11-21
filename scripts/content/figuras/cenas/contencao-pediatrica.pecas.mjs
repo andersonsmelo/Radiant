@@ -1,5 +1,5 @@
 // contencao-pediatrica: criança deitada na mesa sob o tubo de teto; acompanhante de avental sentado à cabeceira segurando os braços dela
-// (mãos fora do campo); faixa sobre as pernas, apoio de espuma no fim da mesa; outra pessoa, sem avental, junto aos pés da mesa, com o espalhamento.
+// (mãos fora do campo); faixa sobre as pernas, apoio de espuma encostado nas solas dos pés dela; outra pessoa, sem avental, junto aos pés da mesa, com o espalhamento.
 import { k, helpers } from "../kit/base.mjs";
 import { pessoa } from "../kit/pessoa.mjs";
 import { mesa } from "../kit/mesa.mjs";
@@ -30,7 +30,7 @@ export function pecas() {
   const banco = slab({ x: CUID.o[0] - 16, y: -16, w: 32, d: 32, r: 4 }, 38, 6, { tone: "hi", className: "c-dark" }, 3, 0.4) + cyl(CUID.o[0], 0, 3, 0, 38, { tone: "mid", className: "c-dark" }, 10);
   const xc = -29;
   const faixa = slab({ x: 6, y: -17, w: 14, d: 34, r: 1.5 }, 88.6, 3.4, { tone: "hi", className: "c-blanket" }, 3, 0.3) + [-17, 14].map((y) => slab({ x: 6, y, w: 14, d: 3, r: 1 }, 79, 12.5, { tone: "mid", className: "c-blanket" }, 3, 0.3)).join("");
-  const espuma = slab({ x: 54, y: 10, w: 22, d: 20, r: 4 }, 78, 17, { tone: "hi", className: "c-shirt" }, 4, 1.2);
+  const espuma = slab({ x: 50, y: -11, w: 18, d: 22, r: 4 }, 78, 17, { tone: "hi", className: "c-shirt" }, 4, 1.2);
   const wr = hands.map((h) => h.w);
   const maos = (() => { const pts = wr.flatMap((w) => box(w[0] - 3, w[0] + 15, w[1] - 6, w[1] + 6, w[2] - 5, w[2] + 5)).map((p) => k.iso(p, P)); return [Math.min(...pts.map((p) => p[0])), Math.min(...pts.map((p) => p[1])), Math.max(...pts.map((p) => p[0])), Math.max(...pts.map((p) => p[1]))]; })();
   const patch = (() => { const pts = box(xc - 14, xc + 14, -14, 14, 91, 94).map((p) => k.iso(p, P)); return [Math.min(...pts.map((p) => p[0])), Math.min(...pts.map((p) => p[1])), Math.max(...pts.map((p) => p[0])), Math.max(...pts.map((p) => p[1]))]; })();

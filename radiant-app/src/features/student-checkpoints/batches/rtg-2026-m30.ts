@@ -6,7 +6,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m30",
-  "materialSha256": "b7c990e5068c61eecf75cf657d0110b72ce90fb6d1ded234217f09aef41a38ea",
+  "materialSha256": "c033361ad98a7a87b7140fdb3bbf94168c466b8763644f76e399d762db52ac18",
   "trackId": "track:rtg-2026:m30",
   "unitId": "unit:rtg-2026:m30",
   "contentVersion": "rtg-2026-m30-v1",
@@ -178,7 +178,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule as partes do densitômetro vistas de lado, tocando na ficha e no ponto."
+              "label": "Rotular a imagem: Rotule as partes do densitômetro, tocando na ficha e no ponto."
             },
             "help": "Comece pelo que está embaixo da mesa e suba até o alto do desenho.",
             "type": "label",
@@ -187,7 +187,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
               "incorrect": "Alguma ficha está fora do lugar: siga o caminho de baixo para cima, da fonte, pela pessoa, até o detector."
             },
             "payload": {
-              "prompt": "Rotule as partes do densitômetro vistas de lado, tocando na ficha e no ponto.",
+              "prompt": "Rotule as partes do densitômetro, tocando na ficha e no ponto.",
               "imageRef": "diagram:dxa-dois-feixes",
               "points": [
                 {
@@ -968,42 +968,42 @@ export const RTG_2026_M30: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m30:aula-03:i2:1",
                   "label": "Coluna reta sobre a mesa",
-                  "x": 0.1258,
-                  "y": 0.2841,
-                  "width": 0.1704,
-                  "height": 0.2188
+                  "x": 0.12,
+                  "y": 0,
+                  "width": 0.22,
+                  "height": 0.28
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-03:i2:2",
                   "label": "Bloco sob as pernas",
-                  "x": 0.2219,
-                  "y": 0.55,
-                  "width": 0.2547,
-                  "height": 0.3771
+                  "x": 0.1719,
+                  "y": 0.3604,
+                  "width": 0.2141,
+                  "height": 0.4292
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-03:i2:3",
                   "label": "Posicionador entre os pés",
-                  "x": 0.6781,
-                  "y": 0.5729,
-                  "width": 0.1047,
-                  "height": 0.2083
+                  "x": 0.6484,
+                  "y": 0.7104,
+                  "width": 0.1,
+                  "height": 0.2
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-03:i2:4",
                   "label": "Pé à esquerda do desenho",
-                  "x": 0.5105,
-                  "y": 0.5977,
-                  "width": 0.0976,
-                  "height": 0.1496
+                  "x": 0.5296,
+                  "y": 0.5208,
+                  "width": 0.08,
+                  "height": 0.125
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-03:i2:5",
                   "label": "Pé à direita do desenho",
-                  "x": 0.8687,
-                  "y": 0.4741,
+                  "x": 0.7522,
+                  "y": 0.4813,
                   "width": 0.08,
-                  "height": 0.1582
+                  "height": 0.1396
                 }
               ],
               "correctRegionIds": [
@@ -6810,7 +6810,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b7c990e5068c61eecf75cf657d0110b72ce90fb6d1ded234217f09aef41a38ea"
+      "materialSha256": "c033361ad98a7a87b7140fdb3bbf94168c466b8763644f76e399d762db52ac18"
     },
     {
       "schemaVersion": 1,
@@ -6819,7 +6819,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b7c990e5068c61eecf75cf657d0110b72ce90fb6d1ded234217f09aef41a38ea"
+      "materialSha256": "c033361ad98a7a87b7140fdb3bbf94168c466b8763644f76e399d762db52ac18"
     },
     {
       "schemaVersion": 1,
@@ -6828,7 +6828,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b7c990e5068c61eecf75cf657d0110b72ce90fb6d1ded234217f09aef41a38ea"
+      "materialSha256": "c033361ad98a7a87b7140fdb3bbf94168c466b8763644f76e399d762db52ac18"
     },
     {
       "schemaVersion": 1,
@@ -6837,7 +6837,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b7c990e5068c61eecf75cf657d0110b72ce90fb6d1ded234217f09aef41a38ea"
+      "materialSha256": "c033361ad98a7a87b7140fdb3bbf94168c466b8763644f76e399d762db52ac18"
     },
     {
       "schemaVersion": 1,
@@ -6846,7 +6846,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b7c990e5068c61eecf75cf657d0110b72ce90fb6d1ded234217f09aef41a38ea"
+      "materialSha256": "c033361ad98a7a87b7140fdb3bbf94168c466b8763644f76e399d762db52ac18"
     },
     {
       "schemaVersion": 1,
@@ -6855,7 +6855,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b7c990e5068c61eecf75cf657d0110b72ce90fb6d1ded234217f09aef41a38ea"
+      "materialSha256": "c033361ad98a7a87b7140fdb3bbf94168c466b8763644f76e399d762db52ac18"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

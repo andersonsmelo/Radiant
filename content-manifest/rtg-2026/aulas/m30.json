@@ -125,7 +125,7 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule as partes do densitômetro vistas de lado, tocando na ficha e no ponto.",
+          "prompt": "Rotule as partes do densitômetro, tocando na ficha e no ponto.",
           "diagramId": "dxa-dois-feixes",
           "points": [
             {
@@ -887,43 +887,43 @@
           "regions": [
             {
               "label": "Coluna reta sobre a mesa",
-              "x": 0.1258,
-              "y": 0.2841,
-              "width": 0.1704,
-              "height": 0.2188,
+              "x": 0.12,
+              "y": 0,
+              "width": 0.22,
+              "height": 0.28,
               "alvo": "Coluna reta sobre a mesa"
             },
             {
               "label": "Bloco sob as pernas",
-              "x": 0.2219,
-              "y": 0.55,
-              "width": 0.2547,
-              "height": 0.3771,
+              "x": 0.1719,
+              "y": 0.3604,
+              "width": 0.2141,
+              "height": 0.4292,
               "alvo": "Bloco sob as pernas"
             },
             {
               "label": "Posicionador entre os pés",
-              "x": 0.6781,
-              "y": 0.5729,
-              "width": 0.1047,
-              "height": 0.2083,
+              "x": 0.6484,
+              "y": 0.7104,
+              "width": 0.1,
+              "height": 0.2,
               "alvo": "Posicionador entre os pés"
             },
             {
               "label": "Pé à esquerda do desenho",
-              "x": 0.5105,
-              "y": 0.5977,
-              "width": 0.0976,
-              "height": 0.1496,
+              "x": 0.5296,
+              "y": 0.5208,
+              "width": 0.08,
+              "height": 0.125,
               "correct": true,
               "alvo": "Pé à esquerda do desenho (girado, preso)"
             },
             {
               "label": "Pé à direita do desenho",
-              "x": 0.8687,
-              "y": 0.4741,
+              "x": 0.7522,
+              "y": 0.4813,
               "width": 0.08,
-              "height": 0.1582,
+              "height": 0.1396,
               "alvo": "Pé à direita do desenho"
             }
           ],

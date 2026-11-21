@@ -5,7 +5,7 @@ import type { DiagramSpec } from '../diagramTypes';
 // Receita: scripts/content/figuras/cenas/colimacao-pediatrica.mjs; fonte versionada: scripts/content/figuras/fontes/colimacao-pediatrica.svg (640x480, vira 320x240 com escala 0,5).
 export const colimacaoPediatrica: DiagramSpec = {
   id: 'colimacao-pediatrica',
-  alt: 'A mesma criança duas vezes, deitada em duas mesas: na da esquerda a luz do colimador cobre o corpo todo; na da direita, só o tórax.',
+  alt: 'A mesma criança duas vezes, deitada em duas mesas, uma atrás da outra; em cada uma, um retângulo de luz do colimador de tamanho diferente.',
   width: 320,
   height: 240,
   art: 'imported',

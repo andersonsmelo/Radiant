@@ -6,7 +6,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m26",
-  "materialSha256": "4fe1bee8f4ee3688db0c228827d3af6e9c618de18bc97da05cf7c24fc13b55de",
+  "materialSha256": "42b4ecafab111092ae6d608cbb355c0935e04c1ae4889f548fb4bac9e62b3eee",
   "trackId": "track:rtg-2026:m26",
   "unitId": "unit:rtg-2026:m26",
   "contentVersion": "rtg-2026-m26-v1",
@@ -574,29 +574,29 @@ export const RTG_2026_M26: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m26:aula-02:i2:1",
-                  "x": 0.2792,
-                  "y": 0.682,
+                  "x": 0.3922,
+                  "y": 0.7375,
                   "where": "sob o tampo, a caixa de onde o cone amarelo se abre",
                   "correctLabelId": "label:rtg-2026:m26:aula-02:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m26:aula-02:i2:2",
-                  "x": 0.3074,
-                  "y": 0.444,
+                  "x": 0.3906,
+                  "y": 0.4125,
                   "where": "no alto, a caixa larga acima do paciente deitado",
                   "correctLabelId": "label:rtg-2026:m26:aula-02:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m26:aula-02:i2:3",
-                  "x": 0.865,
-                  "y": 0.3056,
+                  "x": 0.7688,
+                  "y": 0.2104,
                   "where": "à direita, a tela num suporte alto",
                   "correctLabelId": "label:rtg-2026:m26:aula-02:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m26:aula-02:i2:4",
-                  "x": 0.6049,
-                  "y": 0.6416,
+                  "x": 0.7781,
+                  "y": 0.8396,
                   "where": "no chão, o pequeno bloco perto dos pés de quem opera",
                   "correctLabelId": "label:rtg-2026:m26:aula-02:i2:4"
                 }
@@ -1208,7 +1208,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Espalhamento e barreiras",
-            "body": "Na fluoroscopia, o que mais chega à equipe é o espalhamento que sai do paciente. Com o tubo sob a mesa, ele é mais forte do lado do tubo, na altura das pernas; acima da mesa, é mais fraco. As barreiras somam-se: avental, protetor de tireoide, saiote preso à borda da mesa, voltado para o operador e biombo. A distância ajuda: neste esquema, a leitura cai com o quadrado da distância, e dobrá-la deixa um quarto. A equipe usa o que o serviço define, e o estudante fica onde a supervisão indicar.",
+            "body": "Na fluoroscopia, o que mais chega à equipe é o espalhamento que sai do paciente. Com o tubo sob a mesa, ele é mais forte do lado do tubo, na altura das pernas; acima da mesa, é mais fraco. As barreiras somam-se: avental, protetor de tireoide, saiote preso à lateral da mesa e biombo. A distância ajuda: neste esquema, a leitura cai com o quadrado da distância, e dobrá-la deixa um quarto. A equipe usa o que o serviço define, e o estudante fica onde a supervisão indicar.",
             "keyPoints": [
               "O espalhamento sai do paciente e é mais forte do lado do tubo.",
               "Avental, protetor, saiote e biombo se somam à distância.",
@@ -1323,35 +1323,35 @@ export const RTG_2026_M26: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m26:aula-04:i3:1",
                   "label": "Pernas do operador, atrás do saiote",
-                  "x": 0.6807,
-                  "y": 0.5113,
-                  "width": 0.0867,
-                  "height": 0.2411,
+                  "x": 0.5953,
+                  "y": 0.6813,
+                  "width": 0.0844,
+                  "height": 0.2333,
                   "explanation": "No esquema, os raios fortes param no saiote, entre a mesa e o operador, e não chegam às pernas dele."
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-04:i3:2",
                   "label": "Abaixo da mesa, do lado do tubo",
-                  "x": 0.4473,
-                  "y": 0.5529,
-                  "width": 0.1791,
-                  "height": 0.2393,
+                  "x": 0.3781,
+                  "y": 0.6542,
+                  "width": 0.1688,
+                  "height": 0.1625,
                   "explanation": "Ali passam os raios grossos: com o tubo sob a mesa, o espalhamento é mais forte nessa altura, a das pernas."
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-04:i3:3",
                   "label": "Pessoa afastada, atrás do biombo",
-                  "x": 0.8484,
-                  "y": 0.068,
-                  "width": 0.104,
-                  "height": 0.5887,
+                  "x": 0.7531,
+                  "y": 0.1021,
+                  "width": 0.1266,
+                  "height": 0.5188,
                   "explanation": "No esquema nenhum raio chega a ela: a distância e o biombo reduzem muito o que alcança quem fica ali."
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-04:i3:4",
                   "label": "Pescoço do operador",
-                  "x": 0.6841,
-                  "y": 0.2652,
+                  "x": 0.5999,
+                  "y": 0.4528,
                   "width": 0.08,
                   "height": 0.08,
                   "explanation": "Os raios finos de cima chegam ao pescoço: mais fraco não é zero, e é por isso que existe o protetor de tireoide."
@@ -6620,7 +6620,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4fe1bee8f4ee3688db0c228827d3af6e9c618de18bc97da05cf7c24fc13b55de"
+      "materialSha256": "42b4ecafab111092ae6d608cbb355c0935e04c1ae4889f548fb4bac9e62b3eee"
     },
     {
       "schemaVersion": 1,
@@ -6629,7 +6629,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4fe1bee8f4ee3688db0c228827d3af6e9c618de18bc97da05cf7c24fc13b55de"
+      "materialSha256": "42b4ecafab111092ae6d608cbb355c0935e04c1ae4889f548fb4bac9e62b3eee"
     },
     {
       "schemaVersion": 1,
@@ -6638,7 +6638,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4fe1bee8f4ee3688db0c228827d3af6e9c618de18bc97da05cf7c24fc13b55de"
+      "materialSha256": "42b4ecafab111092ae6d608cbb355c0935e04c1ae4889f548fb4bac9e62b3eee"
     },
     {
       "schemaVersion": 1,
@@ -6647,7 +6647,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4fe1bee8f4ee3688db0c228827d3af6e9c618de18bc97da05cf7c24fc13b55de"
+      "materialSha256": "42b4ecafab111092ae6d608cbb355c0935e04c1ae4889f548fb4bac9e62b3eee"
     },
     {
       "schemaVersion": 1,
@@ -6656,7 +6656,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4fe1bee8f4ee3688db0c228827d3af6e9c618de18bc97da05cf7c24fc13b55de"
+      "materialSha256": "42b4ecafab111092ae6d608cbb355c0935e04c1ae4889f548fb4bac9e62b3eee"
     },
     {
       "schemaVersion": 1,
@@ -6665,7 +6665,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4fe1bee8f4ee3688db0c228827d3af6e9c618de18bc97da05cf7c24fc13b55de"
+      "materialSha256": "42b4ecafab111092ae6d608cbb355c0935e04c1ae4889f548fb4bac9e62b3eee"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

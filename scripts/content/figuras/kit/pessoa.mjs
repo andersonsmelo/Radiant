@@ -5,6 +5,7 @@
 //           bracos: { [-1|1]: { abd, bend } } em graus, joelho: graus,
 //           curva: graus de inclinacao do tronco para a frente (em pe), cabelo: classe c-* do cabelo,
 //           perna: { [-1|1]: { thigh, shin, toe } } vetores, extras: [{ c, svg, bias }] entram na ordenacao por profundidade,
+//           costas: true quando a camera ve a pessoa de costas (a ordem de pintura do quadril e do tronco inverte, senao a tampa da coxa aparece sobre o quadril),
 //           saida: objeto que recebe pulso e pernas[sd] = { hip, kn, an, heel, toe, dAx, wAx } }.
 // Tronco: uma casca unica por revolucao com secao eliptica (quadril, cintura, peito, ombro no mesmo solido); sem prismas empilhados.
 import { k, G, T, helpers, grp, frame3 } from "./base.mjs";
@@ -71,7 +72,7 @@ export function pessoa(P, o, opt = {}) {
     parts[parts.length - 1].d = parts[parts.length - 2].d - 0.01;
   }
   // quadril + coxas altas: um solido so, de revolucao eliptica
-  const body = (cls, s0, prof, ws = 1, ds = 0.6) => { lathe(cls, pt(0, 0, s0), prof.map(([s, r, f]) => [s - s0, r, f]), A, Lt, Fw, 1, ds, 24); const mid = pt(0, 14, (s0 + prof[prof.length - 1][0]) / 2); parts[parts.length - 1].d = k.depthOf(mid, P); };
+  const body = (cls, s0, prof, ws = 1, ds = 0.6) => { lathe(cls, pt(0, 0, s0), prof.map(([s, r, f]) => [s - s0, r, f]), A, Lt, Fw, 1, ds, 24); const mid = pt(0, opt.costas ? -14 : 14, (s0 + prof[prof.length - 1][0]) / 2); parts[parts.length - 1].d = k.depthOf(mid, P); };
   body(bottom, -11, [[-11, 14.6], [-8, 16.7, 1], [0, 17.3, 1], [8, 15.8, 1], [14, 14.6]], 1, 0.62);
   // tronco continuo: quadril -> cintura -> peito -> ombros -> pescoco, sem emenda
   body(top, 3, [[3, 15.6], [9, 15.0, 1], [18, 14.4, 1], [28, 15.9, 1], [38, 17.2, 1], [45, 19.0, 1], [49.5, 19.3, 1], [53, 13.2, 1], [55.5, 6.2, 1], [57, 5.4]], 1, 0.57);

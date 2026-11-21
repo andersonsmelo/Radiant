@@ -522,29 +522,29 @@
           "points": [
             {
               "label": "Tubo",
-              "x": 0.2792,
-              "y": 0.682,
+              "x": 0.3922,
+              "y": 0.7375,
               "where": "sob o tampo, a caixa de onde o cone amarelo se abre",
               "alvo": "Tubo de raios X (sob a mesa)"
             },
             {
               "label": "Receptor",
-              "x": 0.3074,
-              "y": 0.444,
+              "x": 0.3906,
+              "y": 0.4125,
               "where": "no alto, a caixa larga acima do paciente deitado",
               "alvo": "Receptor de imagem (acima do paciente)"
             },
             {
               "label": "Monitor",
-              "x": 0.865,
-              "y": 0.3056,
+              "x": 0.7688,
+              "y": 0.2104,
               "where": "à direita, a tela num suporte alto",
               "alvo": "Monitor (num suporte)"
             },
             {
               "label": "Pedal",
-              "x": 0.6049,
-              "y": 0.6416,
+              "x": 0.7781,
+              "y": 0.8396,
               "where": "no chão, o pequeno bloco perto dos pés de quem opera",
               "alvo": "Pedal (no chão)"
             }
@@ -1182,7 +1182,7 @@
       },
       "concept": {
         "title": "Espalhamento e barreiras",
-        "body": "Na fluoroscopia, o que mais chega à equipe é o espalhamento que sai do paciente. Com o tubo sob a mesa, ele é mais forte do lado do tubo, na altura das pernas; acima da mesa, é mais fraco. As barreiras somam-se: avental, protetor de tireoide, saiote preso à borda da mesa, voltado para o operador e biombo. A distância ajuda: neste esquema, a leitura cai com o quadrado da distância, e dobrá-la deixa um quarto. A equipe usa o que o serviço define, e o estudante fica onde a supervisão indicar.",
+        "body": "Na fluoroscopia, o que mais chega à equipe é o espalhamento que sai do paciente. Com o tubo sob a mesa, ele é mais forte do lado do tubo, na altura das pernas; acima da mesa, é mais fraco. As barreiras somam-se: avental, protetor de tireoide, saiote preso à lateral da mesa e biombo. A distância ajuda: neste esquema, a leitura cai com o quadrado da distância, e dobrá-la deixa um quarto. A equipe usa o que o serviço define, e o estudante fica onde a supervisão indicar.",
         "keyPoints": [
           "O espalhamento sai do paciente e é mais forte do lado do tubo.",
           "Avental, protetor, saiote e biombo se somam à distância.",
@@ -1253,38 +1253,38 @@
           "regions": [
             {
               "label": "Pernas do operador, atrás do saiote",
-              "x": 0.6807,
-              "y": 0.5113,
-              "width": 0.0867,
-              "height": 0.2411,
+              "x": 0.5953,
+              "y": 0.6813,
+              "width": 0.0844,
+              "height": 0.2333,
               "risk": false,
               "feedback": "No esquema, os raios fortes param no saiote, entre a mesa e o operador, e não chegam às pernas dele.",
               "alvo": "Pernas do operador, atrás do saiote"
             },
             {
               "label": "Abaixo da mesa, do lado do tubo",
-              "x": 0.4473,
-              "y": 0.5529,
-              "width": 0.1791,
-              "height": 0.2393,
+              "x": 0.3781,
+              "y": 0.6542,
+              "width": 0.1688,
+              "height": 0.1625,
               "risk": true,
               "feedback": "Ali passam os raios grossos: com o tubo sob a mesa, o espalhamento é mais forte nessa altura, a das pernas.",
               "alvo": "Abaixo da mesa, do lado do tubo"
             },
             {
               "label": "Pessoa afastada, atrás do biombo",
-              "x": 0.8484,
-              "y": 0.068,
-              "width": 0.104,
-              "height": 0.5887,
+              "x": 0.7531,
+              "y": 0.1021,
+              "width": 0.1266,
+              "height": 0.5188,
               "risk": false,
               "feedback": "No esquema nenhum raio chega a ela: a distância e o biombo reduzem muito o que alcança quem fica ali.",
               "alvo": "Pessoa afastada, atrás do biombo"
             },
             {
               "label": "Pescoço do operador",
-              "x": 0.6841,
-              "y": 0.2652,
+              "x": 0.5999,
+              "y": 0.4528,
               "width": 0.08,
               "height": 0.08,
               "risk": true,

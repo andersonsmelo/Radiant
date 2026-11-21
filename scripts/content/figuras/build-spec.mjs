@@ -642,9 +642,9 @@ export const FIGURES = {
       id: 'fluoroscopia-cadeia',
       name: 'fluoroscopiaCadeia',
       header: `// ${ANATOMY}
-// Cadeia da fluoroscopia vista de lado (azimute 112): tubo sob a mesa, cone até o receptor acima do paciente, monitor num suporte, operador de avental e pedal no chão; cabeçote, pedal, monitor e receptor maiores que o real, de propósito.
+// Cadeia da fluoroscopia em perspectiva (azimute 112): tubo sob a mesa, cone até o receptor acima do paciente, monitor num suporte, operador de avental ao lado da mesa e pedal no chão; cabeçote, pedal, monitor e receptor maiores que o real, de propósito.
 // Receita: scripts/content/figuras/cenas/fluoroscopia-cadeia.mjs; fonte versionada: scripts/content/figuras/fontes/fluoroscopia-cadeia.svg (640x480, vira 320x240 com escala 0,5).`,
-      alt: 'Fluoroscopia de lado: paciente deitado, tubo sob a mesa, cone até o receptor acima, monitor num suporte, operador de avental e pedal no chão.',
+      alt: 'Fluoroscopia em perspectiva: paciente deitado, tubo sob a mesa, cone até o receptor acima, monitor num suporte, operador de avental ao lado e pedal no chão.',
       transform: (o) => noQuadro(o.viewBox),
     }),
   },
@@ -655,9 +655,9 @@ export const FIGURES = {
       id: 'sala-de-fluoroscopia-espalhada',
       name: 'salaDeFluoroscopiaEspalhada',
       header: `// ${ANATOMY}
-// Sala de fluoroscopia de lado (azimute 112, o da cadeia): radiação espalhada em leque, grossa sob a mesa do lado do tubo até o saiote e fina acima até o operador de avental, protetor de tireoide e óculos; biombo e segunda pessoa mais longe.
+// Sala de fluoroscopia em perspectiva (azimute 112, o da cadeia): radiação espalhada em leque, grossa sob a mesa do lado do tubo até o saiote preso à lateral da mesa e fina acima até o operador, ao lado da mesa, de avental, protetor de tireoide e óculos; biombo e segunda pessoa mais longe.
 // Receita: scripts/content/figuras/cenas/sala-de-fluoroscopia-espalhada.mjs; fonte versionada: scripts/content/figuras/fontes/sala-de-fluoroscopia-espalhada.svg (640x480, vira 320x240 com escala 0,5).`,
-      alt: 'Sala de fluoroscopia de lado: radiação espalhada em leque, grossa sob a mesa até o saiote, fina acima até o operador; biombo e outra pessoa longe.',
+      alt: 'Sala de fluoroscopia: raios de espalhamento em leque saem do paciente, uns grossos, outros finos tracejados; saiote, operador, biombo e outra pessoa.',
       transform: (o) => noQuadro(o.viewBox),
     }),
   },
@@ -668,9 +668,9 @@ export const FIGURES = {
       id: 'contencao-pediatrica',
       name: 'contencaoPediatrica',
       header: `// ${ANATOMY}
-// Criança deitada na mesa sob o tubo de teto, com faixa sobre as pernas e apoio de espuma, acompanhante de avental sentado à cabeceira segurando os braços dela e outra pessoa sem avental junto aos pés da mesa.
+// Criança deitada na mesa sob o tubo de teto, com faixa sobre as pernas e apoio de espuma nos pés, acompanhante de avental sentado à cabeceira segurando os braços dela e outra pessoa sem avental junto aos pés da mesa.
 // Receita: scripts/content/figuras/cenas/contencao-pediatrica.mjs; fonte versionada: scripts/content/figuras/fontes/contencao-pediatrica.svg (640x480, vira 320x240 com escala 0,5).`,
-      alt: 'Criança deitada na mesa sob o tubo, com faixa nas pernas e espuma; acompanhante de avental segura os braços dela; outra pessoa, sem avental, junto aos pés.',
+      alt: 'Criança deitada na mesa sob o tubo, com faixa nas pernas e espuma nos pés; um acompanhante segura os braços dela e outra pessoa está junto aos pés da mesa.',
       transform: (o) => noQuadro(o.viewBox),
     }),
   },
@@ -683,7 +683,7 @@ export const FIGURES = {
       header: `// ${ANATOMY}
 // A mesma criança duas vezes, deitada de costas em duas mesas uma atrás da outra: na da esquerda a luz do colimador cobre o corpo todo, na da direita só o tórax; sem tubo no quadro.
 // Receita: scripts/content/figuras/cenas/colimacao-pediatrica.mjs; fonte versionada: scripts/content/figuras/fontes/colimacao-pediatrica.svg (640x480, vira 320x240 com escala 0,5).`,
-      alt: 'A mesma criança duas vezes, deitada em duas mesas: na da esquerda a luz do colimador cobre o corpo todo; na da direita, só o tórax.',
+      alt: 'A mesma criança duas vezes, deitada em duas mesas, uma atrás da outra; em cada uma, um retângulo de luz do colimador de tamanho diferente.',
       transform: (o) => noQuadro(o.viewBox),
     }),
   },
@@ -733,9 +733,9 @@ export const FIGURES = {
       id: 'dxa-posicionamento',
       name: 'dxaPosicionamento',
       header: `// ${ANATOMY}
-// Duas mesas de densitômetro lado a lado, vistas dos pés (azimute 20): à esquerda, quadril e joelhos dobrados com as panturrilhas sobre um bloco; à direita, pernas estendidas e abertas, posicionador entre os pés e o pé da esquerda do desenho girado para dentro e preso por uma faixa.
+// Duas mesas de densitômetro lado a lado, vistas dos pés (azimute 6, elevação 50, quadro recortado na pelve e nos pés): à esquerda, quadril e joelhos dobrados com as panturrilhas sobre um bloco; à direita, pernas estendidas e quase paralelas, posicionador adiante dos pés, entre eles, e o pé da esquerda do desenho girado para dentro e preso por uma faixa.
 // Receita: scripts/content/figuras/cenas/dxa-posicionamento.mjs; fonte versionada: scripts/content/figuras/fontes/dxa-posicionamento.svg (640x480, vira 320x240 com escala 0,5).`,
-      alt: 'Duas mesas de densitômetro vistas dos pés: à esquerda, pernas dobradas sobre um bloco; à direita, pernas abertas, posicionador entre os pés e faixa num pé.',
+      alt: 'Duas mesas de densitômetro vistas dos pés: à esquerda, pernas dobradas num bloco; à direita, pernas estendidas, posicionador adiante dos pés e faixa num pé.',
       transform: (o) => noQuadro(o.viewBox),
     }),
   },

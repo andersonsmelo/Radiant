@@ -9,9 +9,9 @@ import { proj, caixa, bloco, mesaD, salaD, ZM } from "./comum/dxa.mjs";
 export function pecas() {
   const RAD = Math.PI / 180, { add3, sub3, mul3, dot3, unit3 } = G;
   const orth = (v, a) => unit3(sub3(v, mul3(a, dot3(a, v))));
-  const ABD = 19.5, ROT = 34;                       // abertura de cada perna; giro interno do pé da esquerda do desenho
+  const ABD = 9, ROT = 20;                         // abertura de cada perna; giro interno do pé da esquerda do desenho
   const XA = -22, YA = 58, XB = -47, YB = -17;                                // pelves (x, y) da coluna (A) e do fêmur (B)
-  const P = proj(caixa(-66, 66, -54, 84, 78, 122), 20, 40);
+  const P = proj(caixa(-42, 92, -56, 86, 78, 118), 6, 50);
   const pt = (x, y, z) => k.iso([x, y, z], P);
   const Z = [0, 0, 1];
   // A: coxas a 50 graus da mesa, canelas quase horizontais, sobre o bloco
@@ -29,7 +29,7 @@ export function pecas() {
   const fe = saiB.pernas[-1], fd = saiB.pernas[1];
   const mesaA = mesaD(P, { x0: -98, x1: 112, y: YA, d: 56 }), mesaB = mesaD(P, { x0: -98, x1: 112, y: YB, d: 84 });
   const bloco0 = bloco(P, [XA + 26, XA + 80, YA - 18, YA + 18, ZM, 108], { tone: "hi", className: "c-blanket" }, 4, 1.4);
-  const XP = fe.heel[0] - 2;                                                 // posicionador entre os pés, ao nível dos calcanhares
+  const XP = fe.heel[0] + 30;                                                // posicionador entre os pés, adiante dos dedos: afastado dos pés na tela, para as áreas de toque não se sobreporem
   const posic = bloco(P, [XP - 2, XP + 14, YB - 9, YB + 9, ZM, ZM + 24], { tone: "hi", className: "c-lead" }, 3, 1.2);
   const fx = add3(fe.heel, mul3(fe.toe, 9));                                 // meio do pé da esquerda
   const strap = (a, b) => `<path d="${k.pathOf([a, b].map((p) => pt(...p)))}" fill="none" stroke="#FFC21A" stroke-width="5" stroke-linecap="round"/>`;
