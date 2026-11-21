@@ -18,7 +18,19 @@ sai da fonte por `../build-spec.mjs`, como nas figuras de acervo da fase 1. Brie
 | `dosimetro-no-corpo` | [`dosimetro-no-corpo.mjs`](dosimetro-no-corpo.mjs) | [`.pecas.mjs`](dosimetro-no-corpo.pecas.mjs) | m21-03 i2 (rotular) e m21-06 i2 (tocar) |
 | `produto-dose-area` | [`produto-dose-area.mjs`](produto-dose-area.mjs) | [`.pecas.mjs`](produto-dose-area.pecas.mjs) | m21-04 (visual do conceito) |
 
-Compartilhado em `comum/`: `maca.mjs` (a maca do lote 2B, com rodas e bloco do freio, para a transferência e o trauma), `lib.mjs` e `emitir.mjs` (junta as peças e achata o CSS do kit em atributos pelo Chrome), `sala.mjs` (a sala das três cenas da m17: mesmo
+| `fluoroscopia-cadeia` | [`fluoroscopia-cadeia.mjs`](fluoroscopia-cadeia.mjs) | [`.pecas.mjs`](fluoroscopia-cadeia.pecas.mjs) e `comum/fluoro.mjs` | m26-02 i2 (rotular) |
+| `sala-de-fluoroscopia-espalhada` | [`sala-de-fluoroscopia-espalhada.mjs`](sala-de-fluoroscopia-espalhada.mjs) | [`.pecas.mjs`](sala-de-fluoroscopia-espalhada.pecas.mjs) e `comum/fluoro.mjs` | m26-04 i3 (caça ao risco) |
+| `contencao-pediatrica` | [`contencao-pediatrica.mjs`](contencao-pediatrica.mjs) | [`.pecas.mjs`](contencao-pediatrica.pecas.mjs), `comum/ik.mjs` e `comum/campo.mjs` | m27-01 i3 e m27-02 i2 (tocar) |
+| `colimacao-pediatrica` | [`colimacao-pediatrica.mjs`](colimacao-pediatrica.mjs) | [`.pecas.mjs`](colimacao-pediatrica.pecas.mjs) e `comum/campo.mjs` | m27-03 i2 (tocar) |
+| `idoso-apoios-e-riscos` | [`idoso-apoios-e-riscos.mjs`](idoso-apoios-e-riscos.mjs) | [`.pecas.mjs`](idoso-apoios-e-riscos.pecas.mjs) (barra, banco, degrau, tapete e andador) e `comum/ik.mjs` | m27-04 i4 (caça ao risco), m27-06 i3 (tocar) |
+| `gestante-campo-e-feixe` | [`gestante-campo-e-feixe.mjs`](gestante-campo-e-feixe.mjs) | [`.pecas.mjs`](gestante-campo-e-feixe.pecas.mjs) e `comum/campo.mjs` | m27-05 (visual do conceito) |
+| `dxa-dois-feixes` | [`dxa-dois-feixes.mjs`](dxa-dois-feixes.mjs) | [`.pecas.mjs`](dxa-dois-feixes.pecas.mjs) e `comum/dxa.mjs` | m30-01 i2 (rotular) e i4 (tocar) |
+| `dxa-posicionamento` | [`dxa-posicionamento.mjs`](dxa-posicionamento.mjs) | [`.pecas.mjs`](dxa-posicionamento.pecas.mjs) e `comum/dxa.mjs` | m30-03 i2 (tocar), m30-06 (visual do conceito) |
+| `radiografia-veterinaria` | [`radiografia-veterinaria.mjs`](radiografia-veterinaria.mjs) | [`.pecas.mjs`](radiografia-veterinaria.pecas.mjs) e `comum/animal.mjs` (o cão na calha) | m31-01 i2 e m31-02 i2 (tocar) |
+| `radiografia-de-objeto` | [`radiografia-de-objeto.mjs`](radiografia-de-objeto.mjs) | [`.pecas.mjs`](radiografia-de-objeto.pecas.mjs) | m31-06 i2 (tocar) |
+| `teste-de-feixe` | [`teste-de-feixe.mjs`](teste-de-feixe.mjs) | [`.pecas.mjs`](teste-de-feixe.pecas.mjs) | m32-02 i2 (rotular) |
+
+Compartilhado em `comum/`: `ik.mjs` (alcance do braço da pessoa, para a mão chegar a um ponto), `campo.mjs` (campo de luz do colimador e linha de espalhamento), `fluoro.mjs` (mesa, arco, tubo, receptor, pedal e monitor das duas cenas da m26, mesmo ponto de vista), `dxa.mjs` (ponto de vista e mesa do densitômetro, das duas cenas da m30), `animal.mjs` (o cão numa calha de espuma), `maca.mjs` (a maca do lote 2B, com rodas e bloco do freio, para a transferência e o trauma), `lib.mjs` e `emitir.mjs` (junta as peças e achata o CSS do kit em atributos pelo Chrome), `sala.mjs` (a sala das três cenas da m17: mesmo
 ponto de vista, parede, piso e porta), `tubo-pecas.mjs` e `tubo-base.mjs` (a ampola de raios X das três cenas da m19: mesma geometria nas três).
 
 ## Como regenerar

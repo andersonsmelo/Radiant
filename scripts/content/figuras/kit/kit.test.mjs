@@ -66,6 +66,22 @@ test("proporções: criança menor que o adulto, sem sair da faixa de 50% a 75%"
   const r = h("crianca") / h("adulto");
   assert.ok(r > 0.5 && r < 0.75, String(r));
 });
+// A cabeça da criança deitada: o comprimento (s) é escalado por K e o raio não escalava, e a cabeça saía comprida e fina (2,3 vezes mais longa que larga na vista de cima).
+// Mede o cabelo (a única peça c-hairKid) numa vista quase de cima, com o corpo ao longo de x.
+const caixaDoCabelo = (idade) => {
+  const Pc = k.fitProjection(k.boxCorners({ x: -60, y: -40, w: 120, d: 80 }, 0, 120), 640, 480, { pad: 8, azimuth: 0, elevation: 80 });
+  const svg = pessoa(Pc, [0, 0, 70], { pose: "deitada", idade, facing: [1, 0, 0] });
+  const g = svg.match(new RegExp(`<g class="${idade === "crianca" ? "c-hairKid" : "c-hair"}">([\\s\\S]*?)</g>`))[1];
+  const n = [...g.matchAll(/ d="([^"]+)"/g)].flatMap((m) => m[1].match(/-?\d+\.?\d*/g).map(Number));
+  const xs = n.filter((_, i) => i % 2 === 0), ys = n.filter((_, i) => i % 2 === 1);
+  return { w: Math.max(...xs) - Math.min(...xs), h: Math.max(...ys) - Math.min(...ys) };
+};
+test("criança deitada: a cabeça é oval como a do adulto (proporção comprimento/largura parecida), e menor que a dele", () => {
+  const c = caixaDoCabelo("crianca"), a = caixaDoCabelo("adulto");
+  const rc = c.w / c.h, ra = a.w / a.h;
+  assert.ok(Math.abs(rc / ra - 1) < 0.25, `proporção da criança ${rc.toFixed(2)} contra ${ra.toFixed(2)} do adulto`);
+  assert.ok(c.w < a.w && c.h < a.h && c.h > 0.6 * a.h, `criança ${c.w.toFixed(1)} x ${c.h.toFixed(1)} contra adulto ${a.w.toFixed(1)} x ${a.h.toFixed(1)}`);
+});
 test("avental só aparece quando pedido, e leva a cor de avental registrada", () => {
   const com = pecas["pessoa em pé de avental"](), sem = pecas["pessoa em pé"]();
   assert.ok(com.includes('class="c-apron"') && com.includes('class="c-apron2"'));

@@ -7,7 +7,9 @@ import test from 'node:test';
 import { findChrome } from '../convert.mjs';
 
 export const CENAS = ['tubo-raios-x', 'tubo-emitindo', 'anodo-giratorio', 'conferencia-de-identidade', 'pontos-de-contato-da-sala', 'itens-de-emergencia-da-sala',
-  'transferencia-maca-mesa', 'raio-x-movel-no-leito', 'trauma-raio-horizontal', 'dosimetro-no-corpo', 'produto-dose-area'];
+  'transferencia-maca-mesa', 'raio-x-movel-no-leito', 'trauma-raio-horizontal', 'dosimetro-no-corpo', 'produto-dose-area',
+  'fluoroscopia-cadeia', 'sala-de-fluoroscopia-espalhada', 'contencao-pediatrica', 'colimacao-pediatrica', 'idoso-apoios-e-riscos', 'gestante-campo-e-feixe',
+  'dxa-dois-feixes', 'dxa-posicionamento', 'radiografia-veterinaria', 'radiografia-de-objeto', 'teste-de-feixe'];
 const skip = findChrome() ? false : 'Chrome não encontrado (defina CHROME_PATH): cenas puladas';
 
 const PROIBIDO_TAG = /<(text|image|script|foreignObject|style|filter|mask|clipPath|use|pattern)\b|href/i;

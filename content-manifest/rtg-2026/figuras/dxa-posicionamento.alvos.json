@@ -1,0 +1,7 @@
+[
+  { "nome": "Coluna reta sobre a mesa", "x": 0.1258, "y": 0.2841, "width": 0.1704, "height": 0.2188 },
+  { "nome": "Bloco sob as pernas", "x": 0.2219, "y": 0.55, "width": 0.2547, "height": 0.3771 },
+  { "nome": "Posicionador entre os pés", "x": 0.6781, "y": 0.5729, "width": 0.1047, "height": 0.2083 },
+  { "nome": "Pé à esquerda do desenho (girado, preso)", "x": 0.5105, "y": 0.5977, "width": 0.0976, "height": 0.1496, "rotulos": ["Pé à esquerda do desenho"] },
+  { "nome": "Pé à direita do desenho", "x": 0.8687, "y": 0.4741, "width": 0.08, "height": 0.1582 }
+]

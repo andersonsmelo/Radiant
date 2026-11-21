@@ -2,7 +2,10 @@
 // Contrato: pessoa(P, o, opt) -> string de SVG (classes c-*), onde P e a projecao da cena, o o centro da pelve (cm) e
 //   opt = { pose: "em-pe"|"sentada"|"recostada"|"deitada", facing: [x,y,z] horizontal (frente do corpo; na deitada, para onde vao os pes),
 //           idade: "adulto"|"crianca", avental: bool, roupa: "camisa"|"scrub"|"camisola"|"infantil", tilt: graus (recostada),
-//           bracos: { [-1|1]: { abd, bend } } em graus, joelho: graus }.
+//           bracos: { [-1|1]: { abd, bend } } em graus, joelho: graus,
+//           curva: graus de inclinacao do tronco para a frente (em pe), cabelo: classe c-* do cabelo,
+//           perna: { [-1|1]: { thigh, shin, toe } } vetores, extras: [{ c, svg, bias }] entram na ordenacao por profundidade,
+//           saida: objeto que recebe pulso e pernas[sd] = { hip, kn, an, heel, toe, dAx, wAx } }.
 // Tronco: uma casca unica por revolucao com secao eliptica (quadril, cintura, peito, ombro no mesmo solido); sem prismas empilhados.
 import { k, G, T, helpers, grp, frame3 } from "./base.mjs";
 const { add3, sub3, mul3, dot3, cross3, unit3 } = G;
@@ -20,6 +23,7 @@ const rot = (a, toward, deg) => unit3(add3(mul3(a, Math.cos(deg * RAD)), mul3(or
 export function pessoa(P, o, opt = {}) {
   const { pose = "em-pe", idade = "adulto", avental = false, roupa = idade === "crianca" ? "infantil" : pose === "deitada" || pose === "recostada" ? "camisola" : "camisa", tone = "mid" } = opt;
   const { K, head: HK, rK } = DIM[idade];
+  const HS = idade === "crianca" ? 0.82 / K : 1, HR = idade === "crianca" ? 0.7 : 1; // a cabeca da crianca: comprimento (s) escalado por K nao pode achatar o raio, senao a deitada vira disco
   const { S } = helpers(P);
   const facing = unit3(opt.facing ?? [0, 1, 0]);
   const Z = [0, 0, 1];
@@ -28,7 +32,7 @@ export function pessoa(P, o, opt = {}) {
   if (pose === "deitada") { A = mul3(facing, -1); Fw = Z; thigh = rot(facing, Z, 4); bendDef = 12; armDef = { abd: 14, bend: 8 }; }
   else if (pose === "recostada") { const t = (opt.tilt ?? 25) * RAD; A = add3(mul3(Z, Math.cos(t)), mul3(facing, -Math.sin(t))); Fw = add3(mul3(facing, Math.cos(t)), mul3(Z, Math.sin(t))); thigh = rot(facing, Z, 8); bendDef = 32; armDef = { abd: 12, bend: 32 }; }
   else if (pose === "sentada") { A = Z; Fw = facing; thigh = facing; bendDef = 90; armDef = { abd: 6, bend: 62 }; }
-  else { A = Z; Fw = facing; thigh = [0, 0, -1]; bendDef = 0; armDef = { abd: 7, bend: 16 }; }
+  else { const tc = (opt.curva ?? 0) * RAD; A = add3(mul3(Z, Math.cos(tc)), mul3(facing, Math.sin(tc))); Fw = add3(mul3(facing, Math.cos(tc)), mul3(Z, -Math.sin(tc))); thigh = [0, 0, -1]; bendDef = 0; armDef = { abd: 7, bend: 16 }; }
   const Lt = cross3(Fw, A);
   const pt = (l, f, s) => add3(o, add3(mul3(Lt, l * K), add3(mul3(Fw, f * K), mul3(A, s * K))));
   const Q = opt.q ?? 0.4; // fracao de passos da revolucao: peso do SVG
@@ -46,7 +50,7 @@ export function pessoa(P, o, opt = {}) {
     const rr = (t) => rf(from + t * (to - from)) * K * rK;
     put(c, cls, T.tubePieces(route, rr, P, { maxLength: 400, caps }).map((p) => T.tubeSvg(p, { tone })).join(""));
   };
-  const skin = idade === "crianca" ? "c-skinKid" : "c-skin", hair = idade === "crianca" ? "c-hairKid" : "c-hair";
+  const skin = idade === "crianca" ? "c-skinKid" : "c-skin", hair = opt.cabelo ?? (idade === "crianca" ? "c-hairKid" : "c-hair");
   const top = { camisa: "c-shirt", scrub: "c-scrub", camisola: "c-gown", infantil: "c-kid1" }[roupa];
   const bottom = pose === "deitada" || pose === "recostada" ? "c-pants" : idade === "crianca" ? "c-kid2" : "c-pants";
   const longSleeve = roupa === "camisola" ? 1 : 0.5;
@@ -54,15 +58,16 @@ export function pessoa(P, o, opt = {}) {
   // pernas: quadril -> joelho -> tornozelo; o joelho dobra no plano da coxa e do "para baixo"
   const bend = (opt.joelho ?? bendDef);
   for (const sd of opt.pernas === false ? [] : [-1, 1]) {
-    const hip = pt(sd * 8.6, 0, -6), kn = add3(hip, mul3(thigh, 43 * K));
-    const shinDir = bend ? unit3(add3(mul3(thigh, Math.cos(bend * RAD)), mul3(orth(opt.down ?? [0, 0, -1], thigh), Math.sin(bend * RAD)))) : thigh;
+    const cf = opt.perna?.[sd] ?? {}; const th = cf.thigh ?? thigh; const hip = pt(sd * 8.6, 0, -6), kn = add3(hip, mul3(th, 43 * K));
+    const shinDir = cf.shin ? unit3(cf.shin) : bend ? unit3(add3(mul3(th, Math.cos(bend * RAD)), mul3(orth(opt.down ?? [0, 0, -1], th), Math.sin(bend * RAD)))) : th;
     const an = add3(kn, mul3(shinDir, 41 * K));
     const lr = piece(1, [[0, 8.3], [0.2, 7.6], [0.46, 5.5], [0.56, 5.6], [0.72, 5.3], [1, 3.4]]);
-    limb(add3(hip, mul3(thigh, 20 * K)), bottom, [hip, kn, an], lr, { fillet: 9 });
+    limb(add3(hip, mul3(th, 20 * K)), bottom, [hip, kn, an], lr, { fillet: 9 });
     // sapato: casca eliptica deitada ao longo do pe; o pe aponta para a frente do corpo
-    const toe = orth(Fw, shinDir);
+    const toe = cf.toe ? unit3(cf.toe) : orth(Fw, shinDir);
     const heel = add3(an, add3(mul3(shinDir, 3.6 * K), mul3(toe, -5.2 * K)));
-    lathe("c-shoe", heel, [[0, 3.1], [3, 4.2, 1], [12, 4.7, 1], [18, 3.5, 1], [21, 1.4]], toe, Lt, shinDir, 1, 0.74, 16);
+    const dAx = cf.toe ? orth(shinDir, toe) : shinDir, wAx = cf.toe ? unit3(cross3(toe, dAx)) : Lt; if (opt.saida) (opt.saida.pernas ??= {})[sd] = { hip, kn, an, heel, toe, dAx, wAx };
+    lathe("c-shoe", heel, [[0, 3.1], [3, 4.2, 1], [12, 4.7, 1], [18, 3.5, 1], [21, 1.4]], toe, wAx, dAx, 1, 0.74, 16);
     parts[parts.length - 1].d = parts[parts.length - 2].d - 0.01;
   }
   // quadril + coxas altas: um solido so, de revolucao eliptica
@@ -79,9 +84,9 @@ export function pessoa(P, o, opt = {}) {
   // pescoco e cabeca (ovo, mais profunda que larga); cabelo desloca para tras
   lathe(skin, pt(0, 0, 53), [[0, 5.2], [3, 5.0, 1], [8, 4.9]], A, Lt, Fw, 1, 1, 12);
   const hk = HK;
-  lathe(skin, pt(0, 0.4, 57 + (hk - 1) * 0), [[0, 3.6 * hk], [3, 6.4 * hk, 1], [9, 7.7 * hk, 1], [15, 7.9 * hk, 1], [20, 6.8 * hk, 1], [23, 3.2 * hk]].map(([s, r, f]) => [s * 1, r / K, f]), A, Lt, Fw, 1, 1.1, 22);
+  lathe(skin, pt(0, 0.4, 57 + (hk - 1) * 0), [[0, 3.6 * hk], [3, 6.4 * hk, 1], [9, 7.7 * hk, 1], [15, 7.9 * hk, 1], [20, 6.8 * hk, 1], [23, 3.2 * hk]].map(([s, r, f]) => [s * HS, r / K * HR, f]), A, Lt, Fw, 1, 1.1, 22);
   const dHead = parts[parts.length - 1].d;
-  lathe(hair, add3(pt(0, -1.6, 57), mul3(A, 0)), [[11, 7.4 * hk], [15, 8.8 * hk, 1], [20, 8.4 * hk, 1], [22.6, 6.2 * hk, 1], [24.2, 0.4 * hk]].map(([s, r, f]) => [s, r / K, f]), A, Lt, Fw, 1, 1.12, 20);
+  lathe(hair, add3(pt(0, -1.6, 57), mul3(A, 0)), [[11, 7.4 * hk], [15, 8.8 * hk, 1], [20, 8.4 * hk, 1], [22.6, 6.2 * hk, 1], [24.2, 0.4 * hk]].map(([s, r, f]) => [s * HS, r / K * HR, f]), A, Lt, Fw, 1, 1.12, 20);
   parts[parts.length - 1].d = dHead + 0.5;
   // bracos: ombro dentro do tronco, cotovelo que dobra, mao em luva (sem dedos), manga curta ou longa
   for (const sd of [-1, 1]) {
@@ -98,6 +103,7 @@ export function pessoa(P, o, opt = {}) {
     const wAx = orth(Math.abs(dot3(fore, Fw)) > 0.9 ? A : Fw, fore), tAx = cross3(fore, wAx);
     lathe(skin, add3(wr, mul3(fore, -1.2 * K)), [[0, 2.8], [2, 3.9, 1], [6, 4.4, 1], [10, 3.7, 1], [13.5, 1.6]], fore, tAx, wAx, 0.56, 1, 14);
   }
+  for (const e of opt.extras ?? []) parts.push({ d: k.depthOf(e.c, P) + (e.bias ?? 0), svg: e.svg });
   return parts.sort((a, b) => a.d - b.d).map((p) => p.svg).join("");
 }
 

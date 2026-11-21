@@ -1,0 +1,8 @@
+[
+  { "nome": "Tubo de raios X", "x": 0.4125, "y": 0.2958, "width": 0.1313, "height": 0.1104 },
+  { "nome": "Triângulo de aviso", "x": 0.4217, "y": 0.5208, "width": 0.08, "height": 0.1292 },
+  { "nome": "Quadro no cavalete", "x": 0.2625, "y": 0.1604, "width": 0.0875, "height": 0.3063 },
+  { "nome": "Cordão entre os postes", "x": 0.6031, "y": 0.5146, "width": 0.1, "height": 0.3417 },
+  { "nome": "Detector atrás do quadro", "x": 0.0969, "y": 0.0583, "width": 0.0969, "height": 0.4083 },
+  { "nome": "Pessoa ao lado do painel", "x": 0.8156, "y": 0.3479, "width": 0.1047, "height": 0.5229 }
+]

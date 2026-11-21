@@ -1,0 +1,7 @@
+[
+  { "nome": "Pessoa sem avental junto à porta", "x": 0.1547, "y": 0.1667, "width": 0.1203, "height": 0.475 },
+  { "nome": "Pessoa sem avental ao lado da mesa", "x": 0.3334, "y": 0.4313, "width": 0.08, "height": 0.4688 },
+  { "nome": "Mãos da pessoa de avental", "x": 0.7022, "y": 0.584, "width": 0.08, "height": 0.08 },
+  { "nome": "Calha de espuma", "x": 0.4641, "y": 0.5729, "width": 0.1938, "height": 0.1521 },
+  { "nome": "Tubo de raios X", "x": 0.5156, "y": 0.3604, "width": 0.1109, "height": 0.1333 }
+]

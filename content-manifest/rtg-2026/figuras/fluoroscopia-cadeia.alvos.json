@@ -1,0 +1,6 @@
+[
+  { "nome": "Tubo de raios X (sob a mesa)", "x": 0.2166, "y": 0.5777, "width": 0.1251, "height": 0.1737, "rotulos": ["Tubo"] },
+  { "nome": "Receptor de imagem (acima do paciente)", "x": 0.1812, "y": 0.2952, "width": 0.196, "height": 0.2044, "rotulos": ["Receptor"] },
+  { "nome": "Monitor (num suporte)", "x": 0.7693, "y": 0.1891, "width": 0.1865, "height": 0.2252, "rotulos": ["Monitor"] },
+  { "nome": "Pedal (no chão)", "x": 0.5337, "y": 0.5921, "width": 0.1425, "height": 0.1227, "rotulos": ["Pedal"] }
+]

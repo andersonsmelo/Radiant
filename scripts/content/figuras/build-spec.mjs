@@ -635,6 +635,149 @@ export const FIGURES = {
       transform: (o) => noQuadro(o.viewBox),
     }),
   },
+  'fluoroscopia-cadeia': {
+    file: 'fluoroscopia-cadeia.ts',
+    options: {},
+    render: importada({
+      id: 'fluoroscopia-cadeia',
+      name: 'fluoroscopiaCadeia',
+      header: `// ${ANATOMY}
+// Cadeia da fluoroscopia vista de lado (azimute 112): tubo sob a mesa, cone até o receptor acima do paciente, monitor num suporte, operador de avental e pedal no chão; cabeçote, pedal, monitor e receptor maiores que o real, de propósito.
+// Receita: scripts/content/figuras/cenas/fluoroscopia-cadeia.mjs; fonte versionada: scripts/content/figuras/fontes/fluoroscopia-cadeia.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Fluoroscopia de lado: paciente deitado, tubo sob a mesa, cone até o receptor acima, monitor num suporte, operador de avental e pedal no chão.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'sala-de-fluoroscopia-espalhada': {
+    file: 'sala-de-fluoroscopia-espalhada.ts',
+    options: {},
+    render: importada({
+      id: 'sala-de-fluoroscopia-espalhada',
+      name: 'salaDeFluoroscopiaEspalhada',
+      header: `// ${ANATOMY}
+// Sala de fluoroscopia de lado (azimute 112, o da cadeia): radiação espalhada em leque, grossa sob a mesa do lado do tubo até o saiote e fina acima até o operador de avental, protetor de tireoide e óculos; biombo e segunda pessoa mais longe.
+// Receita: scripts/content/figuras/cenas/sala-de-fluoroscopia-espalhada.mjs; fonte versionada: scripts/content/figuras/fontes/sala-de-fluoroscopia-espalhada.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Sala de fluoroscopia de lado: radiação espalhada em leque, grossa sob a mesa até o saiote, fina acima até o operador; biombo e outra pessoa longe.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'contencao-pediatrica': {
+    file: 'contencao-pediatrica.ts',
+    options: {},
+    render: importada({
+      id: 'contencao-pediatrica',
+      name: 'contencaoPediatrica',
+      header: `// ${ANATOMY}
+// Criança deitada na mesa sob o tubo de teto, com faixa sobre as pernas e apoio de espuma, acompanhante de avental sentado à cabeceira segurando os braços dela e outra pessoa sem avental junto aos pés da mesa.
+// Receita: scripts/content/figuras/cenas/contencao-pediatrica.mjs; fonte versionada: scripts/content/figuras/fontes/contencao-pediatrica.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Criança deitada na mesa sob o tubo, com faixa nas pernas e espuma; acompanhante de avental segura os braços dela; outra pessoa, sem avental, junto aos pés.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'colimacao-pediatrica': {
+    file: 'colimacao-pediatrica.ts',
+    options: {},
+    render: importada({
+      id: 'colimacao-pediatrica',
+      name: 'colimacaoPediatrica',
+      header: `// ${ANATOMY}
+// A mesma criança duas vezes, deitada de costas em duas mesas uma atrás da outra: na da esquerda a luz do colimador cobre o corpo todo, na da direita só o tórax; sem tubo no quadro.
+// Receita: scripts/content/figuras/cenas/colimacao-pediatrica.mjs; fonte versionada: scripts/content/figuras/fontes/colimacao-pediatrica.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'A mesma criança duas vezes, deitada em duas mesas: na da esquerda a luz do colimador cobre o corpo todo; na da direita, só o tórax.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'idoso-apoios-e-riscos': {
+    file: 'idoso-apoios-e-riscos.ts',
+    options: {},
+    render: importada({
+      id: 'idoso-apoios-e-riscos',
+      name: 'idosoApoiosERiscos',
+      header: `// ${ANATOMY}
+// Pessoa idosa em pé junto ao receptor vertical, com a mão numa barra de apoio; banco ao lado, degrau e tapete com a ponta levantada no chão e o andador longe, do outro lado da sala.
+// Receita: scripts/content/figuras/cenas/idoso-apoios-e-riscos.mjs; fonte versionada: scripts/content/figuras/fontes/idoso-apoios-e-riscos.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Pessoa idosa em pé junto ao receptor, com a mão numa barra de apoio; banco ao lado, degrau e tapete levantado no chão e o andador longe, do outro lado.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'gestante-campo-e-feixe': {
+    file: 'gestante-campo-e-feixe.ts',
+    options: {},
+    render: importada({
+      id: 'gestante-campo-e-feixe',
+      name: 'gestanteCampoEFeixe',
+      header: `// ${ANATOMY}
+// Gestante de perfil em pé diante do receptor vertical; o tubo, longe, à esquerda, emite na horizontal um campo cheio só sobre o tórax e um campo tracejado, maior, que alcançaria o abdome; sem proteção desenhada.
+// Receita: scripts/content/figuras/cenas/gestante-campo-e-feixe.mjs; fonte versionada: scripts/content/figuras/fontes/gestante-campo-e-feixe.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Gestante de perfil diante do receptor vertical; o tubo, longe, emite um campo cheio só sobre o tórax e outro, tracejado, maior, que alcançaria o abdome.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'dxa-dois-feixes': {
+    file: 'dxa-dois-feixes.ts',
+    options: {},
+    render: importada({
+      id: 'dxa-dois-feixes',
+      name: 'dxaDoisFeixes',
+      header: `// ${ANATOMY}
+// Densitômetro em vista isométrica (azimute 50): paciente deitada na mesa, fonte sob o tampo, detector no alto do braço e dois feixes finos, amarelo e ciano, subindo da fonte ao detector.
+// Receita: scripts/content/figuras/cenas/dxa-dois-feixes.mjs; fonte versionada: scripts/content/figuras/fontes/dxa-dois-feixes.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Densitômetro em vista isométrica: paciente deitada de costas, fonte sob o tampo, detector no alto do braço e dois feixes finos, amarelo e ciano, entre eles.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'dxa-posicionamento': {
+    file: 'dxa-posicionamento.ts',
+    options: {},
+    render: importada({
+      id: 'dxa-posicionamento',
+      name: 'dxaPosicionamento',
+      header: `// ${ANATOMY}
+// Duas mesas de densitômetro lado a lado, vistas dos pés (azimute 20): à esquerda, quadril e joelhos dobrados com as panturrilhas sobre um bloco; à direita, pernas estendidas e abertas, posicionador entre os pés e o pé da esquerda do desenho girado para dentro e preso por uma faixa.
+// Receita: scripts/content/figuras/cenas/dxa-posicionamento.mjs; fonte versionada: scripts/content/figuras/fontes/dxa-posicionamento.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Duas mesas de densitômetro vistas dos pés: à esquerda, pernas dobradas sobre um bloco; à direita, pernas abertas, posicionador entre os pés e faixa num pé.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'radiografia-veterinaria': {
+    file: 'radiografia-veterinaria.ts',
+    options: {},
+    render: importada({
+      id: 'radiografia-veterinaria',
+      name: 'radiografiaVeterinaria',
+      header: `// ${ANATOMY}
+// Cão deitado de lado na mesa, numa calha de espuma, com sacos de areia nas patas e o feixe vertical no tórax; quem segura de avental e luvas; duas pessoas sem avental, uma ao lado da mesa e outra junto à porta.
+// Receita: scripts/content/figuras/cenas/radiografia-veterinaria.mjs; fonte versionada: scripts/content/figuras/fontes/radiografia-veterinaria.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Cão deitado de lado na mesa, numa calha de espuma e com sacos de areia nas patas; tubo no alto; uma pessoa de avental e luvas e duas sem avental, em pé.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'radiografia-de-objeto': {
+    file: 'radiografia-de-objeto.ts',
+    options: {},
+    render: importada({
+      id: 'radiografia-de-objeto',
+      name: 'radiografiaDeObjeto',
+      header: `// ${ANATOMY}
+// Quadro num cavalete no feixe horizontal do aparelho móvel, detector atrás dele; dois postes com um cordão e um triângulo de aviso limitam a área isolada, com uma pessoa fora dela, ao lado do painel de comando.
+// Receita: scripts/content/figuras/cenas/radiografia-de-objeto.mjs; fonte versionada: scripts/content/figuras/fontes/radiografia-de-objeto.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Quadro num cavalete no feixe horizontal do aparelho móvel, detector atrás; postes com cordão e triângulo de aviso e uma pessoa ao lado do painel de comando.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'teste-de-feixe': {
+    file: 'teste-de-feixe.ts',
+    options: {},
+    render: importada({
+      id: 'teste-de-feixe',
+      name: 'testeDeFeixe',
+      header: `// ${ANATOMY}
+// Esquema do teste de feixe: tubo no alto, colimador, três lâminas finas de filtro num suporte, medidor baixo sobre a mesa e mostrador de barras ligado a ele por um cabo.
+// Receita: scripts/content/figuras/cenas/teste-de-feixe.mjs; fonte versionada: scripts/content/figuras/fontes/teste-de-feixe.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Esquema: tubo no alto, colimador, feixe por três lâminas finas de filtro até um medidor sobre a mesa, ligado por cabo a um mostrador de três barras.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
 };
 
 /** Ids com fonte versionada em fontes/: só essas se regeneram (a cena do leito saiu do app em 2026-11-19 e volta na fase 2). */

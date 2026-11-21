@@ -350,5 +350,104 @@
     "license": "Arte própria do projeto, sem licença de terceiro",
     "receita": "scripts/content/figuras/cenas/produto-dose-area.mjs",
     "modification": "Tubo de raios X de teto com colimador e câmara de produto dose-área presa à saída por duas hastes; dois campos do mesmo foco, um estreito e um largo (tracejado), atravessam a câmara e chegam ao paciente deitado na mesa. Câmara de 36 x 36 cm, maior que o real, de propósito; o campo largo passa dos limites do corpo para se ler. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "fluoroscopia-cadeia",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/fluoroscopia-cadeia.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/fluoroscopia-cadeia.mjs",
+    "modification": "Fluoroscopia de lado: paciente deitado de costas na mesa, tubo sob o tampo com o cone subindo até o receptor de imagem 46 cm acima do tampo (foco a cerca de 94 cm do receptor, esquemático), monitor num suporte, operador de avental e protetor de tireoide e o pedal no chão aos pés dele. Cabeçote 1,45 vez no raio e 1,35 no comprimento, pedal (52 x 38 x 15 cm), monitor (86 x 64 cm) e receptor (66 cm de lado) maiores que o real, de propósito, para o marcador do app esconder menos. Ponto de vista de azimute 112, o mesmo da sala-de-fluoroscopia-espalhada. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "sala-de-fluoroscopia-espalhada",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/sala-de-fluoroscopia-espalhada.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/sala-de-fluoroscopia-espalhada.mjs",
+    "modification": "Sala de fluoroscopia com a mesma mesa, tubo sob o tampo, receptor e paciente da fluoroscopia-cadeia; do paciente sai radiação espalhada em leque, seis raios grossos sob a mesa, do lado do tubo, até a face do saiote preso à borda do tampo (esquemático), e três raios finos tracejados acima, até o operador de avental, protetor de tireoide (anel azul) e óculos plumbíferos; o biombo e a segunda pessoa de avental ficam mais longe. O operador fica no fim da mesa, e não ao lado, para o leque correr ao longo do eixo da mesa. Cabeçote 1,45 vez no raio e 1,35 no comprimento maiores que o real, de propósito. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "contencao-pediatrica",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/contencao-pediatrica.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/contencao-pediatrica.mjs",
+    "modification": "Criança pequena (kit, escala 0,62, cerca de 1,1 m) deitada de costas na mesa pediátrica sob o tubo de teto (foco a 168 cm, DFF de cerca de 90 cm), campo de luz de 28 x 28 cm sobre o tórax, faixa sobre as pernas e apoio de espuma ao lado dos pés; acompanhante de avental sentado num banco à cabeceira, com as mãos nos punhos da criança a cerca de 25 cm da borda do campo; outra pessoa, sem avental, junto aos pés da mesa, com duas linhas tracejadas de espalhamento (esquemático) chegando a ela. A cabeça da criança deitada usa a proporção corrigida no kit. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "colimacao-pediatrica",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/colimacao-pediatrica.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/colimacao-pediatrica.mjs",
+    "modification": "A mesma criança (kit, escala 0,62) duas vezes, deitada de costas em duas mesas pediátricas, uma atrás da outra (a da frente à esquerda, a de trás à direita); retângulo de luz de 124 x 38 cm cobrindo o corpo todo da criança da frente e de 25 x 38 cm só sobre o tórax da de trás, com abdome e pelve fora. Sem tubo no quadro: a luz do colimador aparece como o retângulo aceso. Cabeça da criança deitada com a proporção corrigida no kit. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "idoso-apoios-e-riscos",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/idoso-apoios-e-riscos.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/idoso-apoios-e-riscos.mjs",
+    "modification": "Pessoa adulta do kit, de cabelo branco e com o tronco inclinado 14 graus para a frente, em pé de frente para a parede junto ao receptor vertical, com a mão direita numa barra de apoio (tubo de 50 cm, raio 4,2 cm contra 1,5 a 2,5 reais, a 108 cm do chão); banco (40 x 26 x 44 cm), degrau (46 x 30 x 14 cm) e tapete (50 x 34 cm, canto levantado 17 cm) no piso adiante e o andador (44 x 38 x 82 cm, tubos de raio 2,4 contra 1,2) longe, no outro lado da sala. A pessoa não é desenhada como idosa além do cabelo e da postura: o kit só tem adulto e criança. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "gestante-campo-e-feixe",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/gestante-campo-e-feixe.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/gestante-campo-e-feixe.mjs",
+    "modification": "Gestante (adulto do kit em camisola, com uma barriga de revolução de 24 cm de comprimento e 16 cm de raio) de perfil, em pé diante do receptor vertical; tubo de teto longe, à esquerda, com o colimador a 135 cm de altura emitindo na horizontal: campo ajustado cheio (32 x 34 cm, sobre o tórax) e campo aberto demais tracejado (40 x 68 cm, que passa do abdome), os dois do mesmo ponto; o campo é desenhado no plano médio do corpo (esquemático). Sem proteção desenhada, de propósito: a aula diz que é o serviço que define. Aparece só como visual do conceito. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "dxa-dois-feixes",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/dxa-dois-feixes.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/dxa-dois-feixes.mjs",
+    "modification": "Densitômetro (DXA): paciente adulta deitada de costas na mesa de tampo fino a 80 cm do piso, fonte de raios X (bloco azul) sob o tampo, detector (bloco azul) no alto do braço em C a 84 cm acima do tampo (muito mais que o real, para fonte, feixe e detector ficarem separados na tela) e dois feixes finos paralelos, amarelo e ciano, subindo retos da fonte pelo quadril até o detector. O feixe real é um só, estreito; as duas linhas são recurso didático para as duas energias. Ponto de vista de azimute 50 e elevação 40. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "dxa-posicionamento",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/dxa-posicionamento.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/dxa-posicionamento.mjs",
+    "modification": "Duas mesas de densitômetro lado a lado, vistas dos pés (azimute 20, elevação 40), a mesma pessoa adulta deitada de costas em cada uma: à esquerda, a posição da coluna (coxas a 50 graus da mesa, canelas sobre um bloco de 54 x 36 x 28 cm, lombar rente ao colchão); à direita, a posição do fêmur (pernas estendidas e abertas 19,5 graus cada uma, posicionador de 16 x 18 x 24 cm entre os pés, o pé da esquerda do desenho girado 34 graus para dentro e preso ao posicionador por uma faixa). Abertura das pernas e giro do pé exagerados para se ver na escala do app e para as áreas de toque não se sobreporem; o ponto de vista difere do da dxa-dois-feixes pelo mesmo motivo. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "radiografia-veterinaria",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/radiografia-veterinaria.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/radiografia-veterinaria.mjs",
+    "modification": "Cão em decúbito lateral sobre a mesa, numa calha de espuma, com um saco de areia sobre as patas da frente e outro sobre as de trás, em escala 1,3 sobre um cão médio; feixe vertical no tórax (foco a cerca de 105 cm do detector, campo de 30 cm, exagerado para ler no tamanho do app); quem segura, de avental e luvas azuis, atrás da mesa, com as mãos na cabeça do cão a cerca de 40 cm do campo; o tutor, sem avental, a cerca de 1 m do cão, com três linhas tracejadas de espalhamento (esquemático) chegando a ele, e outra pessoa, sem avental, longe, junto à porta. Mãos 1,3 vez maiores que o corpo humano do kit, de propósito. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "radiografia-de-objeto",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/radiografia-de-objeto.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/radiografia-de-objeto.mjs",
+    "modification": "Aparelho móvel à direita com cabeçote e colimador (1,3 vez maiores, como no trauma-raio-horizontal) emitindo um feixe horizontal para a esquerda, a cerca de 1,5 m do detector, campo de 60 cm no detector; quadro de 88 x 66 cm numa moldura, de pé num cavalete, no feixe; detector plano azul num pedestal atrás do quadro (cerca de 60 cm dele, para as áreas de toque não se sobreporem; na prática fica colado); área isolada por dois postes com um cordão amarelo entre eles, do lado do operador, e um triângulo de aviso num pé próprio; pessoa de scrub, sem avental, fora do cordão, ao lado do painel de comando. Parada. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "teste-de-feixe",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/teste-de-feixe.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/teste-de-feixe.mjs",
+    "modification": "Esquema do teste de feixe: caixa do tubo de raios X no alto, com janela e ponto focal amarelo, colimador logo abaixo, feixe vertical descendo por três lâminas finas de filtro num suporte (espessuras de 0,9, 1,8 e 2,7 cm, exageradas) até o medidor baixo sobre a mesa, ligado por um cabo a um mostrador com três barras de alturas diferentes; cerca de 100 cm do cabeçote ao medidor, esquemático. Medidor (38 x 24 x 12 cm contra cerca de 10 cm), lâminas (48 cm), janela do tubo, colimador e mostrador (56 cm de largura) maiores que o real, de propósito. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
   }
 ]

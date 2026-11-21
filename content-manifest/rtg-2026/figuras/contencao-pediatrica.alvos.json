@@ -1,0 +1,8 @@
+[
+  { "nome": "Acompanhante à cabeceira", "x": 0.0058, "y": 0.1815, "width": 0.1897, "height": 0.5877 },
+  { "nome": "Mão do acompanhante", "x": 0.1124, "y": 0.4467, "width": 0.1402, "height": 0.1844 },
+  { "nome": "Faixa sobre as pernas", "x": 0.45, "y": 0.5333, "width": 0.1031, "height": 0.1604 },
+  { "nome": "Apoio de espuma", "x": 0.6156, "y": 0.6396, "width": 0.1047, "height": 0.1458 },
+  { "nome": "Campo de luz", "x": 0.2683, "y": 0.4815, "width": 0.1487, "height": 0.1133 },
+  { "nome": "Pessoa junto aos pés da mesa", "x": 0.7594, "y": 0.1104, "width": 0.1734, "height": 0.8896 }
+]
