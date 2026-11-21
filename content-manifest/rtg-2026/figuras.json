@@ -305,5 +305,50 @@
     "license": "Arte própria do projeto, sem licença de terceiro",
     "receita": "scripts/content/figuras/cenas/itens-de-emergencia-da-sala.mjs",
     "modification": "Parede de uma sala de exame com porta de saída, carrinho de emergência, saída de oxigênio, botão de chamada e telefone, e a mesa de exame no chão. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parado, sem texto no desenho. Oxigênio, botão e telefone são placas bem maiores que o real, de propósito, para o marcador do app esconder menos."
+  },
+  {
+    "id": "transferencia-maca-mesa",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/transferencia-maca-mesa.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/transferencia-maca-mesa.mjs",
+    "modification": "Maca ao lado da mesa de exame, com um vão entre elas, paciente deitada, suporte de soro com a linha esticada até o braço e prancha de transferência encostada no pedestal; a roda da cabeceira tem o bloco do freio pousado e a dos pés, o bloco erguido. Rodas (26 cm de diâmetro contra 15 a 20 reais) e bloco do freio (22 cm) maiores que o real, de propósito, para o selo do app esconder menos. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "raio-x-movel-no-leito",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/raio-x-movel-no-leito.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/raio-x-movel-no-leito.mjs",
+    "modification": "Raio X móvel no leito: paciente recostado, aparelho móvel com o tubo apontado para o tórax, detector atrás das costas, operador de avental a cerca de 2,5 m, pessoa sem avental junto à cabeceira e leito vizinho com paciente no sentido do feixe. Distância tubo-detector de 120 cm. Cabeçote e colimador 1,3 vez e detector 1,27 vez maiores que o real, de propósito. Entra parada. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "trauma-raio-horizontal",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/trauma-raio-horizontal.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/trauma-raio-horizontal.mjs",
+    "modification": "Paciente deitado de costas na prancha sobre a maca, com colar cervical, tubo do aparelho móvel de um lado e feixe horizontal (paralelo ao piso, perpendicular ao eixo do corpo, 150 cm do tubo ao detector) até o detector em pé do outro lado, a 11 cm do ombro. Cabeçote e colimador 1,3 vez e detector maiores que o real, de propósito. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "dosimetro-no-corpo",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/dosimetro-no-corpo.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/dosimetro-no-corpo.mjs",
+    "modification": "Profissional de avental, de frente, com crachá de dosimetria no peito, anel em volta da mão do braço estendido, dosímetro na haste dos óculos e, à direita, quadro de parede com o dosímetro de referência. Dosímetros bem maiores que o real, de propósito (tronco 24 x 16 contra 3 x 4 cm, olho 13 x 11 contra 1,5 x 2, anel de 10,4 de raio, referência 34 x 24 contra 5 x 3). Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "produto-dose-area",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/produto-dose-area.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/produto-dose-area.mjs",
+    "modification": "Tubo de raios X de teto com colimador e câmara de produto dose-área presa à saída por duas hastes; dois campos do mesmo foco, um estreito e um largo (tracejado), atravessam a câmara e chegam ao paciente deitado na mesa. Câmara de 36 x 36 cm, maior que o real, de propósito; o campo largo passa dos limites do corpo para se ler. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
   }
 ]

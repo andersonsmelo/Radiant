@@ -1,0 +1,6 @@
+[
+  { "nome": "Colar cervical", "x": 0.2281, "y": 0.4479, "width": 0.0828, "height": 0.1125 },
+  { "nome": "Tubo", "x": 0.5469, "y": 0.5625, "width": 0.2141, "height": 0.2 },
+  { "nome": "Feixe horizontal", "x": 0.3972, "y": 0.5104, "width": 0.1351, "height": 0.1518 },
+  { "nome": "Detector em pé", "x": 0.0437, "y": 0.2292, "width": 0.1266, "height": 0.3812 }
+]

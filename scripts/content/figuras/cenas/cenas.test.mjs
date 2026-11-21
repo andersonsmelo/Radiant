@@ -6,7 +6,8 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import { findChrome } from '../convert.mjs';
 
-export const CENAS = ['tubo-raios-x', 'tubo-emitindo', 'anodo-giratorio', 'conferencia-de-identidade', 'pontos-de-contato-da-sala', 'itens-de-emergencia-da-sala'];
+export const CENAS = ['tubo-raios-x', 'tubo-emitindo', 'anodo-giratorio', 'conferencia-de-identidade', 'pontos-de-contato-da-sala', 'itens-de-emergencia-da-sala',
+  'transferencia-maca-mesa', 'raio-x-movel-no-leito', 'trauma-raio-horizontal', 'dosimetro-no-corpo', 'produto-dose-area'];
 const skip = findChrome() ? false : 'Chrome não encontrado (defina CHROME_PATH): cenas puladas';
 
 const PROIBIDO_TAG = /<(text|image|script|foreignObject|style|filter|mask|clipPath|use|pattern)\b|href/i;

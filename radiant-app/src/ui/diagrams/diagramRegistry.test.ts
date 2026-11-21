@@ -149,8 +149,8 @@ describe('registro de diagramas', () => {
     expect(DIAGRAMS['sala-com-riscos'].periodMs).toBeUndefined();
   });
 
-  // Decisão do dono de 2026-11-20: figura de movimento entra parada. As duas cenas do tubo da M19 eram laços de código.
-  it.each(['tubo-emitindo', 'anodo-giratorio'])('%s: cena isométrica parada, sem laço, sem camada móvel e sem quadro de pôster', (id) => {
+  // Decisão do dono de 2026-11-20: figura de movimento entra parada. As duas cenas do tubo da M19 eram laços de código; a do leito da M25 tinha ciclo de 7 s na versão de acervo.
+  it.each(['tubo-emitindo', 'anodo-giratorio', 'raio-x-movel-no-leito'])('%s: cena isométrica parada, sem laço, sem camada móvel e sem quadro de pôster', (id) => {
     const spec = DIAGRAMS[id];
     expect(spec.art).toBe('imported');
     expect(spec.periodMs).toBeUndefined();

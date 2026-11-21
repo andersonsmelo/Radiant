@@ -5,36 +5,13 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { convertSvg, gradientMap, ownDefs } from './convert.mjs';
+import { convertSvg } from './convert.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const SPECS_DIR = path.join(here, '../../../radiant-app/src/ui/diagrams/specs');
 
 const clean = (s) => s.replace(/&#(9|10|13);/g, ' ').replace(/\s{2,}/g, ' ').replace(/ "/g, '"');
 const r = (n) => Math.round(n * 1000) / 1000;
-
-// Leito: separa o aparelho nas camadas que se movem (braço, luz, feixe, brilho, LED), na ordem de pintura.
-const LEITO_SPLIT = `(lt) => {
-  lt.querySelector('.arm').setAttribute('data-part', 'arm');
-  lt.querySelector('.beam.light').setAttribute('data-part', 'light');
-  lt.querySelector('.beam.xray').setAttribute('data-part', 'xray');
-  lt.querySelector('.led').setAttribute('data-part', 'led');
-  lt.querySelector('.glow').setAttribute('data-part', 'glow');
-  const parts = {}; for (const el of lt.querySelectorAll('[data-part]')) parts[el.dataset.part] = el;
-  for (const k of ['led', 'glow', 'arm']) if (parts[k].parentNode !== lt) throw new Error(k + ' fora da raiz');
-  const layers = []; let cur = [];
-  const flush = () => { if (cur.length) layers.push({ name: 'static', nodes: cur }); cur = []; };
-  const defs = lt.querySelector('defs');
-  for (const ch of [...lt.children]) {
-    if (ch === defs || ch.localName === 'style') continue;
-    const part = ch.dataset?.part;
-    if (part === 'led' || part === 'glow') { flush(); layers.push({ name: part, nodes: [ch] }); }
-    else if (part === 'arm') { flush(); const l = parts.light, x = parts.xray; l.remove(); x.remove(); layers.push({ name: 'arm', nodes: [ch] }, { name: 'light', nodes: [l] }, { name: 'xray', nodes: [x] }); }
-    else cur.push(ch);
-  }
-  flush();
-  return layers;
-}`;
 
 function cranio(o) {
   // Caixa do desenho (sem o retângulo de fundo) centrada no quadro, 10 de margem.
@@ -62,58 +39,6 @@ export const cranioDePerfilOssos: DiagramSpec = {
     {
       svg: ${JSON.stringify(svg)},
     },
-  ],
-};
-`;
-}
-
-function leito(o) {
-  // 640x480 da skill cabe em 320x240 com escala 0,5.
-  const grads = gradientMap(o.defs, o.layers.map((l) => l.svg));
-  const dropRootOpacity = (svg) => svg.replace(/^(<\w+[^>]*?) opacity="[^"]*"/, '$1');
-  const ARM_UP = 21.13; // a skill sobe o braço 21,13 unidades (640x480) no começo e no fim do ciclo
-  const MOTION = {
-    // Pingpong de 7 s: o braço desce na fração 0 a 0,55 e espera; a luz de campo acende de 0,55 a
-    // 0,7; o disparo (feixe, brilho no detector e LED do disparador) vai de 0,9 a 1, no fundo do ciclo.
-    arm: `{ kind: 'translate', dx: 0, dy: ${r(ARM_UP / 2)}, mode: 'pingpong', range: [0, 0.55] }`,
-    light: `{ kind: 'fade', from: 0, to: 1, mode: 'pingpong', range: [0.55, 0.7] }`,
-    xray: `{ kind: 'fade', from: 0, to: 1, mode: 'pingpong', range: [0.9, 1] }`,
-    glow: `{ kind: 'fade', from: 0, to: 1, mode: 'pingpong', range: [0.9, 1] }`,
-    led: `{ kind: 'fade', from: 0.18, to: 1, mode: 'pingpong', range: [0.9, 1] }`,
-  };
-  const NOTE = {
-    static: 'Parte parada (de trás para a frente na ordem de pintura da skill).',
-    led: 'LED do disparador na mão do operador.',
-    glow: 'Campo iluminado no detector, por baixo do paciente.',
-    arm: 'Braço: carro na coluna, braço telescópico, cabeçote e colimador, desenhados no alto.',
-    light: 'Luz de campo do colimador (ciano).',
-    xray: 'Feixe de raios X (âmbar).',
-  };
-  const layers = o.layers.map(({ name, svg }) => {
-    const { body, defs } = ownDefs(clean(name === 'static' || name === 'arm' ? svg : dropRootOpacity(svg)), grads);
-    const t = name === 'arm' ? `scale(0.5) translate(0 ${-ARM_UP})` : 'scale(0.5)';
-    const xml = `${defs}<g transform="${t}">${body}</g>`;
-    return `    {\n      // ${NOTE[name]}\n      svg: ${JSON.stringify(xml)},${MOTION[name] ? `\n      motion: ${MOTION[name]},` : ''}\n    },`;
-  });
-  return `import type { DiagramSpec } from '../diagramTypes';
-
-// Arte importada (art: 'imported'), gerada por script a partir da amostra da skill \`anatomy\`
-// (isométrica), versionada em scripts/content/figuras/fontes/raio-x-movel-no-leito.svg; não editar à mão.
-// O CSS da skill (classes, variáveis, vector-effect, filtro de sombra e @keyframes) foi achatado
-// para atributos de apresentação; o ciclo de 7 s virou cinco camadas com movimento e \`range\`.
-// Quadro 320x240. Paciente sentado no leito com a cabeceira elevada e o detector atrás das
-// costas; o aparelho móvel ao lado estende o braço sobre o tórax; o operador, de avental,
-// fica afastado com o disparador na mão.
-export const raioXMovelNoLeito: DiagramSpec = {
-  id: 'raio-x-movel-no-leito',
-  alt: 'Raio X no leito: paciente sentado com o detector nas costas, o braço do aparelho móvel desce sobre o tórax e dispara; o operador, de avental, fica longe.',
-  width: 320,
-  height: 240,
-  art: 'imported',
-  periodMs: 7000,
-  posterAt: 0.5,
-  layers: [
-${layers.join('\n')}
   ],
 };
 `;
@@ -645,10 +570,70 @@ export const FIGURES = {
     }),
   },
   'cranio-de-perfil-ossos': { file: 'cranio-de-perfil-ossos.ts', options: { dropBackground: true }, render: cranio },
+  'transferencia-maca-mesa': {
+    file: 'transferencia-maca-mesa.ts',
+    options: {},
+    render: importada({
+      id: 'transferencia-maca-mesa',
+      name: 'transferenciaMacaMesa',
+      header: `// ${ANATOMY}
+// Maca ao lado da mesa de exame, com um vão entre elas, paciente deitada, suporte de soro com a linha até o braço e prancha encostada no pedestal; roda da cabeceira com o bloco do freio pousado e roda dos pés com o bloco erguido (rodas e bloco maiores que o real, de propósito).
+// Receita: scripts/content/figuras/cenas/transferencia-maca-mesa.mjs; fonte versionada: scripts/content/figuras/fontes/transferencia-maca-mesa.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Maca ao lado da mesa, com vão entre elas e a paciente deitada. Bloco do freio pousado na roda da cabeceira e erguido na dos pés; soro com linha até o braço.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
   'raio-x-movel-no-leito': {
     file: 'raio-x-movel-no-leito.ts',
-    options: { strokeScale: 2, dropBackground: true, split: LEITO_SPLIT, wrapAttrs: { class: 'iso-svg iso', 'data-theme': 'dark' } },
-    render: leito,
+    options: {},
+    render: importada({
+      id: 'raio-x-movel-no-leito',
+      name: 'raioXMovelNoLeito',
+      header: `// ${ANATOMY}
+// Raio X móvel no leito: paciente recostado, tubo apontado para o tórax, detector atrás das costas, operador de avental longe, pessoa sem avental junto à cabeceira e leito vizinho no sentido do feixe; parada.
+// Receita: scripts/content/figuras/cenas/raio-x-movel-no-leito.mjs; fonte versionada: scripts/content/figuras/fontes/raio-x-movel-no-leito.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Raio X no leito: paciente recostado, aparelho móvel voltado para o tórax, operador de avental longe, pessoa sem avental junto à cabeceira, outro leito ao fundo.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'trauma-raio-horizontal': {
+    file: 'trauma-raio-horizontal.ts',
+    options: {},
+    render: importada({
+      id: 'trauma-raio-horizontal',
+      name: 'traumaRaioHorizontal',
+      header: `// ${ANATOMY}
+// Paciente deitado de costas na prancha sobre a maca, com colar no pescoço; feixe horizontal do tubo ao detector em pé, junto ao ombro; tubo e detector maiores que o real.
+// Receita: scripts/content/figuras/cenas/trauma-raio-horizontal.mjs; fonte versionada: scripts/content/figuras/fontes/trauma-raio-horizontal.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Paciente deitado de costas na prancha, com colar no pescoço; o feixe do tubo, paralelo ao piso, atravessa o pescoço e chega a um detector em pé do outro lado.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'dosimetro-no-corpo': {
+    file: 'dosimetro-no-corpo.ts',
+    options: {},
+    render: importada({
+      id: 'dosimetro-no-corpo',
+      name: 'dosimetroNoCorpo',
+      header: `// ${ANATOMY}
+// Profissional de avental, de frente, com o crachá no peito, o anel na mão do braço estendido e o dosímetro na haste dos óculos; à direita, o quadro de parede com o dosímetro de referência. Dosímetros bem maiores que o real, de propósito.
+// Receita: scripts/content/figuras/cenas/dosimetro-no-corpo.mjs; fonte versionada: scripts/content/figuras/fontes/dosimetro-no-corpo.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Profissional de avental, de frente: crachá no peito, anel na mão estendida, dosímetro na haste dos óculos; à direita, quadro com o dosímetro de referência',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
+  },
+  'produto-dose-area': {
+    file: 'produto-dose-area.ts',
+    options: {},
+    render: importada({
+      id: 'produto-dose-area',
+      name: 'produtoDoseArea',
+      header: `// ${ANATOMY}
+// Tubo de raios X de teto com colimador e câmara de produto dose-área na saída; dois campos do mesmo foco, um estreito e um largo (tracejado), atravessam a câmara até o paciente deitado.
+// Receita: scripts/content/figuras/cenas/produto-dose-area.mjs; fonte versionada: scripts/content/figuras/fontes/produto-dose-area.svg (640x480, vira 320x240 com escala 0,5).`,
+      alt: 'Tubo de teto com colimador e câmara de medição fina e larga; dois campos do mesmo foco, estreito e largo, atravessam a câmara até o paciente deitado.',
+      transform: (o) => noQuadro(o.viewBox),
+    }),
   },
 };
 

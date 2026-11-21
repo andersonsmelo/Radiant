@@ -1,0 +1,6 @@
+[
+  { "nome": "Peito (tronco, sobre o avental)", "x": 0.1952, "y": 0.4909, "width": 0.1317, "height": 0.1757, "rotulos": ["Peito","Dosímetro de tronco"] },
+  { "nome": "Mão estendida (anel)", "x": 0.4019, "y": 0.4637, "width": 0.1648, "height": 0.2046, "rotulos": ["Mão estendida","Dosímetro de anel"] },
+  { "nome": "Olho (haste dos óculos)", "x": 0.2147, "y": 0.2772, "width": 0.0937, "height": 0.1712, "rotulos": ["Olho","Dosímetro junto ao olho"] },
+  { "nome": "Quadro de parede (referência)", "x": 0.6052, "y": 0.0208, "width": 0.2256, "height": 0.4573, "rotulos": ["Quadro de parede","Dosímetro de referência"] }
+]
