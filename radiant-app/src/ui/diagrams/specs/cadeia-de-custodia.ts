@@ -9,7 +9,7 @@ import type { DiagramSpec } from '../diagramTypes';
 export const cadeiaDeCustodia: DiagramSpec = {
   id: 'cadeia-de-custodia',
   art: 'imported',
-  alt: 'Cinco cartões com ícones ligados por setas: três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.',
+  alt: 'Fluxo da cadeia de custódia: cinco cartões com ícones e setas, três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.',
   width: 320,
   height: 240,
   layers: [
@@ -25,16 +25,15 @@ export const cadeiaDeCustodia: DiagramSpec = {
       // Setas da serpentina.
       svg: `<line x1="99" y1="70" x2="108" y2="70" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="118,70 107,64.5 107,75.5" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>
 <line x1="203" y1="70" x2="212" y2="70" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="222,70 211,64.5 211,75.5" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>
-<line x1="264" y1="109" x2="264" y2="119" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="264,130 258.5,119 269.5,119" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>
+<line x1="290" y1="109" x2="290" y2="119" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="290,130 284.5,119 295.5,119" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>
 <line x1="221" y1="170" x2="212" y2="170" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="202,170 213,164.5 213,175.5" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>`,
     },
     {
       // Os cinco ícones, na ordem do fluxo.
       svg: `<g transform="translate(32 46) scale(2)" fill="none" stroke="${P.line}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/>
-<path d="M12 22V12"/>
-<polyline points="3.29 7 12 12 20.71 7"/>
-<path d="m7.5 4.27 9 5.15"/>
+<path d="M10 22v-8"/>
+<path d="M2.336 8.89 10 14l11.715-7.029"/>
+<path d="M22 14a2 2 0 0 1-.971 1.715l-10 6a2 2 0 0 1-2.138-.05l-6-4A2 2 0 0 1 2 16v-6a2 2 0 0 1 .971-1.715l10-6a2 2 0 0 1 2.138.05l6 4A2 2 0 0 1 22 8z"/>
 </g>
 <g transform="translate(136 46) scale(2)" fill="none" stroke="${P.line}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 <path d="m11 17 2 2a1 1 0 1 0 3-3"/>

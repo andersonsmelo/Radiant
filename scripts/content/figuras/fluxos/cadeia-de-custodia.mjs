@@ -10,6 +10,7 @@ const raiz = (caminho) => fileURLToPath(new URL(`../../../../${caminho}`, import
 export const ICONES = JSON.parse(readFileSync(new URL('../vendor/lucide/icones.json', import.meta.url), 'utf8'));
 const VERSAO = ICONES.versao;
 const ESCALA = 2;
+// A seta vertical (cartão 3 -> 4) fica em x = 290, à direita do selo do cartão 3 (226 a 267) e do selo do ponto 4 do `label`.
 // Cartões em serpentina: 3 em cima (esq. -> dir.), 2 embaixo (dir. -> esq.). Mesma grade nas três figuras.
 const CARTOES = [[18, 36], [122, 36], [226, 36], [226, 136], [122, 136]];
 const [CW, CH] = [76, 68];
@@ -17,7 +18,7 @@ const seta = (linha, ponta) => `<line ${linha} stroke="\${P.accent}" stroke-widt
 const SETAS = [
   seta('x1="99" y1="70" x2="108" y2="70"', '118,70 107,64.5 107,75.5'),
   seta('x1="203" y1="70" x2="212" y2="70"', '222,70 211,64.5 211,75.5'),
-  seta('x1="264" y1="109" x2="264" y2="119"', '264,130 258.5,119 269.5,119'),
+  seta('x1="290" y1="109" x2="290" y2="119"', '290,130 284.5,119 295.5,119'),
   seta('x1="221" y1="170" x2="212" y2="170"', '202,170 213,164.5 213,175.5'),
 ];
 const arredonda = (v) => Math.round(v * 10000) / 10000;
@@ -76,12 +77,13 @@ export function escreveFluxo(id, definicao) {
   writeFileSync(destino.alvos, alvos);
 }
 
-export const ALT = 'Cinco cartões com ícones ligados por setas: três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.';
+const SERPENTINA = 'cinco cartões com ícones e setas, três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.';
+export const alt = (tema) => `${tema}: ${SERPENTINA}`;
 export const FLUXO = {
-  alt: ALT,
+  alt: alt('Fluxo da cadeia de custódia'),
   nota: 'Cadeia de custódia: do material lacrado ao armário.',
   passos: [
-    ['package', 'Invólucro lacrado'], ['handshake', 'Entrega assinada'], ['scan-line', 'Aquisição da imagem', 'beam'],
+    ['cuboid', 'Invólucro lacrado'], ['handshake', 'Entrega assinada'], ['scan-line', 'Aquisição da imagem', 'beam'],
     ['notebook-pen', 'Livro de registro'], ['folder-lock', 'Armário trancado'],
   ],
 };

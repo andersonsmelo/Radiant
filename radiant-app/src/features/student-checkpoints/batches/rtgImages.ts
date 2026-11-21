@@ -305,30 +305,30 @@ export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = [
   },
   {
     "id": "cadeia-de-custodia",
-    "alt": "Cinco cartões com ícones ligados por setas: três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.",
+    "alt": "Fluxo da cadeia de custódia: cinco cartões com ícones e setas, três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.",
     "author": "Lucide Icons and Contributors (Copyright (c) 2026)",
     "license": "ISC",
     "licenseUrl": "https://lucide.dev/license",
     "sourcePage": "https://lucide.dev",
-    "modification": "Cinco ícones do Lucide v1.77.0 (package, handshake, scan-line, notebook-pen, folder-lock), cada um intacto nos elementos: só o stroke currentColor trocado por cor da paleta do app, escala 2 e translação ao centro de um cartão; os cartões e as setas são desenho do projeto. Nenhum dos ícones é derivado do Feather. O sha256Original é o da concatenação dos cinco SVG originais do pacote lucide-static 1.77.0, na ordem do fluxo (cada um está em scripts/content/figuras/vendor/lucide/README.md); a figura sai de scripts/content/figuras/fluxos/cadeia-de-custodia.mjs. Quadro 320 x 240, parada, sem texto."
+    "modification": "Cinco ícones do Lucide v1.77.0 (cuboid, handshake, scan-line, notebook-pen, folder-lock), cada um intacto nos elementos: só o stroke currentColor trocado por cor da paleta do app, escala 2 e translação ao centro de um cartão; os cartões e as setas são desenho do projeto. O sha256Original é o da concatenação dos cinco SVG originais do pacote lucide-static 1.77.0, na ordem do fluxo (cada um está em scripts/content/figuras/vendor/lucide/README.md); a figura sai de scripts/content/figuras/fluxos/cadeia-de-custodia.mjs. Quadro 320 x 240, parada, sem texto."
   },
   {
     "id": "fluxo-de-pesquisa",
-    "alt": "Cinco cartões com ícones ligados por setas: três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.",
+    "alt": "Fluxo de um estudo de pesquisa: cinco cartões com ícones e setas, três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.",
     "author": "Lucide Icons and Contributors (Copyright (c) 2026)",
     "license": "ISC",
     "licenseUrl": "https://lucide.dev/license",
     "sourcePage": "https://lucide.dev",
-    "modification": "Cinco ícones do Lucide v1.77.0 (file-check, file-signature, scan-line, eye-off, folder-lock), cada um intacto nos elementos: só o stroke currentColor trocado por cor da paleta do app, escala 2 e translação ao centro de um cartão; os cartões e as setas são desenho do projeto. Nenhum dos ícones é derivado do Feather. O sha256Original é o da concatenação dos cinco SVG originais do pacote lucide-static 1.77.0, na ordem do fluxo (cada um está em scripts/content/figuras/vendor/lucide/README.md); a figura sai de scripts/content/figuras/fluxos/fluxo-de-pesquisa.mjs. Quadro 320 x 240, parada, sem texto."
+    "modification": "Cinco ícones do Lucide v1.77.0 (file-check, file-signature, scan-line, eye-off, folder-lock), cada um intacto nos elementos: só o stroke currentColor trocado por cor da paleta do app, escala 2 e translação ao centro de um cartão; os cartões e as setas são desenho do projeto. O sha256Original é o da concatenação dos cinco SVG originais do pacote lucide-static 1.77.0, na ordem do fluxo (cada um está em scripts/content/figuras/vendor/lucide/README.md); a figura sai de scripts/content/figuras/fluxos/fluxo-de-pesquisa.mjs. Quadro 320 x 240, parada, sem texto."
   },
   {
     "id": "fluxo-ris-pacs",
-    "alt": "Cinco cartões com ícones ligados por setas: três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.",
+    "alt": "Fluxo do pedido de um exame: cinco cartões com ícones e setas, três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.",
     "author": "Lucide Icons and Contributors (Copyright (c) 2026)",
     "license": "ISC",
     "licenseUrl": "https://lucide.dev/license",
     "sourcePage": "https://lucide.dev",
-    "modification": "Cinco ícones do Lucide v1.77.0 (clipboard-list, list-checks, radiation, hard-drive, monitor-check), cada um intacto nos elementos: só o stroke currentColor trocado por cor da paleta do app, escala 2 e translação ao centro de um cartão; os cartões e as setas são desenho do projeto. Nenhum dos ícones é derivado do Feather. O sha256Original é o da concatenação dos cinco SVG originais do pacote lucide-static 1.77.0, na ordem do fluxo (cada um está em scripts/content/figuras/vendor/lucide/README.md); a figura sai de scripts/content/figuras/fluxos/fluxo-ris-pacs.mjs. Quadro 320 x 240, parada, sem texto."
+    "modification": "Cinco ícones do Lucide v1.77.0 (file-pen, list-checks, radiation, images, laptop-minimal-check), cada um intacto nos elementos: só o stroke currentColor trocado por cor da paleta do app, escala 2 e translação ao centro de um cartão; os cartões e as setas são desenho do projeto. O sha256Original é o da concatenação dos cinco SVG originais do pacote lucide-static 1.77.0, na ordem do fluxo (cada um está em scripts/content/figuras/vendor/lucide/README.md); a figura sai de scripts/content/figuras/fluxos/fluxo-ris-pacs.mjs. Quadro 320 x 240, parada, sem texto."
   }
 ];
 

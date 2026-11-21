@@ -9,7 +9,7 @@ import type { DiagramSpec } from '../diagramTypes';
 export const fluxoRisPacs: DiagramSpec = {
   id: 'fluxo-ris-pacs',
   art: 'imported',
-  alt: 'Cinco cartões com ícones ligados por setas: três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.',
+  alt: 'Fluxo do pedido de um exame: cinco cartões com ícones e setas, três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.',
   width: 320,
   height: 240,
   layers: [
@@ -25,18 +25,15 @@ export const fluxoRisPacs: DiagramSpec = {
       // Setas da serpentina.
       svg: `<line x1="99" y1="70" x2="108" y2="70" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="118,70 107,64.5 107,75.5" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>
 <line x1="203" y1="70" x2="212" y2="70" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="222,70 211,64.5 211,75.5" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>
-<line x1="264" y1="109" x2="264" y2="119" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="264,130 258.5,119 269.5,119" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>
+<line x1="290" y1="109" x2="290" y2="119" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="290,130 284.5,119 295.5,119" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>
 <line x1="221" y1="170" x2="212" y2="170" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="202,170 213,164.5 213,175.5" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>`,
     },
     {
       // Os cinco ícones, na ordem do fluxo.
       svg: `<g transform="translate(32 46) scale(2)" fill="none" stroke="${P.line}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
-<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
-<path d="M12 11h4"/>
-<path d="M12 16h4"/>
-<path d="M8 11h.01"/>
-<path d="M8 16h.01"/>
+<path d="M12.659 22H18a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v9.34"/>
+<path d="M14 2v5a1 1 0 0 0 1 1h5"/>
+<path d="M10.378 12.622a1 1 0 0 1 3 3.003L8.36 20.637a2 2 0 0 1-.854.506l-2.867.837a.5.5 0 0 1-.62-.62l.836-2.869a2 2 0 0 1 .506-.853z"/>
 </g>
 <g transform="translate(136 46) scale(2)" fill="none" stroke="${P.line}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 <path d="M13 5h8"/>
@@ -52,16 +49,15 @@ export const fluxoRisPacs: DiagramSpec = {
 <path d="M8 12a4 4 0 0 1 2-3.464L7.528 4.254a1 1 0 0 0-1.46-.305 10 10 0 0 0-4.006 6.94A1 1 0 0 0 3 12z"/>
 </g>
 <g transform="translate(240 146) scale(2)" fill="none" stroke="${P.line}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<path d="M10 16h.01"/>
-<path d="M2.212 11.577a2 2 0 0 0-.212.896V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5.527a2 2 0 0 0-.212-.896L18.55 5.11A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>
-<path d="M21.946 12.013H2.054"/>
-<path d="M6 16h.01"/>
+<path d="m22 11-1.296-1.296a2.4 2.4 0 0 0-3.408 0L11 16"/>
+<path d="M4 8a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2"/>
+<circle cx="13" cy="7" r="1" fill="${P.line}"/>
+<rect x="8" y="2" width="14" height="14" rx="2"/>
 </g>
 <g transform="translate(136 146) scale(2)" fill="none" stroke="${P.line}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M2 20h20"/>
 <path d="m9 10 2 2 4-4"/>
-<rect width="20" height="14" x="2" y="3" rx="2"/>
-<path d="M12 17v4"/>
-<path d="M8 21h8"/>
+<rect x="3" y="4" width="18" height="12" rx="2"/>
 </g>`,
     },
   ],

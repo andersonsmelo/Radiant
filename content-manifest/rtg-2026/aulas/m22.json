@@ -1276,37 +1276,37 @@
           "points": [
             {
               "label": "Cadastro e pedido",
-              "x": 0.175,
-              "y": 0.2917,
-              "where": "no alto à esquerda, a prancheta com uma lista",
+              "x": 0.0813,
+              "y": 0.1667,
+              "where": "no alto à esquerda, a folha com uma caneta",
               "alvo": "Cadastro e pedido"
             },
             {
               "label": "Lista de trabalho",
-              "x": 0.5,
-              "y": 0.2917,
+              "x": 0.4063,
+              "y": 0.1667,
               "where": "no alto, no meio, a lista com marcas de conferido",
               "alvo": "Lista de trabalho"
             },
             {
               "label": "Equipamento de raios X",
-              "x": 0.825,
-              "y": 0.2917,
+              "x": 0.7313,
+              "y": 0.1667,
               "where": "no alto à direita, o símbolo de radiação, em âmbar",
               "alvo": "Equipamento de raios X"
             },
             {
               "label": "Arquivo de imagens",
-              "x": 0.825,
-              "y": 0.7083,
-              "where": "embaixo à direita, o disco de armazenamento",
+              "x": 0.7313,
+              "y": 0.5833,
+              "where": "embaixo à direita, duas molduras de imagem sobrepostas",
               "alvo": "Arquivo de imagens"
             },
             {
               "label": "Estação de visualização",
-              "x": 0.5,
-              "y": 0.7083,
-              "where": "embaixo, no meio, a tela com um visto",
+              "x": 0.4063,
+              "y": 0.5833,
+              "where": "embaixo, no meio, o notebook com um visto na tela",
               "alvo": "Estação de visualização"
             }
           ],

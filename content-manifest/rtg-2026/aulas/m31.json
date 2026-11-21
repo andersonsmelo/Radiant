@@ -910,36 +910,36 @@
           "points": [
             {
               "label": "Invólucro lacrado",
-              "x": 0.175,
-              "y": 0.2917,
-              "where": "no alto à esquerda, o pacote fechado",
+              "x": 0.0813,
+              "y": 0.1667,
+              "where": "no alto à esquerda, a caixa fechada",
               "alvo": "Invólucro lacrado"
             },
             {
               "label": "Entrega assinada",
-              "x": 0.5,
-              "y": 0.2917,
+              "x": 0.4063,
+              "y": 0.1667,
               "where": "no alto ao centro, as duas mãos apertadas",
               "alvo": "Entrega assinada"
             },
             {
               "label": "Aquisição da imagem",
-              "x": 0.825,
-              "y": 0.2917,
+              "x": 0.7313,
+              "y": 0.1667,
               "where": "no alto à direita, o quadro âmbar com uma linha no meio",
               "alvo": "Aquisição da imagem"
             },
             {
               "label": "Livro de registro",
-              "x": 0.825,
-              "y": 0.7083,
+              "x": 0.7313,
+              "y": 0.5833,
               "where": "embaixo à direita, o caderno com uma caneta",
               "alvo": "Livro de registro"
             },
             {
               "label": "Armário trancado",
-              "x": 0.5,
-              "y": 0.7083,
+              "x": 0.4063,
+              "y": 0.5833,
               "where": "embaixo ao centro, a pasta com um cadeado",
               "alvo": "Armário trancado"
             }
@@ -1609,7 +1609,7 @@
       },
       "concept": {
         "title": "O percurso de um estudo",
-        "body": "Em pesquisa, a imagem serve a uma pergunta de estudo, e o percurso protege o participante. Antes de tudo, um comitê de ética aprova o protocolo, e qualquer mudança nele volta ao comitê. A participação é voluntária, com consentimento do participante. Só então vem a aquisição, que segue o protocolo aprovado. Neste esquema, a ficha do dado leva o nome coberto, um dos cuidados com a privacidade, e o arquivo fica guardado com acesso limitado. O estudante não recruta e nunca muda o protocolo: diante de dúvida, avisa a equipe de pesquisa.",
+        "body": "Em pesquisa, a imagem serve a uma pergunta de estudo, e o percurso protege o participante. Antes de tudo, um comitê de ética aprova o protocolo, e qualquer mudança nele volta ao comitê. A participação é voluntária, com consentimento do participante. Só então vem a aquisição, que segue o protocolo aprovado. Neste esquema, o olho riscado marca a ficha do dado com o nome coberto, um dos cuidados com a privacidade, e o arquivo fica guardado com acesso limitado. O estudante não recruta e nunca muda o protocolo: diante de dúvida, avisa a equipe de pesquisa.",
         "keyPoints": [
           "O comitê de ética aprova o protocolo antes do estudo.",
           "O participante consente de forma voluntária.",
@@ -1658,36 +1658,36 @@
           "points": [
             {
               "label": "Aprovação do comitê",
-              "x": 0.175,
-              "y": 0.2917,
+              "x": 0.0813,
+              "y": 0.1667,
               "where": "no alto à esquerda, a folha com um visto",
               "alvo": "Aprovação do comitê"
             },
             {
               "label": "Consentimento assinado",
-              "x": 0.5,
-              "y": 0.2917,
+              "x": 0.4063,
+              "y": 0.1667,
               "where": "no alto ao centro, a folha com uma caneta",
               "alvo": "Consentimento assinado"
             },
             {
               "label": "Aquisição da imagem",
-              "x": 0.825,
-              "y": 0.2917,
+              "x": 0.7313,
+              "y": 0.1667,
               "where": "no alto à direita, o quadro âmbar com uma linha no meio",
               "alvo": "Aquisição da imagem"
             },
             {
               "label": "Ficha com o nome coberto",
-              "x": 0.825,
-              "y": 0.7083,
+              "x": 0.7313,
+              "y": 0.5833,
               "where": "embaixo à direita, o olho riscado",
               "alvo": "Ficha com o nome coberto"
             },
             {
               "label": "Arquivo trancado",
-              "x": 0.5,
-              "y": 0.7083,
+              "x": 0.4063,
+              "y": 0.5833,
               "where": "embaixo ao centro, a pasta com um cadeado",
               "alvo": "Arquivo trancado"
             }

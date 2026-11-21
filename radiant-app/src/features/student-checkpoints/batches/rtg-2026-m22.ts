@@ -6,7 +6,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m22",
-  "materialSha256": "4bf50b413688fa689388feb8ffcce142c310f257b7979b7e51ae3f8f72825022",
+  "materialSha256": "7b7ec45631af1d52ce055b0274175dd320f52e173b94375d301e95f4b12a5734",
   "trackId": "track:rtg-2026:m22",
   "unitId": "unit:rtg-2026:m22",
   "contentVersion": "rtg-2026-m22-v1",
@@ -1320,37 +1320,37 @@ export const RTG_2026_M22: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m22:aula-04:i2:1",
-                  "x": 0.175,
-                  "y": 0.2917,
-                  "where": "no alto à esquerda, a prancheta com uma lista",
+                  "x": 0.0813,
+                  "y": 0.1667,
+                  "where": "no alto à esquerda, a folha com uma caneta",
                   "correctLabelId": "label:rtg-2026:m22:aula-04:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m22:aula-04:i2:2",
-                  "x": 0.5,
-                  "y": 0.2917,
+                  "x": 0.4063,
+                  "y": 0.1667,
                   "where": "no alto, no meio, a lista com marcas de conferido",
                   "correctLabelId": "label:rtg-2026:m22:aula-04:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m22:aula-04:i2:3",
-                  "x": 0.825,
-                  "y": 0.2917,
+                  "x": 0.7313,
+                  "y": 0.1667,
                   "where": "no alto à direita, o símbolo de radiação, em âmbar",
                   "correctLabelId": "label:rtg-2026:m22:aula-04:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m22:aula-04:i2:4",
-                  "x": 0.825,
-                  "y": 0.7083,
-                  "where": "embaixo à direita, o disco de armazenamento",
+                  "x": 0.7313,
+                  "y": 0.5833,
+                  "where": "embaixo à direita, duas molduras de imagem sobrepostas",
                   "correctLabelId": "label:rtg-2026:m22:aula-04:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m22:aula-04:i2:5",
-                  "x": 0.5,
-                  "y": 0.7083,
-                  "where": "embaixo, no meio, a tela com um visto",
+                  "x": 0.4063,
+                  "y": 0.5833,
+                  "where": "embaixo, no meio, o notebook com um visto na tela",
                   "correctLabelId": "label:rtg-2026:m22:aula-04:i2:5"
                 }
               ],
@@ -6834,7 +6834,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4bf50b413688fa689388feb8ffcce142c310f257b7979b7e51ae3f8f72825022"
+      "materialSha256": "7b7ec45631af1d52ce055b0274175dd320f52e173b94375d301e95f4b12a5734"
     },
     {
       "schemaVersion": 1,
@@ -6843,7 +6843,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4bf50b413688fa689388feb8ffcce142c310f257b7979b7e51ae3f8f72825022"
+      "materialSha256": "7b7ec45631af1d52ce055b0274175dd320f52e173b94375d301e95f4b12a5734"
     },
     {
       "schemaVersion": 1,
@@ -6852,7 +6852,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4bf50b413688fa689388feb8ffcce142c310f257b7979b7e51ae3f8f72825022"
+      "materialSha256": "7b7ec45631af1d52ce055b0274175dd320f52e173b94375d301e95f4b12a5734"
     },
     {
       "schemaVersion": 1,
@@ -6861,7 +6861,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4bf50b413688fa689388feb8ffcce142c310f257b7979b7e51ae3f8f72825022"
+      "materialSha256": "7b7ec45631af1d52ce055b0274175dd320f52e173b94375d301e95f4b12a5734"
     },
     {
       "schemaVersion": 1,
@@ -6870,7 +6870,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4bf50b413688fa689388feb8ffcce142c310f257b7979b7e51ae3f8f72825022"
+      "materialSha256": "7b7ec45631af1d52ce055b0274175dd320f52e173b94375d301e95f4b12a5734"
     },
     {
       "schemaVersion": 1,
@@ -6879,7 +6879,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "4bf50b413688fa689388feb8ffcce142c310f257b7979b7e51ae3f8f72825022"
+      "materialSha256": "7b7ec45631af1d52ce055b0274175dd320f52e173b94375d301e95f4b12a5734"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

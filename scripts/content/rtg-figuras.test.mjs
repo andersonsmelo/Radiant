@@ -59,9 +59,18 @@ test('licença CC BY sem crédito na lista gerada reprova; com a lista gerada, p
 });
 
 test('licença ISC (ícones de conjunto aberto) passa; ISC com texto extra, CC BY-SA e NC continuam barradas', () => {
-  const lucide = (license) => acervo({ id: 'x', license });
+  const lucide = (license) => acervo({ id: 'x', license, sourcePage: 'https://lucide.dev' });
   assert.deepEqual(figurasErrors([lucide('ISC')], ['x']), []);
   for (const license of ['ISC License', 'ISC-like', 'ISC, com restrição', 'CC BY-SA 4.0', 'CC BY-NC 4.0', 'CC BY-ND 4.0']) {
     assert.match(figurasErrors([lucide(license)], ['x']).join('\n'), /licença fora de/, license);
   }
+});
+
+test('ISC só vale para o conjunto de ícones do Lucide: arte de outra página, ou sem página, com ISC reprova, e a mensagem separa a licença', () => {
+  const erros = (extra) => figurasErrors([acervo({ id: 'x', license: 'ISC', ...extra })], ['x']).join('\n');
+  assert.deepEqual(figurasErrors([acervo({ id: 'x', license: 'ISC', sourcePage: 'https://lucide.dev' })], ['x']), []);
+  for (const sourcePage of ['https://commons.wikimedia.org/wiki/File:Radiografia.jpg', 'https://lucide.dev.exemplo.com', 'https://exemplo.com/lucide.dev']) {
+    assert.match(erros({ sourcePage }), /licença fora de/, sourcePage);
+  }
+  assert.match(erros({}), /licença fora de CC0, domínio público, CC BY e ISC \(só do Lucide\): ISC$/m);
 });

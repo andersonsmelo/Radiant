@@ -9,7 +9,7 @@ import type { DiagramSpec } from '../diagramTypes';
 export const fluxoDePesquisa: DiagramSpec = {
   id: 'fluxo-de-pesquisa',
   art: 'imported',
-  alt: 'Cinco cartões com ícones ligados por setas: três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.',
+  alt: 'Fluxo de um estudo de pesquisa: cinco cartões com ícones e setas, três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.',
   width: 320,
   height: 240,
   layers: [
@@ -25,7 +25,7 @@ export const fluxoDePesquisa: DiagramSpec = {
       // Setas da serpentina.
       svg: `<line x1="99" y1="70" x2="108" y2="70" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="118,70 107,64.5 107,75.5" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>
 <line x1="203" y1="70" x2="212" y2="70" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="222,70 211,64.5 211,75.5" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>
-<line x1="264" y1="109" x2="264" y2="119" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="264,130 258.5,119 269.5,119" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>
+<line x1="290" y1="109" x2="290" y2="119" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="290,130 284.5,119 295.5,119" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>
 <line x1="221" y1="170" x2="212" y2="170" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="202,170 213,164.5 213,175.5" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>`,
     },
     {

@@ -6,7 +6,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m31",
-  "materialSha256": "3ed24ae5762e87f390be407d7eebbd5b08f38dc96bd24ca2dcb55f9bde7e048a",
+  "materialSha256": "e917b6bc63866d3826ec88aa285aeb9267367be383a0fede7c0695acefae3861",
   "trackId": "track:rtg-2026:m31",
   "unitId": "unit:rtg-2026:m31",
   "contentVersion": "rtg-2026-m31-v1",
@@ -960,36 +960,36 @@ export const RTG_2026_M31: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m31:aula-03:i2:1",
-                  "x": 0.175,
-                  "y": 0.2917,
-                  "where": "no alto à esquerda, o pacote fechado",
+                  "x": 0.0813,
+                  "y": 0.1667,
+                  "where": "no alto à esquerda, a caixa fechada",
                   "correctLabelId": "label:rtg-2026:m31:aula-03:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-03:i2:2",
-                  "x": 0.5,
-                  "y": 0.2917,
+                  "x": 0.4063,
+                  "y": 0.1667,
                   "where": "no alto ao centro, as duas mãos apertadas",
                   "correctLabelId": "label:rtg-2026:m31:aula-03:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-03:i2:3",
-                  "x": 0.825,
-                  "y": 0.2917,
+                  "x": 0.7313,
+                  "y": 0.1667,
                   "where": "no alto à direita, o quadro âmbar com uma linha no meio",
                   "correctLabelId": "label:rtg-2026:m31:aula-03:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-03:i2:4",
-                  "x": 0.825,
-                  "y": 0.7083,
+                  "x": 0.7313,
+                  "y": 0.5833,
                   "where": "embaixo à direita, o caderno com uma caneta",
                   "correctLabelId": "label:rtg-2026:m31:aula-03:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-03:i2:5",
-                  "x": 0.5,
-                  "y": 0.7083,
+                  "x": 0.4063,
+                  "y": 0.5833,
                   "where": "embaixo ao centro, a pasta com um cadeado",
                   "correctLabelId": "label:rtg-2026:m31:aula-03:i2:5"
                 }
@@ -1636,7 +1636,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "O percurso de um estudo",
-            "body": "Em pesquisa, a imagem serve a uma pergunta de estudo, e o percurso protege o participante. Antes de tudo, um comitê de ética aprova o protocolo, e qualquer mudança nele volta ao comitê. A participação é voluntária, com consentimento do participante. Só então vem a aquisição, que segue o protocolo aprovado. Neste esquema, a ficha do dado leva o nome coberto, um dos cuidados com a privacidade, e o arquivo fica guardado com acesso limitado. O estudante não recruta e nunca muda o protocolo: diante de dúvida, avisa a equipe de pesquisa.",
+            "body": "Em pesquisa, a imagem serve a uma pergunta de estudo, e o percurso protege o participante. Antes de tudo, um comitê de ética aprova o protocolo, e qualquer mudança nele volta ao comitê. A participação é voluntária, com consentimento do participante. Só então vem a aquisição, que segue o protocolo aprovado. Neste esquema, o olho riscado marca a ficha do dado com o nome coberto, um dos cuidados com a privacidade, e o arquivo fica guardado com acesso limitado. O estudante não recruta e nunca muda o protocolo: diante de dúvida, avisa a equipe de pesquisa.",
             "keyPoints": [
               "O comitê de ética aprova o protocolo antes do estudo.",
               "O participante consente de forma voluntária.",
@@ -1716,36 +1716,36 @@ export const RTG_2026_M31: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m31:aula-05:i2:1",
-                  "x": 0.175,
-                  "y": 0.2917,
+                  "x": 0.0813,
+                  "y": 0.1667,
                   "where": "no alto à esquerda, a folha com um visto",
                   "correctLabelId": "label:rtg-2026:m31:aula-05:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-05:i2:2",
-                  "x": 0.5,
-                  "y": 0.2917,
+                  "x": 0.4063,
+                  "y": 0.1667,
                   "where": "no alto ao centro, a folha com uma caneta",
                   "correctLabelId": "label:rtg-2026:m31:aula-05:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-05:i2:3",
-                  "x": 0.825,
-                  "y": 0.2917,
+                  "x": 0.7313,
+                  "y": 0.1667,
                   "where": "no alto à direita, o quadro âmbar com uma linha no meio",
                   "correctLabelId": "label:rtg-2026:m31:aula-05:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-05:i2:4",
-                  "x": 0.825,
-                  "y": 0.7083,
+                  "x": 0.7313,
+                  "y": 0.5833,
                   "where": "embaixo à direita, o olho riscado",
                   "correctLabelId": "label:rtg-2026:m31:aula-05:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-05:i2:5",
-                  "x": 0.5,
-                  "y": 0.7083,
+                  "x": 0.4063,
+                  "y": 0.5833,
                   "where": "embaixo ao centro, a pasta com um cadeado",
                   "correctLabelId": "label:rtg-2026:m31:aula-05:i2:5"
                 }
@@ -6929,7 +6929,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "3ed24ae5762e87f390be407d7eebbd5b08f38dc96bd24ca2dcb55f9bde7e048a"
+      "materialSha256": "e917b6bc63866d3826ec88aa285aeb9267367be383a0fede7c0695acefae3861"
     },
     {
       "schemaVersion": 1,
@@ -6938,7 +6938,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "3ed24ae5762e87f390be407d7eebbd5b08f38dc96bd24ca2dcb55f9bde7e048a"
+      "materialSha256": "e917b6bc63866d3826ec88aa285aeb9267367be383a0fede7c0695acefae3861"
     },
     {
       "schemaVersion": 1,
@@ -6947,7 +6947,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "3ed24ae5762e87f390be407d7eebbd5b08f38dc96bd24ca2dcb55f9bde7e048a"
+      "materialSha256": "e917b6bc63866d3826ec88aa285aeb9267367be383a0fede7c0695acefae3861"
     },
     {
       "schemaVersion": 1,
@@ -6956,7 +6956,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "3ed24ae5762e87f390be407d7eebbd5b08f38dc96bd24ca2dcb55f9bde7e048a"
+      "materialSha256": "e917b6bc63866d3826ec88aa285aeb9267367be383a0fede7c0695acefae3861"
     },
     {
       "schemaVersion": 1,
@@ -6965,7 +6965,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "3ed24ae5762e87f390be407d7eebbd5b08f38dc96bd24ca2dcb55f9bde7e048a"
+      "materialSha256": "e917b6bc63866d3826ec88aa285aeb9267367be383a0fede7c0695acefae3861"
     },
     {
       "schemaVersion": 1,
@@ -6974,7 +6974,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "3ed24ae5762e87f390be407d7eebbd5b08f38dc96bd24ca2dcb55f9bde7e048a"
+      "materialSha256": "e917b6bc63866d3826ec88aa285aeb9267367be383a0fede7c0695acefae3861"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",
