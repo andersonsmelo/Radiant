@@ -285,7 +285,7 @@ texto dentro: o rótulo vem do conteúdo.
 | `pontos-de-contato-da-sala` | parado | Sala de exame de frente: porta com maçaneta, receptor vertical com barra de apoio, mesa de exame, tubo de raios X no teto e a mesa do comando com teclado. |
 | `itens-de-emergencia-da-sala` | parado | Parede de uma sala de exame: porta de saída com placa, carrinho de emergência com gavetas, saída de oxigênio, botão de chamada com cordão e telefone. |
 | `circuito-do-gerador` | parado | Circuito do gerador: fonte alternada, transformador com secundário de mais espiras, ponte de diodos e tubo; abaixo, um transformador menor liga o filamento. |
-| `retificacao-de-onda` | parado | Três traçados de tensão empilhados: onda alternada, onda retificada que cai a zero a cada meio ciclo e tensão quase constante com ondulação pequena. |
+| `retificacao-de-onda` | laço | Três traçados de tensão empilhados: onda alternada, onda retificada que cai a zero a cada meio ciclo e tensão quase constante com ondulação pequena. |
 | `anodo-giratorio` | laço | Disco do ânodo girando visto de frente; o feixe de elétrons bate sempre no mesmo ponto da pista em anel, e dali sai o feixe de raios X. |
 | `espectro-de-raios-x` | parado | Gráfico sem números: curva larga que sobe e cai até zero na energia máxima, dois picos estreitos sobre ela e, à esquerda, a parte baixa cortada. |
 | `esqueleto-axial-apendicular` | parado | Esqueleto de frente, da cabeça ao meio das coxas: crânio, coluna, costelas e esterno numa cor; cinturas e membros em outra cor. |
@@ -299,11 +299,11 @@ texto dentro: o rótulo vem do conteúdo.
 | `sistema-urinario` | parado | Tronco de frente com os dois rins ao lado da coluna, os dois ureteres descendo até a bexiga na pelve e a uretra saindo da bexiga. |
 | `sistema-nervoso` | parado | Corpo de frente até as coxas: o encéfalo e a medula espinal numa cor, e nervos de outra cor saindo da medula para os braços, o tronco e as pernas. |
 | `dano-ao-dna` | parado | Trecho de DNA em escada: um fóton atinge a fita; outro atinge uma molécula de água, que lança um radical até a fita. A fita tem uma quebra simples e uma dupla. |
-| `grandezas-de-dose` | parado | Três painéis: bloco de tecido sob um feixe; o bloco com um fóton fino e uma partícula grossa de dano maior; um corpo com órgãos de intensidades diferentes. |
+| `grandezas-de-dose` | laço | Três painéis: bloco de tecido sob um feixe; o bloco com um fóton fino e uma partícula grossa de dano maior; um corpo com órgãos de intensidades diferentes. |
 | `dosimetro-no-corpo` | parado | Profissional de avental, de frente: crachá no tórax, anel no dedo da mão estendida, dosímetro junto ao olho; num canto, quadro de parede com um dosímetro. |
 | `produto-dose-area` | parado | Tubo com colimador e uma placa fina na saída; dois feixes do mesmo foco, um estreito e um largo, chegam ao paciente deitado; o largo cobre mais da placa. |
 | `histograma-e-lut` | parado | Histograma com um pico estreito em cada ponta e um grupo largo no meio, coberto por uma faixa azul; ao lado, uma curva em S de conversão. |
-| `realce-e-suavizacao` | parado | Três perfis empilhados de uma mesma borda: degrau com rampa curta, degrau com ultrapassagem antes e depois da borda, e degrau com rampa larga e suave. |
+| `realce-e-suavizacao` | laço | Três perfis empilhados de uma mesma borda: degrau com rampa curta, degrau com ultrapassagem antes e depois da borda, e degrau com rampa larga e suave. |
 | `monitor-e-padrao-de-teste` | parado | Monitor com padrão de teste: degraus de cinza, dois quadrados com quadradinhos, pares de linhas; janela ao lado e seu reflexo no canto da tela. |
 | `fluxo-ris-pacs` | parado | Cinco blocos ligados por setas em serpentina: prancheta, lista, tubo de raios X com mesa, cilindro de armazenamento e monitor com imagem. |
 | `compressao-de-imagem` | parado | Imagem de 8 por 8 pixels, um disco, três vezes: original, igual sem perda e em blocos grosseiros com perda; acima, barras longa, média e curta. |
@@ -332,7 +332,7 @@ texto dentro: o rótulo vem do conteúdo.
 | `corte-pelve` | parado | Corte axial da pelve na altura dos quadris, visto de baixo, frente do corpo no alto e lado direito do paciente à esquerda de quem vê: ossos e órgãos. |
 | `corte-pescoco` | parado | Corte axial do pescoço na altura da tireoide, visto de baixo, frente do corpo no alto e lado direito do paciente à esquerda de quem vê: vias, vasos e vértebra. |
 | `coluna-sagital-e-axial` | parado | Coluna lombar em duas vistas: corte sagital com a frente do corpo à esquerda e, ao lado, corte axial com a frente no alto, na altura da linha tracejada. |
-| `relaxacao-t1-t2` | parado | Dois gráficos de sinal no tempo: num, duas curvas sobem até o mesmo patamar, uma rápida e uma lenta; no outro, duas curvas caem rumo a zero, rápida e lenta. |
+| `relaxacao-t1-t2` | laço | Dois gráficos no tempo: a magnetização longitudinal sobe (esquerda) e o sinal transversal cai (direita), cada um com uma curva rápida e outra lenta. |
 | `linha-do-tempo-tr-te` | laço | Linha do tempo com um pulso, um eco pouco depois e o pulso seguinte bem adiante; uma chave curta e uma longa marcam os intervalos, e um cursor corre por ela. |
 | `ponderacoes-no-encefalo` | parado | Três vezes o mesmo corte axial da cabeça, com ventrículos em borboleta; o brilho do líquido, da gordura e das substâncias branca e cinzenta muda em cada um. |
 | `supressao-de-gordura` | parado | O mesmo corte da coxa duas vezes: num, a gordura sob a pele e a medula brilham; no outro, estão apagadas, menos um trecho junto de um pequeno objeto metálico. |
