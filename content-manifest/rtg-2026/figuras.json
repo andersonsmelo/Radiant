@@ -313,7 +313,7 @@
     "author": "Radiant",
     "license": "Arte própria do projeto, sem licença de terceiro",
     "receita": "scripts/content/figuras/cenas/transferencia-maca-mesa.mjs",
-    "modification": "Maca ao lado da mesa de exame, com um vão entre elas, paciente deitada, suporte de soro com a linha esticada até o braço e prancha de transferência encostada no pedestal; a roda da cabeceira tem o bloco do freio pousado e a dos pés, o bloco erguido. Rodas (26 cm de diâmetro contra 15 a 20 reais) e bloco do freio (22 cm) maiores que o real, de propósito, para o selo do app esconder menos. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+    "modification": "Maca paralela à mesa de exame, do lado do espectador, com um vão lateral entre as duas, paciente deitada na maca, suporte de soro com a linha esticada até o braço e prancha de transferência encostada no pedestal; as rodas da maca estão com o bloco do freio pousado, menos a da frente do lado dos pés, com o bloco erguido. Rodas (26 cm de diâmetro contra 15 a 20 reais) e bloco do freio (22 cm) maiores que o real, de propósito, para o selo do app esconder menos. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
   },
   {
     "id": "raio-x-movel-no-leito",
@@ -340,7 +340,7 @@
     "author": "Radiant",
     "license": "Arte própria do projeto, sem licença de terceiro",
     "receita": "scripts/content/figuras/cenas/dosimetro-no-corpo.mjs",
-    "modification": "Profissional de avental, de frente, com crachá de dosimetria no peito, anel em volta da mão do braço estendido, dosímetro na haste dos óculos e, à direita, quadro de parede com o dosímetro de referência. Dosímetros bem maiores que o real, de propósito (tronco 24 x 16 contra 3 x 4 cm, olho 13 x 11 contra 1,5 x 2, anel de 10,4 de raio, referência 34 x 24 contra 5 x 3). Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+    "modification": "Profissional de avental, de frente, com crachá de dosimetria no peito, anel em volta da mão do braço estendido, dosímetro na haste dos óculos e, à direita, quadro de parede com o dosímetro de referência. Dosímetros bem maiores que o real, de propósito (tronco 24 x 16 contra 3 x 4 cm, olho 13 x 11 contra 1,5 x 2, anel de 9 de raio externo e 5 de altura, referência 34 x 24 contra 5 x 3). Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
   },
   {
     "id": "produto-dose-area",

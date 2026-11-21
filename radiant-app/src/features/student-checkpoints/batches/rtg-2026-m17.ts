@@ -6,7 +6,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m17",
-  "materialSha256": "6a21f14e071fc0d34899aeaafc780e93af89d0db84524d9c5d509ce1ed08518b",
+  "materialSha256": "fe7eeca9047ee454ff56deb825ed53322eeab94ca251344bc0cb373a47ba81a5",
   "trackId": "track:rtg-2026:m17",
   "unitId": "unit:rtg-2026:m17",
   "contentVersion": "rtg-2026-m17-v1",
@@ -710,37 +710,37 @@ export const RTG_2026_M17: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m17:aula-02:i4:1",
                   "label": "Roda da maca com o bloco azul pousado",
-                  "x": 0.08,
-                  "y": 0.5271,
+                  "x": 0.1459,
+                  "y": 0.6333,
                   "width": 0.08,
-                  "height": 0.1344,
+                  "height": 0.1479,
                   "explanation": "Com o bloco pousado, essa roda está travada: a maca não se afasta quando a pessoa se apoia."
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-02:i4:2",
                   "label": "Roda da maca com o bloco erguido",
-                  "x": 0.3507,
-                  "y": 0.5535,
+                  "x": 0.4787,
+                  "y": 0.6583,
                   "width": 0.08,
-                  "height": 0.1809,
+                  "height": 0.2125,
                   "explanation": "Com o bloco erguido a roda está solta: a maca pode se afastar quando a pessoa se apoia nela."
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-02:i4:3",
                   "label": "Prancha encostada no pedestal da mesa",
-                  "x": 0.6773,
-                  "y": 0.6028,
-                  "width": 0.1292,
-                  "height": 0.2587,
+                  "x": 0.7812,
+                  "y": 0.4021,
+                  "width": 0.1531,
+                  "height": 0.3208,
                   "explanation": "Encostada no pedestal e fora da passagem, a prancha não atrapalha: ela só entra se o serviço a usar."
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-02:i4:4",
                   "label": "Linha do soro esticada até a paciente",
-                  "x": 0.1807,
-                  "y": 0.2898,
+                  "x": 0.1405,
+                  "y": 0.2746,
                   "width": 0.08,
-                  "height": 0.1041,
+                  "height": 0.08,
                   "explanation": "A linha esticada pode soltar o acesso quando a paciente se mexe: avise a equipe, sem mexer na linha."
                 }
               ],
@@ -1013,34 +1013,34 @@ export const RTG_2026_M17: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m17:aula-03:i3:1",
                   "label": "Roda sob a cabeceira da maca",
-                  "x": 0.08,
-                  "y": 0.5271,
+                  "x": 0.1459,
+                  "y": 0.6333,
                   "width": 0.08,
-                  "height": 0.1344
+                  "height": 0.1479
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-03:i3:2",
                   "label": "Roda do lado dos pés da maca",
-                  "x": 0.3507,
-                  "y": 0.5535,
+                  "x": 0.4787,
+                  "y": 0.6583,
                   "width": 0.08,
-                  "height": 0.1809
+                  "height": 0.2125
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-03:i3:3",
                   "label": "Vão entre maca e mesa",
-                  "x": 0.4969,
-                  "y": 0.4326,
-                  "width": 0.1206,
-                  "height": 0.1271
+                  "x": 0.5203,
+                  "y": 0.3833,
+                  "width": 0.1609,
+                  "height": 0.0938
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-03:i3:4",
                   "label": "Prancha de transferência",
-                  "x": 0.6773,
-                  "y": 0.6028,
-                  "width": 0.1292,
-                  "height": 0.2587
+                  "x": 0.7812,
+                  "y": 0.4021,
+                  "width": 0.1531,
+                  "height": 0.3208
                 }
               ],
               "correctRegionIds": [
@@ -6819,7 +6819,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6a21f14e071fc0d34899aeaafc780e93af89d0db84524d9c5d509ce1ed08518b"
+      "materialSha256": "fe7eeca9047ee454ff56deb825ed53322eeab94ca251344bc0cb373a47ba81a5"
     },
     {
       "schemaVersion": 1,
@@ -6828,7 +6828,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6a21f14e071fc0d34899aeaafc780e93af89d0db84524d9c5d509ce1ed08518b"
+      "materialSha256": "fe7eeca9047ee454ff56deb825ed53322eeab94ca251344bc0cb373a47ba81a5"
     },
     {
       "schemaVersion": 1,
@@ -6837,7 +6837,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6a21f14e071fc0d34899aeaafc780e93af89d0db84524d9c5d509ce1ed08518b"
+      "materialSha256": "fe7eeca9047ee454ff56deb825ed53322eeab94ca251344bc0cb373a47ba81a5"
     },
     {
       "schemaVersion": 1,
@@ -6846,7 +6846,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6a21f14e071fc0d34899aeaafc780e93af89d0db84524d9c5d509ce1ed08518b"
+      "materialSha256": "fe7eeca9047ee454ff56deb825ed53322eeab94ca251344bc0cb373a47ba81a5"
     },
     {
       "schemaVersion": 1,
@@ -6855,7 +6855,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6a21f14e071fc0d34899aeaafc780e93af89d0db84524d9c5d509ce1ed08518b"
+      "materialSha256": "fe7eeca9047ee454ff56deb825ed53322eeab94ca251344bc0cb373a47ba81a5"
     },
     {
       "schemaVersion": 1,
@@ -6864,7 +6864,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6a21f14e071fc0d34899aeaafc780e93af89d0db84524d9c5d509ce1ed08518b"
+      "materialSha256": "fe7eeca9047ee454ff56deb825ed53322eeab94ca251344bc0cb373a47ba81a5"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

@@ -62,14 +62,14 @@ export function pecas() {
     { id: "sombra-operador", svg: sombraPessoa(OPER) },
     { id: "operador", svg: operador() },
     { id: "cama", svg: cama() },
-    { id: "detector", svg: detectorG() },
+    { id: "detector", svg: detectorG() + brilhoDet() }, // o brilho fica no detector, pintado antes do paciente: não aparece como retângulo na frente do tronco
     { id: "paciente", svg: paciente() },
     { id: "pe-do-leito", svg: peDoLeito(P, { x: 106 }) },
     { id: "sombra-circulante", svg: sombraPessoa(BYST) },
     { id: "circulante", svg: pessoa(P, BYST, BYST_OPT) },
     { id: "braco", svg: braco(P, { ux: UX, yc: YC, za: ZA, f0: F0 }) },
     { id: "tubo", svg: cabecoteG() + colimadorG() },
-    { id: "feixe", svg: feixe(P, { f0: F0x, b: B, c: C, u: D, v: Y, campo: 32 }) + brilhoDet() },
+    { id: "feixe", svg: feixe(P, { f0: F0x, b: B, c: C, u: D, v: Y, campo: 32 }) },
     { id: "espalhada", svg: extras() },
   ];
 }

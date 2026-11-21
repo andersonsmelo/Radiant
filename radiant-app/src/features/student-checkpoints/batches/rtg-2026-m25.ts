@@ -6,7 +6,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m25",
-  "materialSha256": "a85ade60fbe15197b5592fa5527913ec59e4b6712c892bfeceb09f1f4a2cd6d4",
+  "materialSha256": "c31d7f60104d431591b00781c9ea1ae2f007bc28b35e484fdc326b5cf4ecaaf7",
   "trackId": "track:rtg-2026:m25",
   "unitId": "unit:rtg-2026:m25",
   "contentVersion": "rtg-2026-m25-v1",
@@ -1797,10 +1797,10 @@ export const RTG_2026_M25: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m25:aula-05:i4:5",
                   "label": "Detector atrás do paciente",
-                  "x": 0.4375,
-                  "y": 0.4042,
-                  "width": 0.0906,
-                  "height": 0.175,
+                  "x": 0.4319,
+                  "y": 0.425,
+                  "width": 0.08,
+                  "height": 0.1521,
                   "explanation": "O detector atrás do paciente, alinhado com o tubo, faz parte do arranjo e não é um risco."
                 }
               ],
@@ -6673,7 +6673,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a85ade60fbe15197b5592fa5527913ec59e4b6712c892bfeceb09f1f4a2cd6d4"
+      "materialSha256": "c31d7f60104d431591b00781c9ea1ae2f007bc28b35e484fdc326b5cf4ecaaf7"
     },
     {
       "schemaVersion": 1,
@@ -6682,7 +6682,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a85ade60fbe15197b5592fa5527913ec59e4b6712c892bfeceb09f1f4a2cd6d4"
+      "materialSha256": "c31d7f60104d431591b00781c9ea1ae2f007bc28b35e484fdc326b5cf4ecaaf7"
     },
     {
       "schemaVersion": 1,
@@ -6691,7 +6691,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a85ade60fbe15197b5592fa5527913ec59e4b6712c892bfeceb09f1f4a2cd6d4"
+      "materialSha256": "c31d7f60104d431591b00781c9ea1ae2f007bc28b35e484fdc326b5cf4ecaaf7"
     },
     {
       "schemaVersion": 1,
@@ -6700,7 +6700,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a85ade60fbe15197b5592fa5527913ec59e4b6712c892bfeceb09f1f4a2cd6d4"
+      "materialSha256": "c31d7f60104d431591b00781c9ea1ae2f007bc28b35e484fdc326b5cf4ecaaf7"
     },
     {
       "schemaVersion": 1,
@@ -6709,7 +6709,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a85ade60fbe15197b5592fa5527913ec59e4b6712c892bfeceb09f1f4a2cd6d4"
+      "materialSha256": "c31d7f60104d431591b00781c9ea1ae2f007bc28b35e484fdc326b5cf4ecaaf7"
     },
     {
       "schemaVersion": 1,
@@ -6718,7 +6718,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a85ade60fbe15197b5592fa5527913ec59e4b6712c892bfeceb09f1f4a2cd6d4"
+      "materialSha256": "c31d7f60104d431591b00781c9ea1ae2f007bc28b35e484fdc326b5cf4ecaaf7"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

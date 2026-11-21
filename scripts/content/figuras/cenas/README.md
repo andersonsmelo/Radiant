@@ -12,10 +12,10 @@ sai da fonte por `../build-spec.mjs`, como nas figuras de acervo da fase 1. Brie
 | `conferencia-de-identidade` | [`conferencia-de-identidade.mjs`](conferencia-de-identidade.mjs) | [`.pecas.mjs`](conferencia-de-identidade.pecas.mjs) | m17-01 (rotular) |
 | `pontos-de-contato-da-sala` | [`pontos-de-contato-da-sala.mjs`](pontos-de-contato-da-sala.mjs) | [`.pecas.mjs`](pontos-de-contato-da-sala.pecas.mjs) | m17-04 (hotspot) |
 | `itens-de-emergencia-da-sala` | [`itens-de-emergencia-da-sala.mjs`](itens-de-emergencia-da-sala.mjs) | [`.pecas.mjs`](itens-de-emergencia-da-sala.pecas.mjs) | m17-05 (rotular), m17-06 (hotspot) |
-| `transferencia-maca-mesa` | [`transferencia-maca-mesa.mjs`](transferencia-maca-mesa.mjs) | [`.pecas.mjs`](transferencia-maca-mesa.pecas.mjs) e `comum/maca.mjs` | m17-02 (visual do conceito), m17-01 (caça ao risco) e m17-02 (hotspot) |
-| `raio-x-movel-no-leito` | [`raio-x-movel-no-leito.mjs`](raio-x-movel-no-leito.mjs) | [`.pecas.mjs`](raio-x-movel-no-leito.pecas.mjs) | m25-04 (caça ao risco) |
-| `trauma-raio-horizontal` | [`trauma-raio-horizontal.mjs`](trauma-raio-horizontal.mjs) | [`.pecas.mjs`](trauma-raio-horizontal.pecas.mjs) e `comum/maca.mjs` | m25-05 (hotspot) |
-| `dosimetro-no-corpo` | [`dosimetro-no-corpo.mjs`](dosimetro-no-corpo.mjs) | [`.pecas.mjs`](dosimetro-no-corpo.pecas.mjs) | m21-03 (rotular) e m21-06 (hotspot) |
+| `transferencia-maca-mesa` | [`transferencia-maca-mesa.mjs`](transferencia-maca-mesa.mjs) | [`.pecas.mjs`](transferencia-maca-mesa.pecas.mjs) e `comum/maca.mjs` | m17-02 i4 (caça ao risco), m17-03 (visual do conceito e i3, tocar) |
+| `raio-x-movel-no-leito` | [`raio-x-movel-no-leito.mjs`](raio-x-movel-no-leito.mjs) | [`.pecas.mjs`](raio-x-movel-no-leito.pecas.mjs) | m25-05 i4 (caça ao risco) |
+| `trauma-raio-horizontal` | [`trauma-raio-horizontal.mjs`](trauma-raio-horizontal.mjs) | [`.pecas.mjs`](trauma-raio-horizontal.pecas.mjs) e `comum/maca.mjs` | m25-06 (visual do conceito e i2, tocar) |
+| `dosimetro-no-corpo` | [`dosimetro-no-corpo.mjs`](dosimetro-no-corpo.mjs) | [`.pecas.mjs`](dosimetro-no-corpo.pecas.mjs) | m21-03 i2 (rotular) e m21-06 i2 (tocar) |
 | `produto-dose-area` | [`produto-dose-area.mjs`](produto-dose-area.mjs) | [`.pecas.mjs`](produto-dose-area.pecas.mjs) | m21-04 (visual do conceito) |
 
 Compartilhado em `comum/`: `maca.mjs` (a maca do lote 2B, com rodas e bloco do freio, para a transferência e o trauma), `lib.mjs` e `emitir.mjs` (junta as peças e achata o CSS do kit em atributos pelo Chrome), `sala.mjs` (a sala das três cenas da m17: mesmo

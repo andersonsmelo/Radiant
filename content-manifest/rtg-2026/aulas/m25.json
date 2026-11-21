@@ -1685,10 +1685,10 @@
             },
             {
               "label": "Detector atrás do paciente",
-              "x": 0.4375,
-              "y": 0.4042,
-              "width": 0.0906,
-              "height": 0.175,
+              "x": 0.4319,
+              "y": 0.425,
+              "width": 0.08,
+              "height": 0.1521,
               "risk": false,
               "feedback": "O detector atrás do paciente, alinhado com o tubo, faz parte do arranjo e não é um risco.",
               "alvo": "Detector atrás do paciente"

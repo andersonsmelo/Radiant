@@ -6,7 +6,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m21",
-  "materialSha256": "485ca147dce8696388f852d87e798bafb56993b0f258804c88c772eb7f774deb",
+  "materialSha256": "004e1ede9fe664d37eedb7805286d772f69acfb0fff24c1917dd68ec3f651d3b",
   "trackId": "track:rtg-2026:m21",
   "unitId": "unit:rtg-2026:m21",
   "contentVersion": "rtg-2026-m21-v1",
@@ -961,9 +961,9 @@ export const RTG_2026_M21: ProductionBatchV1 = {
                 },
                 {
                   "id": "point:rtg-2026:m21:aula-03:i2:2",
-                  "x": 0.4813,
-                  "y": 0.6,
-                  "where": "na ponta do braço estendido, em volta da mão",
+                  "x": 0.4844,
+                  "y": 0.5979,
+                  "where": "na mão do braço estendido",
                   "correctLabelId": "label:rtg-2026:m21:aula-03:i2:2"
                 },
                 {
@@ -1950,7 +1950,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
             "accessibility": {
               "label": "Toque na imagem: No relatório do mês, tronco, olho e referência vieram como de costume; o anel veio bem acima. Toque no ponto do corpo cuja leitura você vai descrever ao responsável."
             },
-            "help": "O anel está em volta de um dedo.",
+            "help": "O anel está na mão do braço estendido.",
             "type": "hotspot",
             "feedback": {
               "correct": "Isso: o anel fala da mão, e é isso que você descreve ao responsável.",
@@ -1971,10 +1971,10 @@ export const RTG_2026_M21: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m21:aula-06:i2:2",
                   "label": "Mão estendida",
-                  "x": 0.4019,
-                  "y": 0.4637,
-                  "width": 0.1648,
-                  "height": 0.2046
+                  "x": 0.394,
+                  "y": 0.454,
+                  "width": 0.1786,
+                  "height": 0.1746
                 },
                 {
                   "id": "region:rtg-2026:m21:aula-06:i2:3",
@@ -1982,7 +1982,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
                   "x": 0.2147,
                   "y": 0.2772,
                   "width": 0.0937,
-                  "height": 0.1712
+                  "height": 0.135
                 },
                 {
                   "id": "region:rtg-2026:m21:aula-06:i2:4",
@@ -6742,7 +6742,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "485ca147dce8696388f852d87e798bafb56993b0f258804c88c772eb7f774deb"
+      "materialSha256": "004e1ede9fe664d37eedb7805286d772f69acfb0fff24c1917dd68ec3f651d3b"
     },
     {
       "schemaVersion": 1,
@@ -6751,7 +6751,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "485ca147dce8696388f852d87e798bafb56993b0f258804c88c772eb7f774deb"
+      "materialSha256": "004e1ede9fe664d37eedb7805286d772f69acfb0fff24c1917dd68ec3f651d3b"
     },
     {
       "schemaVersion": 1,
@@ -6760,7 +6760,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "485ca147dce8696388f852d87e798bafb56993b0f258804c88c772eb7f774deb"
+      "materialSha256": "004e1ede9fe664d37eedb7805286d772f69acfb0fff24c1917dd68ec3f651d3b"
     },
     {
       "schemaVersion": 1,
@@ -6769,7 +6769,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "485ca147dce8696388f852d87e798bafb56993b0f258804c88c772eb7f774deb"
+      "materialSha256": "004e1ede9fe664d37eedb7805286d772f69acfb0fff24c1917dd68ec3f651d3b"
     },
     {
       "schemaVersion": 1,
@@ -6778,7 +6778,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "485ca147dce8696388f852d87e798bafb56993b0f258804c88c772eb7f774deb"
+      "materialSha256": "004e1ede9fe664d37eedb7805286d772f69acfb0fff24c1917dd68ec3f651d3b"
     },
     {
       "schemaVersion": 1,
@@ -6787,7 +6787,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "485ca147dce8696388f852d87e798bafb56993b0f258804c88c772eb7f774deb"
+      "materialSha256": "004e1ede9fe664d37eedb7805286d772f69acfb0fff24c1917dd68ec3f651d3b"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

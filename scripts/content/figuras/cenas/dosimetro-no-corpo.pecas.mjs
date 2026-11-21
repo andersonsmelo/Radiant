@@ -16,7 +16,7 @@ const POP = { pose: "em-pe", facing: FACE, roupa: "scrub", avental: true, bracos
 const pt = (l, f, s) => at(O, [LT, l], [FACE, f], [Z, s]);
 // os dosimetros sao amarelos (tom dourado do kit); tamanhos EXAGERADOS para o marcador do app esconder menos
 const OURO = { tone: "hi", className: "c-kid1" };
-const AUM = { tronco: [24, 16], olho: [13, 11], anel: 10.4, ref: [34, 24] }; // ver relatorio: tamanho no desenho
+const AUM = { tronco: [24, 16], olho: [13, 11], anel: [5, 4.6, 9], ref: [34, 24] }; // ver relatorio: tamanho no desenho
 
 function geometriaDaMao() {
   const sh = pt(SD * 17.6, 0, 47.6);
@@ -56,9 +56,9 @@ function pecasDe(P) {
   const [ow, oh] = AUM.olho;
   const Fo = G.frameOf(at(O, [LT, SD * 8.9], [FACE, 5.2], [Z, hz - 1.4]), mul3(LT, SD), FACE, Z);
   p.olho = prisma(Fo, roundRect(-ow / 2 + 0.5, ow / 2 + 0.5, 0, oh, 1), 0, 2.4);
-  // anel: banda amarela em volta da mao estendida
-  const Fa = G.frameOf(add3(wr, mul3(fore, 6.4)), fore, LT, cross3(fore, LT));
-  p.anel = S(G.ringBand(0, 3.6, 3.9, AUM.anel, Fa, P, { steps: 16, smooth: false }), OURO);
+  // anel: banda amarela estreita (5 cm ao longo do antebraço, parede de 4,4 cm) em volta da mao estendida; a mao do kit e uma luva sem dedos (raio de 4,4 cm)
+  const Fa = G.frameOf(add3(wr, mul3(fore, 5.4)), fore, LT, cross3(fore, LT));
+  p.anel = S(G.ringBand(0, AUM.anel[0], AUM.anel[1], AUM.anel[2], Fa, P, { steps: 18, smooth: false }), OURO);
   return p;
 }
 const ORDEM = ["sala", "quadro", "ref", "sombra", "pessoa", "tronco", "oculos", "olho", "anel"];

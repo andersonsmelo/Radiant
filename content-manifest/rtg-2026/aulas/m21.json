@@ -873,9 +873,9 @@
             },
             {
               "label": "Dosímetro de anel",
-              "x": 0.4813,
-              "y": 0.6,
-              "where": "na ponta do braço estendido, em volta da mão",
+              "x": 0.4844,
+              "y": 0.5979,
+              "where": "na mão do braço estendido",
               "alvo": "Mão estendida (anel)"
             },
             {
@@ -1890,10 +1890,10 @@
             },
             {
               "label": "Mão estendida",
-              "x": 0.4019,
-              "y": 0.4637,
-              "width": 0.1648,
-              "height": 0.2046,
+              "x": 0.394,
+              "y": 0.454,
+              "width": 0.1786,
+              "height": 0.1746,
               "correct": true,
               "alvo": "Mão estendida (anel)"
             },
@@ -1902,7 +1902,7 @@
               "x": 0.2147,
               "y": 0.2772,
               "width": 0.0937,
-              "height": 0.1712,
+              "height": 0.135,
               "alvo": "Olho (haste dos óculos)"
             },
             {
@@ -1916,7 +1916,7 @@
           ],
           "feedbackCorrect": "Isso: o anel fala da mão, e é isso que você descreve ao responsável.",
           "feedbackIncorrect": "Esse ponto não é o do anel: ache no relatório a leitura que destoa e lembre que parte do corpo ela representa.",
-          "help": "O anel está em volta de um dedo.",
+          "help": "O anel está na mão do braço estendido.",
           "sourceIds": [
             "pmc-protecao-ir",
             "pmc-dosimetro-controle"

@@ -577,9 +577,9 @@ export const FIGURES = {
       id: 'transferencia-maca-mesa',
       name: 'transferenciaMacaMesa',
       header: `// ${ANATOMY}
-// Maca ao lado da mesa de exame, com um vão entre elas, paciente deitada, suporte de soro com a linha até o braço e prancha encostada no pedestal; roda da cabeceira com o bloco do freio pousado e roda dos pés com o bloco erguido (rodas e bloco maiores que o real, de propósito).
+// Maca paralela à mesa de exame, com um vão lateral entre elas, paciente deitada, suporte de soro com a linha até o braço e prancha encostada no pedestal; bloco do freio pousado nas rodas da maca, menos na roda dos pés da frente, com o bloco erguido (rodas e bloco maiores que o real, de propósito).
 // Receita: scripts/content/figuras/cenas/transferencia-maca-mesa.mjs; fonte versionada: scripts/content/figuras/fontes/transferencia-maca-mesa.svg (640x480, vira 320x240 com escala 0,5).`,
-      alt: 'Maca ao lado da mesa, com vão entre elas e a paciente deitada. Bloco do freio pousado na roda da cabeceira e erguido na dos pés; soro com linha até o braço.',
+      alt: 'Maca paralela à mesa, com vão entre elas, paciente deitada, soro até o braço e prancha no pedestal; blocos do freio nas rodas da frente, em alturas diferentes.',
       transform: (o) => noQuadro(o.viewBox),
     }),
   },

@@ -580,40 +580,40 @@
           "regions": [
             {
               "label": "Roda da maca com o bloco azul pousado",
-              "x": 0.08,
-              "y": 0.5271,
+              "x": 0.1459,
+              "y": 0.6333,
               "width": 0.08,
-              "height": 0.1344,
+              "height": 0.1479,
               "risk": false,
               "feedback": "Com o bloco pousado, essa roda está travada: a maca não se afasta quando a pessoa se apoia.",
               "alvo": "Roda da maca com o bloco pousado (sob a cabeceira)"
             },
             {
               "label": "Roda da maca com o bloco erguido",
-              "x": 0.3507,
-              "y": 0.5535,
+              "x": 0.4787,
+              "y": 0.6583,
               "width": 0.08,
-              "height": 0.1809,
+              "height": 0.2125,
               "risk": true,
               "feedback": "Com o bloco erguido a roda está solta: a maca pode se afastar quando a pessoa se apoia nela.",
               "alvo": "Roda da maca com o bloco erguido (do lado dos pés)"
             },
             {
               "label": "Prancha encostada no pedestal da mesa",
-              "x": 0.6773,
-              "y": 0.6028,
-              "width": 0.1292,
-              "height": 0.2587,
+              "x": 0.7812,
+              "y": 0.4021,
+              "width": 0.1531,
+              "height": 0.3208,
               "risk": false,
               "feedback": "Encostada no pedestal e fora da passagem, a prancha não atrapalha: ela só entra se o serviço a usar.",
               "alvo": "Prancha de transferência encostada no pedestal"
             },
             {
               "label": "Linha do soro esticada até a paciente",
-              "x": 0.1807,
-              "y": 0.2898,
+              "x": 0.1405,
+              "y": 0.2746,
               "width": 0.08,
-              "height": 0.1041,
+              "height": 0.08,
               "risk": true,
               "feedback": "A linha esticada pode soltar o acesso quando a paciente se mexe: avise a equipe, sem mexer na linha.",
               "alvo": "Linha do soro esticada até a paciente"
@@ -900,35 +900,35 @@
           "regions": [
             {
               "label": "Roda sob a cabeceira da maca",
-              "x": 0.08,
-              "y": 0.5271,
+              "x": 0.1459,
+              "y": 0.6333,
               "width": 0.08,
-              "height": 0.1344,
+              "height": 0.1479,
               "alvo": "Roda da maca com o bloco pousado (sob a cabeceira)"
             },
             {
               "label": "Roda do lado dos pés da maca",
-              "x": 0.3507,
-              "y": 0.5535,
+              "x": 0.4787,
+              "y": 0.6583,
               "width": 0.08,
-              "height": 0.1809,
+              "height": 0.2125,
               "correct": true,
               "alvo": "Roda da maca com o bloco erguido (do lado dos pés)"
             },
             {
               "label": "Vão entre maca e mesa",
-              "x": 0.4969,
-              "y": 0.4326,
-              "width": 0.1206,
-              "height": 0.1271,
+              "x": 0.5203,
+              "y": 0.3833,
+              "width": 0.1609,
+              "height": 0.0938,
               "alvo": "Vão entre maca e mesa"
             },
             {
               "label": "Prancha de transferência",
-              "x": 0.6773,
-              "y": 0.6028,
-              "width": 0.1292,
-              "height": 0.2587,
+              "x": 0.7812,
+              "y": 0.4021,
+              "width": 0.1531,
+              "height": 0.3208,
               "alvo": "Prancha de transferência encostada no pedestal"
             }
           ],
