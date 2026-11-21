@@ -6,7 +6,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m29",
-  "materialSha256": "53b764c0b475ac82c17bee2167c6a58543a1a69c8bde55b50a2356b718fdf2ad",
+  "materialSha256": "a9bf7dc393ba397154804efb678c68fc914eeb20c3f0af8a86087d8aa307fc51",
   "trackId": "track:rtg-2026:m29",
   "unitId": "unit:rtg-2026:m29",
   "contentVersion": "rtg-2026-m29-v1",
@@ -475,7 +475,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Dois intervalos contados a partir do pulso",
-            "body": "Cada repetição começa com um pulso de excitação, a barra amarela. O TE é o intervalo do pulso ao centro do eco: a chave curta. O TR é o intervalo de um pulso até o pulso seguinte: a chave longa. Na ordem: pulso de excitação, sinal que começa a se desfazer, centro do eco, que fecha o TE, e pulso seguinte, que fecha o TR. Os dois intervalos contam a partir do pulso.",
+            "body": "Cada repetição começa com um pulso de excitação, a barra amarela. O TE é o intervalo do pulso ao centro do eco: a chave curta. O TR é o intervalo de um pulso até o pulso seguinte: a chave longa. Na ordem: pulso de excitação, sinal que começa a se desfazer, centro do eco, que fecha o TE, e pulso seguinte, que fecha o TR. Os dois intervalos contam a partir do pulso. Tempo na horizontal; sinal na vertical.",
             "keyPoints": [
               "TE: do pulso ao centro do eco. É a chave curta.",
               "TR: de um pulso ao pulso seguinte. É a chave longa."
@@ -6652,7 +6652,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "53b764c0b475ac82c17bee2167c6a58543a1a69c8bde55b50a2356b718fdf2ad"
+      "materialSha256": "a9bf7dc393ba397154804efb678c68fc914eeb20c3f0af8a86087d8aa307fc51"
     },
     {
       "schemaVersion": 1,
@@ -6661,7 +6661,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "53b764c0b475ac82c17bee2167c6a58543a1a69c8bde55b50a2356b718fdf2ad"
+      "materialSha256": "a9bf7dc393ba397154804efb678c68fc914eeb20c3f0af8a86087d8aa307fc51"
     },
     {
       "schemaVersion": 1,
@@ -6670,7 +6670,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "53b764c0b475ac82c17bee2167c6a58543a1a69c8bde55b50a2356b718fdf2ad"
+      "materialSha256": "a9bf7dc393ba397154804efb678c68fc914eeb20c3f0af8a86087d8aa307fc51"
     },
     {
       "schemaVersion": 1,
@@ -6679,7 +6679,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "53b764c0b475ac82c17bee2167c6a58543a1a69c8bde55b50a2356b718fdf2ad"
+      "materialSha256": "a9bf7dc393ba397154804efb678c68fc914eeb20c3f0af8a86087d8aa307fc51"
     },
     {
       "schemaVersion": 1,
@@ -6688,7 +6688,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "53b764c0b475ac82c17bee2167c6a58543a1a69c8bde55b50a2356b718fdf2ad"
+      "materialSha256": "a9bf7dc393ba397154804efb678c68fc914eeb20c3f0af8a86087d8aa307fc51"
     },
     {
       "schemaVersion": 1,
@@ -6697,7 +6697,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "53b764c0b475ac82c17bee2167c6a58543a1a69c8bde55b50a2356b718fdf2ad"
+      "materialSha256": "a9bf7dc393ba397154804efb678c68fc914eeb20c3f0af8a86087d8aa307fc51"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

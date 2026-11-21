@@ -6,7 +6,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m22",
-  "materialSha256": "9876410a5ef3c28310d2f8db59fa8fa32ad05c8fcecfaa8ad224b0e9c9112f8d",
+  "materialSha256": "174c81da7ed38ebfa0b51c15d35ae327c846ebe90b429a32abbc204b988c5709",
   "trackId": "track:rtg-2026:m22",
   "unitId": "unit:rtg-2026:m22",
   "contentVersion": "rtg-2026-m22-v1",
@@ -239,37 +239,37 @@ export const RTG_2026_M22: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m22:aula-01:i2:1",
-                  "x": 0.094,
-                  "y": 0.583,
+                  "x": 0.131,
+                  "y": 0.375,
                   "where": "na ponta esquerda do eixo, a barra estreita",
                   "correctLabelId": "label:rtg-2026:m22:aula-01:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m22:aula-01:i2:2",
-                  "x": 0.297,
-                  "y": 0.583,
+                  "x": 0.303,
+                  "y": 0.492,
                   "where": "no meio do eixo, o grupo largo de barras",
                   "correctLabelId": "label:rtg-2026:m22:aula-01:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m22:aula-01:i2:3",
-                  "x": 0.503,
-                  "y": 0.583,
+                  "x": 0.475,
+                  "y": 0.625,
                   "where": "na ponta direita do eixo, a barra estreita",
                   "correctLabelId": "label:rtg-2026:m22:aula-01:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m22:aula-01:i2:4",
-                  "x": 0.419,
-                  "y": 0.158,
+                  "x": 0.409,
+                  "y": 0.2,
                   "where": "no alto, a ponta direita do colchete azul",
                   "correctLabelId": "label:rtg-2026:m22:aula-01:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m22:aula-01:i2:5",
-                  "x": 0.775,
-                  "y": 0.475,
-                  "where": "no gráfico da direita, o traço amarelo em S",
+                  "x": 0.88,
+                  "y": 0.207,
+                  "where": "no gráfico da direita, o traço em S, junto ao patamar alto",
                   "correctLabelId": "label:rtg-2026:m22:aula-01:i2:5"
                 }
               ],
@@ -521,7 +521,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Cada filtro cobra um preço",
-            "body": "A figura mostra a mesma borda em três perfis. No de cima, o original, a transição é curta. No do meio, o realce de borda exagera a diferença junto da borda: o contorno fica mais marcado, e o ruído fica mais evidente. No de baixo, a suavização alarga a transição: o granulado diminui, mas detalhes finos vizinhos se fundem. O grau de cada filtro vem do protocolo do serviço.",
+            "body": "A figura mostra a mesma borda em três perfis. Eixo horizontal: posição na borda; vertical: valor do pixel. No de cima, o original, a transição é curta. No do meio, o realce de borda exagera a diferença junto da borda: o contorno fica mais marcado, e o ruído fica mais evidente. No de baixo, a suavização alarga a transição: o granulado diminui, mas detalhes finos vizinhos se fundem. O grau de cada filtro vem do protocolo do serviço.",
             "keyPoints": [
               "Realce: borda mais marcada, ruído mais evidente.",
               "Suavização: fundo mais liso, detalhe fino mais fundido.",
@@ -6834,7 +6834,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9876410a5ef3c28310d2f8db59fa8fa32ad05c8fcecfaa8ad224b0e9c9112f8d"
+      "materialSha256": "174c81da7ed38ebfa0b51c15d35ae327c846ebe90b429a32abbc204b988c5709"
     },
     {
       "schemaVersion": 1,
@@ -6843,7 +6843,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9876410a5ef3c28310d2f8db59fa8fa32ad05c8fcecfaa8ad224b0e9c9112f8d"
+      "materialSha256": "174c81da7ed38ebfa0b51c15d35ae327c846ebe90b429a32abbc204b988c5709"
     },
     {
       "schemaVersion": 1,
@@ -6852,7 +6852,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9876410a5ef3c28310d2f8db59fa8fa32ad05c8fcecfaa8ad224b0e9c9112f8d"
+      "materialSha256": "174c81da7ed38ebfa0b51c15d35ae327c846ebe90b429a32abbc204b988c5709"
     },
     {
       "schemaVersion": 1,
@@ -6861,7 +6861,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9876410a5ef3c28310d2f8db59fa8fa32ad05c8fcecfaa8ad224b0e9c9112f8d"
+      "materialSha256": "174c81da7ed38ebfa0b51c15d35ae327c846ebe90b429a32abbc204b988c5709"
     },
     {
       "schemaVersion": 1,
@@ -6870,7 +6870,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9876410a5ef3c28310d2f8db59fa8fa32ad05c8fcecfaa8ad224b0e9c9112f8d"
+      "materialSha256": "174c81da7ed38ebfa0b51c15d35ae327c846ebe90b429a32abbc204b988c5709"
     },
     {
       "schemaVersion": 1,
@@ -6879,7 +6879,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9876410a5ef3c28310d2f8db59fa8fa32ad05c8fcecfaa8ad224b0e9c9112f8d"
+      "materialSha256": "174c81da7ed38ebfa0b51c15d35ae327c846ebe90b429a32abbc204b988c5709"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

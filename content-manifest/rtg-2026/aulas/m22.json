@@ -176,33 +176,33 @@
           "points": [
             {
               "label": "Área colimada",
-              "x": 0.094,
-              "y": 0.583,
+              "x": 0.131,
+              "y": 0.375,
               "where": "na ponta esquerda do eixo, a barra estreita"
             },
             {
               "label": "Anatomia",
-              "x": 0.297,
-              "y": 0.583,
+              "x": 0.303,
+              "y": 0.492,
               "where": "no meio do eixo, o grupo largo de barras"
             },
             {
               "label": "Radiação direta",
-              "x": 0.503,
-              "y": 0.583,
+              "x": 0.475,
+              "y": 0.625,
               "where": "na ponta direita do eixo, a barra estreita"
             },
             {
               "label": "Valores de interesse",
-              "x": 0.419,
-              "y": 0.158,
+              "x": 0.409,
+              "y": 0.2,
               "where": "no alto, a ponta direita do colchete azul"
             },
             {
               "label": "Curva de conversão",
-              "x": 0.775,
-              "y": 0.475,
-              "where": "no gráfico da direita, o traço amarelo em S"
+              "x": 0.88,
+              "y": 0.207,
+              "where": "no gráfico da direita, o traço em S, junto ao patamar alto"
             }
           ],
           "distractors": [
@@ -484,7 +484,7 @@
       },
       "concept": {
         "title": "Cada filtro cobra um preço",
-        "body": "A figura mostra a mesma borda em três perfis. No de cima, o original, a transição é curta. No do meio, o realce de borda exagera a diferença junto da borda: o contorno fica mais marcado, e o ruído fica mais evidente. No de baixo, a suavização alarga a transição: o granulado diminui, mas detalhes finos vizinhos se fundem. O grau de cada filtro vem do protocolo do serviço.",
+        "body": "A figura mostra a mesma borda em três perfis. Eixo horizontal: posição na borda; vertical: valor do pixel. No de cima, o original, a transição é curta. No do meio, o realce de borda exagera a diferença junto da borda: o contorno fica mais marcado, e o ruído fica mais evidente. No de baixo, a suavização alarga a transição: o granulado diminui, mas detalhes finos vizinhos se fundem. O grau de cada filtro vem do protocolo do serviço.",
         "keyPoints": [
           "Realce: borda mais marcada, ruído mais evidente.",
           "Suavização: fundo mais liso, detalhe fino mais fundido.",

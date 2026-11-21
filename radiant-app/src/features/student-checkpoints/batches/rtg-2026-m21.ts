@@ -6,7 +6,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m21",
-  "materialSha256": "004e1ede9fe664d37eedb7805286d772f69acfb0fff24c1917dd68ec3f651d3b",
+  "materialSha256": "dd83e2f08000042acad0cf89d4abb994ab0312cf00336f8b9f03f03f8578be65",
   "trackId": "track:rtg-2026:m21",
   "unitId": "unit:rtg-2026:m21",
   "contentVersion": "rtg-2026-m21-v1",
@@ -264,35 +264,35 @@ export const RTG_2026_M21: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m21:aula-01:i2:1",
-                  "x": 0.139,
+                  "x": 0.2,
                   "y": 0.667,
                   "where": "à esquerda, o ponto circulado na fita de cima",
                   "correctLabelId": "label:rtg-2026:m21:aula-01:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m21:aula-01:i2:2",
-                  "x": 0.673,
-                  "y": 0.275,
+                  "x": 0.669,
+                  "y": 0.292,
                   "where": "no alto à direita, o círculo grande com dois pequenos",
                   "correctLabelId": "label:rtg-2026:m21:aula-01:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m21:aula-01:i2:3",
-                  "x": 0.745,
-                  "y": 0.496,
-                  "where": "à direita, o ponto ciano descendo rumo à fita de cima",
+                  "x": 0.747,
+                  "y": 0.517,
+                  "where": "à direita, o ponto branco com halo no trilho tracejado",
                   "correctLabelId": "label:rtg-2026:m21:aula-01:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m21:aula-01:i2:4",
-                  "x": 0.376,
+                  "x": 0.425,
                   "y": 0.817,
                   "where": "embaixo, um corte só na fita de baixo",
                   "correctLabelId": "label:rtg-2026:m21:aula-01:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m21:aula-01:i2:5",
-                  "x": 0.845,
+                  "x": 0.8,
                   "y": 0.742,
                   "where": "à direita, as duas fitas cortadas na mesma altura",
                   "correctLabelId": "label:rtg-2026:m21:aula-01:i2:5"
@@ -6742,7 +6742,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "004e1ede9fe664d37eedb7805286d772f69acfb0fff24c1917dd68ec3f651d3b"
+      "materialSha256": "dd83e2f08000042acad0cf89d4abb994ab0312cf00336f8b9f03f03f8578be65"
     },
     {
       "schemaVersion": 1,
@@ -6751,7 +6751,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "004e1ede9fe664d37eedb7805286d772f69acfb0fff24c1917dd68ec3f651d3b"
+      "materialSha256": "dd83e2f08000042acad0cf89d4abb994ab0312cf00336f8b9f03f03f8578be65"
     },
     {
       "schemaVersion": 1,
@@ -6760,7 +6760,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "004e1ede9fe664d37eedb7805286d772f69acfb0fff24c1917dd68ec3f651d3b"
+      "materialSha256": "dd83e2f08000042acad0cf89d4abb994ab0312cf00336f8b9f03f03f8578be65"
     },
     {
       "schemaVersion": 1,
@@ -6769,7 +6769,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "004e1ede9fe664d37eedb7805286d772f69acfb0fff24c1917dd68ec3f651d3b"
+      "materialSha256": "dd83e2f08000042acad0cf89d4abb994ab0312cf00336f8b9f03f03f8578be65"
     },
     {
       "schemaVersion": 1,
@@ -6778,7 +6778,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "004e1ede9fe664d37eedb7805286d772f69acfb0fff24c1917dd68ec3f651d3b"
+      "materialSha256": "dd83e2f08000042acad0cf89d4abb994ab0312cf00336f8b9f03f03f8578be65"
     },
     {
       "schemaVersion": 1,
@@ -6787,7 +6787,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "004e1ede9fe664d37eedb7805286d772f69acfb0fff24c1917dd68ec3f651d3b"
+      "materialSha256": "dd83e2f08000042acad0cf89d4abb994ab0312cf00336f8b9f03f03f8578be65"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

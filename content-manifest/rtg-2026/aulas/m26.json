@@ -832,7 +832,7 @@
       },
       "concept": {
         "title": "Pulsos, imagem retida e tempo",
-        "body": "Na fluoroscopia contínua, o feixe fica ligado sem pausa enquanto dura a aquisição. Na pulsada, ele sai em pulsos curtos, com pausas sem feixe: menos pulsos por segundo, menos exposição. A última imagem pode ficar retida na tela e ser olhada sem nova exposição. Menos tempo de feixe ligado, menos exposição: o pé vai ao pedal só quando se olha o monitor. Alguns estudos, como o de deglutição, pedem mais pulsos.",
+        "body": "Na fluoroscopia contínua, o feixe fica ligado sem pausa. Tempo na horizontal; feixe ligado na vertical. Na pulsada, ele sai em pulsos curtos, com pausas sem feixe: menos pulsos por segundo, menos exposição. A última imagem pode ficar retida na tela e ser olhada sem nova exposição. Menos tempo de feixe ligado, menos exposição: o pé vai ao pedal só quando se olha o monitor. Alguns estudos, como o de deglutição, pedem mais pulsos.",
         "keyPoints": [
           "Pulsada: pausas sem feixe entre os pulsos.",
           "Imagem retida: olha-se sem nova exposição.",

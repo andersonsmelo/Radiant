@@ -6,7 +6,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m26",
-  "materialSha256": "42b4ecafab111092ae6d608cbb355c0935e04c1ae4889f548fb4bac9e62b3eee",
+  "materialSha256": "b1c3c3af475eb3849df0c007b1c63e146849a0145d3f1ea1b63b28ee9db9f03e",
   "trackId": "track:rtg-2026:m26",
   "unitId": "unit:rtg-2026:m26",
   "contentVersion": "rtg-2026-m26-v1",
@@ -870,7 +870,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Pulsos, imagem retida e tempo",
-            "body": "Na fluoroscopia contínua, o feixe fica ligado sem pausa enquanto dura a aquisição. Na pulsada, ele sai em pulsos curtos, com pausas sem feixe: menos pulsos por segundo, menos exposição. A última imagem pode ficar retida na tela e ser olhada sem nova exposição. Menos tempo de feixe ligado, menos exposição: o pé vai ao pedal só quando se olha o monitor. Alguns estudos, como o de deglutição, pedem mais pulsos.",
+            "body": "Na fluoroscopia contínua, o feixe fica ligado sem pausa. Tempo na horizontal; feixe ligado na vertical. Na pulsada, ele sai em pulsos curtos, com pausas sem feixe: menos pulsos por segundo, menos exposição. A última imagem pode ficar retida na tela e ser olhada sem nova exposição. Menos tempo de feixe ligado, menos exposição: o pé vai ao pedal só quando se olha o monitor. Alguns estudos, como o de deglutição, pedem mais pulsos.",
             "keyPoints": [
               "Pulsada: pausas sem feixe entre os pulsos.",
               "Imagem retida: olha-se sem nova exposição.",
@@ -6620,7 +6620,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "42b4ecafab111092ae6d608cbb355c0935e04c1ae4889f548fb4bac9e62b3eee"
+      "materialSha256": "b1c3c3af475eb3849df0c007b1c63e146849a0145d3f1ea1b63b28ee9db9f03e"
     },
     {
       "schemaVersion": 1,
@@ -6629,7 +6629,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "42b4ecafab111092ae6d608cbb355c0935e04c1ae4889f548fb4bac9e62b3eee"
+      "materialSha256": "b1c3c3af475eb3849df0c007b1c63e146849a0145d3f1ea1b63b28ee9db9f03e"
     },
     {
       "schemaVersion": 1,
@@ -6638,7 +6638,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "42b4ecafab111092ae6d608cbb355c0935e04c1ae4889f548fb4bac9e62b3eee"
+      "materialSha256": "b1c3c3af475eb3849df0c007b1c63e146849a0145d3f1ea1b63b28ee9db9f03e"
     },
     {
       "schemaVersion": 1,
@@ -6647,7 +6647,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "42b4ecafab111092ae6d608cbb355c0935e04c1ae4889f548fb4bac9e62b3eee"
+      "materialSha256": "b1c3c3af475eb3849df0c007b1c63e146849a0145d3f1ea1b63b28ee9db9f03e"
     },
     {
       "schemaVersion": 1,
@@ -6656,7 +6656,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "42b4ecafab111092ae6d608cbb355c0935e04c1ae4889f548fb4bac9e62b3eee"
+      "materialSha256": "b1c3c3af475eb3849df0c007b1c63e146849a0145d3f1ea1b63b28ee9db9f03e"
     },
     {
       "schemaVersion": 1,
@@ -6665,7 +6665,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "42b4ecafab111092ae6d608cbb355c0935e04c1ae4889f548fb4bac9e62b3eee"
+      "materialSha256": "b1c3c3af475eb3849df0c007b1c63e146849a0145d3f1ea1b63b28ee9db9f03e"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",
