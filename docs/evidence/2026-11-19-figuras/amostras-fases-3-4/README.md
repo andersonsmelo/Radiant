@@ -1,6 +1,6 @@
-# Amostras das fases 3 e 4: prontas, paradas esperando o dono (medido em 2026-11-20 e 21)
+# Amostras das fases 3 e 4: aprovadas pelo dono e produzidas em 2026-11-21 (amostras medidas em 2026-11-20 e 21)
 
-As fases 3 (14 gráficos em código) e 4 (3 fluxos com ícones) têm amostra pronta e **não foram integradas ao app**. As duas esperam uma decisão do dono, por regras que o próprio dono fixou. Nada aqui foi para o app, para `figuras.json` nem para as aulas.
+As fases 3 (14 gráficos em código) e 4 (3 fluxos com ícones) tiveram amostra pronta em 2026-11-20 e esperaram uma decisão do dono, por regras que o próprio dono fixou. **As duas foram aprovadas e produzidas em 2026-11-21** (ver as atualizações em cada seção); o texto desta página é o da amostra.
 
 ## Fase 3: gráficos com a gramática da skill `dataviz`
 
@@ -14,6 +14,8 @@ Amostra: `espectro-de-raios-x`, `relaxacao-t1-t2` (animado) e `circuito-do-gerad
 - **O que decidir:** aprovar a gramática e liberar os 14 gráficos em dois lotes, ou manter os atuais.
 
 ## Fase 4: fluxos com ícones do Lucide
+
+**Atualização de 2026-11-21: a fase 4 foi aprovada pelo dono ("Aceito a ISC") e produzida.** Os três fluxos entraram no app com ícones do Lucide v1.77.0 (licença ISC, aceita só para ícones de conjunto aberto), as aulas m22 e m31 foram ajustadas e a evidência está em [`../fase-4.md`](../fase-4.md). O texto abaixo é o da amostra, de 2026-11-20, e fica como histórico.
 
 Três fluxos refeitos com cinco cartões em serpentina, um ícone do Lucide v1.77.0 em cada, setas cheias e a mesma grade, 3 camadas e cerca de 3 KiB cada (os atuais têm 5 a 7 camadas):
 

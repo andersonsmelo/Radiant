@@ -6,7 +6,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m31",
-  "materialSha256": "05094dc54a08cb0a01b9120ff4655575550b32e70f7e7caaed35fcf60e231094",
+  "materialSha256": "3ed24ae5762e87f390be407d7eebbd5b08f38dc96bd24ca2dcb55f9bde7e048a",
   "trackId": "track:rtg-2026:m31",
   "unitId": "unit:rtg-2026:m31",
   "contentVersion": "rtg-2026-m31-v1",
@@ -962,35 +962,35 @@ export const RTG_2026_M31: ProductionBatchV1 = {
                   "id": "point:rtg-2026:m31:aula-03:i2:1",
                   "x": 0.175,
                   "y": 0.2917,
-                  "where": "no alto à esquerda, o pacote fechado com uma etiqueta",
+                  "where": "no alto à esquerda, o pacote fechado",
                   "correctLabelId": "label:rtg-2026:m31:aula-03:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-03:i2:2",
                   "x": 0.5,
                   "y": 0.2917,
-                  "where": "no alto ao centro, a folha na prancheta entre duas mãos",
+                  "where": "no alto ao centro, as duas mãos apertadas",
                   "correctLabelId": "label:rtg-2026:m31:aula-03:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-03:i2:3",
                   "x": 0.825,
                   "y": 0.2917,
-                  "where": "no alto à direita, o tubo sobre uma base",
+                  "where": "no alto à direita, o quadro âmbar com uma linha no meio",
                   "correctLabelId": "label:rtg-2026:m31:aula-03:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-03:i2:4",
                   "x": 0.825,
                   "y": 0.7083,
-                  "where": "embaixo à direita, as páginas abertas com um marcador",
+                  "where": "embaixo à direita, o caderno com uma caneta",
                   "correctLabelId": "label:rtg-2026:m31:aula-03:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-03:i2:5",
                   "x": 0.5,
                   "y": 0.7083,
-                  "where": "embaixo ao centro, a porta fechada com um cadeado",
+                  "where": "embaixo ao centro, a pasta com um cadeado",
                   "correctLabelId": "label:rtg-2026:m31:aula-03:i2:5"
                 }
               ],
@@ -1358,7 +1358,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
                 },
                 {
                   "id": "region:rtg-2026:m31:aula-04:i2:3",
-                  "label": "Aparelho de imagem",
+                  "label": "Aquisição da imagem",
                   "x": 0.7063,
                   "y": 0.15,
                   "width": 0.2375,
@@ -1366,7 +1366,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
                 },
                 {
                   "id": "region:rtg-2026:m31:aula-04:i2:4",
-                  "label": "Armário com cadeado",
+                  "label": "Armário trancado",
                   "x": 0.3812,
                   "y": 0.5667,
                   "width": 0.2375,
@@ -1374,7 +1374,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
                 },
                 {
                   "id": "region:rtg-2026:m31:aula-04:i2:5",
-                  "label": "Prancheta assinada",
+                  "label": "Entrega assinada",
                   "x": 0.3812,
                   "y": 0.15,
                   "width": 0.2375,
@@ -1718,35 +1718,35 @@ export const RTG_2026_M31: ProductionBatchV1 = {
                   "id": "point:rtg-2026:m31:aula-05:i2:1",
                   "x": 0.175,
                   "y": 0.2917,
-                  "where": "no alto à esquerda, o papel com um selo de visto",
+                  "where": "no alto à esquerda, a folha com um visto",
                   "correctLabelId": "label:rtg-2026:m31:aula-05:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-05:i2:2",
                   "x": 0.5,
                   "y": 0.2917,
-                  "where": "no alto ao centro, a folha com uma caneta ao lado",
+                  "where": "no alto ao centro, a folha com uma caneta",
                   "correctLabelId": "label:rtg-2026:m31:aula-05:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-05:i2:3",
                   "x": 0.825,
                   "y": 0.2917,
-                  "where": "no alto à direita, o anel com a mesa à frente",
+                  "where": "no alto à direita, o quadro âmbar com uma linha no meio",
                   "correctLabelId": "label:rtg-2026:m31:aula-05:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-05:i2:4",
                   "x": 0.825,
                   "y": 0.7083,
-                  "where": "embaixo à direita, a folha com uma tarja no alto",
+                  "where": "embaixo à direita, o olho riscado",
                   "correctLabelId": "label:rtg-2026:m31:aula-05:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-05:i2:5",
                   "x": 0.5,
                   "y": 0.7083,
-                  "where": "embaixo ao centro, o cilindro com um cadeado",
+                  "where": "embaixo ao centro, a pasta com um cadeado",
                   "correctLabelId": "label:rtg-2026:m31:aula-05:i2:5"
                 }
               ],
@@ -6929,7 +6929,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "05094dc54a08cb0a01b9120ff4655575550b32e70f7e7caaed35fcf60e231094"
+      "materialSha256": "3ed24ae5762e87f390be407d7eebbd5b08f38dc96bd24ca2dcb55f9bde7e048a"
     },
     {
       "schemaVersion": 1,
@@ -6938,7 +6938,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "05094dc54a08cb0a01b9120ff4655575550b32e70f7e7caaed35fcf60e231094"
+      "materialSha256": "3ed24ae5762e87f390be407d7eebbd5b08f38dc96bd24ca2dcb55f9bde7e048a"
     },
     {
       "schemaVersion": 1,
@@ -6947,7 +6947,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "05094dc54a08cb0a01b9120ff4655575550b32e70f7e7caaed35fcf60e231094"
+      "materialSha256": "3ed24ae5762e87f390be407d7eebbd5b08f38dc96bd24ca2dcb55f9bde7e048a"
     },
     {
       "schemaVersion": 1,
@@ -6956,7 +6956,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "05094dc54a08cb0a01b9120ff4655575550b32e70f7e7caaed35fcf60e231094"
+      "materialSha256": "3ed24ae5762e87f390be407d7eebbd5b08f38dc96bd24ca2dcb55f9bde7e048a"
     },
     {
       "schemaVersion": 1,
@@ -6965,7 +6965,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "05094dc54a08cb0a01b9120ff4655575550b32e70f7e7caaed35fcf60e231094"
+      "materialSha256": "3ed24ae5762e87f390be407d7eebbd5b08f38dc96bd24ca2dcb55f9bde7e048a"
     },
     {
       "schemaVersion": 1,
@@ -6974,7 +6974,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "05094dc54a08cb0a01b9120ff4655575550b32e70f7e7caaed35fcf60e231094"
+      "materialSha256": "3ed24ae5762e87f390be407d7eebbd5b08f38dc96bd24ca2dcb55f9bde7e048a"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

@@ -1276,33 +1276,38 @@
           "points": [
             {
               "label": "Cadastro e pedido",
-              "x": 0.169,
-              "y": 0.258,
-              "where": "no alto à esquerda, o bloco com a prancheta"
+              "x": 0.175,
+              "y": 0.2917,
+              "where": "no alto à esquerda, a prancheta com uma lista",
+              "alvo": "Cadastro e pedido"
             },
             {
               "label": "Lista de trabalho",
               "x": 0.5,
-              "y": 0.258,
-              "where": "no alto, no meio, o bloco de linhas com marcadores"
+              "y": 0.2917,
+              "where": "no alto, no meio, a lista com marcas de conferido",
+              "alvo": "Lista de trabalho"
             },
             {
               "label": "Equipamento de raios X",
-              "x": 0.831,
-              "y": 0.258,
-              "where": "no alto à direita, o bloco com o feixe sobre a mesa"
+              "x": 0.825,
+              "y": 0.2917,
+              "where": "no alto à direita, o símbolo de radiação, em âmbar",
+              "alvo": "Equipamento de raios X"
             },
             {
               "label": "Arquivo de imagens",
-              "x": 0.831,
-              "y": 0.717,
-              "where": "embaixo à direita, o bloco com o cilindro"
+              "x": 0.825,
+              "y": 0.7083,
+              "where": "embaixo à direita, o disco de armazenamento",
+              "alvo": "Arquivo de imagens"
             },
             {
               "label": "Estação de visualização",
               "x": 0.5,
-              "y": 0.717,
-              "where": "embaixo, no meio, o bloco com a tela e a paisagem"
+              "y": 0.7083,
+              "where": "embaixo, no meio, a tela com um visto",
+              "alvo": "Estação de visualização"
             }
           ],
           "distractors": [
@@ -1983,32 +1988,36 @@
           "regions": [
             {
               "label": "Cadastro e pedido",
-              "x": 0.0625,
-              "y": 0.1167,
-              "width": 0.2125,
-              "height": 0.2833
+              "x": 0.0563,
+              "y": 0.15,
+              "width": 0.2375,
+              "height": 0.2833,
+              "alvo": "Cadastro e pedido"
             },
             {
               "label": "Lista de trabalho",
-              "x": 0.3937,
-              "y": 0.1167,
-              "width": 0.2125,
-              "height": 0.2833
+              "x": 0.3812,
+              "y": 0.15,
+              "width": 0.2375,
+              "height": 0.2833,
+              "alvo": "Lista de trabalho"
             },
             {
               "label": "Equipamento de raios X",
-              "x": 0.725,
-              "y": 0.1167,
-              "width": 0.2125,
-              "height": 0.2833
+              "x": 0.7063,
+              "y": 0.15,
+              "width": 0.2375,
+              "height": 0.2833,
+              "alvo": "Equipamento de raios X"
             },
             {
               "label": "Estação de visualização",
-              "x": 0.3937,
-              "y": 0.575,
-              "width": 0.2125,
+              "x": 0.3812,
+              "y": 0.5667,
+              "width": 0.2375,
               "height": 0.2833,
-              "correct": true
+              "correct": true,
+              "alvo": "Estação de visualização"
             }
           ],
           "feedbackCorrect": "Isso mesmo: a estação busca os estudos no arquivo; com ele parado, não tem de onde buscar.",

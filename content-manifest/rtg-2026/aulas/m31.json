@@ -912,31 +912,36 @@
               "label": "Invólucro lacrado",
               "x": 0.175,
               "y": 0.2917,
-              "where": "no alto à esquerda, o pacote fechado com uma etiqueta"
+              "where": "no alto à esquerda, o pacote fechado",
+              "alvo": "Invólucro lacrado"
             },
             {
               "label": "Entrega assinada",
               "x": 0.5,
               "y": 0.2917,
-              "where": "no alto ao centro, a folha na prancheta entre duas mãos"
+              "where": "no alto ao centro, as duas mãos apertadas",
+              "alvo": "Entrega assinada"
             },
             {
               "label": "Aquisição da imagem",
               "x": 0.825,
               "y": 0.2917,
-              "where": "no alto à direita, o tubo sobre uma base"
+              "where": "no alto à direita, o quadro âmbar com uma linha no meio",
+              "alvo": "Aquisição da imagem"
             },
             {
               "label": "Livro de registro",
               "x": 0.825,
               "y": 0.7083,
-              "where": "embaixo à direita, as páginas abertas com um marcador"
+              "where": "embaixo à direita, o caderno com uma caneta",
+              "alvo": "Livro de registro"
             },
             {
               "label": "Armário trancado",
               "x": 0.5,
               "y": 0.7083,
-              "where": "embaixo ao centro, a porta fechada com um cadeado"
+              "where": "embaixo ao centro, a pasta com um cadeado",
+              "alvo": "Armário trancado"
             }
           ],
           "distractors": [
@@ -1270,7 +1275,8 @@
               "x": 0.0563,
               "y": 0.15,
               "width": 0.2375,
-              "height": 0.2833
+              "height": 0.2833,
+              "alvo": "Invólucro lacrado"
             },
             {
               "label": "Livro de registro",
@@ -1278,29 +1284,33 @@
               "y": 0.5667,
               "width": 0.2375,
               "height": 0.2833,
-              "correct": true
+              "correct": true,
+              "alvo": "Livro de registro"
             },
             {
-              "label": "Aparelho de imagem",
+              "label": "Aquisição da imagem",
               "x": 0.7063,
               "y": 0.15,
               "width": 0.2375,
-              "height": 0.2833
+              "height": 0.2833,
+              "alvo": "Aquisição da imagem"
             },
             {
-              "label": "Armário com cadeado",
+              "label": "Armário trancado",
               "x": 0.3812,
               "y": 0.5667,
               "width": 0.2375,
               "height": 0.2833,
-              "correct": true
+              "correct": true,
+              "alvo": "Armário trancado"
             },
             {
-              "label": "Prancheta assinada",
+              "label": "Entrega assinada",
               "x": 0.3812,
               "y": 0.15,
               "width": 0.2375,
-              "height": 0.2833
+              "height": 0.2833,
+              "alvo": "Entrega assinada"
             }
           ],
           "feedbackCorrect": "Isso: o registro e o armário são onde se anota o que foi feito e se guarda o resultado.",
@@ -1650,31 +1660,36 @@
               "label": "Aprovação do comitê",
               "x": 0.175,
               "y": 0.2917,
-              "where": "no alto à esquerda, o papel com um selo de visto"
+              "where": "no alto à esquerda, a folha com um visto",
+              "alvo": "Aprovação do comitê"
             },
             {
               "label": "Consentimento assinado",
               "x": 0.5,
               "y": 0.2917,
-              "where": "no alto ao centro, a folha com uma caneta ao lado"
+              "where": "no alto ao centro, a folha com uma caneta",
+              "alvo": "Consentimento assinado"
             },
             {
               "label": "Aquisição da imagem",
               "x": 0.825,
               "y": 0.2917,
-              "where": "no alto à direita, o anel com a mesa à frente"
+              "where": "no alto à direita, o quadro âmbar com uma linha no meio",
+              "alvo": "Aquisição da imagem"
             },
             {
               "label": "Ficha com o nome coberto",
               "x": 0.825,
               "y": 0.7083,
-              "where": "embaixo à direita, a folha com uma tarja no alto"
+              "where": "embaixo à direita, o olho riscado",
+              "alvo": "Ficha com o nome coberto"
             },
             {
               "label": "Arquivo trancado",
               "x": 0.5,
               "y": 0.7083,
-              "where": "embaixo ao centro, o cilindro com um cadeado"
+              "where": "embaixo ao centro, a pasta com um cadeado",
+              "alvo": "Arquivo trancado"
             }
           ],
           "distractors": [
