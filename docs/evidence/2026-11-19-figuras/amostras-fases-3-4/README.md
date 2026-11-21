@@ -17,6 +17,8 @@ Amostra: `espectro-de-raios-x`, `relaxacao-t1-t2` (animado) e `circuito-do-gerad
 
 **Atualização de 2026-11-21: a fase 4 foi aprovada pelo dono ("Aceito a ISC") e produzida.** Os três fluxos entraram no app com ícones do Lucide v1.77.0 (licença ISC, aceita só para ícones de conjunto aberto), as aulas m22 e m31 foram ajustadas e a evidência está em [`../fase-4.md`](../fase-4.md). O texto abaixo é o da amostra, de 2026-11-20, e fica como histórico.
 
+**Correção de 2026-11-21, depois da revisão independente ([`revisoes/fase-4.md`](../revisoes/fase-4.md)):** quatro ícones da amostra continham desenho do Feather (MIT) e foram trocados: `clipboard-list` por `file-pen`, `monitor-check` por `laptop-minimal-check`, `package` por `cuboid` e `hard-drive` por `images`. Os `fase4-*.png` desta pasta mostram os ícones antigos; as prévias atuais estão em [`../fase-4/`](../fase-4/).
+
 Três fluxos refeitos com cinco cartões em serpentina, um ícone do Lucide v1.77.0 em cada, setas cheias e a mesma grade, 3 camadas e cerca de 3 KiB cada (os atuais têm 5 a 7 camadas):
 
 - [`fase4-cadeia-de-custodia.png`](fase4-cadeia-de-custodia.png) (m31, lição 3 rotular e lição 4 tocar)
