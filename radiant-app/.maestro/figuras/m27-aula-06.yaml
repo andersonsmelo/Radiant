@@ -1,0 +1,106 @@
+appId: com.ascendcreative.radiant
+name: 'Figuras M27 aula-06'
+tags:
+  - figuras
+  - generated
+---
+# Gerado por scripts/qa/figuras-no-simulador.mjs a partir das aulas-fonte. Não edite à mão.
+# Entrada pelo link da rota /learn, como os roteiros da trilha, respondendo certo até o passo da figura. Não medido em aparelho.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
+    clearState: true
+    permissions:
+      all: deny
+- runFlow: ../subflows/dismiss-dev-client.yaml
+- runFlow: ../subflows/dismiss-first-run.yaml
+- assertVisible:
+    id: journey-trail
+- openLink: 'radiantapp://learn?blockId=activity%3Artg-2026%3Am27%3Aaula-06&nodeId=node%3Aactivity%3Artg-2026%3Am27%3Aaula-06'
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+- assertVisible: 'Passo 1 de 8'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 2 de 8'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 3 de 8'
+# interaction i1 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m27:aula-06:i1:d'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m27:aula-06:i1:d'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 4 de 8'
+# interaction i2 categorize
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Falar de frente, devagar e sem gritar'
+- tapOn:
+    id: 'categorize-item-Falar de frente, devagar e sem gritar'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Pessoa idosa'
+- tapOn:
+    id: 'categorize-group-Pessoa idosa'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Frase simples, sem pergunta de sim ou não'
+- tapOn:
+    id: 'categorize-item-Frase simples, sem pergunta de sim ou não'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Criança'
+- tapOn:
+    id: 'categorize-group-Criança'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Faixa ou apoio, nunca a força'
+- tapOn:
+    id: 'categorize-item-Faixa ou apoio, nunca a força'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Criança'
+- tapOn:
+    id: 'categorize-group-Criança'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Caminho sem tapete solto e sala iluminada'
+- tapOn:
+    id: 'categorize-item-Caminho sem tapete solto e sala iluminada'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Pessoa idosa'
+- tapOn:
+    id: 'categorize-group-Pessoa idosa'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Abdome fora do feixe, pela posição e pelo campo'
+- tapOn:
+    id: 'categorize-item-Abdome fora do feixe, pela posição e pelo campo'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Gestante'
+- tapOn:
+    id: 'categorize-group-Gestante'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Dúvida sobre o bebê vai à equipe, sem promessa'
+- tapOn:
+    id: 'categorize-item-Dúvida sobre o bebê vai à equipe, sem promessa'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Gestante'
+- tapOn:
+    id: 'categorize-group-Gestante'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 5 de 8'
+- takeScreenshot: 'figura-idoso-apoios-e-riscos-m27-aula-06'

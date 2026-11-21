@@ -182,32 +182,36 @@
           "regions": [
             {
               "label": "Acompanhante à cabeceira",
-              "x": 0.05,
-              "y": 0.283,
-              "width": 0.113,
-              "height": 0.15
+              "x": 0.0058,
+              "y": 0.1815,
+              "width": 0.1897,
+              "height": 0.5877,
+              "alvo": "Acompanhante à cabeceira"
             },
             {
               "label": "Faixa sobre as pernas",
-              "x": 0.481,
-              "y": 0.533,
-              "width": 0.1,
-              "height": 0.117
+              "x": 0.45,
+              "y": 0.5333,
+              "width": 0.1031,
+              "height": 0.1604,
+              "alvo": "Faixa sobre as pernas"
             },
             {
               "label": "Pessoa junto aos pés da mesa",
-              "x": 0.856,
-              "y": 0.208,
-              "width": 0.1,
-              "height": 0.342,
-              "correct": true
+              "x": 0.7594,
+              "y": 0.1104,
+              "width": 0.1734,
+              "height": 0.8896,
+              "correct": true,
+              "alvo": "Pessoa junto aos pés da mesa"
             },
             {
               "label": "Campo de luz",
-              "x": 0.313,
-              "y": 0.258,
-              "width": 0.119,
-              "height": 0.208
+              "x": 0.2683,
+              "y": 0.4815,
+              "width": 0.1487,
+              "height": 0.1133,
+              "alvo": "Campo de luz"
             }
           ],
           "feedbackCorrect": "Isso: quem fica na sala durante a exposição usa a proteção que o serviço define e fica fora do feixe; sem proteção, você avisa a equipe antes do disparo.",
@@ -537,40 +541,45 @@
           "regions": [
             {
               "label": "Mão do acompanhante",
-              "x": 0.15,
-              "y": 0.5,
-              "width": 0.09,
-              "height": 0.13
+              "x": 0.1124,
+              "y": 0.4467,
+              "width": 0.1402,
+              "height": 0.1844,
+              "alvo": "Mão do acompanhante"
             },
             {
               "label": "Faixa sobre as pernas",
-              "x": 0.481,
-              "y": 0.533,
-              "width": 0.1,
-              "height": 0.117,
-              "correct": true
+              "x": 0.45,
+              "y": 0.5333,
+              "width": 0.1031,
+              "height": 0.1604,
+              "correct": true,
+              "alvo": "Faixa sobre as pernas"
             },
             {
               "label": "Campo de luz",
-              "x": 0.313,
-              "y": 0.258,
-              "width": 0.119,
-              "height": 0.208
+              "x": 0.2683,
+              "y": 0.4815,
+              "width": 0.1487,
+              "height": 0.1133,
+              "alvo": "Campo de luz"
             },
             {
               "label": "Apoio de espuma",
-              "x": 0.695,
-              "y": 0.5,
-              "width": 0.09,
-              "height": 0.14,
-              "correct": true
+              "x": 0.6156,
+              "y": 0.6396,
+              "width": 0.1047,
+              "height": 0.1458,
+              "correct": true,
+              "alvo": "Apoio de espuma"
             },
             {
               "label": "Pessoa junto aos pés da mesa",
-              "x": 0.856,
-              "y": 0.208,
-              "width": 0.1,
-              "height": 0.342
+              "x": 0.7594,
+              "y": 0.1104,
+              "width": 0.1734,
+              "height": 0.8896,
+              "alvo": "Pessoa junto aos pés da mesa"
             }
           ],
           "feedbackCorrect": "A faixa e o apoio mantêm a posição sem mão no feixe: é o tipo de ajuda mais leve, que a equipe aprova e escolhe.",
@@ -907,33 +916,37 @@
           "regions": [
             {
               "label": "Pernas da criança da esquerda",
-              "x": 0.194,
-              "y": 0.7,
-              "width": 0.113,
-              "height": 0.2,
-              "correct": true
+              "x": 0.5878,
+              "y": 0.5654,
+              "width": 0.3414,
+              "height": 0.2837,
+              "correct": true,
+              "alvo": "Pernas da criança da esquerda"
             },
             {
               "label": "Cabeça da criança da esquerda",
-              "x": 0.206,
-              "y": 0.15,
-              "width": 0.087,
-              "height": 0.1,
-              "correct": true
+              "x": 0.1954,
+              "y": 0.4383,
+              "width": 0.1579,
+              "height": 0.2448,
+              "correct": true,
+              "alvo": "Cabeça da criança da esquerda"
             },
             {
               "label": "Tórax da criança da direita",
-              "x": 0.644,
-              "y": 0.263,
-              "width": 0.181,
-              "height": 0.175
+              "x": 0.6756,
+              "y": 0.1489,
+              "width": 0.08,
+              "height": 0.08,
+              "alvo": "Tórax da criança da direita"
             },
             {
               "label": "Abdome e pelve da criança da direita",
-              "x": 0.662,
-              "y": 0.467,
-              "width": 0.144,
-              "height": 0.217
+              "x": 0.8402,
+              "y": 0.1932,
+              "width": 0.08,
+              "height": 0.08,
+              "alvo": "Abdome e pelve da criança da direita"
             }
           ],
           "feedbackCorrect": "Isso: o campo aberto da esquerda alcança a cabeça e as pernas, que o pedido de tórax não inclui. Vale só para este esquema.",
@@ -1331,48 +1344,53 @@
           "regions": [
             {
               "label": "Barra de apoio junto ao receptor",
-              "x": 0.09,
-              "y": 0.5,
-              "width": 0.08,
-              "height": 0.24,
+              "x": 0.1906,
+              "y": 0.2631,
+              "width": 0.1531,
+              "height": 0.08,
               "risk": false,
-              "feedback": "A barra firme junto ao receptor dá onde a pessoa se segurar: é apoio, e não risco."
+              "feedback": "A barra firme junto ao receptor dá onde a pessoa se segurar: é apoio, e não risco.",
+              "alvo": "Barra de apoio junto ao receptor"
             },
             {
               "label": "Degrau no chão",
-              "x": 0.487,
-              "y": 0.808,
-              "width": 0.106,
-              "height": 0.083,
+              "x": 0.4156,
+              "y": 0.775,
+              "width": 0.1609,
+              "height": 0.1375,
               "risk": true,
-              "feedback": "Um degrau no chão é obstáculo para quem se equilibra mal: a equipe resolve o caminho antes do exame."
+              "feedback": "Um degrau no chão é obstáculo para quem se equilibra mal: a equipe resolve o caminho antes do exame.",
+              "alvo": "Degrau no chão"
             },
             {
               "label": "Banco ao lado",
-              "x": 0.294,
-              "y": 0.658,
-              "width": 0.138,
-              "height": 0.233,
+              "x": 0.2562,
+              "y": 0.5354,
+              "width": 0.1391,
+              "height": 0.2292,
               "risk": false,
-              "feedback": "O banco está ao lado, fora do caminho dela: aqui ele não é obstáculo. Se ela precisar sentar, a equipe confere se ele é firme."
+              "feedback": "O banco está ao lado, fora do caminho dela: aqui ele não é obstáculo. Se ela precisar sentar, a equipe confere se ele é firme.",
+              "alvo": "Banco ao lado"
             },
             {
               "label": "Tapete com a ponta solta",
-              "x": 0.619,
-              "y": 0.81,
-              "width": 0.181,
-              "height": 0.09,
+              "x": 0.5797,
+              "y": 0.8187,
+              "width": 0.1797,
+              "height": 0.1062,
               "risk": true,
-              "feedback": "A ponta solta do tapete pode prender o pé: piso irregular é risco de queda para quem se equilibra mal."
+              "feedback": "A ponta solta do tapete pode prender o pé: piso irregular é risco de queda para quem se equilibra mal.",
+              "alvo": "Tapete com a ponta solta"
             },
             {
               "label": "Andador longe da pessoa",
-              "x": 0.831,
-              "y": 0.533,
-              "width": 0.156,
-              "height": 0.358,
+              "x": 0.7828,
+              "y": 0.4979,
+              "width": 0.1844,
+              "height": 0.4063,
               "risk": true,
-              "feedback": "Ela usa o andador para se firmar, e ele ficou longe: avise a equipe antes de ela andar até ele, e siga o protocolo do serviço."
+              "feedback": "Ela usa o andador para se firmar, e ele ficou longe: avise a equipe antes de ela andar até ele, e siga o protocolo do serviço.",
+              "alvo": "Andador longe da pessoa"
             }
           ],
           "feedbackCorrect": "Isso: você achou o degrau, o tapete e o andador longe, e deixou a barra e o banco, que ajudam.",
@@ -2060,39 +2078,44 @@
           "regions": [
             {
               "label": "Barra de apoio",
-              "x": 0.09,
-              "y": 0.5,
-              "width": 0.08,
-              "height": 0.24
+              "x": 0.1906,
+              "y": 0.2631,
+              "width": 0.1531,
+              "height": 0.08,
+              "alvo": "Barra de apoio junto ao receptor"
             },
             {
               "label": "Banco",
-              "x": 0.294,
-              "y": 0.658,
-              "width": 0.138,
-              "height": 0.233
+              "x": 0.2562,
+              "y": 0.5354,
+              "width": 0.1391,
+              "height": 0.2292,
+              "alvo": "Banco ao lado"
             },
             {
               "label": "Degrau",
-              "x": 0.487,
-              "y": 0.808,
-              "width": 0.106,
-              "height": 0.083
+              "x": 0.4156,
+              "y": 0.775,
+              "width": 0.1609,
+              "height": 0.1375,
+              "alvo": "Degrau no chão"
             },
             {
               "label": "Tapete",
-              "x": 0.619,
-              "y": 0.81,
-              "width": 0.181,
-              "height": 0.09
+              "x": 0.5797,
+              "y": 0.8187,
+              "width": 0.1797,
+              "height": 0.1062,
+              "alvo": "Tapete com a ponta solta"
             },
             {
               "label": "Andador",
-              "x": 0.831,
-              "y": 0.533,
-              "width": 0.156,
-              "height": 0.358,
-              "correct": true
+              "x": 0.7828,
+              "y": 0.4979,
+              "width": 0.1844,
+              "height": 0.4063,
+              "correct": true,
+              "alvo": "Andador longe da pessoa"
             }
           ],
           "feedbackCorrect": "Isso: o andador dela ficou longe; você avisa a equipe antes de ela andar até ele, pelo protocolo do serviço.",

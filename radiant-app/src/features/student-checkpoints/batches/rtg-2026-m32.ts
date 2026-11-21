@@ -6,7 +6,7 @@ export const RTG_2026_M32: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m32",
-  "materialSha256": "7ed470ee55bbdfd5cfb50f994a7640329099223b389047446d861e19d906a1ea",
+  "materialSha256": "afb0126de27a61e58ca7bfbc78858d069b6d90950b01c256ee4a6a333ebb6106",
   "trackId": "track:rtg-2026:m32",
   "unitId": "unit:rtg-2026:m32",
   "contentVersion": "rtg-2026-m32-v1",
@@ -575,36 +575,36 @@ export const RTG_2026_M32: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m32:aula-02:i2:1",
-                  "x": 0.5,
-                  "y": 0.12,
+                  "x": 0.4797,
+                  "y": 0.1437,
                   "where": "no alto, a caixa com um ponto amarelo dentro",
                   "correctLabelId": "label:rtg-2026:m32:aula-02:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m32:aula-02:i2:2",
-                  "x": 0.5,
-                  "y": 0.34,
+                  "x": 0.4813,
+                  "y": 0.3563,
                   "where": "logo abaixo da caixa de cima, de onde o feixe se abre",
                   "correctLabelId": "label:rtg-2026:m32:aula-02:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m32:aula-02:i2:3",
-                  "x": 0.5,
-                  "y": 0.58,
+                  "x": 0.4234,
+                  "y": 0.5687,
                   "where": "no meio do caminho do feixe, três faixas finas num suporte",
                   "correctLabelId": "label:rtg-2026:m32:aula-02:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m32:aula-02:i2:4",
-                  "x": 0.5,
-                  "y": 0.8,
+                  "x": 0.4266,
+                  "y": 0.7917,
                   "where": "sobre a mesa, o aparelho baixo que o feixe atinge",
                   "correctLabelId": "label:rtg-2026:m32:aula-02:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m32:aula-02:i2:5",
-                  "x": 0.825,
-                  "y": 0.65,
+                  "x": 0.6453,
+                  "y": 0.6792,
                   "where": "à direita, a tela com três barras de alturas diferentes",
                   "correctLabelId": "label:rtg-2026:m32:aula-02:i2:5"
                 }
@@ -6780,7 +6780,7 @@ export const RTG_2026_M32: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7ed470ee55bbdfd5cfb50f994a7640329099223b389047446d861e19d906a1ea"
+      "materialSha256": "afb0126de27a61e58ca7bfbc78858d069b6d90950b01c256ee4a6a333ebb6106"
     },
     {
       "schemaVersion": 1,
@@ -6789,7 +6789,7 @@ export const RTG_2026_M32: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7ed470ee55bbdfd5cfb50f994a7640329099223b389047446d861e19d906a1ea"
+      "materialSha256": "afb0126de27a61e58ca7bfbc78858d069b6d90950b01c256ee4a6a333ebb6106"
     },
     {
       "schemaVersion": 1,
@@ -6798,7 +6798,7 @@ export const RTG_2026_M32: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7ed470ee55bbdfd5cfb50f994a7640329099223b389047446d861e19d906a1ea"
+      "materialSha256": "afb0126de27a61e58ca7bfbc78858d069b6d90950b01c256ee4a6a333ebb6106"
     },
     {
       "schemaVersion": 1,
@@ -6807,7 +6807,7 @@ export const RTG_2026_M32: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7ed470ee55bbdfd5cfb50f994a7640329099223b389047446d861e19d906a1ea"
+      "materialSha256": "afb0126de27a61e58ca7bfbc78858d069b6d90950b01c256ee4a6a333ebb6106"
     },
     {
       "schemaVersion": 1,
@@ -6816,7 +6816,7 @@ export const RTG_2026_M32: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7ed470ee55bbdfd5cfb50f994a7640329099223b389047446d861e19d906a1ea"
+      "materialSha256": "afb0126de27a61e58ca7bfbc78858d069b6d90950b01c256ee4a6a333ebb6106"
     },
     {
       "schemaVersion": 1,
@@ -6825,7 +6825,7 @@ export const RTG_2026_M32: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7ed470ee55bbdfd5cfb50f994a7640329099223b389047446d861e19d906a1ea"
+      "materialSha256": "afb0126de27a61e58ca7bfbc78858d069b6d90950b01c256ee4a6a333ebb6106"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

@@ -130,33 +130,38 @@
           "points": [
             {
               "label": "Fonte de raios X",
-              "x": 0.5313,
-              "y": 0.7333,
-              "where": "embaixo, o bloco azul sob o tampo, no meio do desenho"
+              "x": 0.5217,
+              "y": 0.776,
+              "where": "embaixo, o bloco azul sob o tampo, no meio do desenho",
+              "alvo": "Fonte de raios X (peça sob o tampo)"
             },
             {
               "label": "Braço do detector",
-              "x": 0.5313,
-              "y": 0.1292,
-              "where": "no alto, o bloco azul que fica acima do corpo"
+              "x": 0.5563,
+              "y": 0.2958,
+              "where": "no alto, o bloco azul que fica acima do corpo",
+              "alvo": "Detector (peça no alto do braço)"
             },
             {
               "label": "Feixe",
-              "x": 0.5313,
-              "y": 0.3542,
-              "where": "as duas linhas finas de cores diferentes, subindo retas"
+              "x": 0.5422,
+              "y": 0.5125,
+              "where": "as duas linhas finas de cores diferentes, subindo retas",
+              "alvo": "Feixe de duas energias"
             },
             {
               "label": "Paciente",
-              "x": 0.3,
-              "y": 0.5208,
-              "where": "a figura deitada de costas, na altura do peito"
+              "x": 0.3792,
+              "y": 0.413,
+              "where": "a figura deitada de costas, na altura do peito",
+              "alvo": "Paciente deitada de costas"
             },
             {
               "label": "Mesa",
-              "x": 0.8938,
-              "y": 0.6125,
-              "where": "a faixa onde o corpo se apoia, na ponta direita do desenho"
+              "x": 0.7537,
+              "y": 0.7622,
+              "where": "a faixa onde o corpo se apoia, na ponta direita do desenho",
+              "alvo": "Ponta da mesa"
             }
           ],
           "distractors": [
@@ -213,32 +218,36 @@
           "regions": [
             {
               "label": "Peça sob o tampo",
-              "x": 0.4625,
-              "y": 0.675,
-              "width": 0.1375,
-              "height": 0.1167
+              "x": 0.4875,
+              "y": 0.7021,
+              "width": 0.1094,
+              "height": 0.1104,
+              "alvo": "Fonte de raios X (peça sob o tampo)"
             },
             {
               "label": "Peça no alto do braço",
-              "x": 0.4375,
-              "y": 0.075,
-              "width": 0.1875,
-              "height": 0.1083,
-              "correct": true
+              "x": 0.4734,
+              "y": 0.2271,
+              "width": 0.15,
+              "height": 0.1708,
+              "correct": true,
+              "alvo": "Detector (peça no alto do braço)"
             },
             {
               "label": "Tronco da pessoa",
-              "x": 0.225,
-              "y": 0.4583,
-              "width": 0.15,
-              "height": 0.125
+              "x": 0.3141,
+              "y": 0.3586,
+              "width": 0.1402,
+              "height": 0.1959,
+              "alvo": "Tronco da paciente"
             },
             {
               "label": "Ponta da mesa",
-              "x": 0.8375,
-              "y": 0.5667,
-              "width": 0.1125,
-              "height": 0.0917
+              "x": 0.6672,
+              "y": 0.6829,
+              "width": 0.1631,
+              "height": 0.1814,
+              "alvo": "Ponta da mesa"
             }
           ],
           "feedbackCorrect": "Isso mesmo: o feixe sobe pela pessoa e chega ao detector, no alto do braço.",
@@ -873,44 +882,49 @@
           "id": "i2",
           "type": "hotspot",
           "role": "practice",
-          "prompt": "Na vista de cima, toque no pé que está na posição ensinada para a medida do fêmur.",
+          "prompt": "Na cena da direita, toque no pé que está na posição ensinada para a medida do fêmur.",
           "diagramId": "dxa-posicionamento",
           "regions": [
             {
               "label": "Coluna reta sobre a mesa",
-              "x": 0.1062,
-              "y": 0.5417,
-              "width": 0.1938,
-              "height": 0.0917
+              "x": 0.1258,
+              "y": 0.2841,
+              "width": 0.1704,
+              "height": 0.2188,
+              "alvo": "Coluna reta sobre a mesa"
             },
             {
               "label": "Bloco sob as pernas",
-              "x": 0.3813,
-              "y": 0.4667,
-              "width": 0.0938,
-              "height": 0.1417
+              "x": 0.2219,
+              "y": 0.55,
+              "width": 0.2547,
+              "height": 0.3771,
+              "alvo": "Bloco sob as pernas"
             },
             {
               "label": "Posicionador entre os pés",
-              "x": 0.7312,
-              "y": 0.5333,
-              "width": 0.0875,
-              "height": 0.1
+              "x": 0.6781,
+              "y": 0.5729,
+              "width": 0.1047,
+              "height": 0.2083,
+              "alvo": "Posicionador entre os pés"
             },
             {
               "label": "Pé à esquerda do desenho",
-              "x": 0.6062,
-              "y": 0.75,
-              "width": 0.0813,
-              "height": 0.1,
-              "correct": true
+              "x": 0.5105,
+              "y": 0.5977,
+              "width": 0.0976,
+              "height": 0.1496,
+              "correct": true,
+              "alvo": "Pé à esquerda do desenho (girado, preso)"
             },
             {
               "label": "Pé à direita do desenho",
-              "x": 0.87,
-              "y": 0.77,
+              "x": 0.8687,
+              "y": 0.4741,
               "width": 0.08,
-              "height": 0.16
+              "height": 0.1582,
+              "alvo": "Pé à direita do desenho"
             }
           ],
           "feedbackCorrect": "Isso mesmo: este pé está girado para dentro e preso ao posicionador, como pede a medida do fêmur.",

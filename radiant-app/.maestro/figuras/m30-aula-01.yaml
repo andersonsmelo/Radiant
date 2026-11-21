@@ -1,0 +1,123 @@
+appId: com.ascendcreative.radiant
+name: 'Figuras M30 aula-01'
+tags:
+  - figuras
+  - generated
+---
+# Gerado por scripts/qa/figuras-no-simulador.mjs a partir das aulas-fonte. Não edite à mão.
+# Entrada pelo link da rota /learn, como os roteiros da trilha, respondendo certo até o passo da figura. Não medido em aparelho.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
+    clearState: true
+    permissions:
+      all: deny
+- runFlow: ../subflows/dismiss-dev-client.yaml
+- runFlow: ../subflows/dismiss-first-run.yaml
+- assertVisible:
+    id: journey-trail
+- openLink: 'radiantapp://learn?blockId=activity%3Artg-2026%3Am30%3Aaula-01&nodeId=node%3Aactivity%3Artg-2026%3Am30%3Aaula-01'
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+- assertVisible: 'Passo 1 de 8'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 2 de 8'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 3 de 8'
+# interaction i1 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m30:aula-01:i1:c'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m30:aula-01:i1:c'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 4 de 8'
+- takeScreenshot: 'figura-dxa-dois-feixes-m30-aula-01-passo4'
+# interaction i2 label
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 1, embaixo, o bloco azul sob o tampo, no meio do desenho, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 1, embaixo, o bloco azul sob o tampo, no meio do desenho, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Fonte de raios X'
+- tapOn:
+    id: 'label-chip-Fonte de raios X'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 2, no alto, o bloco azul que fica acima do corpo, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 2, no alto, o bloco azul que fica acima do corpo, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Braço do detector'
+- tapOn:
+    id: 'label-chip-Braço do detector'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 3, as duas linhas finas de cores diferentes, subindo retas, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 3, as duas linhas finas de cores diferentes, subindo retas, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Feixe'
+- tapOn:
+    id: 'label-chip-Feixe'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 4, a figura deitada de costas, na altura do peito, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 4, a figura deitada de costas, na altura do peito, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Paciente'
+- tapOn:
+    id: 'label-chip-Paciente'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 5, a faixa onde o corpo se apoia, na ponta direita do desenho, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 5, a faixa onde o corpo se apoia, na ponta direita do desenho, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Mesa'
+- tapOn:
+    id: 'label-chip-Mesa'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 5 de 8'
+# interaction i3 true-false
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- assertVisible: 'Afirmação 2 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-errado'
+- tapOn:
+    id: 'true-false-errado'
+- assertVisible: 'Afirmação 3 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- assertVisible: 'Afirmação 4 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-errado'
+- tapOn:
+    id: 'true-false-errado'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 6 de 8'
+- takeScreenshot: 'figura-dxa-dois-feixes-m30-aula-01-passo6'

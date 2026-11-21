@@ -6,7 +6,7 @@ export const RTG_2026_M27: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m27",
-  "materialSha256": "6c5b2dca073b09704c55051613dfd404c2166d237b95827c78ce7d2c74c19d8b",
+  "materialSha256": "da641e569649bb5766fa445f1214cf1dfd990f7d9ad4f3b568132275d8724836",
   "trackId": "track:rtg-2026:m27",
   "unitId": "unit:rtg-2026:m27",
   "contentVersion": "rtg-2026-m27-v1",
@@ -260,34 +260,34 @@ export const RTG_2026_M27: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m27:aula-01:i3:1",
                   "label": "Acompanhante à cabeceira",
-                  "x": 0.05,
-                  "y": 0.283,
-                  "width": 0.113,
-                  "height": 0.15
+                  "x": 0.0058,
+                  "y": 0.1815,
+                  "width": 0.1897,
+                  "height": 0.5877
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-01:i3:2",
                   "label": "Faixa sobre as pernas",
-                  "x": 0.481,
-                  "y": 0.533,
-                  "width": 0.1,
-                  "height": 0.117
+                  "x": 0.45,
+                  "y": 0.5333,
+                  "width": 0.1031,
+                  "height": 0.1604
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-01:i3:3",
                   "label": "Pessoa junto aos pés da mesa",
-                  "x": 0.856,
-                  "y": 0.208,
-                  "width": 0.1,
-                  "height": 0.342
+                  "x": 0.7594,
+                  "y": 0.1104,
+                  "width": 0.1734,
+                  "height": 0.8896
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-01:i3:4",
                   "label": "Campo de luz",
-                  "x": 0.313,
-                  "y": 0.258,
-                  "width": 0.119,
-                  "height": 0.208
+                  "x": 0.2683,
+                  "y": 0.4815,
+                  "width": 0.1487,
+                  "height": 0.1133
                 }
               ],
               "correctRegionIds": [
@@ -589,42 +589,42 @@ export const RTG_2026_M27: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m27:aula-02:i2:1",
                   "label": "Mão do acompanhante",
-                  "x": 0.15,
-                  "y": 0.5,
-                  "width": 0.09,
-                  "height": 0.13
+                  "x": 0.1124,
+                  "y": 0.4467,
+                  "width": 0.1402,
+                  "height": 0.1844
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-02:i2:2",
                   "label": "Faixa sobre as pernas",
-                  "x": 0.481,
-                  "y": 0.533,
-                  "width": 0.1,
-                  "height": 0.117
+                  "x": 0.45,
+                  "y": 0.5333,
+                  "width": 0.1031,
+                  "height": 0.1604
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-02:i2:3",
                   "label": "Campo de luz",
-                  "x": 0.313,
-                  "y": 0.258,
-                  "width": 0.119,
-                  "height": 0.208
+                  "x": 0.2683,
+                  "y": 0.4815,
+                  "width": 0.1487,
+                  "height": 0.1133
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-02:i2:4",
                   "label": "Apoio de espuma",
-                  "x": 0.695,
-                  "y": 0.5,
-                  "width": 0.09,
-                  "height": 0.14
+                  "x": 0.6156,
+                  "y": 0.6396,
+                  "width": 0.1047,
+                  "height": 0.1458
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-02:i2:5",
                   "label": "Pessoa junto aos pés da mesa",
-                  "x": 0.856,
-                  "y": 0.208,
-                  "width": 0.1,
-                  "height": 0.342
+                  "x": 0.7594,
+                  "y": 0.1104,
+                  "width": 0.1734,
+                  "height": 0.8896
                 }
               ],
               "correctRegionIds": [
@@ -959,34 +959,34 @@ export const RTG_2026_M27: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m27:aula-03:i2:1",
                   "label": "Pernas da criança da esquerda",
-                  "x": 0.194,
-                  "y": 0.7,
-                  "width": 0.113,
-                  "height": 0.2
+                  "x": 0.5878,
+                  "y": 0.5654,
+                  "width": 0.3414,
+                  "height": 0.2837
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-03:i2:2",
                   "label": "Cabeça da criança da esquerda",
-                  "x": 0.206,
-                  "y": 0.15,
-                  "width": 0.087,
-                  "height": 0.1
+                  "x": 0.1954,
+                  "y": 0.4383,
+                  "width": 0.1579,
+                  "height": 0.2448
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-03:i2:3",
                   "label": "Tórax da criança da direita",
-                  "x": 0.644,
-                  "y": 0.263,
-                  "width": 0.181,
-                  "height": 0.175
+                  "x": 0.6756,
+                  "y": 0.1489,
+                  "width": 0.08,
+                  "height": 0.08
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-03:i2:4",
                   "label": "Abdome e pelve da criança da direita",
-                  "x": 0.662,
-                  "y": 0.467,
-                  "width": 0.144,
-                  "height": 0.217
+                  "x": 0.8402,
+                  "y": 0.1932,
+                  "width": 0.08,
+                  "height": 0.08
                 }
               ],
               "correctRegionIds": [
@@ -1426,46 +1426,46 @@ export const RTG_2026_M27: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m27:aula-04:i4:1",
                   "label": "Barra de apoio junto ao receptor",
-                  "x": 0.09,
-                  "y": 0.5,
-                  "width": 0.08,
-                  "height": 0.24,
+                  "x": 0.1906,
+                  "y": 0.2631,
+                  "width": 0.1531,
+                  "height": 0.08,
                   "explanation": "A barra firme junto ao receptor dá onde a pessoa se segurar: é apoio, e não risco."
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-04:i4:2",
                   "label": "Degrau no chão",
-                  "x": 0.487,
-                  "y": 0.808,
-                  "width": 0.106,
-                  "height": 0.083,
+                  "x": 0.4156,
+                  "y": 0.775,
+                  "width": 0.1609,
+                  "height": 0.1375,
                   "explanation": "Um degrau no chão é obstáculo para quem se equilibra mal: a equipe resolve o caminho antes do exame."
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-04:i4:3",
                   "label": "Banco ao lado",
-                  "x": 0.294,
-                  "y": 0.658,
-                  "width": 0.138,
-                  "height": 0.233,
+                  "x": 0.2562,
+                  "y": 0.5354,
+                  "width": 0.1391,
+                  "height": 0.2292,
                   "explanation": "O banco está ao lado, fora do caminho dela: aqui ele não é obstáculo. Se ela precisar sentar, a equipe confere se ele é firme."
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-04:i4:4",
                   "label": "Tapete com a ponta solta",
-                  "x": 0.619,
-                  "y": 0.81,
-                  "width": 0.181,
-                  "height": 0.09,
+                  "x": 0.5797,
+                  "y": 0.8187,
+                  "width": 0.1797,
+                  "height": 0.1062,
                   "explanation": "A ponta solta do tapete pode prender o pé: piso irregular é risco de queda para quem se equilibra mal."
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-04:i4:5",
                   "label": "Andador longe da pessoa",
-                  "x": 0.831,
-                  "y": 0.533,
-                  "width": 0.156,
-                  "height": 0.358,
+                  "x": 0.7828,
+                  "y": 0.4979,
+                  "width": 0.1844,
+                  "height": 0.4063,
                   "explanation": "Ela usa o andador para se firmar, e ele ficou longe: avise a equipe antes de ela andar até ele, e siga o protocolo do serviço."
                 }
               ],
@@ -2147,42 +2147,42 @@ export const RTG_2026_M27: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m27:aula-06:i3:1",
                   "label": "Barra de apoio",
-                  "x": 0.09,
-                  "y": 0.5,
-                  "width": 0.08,
-                  "height": 0.24
+                  "x": 0.1906,
+                  "y": 0.2631,
+                  "width": 0.1531,
+                  "height": 0.08
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-06:i3:2",
                   "label": "Banco",
-                  "x": 0.294,
-                  "y": 0.658,
-                  "width": 0.138,
-                  "height": 0.233
+                  "x": 0.2562,
+                  "y": 0.5354,
+                  "width": 0.1391,
+                  "height": 0.2292
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-06:i3:3",
                   "label": "Degrau",
-                  "x": 0.487,
-                  "y": 0.808,
-                  "width": 0.106,
-                  "height": 0.083
+                  "x": 0.4156,
+                  "y": 0.775,
+                  "width": 0.1609,
+                  "height": 0.1375
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-06:i3:4",
                   "label": "Tapete",
-                  "x": 0.619,
-                  "y": 0.81,
-                  "width": 0.181,
-                  "height": 0.09
+                  "x": 0.5797,
+                  "y": 0.8187,
+                  "width": 0.1797,
+                  "height": 0.1062
                 },
                 {
                   "id": "region:rtg-2026:m27:aula-06:i3:5",
                   "label": "Andador",
-                  "x": 0.831,
-                  "y": 0.533,
-                  "width": 0.156,
-                  "height": 0.358
+                  "x": 0.7828,
+                  "y": 0.4979,
+                  "width": 0.1844,
+                  "height": 0.4063
                 }
               ],
               "correctRegionIds": [
@@ -6737,7 +6737,7 @@ export const RTG_2026_M27: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6c5b2dca073b09704c55051613dfd404c2166d237b95827c78ce7d2c74c19d8b"
+      "materialSha256": "da641e569649bb5766fa445f1214cf1dfd990f7d9ad4f3b568132275d8724836"
     },
     {
       "schemaVersion": 1,
@@ -6746,7 +6746,7 @@ export const RTG_2026_M27: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6c5b2dca073b09704c55051613dfd404c2166d237b95827c78ce7d2c74c19d8b"
+      "materialSha256": "da641e569649bb5766fa445f1214cf1dfd990f7d9ad4f3b568132275d8724836"
     },
     {
       "schemaVersion": 1,
@@ -6755,7 +6755,7 @@ export const RTG_2026_M27: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6c5b2dca073b09704c55051613dfd404c2166d237b95827c78ce7d2c74c19d8b"
+      "materialSha256": "da641e569649bb5766fa445f1214cf1dfd990f7d9ad4f3b568132275d8724836"
     },
     {
       "schemaVersion": 1,
@@ -6764,7 +6764,7 @@ export const RTG_2026_M27: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6c5b2dca073b09704c55051613dfd404c2166d237b95827c78ce7d2c74c19d8b"
+      "materialSha256": "da641e569649bb5766fa445f1214cf1dfd990f7d9ad4f3b568132275d8724836"
     },
     {
       "schemaVersion": 1,
@@ -6773,7 +6773,7 @@ export const RTG_2026_M27: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6c5b2dca073b09704c55051613dfd404c2166d237b95827c78ce7d2c74c19d8b"
+      "materialSha256": "da641e569649bb5766fa445f1214cf1dfd990f7d9ad4f3b568132275d8724836"
     },
     {
       "schemaVersion": 1,
@@ -6782,7 +6782,7 @@ export const RTG_2026_M27: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6c5b2dca073b09704c55051613dfd404c2166d237b95827c78ce7d2c74c19d8b"
+      "materialSha256": "da641e569649bb5766fa445f1214cf1dfd990f7d9ad4f3b568132275d8724836"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

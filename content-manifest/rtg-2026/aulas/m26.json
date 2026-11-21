@@ -522,27 +522,31 @@
           "points": [
             {
               "label": "Tubo",
-              "x": 0.369,
-              "y": 0.683,
-              "where": "sob o tampo, a caixa de onde o cone amarelo se abre"
+              "x": 0.2792,
+              "y": 0.682,
+              "where": "sob o tampo, a caixa de onde o cone amarelo se abre",
+              "alvo": "Tubo de raios X (sob a mesa)"
             },
             {
               "label": "Receptor",
-              "x": 0.369,
-              "y": 0.204,
-              "where": "no alto, a caixa larga acima do paciente deitado"
+              "x": 0.3074,
+              "y": 0.444,
+              "where": "no alto, a caixa larga acima do paciente deitado",
+              "alvo": "Receptor de imagem (acima do paciente)"
             },
             {
               "label": "Monitor",
-              "x": 0.9,
-              "y": 0.288,
-              "where": "à direita, a tela num suporte alto"
+              "x": 0.865,
+              "y": 0.3056,
+              "where": "à direita, a tela num suporte alto",
+              "alvo": "Monitor (num suporte)"
             },
             {
               "label": "Pedal",
-              "x": 0.669,
-              "y": 0.842,
-              "where": "no chão, o pequeno bloco perto dos pés da silhueta"
+              "x": 0.6049,
+              "y": 0.6416,
+              "where": "no chão, o pequeno bloco perto dos pés de quem opera",
+              "alvo": "Pedal (no chão)"
             }
           ],
           "distractors": [],
@@ -1178,7 +1182,7 @@
       },
       "concept": {
         "title": "Espalhamento e barreiras",
-        "body": "Na fluoroscopia, o que mais chega à equipe é o espalhamento que sai do paciente. Com o tubo sob a mesa, ele é mais forte do lado do tubo, na altura das pernas; acima da mesa, é mais fraco. As barreiras somam-se: avental, protetor de tireoide, saiote preso à lateral da mesa e biombo. A distância ajuda: neste esquema, a leitura cai com o quadrado da distância, e dobrá-la deixa um quarto. A equipe usa o que o serviço define, e o estudante fica onde a supervisão indicar.",
+        "body": "Na fluoroscopia, o que mais chega à equipe é o espalhamento que sai do paciente. Com o tubo sob a mesa, ele é mais forte do lado do tubo, na altura das pernas; acima da mesa, é mais fraco. As barreiras somam-se: avental, protetor de tireoide, saiote preso à borda da mesa, voltado para o operador e biombo. A distância ajuda: neste esquema, a leitura cai com o quadrado da distância, e dobrá-la deixa um quarto. A equipe usa o que o serviço define, e o estudante fica onde a supervisão indicar.",
         "keyPoints": [
           "O espalhamento sai do paciente e é mais forte do lado do tubo.",
           "Avental, protetor, saiote e biombo se somam à distância.",
@@ -1249,39 +1253,43 @@
           "regions": [
             {
               "label": "Pernas do operador, atrás do saiote",
-              "x": 0.615,
-              "y": 0.6,
-              "width": 0.085,
-              "height": 0.25,
+              "x": 0.6807,
+              "y": 0.5113,
+              "width": 0.0867,
+              "height": 0.2411,
               "risk": false,
-              "feedback": "No esquema, os raios fortes param no saiote, entre a mesa e o operador, e não chegam às pernas dele."
+              "feedback": "No esquema, os raios fortes param no saiote, entre a mesa e o operador, e não chegam às pernas dele.",
+              "alvo": "Pernas do operador, atrás do saiote"
             },
             {
               "label": "Abaixo da mesa, do lado do tubo",
-              "x": 0.36,
-              "y": 0.55,
-              "width": 0.17,
-              "height": 0.3,
+              "x": 0.4473,
+              "y": 0.5529,
+              "width": 0.1791,
+              "height": 0.2393,
               "risk": true,
-              "feedback": "Ali passam os raios grossos: com o tubo sob a mesa, o espalhamento é mais forte nessa altura, a das pernas."
+              "feedback": "Ali passam os raios grossos: com o tubo sob a mesa, o espalhamento é mais forte nessa altura, a das pernas.",
+              "alvo": "Abaixo da mesa, do lado do tubo"
             },
             {
               "label": "Pessoa afastada, atrás do biombo",
-              "x": 0.87,
-              "y": 0.5,
-              "width": 0.09,
-              "height": 0.35,
+              "x": 0.8484,
+              "y": 0.068,
+              "width": 0.104,
+              "height": 0.5887,
               "risk": false,
-              "feedback": "No esquema nenhum raio chega a ela: a distância e o biombo reduzem muito o que alcança quem fica ali."
+              "feedback": "No esquema nenhum raio chega a ela: a distância e o biombo reduzem muito o que alcança quem fica ali.",
+              "alvo": "Pessoa afastada, atrás do biombo"
             },
             {
               "label": "Pescoço do operador",
-              "x": 0.605,
-              "y": 0.21,
-              "width": 0.09,
-              "height": 0.09,
+              "x": 0.6841,
+              "y": 0.2652,
+              "width": 0.08,
+              "height": 0.08,
               "risk": true,
-              "feedback": "Os raios finos de cima chegam ao pescoço: mais fraco não é zero, e é por isso que existe o protetor de tireoide."
+              "feedback": "Os raios finos de cima chegam ao pescoço: mais fraco não é zero, e é por isso que existe o protetor de tireoide.",
+              "alvo": "Pescoço do operador"
             }
           ],
           "feedbackCorrect": "Você marcou onde o espalhamento chega e deixou de fora o que distância e barreira protegem.",

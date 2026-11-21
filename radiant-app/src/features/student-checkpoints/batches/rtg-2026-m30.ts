@@ -6,7 +6,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m30",
-  "materialSha256": "bf8f95de321cef48b00e33e5a89ad3f1ad23edd041e5cb287b00a4b0ec70fb68",
+  "materialSha256": "b7c990e5068c61eecf75cf657d0110b72ce90fb6d1ded234217f09aef41a38ea",
   "trackId": "track:rtg-2026:m30",
   "unitId": "unit:rtg-2026:m30",
   "contentVersion": "rtg-2026-m30-v1",
@@ -192,36 +192,36 @@ export const RTG_2026_M30: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m30:aula-01:i2:1",
-                  "x": 0.5313,
-                  "y": 0.7333,
+                  "x": 0.5217,
+                  "y": 0.776,
                   "where": "embaixo, o bloco azul sob o tampo, no meio do desenho",
                   "correctLabelId": "label:rtg-2026:m30:aula-01:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m30:aula-01:i2:2",
-                  "x": 0.5313,
-                  "y": 0.1292,
+                  "x": 0.5563,
+                  "y": 0.2958,
                   "where": "no alto, o bloco azul que fica acima do corpo",
                   "correctLabelId": "label:rtg-2026:m30:aula-01:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m30:aula-01:i2:3",
-                  "x": 0.5313,
-                  "y": 0.3542,
+                  "x": 0.5422,
+                  "y": 0.5125,
                   "where": "as duas linhas finas de cores diferentes, subindo retas",
                   "correctLabelId": "label:rtg-2026:m30:aula-01:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m30:aula-01:i2:4",
-                  "x": 0.3,
-                  "y": 0.5208,
+                  "x": 0.3792,
+                  "y": 0.413,
                   "where": "a figura deitada de costas, na altura do peito",
                   "correctLabelId": "label:rtg-2026:m30:aula-01:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m30:aula-01:i2:5",
-                  "x": 0.8938,
-                  "y": 0.6125,
+                  "x": 0.7537,
+                  "y": 0.7622,
                   "where": "a faixa onde o corpo se apoia, na ponta direita do desenho",
                   "correctLabelId": "label:rtg-2026:m30:aula-01:i2:5"
                 }
@@ -331,34 +331,34 @@ export const RTG_2026_M30: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m30:aula-01:i4:1",
                   "label": "Peça sob o tampo",
-                  "x": 0.4625,
-                  "y": 0.675,
-                  "width": 0.1375,
-                  "height": 0.1167
+                  "x": 0.4875,
+                  "y": 0.7021,
+                  "width": 0.1094,
+                  "height": 0.1104
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-01:i4:2",
                   "label": "Peça no alto do braço",
-                  "x": 0.4375,
-                  "y": 0.075,
-                  "width": 0.1875,
-                  "height": 0.1083
+                  "x": 0.4734,
+                  "y": 0.2271,
+                  "width": 0.15,
+                  "height": 0.1708
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-01:i4:3",
                   "label": "Tronco da pessoa",
-                  "x": 0.225,
-                  "y": 0.4583,
-                  "width": 0.15,
-                  "height": 0.125
+                  "x": 0.3141,
+                  "y": 0.3586,
+                  "width": 0.1402,
+                  "height": 0.1959
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-01:i4:4",
                   "label": "Ponta da mesa",
-                  "x": 0.8375,
-                  "y": 0.5667,
-                  "width": 0.1125,
-                  "height": 0.0917
+                  "x": 0.6672,
+                  "y": 0.6829,
+                  "width": 0.1631,
+                  "height": 0.1814
                 }
               ],
               "correctRegionIds": [
@@ -953,7 +953,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Toque na imagem: Na vista de cima, toque no pé que está na posição ensinada para a medida do fêmur."
+              "label": "Toque na imagem: Na cena da direita, toque no pé que está na posição ensinada para a medida do fêmur."
             },
             "help": "Lembre o que o suporte faz com o pé e, com ele, com o quadril.",
             "type": "hotspot",
@@ -962,48 +962,48 @@ export const RTG_2026_M30: ProductionBatchV1 = {
               "incorrect": "Essa região não é o pé posicionado para o fêmur: procure o pé girado para dentro, preso junto ao posicionador."
             },
             "payload": {
-              "prompt": "Na vista de cima, toque no pé que está na posição ensinada para a medida do fêmur.",
+              "prompt": "Na cena da direita, toque no pé que está na posição ensinada para a medida do fêmur.",
               "imageRef": "diagram:dxa-posicionamento",
               "regions": [
                 {
                   "id": "region:rtg-2026:m30:aula-03:i2:1",
                   "label": "Coluna reta sobre a mesa",
-                  "x": 0.1062,
-                  "y": 0.5417,
-                  "width": 0.1938,
-                  "height": 0.0917
+                  "x": 0.1258,
+                  "y": 0.2841,
+                  "width": 0.1704,
+                  "height": 0.2188
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-03:i2:2",
                   "label": "Bloco sob as pernas",
-                  "x": 0.3813,
-                  "y": 0.4667,
-                  "width": 0.0938,
-                  "height": 0.1417
+                  "x": 0.2219,
+                  "y": 0.55,
+                  "width": 0.2547,
+                  "height": 0.3771
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-03:i2:3",
                   "label": "Posicionador entre os pés",
-                  "x": 0.7312,
-                  "y": 0.5333,
-                  "width": 0.0875,
-                  "height": 0.1
+                  "x": 0.6781,
+                  "y": 0.5729,
+                  "width": 0.1047,
+                  "height": 0.2083
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-03:i2:4",
                   "label": "Pé à esquerda do desenho",
-                  "x": 0.6062,
-                  "y": 0.75,
-                  "width": 0.0813,
-                  "height": 0.1
+                  "x": 0.5105,
+                  "y": 0.5977,
+                  "width": 0.0976,
+                  "height": 0.1496
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-03:i2:5",
                   "label": "Pé à direita do desenho",
-                  "x": 0.87,
-                  "y": 0.77,
+                  "x": 0.8687,
+                  "y": 0.4741,
                   "width": 0.08,
-                  "height": 0.16
+                  "height": 0.1582
                 }
               ],
               "correctRegionIds": [
@@ -6810,7 +6810,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bf8f95de321cef48b00e33e5a89ad3f1ad23edd041e5cb287b00a4b0ec70fb68"
+      "materialSha256": "b7c990e5068c61eecf75cf657d0110b72ce90fb6d1ded234217f09aef41a38ea"
     },
     {
       "schemaVersion": 1,
@@ -6819,7 +6819,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bf8f95de321cef48b00e33e5a89ad3f1ad23edd041e5cb287b00a4b0ec70fb68"
+      "materialSha256": "b7c990e5068c61eecf75cf657d0110b72ce90fb6d1ded234217f09aef41a38ea"
     },
     {
       "schemaVersion": 1,
@@ -6828,7 +6828,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bf8f95de321cef48b00e33e5a89ad3f1ad23edd041e5cb287b00a4b0ec70fb68"
+      "materialSha256": "b7c990e5068c61eecf75cf657d0110b72ce90fb6d1ded234217f09aef41a38ea"
     },
     {
       "schemaVersion": 1,
@@ -6837,7 +6837,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bf8f95de321cef48b00e33e5a89ad3f1ad23edd041e5cb287b00a4b0ec70fb68"
+      "materialSha256": "b7c990e5068c61eecf75cf657d0110b72ce90fb6d1ded234217f09aef41a38ea"
     },
     {
       "schemaVersion": 1,
@@ -6846,7 +6846,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bf8f95de321cef48b00e33e5a89ad3f1ad23edd041e5cb287b00a4b0ec70fb68"
+      "materialSha256": "b7c990e5068c61eecf75cf657d0110b72ce90fb6d1ded234217f09aef41a38ea"
     },
     {
       "schemaVersion": 1,
@@ -6855,7 +6855,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bf8f95de321cef48b00e33e5a89ad3f1ad23edd041e5cb287b00a4b0ec70fb68"
+      "materialSha256": "b7c990e5068c61eecf75cf657d0110b72ce90fb6d1ded234217f09aef41a38ea"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",
