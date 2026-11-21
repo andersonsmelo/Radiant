@@ -98,7 +98,7 @@
       },
       "concept": {
         "title": "Subir e cair, rápido e devagar",
-        "body": "Depois do pulso, dois relógios correm. No gráfico da esquerda, a magnetização longitudinal se recupera: é o T1, e a curva sobe. No da direita, o sinal transversal se desfaz: é o T2, e a curva cai. Nos dois, a curva amarela é de um tecido de tempos curtos e a azul, de um de tempos longos, como o líquido. O esquema simplifica: as duas sobem ao mesmo patamar, e isso vale só para este desenho.",
+        "body": "Depois do pulso, dois relógios correm. Tempo na horizontal. No gráfico da esquerda, a magnetização longitudinal se recupera: é o T1, e a curva sobe. No da direita, o sinal transversal se desfaz: é o T2, e a curva cai. Nos dois, a curva amarela é de um tecido de tempos curtos e a azul, de um de tempos longos, como o líquido. O esquema simplifica: as duas sobem ao mesmo patamar, e isso vale só para este desenho.",
         "keyPoints": [
           "Curva que sobe: recuperação, T1. Curva que cai: perda de sinal, T2.",
           "Tempo curto: a curva chega depressa. Tempo longo: ela demora.",
@@ -148,14 +148,14 @@
           "points": [
             {
               "label": "T1 curto",
-              "x": 0.1157,
-              "y": 0.5417,
+              "x": 0.0938,
+              "y": 0.6074,
               "where": "à esquerda, a curva que sobe depressa até o topo"
             },
             {
               "label": "T1 longo",
-              "x": 0.4094,
-              "y": 0.3625,
+              "x": 0.3344,
+              "y": 0.4065,
               "where": "à esquerda, a curva que sobe devagar e fica abaixo do topo"
             },
             {
@@ -166,14 +166,14 @@
             },
             {
               "label": "T2 curto",
-              "x": 0.6031,
-              "y": 0.5208,
+              "x": 0.5813,
+              "y": 0.4629,
               "where": "à direita, a curva que cai depressa até perto de zero"
             },
             {
               "label": "T2 longo",
-              "x": 0.8969,
-              "y": 0.6625,
+              "x": 0.7438,
+              "y": 0.5411,
               "where": "à direita, a curva que cai devagar e termina mais alta"
             }
           ],
@@ -437,7 +437,7 @@
       },
       "concept": {
         "title": "Dois intervalos contados a partir do pulso",
-        "body": "Cada repetição começa com um pulso de excitação, a barra amarela. O TE é o intervalo do pulso ao centro do eco: a chave curta. O TR é o intervalo de um pulso até o pulso seguinte: a chave longa. Na ordem: pulso de excitação, sinal que começa a se desfazer, centro do eco, que fecha o TE, e pulso seguinte, que fecha o TR. Os dois intervalos contam a partir do pulso. Tempo na horizontal; sinal na vertical.",
+        "body": "Cada repetição começa com um pulso de excitação, a barra amarela. O TE é o intervalo do pulso ao centro do eco: a chave curta. O TR é o intervalo de um pulso até o pulso seguinte: a chave longa. Na ordem: pulso de excitação, sinal que começa a se desfazer, centro do eco, que fecha o TE, e pulso seguinte, que fecha o TR. Os dois intervalos contam a partir do pulso. Tempo na horizontal; intensidade na vertical.",
         "keyPoints": [
           "TE: do pulso ao centro do eco. É a chave curta.",
           "TR: de um pulso ao pulso seguinte. É a chave longa."

@@ -6,7 +6,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m22",
-  "materialSha256": "174c81da7ed38ebfa0b51c15d35ae327c846ebe90b429a32abbc204b988c5709",
+  "materialSha256": "8c4f529ae21b0e4c4c2ef2cab6e6b5ab2e002f2c8bf88742cc0c32bcbaee864a",
   "trackId": "track:rtg-2026:m22",
   "unitId": "unit:rtg-2026:m22",
   "contentVersion": "rtg-2026-m22-v1",
@@ -158,7 +158,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "O sistema procura a faixa da anatomia",
-            "body": "O sistema conta quantos pixels têm cada valor: é o histograma. Neste esquema, o valor do pixel cresce com a exposição. À esquerda fica o pico da área colimada, quase sem sinal. No meio, o grupo largo da anatomia: a faixa de interesse. À direita, o pico da radiação direta, fora do corpo. A curva em S converte essa faixa em brilho. Se o campo ou a região anatômica estão errados, a faixa pode sair errada.",
+            "body": "O histograma conta pixels por valor: a altura é quantos pixels; na horizontal, o valor. Neste esquema, o valor do pixel cresce com a exposição. À esquerda fica o pico da área colimada, quase sem sinal. No meio, o grupo largo da anatomia: a faixa de interesse. À direita, o pico da radiação direta, fora do corpo. A curva em S converte essa faixa em brilho. Se o campo ou a região anatômica estão errados, a faixa pode sair errada.",
             "keyPoints": [
               "Faixa de interesse: o grupo de valores da anatomia, sem a área colimada nem a radiação direta.",
               "O sentido do valor depende do sistema: onde ele cai com a exposição, as pontas se invertem.",
@@ -6834,7 +6834,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "174c81da7ed38ebfa0b51c15d35ae327c846ebe90b429a32abbc204b988c5709"
+      "materialSha256": "8c4f529ae21b0e4c4c2ef2cab6e6b5ab2e002f2c8bf88742cc0c32bcbaee864a"
     },
     {
       "schemaVersion": 1,
@@ -6843,7 +6843,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "174c81da7ed38ebfa0b51c15d35ae327c846ebe90b429a32abbc204b988c5709"
+      "materialSha256": "8c4f529ae21b0e4c4c2ef2cab6e6b5ab2e002f2c8bf88742cc0c32bcbaee864a"
     },
     {
       "schemaVersion": 1,
@@ -6852,7 +6852,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "174c81da7ed38ebfa0b51c15d35ae327c846ebe90b429a32abbc204b988c5709"
+      "materialSha256": "8c4f529ae21b0e4c4c2ef2cab6e6b5ab2e002f2c8bf88742cc0c32bcbaee864a"
     },
     {
       "schemaVersion": 1,
@@ -6861,7 +6861,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "174c81da7ed38ebfa0b51c15d35ae327c846ebe90b429a32abbc204b988c5709"
+      "materialSha256": "8c4f529ae21b0e4c4c2ef2cab6e6b5ab2e002f2c8bf88742cc0c32bcbaee864a"
     },
     {
       "schemaVersion": 1,
@@ -6870,7 +6870,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "174c81da7ed38ebfa0b51c15d35ae327c846ebe90b429a32abbc204b988c5709"
+      "materialSha256": "8c4f529ae21b0e4c4c2ef2cab6e6b5ab2e002f2c8bf88742cc0c32bcbaee864a"
     },
     {
       "schemaVersion": 1,
@@ -6879,7 +6879,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "174c81da7ed38ebfa0b51c15d35ae327c846ebe90b429a32abbc204b988c5709"
+      "materialSha256": "8c4f529ae21b0e4c4c2ef2cab6e6b5ab2e002f2c8bf88742cc0c32bcbaee864a"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

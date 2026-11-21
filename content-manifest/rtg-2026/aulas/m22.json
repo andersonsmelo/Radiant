@@ -125,7 +125,7 @@
       },
       "concept": {
         "title": "O sistema procura a faixa da anatomia",
-        "body": "O sistema conta quantos pixels têm cada valor: é o histograma. Neste esquema, o valor do pixel cresce com a exposição. À esquerda fica o pico da área colimada, quase sem sinal. No meio, o grupo largo da anatomia: a faixa de interesse. À direita, o pico da radiação direta, fora do corpo. A curva em S converte essa faixa em brilho. Se o campo ou a região anatômica estão errados, a faixa pode sair errada.",
+        "body": "O histograma conta pixels por valor: a altura é quantos pixels; na horizontal, o valor. Neste esquema, o valor do pixel cresce com a exposição. À esquerda fica o pico da área colimada, quase sem sinal. No meio, o grupo largo da anatomia: a faixa de interesse. À direita, o pico da radiação direta, fora do corpo. A curva em S converte essa faixa em brilho. Se o campo ou a região anatômica estão errados, a faixa pode sair errada.",
         "keyPoints": [
           "Faixa de interesse: o grupo de valores da anatomia, sem a área colimada nem a radiação direta.",
           "O sentido do valor depende do sistema: onde ele cai com a exposição, as pontas se invertem.",

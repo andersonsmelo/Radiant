@@ -172,8 +172,8 @@
             },
             {
               "label": "Transformador de alta tensão",
-              "x": 0.313,
-              "y": 0.334,
+              "x": 0.3,
+              "y": 0.45,
               "where": "no alto, duas bobinas, a da direita com mais voltas"
             },
             {
@@ -1440,7 +1440,7 @@
       },
       "concept": {
         "title": "Ler a forma do espectro",
-        "body": "O feixe de raios X mistura energias. A curva larga é a radiação de freamento, dos elétrons freados no alvo. Ela termina na energia máxima, que acompanha o kV. Os picos estreitos são a radiação característica: a posição deles depende do material do alvo. A filtração tira fótons de baixa energia: a quantidade cai e a energia média sobe. O mAs muda a quantidade, e não a energia. O kV muda a energia máxima e também a quantidade. Aqui só importa o sentido: sobe, desce, não muda.",
+        "body": "O feixe de raios X mistura energias. No gráfico, a energia fica na horizontal e a quantidade de fótons, na vertical. A curva larga é a radiação de freamento, dos elétrons freados no alvo. Ela termina na energia máxima, que acompanha o kV. Os picos estreitos são a radiação característica: a posição deles depende do material do alvo. A filtração tira fótons de baixa energia: a quantidade cai e a energia média sobe. O mAs muda a quantidade, e não a energia. O kV muda a energia máxima e também a quantidade. Aqui só importa o sentido: sobe, desce, não muda.",
         "keyPoints": [
           "kV: a energia máxima e a quantidade sobem.",
           "mAs: só a quantidade muda.",
@@ -1489,8 +1489,8 @@
           "points": [
             {
               "label": "Radiação de freamento",
-              "x": 0.39,
-              "y": 0.54,
+              "x": 0.3966,
+              "y": 0.5838,
               "where": "a curva larga que sobe depressa e desce devagar"
             },
             {
@@ -1503,13 +1503,13 @@
               "label": "Energia máxima",
               "x": 0.813,
               "y": 0.834,
-              "where": "o ponto branco no fim do eixo horizontal"
+              "where": "onde a curva larga toca o eixo horizontal"
             },
             {
               "label": "Parte removida pela filtração",
               "x": 0.223,
               "y": 0.459,
-              "where": "à esquerda, a faixa sombreada sob a linha tracejada"
+              "where": "à esquerda, a faixa sombreada acima da curva"
             }
           ],
           "distractors": [

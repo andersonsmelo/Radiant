@@ -6,7 +6,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m29",
-  "materialSha256": "a9bf7dc393ba397154804efb678c68fc914eeb20c3f0af8a86087d8aa307fc51",
+  "materialSha256": "de02d3e4953aa07cc614367c850e05d4c8847b359c4ac95dd345f617bd2733e3",
   "trackId": "track:rtg-2026:m29",
   "unitId": "unit:rtg-2026:m29",
   "contentVersion": "rtg-2026-m29-v1",
@@ -128,7 +128,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Subir e cair, rápido e devagar",
-            "body": "Depois do pulso, dois relógios correm. No gráfico da esquerda, a magnetização longitudinal se recupera: é o T1, e a curva sobe. No da direita, o sinal transversal se desfaz: é o T2, e a curva cai. Nos dois, a curva amarela é de um tecido de tempos curtos e a azul, de um de tempos longos, como o líquido. O esquema simplifica: as duas sobem ao mesmo patamar, e isso vale só para este desenho.",
+            "body": "Depois do pulso, dois relógios correm. Tempo na horizontal. No gráfico da esquerda, a magnetização longitudinal se recupera: é o T1, e a curva sobe. No da direita, o sinal transversal se desfaz: é o T2, e a curva cai. Nos dois, a curva amarela é de um tecido de tempos curtos e a azul, de um de tempos longos, como o líquido. O esquema simplifica: as duas sobem ao mesmo patamar, e isso vale só para este desenho.",
             "keyPoints": [
               "Curva que sobe: recuperação, T1. Curva que cai: perda de sinal, T2.",
               "Tempo curto: a curva chega depressa. Tempo longo: ela demora.",
@@ -209,15 +209,15 @@ export const RTG_2026_M29: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m29:aula-01:i2:1",
-                  "x": 0.1157,
-                  "y": 0.5417,
+                  "x": 0.0938,
+                  "y": 0.6074,
                   "where": "à esquerda, a curva que sobe depressa até o topo",
                   "correctLabelId": "label:rtg-2026:m29:aula-01:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m29:aula-01:i2:2",
-                  "x": 0.4094,
-                  "y": 0.3625,
+                  "x": 0.3344,
+                  "y": 0.4065,
                   "where": "à esquerda, a curva que sobe devagar e fica abaixo do topo",
                   "correctLabelId": "label:rtg-2026:m29:aula-01:i2:2"
                 },
@@ -230,15 +230,15 @@ export const RTG_2026_M29: ProductionBatchV1 = {
                 },
                 {
                   "id": "point:rtg-2026:m29:aula-01:i2:4",
-                  "x": 0.6031,
-                  "y": 0.5208,
+                  "x": 0.5813,
+                  "y": 0.4629,
                   "where": "à direita, a curva que cai depressa até perto de zero",
                   "correctLabelId": "label:rtg-2026:m29:aula-01:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m29:aula-01:i2:5",
-                  "x": 0.8969,
-                  "y": 0.6625,
+                  "x": 0.7438,
+                  "y": 0.5411,
                   "where": "à direita, a curva que cai devagar e termina mais alta",
                   "correctLabelId": "label:rtg-2026:m29:aula-01:i2:5"
                 }
@@ -475,7 +475,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Dois intervalos contados a partir do pulso",
-            "body": "Cada repetição começa com um pulso de excitação, a barra amarela. O TE é o intervalo do pulso ao centro do eco: a chave curta. O TR é o intervalo de um pulso até o pulso seguinte: a chave longa. Na ordem: pulso de excitação, sinal que começa a se desfazer, centro do eco, que fecha o TE, e pulso seguinte, que fecha o TR. Os dois intervalos contam a partir do pulso. Tempo na horizontal; sinal na vertical.",
+            "body": "Cada repetição começa com um pulso de excitação, a barra amarela. O TE é o intervalo do pulso ao centro do eco: a chave curta. O TR é o intervalo de um pulso até o pulso seguinte: a chave longa. Na ordem: pulso de excitação, sinal que começa a se desfazer, centro do eco, que fecha o TE, e pulso seguinte, que fecha o TR. Os dois intervalos contam a partir do pulso. Tempo na horizontal; intensidade na vertical.",
             "keyPoints": [
               "TE: do pulso ao centro do eco. É a chave curta.",
               "TR: de um pulso ao pulso seguinte. É a chave longa."
@@ -6652,7 +6652,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a9bf7dc393ba397154804efb678c68fc914eeb20c3f0af8a86087d8aa307fc51"
+      "materialSha256": "de02d3e4953aa07cc614367c850e05d4c8847b359c4ac95dd345f617bd2733e3"
     },
     {
       "schemaVersion": 1,
@@ -6661,7 +6661,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a9bf7dc393ba397154804efb678c68fc914eeb20c3f0af8a86087d8aa307fc51"
+      "materialSha256": "de02d3e4953aa07cc614367c850e05d4c8847b359c4ac95dd345f617bd2733e3"
     },
     {
       "schemaVersion": 1,
@@ -6670,7 +6670,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a9bf7dc393ba397154804efb678c68fc914eeb20c3f0af8a86087d8aa307fc51"
+      "materialSha256": "de02d3e4953aa07cc614367c850e05d4c8847b359c4ac95dd345f617bd2733e3"
     },
     {
       "schemaVersion": 1,
@@ -6679,7 +6679,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a9bf7dc393ba397154804efb678c68fc914eeb20c3f0af8a86087d8aa307fc51"
+      "materialSha256": "de02d3e4953aa07cc614367c850e05d4c8847b359c4ac95dd345f617bd2733e3"
     },
     {
       "schemaVersion": 1,
@@ -6688,7 +6688,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a9bf7dc393ba397154804efb678c68fc914eeb20c3f0af8a86087d8aa307fc51"
+      "materialSha256": "de02d3e4953aa07cc614367c850e05d4c8847b359c4ac95dd345f617bd2733e3"
     },
     {
       "schemaVersion": 1,
@@ -6697,7 +6697,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a9bf7dc393ba397154804efb678c68fc914eeb20c3f0af8a86087d8aa307fc51"
+      "materialSha256": "de02d3e4953aa07cc614367c850e05d4c8847b359c4ac95dd345f617bd2733e3"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

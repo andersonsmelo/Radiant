@@ -62,9 +62,9 @@ tags:
     id: 'label-chip-Água atingida'
 - scrollUntilVisible:
     element:
-      text: 'Ponto 3, à direita, o ponto branco com halo no trilho tracejado, sem rótulo'
+      text: 'Ponto 3, à direita, o halo no trilho tracejado, sem rótulo'
     direction: UP
-- tapOn: 'Ponto 3, à direita, o ponto branco com halo no trilho tracejado, sem rótulo'
+- tapOn: 'Ponto 3, à direita, o halo no trilho tracejado, sem rótulo'
 - scrollUntilVisible:
     element:
       id: 'label-chip-Radical'
