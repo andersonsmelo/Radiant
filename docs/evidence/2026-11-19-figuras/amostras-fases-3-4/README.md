@@ -4,6 +4,8 @@ As fases 3 (14 gráficos em código) e 4 (3 fluxos com ícones) têm amostra pro
 
 ## Fase 3: gráficos com a gramática da skill `dataviz`
 
+**Atualização de 2026-11-21: a fase 3 foi aprovada pelo dono ("Sim, produza") e produzida.** Os 14 gráficos entraram no app, as aulas foram ajustadas e a evidência está em [`../fase-3.md`](../fase-3.md); a gramática virou [`docs/content/2026-11-19-gramatica-de-graficos.md`](../../../content/2026-11-19-gramatica-de-graficos.md). O texto abaixo é o da amostra, de 2026-11-20, e fica como histórico.
+
 Amostra: `espectro-de-raios-x`, `relaxacao-t1-t2` (animado) e `circuito-do-gerador`, redesenhadas com uma gramática única (painel opaco, eixos com seta cheia, sem grade, marcas só onde há valor nomeado, cartões uniformes nos esquemas, cor por papel). Quadro 320 x 240, só o que o `SvgXml` aceita, só cores da paleta.
 
 - [`fase3-comparacao.png`](fase3-comparacao.png): a figura atual e a nova, lado a lado.

@@ -260,6 +260,8 @@ Texto do `alt` resumido. **Parado** não tem movimento. **Laço** repete sozinho
 (`parameter-lab`); fora dele aparece parado, no quadro inicial. Nenhum diagrama tem
 texto dentro: o rótulo vem do conteúdo.
 
+**Gráficos e esquemas físicos** (curva, histograma, linha do tempo, circuito) seguem a gramática de [`2026-11-19-gramatica-de-graficos.md`](2026-11-19-gramatica-de-graficos.md): painel, eixos com seta cheia, cor por papel e movimento só no `visual` do conceito. Como o desenho não tem texto, **a aula diz o que cada eixo mede** (no corpo do conceito, se couber nas 80 palavras, ou no `where` dos alvos); o `alt` e a cor nunca carregam essa informação sozinhos.
+
 | id | Tipo | O que mostra |
 | --- | --- | --- |
 | `tubo-raios-x` | parado | Tubo de raios X: o filamento do cátodo emite elétrons para o ânodo, e o feixe sai pela janela. |
@@ -773,6 +775,8 @@ distância de 2 m para cima vale; se o enunciado pede "um quarto", use `atLeast`
 ```
 
 ### `visual` do conceito
+
+Para gráfico ou esquema físico, o desenho segue a [gramática dos gráficos](2026-11-19-gramatica-de-graficos.md); com alvo de toque, a figura aparece parada no quadro de pôster.
 
 `concept.visual` aceita o id de um diagrama do catálogo. O diagrama aparece no
 conceito, e o verificador confere só que o id existe. **Use** quando o movimento ou a

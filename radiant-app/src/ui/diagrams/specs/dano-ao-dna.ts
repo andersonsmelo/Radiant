@@ -1,16 +1,18 @@
 import { P } from '../diagramPalette';
 import type { DiagramSpec } from '../diagramTypes';
 
-// Quadro 320x240, parado. Um trecho de DNA em escada reta (fita de cima azul, fita de baixo clara,
-// degraus entre elas). Do lado esquerdo, o fóton (traço ondulado amarelo) atinge a própria fita
-// (ação direta). No alto à direita, o fóton atinge uma molécula de água (O grande, dois H pequenos)
-// e dela sai um radical (ponto ciano) que chega à fita (ação indireta). Na fita de baixo, uma quebra
-// simples (só uma fita interrompida); à direita, uma quebra dupla (as duas fitas e o degrau
-// interrompidos na mesma altura). A figura não tem texto; o conteúdo rotula.
+// Gramática de gráficos (fase 3). Quadro 320x240, parado (tem alvo de toque), sem texto. Painel opaco; DNA em escada
+// reta: as duas fitas azuis (3,5) e degraus finos (muted). Fóton âmbar (traço ondulado com ponta).
+// Alvos da aula (m21): impacto direto (64,160) na fita de cima; água atingida (214,70) no O grande; radical (239,124)
+// no meio do trilho tracejado; quebra simples (136,196) na fita de baixo; quebra dupla (256,178), entre as duas fitas.
+// Cor segue a entidade: azul é a molécula (fitas e O da água), âmbar é a radiação (fótons e marca do impacto), branco
+// marca o que é pontual (radical, pontas rompidas). Alvos a 54 ou mais um do outro (toque de 44 pt sem sobrepor).
 const r = (v: number) => Math.round(v * 100) / 100;
+const TOP = 160;
+const BOT = 196;
 
-/** Traço ondulado de (x1,y1) a (x2,y2): `cycles` ondas de amplitude `amp`. */
-const wave = (x1: number, y1: number, x2: number, y2: number, amp: number, cycles: number) => {
+/** Traço ondulado de (x1,y1) a (x2,y2) com ponta em chevron: `cycles` ondas de amplitude `amp`. */
+const photon = (x1: number, y1: number, x2: number, y2: number, amp: number, cycles: number) => {
   const len = Math.hypot(x2 - x1, y2 - y1);
   const [ux, uy] = [(x2 - x1) / len, (y2 - y1) / len];
   const n = Math.round(len / 3);
@@ -19,15 +21,16 @@ const wave = (x1: number, y1: number, x2: number, y2: number, amp: number, cycle
     const o = amp * Math.sin(t * cycles * 2 * Math.PI);
     return `${r(x1 + ux * len * t - uy * o)},${r(y1 + uy * len * t + ux * o)}`;
   });
-  return `<polyline points="${pts.join(' ')}" fill="none" stroke="${P.beam}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+  const back = (s: number) => `${r(x2 - ux * 9 + uy * s * 5.5)},${r(y2 - uy * 9 - ux * s * 5.5)}`;
+  return `<polyline points="${pts.join(' ')}" fill="none" stroke="${P.beam}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="${back(1)} ${r(x2)},${r(y2)} ${back(-1)}" fill="none" stroke="${P.beam}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
 };
 
-const TOP = 160;
-const BOT = 196;
-// Degraus, menos o que cai na quebra dupla (x=270).
-const rungs = [28, 44, 60, 76, 92, 108, 124, 140, 156, 172, 188, 204, 220, 236, 252, 288]
-  .map((x) => `<line x1="${x}" y1="${TOP}" x2="${x}" y2="${BOT}" stroke="${P.muted}" stroke-width="2"/>`)
-  .join('\n');
+// Degraus a cada 24 de 52 a 268; o do meio da quebra dupla (x=256) fica só em dois cotos.
+const rungs = Array.from({ length: 10 }, (_, j) => 52 + 24 * j)
+  .map((x) => `M${x} ${TOP} V${BOT}`)
+  .join(' ');
+const flare = (x: number, y: number, side: 1 | -1) => `M${x} ${y} l${5 * side} -6 M${x} ${y} l${5 * side} 6`;
 
 export const danoAoDna: DiagramSpec = {
   id: 'dano-ao-dna',
@@ -36,36 +39,35 @@ export const danoAoDna: DiagramSpec = {
   height: 240,
   layers: [
     {
-      // Degraus e as duas fitas; a de baixo tem a quebra simples (x 112 a 128), as duas têm a dupla (x 262 a 278).
-      svg: `${rungs}
-<path d="M16 ${TOP} H262 M278 ${TOP} H304" fill="none" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/>
-<path d="M16 ${BOT} H112 M128 ${BOT} H262 M278 ${BOT} H304" fill="none" stroke="${P.line}" stroke-width="3" stroke-linecap="round"/>`,
+      // Painel, degraus e as duas fitas; a de baixo tem a quebra simples (x 128 a 144), as duas têm a dupla (x 248 a 264).
+      svg: `<rect x="8" y="8" width="304" height="224" rx="16" fill="${P.fill}"/>
+<path d="${rungs} M256 ${TOP + 3} V${TOP + 12} M256 ${BOT - 12} V${BOT - 3}" fill="none" stroke="${P.muted}" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M28 ${TOP} H248 M264 ${TOP} H292 M28 ${BOT} H128 M144 ${BOT} H248 M264 ${BOT} H292" fill="none" stroke="${P.accent}" stroke-width="3.5" stroke-linecap="round"/>`,
     },
     {
-      // Pontas rompidas: ficam abertas em leque, para dizer "interrompido".
-      svg: `<path d="M112 ${BOT} l-4 6 M128 ${BOT} l4 6 M112 ${BOT} l-4 -6 M128 ${BOT} l4 -6" fill="none" stroke="${P.line}" stroke-width="2.5" stroke-linecap="round"/>
-<path d="M262 ${TOP} l-4 -6 M278 ${TOP} l4 -6 M262 ${BOT} l-4 6 M278 ${BOT} l4 6" fill="none" stroke="${P.line}" stroke-width="2.5" stroke-linecap="round"/>`,
+      // Pontas rompidas em leque: dizem "interrompido".
+      svg: `<path d="${flare(128, BOT, -1)} ${flare(144, BOT, 1)} ${flare(248, TOP, -1)} ${flare(264, TOP, 1)} ${flare(248, BOT, -1)} ${flare(264, BOT, 1)}" fill="none" stroke="${P.line}" stroke-width="2.5" stroke-linecap="round"/>`,
     },
     {
       // Ação direta: o fóton desce até a fita de cima e o ponto de impacto fica marcado.
-      svg: `${wave(44, 16, 44, 146, 4, 6)}
-<polyline points="38,136 44,148 50,136" fill="none" stroke="${P.beam}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="44" cy="${TOP}" r="8" fill="none" stroke="${P.beam}" stroke-width="2.5"/>
-<circle cx="44" cy="${TOP}" r="2.5" fill="${P.beam}"/>`,
+      svg: `${photon(64, 20, 64, 146, 4, 6)}
+<circle cx="64" cy="${TOP}" r="9" fill="none" stroke="${P.beam}" stroke-width="2.5"/>
+<circle cx="64" cy="${TOP}" r="3" fill="${P.beam}"/>`,
     },
     {
-      // Ação indireta: o fóton atinge a molécula de água (O e dois H) ao lado do DNA.
-      svg: `${wave(160, 14, 200, 48, 3.5, 5)}
-<circle cx="215" cy="62" r="13" fill="${P.accent}" fill-opacity="0.35" stroke="${P.accent}" stroke-width="3"/>
-<circle cx="199" cy="78" r="6" fill="none" stroke="${P.line}" stroke-width="2.5"/>
-<circle cx="233" cy="78" r="6" fill="none" stroke="${P.line}" stroke-width="2.5"/>`,
+      // Ação indireta: o fóton atinge a molécula de água (O grande, dois H e as ligações).
+      svg: `${photon(156, 24, 201, 62, 3.5, 5)}
+<path d="M205 81 L201 87 M223 81 L227 87" fill="none" stroke="${P.muted}" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="214" cy="70" r="13" fill="${P.accent}" fill-opacity="0.35" stroke="${P.accent}" stroke-width="3"/>
+<circle cx="198" cy="94" r="6" fill="none" stroke="${P.line}" stroke-width="2.5"/>
+<circle cx="230" cy="94" r="6" fill="none" stroke="${P.line}" stroke-width="2.5"/>`,
     },
     {
-      // O radical sai da água, anda até a fita (rastro tracejado) e chega ao ponto da quebra dupla.
-      svg: `<path d="M224 76 L238 112" fill="none" stroke="${P.electron}" stroke-width="2.5" stroke-dasharray="4 5" stroke-linecap="round"/>
-<path d="M240 126 L262 150" fill="none" stroke="${P.electron}" stroke-width="2.5" stroke-dasharray="4 5" stroke-linecap="round"/>
-<circle cx="238" cy="119" r="8" fill="${P.electron}"/>
-<circle cx="238" cy="119" r="12" fill="none" stroke="${P.electron}" stroke-width="2"/>`,
+      // O radical sai da água, anda pelo trilho tracejado até a fita, rumo à quebra dupla.
+      svg: `<path d="M230 104 L250 150" fill="none" stroke="${P.muted}" stroke-width="2.5" stroke-dasharray="4 5" stroke-linecap="round"/>
+<polyline points="243,144 251,153 254,142" fill="none" stroke="${P.muted}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="239" cy="124" r="7" fill="${P.line}" stroke="${P.fill}" stroke-width="2.5"/>
+<circle cx="239" cy="124" r="13" fill="none" stroke="${P.line}" stroke-width="2" stroke-opacity="0.6"/>`,
     },
   ],
 };

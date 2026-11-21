@@ -158,6 +158,26 @@ describe('registro de diagramas', () => {
     expect(spec.layers.filter((layer) => layer.motion !== undefined)).toEqual([]);
   });
 
+  // Fase 3 (gramática de gráficos, 2026-11-21): só a figura de `visual` de conceito se move, em laço de até 4 camadas móveis,
+  // com quadro de pôster; figura com área de toque, ou que a aula só rotula, fica parada.
+  const GRAFICOS_PARADOS = ['espectro-de-raios-x', 'circuito-do-gerador', 'dano-ao-dna', 'histograma-e-lut', 'compressao-de-imagem', 'ciclo-de-testes', 'coincidencia-de-campo', 'nivel-de-referencia'];
+  const GRAFICOS_EM_LACO = ['relaxacao-t1-t2', 'grandezas-de-dose', 'realce-e-suavizacao', 'retificacao-de-onda', 'fluoroscopia-pulsada', 'linha-do-tempo-tr-te'];
+  it.each(GRAFICOS_PARADOS)('%s: gráfico parado, sem laço, sem pôster e sem camada móvel', (id) => {
+    const spec = DIAGRAMS[id];
+    expect(spec.periodMs).toBeUndefined();
+    expect(spec.posterAt).toBeUndefined();
+    expect(spec.layers.filter((layer) => layer.motion !== undefined)).toEqual([]);
+  });
+  it.each(GRAFICOS_EM_LACO)('%s: laço com quadro de pôster dentro do ciclo e até 4 camadas móveis', (id) => {
+    const spec = DIAGRAMS[id];
+    expect(spec.periodMs).toBeGreaterThan(0);
+    expect(spec.posterAt).toBeGreaterThan(0);
+    expect(spec.posterAt).toBeLessThan(1);
+    const moving = spec.layers.filter((layer) => layer.motion !== undefined).length;
+    expect(moving).toBeGreaterThan(0);
+    expect(moving).toBeLessThanOrEqual(4);
+  });
+
   it('diagramRef e parseDiagramRef são inversas', () => {
     for (const id of DIAGRAM_IDS) expect(parseDiagramRef(diagramRef(id))).toBe(id);
     expect(parseDiagramRef('licensed-image-1')).toBeNull();
