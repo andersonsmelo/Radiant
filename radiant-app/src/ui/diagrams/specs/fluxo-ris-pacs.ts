@@ -1,54 +1,68 @@
 import { P } from '../diagramPalette';
 import type { DiagramSpec } from '../diagramTypes';
 
-// Quadro 320x240, parado. Cinco blocos em serpentina, ligados por setas na ordem do fluxo: em cima,
-// da esquerda para a direita, o balcão de cadastro (prancheta), a lista de trabalho (lista) e o
-// equipamento de raios X (tubo, feixe e mesa); embaixo, da direita para a esquerda, o arquivo de
-// imagens (cilindro de armazenamento) e a estação de visualização (monitor com imagem).
-const block = (x: number, y: number) =>
-  `<rect x="${x}" y="${y}" width="68" height="68" rx="8" fill="${P.fill}" stroke="${P.muted}" stroke-width="3"/>`;
-const head = (x: number, y: number, dir: 'r' | 'l' | 'd') => {
-  const pts = { r: `${x - 6},${y - 5} ${x},${y} ${x - 6},${y + 5}`, l: `${x + 6},${y - 5} ${x},${y} ${x + 6},${y + 5}`, d: `${x - 5},${y - 6} ${x},${y} ${x + 5},${y - 6}` };
-  return `<polyline points="${pts[dir]}" fill="none" stroke="${P.beam}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
-};
-
+// Fase 4 da troca das figuras. Quadro 320x240, parado, sem texto: Caminho do pedido: do cadastro à estação de visualização.
+// Cinco cartões P.fill em serpentina (a mesma grade nas três figuras de fluxo) e, em cada um, um ícone do Lucide
+// (ISC, v1.77.0) intacto, só recolorido e posto no centro. Seta cheia em P.accent. Só o passo de imagem é âmbar (cor do feixe).
+// Quem rotula os passos é a aula. Figura com área de toque fica parada: sem movimento.
+// Gerado por scripts/content/figuras/fluxos/fluxo-ris-pacs.mjs: não se edita à mão.
 export const fluxoRisPacs: DiagramSpec = {
   id: 'fluxo-ris-pacs',
-  alt: 'Cinco blocos ligados por setas em serpentina: prancheta, lista, tubo de raios X com mesa, cilindro de armazenamento e monitor com imagem.',
+  art: 'imported',
+  alt: 'Cinco cartões com ícones ligados por setas: três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.',
   width: 320,
   height: 240,
   layers: [
     {
-      // Setas 1→2, 2→3, 3→4 e 4→5.
-      svg: `<path d="M90 62 H123 M196 62 H229 M266 98 V135 M230 172 H197" stroke="${P.beam}" stroke-width="3" stroke-linecap="round" fill="none"/>
-${head(125, 62, 'r')}${head(231, 62, 'r')}${head(266, 137, 'd')}${head(195, 172, 'l')}`,
+      // Os cinco cartões.
+      svg: `<rect x="18" y="36" width="76" height="68" rx="10" fill="${P.fill}"/>
+<rect x="122" y="36" width="76" height="68" rx="10" fill="${P.fill}"/>
+<rect x="226" y="36" width="76" height="68" rx="10" fill="${P.fill}"/>
+<rect x="226" y="136" width="76" height="68" rx="10" fill="${P.fill}"/>
+<rect x="122" y="136" width="76" height="68" rx="10" fill="${P.fill}"/>`,
     },
     {
-      svg: [block(20, 28), block(126, 28), block(232, 28), block(232, 138), block(126, 138)].join('\n'),
+      // Setas da serpentina.
+      svg: `<line x1="99" y1="70" x2="108" y2="70" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="118,70 107,64.5 107,75.5" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>
+<line x1="203" y1="70" x2="212" y2="70" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="222,70 211,64.5 211,75.5" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>
+<line x1="264" y1="109" x2="264" y2="119" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="264,130 258.5,119 269.5,119" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>
+<line x1="221" y1="170" x2="212" y2="170" stroke="${P.accent}" stroke-width="3" stroke-linecap="round"/><polygon points="202,170 213,164.5 213,175.5" fill="${P.accent}" stroke="${P.accent}" stroke-width="1" stroke-linejoin="round"/>`,
     },
     {
-      // 1: prancheta com presilha e linhas. 2: lista com marcadores.
-      svg: `<rect x="40" y="42" width="28" height="40" rx="3" fill="none" stroke="${P.line}" stroke-width="3"/>
-<rect x="48" y="38" width="12" height="8" rx="2" fill="${P.line}"/>
-<path d="M45 58 H63 M45 66 H63 M45 74 H57" stroke="${P.muted}" stroke-width="2.5" stroke-linecap="round"/>
-<circle cx="144" cy="50" r="2.5" fill="${P.line}"/><circle cx="144" cy="62" r="2.5" fill="${P.line}"/><circle cx="144" cy="74" r="2.5" fill="${P.line}"/>
-<path d="M152 50 H178 M152 62 H178 M152 74 H170" stroke="${P.muted}" stroke-width="3" stroke-linecap="round"/>`,
-    },
-    {
-      // 3: tubo, feixe e mesa.
-      svg: `<rect x="252" y="38" width="28" height="14" rx="4" fill="${P.fill}" stroke="${P.accent}" stroke-width="3"/>
-<polygon points="258,54 274,54 284,78 248,78" fill="${P.beam}" fill-opacity="0.25" stroke="${P.beam}" stroke-width="2.5" stroke-linejoin="round"/>
-<line x1="244" y1="82" x2="288" y2="82" stroke="${P.line}" stroke-width="3" stroke-linecap="round"/>`,
-    },
-    {
-      // 4: cilindro de armazenamento. 5: monitor com imagem.
-      svg: `<path d="M250 160 V188 C250 198 282 198 282 188 V160" fill="none" stroke="${P.accent}" stroke-width="3"/>
-<ellipse cx="266" cy="160" rx="16" ry="6" fill="${P.fill}" stroke="${P.accent}" stroke-width="3"/>
-<path d="M250 174 C250 184 282 184 282 174" fill="none" stroke="${P.accent}" stroke-width="2.5"/>
-<rect x="142" y="152" width="36" height="26" rx="3" fill="${P.bg}" stroke="${P.line}" stroke-width="3"/>
-<circle cx="153" cy="160" r="3" fill="${P.beam}"/>
-<polygon points="146,174 156,165 163,171 168,167 174,174" fill="${P.accent}" fill-opacity="0.6"/>
-<path d="M160 178 V186 M150 188 H170" stroke="${P.line}" stroke-width="3" stroke-linecap="round"/>`,
+      // Os cinco ícones, na ordem do fluxo.
+      svg: `<g transform="translate(32 46) scale(2)" fill="none" stroke="${P.line}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+<path d="M12 11h4"/>
+<path d="M12 16h4"/>
+<path d="M8 11h.01"/>
+<path d="M8 16h.01"/>
+</g>
+<g transform="translate(136 46) scale(2)" fill="none" stroke="${P.line}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M13 5h8"/>
+<path d="M13 12h8"/>
+<path d="M13 19h8"/>
+<path d="m3 17 2 2 4-4"/>
+<path d="m3 7 2 2 4-4"/>
+</g>
+<g transform="translate(240 46) scale(2)" fill="none" stroke="${P.beam}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M12 12h.01"/>
+<path d="M14 15.4641a4 4 0 0 1-4 0L7.52786 19.74597 A 1 1 0 0 0 7.99303 21.16211 10 10 0 0 0 16.00697 21.16211 1 1 0 0 0 16.47214 19.74597z"/>
+<path d="M16 12a4 4 0 0 0-2-3.464l2.472-4.282a1 1 0 0 1 1.46-.305 10 10 0 0 1 4.006 6.94A1 1 0 0 1 21 12z"/>
+<path d="M8 12a4 4 0 0 1 2-3.464L7.528 4.254a1 1 0 0 0-1.46-.305 10 10 0 0 0-4.006 6.94A1 1 0 0 0 3 12z"/>
+</g>
+<g transform="translate(240 146) scale(2)" fill="none" stroke="${P.line}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M10 16h.01"/>
+<path d="M2.212 11.577a2 2 0 0 0-.212.896V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5.527a2 2 0 0 0-.212-.896L18.55 5.11A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>
+<path d="M21.946 12.013H2.054"/>
+<path d="M6 16h.01"/>
+</g>
+<g transform="translate(136 146) scale(2)" fill="none" stroke="${P.line}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="m9 10 2 2 4-4"/>
+<rect width="20" height="14" x="2" y="3" rx="2"/>
+<path d="M12 17v4"/>
+<path d="M8 21h8"/>
+</g>`,
     },
   ],
 };

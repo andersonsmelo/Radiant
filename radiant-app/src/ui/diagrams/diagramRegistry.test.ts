@@ -114,7 +114,8 @@ describe('registro de diagramas', () => {
       // Gradiente só por id local da própria camada (cada camada é um SvgXml separado).
       for (const [, ref] of layer.svg.matchAll(/url\(#([^)]+)\)/g)) expect(layer.svg).toContain(`id="${ref}"`);
       for (const [, value] of layer.svg.matchAll(/\b(?:fill|stroke|stop-color)="([^"]*)"/g)) {
-        expect(value).toMatch(/^(none|#[0-9a-f]{6}|url\(#[^)]+\))$/);
+        // Sem diferença de caixa: as cores da paleta do app (P.accent) vêm em maiúsculas, e o SvgXml aceita as duas.
+        expect(value).toMatch(/^(none|#[0-9a-f]{6}|url\(#[^)]+\))$/i);
       }
     }
     // Teto medido em 2026-11-19: crânio 75 KiB, leito 222 KiB de SVG. Arte acima disso vai para imagem.

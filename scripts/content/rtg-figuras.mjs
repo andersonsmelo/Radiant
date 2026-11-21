@@ -8,7 +8,8 @@ export const FIGURAS_PATH = fileURLToPath(new URL('../../content-manifest/rtg-20
 const ROOT = fileURLToPath(new URL('../../', import.meta.url));
 const FONTES_DIR = 'scripts/content/figuras/fontes/';
 const ORIGENS = ['acervo', 'anatomy', 'codigo', 'gerada'];
-const OPEN_LICENSE = /^(CC0( 1\.0)?|Domínio público|CC BY [\d.]+)$/;
+// ISC só vale para ícones de conjunto aberto (Lucide), decisão do dono de 2026-11-21; para arte continua CC0, domínio público ou CC BY.
+const OPEN_LICENSE = /^(CC0( 1\.0)?|Domínio público|CC BY [\d.]+|ISC)$/;
 const IMPORTED_ORIGINS = ['acervo', 'anatomy', 'gerada'];
 
 /** Erros do registro. `importedIds`: ids das figuras `art: 'imported'` do registro do app. */
@@ -26,7 +27,7 @@ export function figurasErrors(figuras, importedIds, { exists = (file) => existsS
     if (IMPORTED_ORIGINS.includes(entry.origem) && !importedIds.includes(entry.id)) errors.push(`${at}: origem ${entry.origem} sem figura art: 'imported' no registro do app`);
     if (entry.origem === 'acervo') {
       for (const field of ['sourcePage', 'author', 'license', 'licenseUrl', 'retrievedAt', 'sha256Original', 'modification']) if (!entry[field]) errors.push(`${at}: acervo sem ${field}`);
-      if (entry.license && !OPEN_LICENSE.test(entry.license)) errors.push(`${at}: licença fora de CC0, domínio público e CC BY: ${entry.license}`);
+      if (entry.license && !OPEN_LICENSE.test(entry.license)) errors.push(`${at}: licença fora de CC0, domínio público, CC BY e ISC:${entry.license}`);
     }
     if (entry.origem === 'gerada') {
       if (!entry.conferidaPor) errors.push(`${at}: gerada sem conferidaPor`);

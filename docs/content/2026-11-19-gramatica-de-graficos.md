@@ -62,3 +62,7 @@ Os três exemplos que fixaram a gramática, já no app (código em `radiant-app/
 - **`circuito-do-gerador`** (esquema físico): cartão `P.fill` por bloco que a aula rotula, símbolos em `P.line`, fio em `P.muted`, vidro do tubo em `P.accent`. Parado.
 
 Os outros onze gráficos da fase 3 seguem a mesma gramática; o guia de autoria (seções 3 e 3b) aponta para este documento.
+
+## 7. Fluxos com ícones (fase 4, aprovada em 2026-11-21)
+
+Os três fluxos de cinco passos (`cadeia-de-custodia`, `fluxo-de-pesquisa`, `fluxo-ris-pacs`) usam a mesma grade e ícones do Lucide v1.77.0 (licença ISC, aceita pelo dono em 2026-11-21 só para ícones de conjunto aberto): cartão `P.fill` de 76 x 68 (canto 10) em x 18, 122 e 226 e y 36 e 136, serpentina com seta cheia `P.accent`, ícone intacto na escala 2 em `P.line`, e só o passo de imagem em `P.beam`. Parados, sem texto; quem rotula é a aula. Região do alvo = caixa justa do cartão. O gerador e o registro dos ícones estão em `scripts/content/figuras/fluxos/` e `scripts/content/figuras/vendor/lucide/`.

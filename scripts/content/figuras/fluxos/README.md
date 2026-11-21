@@ -1,0 +1,10 @@
+# Fluxos de ícones (fase 4)
+
+Três figuras de cinco cartões em serpentina, com um ícone do Lucide v1.77.0 (licença ISC) em cada cartão: `cadeia-de-custodia` (m31), `fluxo-de-pesquisa` (m31) e `fluxo-ris-pacs` (m22). Quadro 320 x 240, paradas (têm área de toque), sem texto, 3 camadas e cerca de 3 KiB cada.
+
+- `cadeia-de-custodia.mjs`: o gerador (`gerarFluxo`) e a definição da cadeia de custódia. `fluxo-de-pesquisa.mjs` e `fluxo-ris-pacs.mjs` só trazem a definição de cada fluxo e usam o mesmo gerador, para a grade ser uma só.
+- Cada `<id>.mjs`, rodado com Node 20 (`node scripts/content/figuras/fluxos/<id>.mjs`), reescreve `radiant-app/src/ui/diagrams/specs/<id>.ts` e `content-manifest/rtg-2026/figuras/<id>.alvos.json`. Os specs são saída do gerador: não se editam à mão.
+- Os ícones vêm de `../vendor/lucide/icones.json` (SVG original do pacote, intacto; versão, origem e sha256 de cada um em `../vendor/lucide/README.md`; texto da licença em `../vendor/lucide/LICENSE`). O gerador só troca `currentColor` por cor da paleta e põe o ícone, na escala 2, no centro do cartão. Ícone novo: acrescente o SVG original ao `icones.json` e o sha256 ao README do `vendor`.
+- Região de cada alvo = caixa justa do cartão (76 x 68 no quadro). O selo do app fica fora da região.
+- `fluxos.test.mjs`: regenera os três specs e os alvos byte a byte, confere a grade, as réguas (3 camadas, sem texto nem cor fora da paleta, sem movimento) e os sha256 dos ícones contra o registro. Roda com `node --test scripts/content/figuras/fluxos/*.test.mjs`.
+- Registro: `content-manifest/rtg-2026/figuras.json`, origem `acervo`, licença `ISC` (a régua `OPEN_LICENSE` de `scripts/content/rtg-figuras.mjs` aceita ISC só para ícones de conjunto aberto, decisão do dono de 2026-11-21). O crédito do Lucide sai pela tela de créditos que o registro já alimenta.

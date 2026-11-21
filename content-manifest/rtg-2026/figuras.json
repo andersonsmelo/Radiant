@@ -449,5 +449,38 @@
     "license": "Arte própria do projeto, sem licença de terceiro",
     "receita": "scripts/content/figuras/cenas/teste-de-feixe.mjs",
     "modification": "Esquema do teste de feixe: caixa do tubo de raios X no alto, com janela e ponto focal amarelo, colimador logo abaixo, feixe vertical descendo por três lâminas finas de filtro num suporte (espessuras de 0,9, 1,8 e 2,7 cm, exageradas) até o medidor baixo sobre a mesa, ligado por um cabo a um mostrador com três barras de alturas diferentes; cerca de 100 cm do cabeçote ao medidor, esquemático. Medidor (38 x 24 x 12 cm contra cerca de 10 cm), lâminas (48 cm), janela do tubo, colimador e mostrador (56 cm de largura) maiores que o real, de propósito. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "cadeia-de-custodia",
+    "origem": "acervo",
+    "sourcePage": "https://lucide.dev",
+    "author": "Lucide Icons and Contributors (Copyright (c) 2026)",
+    "license": "ISC",
+    "licenseUrl": "https://lucide.dev/license",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "972a489bde3f7e2bf2ffef8bfca7ba8ffb82fe5045134da2555c68e318a6516c",
+    "modification": "Cinco ícones do Lucide v1.77.0 (package, handshake, scan-line, notebook-pen, folder-lock), cada um intacto nos elementos: só o stroke currentColor trocado por cor da paleta do app, escala 2 e translação ao centro de um cartão; os cartões e as setas são desenho do projeto. Nenhum dos ícones é derivado do Feather. O sha256Original é o da concatenação dos cinco SVG originais do pacote lucide-static 1.77.0, na ordem do fluxo (cada um está em scripts/content/figuras/vendor/lucide/README.md); a figura sai de scripts/content/figuras/fluxos/cadeia-de-custodia.mjs. Quadro 320 x 240, parada, sem texto."
+  },
+  {
+    "id": "fluxo-de-pesquisa",
+    "origem": "acervo",
+    "sourcePage": "https://lucide.dev",
+    "author": "Lucide Icons and Contributors (Copyright (c) 2026)",
+    "license": "ISC",
+    "licenseUrl": "https://lucide.dev/license",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "3477c8a2f2c66bef4d2df12919c9ca7e82d58ea62637e39e7e9024198dc7ac7c",
+    "modification": "Cinco ícones do Lucide v1.77.0 (file-check, file-signature, scan-line, eye-off, folder-lock), cada um intacto nos elementos: só o stroke currentColor trocado por cor da paleta do app, escala 2 e translação ao centro de um cartão; os cartões e as setas são desenho do projeto. Nenhum dos ícones é derivado do Feather. O sha256Original é o da concatenação dos cinco SVG originais do pacote lucide-static 1.77.0, na ordem do fluxo (cada um está em scripts/content/figuras/vendor/lucide/README.md); a figura sai de scripts/content/figuras/fluxos/fluxo-de-pesquisa.mjs. Quadro 320 x 240, parada, sem texto."
+  },
+  {
+    "id": "fluxo-ris-pacs",
+    "origem": "acervo",
+    "sourcePage": "https://lucide.dev",
+    "author": "Lucide Icons and Contributors (Copyright (c) 2026)",
+    "license": "ISC",
+    "licenseUrl": "https://lucide.dev/license",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "5cb314312adb98b066b8ccc5aed99512c27d3c67deb8434f284de446f8afec39",
+    "modification": "Cinco ícones do Lucide v1.77.0 (clipboard-list, list-checks, radiation, hard-drive, monitor-check), cada um intacto nos elementos: só o stroke currentColor trocado por cor da paleta do app, escala 2 e translação ao centro de um cartão; os cartões e as setas são desenho do projeto. Nenhum dos ícones é derivado do Feather. O sha256Original é o da concatenação dos cinco SVG originais do pacote lucide-static 1.77.0, na ordem do fluxo (cada um está em scripts/content/figuras/vendor/lucide/README.md); a figura sai de scripts/content/figuras/fluxos/fluxo-ris-pacs.mjs. Quadro 320 x 240, parada, sem texto."
   }
 ]

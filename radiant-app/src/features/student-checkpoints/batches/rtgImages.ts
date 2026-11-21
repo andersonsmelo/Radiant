@@ -302,6 +302,33 @@ export const RTG_FIGURE_CREDITS: readonly RtgFigureCredit[] = [
     "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
     "sourcePage": "https://smart.servier.com/smart_image/vertebral-column-9/",
     "modification": "Vetores do grupo \"Group 3\" do slide 9 (\"Vertebral Column (2)\") de SMART-Bones.pptx (original.pptx, sha256 acima; kit https://smart.servier.com/wp-content/uploads/2016/10/SMART-Bones.pptx), renderizados em SVG sem alterar as formas; recolorido para a paleta do app (osso âmbar, discos azuis, medula e raízes ciano, tecidos moles em cinza, contornos quase pretos); fundo transparente; recortado em 4:3 pelo viewBox (mantidos os 869 de 2158 caminhos que tocam o recorte; os 1289 inteiramente fora do quadro não foram copiados); coordenadas intactas (render da fonte idêntico, 0 pixels diferentes, ao do original recolorido com o mesmo viewBox); nenhum rótulo existia na arte. Licença conferida na página do Servier (CC BY 4.0); as cópias do mesmo kit no Wikimedia Commons marcadas CC BY-SA 3.0 não foram usadas. A página exata do slide no site do Servier não foi confirmada: o kit e o slide acima são a fonte exata. Receita: scripts/content/figuras/receitas/coluna-sagital-e-axial.mjs (entrada: scripts/content/figuras/receitas/coluna-sagital-e-axial.original.svg, versionada, sha256 150285d6283c7ce12222821541c14884f33354a056262fe04cf84d35e5f4efc1, saída de vertebra-tipica.pptx2svg.py sobre o pptx do kit)."
+  },
+  {
+    "id": "cadeia-de-custodia",
+    "alt": "Cinco cartões com ícones ligados por setas: três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.",
+    "author": "Lucide Icons and Contributors (Copyright (c) 2026)",
+    "license": "ISC",
+    "licenseUrl": "https://lucide.dev/license",
+    "sourcePage": "https://lucide.dev",
+    "modification": "Cinco ícones do Lucide v1.77.0 (package, handshake, scan-line, notebook-pen, folder-lock), cada um intacto nos elementos: só o stroke currentColor trocado por cor da paleta do app, escala 2 e translação ao centro de um cartão; os cartões e as setas são desenho do projeto. Nenhum dos ícones é derivado do Feather. O sha256Original é o da concatenação dos cinco SVG originais do pacote lucide-static 1.77.0, na ordem do fluxo (cada um está em scripts/content/figuras/vendor/lucide/README.md); a figura sai de scripts/content/figuras/fluxos/cadeia-de-custodia.mjs. Quadro 320 x 240, parada, sem texto."
+  },
+  {
+    "id": "fluxo-de-pesquisa",
+    "alt": "Cinco cartões com ícones ligados por setas: três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.",
+    "author": "Lucide Icons and Contributors (Copyright (c) 2026)",
+    "license": "ISC",
+    "licenseUrl": "https://lucide.dev/license",
+    "sourcePage": "https://lucide.dev",
+    "modification": "Cinco ícones do Lucide v1.77.0 (file-check, file-signature, scan-line, eye-off, folder-lock), cada um intacto nos elementos: só o stroke currentColor trocado por cor da paleta do app, escala 2 e translação ao centro de um cartão; os cartões e as setas são desenho do projeto. Nenhum dos ícones é derivado do Feather. O sha256Original é o da concatenação dos cinco SVG originais do pacote lucide-static 1.77.0, na ordem do fluxo (cada um está em scripts/content/figuras/vendor/lucide/README.md); a figura sai de scripts/content/figuras/fluxos/fluxo-de-pesquisa.mjs. Quadro 320 x 240, parada, sem texto."
+  },
+  {
+    "id": "fluxo-ris-pacs",
+    "alt": "Cinco cartões com ícones ligados por setas: três em cima, da esquerda para a direita, e dois embaixo, da direita para a esquerda.",
+    "author": "Lucide Icons and Contributors (Copyright (c) 2026)",
+    "license": "ISC",
+    "licenseUrl": "https://lucide.dev/license",
+    "sourcePage": "https://lucide.dev",
+    "modification": "Cinco ícones do Lucide v1.77.0 (clipboard-list, list-checks, radiation, hard-drive, monitor-check), cada um intacto nos elementos: só o stroke currentColor trocado por cor da paleta do app, escala 2 e translação ao centro de um cartão; os cartões e as setas são desenho do projeto. Nenhum dos ícones é derivado do Feather. O sha256Original é o da concatenação dos cinco SVG originais do pacote lucide-static 1.77.0, na ordem do fluxo (cada um está em scripts/content/figuras/vendor/lucide/README.md); a figura sai de scripts/content/figuras/fluxos/fluxo-ris-pacs.mjs. Quadro 320 x 240, parada, sem texto."
   }
 ];
 

@@ -57,3 +57,11 @@ test('licença CC BY sem crédito na lista gerada reprova; com a lista gerada, p
   const real = await readFiguras();
   assert.deepEqual(creditErrors(real, renderRtgBatches([], [], real).files.get('rtgImages.ts')), []);
 });
+
+test('licença ISC (ícones de conjunto aberto) passa; ISC com texto extra, CC BY-SA e NC continuam barradas', () => {
+  const lucide = (license) => acervo({ id: 'x', license });
+  assert.deepEqual(figurasErrors([lucide('ISC')], ['x']), []);
+  for (const license of ['ISC License', 'ISC-like', 'ISC, com restrição', 'CC BY-SA 4.0', 'CC BY-NC 4.0', 'CC BY-ND 4.0']) {
+    assert.match(figurasErrors([lucide(license)], ['x']).join('\n'), /licença fora de/, license);
+  }
+});
