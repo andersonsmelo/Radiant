@@ -866,27 +866,31 @@
           "points": [
             {
               "label": "Dosímetro de tronco",
-              "x": 0.395,
-              "y": 0.342,
-              "where": "no peito, à frente da peça azul"
+              "x": 0.264,
+              "y": 0.6021,
+              "where": "no peito, à frente da peça azul",
+              "alvo": "Peito (tronco, sobre o avental)"
             },
             {
               "label": "Dosímetro de anel",
-              "x": 0.653,
-              "y": 0.408,
-              "where": "na ponta do braço estendido, em volta de um dedo"
+              "x": 0.4813,
+              "y": 0.6,
+              "where": "na ponta do braço estendido, em volta da mão",
+              "alvo": "Mão estendida (anel)"
             },
             {
               "label": "Dosímetro junto ao olho",
-              "x": 0.463,
-              "y": 0.121,
-              "where": "na cabeça, preso à haste ao lado do rosto"
+              "x": 0.2953,
+              "y": 0.3083,
+              "where": "na cabeça, preso à haste ao lado do rosto",
+              "alvo": "Olho (haste dos óculos)"
             },
             {
               "label": "Dosímetro de referência",
-              "x": 0.875,
-              "y": 0.267,
-              "where": "à direita, pendurado num quadro na parede"
+              "x": 0.712,
+              "y": 0.1711,
+              "where": "à direita, pendurado num quadro na parede",
+              "alvo": "Quadro de parede (referência)"
             }
           ],
           "distractors": [
@@ -1878,32 +1882,36 @@
           "regions": [
             {
               "label": "Peito",
-              "x": 0.316,
-              "y": 0.237,
-              "width": 0.157,
-              "height": 0.21
+              "x": 0.1952,
+              "y": 0.4909,
+              "width": 0.1317,
+              "height": 0.1757,
+              "alvo": "Peito (tronco, sobre o avental)"
             },
             {
               "label": "Mão estendida",
-              "x": 0.575,
-              "y": 0.303,
-              "width": 0.157,
-              "height": 0.21,
-              "correct": true
+              "x": 0.4019,
+              "y": 0.4637,
+              "width": 0.1648,
+              "height": 0.2046,
+              "correct": true,
+              "alvo": "Mão estendida (anel)"
             },
             {
               "label": "Olho",
-              "x": 0.385,
-              "y": 0.016,
-              "width": 0.157,
-              "height": 0.21
+              "x": 0.2147,
+              "y": 0.2772,
+              "width": 0.0937,
+              "height": 0.1712,
+              "alvo": "Olho (haste dos óculos)"
             },
             {
               "label": "Quadro de parede",
-              "x": 0.797,
-              "y": 0.162,
-              "width": 0.157,
-              "height": 0.21
+              "x": 0.6052,
+              "y": 0.0208,
+              "width": 0.2256,
+              "height": 0.4573,
+              "alvo": "Quadro de parede (referência)"
             }
           ],
           "feedbackCorrect": "Isso: o anel fala da mão, e é isso que você descreve ao responsável.",

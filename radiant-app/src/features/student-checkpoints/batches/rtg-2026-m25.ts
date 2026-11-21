@@ -6,7 +6,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m25",
-  "materialSha256": "45456571e07cfe056be142499b0d8672041d284fa8dba0fe665347336505dc71",
+  "materialSha256": "a85ade60fbe15197b5592fa5527913ec59e4b6712c892bfeceb09f1f4a2cd6d4",
   "trackId": "track:rtg-2026:m25",
   "unitId": "unit:rtg-2026:m25",
   "contentVersion": "rtg-2026-m25-v1",
@@ -1761,46 +1761,46 @@ export const RTG_2026_M25: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m25:aula-05:i4:1",
                   "label": "Tubo alinhado com o detector",
-                  "x": 0.2825,
-                  "y": 0.475,
-                  "width": 0.085,
-                  "height": 0.1,
+                  "x": 0.5969,
+                  "y": 0.425,
+                  "width": 0.0953,
+                  "height": 0.0854,
                   "explanation": "O tubo aponta para a região pedida e para o detector atrás do paciente: esse é o arranjo esperado, e não um risco."
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-05:i4:2",
                   "label": "Pessoa sem avental junto à cabeceira",
-                  "x": 0.7063,
-                  "y": 0.45,
-                  "width": 0.0875,
-                  "height": 0.4833,
+                  "x": 0.2625,
+                  "y": 0.3958,
+                  "width": 0.0969,
+                  "height": 0.3812,
                   "explanation": "Ela está perto do paciente, sem proteção, e o tracejado mostra a radiação espalhada chegando até ela. Sem função no exame, ela se afasta antes da exposição."
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-05:i4:3",
                   "label": "Operador de avental atrás do aparelho",
-                  "x": 0.0437,
-                  "y": 0.45,
-                  "width": 0.0875,
-                  "height": 0.4833,
+                  "x": 0.8641,
+                  "y": 0.3167,
+                  "width": 0.1094,
+                  "height": 0.3833,
                   "explanation": "Longe do aparelho e do feixe, com a proteção que o serviço define, é onde o operador fica; cerca de 2 m é comum, e a regra é do serviço."
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-05:i4:4",
                   "label": "Leito vizinho, no sentido do feixe",
-                  "x": 0.8438,
-                  "y": 0.6583,
-                  "width": 0.15,
-                  "height": 0.1667,
+                  "x": 0,
+                  "y": 0.3063,
+                  "width": 0.2172,
+                  "height": 0.3083,
                   "explanation": "Quem está no leito vizinho não pode sair: pede-se apoio da equipe, com distância, feixe para outro lado e barreira se o serviço definir."
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-05:i4:5",
                   "label": "Detector atrás do paciente",
-                  "x": 0.5412,
-                  "y": 0.5667,
-                  "width": 0.08,
-                  "height": 0.1667,
+                  "x": 0.4375,
+                  "y": 0.4042,
+                  "width": 0.0906,
+                  "height": 0.175,
                   "explanation": "O detector atrás do paciente, alinhado com o tubo, faz parte do arranjo e não é um risco."
                 }
               ],
@@ -1948,7 +1948,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Mover o equipamento, e não o paciente",
-            "body": "Em trauma, a equipe médica coordena o cuidado e libera quando o paciente pode ser movido. O colar cervical e a prancha ficam no lugar: você não os retira, e a imagem se faz através deles. Em vez de virar o paciente, move-se o equipamento: o tubo fica de um lado, com o feixe na horizontal, e o detector fica em pé do outro, encostado ao ombro. A figura mostra a cena vista pela cabeceira, em corte na altura do pescoço: o anel em volta dele é o colar, sobre a prancha. Antes de expor, avise em voz alta, para quem não precisa ficar se afastar.",
+            "body": "Em trauma, a equipe médica coordena o cuidado e libera quando o paciente pode ser movido. O colar cervical e a prancha ficam no lugar: você não os retira, e a imagem se faz através deles. Em vez de virar o paciente, move-se o equipamento: o tubo fica de um lado, com o feixe na horizontal, e o detector fica em pé do outro, junto ao ombro. A figura mostra o paciente deitado de costas, em perspectiva: o colar é o anel claro em volta do pescoço, e a prancha está sob o corpo. Antes de expor, avise em voz alta, para quem não precisa ficar se afastar.",
             "keyPoints": [
               "A equipe decide quando mexer no paciente.",
               "Colar e prancha ficam no lugar.",
@@ -2014,7 +2014,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Toque na imagem: Na figura, a cena é vista pela cabeceira, em corte no pescoço. Toque na parte que recebe o feixe horizontal depois que ele atravessa o pescoço."
+              "label": "Toque na imagem: Na figura, o paciente está deitado de costas na prancha, com o colar no pescoço. Toque na parte que recebe o feixe horizontal depois que ele atravessa o pescoço."
             },
             "help": "O feixe sai do tubo; veja o que o espera do outro lado.",
             "type": "hotspot",
@@ -2023,40 +2023,40 @@ export const RTG_2026_M25: ProductionBatchV1 = {
               "incorrect": "Essa parte não recebe o feixe depois do pescoço: procure o que fica em pé, do outro lado do paciente."
             },
             "payload": {
-              "prompt": "Na figura, a cena é vista pela cabeceira, em corte no pescoço. Toque na parte que recebe o feixe horizontal depois que ele atravessa o pescoço.",
+              "prompt": "Na figura, o paciente está deitado de costas na prancha, com o colar no pescoço. Toque na parte que recebe o feixe horizontal depois que ele atravessa o pescoço.",
               "imageRef": "diagram:trauma-raio-horizontal",
               "regions": [
                 {
                   "id": "region:rtg-2026:m25:aula-06:i2:1",
                   "label": "Colar cervical",
-                  "x": 0.425,
-                  "y": 0.3917,
-                  "width": 0.15,
-                  "height": 0.2
+                  "x": 0.2281,
+                  "y": 0.4479,
+                  "width": 0.0828,
+                  "height": 0.1125
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-06:i2:2",
                   "label": "Tubo",
-                  "x": 0.075,
-                  "y": 0.4417,
-                  "width": 0.125,
-                  "height": 0.1
+                  "x": 0.5469,
+                  "y": 0.5625,
+                  "width": 0.2141,
+                  "height": 0.2
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-06:i2:3",
                   "label": "Feixe horizontal",
-                  "x": 0.2562,
-                  "y": 0.45,
-                  "width": 0.125,
-                  "height": 0.0833
+                  "x": 0.3972,
+                  "y": 0.5104,
+                  "width": 0.1351,
+                  "height": 0.1518
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-06:i2:4",
                   "label": "Detector em pé",
-                  "x": 0.6563,
-                  "y": 0.2917,
-                  "width": 0.0813,
-                  "height": 0.3333
+                  "x": 0.0437,
+                  "y": 0.2292,
+                  "width": 0.1266,
+                  "height": 0.3812
                 }
               ],
               "correctRegionIds": [
@@ -6673,7 +6673,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "45456571e07cfe056be142499b0d8672041d284fa8dba0fe665347336505dc71"
+      "materialSha256": "a85ade60fbe15197b5592fa5527913ec59e4b6712c892bfeceb09f1f4a2cd6d4"
     },
     {
       "schemaVersion": 1,
@@ -6682,7 +6682,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "45456571e07cfe056be142499b0d8672041d284fa8dba0fe665347336505dc71"
+      "materialSha256": "a85ade60fbe15197b5592fa5527913ec59e4b6712c892bfeceb09f1f4a2cd6d4"
     },
     {
       "schemaVersion": 1,
@@ -6691,7 +6691,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "45456571e07cfe056be142499b0d8672041d284fa8dba0fe665347336505dc71"
+      "materialSha256": "a85ade60fbe15197b5592fa5527913ec59e4b6712c892bfeceb09f1f4a2cd6d4"
     },
     {
       "schemaVersion": 1,
@@ -6700,7 +6700,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "45456571e07cfe056be142499b0d8672041d284fa8dba0fe665347336505dc71"
+      "materialSha256": "a85ade60fbe15197b5592fa5527913ec59e4b6712c892bfeceb09f1f4a2cd6d4"
     },
     {
       "schemaVersion": 1,
@@ -6709,7 +6709,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "45456571e07cfe056be142499b0d8672041d284fa8dba0fe665347336505dc71"
+      "materialSha256": "a85ade60fbe15197b5592fa5527913ec59e4b6712c892bfeceb09f1f4a2cd6d4"
     },
     {
       "schemaVersion": 1,
@@ -6718,7 +6718,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "45456571e07cfe056be142499b0d8672041d284fa8dba0fe665347336505dc71"
+      "materialSha256": "a85ade60fbe15197b5592fa5527913ec59e4b6712c892bfeceb09f1f4a2cd6d4"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

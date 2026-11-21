@@ -580,39 +580,43 @@
           "regions": [
             {
               "label": "Roda da maca com o bloco azul pousado",
-              "x": 0.044,
-              "y": 0.763,
-              "width": 0.1,
-              "height": 0.2,
+              "x": 0.08,
+              "y": 0.5271,
+              "width": 0.08,
+              "height": 0.1344,
               "risk": false,
-              "feedback": "Com o bloco pousado, essa roda está travada: a maca não se afasta quando a pessoa se apoia."
+              "feedback": "Com o bloco pousado, essa roda está travada: a maca não se afasta quando a pessoa se apoia.",
+              "alvo": "Roda da maca com o bloco pousado (sob a cabeceira)"
             },
             {
               "label": "Roda da maca com o bloco erguido",
-              "x": 0.375,
-              "y": 0.763,
-              "width": 0.1,
-              "height": 0.2,
+              "x": 0.3507,
+              "y": 0.5535,
+              "width": 0.08,
+              "height": 0.1809,
               "risk": true,
-              "feedback": "Com o bloco erguido a roda está solta: a maca pode se afastar quando a pessoa se apoia nela."
+              "feedback": "Com o bloco erguido a roda está solta: a maca pode se afastar quando a pessoa se apoia nela.",
+              "alvo": "Roda da maca com o bloco erguido (do lado dos pés)"
             },
             {
               "label": "Prancha encostada no pedestal da mesa",
-              "x": 0.734,
-              "y": 0.646,
-              "width": 0.12,
-              "height": 0.25,
+              "x": 0.6773,
+              "y": 0.6028,
+              "width": 0.1292,
+              "height": 0.2587,
               "risk": false,
-              "feedback": "Encostada no pedestal, fora da passagem e fora do chão, a prancha não atrapalha: ela só entra se o serviço a usar."
+              "feedback": "Encostada no pedestal e fora da passagem, a prancha não atrapalha: ela só entra se o serviço a usar.",
+              "alvo": "Prancha de transferência encostada no pedestal"
             },
             {
               "label": "Linha do soro esticada até a paciente",
-              "x": 0.602,
-              "y": 0.371,
-              "width": 0.14,
-              "height": 0.1,
+              "x": 0.1807,
+              "y": 0.2898,
+              "width": 0.08,
+              "height": 0.1041,
               "risk": true,
-              "feedback": "A linha esticada pode soltar o acesso quando a paciente se mexe: avise a equipe, sem mexer na linha."
+              "feedback": "A linha esticada pode soltar o acesso quando a paciente se mexe: avise a equipe, sem mexer na linha.",
+              "alvo": "Linha do soro esticada até a paciente"
             }
           ],
           "feedbackCorrect": "Você achou os dois pontos de risco e deixou de fora o que está em ordem.",
@@ -896,32 +900,36 @@
           "regions": [
             {
               "label": "Roda sob a cabeceira da maca",
-              "x": 0.044,
-              "y": 0.763,
-              "width": 0.1,
-              "height": 0.2
+              "x": 0.08,
+              "y": 0.5271,
+              "width": 0.08,
+              "height": 0.1344,
+              "alvo": "Roda da maca com o bloco pousado (sob a cabeceira)"
             },
             {
               "label": "Roda do lado dos pés da maca",
-              "x": 0.375,
-              "y": 0.763,
-              "width": 0.1,
-              "height": 0.2,
-              "correct": true
+              "x": 0.3507,
+              "y": 0.5535,
+              "width": 0.08,
+              "height": 0.1809,
+              "correct": true,
+              "alvo": "Roda da maca com o bloco erguido (do lado dos pés)"
             },
             {
               "label": "Vão entre maca e mesa",
-              "x": 0.463,
-              "y": 0.533,
-              "width": 0.08,
-              "height": 0.15
+              "x": 0.4969,
+              "y": 0.4326,
+              "width": 0.1206,
+              "height": 0.1271,
+              "alvo": "Vão entre maca e mesa"
             },
             {
               "label": "Prancha de transferência",
-              "x": 0.734,
-              "y": 0.646,
-              "width": 0.12,
-              "height": 0.25
+              "x": 0.6773,
+              "y": 0.6028,
+              "width": 0.1292,
+              "height": 0.2587,
+              "alvo": "Prancha de transferência encostada no pedestal"
             }
           ],
           "feedbackCorrect": "Isso mesmo: essa roda está com o bloco erguido, ou seja, solta, e precisa ser travada.",
