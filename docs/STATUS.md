@@ -203,7 +203,7 @@ correções ([1A](evidence/2026-11-19-figuras/lote-1A.md),
 [1B](evidence/2026-11-19-figuras/lote-1B.md), [1C](evidence/2026-11-19-figuras/lote-1C.md),
 [1D](evidence/2026-11-19-figuras/lote-1D.md), [1E](evidence/2026-11-19-figuras/lote-1E.md),
 [1F](evidence/2026-11-19-figuras/lote-1F.md)).
-Gate do app em `442a8e7e`, Node 20.20.2: 297 suítes, 4.547 testes, saída 0. Itens de aula
+Gate do app em `442a8e7e`, Node 20.20.2: 297 suítes, 4.547 testes, saída 0. **Fase 3 (2026-11-21): produzida (14 gráficos pela gramática aprovada pelo dono), revisada, corrigida e vista no iPhone; gate em `70327d47` com 297 suítes e 4.611 testes; a frase de eixos da retificação ficou pendente por teto de palavras** ([fase-3](evidence/2026-11-19-figuras/fase-3.md)). Itens de aula
 adaptados pela política "adaptar o item" em m18, m20, m24, m25, m26 e m28. As 23 figuras
 somam 2.900.381 bytes de SVG (medido em `368029c3`), contra o teto de 8.116.109 do teste;
 a respiração tem uma exceção
