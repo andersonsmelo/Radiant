@@ -114,18 +114,18 @@ describe('RiskHuntStepRenderer', () => {
         expect(box.top + box.height).toBeLessThanOrEqual(210);
     });
 
-    // E13: a marca fica fora da caixa da região; é irmã dela, e o toque nela alterna a região dona.
-    it('tocar na marca alterna a região dona dela, e a marca não é filha de região nenhuma', () => {
+    // Revoga a E13 (2026-11-20): a marca não recebe toque, para não marcar quem toca a estrutura errada sob ela.
+    it('a marca de selecionada não recebe toque: o toque atravessa e a região não alterna por ela', () => {
         render(<Harness initial='["porta","campo"]' />);
         measure();
         const marks = screen.getAllByTestId('risk-hunt-selected-mark', { includeHiddenElements: true });
         expect(marks).toHaveLength(2);
         marks.forEach(mark => {
-            for (let node = mark.parent; node; node = node.parent) expect(String(node.props.testID ?? '')).not.toMatch(/^risk-region-/);
+            expect(mark.props.pointerEvents).toBe('none');
+            expect(mark.props.onClick).toBeUndefined();
+            expect(mark.props.accessible).toBeFalsy();
         });
         fireEvent.press(marks[1]);
-        expect(probe()).toBe('["porta"]|false');
-        fireEvent.press(screen.getAllByTestId('risk-hunt-selected-mark', { includeHiddenElements: true })[0]);
-        expect(probe()).toBe('[]|false');
+        expect(probe()).toBe('["porta","campo"]|true');
     });
 });

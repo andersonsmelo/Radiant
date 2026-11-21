@@ -165,22 +165,22 @@ describe('LabelStepRenderer', () => {
         });
     });
 
-    // E13: o selo fica fora da caixa de 44 pt do ponto; é irmão dela, e o toque nele vale o toque no ponto dono.
-    it('tocar no selo faz o que tocar no ponto dono faz, e o selo não é filho de ponto nenhum', () => {
+    // Revoga a E13 (2026-11-20): o selo do número não recebe toque; o toque atravessa para o que estiver embaixo.
+    it('o selo do número não recebe toque e tocá-lo não põe nem tira a ficha do ponto dono', () => {
         render(<Harness />);
         measure();
         for (let index = 1; index <= 3; index += 1) {
             const badge = screen.getByTestId(`label-point-badge-${index}`, { includeHiddenElements: true });
-            for (let node = badge.parent; node; node = node.parent) expect(String(node.props.testID ?? '')).not.toMatch(/^label-point-\d/);
+            expect(badge.props.pointerEvents).toBe('none');
+            expect(badge.props.onClick).toBeUndefined();
+            expect(badge.props.accessible).toBeFalsy();
         }
         fireEvent.press(screen.getByTestId('label-chip-Ânodo'));
-        // O selo 2 recebe a ficha do ponto 2, e só do 2.
         fireEvent.press(screen.getByTestId('label-point-badge-2', { includeHiddenElements: true }));
+        expect(probe()).toBe('|false');
+        // O ponto em si continua sendo o alvo.
+        fireEvent.press(screen.getByTestId('label-point-2'));
         expect(probe()).toBe('{"p2":"l-anodo"}|false');
-        // Tocar no selo de um ponto rotulado devolve a ficha ao banco, como tocar no ponto.
-        fireEvent.press(screen.getByTestId('label-point-badge-2', { includeHiddenElements: true }));
-        expect(probe()).toBe('{}|false');
-        expect(screen.getByTestId('label-chip-Ânodo').props.accessibilityState.selected).toBe(true);
     });
 
     it('depois de conferir, o número e o ícone do veredito cabem no selo de 36 pt, com a borda', () => {

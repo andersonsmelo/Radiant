@@ -105,17 +105,16 @@ export function LabelStepRenderer({ payload, accessibilityLabel, value, onChange
                         </Pressable>
                     );
                         })}
-                        {/* O número vai num selo fora do ponto, irmão dele: o ponto fica exatamente sobre o alvo, e o toque no selo vale o toque no ponto dono. */}
+                        {/* O número vai num selo fora do ponto, irmão dele: o ponto fica exatamente sobre o alvo, e o selo não recebe toque. */}
                         {payload.points.map((point, index) => {
                             const verdict = verdictOf(point.id, point.correctLabelId);
                             const selected = focus?.kind === 'point' && focus.id === point.id;
                             const marked = selected || assigned[point.id];
                             return (
-                                <Pressable
+                                <View
                                     key={`selo-${point.id}`}
                                     testID={`label-point-badge-${index + 1}`}
-                                    onPress={() => pressPoint(point.id)}
-                                    disabled={submitted}
+                                    pointerEvents="none"
                                     accessible={false}
                                     accessibilityElementsHidden
                                     importantForAccessibility="no-hide-descendants"
@@ -123,7 +122,7 @@ export function LabelStepRenderer({ payload, accessibilityLabel, value, onChange
                                 >
                                     <Text style={styles.markerNumber}>{index + 1}</Text>
                                     {verdict ? <VerdictIcon verdict={verdict} size={VERDICT_ICON} testID={`label-point-verdict-${verdict}`} /> : null}
-                                </Pressable>
+                                </View>
                             );
                         })}
                     </>;

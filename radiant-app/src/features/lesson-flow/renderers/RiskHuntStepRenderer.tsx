@@ -80,20 +80,19 @@ export function RiskHuntStepRenderer({ payload, accessibilityLabel, value, onCha
                         />
                     );
                         })}
-                        {/* A marca é irmã das regiões: fica fora da caixa da região, e o toque nela alterna a região dona. */}
+                        {/* A marca é irmã das regiões: fica fora da caixa da região, e a marca não recebe toque. */}
                         {payload.regions.map((region, index) => chosen.includes(region.id) ? (
-                            <Pressable
+                            <View
                                 key={`marca-${region.id}`}
                                 testID="risk-hunt-selected-mark"
-                                onPress={() => toggle(region.id)}
-                                disabled={submitted}
+                                pointerEvents="none"
                                 accessible={false}
                                 accessibilityElementsHidden
                                 importantForAccessibility="no-hide-descendants"
                                 style={[styles.badge, badgeStyle(seals[index])]}
                             >
                                 <CheckIcon size={20} color={galaxy.textPrimary} />
-                            </Pressable>
+                            </View>
                         ) : null)}
                     </>;
                 }}

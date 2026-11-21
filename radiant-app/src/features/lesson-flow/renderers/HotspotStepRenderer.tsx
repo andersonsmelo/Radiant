@@ -72,15 +72,14 @@ export function HotspotStepRenderer({
                         />
                     );
                         })}
-                        {/* Os selos vêm depois das regiões, como irmãos delas: ficam fora da caixa da região, e o toque no selo seleciona a região dona. */}
+                        {/* Os selos vêm depois das regiões, como irmãos delas: ficam fora da caixa da região, e o selo não recebe toque (o toque atravessa para o que estiver embaixo). */}
                         {payload.regions.map((region, index) => {
                             const selected = selectedRegionId === region.id;
                             return (
-                                <Pressable
+                                <View
                                     key={`selo-${region.id}`}
                                     testID={selected ? 'hotspot-selected-mark' : `hotspot-index-${index + 1}`}
-                                    onPress={() => { if (!submitted) onSelect(region.id); }}
-                                    disabled={submitted}
+                                    pointerEvents="none"
                                     // O leitor de tela usa a região e a lista: o selo só repete o número.
                                     accessible={false}
                                     accessibilityElementsHidden
@@ -88,7 +87,7 @@ export function HotspotStepRenderer({
                                     style={[styles.hotspotBadge, badgeStyle(seals[index])]}
                                 >
                                     {selected ? <CheckIcon size={20} color={galaxy.textPrimary} /> : <Text style={styles.hotspotIndex}>{index + 1}</Text>}
-                                </Pressable>
+                                </View>
                             );
                         })}
                     </>;
