@@ -1,0 +1,34 @@
+appId: com.ascendcreative.radiant
+name: 'Figuras M19 aula-02 (laço)'
+tags:
+  - figuras
+  - generated
+---
+# Gerado por scripts/qa/figuras-no-simulador.mjs a partir das aulas-fonte. Não edite à mão.
+# Entrada pelo link da rota /learn, como os roteiros da trilha, respondendo certo até o passo da figura. Não medido em aparelho.
+# O laço (waitForAnimationToEnd de 8 s) não foi verificado em aparelho.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '0'
+    clearState: true
+    permissions:
+      all: deny
+- runFlow: ../subflows/dismiss-dev-client.yaml
+- runFlow: ../subflows/dismiss-first-run.yaml
+- assertVisible:
+    id: journey-trail
+- openLink: 'radiantapp://learn?blockId=activity%3Artg-2026%3Am19%3Aaula-02&nodeId=node%3Aactivity%3Artg-2026%3Am19%3Aaula-02'
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+- assertVisible: 'Passo 1 de 8'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 2 de 8'
+- startRecording: 'figura-retificacao-de-onda-m19-aula-02-laco'
+- waitForAnimationToEnd:
+    timeout: 8000
+- stopRecording
