@@ -264,29 +264,36 @@ describe('selos fora da área de toque dos outros alvos (E12)', () => {
     });
 });
 
-// Guarda de conteúdo: os itens reais das 40 unidades, na régua de 280 pt (achado 1 da revisão do 2A).
+// Guarda de conteúdo: os itens reais das 40 unidades, de desenho (diagramId) e de imagem real (imageId), na régua de 280 pt (achado 1 da revisão do 2A; achado 13 da revisão das imagens reais).
 describe('selos nos itens reais das 40 unidades (E12)', () => {
     type Box = { left: number; top: number; width: number; height: number };
-    type Item = { unit: string; id: string; diagramId: string; points?: { x: number; y: number }[]; regions?: { x: number; y: number; width: number; height: number }[] };
+    type Item = { unit: string; id: string; diagramId?: string; imageId?: string; points?: { x: number; y: number }[]; regions?: { x: number; y: number; width: number; height: number }[] };
     const dir = path.resolve(__dirname, '../../../../../content-manifest/rtg-2026/aulas');
+    const imagens = JSON.parse(fs.readFileSync(path.resolve(dir, '../imagens.json'), 'utf8')) as { id: string; width: number; height: number }[];
     const items: Item[] = [];
     for (const file of fs.readdirSync(dir).filter(name => name.endsWith('.json')).sort()) {
         const walk = (node: unknown) => {
             if (Array.isArray(node)) { node.forEach(walk); return; }
             if (!node || typeof node !== 'object') return;
             const n = node as Record<string, unknown> & Partial<Item>;
-            if (n.diagramId && (n.points || n.regions) && (DIAGRAMS as Record<string, unknown>)[n.diagramId]) items.push({ unit: file.replace('.json', ''), id: String(n.id), diagramId: n.diagramId, points: n.points, regions: n.regions });
+            const desenhado = !!n.diagramId && !!(DIAGRAMS as Record<string, unknown>)[n.diagramId];
+            const real = !!n.imageId && imagens.some(img => img.id === n.imageId);
+            if ((desenhado || real) && (n.points || n.regions)) items.push({ unit: file.replace('.json', ''), id: String(n.id), diagramId: desenhado ? n.diagramId : undefined, imageId: real ? n.imageId : undefined, points: n.points, regions: n.regions });
             Object.values(node).forEach(walk);
         };
         walk(JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8')));
     }
-    const frameOf = (item: Item) => { const spec = (DIAGRAMS as Record<string, { width: number; height: number }>)[item.diagramId]; return { width: 280, height: (280 * spec.height) / spec.width }; };
+    const frameOf = (item: Item) => {
+        const spec = item.imageId ? imagens.find(img => img.id === item.imageId)! : (DIAGRAMS as Record<string, { width: number; height: number }>)[item.diagramId!];
+        return { width: 280, height: (280 * spec.height) / spec.width };
+    };
     const gap = (a: Box, b: Box) =>
         Math.hypot(Math.max(0, a.left - (b.left + b.width), b.left - (a.left + a.width)), Math.max(0, a.top - (b.top + b.height), b.top - (a.top + a.height)));
     const labels = items.filter(item => item.points && item.points.length > 1);
 
-    it('encontra os 82 itens de figura das 40 unidades', () => {
-        expect(items.length).toBe(82);
+    it('encontra os 90 itens de figura das 40 unidades (82 de desenho e 8 de imagem real)', () => {
+        expect(items.length).toBe(90);
+        expect(items.filter(item => item.imageId).length).toBe(8);
     });
 
     it('rotular: nenhum selo cobre o ponto de outro alvo nem fica mais perto dele que do próprio ponto (mais 8 pt)', () => {

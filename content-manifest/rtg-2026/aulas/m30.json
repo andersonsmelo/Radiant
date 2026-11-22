@@ -452,7 +452,7 @@
       "code": "M30.02",
       "title": "Onde se mede",
       "objective": "Hoje você vai conseguir localizar as regiões medidas na coluna lombar e no fêmur proximal.",
-      "competency": "Localizar, numa imagem de exame, as regiões de interesse da coluna lombar (L1 a L4) e do fêmur proximal (colo, trocânter e quadril total).",
+      "competency": "Reconhecer, numa imagem de exame, as caixas de L1 a L4 e localizar as regiões do fêmur proximal.",
       "minutes": 5,
       "scene": {
         "setting": "Sala de análise",
@@ -604,22 +604,22 @@
             },
             {
               "label": "Trocânter maior",
-              "x": 0.05,
-              "y": 0.4,
-              "width": 0.1,
-              "height": 0.16,
+              "x": 0.045,
+              "y": 0.35,
+              "width": 0.11,
+              "height": 0.21,
               "correct": true
             },
             {
-              "label": "Vértebra L4",
-              "x": 0.71,
-              "y": 0.66,
-              "width": 0.17,
-              "height": 0.17
+              "label": "Cabeça do fêmur",
+              "x": 0.3,
+              "y": 0.24,
+              "width": 0.1,
+              "height": 0.16
             }
           ],
           "feedbackCorrect": "Isso mesmo: a caixa do colo não inclui o trocânter, que tem região própria.",
-          "feedbackIncorrect": "Essa não é a região vizinha do colo: as vértebras nem são do fêmur, e o colo é a própria caixa.",
+          "feedbackIncorrect": "Essa não é a região vizinha do colo: a vértebra nem é do fêmur, o colo é a própria caixa, e a cabeça do fêmur não tem região própria.",
           "help": "Pense na saliência do lado de fora do osso, perto do colo.",
           "sourceIds": [
             "dxa-practice-guideline-2025"
@@ -1164,7 +1164,7 @@
       "code": "M30.04",
       "title": "O que estraga a medida",
       "objective": "Hoje você vai conseguir achar na imagem o que não deveria estar lá e dizer a quem avisar.",
-      "competency": "Reconhecer metal, zíper, coluna inclinada e caixa de região fora da vértebra numa imagem de exame e avisar a equipe, sem decidir repetir nem excluir.",
+      "competency": "Achar material denso sobre a vértebra numa imagem de exame e reconhecer zíper, coluna torta e caixa fora do lugar, avisando a equipe sem decidir.",
       "minutes": 5,
       "scene": {
         "setting": "Sala de análise",
@@ -1393,7 +1393,7 @@
       ],
       "closing": {
         "title": "Você acha o que não deveria estar lá",
-        "body": "Agora você consegue achar metal, zíper, coluna torta e caixa fora do lugar numa imagem de exame e dizer o que fazer: descrever e avisar a equipe.",
+        "body": "Agora você consegue achar, numa imagem de exame, material denso sobre a vértebra e reconhecer, nos casos descritos, zíper, coluna torta e caixa fora do lugar, e dizer o que fazer: descrever e avisar a equipe.",
         "line": {
           "speaker": "lia",
           "text": "Quem descreve com clareza poupa tempo da equipe e protege a medida."
@@ -1551,7 +1551,7 @@
       },
       "concept": {
         "title": "Três componentes, quatro regiões",
-        "body": "O exame de corpo inteiro abrange o corpo todo e separa três componentes: osso, massa magra e gordura. Linhas de corte dividem o corpo em cabeça, braços, tronco e pernas, e cada região recebe os três valores. Na imagem desta aula, as linhas azuis também isolam a pelve. O laudo traz a massa magra total e a massa de gordura total. A posição de braços e pernas segue o que o serviço define.",
+        "body": "O exame de corpo inteiro abrange o corpo todo e separa três componentes: osso, massa magra e gordura. Linhas de corte dividem o corpo em cabeça, braços, tronco e pernas, e cada região recebe os três valores. Na imagem da próxima atividade, as linhas de corte também isolam a pelve, que fica dentro do tronco. O laudo traz a massa magra total e a massa de gordura total. A posição de braços e pernas segue o que o serviço define.",
         "keyPoints": [
           "Três componentes: osso, massa magra e gordura.",
           "Regiões: cabeça, braços, tronco e pernas."
@@ -1617,8 +1617,8 @@
             },
             {
               "label": "Perna",
-              "x": 0.16,
-              "y": 0.63,
+              "x": 0.15,
+              "y": 0.68,
               "where": "no painel da esquerda, embaixo, a haste comprida abaixo do V"
             }
           ],
@@ -1686,9 +1686,9 @@
               "feedback": "Certo: são os três componentes que o exame separa."
             },
             {
-              "text": "As linhas azuis mostram quanto de cada componente a pessoa tem.",
+              "text": "As linhas de corte mostram quanto de cada componente a pessoa tem.",
               "correct": false,
-              "feedback": "Errado: as linhas azuis só dividem o corpo em regiões; elas não medem componente nenhum."
+              "feedback": "Errado: as linhas de corte só dividem o corpo em regiões; elas não medem componente nenhum."
             },
             {
               "text": "Cada região, como as pernas, recebe os três valores.",
@@ -1703,7 +1703,7 @@
           ],
           "feedbackCorrect": "Você separou o que a imagem mostra do que ela não mostra.",
           "feedbackIncorrect": "Releia o conceito: as linhas dividem o corpo em regiões, e o exame abrange o corpo todo.",
-          "help": "As linhas azuis medem alguma coisa ou só dividem o corpo em regiões?",
+          "help": "As linhas de corte medem alguma coisa ou só dividem o corpo em regiões?",
           "sourceIds": [
             "body-composition-dxa-2017"
           ]
@@ -1744,7 +1744,7 @@
       ],
       "closing": {
         "title": "Você separa o corpo em componentes e regiões",
-        "body": "Agora você consegue dizer que o exame de corpo inteiro separa osso, massa magra e gordura, por cabeça, braços, tronco e pernas, e que as linhas azuis só dividem o corpo em regiões.",
+        "body": "Agora você consegue dizer que o exame de corpo inteiro separa osso, massa magra e gordura, por cabeça, braços, tronco e pernas, e que as linhas de corte só dividem o corpo em regiões.",
         "line": {
           "speaker": "caio",
           "text": "Quando alguém perguntar o que o exame faz, você já tem as três palavras e as quatro regiões."
@@ -1780,27 +1780,27 @@
           ]
         },
         {
-          "prompt": "Na imagem do exame de corpo inteiro, o que as linhas azuis representam?",
+          "prompt": "Segundo a aula, o que cada região do corpo recebe no exame de corpo inteiro?",
           "options": [
             {
-              "label": "Os três componentes: osso, massa magra e gordura",
+              "label": "Só o valor do osso, porque a massa magra e a gordura ficam para o corpo todo",
               "correct": false,
-              "feedback": "Os componentes não aparecem em linhas: as linhas azuis marcam as regiões."
+              "feedback": "Cada região recebe os três valores: osso, massa magra e gordura."
             },
             {
-              "label": "A parte do corpo que recebe mais radiação no exame",
+              "label": "Um valor único de massa, sem separar os componentes",
               "correct": false,
-              "feedback": "As linhas não indicam radiação: elas dividem o corpo em regiões."
+              "feedback": "O exame separa os componentes, e cada região recebe os três valores."
             },
             {
-              "label": "Os cortes que dividem o corpo em regiões",
+              "label": "Os três valores: osso, massa magra e gordura",
               "correct": true,
-              "feedback": "Isso: as linhas de corte separam as regiões, e cada região recebe os valores."
+              "feedback": "Isso: cada região, como as pernas, recebe os três valores."
             },
             {
-              "label": "Três exames feitos em dias diferentes, em sequência",
+              "label": "Valores só do tronco, e as outras regiões ficam sem medida",
               "correct": false,
-              "feedback": "As linhas não representam datas: elas marcam as regiões do corpo."
+              "feedback": "Todas as regiões são avaliadas: cabeça, braços, tronco e pernas."
             }
           ],
           "sourceIds": [
@@ -1950,10 +1950,10 @@
           "regions": [
             {
               "label": "Saliência de fora do osso",
-              "x": 0.05,
-              "y": 0.4,
-              "width": 0.1,
-              "height": 0.16
+              "x": 0.045,
+              "y": 0.35,
+              "width": 0.11,
+              "height": 0.21
             },
             {
               "label": "Caixa longa e inclinada",
@@ -1963,7 +1963,7 @@
               "height": 0.125
             },
             {
-              "label": "Contorno amarelo, na haste",
+              "label": "Contorno amarelo do osso, na haste",
               "x": 0.065,
               "y": 0.78,
               "width": 0.09,

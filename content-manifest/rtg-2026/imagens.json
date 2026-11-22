@@ -208,7 +208,7 @@
     "height": 890,
     "projection": "anteroposterior",
     "region": "coluna lombar",
-    "descriptionFromSource": "Fig 1. Representation of spine bone mineral density (BMD) data from a patient who underwent spinal vertebroplasty. (a) The inclusion of vertebrae affected by bone cement in the region of interest (ROI) for the computer analysis of BMD data; in this example, the affected vertebra was L2.",
+    "descriptionFromSource": "Fig 1. Representation of spine bone mineral density (BMD) data from a patient who underwent spinal vertebroplasty. (a) The inclusion of vertebrae affected by bone cement in the region of interest (ROI) for the computer analysis of BMD data, and the exclusion of affected vertebrae from the analysis of lumbar spine BMD; in this example, the affected vertebra was L2.",
     "usedIn": [
       "m30-04"
     ]
@@ -224,7 +224,7 @@
     "sha256Original": "6a4f7ce5084de25654ad8a14af0e462827a338250fe1c3d005c3dd58e720f9bf",
     "sha256Asset": "cb202b06f12f8f1122573c8db4ef8dc8da45785b10306befd4dfd84560bde889",
     "modification": "redução e conversão para JPEG, sem recorte",
-    "alt": "Duas imagens lado a lado de um exame de corpo inteiro, em formato vertical. À esquerda, o esqueleto em tons de cinza sobre fundo preto. À direita, o corpo em um mapa de cores verde, amarelo e vermelho. Linhas azul-claro cruzam as duas imagens.",
+    "alt": "Duas imagens lado a lado de um exame de corpo inteiro, em formato vertical. À esquerda, o esqueleto em tons de cinza sobre fundo preto. À direita, o corpo em um mapa de cores verde, amarelo e vermelho. Linhas finas de corte cruzam as duas imagens.",
     "width": 868,
     "height": 1200,
     "projection": "anteroposterior",

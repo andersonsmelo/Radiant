@@ -6,7 +6,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m30",
-  "materialSha256": "5e9a30d258472ff108ed0c01eb1e3e8cda89851fd6659339bb633379ab5c7da9",
+  "materialSha256": "72bc56089be700254371f2247acf8ddc5484e419ef391a9e5a8bd3c1eefa1dca",
   "trackId": "track:rtg-2026:m30",
   "unitId": "unit:rtg-2026:m30",
   "contentVersion": "rtg-2026-m30-v1",
@@ -689,7 +689,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
             "type": "hotspot",
             "feedback": {
               "correct": "Isso mesmo: a caixa do colo não inclui o trocânter, que tem região própria.",
-              "incorrect": "Essa não é a região vizinha do colo: as vértebras nem são do fêmur, e o colo é a própria caixa."
+              "incorrect": "Essa não é a região vizinha do colo: a vértebra nem é do fêmur, o colo é a própria caixa, e a cabeça do fêmur não tem região própria."
             },
             "payload": {
               "prompt": "A caixa do colo do fêmur nunca pode invadir uma região vizinha do próprio fêmur, que tem região própria. Toque nessa região.",
@@ -714,18 +714,18 @@ export const RTG_2026_M30: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m30:aula-02:i4:3",
                   "label": "Trocânter maior",
-                  "x": 0.05,
-                  "y": 0.4,
-                  "width": 0.1,
-                  "height": 0.16
+                  "x": 0.045,
+                  "y": 0.35,
+                  "width": 0.11,
+                  "height": 0.21
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-02:i4:4",
-                  "label": "Vértebra L4",
-                  "x": 0.71,
-                  "y": 0.66,
-                  "width": 0.17,
-                  "height": 0.17
+                  "label": "Cabeça do fêmur",
+                  "x": 0.3,
+                  "y": 0.24,
+                  "width": 0.1,
+                  "height": 0.16
                 }
               ],
               "correctRegionIds": [
@@ -1514,7 +1514,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Você acha o que não deveria estar lá",
-            "body": "Agora você consegue achar metal, zíper, coluna torta e caixa fora do lugar numa imagem de exame e dizer o que fazer: descrever e avisar a equipe.",
+            "body": "Agora você consegue achar, numa imagem de exame, material denso sobre a vértebra e reconhecer, nos casos descritos, zíper, coluna torta e caixa fora do lugar, e dizer o que fazer: descrever e avisar a equipe.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -1575,7 +1575,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Três componentes, quatro regiões",
-            "body": "O exame de corpo inteiro abrange o corpo todo e separa três componentes: osso, massa magra e gordura. Linhas de corte dividem o corpo em cabeça, braços, tronco e pernas, e cada região recebe os três valores. Na imagem desta aula, as linhas azuis também isolam a pelve. O laudo traz a massa magra total e a massa de gordura total. A posição de braços e pernas segue o que o serviço define.",
+            "body": "O exame de corpo inteiro abrange o corpo todo e separa três componentes: osso, massa magra e gordura. Linhas de corte dividem o corpo em cabeça, braços, tronco e pernas, e cada região recebe os três valores. Na imagem da próxima atividade, as linhas de corte também isolam a pelve, que fica dentro do tronco. O laudo traz a massa magra total e a massa de gordura total. A posição de braços e pernas segue o que o serviço define.",
             "keyPoints": [
               "Três componentes: osso, massa magra e gordura.",
               "Regiões: cabeça, braços, tronco e pernas."
@@ -1675,8 +1675,8 @@ export const RTG_2026_M30: ProductionBatchV1 = {
                 },
                 {
                   "id": "point:rtg-2026:m30:aula-05:i2:4",
-                  "x": 0.16,
-                  "y": 0.63,
+                  "x": 0.15,
+                  "y": 0.68,
                   "where": "no painel da esquerda, embaixo, a haste comprida abaixo do V",
                   "correctLabelId": "label:rtg-2026:m30:aula-05:i2:4"
                 }
@@ -1785,7 +1785,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
             "accessibility": {
               "label": "Certo ou errado: Julgue cada afirmação sobre a imagem e o exame."
             },
-            "help": "As linhas azuis medem alguma coisa ou só dividem o corpo em regiões?",
+            "help": "As linhas de corte medem alguma coisa ou só dividem o corpo em regiões?",
             "type": "true-false",
             "feedback": {
               "correct": "Você separou o que a imagem mostra do que ela não mostra.",
@@ -1802,9 +1802,9 @@ export const RTG_2026_M30: ProductionBatchV1 = {
                 },
                 {
                   "id": "statement:rtg-2026:m30:aula-05:i4:2",
-                  "text": "As linhas azuis mostram quanto de cada componente a pessoa tem.",
+                  "text": "As linhas de corte mostram quanto de cada componente a pessoa tem.",
                   "isTrue": false,
-                  "explanation": "Errado: as linhas azuis só dividem o corpo em regiões; elas não medem componente nenhum."
+                  "explanation": "Errado: as linhas de corte só dividem o corpo em regiões; elas não medem componente nenhum."
                 },
                 {
                   "id": "statement:rtg-2026:m30:aula-05:i4:3",
@@ -1876,7 +1876,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Você separa o corpo em componentes e regiões",
-            "body": "Agora você consegue dizer que o exame de corpo inteiro separa osso, massa magra e gordura, por cabeça, braços, tronco e pernas, e que as linhas azuis só dividem o corpo em regiões.",
+            "body": "Agora você consegue dizer que o exame de corpo inteiro separa osso, massa magra e gordura, por cabeça, braços, tronco e pernas, e que as linhas de corte só dividem o corpo em regiões.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -2019,10 +2019,10 @@ export const RTG_2026_M30: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m30:aula-06:i2:1",
                   "label": "Saliência de fora do osso",
-                  "x": 0.05,
-                  "y": 0.4,
-                  "width": 0.1,
-                  "height": 0.16
+                  "x": 0.045,
+                  "y": 0.35,
+                  "width": 0.11,
+                  "height": 0.21
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-06:i2:2",
@@ -2034,7 +2034,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-06:i2:3",
-                  "label": "Contorno amarelo, na haste",
+                  "label": "Contorno amarelo do osso, na haste",
                   "x": 0.065,
                   "y": 0.78,
                   "width": 0.09,
@@ -2564,28 +2564,28 @@ export const RTG_2026_M30: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:m30:aula-05"
         ],
-        "prompt": "Na imagem do exame de corpo inteiro, o que as linhas azuis representam?",
+        "prompt": "Segundo a aula, o que cada região do corpo recebe no exame de corpo inteiro?",
         "options": [
           {
             "id": "option:rtg-2026:m30:aula-05:c2:a",
-            "label": "Os três componentes: osso, massa magra e gordura"
+            "label": "Só o valor do osso, porque a massa magra e a gordura ficam para o corpo todo"
           },
           {
             "id": "option:rtg-2026:m30:aula-05:c2:b",
-            "label": "A parte do corpo que recebe mais radiação no exame"
+            "label": "Um valor único de massa, sem separar os componentes"
           },
           {
             "id": "option:rtg-2026:m30:aula-05:c2:c",
-            "label": "Os cortes que dividem o corpo em regiões"
+            "label": "Os três valores: osso, massa magra e gordura"
           },
           {
             "id": "option:rtg-2026:m30:aula-05:c2:d",
-            "label": "Três exames feitos em dias diferentes, em sequência"
+            "label": "Valores só do tronco, e as outras regiões ficam sem medida"
           }
         ],
         "correctOptionId": "option:rtg-2026:m30:aula-05:c2:c",
         "feedback": {
-          "correct": "Isso: as linhas de corte separam as regiões, e cada região recebe os valores.",
+          "correct": "Isso: cada região, como as pernas, recebe os três valores.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
@@ -6753,7 +6753,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
         "sha256Original": "6a4f7ce5084de25654ad8a14af0e462827a338250fe1c3d005c3dd58e720f9bf",
         "sha256Asset": "cb202b06f12f8f1122573c8db4ef8dc8da45785b10306befd4dfd84560bde889",
         "modification": "redução e conversão para JPEG, sem recorte",
-        "alt": "Duas imagens lado a lado de um exame de corpo inteiro, em formato vertical. À esquerda, o esqueleto em tons de cinza sobre fundo preto. À direita, o corpo em um mapa de cores verde, amarelo e vermelho. Linhas azul-claro cruzam as duas imagens.",
+        "alt": "Duas imagens lado a lado de um exame de corpo inteiro, em formato vertical. À esquerda, o esqueleto em tons de cinza sobre fundo preto. À direita, o corpo em um mapa de cores verde, amarelo e vermelho. Linhas finas de corte cruzam as duas imagens.",
         "width": 868,
         "height": 1200
       }
@@ -6773,7 +6773,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5e9a30d258472ff108ed0c01eb1e3e8cda89851fd6659339bb633379ab5c7da9"
+      "materialSha256": "72bc56089be700254371f2247acf8ddc5484e419ef391a9e5a8bd3c1eefa1dca"
     },
     {
       "schemaVersion": 1,
@@ -6782,7 +6782,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5e9a30d258472ff108ed0c01eb1e3e8cda89851fd6659339bb633379ab5c7da9"
+      "materialSha256": "72bc56089be700254371f2247acf8ddc5484e419ef391a9e5a8bd3c1eefa1dca"
     },
     {
       "schemaVersion": 1,
@@ -6791,7 +6791,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5e9a30d258472ff108ed0c01eb1e3e8cda89851fd6659339bb633379ab5c7da9"
+      "materialSha256": "72bc56089be700254371f2247acf8ddc5484e419ef391a9e5a8bd3c1eefa1dca"
     },
     {
       "schemaVersion": 1,
@@ -6800,7 +6800,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5e9a30d258472ff108ed0c01eb1e3e8cda89851fd6659339bb633379ab5c7da9"
+      "materialSha256": "72bc56089be700254371f2247acf8ddc5484e419ef391a9e5a8bd3c1eefa1dca"
     },
     {
       "schemaVersion": 1,
@@ -6809,7 +6809,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5e9a30d258472ff108ed0c01eb1e3e8cda89851fd6659339bb633379ab5c7da9"
+      "materialSha256": "72bc56089be700254371f2247acf8ddc5484e419ef391a9e5a8bd3c1eefa1dca"
     },
     {
       "schemaVersion": 1,
@@ -6818,7 +6818,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5e9a30d258472ff108ed0c01eb1e3e8cda89851fd6659339bb633379ab5c7da9"
+      "materialSha256": "72bc56089be700254371f2247acf8ddc5484e419ef391a9e5a8bd3c1eefa1dca"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

@@ -6,7 +6,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m23",
-  "materialSha256": "e90272a3f95c71879104102aa17b296d8357ce20be709ba047a28bce64d97d8f",
+  "materialSha256": "26564a04f021d777c4cb09324266e0a15fa0149e19f724b9945691b46d6a1e3f",
   "trackId": "track:rtg-2026:m23",
   "unitId": "unit:rtg-2026:m23",
   "contentVersion": "rtg-2026-m23-v1",
@@ -248,11 +248,11 @@ export const RTG_2026_M23: ProductionBatchV1 = {
             "accessibility": {
               "label": "Rotular a imagem: Rotule as partes da radiografia de tórax, tocando na ficha e no ponto."
             },
-            "help": "Comece pelo que fica nos cantos da radiografia, antes da anatomia.",
+            "help": "Comece pelo que fica nos cantos da radiografia, antes da anatomia. As letras junto do L são parte da peça do marcador.",
             "type": "label",
             "feedback": {
-              "correct": "Isso mesmo: a marca colocada no exame e a anatomia têm lugares diferentes na radiografia. As outras fichas não aparecem nela.",
-              "incorrect": "Alguma ficha está no ponto errado. Separe a marca que fica no canto do que é anatomia, e lembre que há fichas sem ponto na imagem."
+              "correct": "Isso mesmo: a marca colocada no exame e a anatomia têm lugares diferentes na radiografia. As letras junto do L fazem parte da mesma peça de chumbo do marcador. As outras fichas não aparecem nela.",
+              "incorrect": "Alguma ficha está no ponto errado. Separe a marca do canto da anatomia; há fichas sem ponto. A tira com o L é o marcador: as letras junto dele são da mesma peça de chumbo, e não há etiqueta de identificação à parte."
             },
             "payload": {
               "prompt": "Rotule as partes da radiografia de tórax, tocando na ficha e no ponto.",
@@ -389,7 +389,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
                   "id": "statement:rtg-2026:m23:aula-01:i4:3",
                   "text": "A radiografia desta aula é uma imagem real, sem nome nem número de paciente visíveis.",
                   "isTrue": true,
-                  "explanation": "Certo: a imagem é real, e nenhum dado que identifique a pessoa aparece nela."
+                  "explanation": "Certo: a imagem é real e não mostra nome nem número da pessoa."
                 },
                 {
                   "id": "statement:rtg-2026:m23:aula-01:i4:4",
@@ -1627,7 +1627,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
               "lines": [
                 {
                   "speaker": "lia",
-                  "text": "Esta imagem de treino tem uma margem clara em volta. Ela conta uma história sobre o feixe."
+                  "text": "Quando a imagem tem uma margem clara em volta, ela conta uma história sobre o feixe."
                 },
                 {
                   "speaker": "duda",
@@ -6888,7 +6888,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e90272a3f95c71879104102aa17b296d8357ce20be709ba047a28bce64d97d8f"
+      "materialSha256": "26564a04f021d777c4cb09324266e0a15fa0149e19f724b9945691b46d6a1e3f"
     },
     {
       "schemaVersion": 1,
@@ -6897,7 +6897,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e90272a3f95c71879104102aa17b296d8357ce20be709ba047a28bce64d97d8f"
+      "materialSha256": "26564a04f021d777c4cb09324266e0a15fa0149e19f724b9945691b46d6a1e3f"
     },
     {
       "schemaVersion": 1,
@@ -6906,7 +6906,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e90272a3f95c71879104102aa17b296d8357ce20be709ba047a28bce64d97d8f"
+      "materialSha256": "26564a04f021d777c4cb09324266e0a15fa0149e19f724b9945691b46d6a1e3f"
     },
     {
       "schemaVersion": 1,
@@ -6915,7 +6915,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e90272a3f95c71879104102aa17b296d8357ce20be709ba047a28bce64d97d8f"
+      "materialSha256": "26564a04f021d777c4cb09324266e0a15fa0149e19f724b9945691b46d6a1e3f"
     },
     {
       "schemaVersion": 1,
@@ -6924,7 +6924,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e90272a3f95c71879104102aa17b296d8357ce20be709ba047a28bce64d97d8f"
+      "materialSha256": "26564a04f021d777c4cb09324266e0a15fa0149e19f724b9945691b46d6a1e3f"
     },
     {
       "schemaVersion": 1,
@@ -6933,7 +6933,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e90272a3f95c71879104102aa17b296d8357ce20be709ba047a28bce64d97d8f"
+      "materialSha256": "26564a04f021d777c4cb09324266e0a15fa0149e19f724b9945691b46d6a1e3f"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

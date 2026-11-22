@@ -133,7 +133,7 @@ export const RTG_IMAGES: readonly RtgImageCredit[] = [
       "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
       "sourcePage": "https://www.scielo.br/j/rb/a/xCP7kTVvddp4Qr9FG9PD8CN/?lang=en",
       "modification": "redução e conversão para JPEG, sem recorte",
-      "alt": "Duas imagens lado a lado de um exame de corpo inteiro, em formato vertical. À esquerda, o esqueleto em tons de cinza sobre fundo preto. À direita, o corpo em um mapa de cores verde, amarelo e vermelho. Linhas azul-claro cruzam as duas imagens.",
+      "alt": "Duas imagens lado a lado de um exame de corpo inteiro, em formato vertical. À esquerda, o esqueleto em tons de cinza sobre fundo preto. À direita, o corpo em um mapa de cores verde, amarelo e vermelho. Linhas finas de corte cruzam as duas imagens.",
       "width": 868,
       "height": 1200,
     "source": require('../../../../assets/content/rtg-2026/imagens/m30/dxa-corpo-inteiro-01.jpg'),

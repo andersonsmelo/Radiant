@@ -217,9 +217,9 @@
       "Etiqueta de identificação",
       "Eletrodo com fio"
      ],
-     "feedbackCorrect": "Isso mesmo: a marca colocada no exame e a anatomia têm lugares diferentes na radiografia. As outras fichas não aparecem nela.",
-     "feedbackIncorrect": "Alguma ficha está no ponto errado. Separe a marca que fica no canto do que é anatomia, e lembre que há fichas sem ponto na imagem.",
-     "help": "Comece pelo que fica nos cantos da radiografia, antes da anatomia.",
+     "feedbackCorrect": "Isso mesmo: a marca colocada no exame e a anatomia têm lugares diferentes na radiografia. As letras junto do L fazem parte da mesma peça de chumbo do marcador. As outras fichas não aparecem nela.",
+     "feedbackIncorrect": "Alguma ficha está no ponto errado. Separe a marca do canto da anatomia; há fichas sem ponto. A tira com o L é o marcador: as letras junto dele são da mesma peça de chumbo, e não há etiqueta de identificação à parte.",
+     "help": "Comece pelo que fica nos cantos da radiografia, antes da anatomia. As letras junto do L são parte da peça do marcador.",
      "sourceIds": [
       "pmc-colimacao-eletronica",
       "pmc-marcador-de-lado"
@@ -276,7 +276,7 @@
       {
        "text": "A radiografia desta aula é uma imagem real, sem nome nem número de paciente visíveis.",
        "correct": true,
-       "feedback": "Certo: a imagem é real, e nenhum dado que identifique a pessoa aparece nela."
+       "feedback": "Certo: a imagem é real e não mostra nome nem número da pessoa."
       },
       {
        "text": "Seguir o roteiro inclui dizer que doença a imagem sugere.",
@@ -1614,7 +1614,7 @@
     "lines": [
      {
       "speaker": "lia",
-      "text": "Esta imagem de treino tem uma margem clara em volta. Ela conta uma história sobre o feixe."
+      "text": "Quando a imagem tem uma margem clara em volta, ela conta uma história sobre o feixe."
      },
      {
       "speaker": "duda",
