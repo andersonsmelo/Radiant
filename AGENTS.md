@@ -627,6 +627,44 @@ defeito que se queria pegar.
   Vale quando ambos estão prontos ao mesmo tempo e compartilham o módulo da pessoa; o
   preço é um run maior, com lista de 146 caminhos.
 
+### Seis lições de 2026-11-22 (imagens reais, acervo do dono e um disco cheio)
+
+- **Figura desenhada por modelo foi reprovada de novo: "cara de conteudo feito por ia".**
+  Esquema em código e cena do kit não passaram, nem depois da segunda rodada. O que
+  passou foi imagem REAL, pelo caminho `imageId`: radiografia CC0 do Commons, figuras
+  CC BY de artigos abertos (PLoS, Orphanet/BMC via PMC, SciELO) e, por fim, o acervo
+  de RM e TC do dono. `concept.visual` só aceita diagrama, então o conceito perde o
+  visual; o cadastro só aceita `CC0 1.0` ou `CC BY x.y` (`EditorialWideContract.ts`).
+  Rótulo impresso na imagem (L1–L4, A/B) não pode entregar resposta de item.
+- **Exame do acervo do dono se anonimiza antes de sair do servidor.** Use só séries
+  sem nome, registro e nascimento no cabeçalho, contados sem imprimir valor. Traga só
+  as fatias usadas, apague o cabeçalho na chegada e troque os UIDs. Exporte JPEG sem
+  metadado, procure texto gravado nos pixels e apague os brutos. Nenhum valor de
+  cabeçalho vai para relatório, commit ou log. O dono licencia o que é dele, em CC BY
+  4.0 com o crédito dele.
+- **Antes de limpar o disco, tudo commitado e enviado.** Em 2026-11-22 o disco encheu
+  (`ENOSPC` derruba até o shell), e a worktree desta frente foi removida na limpeza.
+  Os commits sobreviveram porque a branch estava no repositório; a pasta de trabalho
+  `.superpowers/`, fora do git, se perdeu inteira. O que precisa sobreviver vai para
+  a evidência versionada.
+- **O Metro não segue `node_modules` por link simbólico.** Numa worktree recriada,
+  o link serve ao jest e aos validadores, mas o app abre com "Unable to resolve module
+  expo-router/entry". Clone a pasta com `cp -cR` (cópia APFS, sem espaço extra), depois
+  de conferir que o `package-lock.json` é igual ao da origem.
+- **Validador que estoura prazo pode ser a máquina de outro.** Um `npm install` alheio,
+  clonando o `devtools-frontend` com submódulos, ocupou mais de 300% da CPU por 25
+  minutos, e três `loop validate` seguidos reprovaram (dois por prazo, um por teste
+  intermitente). Ache o processo pelo `cwd` (`lsof -a -p <pid> -d cwd`), não encerre o
+  que não é seu, espere a carga cair abaixo de 5 e reproduza à mão a falha
+  intermitente antes de mexer em código. `noProgressCount` no `state.json` do run diz
+  quantas tentativas restam. Simulador ligado durante o disco cheio ficou com o driver
+  do Maestro travado: reinicie-o.
+- **Botão de bancada sob o rodapé fixo.** O `scrollUntilVisible` parava com o botão
+  "Diminuir" atrás de "Conferir resposta", e os toques caíam no rodapé. Desde
+  `f88b41d1`, o gerador centraliza o botão (`centerElement: true`). Mudança no gerador
+  regenera roteiros de outras unidades: rode `figuras-no-simulador.mjs --check` antes
+  de abrir o run, porque o `m26-aula-04.yaml` ficou de fora da lista e custou um ciclo.
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por
