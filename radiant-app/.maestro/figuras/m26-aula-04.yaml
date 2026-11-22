@@ -42,6 +42,7 @@ tags:
 - scrollUntilVisible:
     element:
       text: 'Aumentar Distância'
+    centerElement: true
 - tapOn: 'Aumentar Distância'
 - tapOn: 'Conferir resposta'
 - tapOn: 'Continuar'
