@@ -11,18 +11,18 @@ Só o Wikimedia Commons, pela API (busca por texto, categoria e licença, mais a
 | Figura | Achada | O que aconteceu | Decisão |
 | --- | --- | --- | --- |
 | `radiografia-roteiro` | sim, tórax PA CC0 (Stillwaterising, 2412 x 1956) | cobre 4 de 6 alvos; a imagem real não tem etiqueta de identificação nem borda de colimação nítida | **R23: fica com o esquema** |
-| `corte-abdome-superior` | sim, Sobotta 417 (1906, domínio público, 2097 x 1314) | rótulos em inglês impressos entregam a resposta do rotular; costas no alto, ao contrário da aula; sem estômago e baço | **R10: fica com a figura atual** |
+| `corte-abdome-superior` | sim, Sobotta 417 (1906, domínio público, 2097 x 1314) | rótulos em inglês impressos entregam a resposta do rotular; costas no alto, ao contrário da aula; sem estômago e baço | **R10: fica com a figura atual**. Em 2026-11-22, trocada por tomografia real do acervo do dono (`imagens-vps.md`) |
 | `corpo-inteiro-composicao` | sim, esqueleto de LadyofHats (domínio público, já usado no app) | as linhas de região do DXA seriam forma pintada sobre arte de acervo, o que é proibido | **R11: fica com a figura atual** |
 | `artefatos-de-objeto` | não | nenhuma imagem real com colar, trança, botão ou eletrodo em licença aberta | fica (R2) |
 | `artefatos-do-detector` | não | nada de linha morta, corte de grade ou imagem residual | fica (R2) |
 | `monitor-e-padrao-de-teste` | não | só padrões SMPTE em CC BY-SA | fica (R2) |
-| `ponderacoes-no-encefalo` | não | os CC BY de 1.600 px ou mais são de pacientes com doença ou de cortes diferentes | fica (R2) |
-| `supressao-de-gordura` | não | as com supressão de gordura são BY-SA ou têm menos de 800 px | fica (R2) |
+| `ponderacoes-no-encefalo` | não | os CC BY de 1.600 px ou mais são de pacientes com doença ou de cortes diferentes | fica (R2). Em 2026-11-22, trocada por ressonância do acervo do dono (`imagens-vps.md`) |
+| `supressao-de-gordura` | não | as com supressão de gordura são BY-SA ou têm menos de 800 px | fica (R2). Em 2026-11-22, trocada por ressonância do acervo do dono (`imagens-vps.md`) |
 | `artefatos-de-rm` | não | a série CC BY tem de 733 a 963 px; as de 2.000 px são BY-SA | fica (R2) |
 | `dxa-regioes-de-interesse` | não | as DXA abertas têm menos de 1.600 px ou são BY-SA; as caixas de região não vêm na imagem e não podem ser pintadas por cima | fica (R2) |
 | `dxa-interferencias` | não | nenhuma DXA de coluna com artefato metálico em licença aberta | fica (R2) |
-| `corte-pelve` | não | o atlas de Sobotta no Commons tem só cortes sagitais da pelve | fica (R2, R3) |
-| `corte-pescoco` | não | sem corte axial do pescoço na altura da tireoide em licença aberta | fica (R2, R3) |
+| `corte-pelve` | não | o atlas de Sobotta no Commons tem só cortes sagitais da pelve | fica (R2, R3). Em 2026-11-22, trocada por tomografia do acervo do dono (`imagens-vps.md`) |
+| `corte-pescoco` | não | sem corte axial do pescoço na altura da tireoide em licença aberta | fica (R2, R3). Em 2026-11-22, trocada por tomografia do acervo do dono (`imagens-vps.md`) |
 
 ## Por que a radiografia-roteiro não entrou (R23)
 

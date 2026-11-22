@@ -103,9 +103,8 @@ compara duas radiografias reais, e a M26.01 e a M27.03 usam só os diagramas.
 Dezessete diagramas novos, conferidos por imagem pelo controlador. Simplificações e
 limites conhecidos do lote 3:
 
-- `corte-abdome-superior`: o pâncreas inteiro aparece num só corte.
-- `corte-pelve`: o púbis aparece no corte das cabeças do fêmur; o espaço entre bexiga
-  e reto fica vazio de propósito.
+- `corte-abdome-superior` e `corte-pelve`: trocadas em 2026-11-22 por tomografia real do acervo do dono, anonimizada
+  (`../2026-11-19-figuras/imagens-vps.md`); as simplificações do desenho não valem mais.
 - `coluna-sagital-e-axial`: o corte axial está ampliado em relação ao sagital.
 - `trauma-raio-horizontal`: o paciente é visto pela cabeceira, em corte no pescoço; é
   correto, mas abstrato, e o texto da aula explica a vista.
@@ -154,10 +153,8 @@ Dezoito diagramas novos, conferidos por imagem pelo controlador; sem imagem real
 Simplificações e limites conhecidos do lote 4:
 
 - `relaxacao-t1-t2`: as duas curvas de T1 chegam ao mesmo patamar por simplificação.
-- `ponderacoes-no-encefalo`: os ventrículos são duas folhas; o líquido em volta do
-  encéfalo não aparece; a gordura em T2 está intermediária e nenhum item depende dela,
-  porque as fontes divergem.
-- `supressao-de-gordura`: o metal é desenhado como objeto, não como vazio de sinal.
+- `ponderacoes-no-encefalo` e `supressao-de-gordura`: trocadas em 2026-11-22 por ressonância real do acervo do dono,
+  anonimizada (`../2026-11-19-figuras/imagens-vps.md`); os limites do desenho não valem mais.
 - `linha-do-tempo-tr-te`: sem o pulso de 180 graus.
 - `dxa-regioes-de-interesse`: trocada em 2026-11-22 por imagem real; os limites aproximados e o alvo da asa do ilíaco eram do esquema, que não é mais usado.
 - `dxa-posicionamento`: o posicionador ficou alto e as pernas afastadas.
