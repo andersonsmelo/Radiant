@@ -739,7 +739,7 @@
       },
       "concept": {
         "title": "O brilho conta a ponderação",
-        "body": "Na atividade, o mesmo corte da cabeça aparece em três imagens de ressonância. Na ponderada em T1, o líquido dos ventrículos é escuro, a gordura é clara e a substância branca é mais clara que a cinzenta. Na ponderada em T2, o líquido é claro e a branca é mais escura que a cinzenta. A terceira é de base T2 com o líquido suprimido: líquido escuro, branca mais escura que a cinzenta. Você reconhece a imagem; a equipe decide o que ela significa.",
+        "body": "Na atividade, o mesmo corte da cabeça aparece em três imagens de ressonância. Na ponderada em T1, o líquido dos ventrículos é escuro, a gordura é clara e a substância branca é mais clara que a cinzenta. Na ponderada em T2, o líquido é claro e a branca é mais escura que a cinzenta. A terceira é de base T2 com o líquido suprimido: líquido escuro, branca mais escura que a cinzenta. Nesta imagem, a gordura do couro cabeludo também está escura, por uma técnica extra, a supressão de gordura, assunto da próxima aula. Você reconhece a imagem; a equipe decide o que ela significa.",
         "keyPoints": [
           "T1: líquido escuro, gordura clara, substância branca mais clara que a cinzenta.",
           "T2: líquido claro, substância branca mais escura que a cinzenta.",
@@ -1283,7 +1283,7 @@
       ],
       "closing": {
         "title": "Você lê a supressão de gordura",
-        "body": "Agora você diz o que a supressão de gordura muda, a gordura sob a pele fica escura, e reconhece a faixa clara perto de metal como possível falha. E leva isso à equipe, sem ajustar nada.",
+        "body": "Agora você diz o que a supressão de gordura muda, a gordura sob a pele fica escura, e reconhece, numa série descrita, a faixa clara perto de metal como possível falha. E leva isso à equipe, sem ajustar nada.",
         "line": {
           "speaker": "caio",
           "text": "Faixa clara perto de metal: descreva onde, e chame a tecnóloga."

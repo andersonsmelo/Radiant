@@ -6,7 +6,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m29",
-  "materialSha256": "df30e2c272150687bdc95b77018df2625e936cc79b6de8f50734fc1f37ae40d8",
+  "materialSha256": "420a17ee802e4b1cbd65fc38a6e1a957114942653b17b71486c951875247bea3",
   "trackId": "track:rtg-2026:m29",
   "unitId": "unit:rtg-2026:m29",
   "contentVersion": "rtg-2026-m29-v1",
@@ -798,7 +798,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "O brilho conta a ponderação",
-            "body": "Na atividade, o mesmo corte da cabeça aparece em três imagens de ressonância. Na ponderada em T1, o líquido dos ventrículos é escuro, a gordura é clara e a substância branca é mais clara que a cinzenta. Na ponderada em T2, o líquido é claro e a branca é mais escura que a cinzenta. A terceira é de base T2 com o líquido suprimido: líquido escuro, branca mais escura que a cinzenta. Você reconhece a imagem; a equipe decide o que ela significa.",
+            "body": "Na atividade, o mesmo corte da cabeça aparece em três imagens de ressonância. Na ponderada em T1, o líquido dos ventrículos é escuro, a gordura é clara e a substância branca é mais clara que a cinzenta. Na ponderada em T2, o líquido é claro e a branca é mais escura que a cinzenta. A terceira é de base T2 com o líquido suprimido: líquido escuro, branca mais escura que a cinzenta. Nesta imagem, a gordura do couro cabeludo também está escura, por uma técnica extra, a supressão de gordura, assunto da próxima aula. Você reconhece a imagem; a equipe decide o que ela significa.",
             "keyPoints": [
               "T1: líquido escuro, gordura clara, substância branca mais clara que a cinzenta.",
               "T2: líquido claro, substância branca mais escura que a cinzenta.",
@@ -1437,7 +1437,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Você lê a supressão de gordura",
-            "body": "Agora você diz o que a supressão de gordura muda, a gordura sob a pele fica escura, e reconhece a faixa clara perto de metal como possível falha. E leva isso à equipe, sem ajustar nada.",
+            "body": "Agora você diz o que a supressão de gordura muda, a gordura sob a pele fica escura, e reconhece, numa série descrita, a faixa clara perto de metal como possível falha. E leva isso à equipe, sem ajustar nada.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -6632,7 +6632,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df30e2c272150687bdc95b77018df2625e936cc79b6de8f50734fc1f37ae40d8"
+      "materialSha256": "420a17ee802e4b1cbd65fc38a6e1a957114942653b17b71486c951875247bea3"
     },
     {
       "schemaVersion": 1,
@@ -6641,7 +6641,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df30e2c272150687bdc95b77018df2625e936cc79b6de8f50734fc1f37ae40d8"
+      "materialSha256": "420a17ee802e4b1cbd65fc38a6e1a957114942653b17b71486c951875247bea3"
     },
     {
       "schemaVersion": 1,
@@ -6650,7 +6650,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df30e2c272150687bdc95b77018df2625e936cc79b6de8f50734fc1f37ae40d8"
+      "materialSha256": "420a17ee802e4b1cbd65fc38a6e1a957114942653b17b71486c951875247bea3"
     },
     {
       "schemaVersion": 1,
@@ -6659,7 +6659,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df30e2c272150687bdc95b77018df2625e936cc79b6de8f50734fc1f37ae40d8"
+      "materialSha256": "420a17ee802e4b1cbd65fc38a6e1a957114942653b17b71486c951875247bea3"
     },
     {
       "schemaVersion": 1,
@@ -6668,7 +6668,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df30e2c272150687bdc95b77018df2625e936cc79b6de8f50734fc1f37ae40d8"
+      "materialSha256": "420a17ee802e4b1cbd65fc38a6e1a957114942653b17b71486c951875247bea3"
     },
     {
       "schemaVersion": 1,
@@ -6677,7 +6677,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "df30e2c272150687bdc95b77018df2625e936cc79b6de8f50734fc1f37ae40d8"
+      "materialSha256": "420a17ee802e4b1cbd65fc38a6e1a957114942653b17b71486c951875247bea3"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

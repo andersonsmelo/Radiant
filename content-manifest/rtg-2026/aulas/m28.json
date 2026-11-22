@@ -228,8 +228,8 @@
             },
             {
               "label": "Pâncreas",
-              "x": 0.5455,
-              "y": 0.4737,
+              "x": 0.5682,
+              "y": 0.4547,
               "where": "faixa clara e inclinada, atrás da oval grande, ao centro"
             },
             {
@@ -570,15 +570,15 @@
             },
             {
               "label": "Cabeça do fêmur",
-              "x": 0.1818,
-              "y": 0.4882,
-              "where": "bola de osso muito clara, junto à borda esquerda da figura"
+              "x": 0.7818,
+              "y": 0.4824,
+              "where": "bola de osso muito clara, à direita da figura"
             },
             {
               "label": "Acetábulo",
-              "x": 0.6709,
+              "x": 0.3,
               "y": 0.5529,
-              "where": "osso curvo que abraça a bola do lado direito da figura"
+              "where": "osso curvo que abraça a bola do lado esquerdo da figura"
             },
             {
               "label": "Cóccix",
@@ -848,7 +848,7 @@
       },
       "concept": {
         "title": "A traqueia como referência",
-        "body": "No corte axial real do pescoço, visto dos pés, a traqueia fica no meio, na frente, com ar dentro. A tireoide a abraça como uma borboleta: neste corte aparecem as duas asas, uma de cada lado, e o istmo, que as liga pela frente, fica mais abaixo. O esôfago fica atrás da traqueia, discreto. De cada lado correm a carótida, uma artéria, e a jugular interna, uma veia, juntas. Atrás vêm a vértebra e, no canal dela, a medula. Neste corte, a artéria é um círculo menor e a veia, uma oval maior.",
+        "body": "No corte axial real do pescoço, visto dos pés, a traqueia fica no meio, na frente, com ar dentro. A tireoide a abraça como uma borboleta: neste corte aparecem as duas asas, uma de cada lado, e o istmo, que as liga pela frente, fica em outro nível do pescoço. O esôfago fica atrás da traqueia, discreto. De cada lado correm a carótida, uma artéria, e a jugular interna, uma veia, juntas. Atrás vêm a vértebra e, no canal dela, a medula. Neste corte, a artéria é um círculo menor e a veia, uma oval maior.",
         "keyPoints": [
           "Traqueia no meio; tireoide em volta, esôfago atrás.",
           "Carótida e jugular interna correm juntas, de cada lado.",
@@ -1852,7 +1852,7 @@
       },
       "concept": {
         "title": "A altura pelas referências",
-        "body": "No tórax, os pulmões são grandes áreas escuras. O diafragma tem forma de cúpula: perto dele, as vísceras do abdome superior sobem no centro do corte, e as áreas escuras encolhem para as bordas. Isso vale do meio do tórax para baixo; no alto, perto do pescoço, os pulmões também são pequenos. Abaixo do diafragma não há pulmão: o corte do abdome superior da atividade não tem área escura de pulmão. Da cabeça aos pés: pescoço, tórax, abdome superior, pelve.",
+        "body": "No tórax, os pulmões são grandes áreas escuras. O diafragma tem forma de cúpula: perto dele, as vísceras do abdome superior sobem no centro do corte, e as áreas escuras encolhem para as bordas. Isso vale do meio do tórax para baixo; no alto, perto do pescoço, os pulmões também são pequenos. Abaixo do diafragma não há pulmão: o corte do abdome superior da atividade não tem área escura de pulmão; as manchas pretas dele são gás dentro do intestino. Da cabeça aos pés: pescoço, tórax, abdome superior, pelve.",
         "keyPoints": [
           "Do meio do tórax para baixo: pulmão menor, corte mais baixo.",
           "Abaixo do diafragma o pulmão some; a referência diz a altura.",

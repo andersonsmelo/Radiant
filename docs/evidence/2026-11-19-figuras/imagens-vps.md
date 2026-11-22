@@ -41,10 +41,12 @@ Lista completa, antes e depois, em `itens-alterados-vps.md` (pasta de trabalho).
   passa da linha média, e o baço fica encostado na parede (não "preso ao estômago"); "o pâncreas inteiro cabe num só corte" virou "nem todo corte mostra o pâncreas inteiro".
 - m28-02 i2: cinco pontos viraram quatro. A bexiga (neste nível só a base) e o reto (canal anal baixo, colapsado) não aparecem como no esquema, e entre eles há órgãos que dependem do sexo;
   os dois deixaram de ser cobrados na imagem e seguem no texto (cloze, certo e errado, checkpoints). O verdadeiro-ou-falso "o espaço entre bexiga e reto fica vazio" virou "entre a bexiga e o reto ficam órgãos que variam com o sexo", também verdadeiro.
-- m28-03 i2: seis pontos viraram quatro (traqueia, carótida, jugular interna, vértebra). A tireoide e o esôfago ficam coladas à traqueia, e a área de toque de 44 pt (170 px na figura) de um não cabe sem se sobrepor à do outro; o solucionador testou todos os pontos possíveis e só esse conjunto de quatro cabe. O conceito diz que na imagem aparecem as duas asas da tireoide e que o istmo fica mais abaixo.
+- m28-03 i2: seis pontos viraram quatro (traqueia, carótida, jugular interna, vértebra). A tireoide e o esôfago ficam coladas à traqueia, e a área de toque de 44 pt (170 px na figura) de um não cabe sem se sobrepor à do outro; o solucionador testou todos os pontos possíveis e só esse conjunto de quatro cabe. O conceito diz que na imagem aparecem as duas asas da tireoide e que o istmo fica em outro nível do pescoço (o corte não fixa o nível).
 - m28-06 i4: o rim direito do paciente saiu das regiões, porque a caixa justa do fígado o contém e as áreas de toque se sobreporiam.
 - m29-03 i2: de cinco regiões a três (ventrículos de cada imagem). O anel de gordura do T1 é fino demais para uma região de 0,08, e a região de substância branca ficaria sobre as outras.
 - m29-04: a aula falava de coxa, medula e faixa clara junto ao metal; a imagem é de abdome, sem metal nem falha. O item i3, que pedia "o lugar onde a supressão não funcionou", virou "a gordura sob a pele da imagem em que a supressão foi usada" (a certa é a faixa da imagem da direita; distratores: a faixa da esquerda e a coluna de cada lado). O que a imagem não mostra (medula, objeto, falha) deixou de ser cobrado nela; o conceito e os itens de texto sobre metal continuam como descrição. O conceito não diz qual imagem tem a supressão (o item perguntaria o que o texto já deu). A ajuda de m29-05 i1, que citava a faixa do esquema, foi reescrita.
+- m29-03: o conceito diz que a gordura do couro cabeludo também está escura na terceira imagem (saturação de gordura, assunto da m29-04).
+- m28-06: o conceito diz que as manchas pretas do corte são gás dentro do intestino, e não pulmão.
 - Resposta certa dos outros itens: nenhuma mudou.
 
 ## Medidas
@@ -56,7 +58,7 @@ Todas as regiões e pontos foram medidos sobre o JPEG final (pixels) e abertos n
 - m29-03 i2: a certa (ventrículos do FLAIR, 104 x 145 px) tem área de toque de 189 x 189 px; 42% dela é a própria região e 0% cai sobre os ventrículos das outras duas imagens (a mais próxima está a mais de 240 px).
 - m29-04 i3: a certa é a faixa de gordura sob a pele da direita (290 x 35 px). Ela foi deslocada 8 px para baixo para a área de toque caber dentro do quadro de 101 pt de altura (centro a 94 px do topo); a caixa tem 66% de pixels claros na imagem da esquerda e 0% na da direita (faixa de 33 px de espessura mais a camada logo abaixo). A área de toque cobre 0% de qualquer outra região.
 - m28-06 i4: a certa (baço, 185 x 270 px) tem área de toque de 185 x 270 px, igual à região (maior que 44 pt); 0% cai sobre o rim esquerdo, o fígado ou a vértebra (o rim termina 5 px antes do baço).
-- Pontos (label), em pixels: abdome, fígado (190, 430), estômago (810, 430), baço (985, 670), pâncreas (600, 450), rim direito do paciente (335, 690); pelve, sínfise (537, 272), cabeça do fêmur (200, 415), acetábulo (738, 470), cóccix (540, 700); pescoço, traqueia (455, 195), carótida (630, 263), jugular interna (278, 268), vértebra (452, 380). Os centros distam 170 px ou mais em x ou y (44 pt).
+- Pontos (label), em pixels: abdome, fígado (190, 430), estômago (810, 430), baço (985, 670), pâncreas (625, 432), rim direito do paciente (335, 690); pelve, sínfise (537, 272), cabeça do fêmur (860, 410), acetábulo (330, 470), cóccix (540, 700); pescoço, traqueia (455, 195), carótida (630, 263), jugular interna (278, 268), vértebra (452, 380). Os centros distam 170 px ou mais em x ou y (44 pt).
 - A "região de toque sobre a estrutura, e a certa não cobre o erro típico" vale nos três hotspots: o erro típico de cada um (a imagem vizinha, a faixa clara da esquerda, o rim) fica fora da área de toque da certa.
 
 ## Registro e orçamento
@@ -68,6 +70,10 @@ Todas as regiões e pontos foram medidos sobre o JPEG final (pixels) e abertos n
 ## Números dos testes (2026-11-22, Node 20.20.2)
 
 - Verificador de aula nas 40 unidades: 40 OK.
-- `node --test scripts/content/*.test.mjs scripts/qa/*.test.mjs`: 453 passam, 2 falham. Uma é a conhecida (`registerSource normalizes metadata for the pilot book`). A outra é `o índice versionado lista as figuras com roteiro...`: o roteiro `m26-aula-04.yaml` está defasado (falta `centerElement: true`), por causa de um commit de Maestro anterior a este trabalho (m26 não foi tocada).
+- `node --test scripts/content/*.test.mjs scripts/qa/*.test.mjs`: 455 testes, 454 passam, 1 falha (a conhecida, `registerSource normalizes metadata for the pilot book`). O roteiro `m26-aula-04.yaml`, antes defasado, foi regerado no commit 134244db.
 - `npx jest` em `student-checkpoints`, `settings`, `lesson-flow` e `ui/diagrams`: 68 suítes, 1663 testes, todos passam. `npx tsc --noEmit` e `npx eslint` nos arquivos tocados: sem erro.
 - `npm run test:maestro-contract`: 13 passam. `npm run test:copy-style-contract`: 65 passam. `generate-rtg-maestro --check m28 m29`: ok.
+
+## Correções da revisão independente (2026-11-22)
+
+Parecer em `revisoes/imagens-vps.md`, com "Correções aplicadas" por achado. Os pontos de m28-01 i2 (pâncreas) e m28-02 i2 (cabeça do fêmur e acetábulo, que trocaram de lado) foram movidos e as prévias regeradas. As prévias passaram a ter uma por item no caso do abdome (m28-01 i2 à esquerda, m28-06 i4 à direita, no mesmo arquivo) (900 px de largura e 96 cores; o abdome em dois quadros de 640 px lado a lado).

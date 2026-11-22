@@ -6,7 +6,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m28",
-  "materialSha256": "5faccdb7679ba446066531c8d610d227861a8869d24863d50d197c7c146f9d69",
+  "materialSha256": "2cbd7e06c9aa4c0fe0d5a96fc521bf47de772414e4c087a6164f17ba270f62cd",
   "trackId": "track:rtg-2026:m28",
   "unitId": "unit:rtg-2026:m28",
   "contentVersion": "rtg-2026-m28-v1",
@@ -296,8 +296,8 @@ export const RTG_2026_M28: ProductionBatchV1 = {
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-01:i2:4",
-                  "x": 0.5455,
-                  "y": 0.4737,
+                  "x": 0.5682,
+                  "y": 0.4547,
                   "where": "faixa clara e inclinada, atrás da oval grande, ao centro",
                   "correctLabelId": "label:rtg-2026:m28:aula-01:i2:4"
                 },
@@ -635,16 +635,16 @@ export const RTG_2026_M28: ProductionBatchV1 = {
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-02:i2:2",
-                  "x": 0.1818,
-                  "y": 0.4882,
-                  "where": "bola de osso muito clara, junto à borda esquerda da figura",
+                  "x": 0.7818,
+                  "y": 0.4824,
+                  "where": "bola de osso muito clara, à direita da figura",
                   "correctLabelId": "label:rtg-2026:m28:aula-02:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-02:i2:3",
-                  "x": 0.6709,
+                  "x": 0.3,
                   "y": 0.5529,
-                  "where": "osso curvo que abraça a bola do lado direito da figura",
+                  "where": "osso curvo que abraça a bola do lado esquerdo da figura",
                   "correctLabelId": "label:rtg-2026:m28:aula-02:i2:3"
                 },
                 {
@@ -905,7 +905,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "A traqueia como referência",
-            "body": "No corte axial real do pescoço, visto dos pés, a traqueia fica no meio, na frente, com ar dentro. A tireoide a abraça como uma borboleta: neste corte aparecem as duas asas, uma de cada lado, e o istmo, que as liga pela frente, fica mais abaixo. O esôfago fica atrás da traqueia, discreto. De cada lado correm a carótida, uma artéria, e a jugular interna, uma veia, juntas. Atrás vêm a vértebra e, no canal dela, a medula. Neste corte, a artéria é um círculo menor e a veia, uma oval maior.",
+            "body": "No corte axial real do pescoço, visto dos pés, a traqueia fica no meio, na frente, com ar dentro. A tireoide a abraça como uma borboleta: neste corte aparecem as duas asas, uma de cada lado, e o istmo, que as liga pela frente, fica em outro nível do pescoço. O esôfago fica atrás da traqueia, discreto. De cada lado correm a carótida, uma artéria, e a jugular interna, uma veia, juntas. Atrás vêm a vértebra e, no canal dela, a medula. Neste corte, a artéria é um círculo menor e a veia, uma oval maior.",
             "keyPoints": [
               "Traqueia no meio; tireoide em volta, esôfago atrás.",
               "Carótida e jugular interna correm juntas, de cada lado.",
@@ -1921,7 +1921,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "A altura pelas referências",
-            "body": "No tórax, os pulmões são grandes áreas escuras. O diafragma tem forma de cúpula: perto dele, as vísceras do abdome superior sobem no centro do corte, e as áreas escuras encolhem para as bordas. Isso vale do meio do tórax para baixo; no alto, perto do pescoço, os pulmões também são pequenos. Abaixo do diafragma não há pulmão: o corte do abdome superior da atividade não tem área escura de pulmão. Da cabeça aos pés: pescoço, tórax, abdome superior, pelve.",
+            "body": "No tórax, os pulmões são grandes áreas escuras. O diafragma tem forma de cúpula: perto dele, as vísceras do abdome superior sobem no centro do corte, e as áreas escuras encolhem para as bordas. Isso vale do meio do tórax para baixo; no alto, perto do pescoço, os pulmões também são pequenos. Abaixo do diafragma não há pulmão: o corte do abdome superior da atividade não tem área escura de pulmão; as manchas pretas dele são gás dentro do intestino. Da cabeça aos pés: pescoço, tórax, abdome superior, pelve.",
             "keyPoints": [
               "Do meio do tórax para baixo: pulmão menor, corte mais baixo.",
               "Abaixo do diafragma o pulmão some; a referência diz a altura.",
@@ -6785,7 +6785,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5faccdb7679ba446066531c8d610d227861a8869d24863d50d197c7c146f9d69"
+      "materialSha256": "2cbd7e06c9aa4c0fe0d5a96fc521bf47de772414e4c087a6164f17ba270f62cd"
     },
     {
       "schemaVersion": 1,
@@ -6794,7 +6794,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5faccdb7679ba446066531c8d610d227861a8869d24863d50d197c7c146f9d69"
+      "materialSha256": "2cbd7e06c9aa4c0fe0d5a96fc521bf47de772414e4c087a6164f17ba270f62cd"
     },
     {
       "schemaVersion": 1,
@@ -6803,7 +6803,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5faccdb7679ba446066531c8d610d227861a8869d24863d50d197c7c146f9d69"
+      "materialSha256": "2cbd7e06c9aa4c0fe0d5a96fc521bf47de772414e4c087a6164f17ba270f62cd"
     },
     {
       "schemaVersion": 1,
@@ -6812,7 +6812,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5faccdb7679ba446066531c8d610d227861a8869d24863d50d197c7c146f9d69"
+      "materialSha256": "2cbd7e06c9aa4c0fe0d5a96fc521bf47de772414e4c087a6164f17ba270f62cd"
     },
     {
       "schemaVersion": 1,
@@ -6821,7 +6821,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5faccdb7679ba446066531c8d610d227861a8869d24863d50d197c7c146f9d69"
+      "materialSha256": "2cbd7e06c9aa4c0fe0d5a96fc521bf47de772414e4c087a6164f17ba270f62cd"
     },
     {
       "schemaVersion": 1,
@@ -6830,7 +6830,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "5faccdb7679ba446066531c8d610d227861a8869d24863d50d197c7c146f9d69"
+      "materialSha256": "2cbd7e06c9aa4c0fe0d5a96fc521bf47de772414e4c087a6164f17ba270f62cd"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",
