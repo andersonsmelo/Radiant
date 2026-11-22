@@ -429,7 +429,7 @@
       },
       "concept": {
         "title": "Elevar, retificar e alisar",
-        "body": "O transformador só trabalha com tensão alternada, que inverte o sentido a cada meio ciclo, e eleva a tensão pelo número de espiras. A ponte de diodos retifica: vira o meio ciclo invertido e deixa a tensão num sentido só, mas ela ainda cai a zero a cada meio ciclo. A ondulação diz quanto a tensão oscila entre picos e vales. Geradores mais elaborados, como os de alta frequência, reduzem a ondulação e deixam a tensão quase constante.",
+        "body": "O transformador só trabalha com tensão alternada, que inverte o sentido a cada meio ciclo, e eleva a tensão pelo número de espiras. A ponte de diodos retifica: vira o meio ciclo invertido e deixa a tensão num sentido só, mas ela ainda cai a zero a cada meio ciclo. A ondulação diz quanto a tensão oscila entre picos e vales. Geradores de alta frequência reduzem a ondulação e deixam a tensão quase constante. Tempo na horizontal; tensão na vertical.",
         "keyPoints": [
           "Retificar é manter a tensão num só sentido.",
           "A ondulação é o quanto a tensão oscila.",

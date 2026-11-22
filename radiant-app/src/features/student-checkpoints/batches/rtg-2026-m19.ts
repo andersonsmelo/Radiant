@@ -6,7 +6,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m19",
-  "materialSha256": "134c55e0b53ce306b72e824ab1d1431c222582d1fab02f8be000c3c078063992",
+  "materialSha256": "ceeef3d1e6fb1086ab81ce671773c83ea2332a5903d9caa470c9ac1ca4a56ceb",
   "trackId": "track:rtg-2026:m19",
   "unitId": "unit:rtg-2026:m19",
   "contentVersion": "rtg-2026-m19-v1",
@@ -482,7 +482,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Elevar, retificar e alisar",
-            "body": "O transformador só trabalha com tensão alternada, que inverte o sentido a cada meio ciclo, e eleva a tensão pelo número de espiras. A ponte de diodos retifica: vira o meio ciclo invertido e deixa a tensão num sentido só, mas ela ainda cai a zero a cada meio ciclo. A ondulação diz quanto a tensão oscila entre picos e vales. Geradores mais elaborados, como os de alta frequência, reduzem a ondulação e deixam a tensão quase constante.",
+            "body": "O transformador só trabalha com tensão alternada, que inverte o sentido a cada meio ciclo, e eleva a tensão pelo número de espiras. A ponte de diodos retifica: vira o meio ciclo invertido e deixa a tensão num sentido só, mas ela ainda cai a zero a cada meio ciclo. A ondulação diz quanto a tensão oscila entre picos e vales. Geradores de alta frequência reduzem a ondulação e deixam a tensão quase constante. Tempo na horizontal; tensão na vertical.",
             "keyPoints": [
               "Retificar é manter a tensão num só sentido.",
               "A ondulação é o quanto a tensão oscila.",
@@ -6585,7 +6585,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "134c55e0b53ce306b72e824ab1d1431c222582d1fab02f8be000c3c078063992"
+      "materialSha256": "ceeef3d1e6fb1086ab81ce671773c83ea2332a5903d9caa470c9ac1ca4a56ceb"
     },
     {
       "schemaVersion": 1,
@@ -6594,7 +6594,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "134c55e0b53ce306b72e824ab1d1431c222582d1fab02f8be000c3c078063992"
+      "materialSha256": "ceeef3d1e6fb1086ab81ce671773c83ea2332a5903d9caa470c9ac1ca4a56ceb"
     },
     {
       "schemaVersion": 1,
@@ -6603,7 +6603,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "134c55e0b53ce306b72e824ab1d1431c222582d1fab02f8be000c3c078063992"
+      "materialSha256": "ceeef3d1e6fb1086ab81ce671773c83ea2332a5903d9caa470c9ac1ca4a56ceb"
     },
     {
       "schemaVersion": 1,
@@ -6612,7 +6612,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "134c55e0b53ce306b72e824ab1d1431c222582d1fab02f8be000c3c078063992"
+      "materialSha256": "ceeef3d1e6fb1086ab81ce671773c83ea2332a5903d9caa470c9ac1ca4a56ceb"
     },
     {
       "schemaVersion": 1,
@@ -6621,7 +6621,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "134c55e0b53ce306b72e824ab1d1431c222582d1fab02f8be000c3c078063992"
+      "materialSha256": "ceeef3d1e6fb1086ab81ce671773c83ea2332a5903d9caa470c9ac1ca4a56ceb"
     },
     {
       "schemaVersion": 1,
@@ -6630,7 +6630,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "134c55e0b53ce306b72e824ab1d1431c222582d1fab02f8be000c3c078063992"
+      "materialSha256": "ceeef3d1e6fb1086ab81ce671773c83ea2332a5903d9caa470c9ac1ca4a56ceb"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",
