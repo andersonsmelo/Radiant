@@ -77,3 +77,23 @@ Todas as regiões e pontos foram medidos sobre o JPEG final (pixels) e abertos n
 ## Correções da revisão independente (2026-11-22)
 
 Parecer em `revisoes/imagens-vps.md`, com "Correções aplicadas" por achado. Os pontos de m28-01 i2 (pâncreas) e m28-02 i2 (cabeça do fêmur e acetábulo, que trocaram de lado) foram movidos e as prévias regeradas. As prévias passaram a ter uma por item no caso do abdome (m28-01 i2 à esquerda, m28-06 i4 à direita, no mesmo arquivo) (900 px de largura e 96 cores; o abdome em dois quadros de 640 px lado a lado).
+
+## Capturas no iPhone (2026-11-22, noite)
+
+Medido em 2026-11-22 no simulador "Radiant F7" (iPhone, dev client), com o Metro no Node 20 e `EXPO_NO_TYPESCRIPT_SETUP=1`, na ponta `bdc9fc3a`. Os roteiros saíram de uma cópia de trabalho do gerador adaptada a `imageId`, fora do git; nenhum roteiro versionado mudou. Os seis rodaram na primeira tentativa:
+
+- `ios-vps-m28-aula01.jpg` (M28.01 i2, rotular 5): TC do abdome superior, com os pontos no fígado, no baço, no estômago, no pâncreas e no rim. O selo do pâncreas fica ao lado da estrutura.
+- `ios-vps-m28-aula02.jpg` (M28.02 i2, rotular 4): TC da pelve, com os pontos na sínfise, na cabeça do fêmur, no acetábulo e no cóccix. A cabeça do fêmur fica à vista.
+- `ios-vps-m28-aula03.jpg` (M28.03 i2, rotular 4): TC do pescoço, com os pontos na traqueia, na carótida, na jugular e na vértebra.
+- `ios-vps-m28-aula06.jpg` (M28.06 i4, tocar 4): o mesmo abdome, com regiões no fígado, no baço, no rim e na vértebra, e os selos fora delas.
+- `ios-vps-m29-aula03.jpg` (M29.03 i2, tocar 3): T1, T2 e FLAIR lado a lado, com uma região nos ventrículos de cada imagem.
+- `ios-vps-m29-aula04.jpg` (M29.04 i3, tocar 4): o abdome com e sem supressão de gordura, com as faixas de gordura sob a pele e as regiões da coluna.
+
+Ponto de atenção: nas duas figuras de RM com dois e três painéis, cada imagem ocupa um terço ou metade da largura do quadro. Os ventrículos e a faixa de gordura aparecem pequenos no iPhone, mas legíveis na captura.
+
+Este documento não prova o seguinte:
+- os pontos foram vistos no tamanho da captura, e não no aparelho;
+- o Android e o VoiceOver não foram vistos.
+
+Ao fim, o Metro estava parado, o simulador desligado e `radiant-app/expo-env.d.ts` não existia.
+

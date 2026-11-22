@@ -133,7 +133,7 @@ Medido em 2026-11-22 no simulador "Radiant F7" (iPhone, dev client), com o Metro
 - `ios-real-m30-aula04.jpg` (M30.04 i2, tocar): coluna lombar real com o cimento em L2 e quatro regiões sobre os corpos vertebrais. A região 1 cobre o cimento, e os selos ficam fora das regiões.
 - `ios-real-m30-aula05.jpg` (M30.05 i2, rotular): DXA de corpo inteiro real, com o painel de osso e o mapa de composição. Os pontos ficam na cabeça, no tronco, no braço e na diáfise do fêmur, e o selo 4 deixa livre o vértice do V.
 - `ios-real-m30-aula06.jpg` (M30.06 i2, tocar): o mesmo painel duplo, com as regiões do fêmur e da coluna.
-- M23.05 (i3) não foi capturada. Nas três tentativas, o roteiro parou no passo 4, a bancada de colimação do joelho: os toques em "Diminuir largura" não baixaram o campo de 27 cm. Isso aconteceu antes da imagem, e a mesma radiografia aparece na captura da M23.01.
+- `ios-real-m23-aula05.jpg` (M23.05 i3, tocar): **capturada depois, em 2026-11-22**, quando o gerador de roteiros passou a centralizar o botão da bancada (`f88b41d1`). Antes, o roteiro parava no passo 4, a bancada do joelho, porque os toques em "Diminuir largura" caíam no rodapé fixo. A imagem mostra a radiografia real com as quatro regiões (marcador de lado, campo pulmonar, mediastino e base do pulmão), e os selos ficam fora delas.
 
 Este documento não prova o seguinte:
 - os pontos foram vistos no tamanho da captura, e não no aparelho;
