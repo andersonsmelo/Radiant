@@ -123,3 +123,23 @@ test('the checkpoint flow plays lesson 01 first, because the checkpoint is locke
   const summary = content.indexOf("- assertVisible: 'A lição foi concluída'");
   assert.ok(summary >= 0 && summary < content.indexOf("- tapOn: 'Começar avaliação'"), 'lesson 01 summary comes before the checkpoint starts');
 });
+
+test('bench and parameter-lab buttons are centred before the taps, so the fixed footer does not swallow them', async () => {
+  const { readRtgImages, readRtgSources } = await import('../content/build-rtg-batches.mjs');
+  const { lessonCommands } = await import('./generate-rtg-maestro.mjs');
+  const factory = createRequire(import.meta.url)('../content/load-app-contract.cjs').loadAppContract('features/student-checkpoints/batches/rtgBatchFactory.ts');
+  const images = await readRtgImages();
+  let scrolls = 0;
+  for (const { doc } of await readRtgSources()) {
+    for (const activity of factory.buildRtgBatch(doc, images).batch.activities) {
+      const commands = parse(`appId: x\n---\n${lessonCommands(activity).join('\n')}\n`)[1] ?? [];
+      for (const command of commands) {
+        const target = command.scrollUntilVisible?.element?.text ?? '';
+        if (!/^(Aumentar|Diminuir) /.test(target)) continue;
+        scrolls += 1;
+        assert.equal(command.scrollUntilVisible.centerElement, true, `${activity.id}: ${target}`);
+      }
+    }
+  }
+  assert.ok(scrolls > 0, 'a trilha tem passos de bancada');
+});

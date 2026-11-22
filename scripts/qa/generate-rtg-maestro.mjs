@@ -28,6 +28,8 @@ const text = label => `- tapOn: ${quote(escapeMaestro(label))}`;
 const id = value => `- tapOn:\n    id: ${quote(escapeMaestro(value))}`;
 // Sem `visibilityPercentage`: o contrato só admite uma régua por seletor e esta não mede nenhuma.
 const scrollTo = (kind, value, direction) => `- scrollUntilVisible:\n    element:\n      ${kind}: ${quote(escapeMaestro(value))}${direction ? `\n    direction: ${direction}` : ''}`;
+// Botão de bancada e de laboratório: centrado, porque o rodapé fixo (Conferir resposta) cobre o fim da rolagem e engole o toque.
+const scrollToCentred = value => `${scrollTo('text', value)}\n    centerElement: true`;
 const tapText = label => [scrollTo('text', label), text(label)];
 const tapId = value => [scrollTo('id', value), id(value)];
 
@@ -105,7 +107,7 @@ function answerCommands(interaction) {
       const up = goal.atLeast !== undefined && control.initial < goal.atLeast;
       const gap = up ? goal.atLeast - control.initial : control.initial - goal.atMost;
       const label = `${up ? 'Aumentar' : 'Diminuir'} ${control.label}`;
-      return [scrollTo('text', label), ...Array.from({ length: Math.ceil(gap / control.step - 1e-9) }, () => text(label))];
+      return [scrollToCentred(label), ...Array.from({ length: Math.ceil(gap / control.step - 1e-9) }, () => text(label))];
     }
     case 'parameter-lab': {
       // Como na bancada: um passo por toque nos botões Aumentar ou Diminuir. Partida e limites caem na grade do modelo
@@ -115,7 +117,7 @@ function answerCommands(interaction) {
       const up = goal.atLeast !== undefined && start < goal.atLeast;
       const gap = up ? goal.atLeast - start : start - goal.atMost;
       const button = `${up ? 'Aumentar' : 'Diminuir'} ${label}`;
-      return [scrollTo('text', button), ...Array.from({ length: Math.ceil(gap / step - 1e-9) }, () => text(button))];
+      return [scrollToCentred(button), ...Array.from({ length: Math.ceil(gap / step - 1e-9) }, () => text(button))];
     }
     case 'label': {
       // Ponto e ficha, na ordem dos pontos. Os pontos ficam acima das fichas: depois de rolar até uma ficha,
