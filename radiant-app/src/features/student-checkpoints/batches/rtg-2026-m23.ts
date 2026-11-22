@@ -6,7 +6,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m23",
-  "materialSha256": "d46e50e445131a81c4cff53b24796494a2ba9ef968910a8edd29787f0d61c4d8",
+  "materialSha256": "e90272a3f95c71879104102aa17b296d8357ce20be709ba047a28bce64d97d8f",
   "trackId": "track:rtg-2026:m23",
   "unitId": "unit:rtg-2026:m23",
   "contentVersion": "rtg-2026-m23-v1",
@@ -150,13 +150,13 @@ export const RTG_2026_M23: ProductionBatchV1 = {
           "role": "hook",
           "payload": {
             "title": "Um roteiro de leitura",
-            "body": "Hoje você vai conseguir percorrer um esquema de tórax na ordem de conferência, sabendo onde olhar em cada passo.",
+            "body": "Hoje você vai conseguir percorrer uma radiografia de tórax na ordem de conferência, sabendo onde olhar em cada passo.",
             "dialogue": {
               "setting": "Sala de leitura do laboratório didático",
               "lines": [
                 {
                   "speaker": "caio",
-                  "text": "O esquema de tórax de hoje é um desenho para treinar o olhar. Não é imagem de paciente."
+                  "text": "A radiografia de tórax de hoje é uma imagem real, sem nome nem número de paciente visíveis. Serve para treinar o olhar."
                 },
                 {
                   "speaker": "duda",
@@ -168,7 +168,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
                 },
                 {
                   "speaker": "pixel",
-                  "text": "Lembra a ordem de conferência da unidade anterior? Hoje ela vira um caminho para o olho no esquema."
+                  "text": "Lembra a ordem de conferência da unidade anterior? Hoje ela vira um caminho para o olho na radiografia."
                 }
               ]
             }
@@ -180,10 +180,10 @@ export const RTG_2026_M23: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Cinco passos, sempre na mesma ordem",
-            "body": "Na unidade anterior, você conferiu critérios numa ordem fixa. Aqui, a mesma ordem vira um roteiro para o olho: 1) identificação e marcador de lado, nos cantos; 2) cobertura: a margem clara mostra até onde o feixe chegou, e a região pedida precisa estar inteira por dentro; 3) posição e alinhamento; 4) nitidez, granulado e artefatos, marcas que não são do corpo, procurados na área toda, e não só no pulmão; 5) índice de exposição, que fica no sistema, fora da imagem. Os esquemas desta unidade são desenhos, não imagens de paciente.",
+            "body": "Na unidade anterior, você conferiu critérios numa ordem fixa. Aqui, a mesma ordem vira um roteiro para o olho: 1) identificação e marcador de lado, nos cantos; 2) cobertura: quando há margem clara, ela mostra até onde o feixe chegou, e a região pedida precisa estar inteira por dentro; 3) posição e alinhamento; 4) nitidez, granulado e artefatos, marcas que não são do corpo, procuradas na área toda, e não só no pulmão; 5) índice de exposição, que fica no sistema, fora da imagem. A imagem desta aula é uma radiografia real; os artefatos das próximas aulas aparecem em esquemas desenhados.",
             "keyPoints": [
               "A ordem é fixa: o olho não vai direto ao pulmão.",
-              "A margem clara mostra o limite do feixe.",
+              "Quando há margem clara, ela mostra o limite do feixe.",
               "Ler a imagem não é diagnosticar."
             ]
           }
@@ -246,78 +246,60 @@ export const RTG_2026_M23: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule as partes do esquema de tórax, tocando na ficha e no ponto."
+              "label": "Rotular a imagem: Rotule as partes da radiografia de tórax, tocando na ficha e no ponto."
             },
-            "help": "Comece pelo que fica nas bordas do esquema, antes da anatomia.",
+            "help": "Comece pelo que fica nos cantos da radiografia, antes da anatomia.",
             "type": "label",
             "feedback": {
-              "correct": "Isso mesmo: marcas de identificação, limite do feixe e anatomia têm lugares diferentes no esquema.",
-              "incorrect": "Alguma ficha está no ponto errado. Separe o que está na margem, o que é marca de identificação e o que é anatomia."
+              "correct": "Isso mesmo: a marca colocada no exame e a anatomia têm lugares diferentes na radiografia. As outras fichas não aparecem nela.",
+              "incorrect": "Alguma ficha está no ponto errado. Separe a marca que fica no canto do que é anatomia, e lembre que há fichas sem ponto na imagem."
             },
             "payload": {
-              "prompt": "Rotule as partes do esquema de tórax, tocando na ficha e no ponto.",
-              "imageRef": "diagram:radiografia-roteiro",
+              "prompt": "Rotule as partes da radiografia de tórax, tocando na ficha e no ponto.",
+              "imageRef": "image:rtg-2026:m23:torax-pa-roteiro-01",
               "points": [
                 {
                   "id": "point:rtg-2026:m23:aula-01:i2:1",
-                  "x": 0.77,
-                  "y": 0.12,
-                  "where": "no alto, à direita de quem olha, retângulo com linhas",
+                  "x": 0.854,
+                  "y": 0.1,
+                  "where": "tira com letra e círculo, no canto do alto à direita",
                   "correctLabelId": "label:rtg-2026:m23:aula-01:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m23:aula-01:i2:2",
-                  "x": 0.22,
-                  "y": 0.18,
-                  "where": "pequeno quadrado branco, no alto à esquerda de quem olha",
+                  "x": 0.283,
+                  "y": 0.514,
+                  "where": "área escura entre as costelas, à esquerda de quem olha",
                   "correctLabelId": "label:rtg-2026:m23:aula-01:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m23:aula-01:i2:3",
-                  "x": 0.16,
-                  "y": 0.5,
-                  "where": "faixa mais clara na margem, à esquerda de quem olha",
+                  "x": 0.25,
+                  "y": 0.84,
+                  "where": "curva clara que fecha a base, à esquerda de quem olha",
                   "correctLabelId": "label:rtg-2026:m23:aula-01:i2:3"
-                },
-                {
-                  "id": "point:rtg-2026:m23:aula-01:i2:4",
-                  "x": 0.34,
-                  "y": 0.46,
-                  "where": "área escura entre as costelas, à esquerda de quem olha",
-                  "correctLabelId": "label:rtg-2026:m23:aula-01:i2:4"
-                },
-                {
-                  "id": "point:rtg-2026:m23:aula-01:i2:5",
-                  "x": 0.67,
-                  "y": 0.71,
-                  "where": "curva clara que fecha a base, à direita de quem olha",
-                  "correctLabelId": "label:rtg-2026:m23:aula-01:i2:5"
                 }
               ],
               "labels": [
                 {
-                  "id": "label:rtg-2026:m23:aula-01:i2:3",
-                  "label": "Borda de colimação"
-                },
-                {
-                  "id": "label:rtg-2026:m23:aula-01:i2:1",
-                  "label": "Etiqueta de identificação"
-                },
-                {
                   "id": "label:rtg-2026:m23:aula-01:i2:2",
-                  "label": "Marcador de lado"
-                },
-                {
-                  "id": "label:rtg-2026:m23:aula-01:i2:4",
                   "label": "Campo pulmonar"
                 },
                 {
-                  "id": "label:rtg-2026:m23:aula-01:i2:6",
-                  "label": "Eletrodo com fio"
+                  "id": "label:rtg-2026:m23:aula-01:i2:3",
+                  "label": "Diafragma"
+                },
+                {
+                  "id": "label:rtg-2026:m23:aula-01:i2:4",
+                  "label": "Etiqueta de identificação"
+                },
+                {
+                  "id": "label:rtg-2026:m23:aula-01:i2:1",
+                  "label": "Marcador de lado"
                 },
                 {
                   "id": "label:rtg-2026:m23:aula-01:i2:5",
-                  "label": "Diafragma"
+                  "label": "Eletrodo com fio"
                 }
               ]
             }
@@ -334,26 +316,26 @@ export const RTG_2026_M23: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada passo do roteiro ao lugar onde você o confere no esquema."
+              "label": "Associação: Ligue cada passo do roteiro ao lugar onde você o confere na radiografia."
             },
             "help": "Pergunte de cada passo: ele está na imagem, na borda dela ou no sistema?",
             "type": "matching",
             "feedback": {
               "correct": "Isso: cada passo tem um lugar para o olho, e o índice fica fora da imagem.",
-              "incorrect": "Retome o conceito: as marcas ficam nos cantos, o campo na margem, as marcas estranhas em toda a área e o índice no sistema."
+              "incorrect": "Retome o conceito: as marcas ficam nos cantos, a cobertura nas bordas da imagem, as marcas estranhas em toda a área e o índice no sistema."
             },
             "payload": {
-              "prompt": "Ligue cada passo do roteiro ao lugar onde você o confere no esquema.",
+              "prompt": "Ligue cada passo do roteiro ao lugar onde você o confere na radiografia.",
               "pairs": [
                 {
                   "id": "pair:rtg-2026:m23:aula-01:i3:1",
                   "left": "Identificação e marcador de lado",
-                  "right": "Etiqueta e quadrado branco, nos cantos do alto"
+                  "right": "Marcas colocadas no exame, nos cantos do alto"
                 },
                 {
                   "id": "pair:rtg-2026:m23:aula-01:i3:2",
                   "left": "Cobertura da região pedida",
-                  "right": "Margem clara e bordas da anatomia pedida"
+                  "right": "Bordas da imagem e limites da anatomia pedida"
                 },
                 {
                   "id": "pair:rtg-2026:m23:aula-01:i3:3",
@@ -380,34 +362,34 @@ export const RTG_2026_M23: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Certo ou errado: Julgue cada afirmação sobre ler o esquema com o roteiro."
+              "label": "Certo ou errado: Julgue cada afirmação sobre ler a radiografia com o roteiro."
             },
             "help": "Pense no que a rotina confere e no que ela não faz.",
             "type": "true-false",
             "feedback": {
-              "correct": "Você separou a leitura técnica do esquema da interpretação.",
+              "correct": "Você separou a leitura técnica da radiografia da interpretação.",
               "incorrect": "Releia o conceito: a rotina é técnica, e a faixa clara mostra o campo, não o corpo."
             },
             "payload": {
-              "prompt": "Julgue cada afirmação sobre ler o esquema com o roteiro.",
+              "prompt": "Julgue cada afirmação sobre ler a radiografia com o roteiro.",
               "statements": [
                 {
                   "id": "statement:rtg-2026:m23:aula-01:i4:1",
-                  "text": "A ordem de leitura é a mesma em todo esquema, mesmo que ele pareça bom.",
+                  "text": "A ordem de leitura é a mesma em toda imagem, mesmo que ela pareça boa.",
                   "isTrue": true,
                   "explanation": "Certo: a rotina existe para não depender da primeira impressão."
                 },
                 {
                   "id": "statement:rtg-2026:m23:aula-01:i4:2",
-                  "text": "A faixa clara nas margens do esquema faz parte do corpo do paciente.",
+                  "text": "A faixa clara na margem de uma imagem colimada faz parte do corpo do paciente.",
                   "isTrue": false,
                   "explanation": "Errado: a faixa clara é a parte que o feixe não atingiu, e mostra o campo usado."
                 },
                 {
                   "id": "statement:rtg-2026:m23:aula-01:i4:3",
-                  "text": "O esquema desta aula é um desenho feito para treinar o olhar.",
+                  "text": "A radiografia desta aula é uma imagem real, sem nome nem número de paciente visíveis.",
                   "isTrue": true,
-                  "explanation": "Certo: os esquemas da unidade são desenhos, e não imagens de paciente."
+                  "explanation": "Certo: a imagem é real, e nenhum dado que identifique a pessoa aparece nela."
                 },
                 {
                   "id": "statement:rtg-2026:m23:aula-01:i4:4",
@@ -430,7 +412,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Conversa: Duda abriu o esquema direto no pulmão. Ajude-a a voltar ao roteiro."
+              "label": "Conversa: Duda abriu a radiografia direto no pulmão. Ajude-a a voltar ao roteiro."
             },
             "help": "Pense no ponto de partida do roteiro e em quem decide o que fazer com a marca.",
             "type": "conversation",
@@ -439,22 +421,22 @@ export const RTG_2026_M23: ProductionBatchV1 = {
               "incorrect": "Reveja: a leitura recomeça na primeira conferência, e a marca estranha se descreve e se leva à equipe."
             },
             "payload": {
-              "prompt": "Duda abriu o esquema direto no pulmão. Ajude-a a voltar ao roteiro.",
+              "prompt": "Duda abriu a radiografia direto no pulmão. Ajude-a a voltar ao roteiro.",
               "speaker": "duda",
               "turns": [
                 {
                   "id": "turn:rtg-2026:m23:aula-01:i5:1",
-                  "line": "Fui direto no pulmão e vi um objeto no meio. Por onde eu recomeço?",
+                  "line": "Fui direto no pulmão e deixei o resto de lado. Por onde eu recomeço?",
                   "options": [
                     {
                       "id": "option:rtg-2026:m23:aula-01:i5:1a",
-                      "label": "Pela etiqueta e pelo marcador, e sigo a ordem até o índice.",
+                      "label": "Pela identificação e pelo marcador, e sigo a ordem até o índice.",
                       "reply": "Tá, volto ao começo da imagem e vou descendo na ordem."
                     },
                     {
                       "id": "option:rtg-2026:m23:aula-01:i5:1b",
-                      "label": "Pelo objeto, porque é o que está mais visível na imagem.",
-                      "reply": "Ok, então eu fico com o objeto e depois vejo o resto."
+                      "label": "Pelo que mais chama atenção, porque é o mais visível na imagem.",
+                      "reply": "Ok, então eu fico com o que chama atenção e depois vejo o resto."
                     },
                     {
                       "id": "option:rtg-2026:m23:aula-01:i5:1c",
@@ -496,7 +478,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "O que você consegue fazer agora",
-            "body": "Você percorre um esquema de tórax na ordem de conferência, sabe onde olhar em cada passo e que a margem clara mostra o campo. Você descreve o que vê, sem diagnosticar.",
+            "body": "Você percorre uma radiografia de tórax na ordem de conferência, sabe onde olhar em cada passo e que a margem clara, quando aparece, mostra o campo. Você descreve o que vê, sem diagnosticar.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -1639,7 +1621,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
           "role": "hook",
           "payload": {
             "title": "Cortou ou sobrou campo",
-            "body": "Hoje você vai conseguir ajustar o campo na bancada e reconhecer, no esquema, quando a anatomia pedida ficou cortada.",
+            "body": "Hoje você vai conseguir ajustar o campo na bancada e reconhecer, na imagem, quando a anatomia pedida ficou cortada.",
             "dialogue": {
               "setting": "Bancada de colimação e sala de leitura",
               "lines": [
@@ -1669,7 +1651,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "A margem conta o campo",
-            "body": "A margem mais clara é a parte que o feixe não atingiu: ela mostra o campo usado. No tórax, a região pedida vai dos ápices, no alto, até abaixo das bases dos pulmões; no esquema, a base de cada pulmão termina numa curva clara, a cúpula do diafragma. Campo estreito deixa parte da região fora da imagem, e isso não se recupera depois. Campo largo expõe tecido sem necessidade. Se o sistema recorta a imagem, a margem some e o campo real não se confere mais. Na bancada, o fantoma é um joelho estilizado e o campo é um retângulo ideal no centro: vale só para este simulador.",
+            "body": "A margem mais clara é a parte que o feixe não atingiu: ela mostra o campo usado. No tórax, a região pedida vai dos ápices, no alto, até abaixo das bases dos pulmões; na radiografia de tórax, a base de cada pulmão termina numa curva clara, a cúpula do diafragma. Campo estreito deixa parte da região fora da imagem, e isso não se recupera depois. Campo largo expõe tecido sem necessidade. Se o sistema recorta a imagem, a margem some e o campo real não se confere mais. Na bancada, o fantoma é um joelho estilizado e o campo é um retângulo ideal no centro: vale só para este simulador.",
             "keyPoints": [
               "Margem clara: o campo que o feixe usou.",
               "Tórax: dos ápices até abaixo das bases.",
@@ -1783,7 +1765,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Toque na imagem: Toque na região do esquema onde você confere se a base do pulmão entrou no campo."
+              "label": "Toque na imagem: Toque na região da radiografia onde você confere se a base do pulmão entrou no campo."
             },
             "help": "A base do pulmão é onde ele termina embaixo, junto a uma curva clara.",
             "type": "hotspot",
@@ -1792,40 +1774,40 @@ export const RTG_2026_M23: ProductionBatchV1 = {
               "incorrect": "Essa região não mostra a base do pulmão: procure a curva que fecha o pulmão por baixo."
             },
             "payload": {
-              "prompt": "Toque na região do esquema onde você confere se a base do pulmão entrou no campo.",
-              "imageRef": "diagram:radiografia-roteiro",
+              "prompt": "Toque na região da radiografia onde você confere se a base do pulmão entrou no campo.",
+              "imageRef": "image:rtg-2026:m23:torax-pa-roteiro-01",
               "regions": [
                 {
                   "id": "region:rtg-2026:m23:aula-05:i3:1",
-                  "label": "Etiqueta de identificação",
-                  "x": 0.7,
-                  "y": 0.067,
-                  "width": 0.138,
-                  "height": 0.108
+                  "label": "Marcador de lado",
+                  "x": 0.814,
+                  "y": 0.03,
+                  "width": 0.08,
+                  "height": 0.135
                 },
                 {
                   "id": "region:rtg-2026:m23:aula-05:i3:2",
                   "label": "Campo pulmonar",
-                  "x": 0.244,
-                  "y": 0.271,
-                  "width": 0.15,
-                  "height": 0.375
+                  "x": 0.15,
+                  "y": 0.3,
+                  "width": 0.25,
+                  "height": 0.32
                 },
                 {
                   "id": "region:rtg-2026:m23:aula-05:i3:3",
                   "label": "Coluna e mediastino",
-                  "x": 0.453,
-                  "y": 0.104,
-                  "width": 0.094,
-                  "height": 0.375
+                  "x": 0.46,
+                  "y": 0.15,
+                  "width": 0.13,
+                  "height": 0.45
                 },
                 {
                   "id": "region:rtg-2026:m23:aula-05:i3:4",
                   "label": "Diafragma",
-                  "x": 0.544,
-                  "y": 0.646,
-                  "width": 0.244,
-                  "height": 0.125
+                  "x": 0.12,
+                  "y": 0.79,
+                  "width": 0.28,
+                  "height": 0.11
                 }
               ],
               "correctRegionIds": [
@@ -1845,7 +1827,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada aspecto da imagem do esquema ao que ele indica sobre o campo."
+              "label": "Associação: Ligue cada aspecto da imagem ao que ele indica sobre o campo."
             },
             "help": "Olhe onde termina a anatomia em relação à margem clara.",
             "type": "matching",
@@ -1854,7 +1836,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
               "incorrect": "Compare cada aspecto com a margem: ela mostra o campo, e o recorte a faz desaparecer."
             },
             "payload": {
-              "prompt": "Ligue cada aspecto da imagem do esquema ao que ele indica sobre o campo.",
+              "prompt": "Ligue cada aspecto da imagem ao que ele indica sobre o campo.",
               "pairs": [
                 {
                   "id": "pair:rtg-2026:m23:aula-05:i4:1",
@@ -1936,7 +1918,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "O que você consegue fazer agora",
-            "body": "Você ajusta o campo na bancada até os ossos do joelho estilizado caberem, usa a margem clara para ver o campo usado e reconhece, no esquema, quando a região pedida ficou cortada.",
+            "body": "Você ajusta o campo na bancada até os ossos do joelho estilizado caberem, usa a margem clara para ver o campo usado e reconhece, na imagem, quando a região pedida ficou cortada.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -2397,7 +2379,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:m23:aula-01"
         ],
-        "prompt": "Duda percorreu o esquema inteiro e achou tudo certo, mas não abriu o valor do sistema. Que passo ficou faltando?",
+        "prompt": "Duda percorreu a radiografia inteira e achou tudo certo, mas não abriu o valor do sistema. Que passo ficou faltando?",
         "options": [
           {
             "id": "option:rtg-2026:m23:aula-01:c2:a",
@@ -2866,17 +2848,8 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m23:aula-01:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m23:pmc-colimacao-eletronica",
-        "source:rtg-2026:m23:pmc-marcador-de-lado"
-      ]
-    },
-    {
-      "claimId": "point:rtg-2026:m23:aula-01:i2:5",
-      "claimKind": "prompt",
+      "claimId": "label:rtg-2026:m23:aula-01:i2:2",
+      "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m23:pmc-colimacao-eletronica",
@@ -2893,6 +2866,12 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       ]
     },
     {
+      "claimId": "label:rtg-2026:m23:aula-01:i2:4",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
       "claimId": "label:rtg-2026:m23:aula-01:i2:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -2902,37 +2881,10 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "label:rtg-2026:m23:aula-01:i2:2",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m23:pmc-colimacao-eletronica",
-        "source:rtg-2026:m23:pmc-marcador-de-lado"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m23:aula-01:i2:4",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m23:pmc-colimacao-eletronica",
-        "source:rtg-2026:m23:pmc-marcador-de-lado"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m23:aula-01:i2:6",
+      "claimId": "label:rtg-2026:m23:aula-01:i2:5",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
-    },
-    {
-      "claimId": "label:rtg-2026:m23:aula-01:i2:5",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m23:pmc-colimacao-eletronica",
-        "source:rtg-2026:m23:pmc-marcador-de-lado"
-      ]
     },
     {
       "claimId": "interaction:rtg-2026:m23:aula-01:i2:feedback:correct",
@@ -6485,7 +6437,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
           "competencyIds": [
             "competency:rtg-2026:m23:aula-01"
           ],
-          "prompt": "Qual passo abre a leitura de um esquema nesta rotina?",
+          "prompt": "Qual passo abre a leitura de uma imagem nesta rotina?",
           "options": [
             {
               "id": "option:rtg-2026:m23:aula-01:rg:a",
@@ -6903,6 +6855,23 @@ export const RTG_2026_M23: ProductionBatchV1 = {
           ]
         }
       }
+    ],
+    "images": [
+      {
+        "id": "image:rtg-2026:m23:torax-pa-roteiro-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m23/torax-pa-roteiro-01.jpg",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Chest_Xray_PA_3-8-2010.png",
+        "author": "Stillwaterising",
+        "license": "CC0 1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "retrievedAt": "2026-11-22",
+        "sha256Original": "a43431b089a6dfab031c10eceef6c821e4f326913bf9015f73f4a1f0446d2be1",
+        "sha256Asset": "b0275074a99a63e4d30db529f078cf8a17ad904e18edae3d6d19c0847f20e144",
+        "modification": "redução e conversão para tons de cinza e para JPEG, sem recorte",
+        "alt": "Radiografia do tórax em tons de cinza, em formato horizontal, com as clavículas no alto. No canto superior direito há uma tira com a letra L, as letras ETB e um círculo.",
+        "width": 1200,
+        "height": 973
+      }
     ]
   },
   "schemaRefs": {
@@ -6919,7 +6888,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "d46e50e445131a81c4cff53b24796494a2ba9ef968910a8edd29787f0d61c4d8"
+      "materialSha256": "e90272a3f95c71879104102aa17b296d8357ce20be709ba047a28bce64d97d8f"
     },
     {
       "schemaVersion": 1,
@@ -6928,7 +6897,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "d46e50e445131a81c4cff53b24796494a2ba9ef968910a8edd29787f0d61c4d8"
+      "materialSha256": "e90272a3f95c71879104102aa17b296d8357ce20be709ba047a28bce64d97d8f"
     },
     {
       "schemaVersion": 1,
@@ -6937,7 +6906,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "d46e50e445131a81c4cff53b24796494a2ba9ef968910a8edd29787f0d61c4d8"
+      "materialSha256": "e90272a3f95c71879104102aa17b296d8357ce20be709ba047a28bce64d97d8f"
     },
     {
       "schemaVersion": 1,
@@ -6946,7 +6915,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "d46e50e445131a81c4cff53b24796494a2ba9ef968910a8edd29787f0d61c4d8"
+      "materialSha256": "e90272a3f95c71879104102aa17b296d8357ce20be709ba047a28bce64d97d8f"
     },
     {
       "schemaVersion": 1,
@@ -6955,7 +6924,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "d46e50e445131a81c4cff53b24796494a2ba9ef968910a8edd29787f0d61c4d8"
+      "materialSha256": "e90272a3f95c71879104102aa17b296d8357ce20be709ba047a28bce64d97d8f"
     },
     {
       "schemaVersion": 1,
@@ -6964,7 +6933,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "d46e50e445131a81c4cff53b24796494a2ba9ef968910a8edd29787f0d61c4d8"
+      "materialSha256": "e90272a3f95c71879104102aa17b296d8357ce20be709ba047a28bce64d97d8f"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

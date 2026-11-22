@@ -43,19 +43,9 @@ tags:
 # interaction i2 label
 - scrollUntilVisible:
     element:
-      text: 'Ponto 1, no alto, à direita de quem olha, retângulo com linhas, sem rótulo'
+      text: 'Ponto 1, tira com letra e círculo, no canto do alto à direita, sem rótulo'
     direction: UP
-- tapOn: 'Ponto 1, no alto, à direita de quem olha, retângulo com linhas, sem rótulo'
-- scrollUntilVisible:
-    element:
-      id: 'label-chip-Etiqueta de identificação'
-- tapOn:
-    id: 'label-chip-Etiqueta de identificação'
-- scrollUntilVisible:
-    element:
-      text: 'Ponto 2, pequeno quadrado branco, no alto à esquerda de quem olha, sem rótulo'
-    direction: UP
-- tapOn: 'Ponto 2, pequeno quadrado branco, no alto à esquerda de quem olha, sem rótulo'
+- tapOn: 'Ponto 1, tira com letra e círculo, no canto do alto à direita, sem rótulo'
 - scrollUntilVisible:
     element:
       id: 'label-chip-Marcador de lado'
@@ -63,19 +53,9 @@ tags:
     id: 'label-chip-Marcador de lado'
 - scrollUntilVisible:
     element:
-      text: 'Ponto 3, faixa mais clara na margem, à esquerda de quem olha, sem rótulo'
+      text: 'Ponto 2, área escura entre as costelas, à esquerda de quem olha, sem rótulo'
     direction: UP
-- tapOn: 'Ponto 3, faixa mais clara na margem, à esquerda de quem olha, sem rótulo'
-- scrollUntilVisible:
-    element:
-      id: 'label-chip-Borda de colimação'
-- tapOn:
-    id: 'label-chip-Borda de colimação'
-- scrollUntilVisible:
-    element:
-      text: 'Ponto 4, área escura entre as costelas, à esquerda de quem olha, sem rótulo'
-    direction: UP
-- tapOn: 'Ponto 4, área escura entre as costelas, à esquerda de quem olha, sem rótulo'
+- tapOn: 'Ponto 2, área escura entre as costelas, à esquerda de quem olha, sem rótulo'
 - scrollUntilVisible:
     element:
       id: 'label-chip-Campo pulmonar'
@@ -83,9 +63,9 @@ tags:
     id: 'label-chip-Campo pulmonar'
 - scrollUntilVisible:
     element:
-      text: 'Ponto 5, curva clara que fecha a base, à direita de quem olha, sem rótulo'
+      text: 'Ponto 3, curva clara que fecha a base, à esquerda de quem olha, sem rótulo'
     direction: UP
-- tapOn: 'Ponto 5, curva clara que fecha a base, à direita de quem olha, sem rótulo'
+- tapOn: 'Ponto 3, curva clara que fecha a base, à esquerda de quem olha, sem rótulo'
 - scrollUntilVisible:
     element:
       id: 'label-chip-Diafragma'
@@ -97,12 +77,12 @@ tags:
 # interaction i3 matching
 - scrollUntilVisible:
     element:
-      text: 'Associar Identificação e marcador de lado a Etiqueta e quadrado branco, nos cantos do alto'
-- tapOn: 'Associar Identificação e marcador de lado a Etiqueta e quadrado branco, nos cantos do alto'
+      text: 'Associar Identificação e marcador de lado a Marcas colocadas no exame, nos cantos do alto'
+- tapOn: 'Associar Identificação e marcador de lado a Marcas colocadas no exame, nos cantos do alto'
 - scrollUntilVisible:
     element:
-      text: 'Associar Cobertura da região pedida a Margem clara e bordas da anatomia pedida'
-- tapOn: 'Associar Cobertura da região pedida a Margem clara e bordas da anatomia pedida'
+      text: 'Associar Cobertura da região pedida a Bordas da imagem e limites da anatomia pedida'
+- tapOn: 'Associar Cobertura da região pedida a Bordas da imagem e limites da anatomia pedida'
 - scrollUntilVisible:
     element:
       text: 'Associar Nitidez, granulado e artefatos a A área toda, inclusive fora dos pulmões'
@@ -140,9 +120,9 @@ tags:
 # interaction i5 conversation
 - scrollUntilVisible:
     element:
-      id: 'conversation-option-Pela etiqueta e pelo marcador, e sigo a ordem até o índice\.'
+      id: 'conversation-option-Pela identificação e pelo marcador, e sigo a ordem até o índice\.'
 - tapOn:
-    id: 'conversation-option-Pela etiqueta e pelo marcador, e sigo a ordem até o índice\.'
+    id: 'conversation-option-Pela identificação e pelo marcador, e sigo a ordem até o índice\.'
 - scrollUntilVisible:
     element:
       id: 'conversation-option-Descrevo a marca e onde está, e levo à equipe\.'

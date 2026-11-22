@@ -147,5 +147,91 @@
     "usedIn": [
       "m28-05"
     ]
+  },
+  {
+    "id": "image:rtg-2026:m23:torax-pa-roteiro-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m23/torax-pa-roteiro-01.jpg",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Chest_Xray_PA_3-8-2010.png",
+    "author": "Stillwaterising",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "a43431b089a6dfab031c10eceef6c821e4f326913bf9015f73f4a1f0446d2be1",
+    "sha256Asset": "b0275074a99a63e4d30db529f078cf8a17ad904e18edae3d6d19c0847f20e144",
+    "modification": "redução e conversão para tons de cinza e para JPEG, sem recorte",
+    "alt": "Radiografia do tórax em tons de cinza, em formato horizontal, com as clavículas no alto. No canto superior direito há uma tira com a letra L, as letras ETB e um círculo.",
+    "width": 1200,
+    "height": 973,
+    "projection": "posteroanterior (PA)",
+    "region": "tórax",
+    "descriptionFromSource": "Chest X-ray PA",
+    "usedIn": [
+      "m23-01",
+      "m23-05"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m30:dxa-quadril-coluna-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m30/dxa-quadril-coluna-01.jpg",
+    "sourcePage": "https://ojrd.biomedcentral.com/articles/10.1186/1750-1172-5-30",
+    "author": "Dominique P. Germain, figura de Caroline Lebreton, Orphanet Journal of Rare Diseases, 2010",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "6905a26eb63672b8a0d71ac89655b5a326f4c729a5f1e3670aec82a42caa57da",
+    "sha256Asset": "9213b16b0cd3c5a05fd38c05275b218157c221f2664e1d62d09745d1dbd330fc",
+    "modification": "recompressão em JPEG, sem recorte; cópia obtida no Wikimedia Commons (File:Morbus_Fabry_DXA_01.jpg), conferida contra o artigo de origem",
+    "alt": "Duas imagens lado a lado de um exame de densitometria, marcadas A e B. A, à esquerda, mostra a parte de cima de um osso da coxa, com contornos, retângulos e linhas amarelas desenhados por cima. B, à direita, mostra uma coluna de vértebras, com quatro faixas amarelas empilhadas marcadas L1, L2, L3 e L4.",
+    "width": 1200,
+    "height": 763,
+    "projection": "anteroposterior",
+    "region": "fêmur proximal e coluna lombar",
+    "descriptionFromSource": "Dual-energy X-ray absorptiometry (DEXA) assessment of bone mineral density of the femoral neck (A) and the lumbar spine (B). Courtesy: Dr Caroline LEBRETON, CHU Raymond Poincaré, Garches, France.",
+    "usedIn": [
+      "m30-02",
+      "m30-06"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m30:dxa-coluna-cimento-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m30/dxa-coluna-cimento-01.jpg",
+    "sourcePage": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0285898",
+    "author": "Lin YH, Chou CS, Teng MMH, PLoS One, 2023",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "685d84cf7a0de5c1af19ea2c41356cb643bb2c158bf008d93de074133eb34651",
+    "sha256Asset": "6bde2bb116a0c8c7affdd4e8f8ca8a26cfe1342aa4b0fbc670f6fc2a2b1b5393",
+    "modification": "recorte do painel da esquerda (a figura tem três painéis) e conversão para tons de cinza e para JPEG",
+    "alt": "Imagem de densitometria da coluna lombar, em tons de cinza e em formato vertical, com quatro faixas brancas empilhadas, marcadas L1, L2, L3 e L4, sobre uma fileira de vértebras.",
+    "width": 660,
+    "height": 890,
+    "projection": "anteroposterior",
+    "region": "coluna lombar",
+    "descriptionFromSource": "Fig 1. Representation of spine bone mineral density (BMD) data from a patient who underwent spinal vertebroplasty. (a) The inclusion of vertebrae affected by bone cement in the region of interest (ROI) for the computer analysis of BMD data; in this example, the affected vertebra was L2.",
+    "usedIn": [
+      "m30-04"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m30:dxa-corpo-inteiro-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m30/dxa-corpo-inteiro-01.jpg",
+    "sourcePage": "https://www.scielo.br/j/rb/a/xCP7kTVvddp4Qr9FG9PD8CN/?lang=en",
+    "author": "Chaves LGCM, Gonçalves TJM, Bitencourt AGV, Rstom RA, Pereira TR, Velludo SF, Radiologia Brasileira, 2022",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "6a4f7ce5084de25654ad8a14af0e462827a338250fe1c3d005c3dd58e720f9bf",
+    "sha256Asset": "cb202b06f12f8f1122573c8db4ef8dc8da45785b10306befd4dfd84560bde889",
+    "modification": "redução e conversão para JPEG, sem recorte",
+    "alt": "Duas imagens lado a lado de um exame de corpo inteiro, em formato vertical. À esquerda, o esqueleto em tons de cinza sobre fundo preto. À direita, o corpo em um mapa de cores verde, amarelo e vermelho. Linhas azul-claro cruzam as duas imagens.",
+    "width": 868,
+    "height": 1200,
+    "projection": "anteroposterior",
+    "region": "corpo inteiro",
+    "descriptionFromSource": "Example of DEXA performed to assess body composition, with proper positioning of the reference lines separating the regions of the body: head, trunk, pelvis, arms, and legs.",
+    "usedIn": [
+      "m30-05"
+    ]
   }
 ]
