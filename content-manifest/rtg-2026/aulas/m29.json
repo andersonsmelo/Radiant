@@ -739,13 +739,12 @@
       },
       "concept": {
         "title": "O brilho conta a ponderação",
-        "body": "O mesmo corte da cabeça aparece em três imagens. Na ponderada em T1, o líquido dos ventrículos é escuro, a gordura é clara e a substância branca é mais clara que a cinzenta. Na ponderada em T2, o líquido é claro e a branca é mais escura que a cinzenta. A terceira é de base T2 com o líquido suprimido: líquido escuro, branca mais escura que a cinzenta. Você reconhece a imagem; a equipe decide o que ela significa.",
+        "body": "Na atividade, o mesmo corte da cabeça aparece em três imagens de ressonância. Na ponderada em T1, o líquido dos ventrículos é escuro, a gordura é clara e a substância branca é mais clara que a cinzenta. Na ponderada em T2, o líquido é claro e a branca é mais escura que a cinzenta. A terceira é de base T2 com o líquido suprimido: líquido escuro, branca mais escura que a cinzenta. Você reconhece a imagem; a equipe decide o que ela significa.",
         "keyPoints": [
           "T1: líquido escuro, gordura clara, substância branca mais clara que a cinzenta.",
           "T2: líquido claro, substância branca mais escura que a cinzenta.",
           "Base T2 com líquido suprimido: líquido escuro e branca mais escura que a cinzenta."
-        ],
-        "visual": "ponderacoes-no-encefalo"
+        ]
       },
       "interactions": [
         {
@@ -785,42 +784,28 @@
           "type": "hotspot",
           "role": "practice",
           "prompt": "Toque nos ventrículos da imagem em que o líquido está escuro e a substância branca é mais escura que a cinzenta.",
-          "diagramId": "ponderacoes-no-encefalo",
+          "imageId": "image:rtg-2026:m29:rm-ponderacoes-encefalo-01",
           "regions": [
             {
               "label": "Ventrículos da primeira imagem",
-              "x": 0.1187,
-              "y": 0.3833,
-              "width": 0.1,
-              "height": 0.1417
-            },
-            {
-              "label": "Gordura da primeira imagem",
-              "x": 0.1187,
-              "y": 0.1917,
-              "width": 0.1,
-              "height": 0.0833
+              "x": 0.1233,
+              "y": 0.3137,
+              "width": 0.0867,
+              "height": 0.3467
             },
             {
               "label": "Ventrículos da segunda imagem",
-              "x": 0.45,
-              "y": 0.3833,
-              "width": 0.1,
-              "height": 0.1417
-            },
-            {
-              "label": "Substância branca da segunda imagem",
-              "x": 0.4594,
-              "y": 0.6292,
-              "width": 0.0813,
-              "height": 0.0833
+              "x": 0.4708,
+              "y": 0.3066,
+              "width": 0.0892,
+              "height": 0.3538
             },
             {
               "label": "Ventrículos da terceira imagem",
-              "x": 0.7813,
-              "y": 0.3833,
-              "width": 0.1,
-              "height": 0.1417,
+              "x": 0.79,
+              "y": 0.3184,
+              "width": 0.0867,
+              "height": 0.342,
               "correct": true
             }
           ],
@@ -1103,13 +1088,13 @@
           },
           {
             "speaker": "lia",
-            "text": "Compare as duas imagens do esquema e descreva o que mudou. Depois, o que sobrou claro."
+            "text": "Compare as duas imagens do abdome e descreva o que mudou. Depois, pense no que pode atrapalhar essa mudança."
           }
         ]
       },
       "concept": {
         "title": "Gordura clara, gordura apagada",
-        "body": "No esquema, a imagem da esquerda não tem supressão: a gordura sob a pele e a medula do osso são claras. Na da direita, com supressão de gordura, o sinal da gordura é apagado e esses tecidos escurecem. A supressão que separa a gordura pela frequência depende de um campo bem regular. Metal perto da região desnivela o campo, e ali a gordura pode escapar da supressão: sobra uma faixa clara junto ao objeto. Você descreve a faixa e o objeto à equipe; não refaz nem ajusta a série.",
+        "body": "Na atividade, duas imagens do mesmo corte do abdome diferem só pela supressão de gordura. Sem supressão, a gordura sob a pele é clara. Com supressão de gordura, o sinal da gordura é apagado e ela escurece. A supressão que separa a gordura pela frequência depende de um campo bem regular. Metal perto da região desnivela o campo, e ali a gordura pode escapar da supressão: sobra uma faixa clara junto ao objeto. Você descreve a faixa e o objeto à equipe; não refaz nem ajusta a série.",
         "keyPoints": [
           "Supressão de gordura: o sinal da gordura é apagado e ela escurece.",
           "Metal perto desnivela o campo, e a supressão pode falhar ali.",
@@ -1178,49 +1163,42 @@
           "id": "i3",
           "type": "hotspot",
           "role": "practice",
-          "prompt": "Toque no lugar da imagem da direita em que a supressão de gordura não funcionou.",
-          "diagramId": "supressao-de-gordura",
+          "prompt": "Toque na gordura sob a pele da imagem em que a supressão de gordura foi usada.",
+          "imageId": "image:rtg-2026:m29:rm-supressao-gordura-01",
           "regions": [
             {
               "label": "Gordura sob a pele, imagem da esquerda",
-              "x": 0.1875,
-              "y": 0.1708,
-              "width": 0.1,
-              "height": 0.0833
-            },
-            {
-              "label": "Medula, imagem da esquerda",
-              "x": 0.1969,
-              "y": 0.425,
-              "width": 0.0813,
-              "height": 0.0833
+              "x": 0.125,
+              "y": 0.1774,
+              "width": 0.2417,
+              "height": 0.0806
             },
             {
               "label": "Gordura sob a pele, imagem da direita",
-              "x": 0.6875,
-              "y": 0.1708,
-              "width": 0.1,
-              "height": 0.0833
-            },
-            {
-              "label": "Faixa clara da lateral, à direita",
-              "x": 0.8688,
-              "y": 0.4,
-              "width": 0.0813,
-              "height": 0.1,
+              "x": 0.625,
+              "y": 0.1774,
+              "width": 0.2417,
+              "height": 0.0806,
               "correct": true
             },
             {
-              "label": "Pequeno objeto na borda, à direita",
-              "x": 0.7312,
-              "y": 0.7167,
-              "width": 0.0813,
-              "height": 0.0917
+              "label": "Coluna, imagem da esquerda",
+              "x": 0.2125,
+              "y": 0.576,
+              "width": 0.0833,
+              "height": 0.1728
+            },
+            {
+              "label": "Coluna, imagem da direita",
+              "x": 0.7125,
+              "y": 0.576,
+              "width": 0.0833,
+              "height": 0.1728
             }
           ],
-          "feedbackCorrect": "Isso mesmo: a faixa que ficou clara é gordura que a supressão não apagou, perto do objeto.",
-          "feedbackIncorrect": "O objeto é a possível causa, e não o lugar da falha. Procure onde a gordura continua clara na imagem da direita.",
-          "help": "Na imagem da direita, onde ainda sobrou gordura com sinal?",
+          "feedbackCorrect": "Isso mesmo: com a supressão, o sinal da gordura sob a pele é apagado e ela escurece.",
+          "feedbackIncorrect": "Compare a gordura sob a pele nas duas imagens: onde ela continua clara, a supressão não foi usada.",
+          "help": "Procure a imagem em que a faixa de gordura sob a pele ficou escura.",
           "sourceIds": [
             "pmc-artefatos-de-metal-2024",
             "krupa-2015-artefatos-rm"
@@ -1231,7 +1209,7 @@
           "type": "true-false",
           "role": "safety",
           "criticalSafety": true,
-          "prompt": "Julgue o que você faz diante da faixa clara junto do objeto, na imagem da direita.",
+          "prompt": "Julgue o que você faz diante de uma faixa clara de gordura junto de um objeto, numa série com supressão.",
           "statements": [
             {
               "text": "Você descreve à equipe a faixa clara e o objeto que está ao lado dela.",
@@ -1305,7 +1283,7 @@
       ],
       "closing": {
         "title": "Você lê a supressão de gordura",
-        "body": "Agora você diz o que a supressão de gordura muda, a gordura sob a pele e a medula ficam escuras, e reconhece a faixa clara perto de metal como possível falha. E leva isso à equipe, sem ajustar nada.",
+        "body": "Agora você diz o que a supressão de gordura muda, a gordura sob a pele fica escura, e reconhece a faixa clara perto de metal como possível falha. E leva isso à equipe, sem ajustar nada.",
         "line": {
           "speaker": "caio",
           "text": "Faixa clara perto de metal: descreva onde, e chame a tecnóloga."
@@ -1496,7 +1474,7 @@
               "feedback": "Metal interfere: distorce o campo, e a supressão pode falhar perto dele."
             }
           ],
-          "help": "Lembre onde sobrou a faixa clara no esquema da aula anterior.",
+          "help": "Lembre o que a aula anterior disse da gordura clara junto ao metal.",
           "sourceIds": [
             "pmc-artefatos-de-metal-2024",
             "krupa-2015-artefatos-rm"

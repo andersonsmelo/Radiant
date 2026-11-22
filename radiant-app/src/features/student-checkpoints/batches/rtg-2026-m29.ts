@@ -6,7 +6,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m29",
-  "materialSha256": "de02d3e4953aa07cc614367c850e05d4c8847b359c4ac95dd345f617bd2733e3",
+  "materialSha256": "df30e2c272150687bdc95b77018df2625e936cc79b6de8f50734fc1f37ae40d8",
   "trackId": "track:rtg-2026:m29",
   "unitId": "unit:rtg-2026:m29",
   "contentVersion": "rtg-2026-m29-v1",
@@ -798,13 +798,12 @@ export const RTG_2026_M29: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "O brilho conta a ponderação",
-            "body": "O mesmo corte da cabeça aparece em três imagens. Na ponderada em T1, o líquido dos ventrículos é escuro, a gordura é clara e a substância branca é mais clara que a cinzenta. Na ponderada em T2, o líquido é claro e a branca é mais escura que a cinzenta. A terceira é de base T2 com o líquido suprimido: líquido escuro, branca mais escura que a cinzenta. Você reconhece a imagem; a equipe decide o que ela significa.",
+            "body": "Na atividade, o mesmo corte da cabeça aparece em três imagens de ressonância. Na ponderada em T1, o líquido dos ventrículos é escuro, a gordura é clara e a substância branca é mais clara que a cinzenta. Na ponderada em T2, o líquido é claro e a branca é mais escura que a cinzenta. A terceira é de base T2 com o líquido suprimido: líquido escuro, branca mais escura que a cinzenta. Você reconhece a imagem; a equipe decide o que ela significa.",
             "keyPoints": [
               "T1: líquido escuro, gordura clara, substância branca mais clara que a cinzenta.",
               "T2: líquido claro, substância branca mais escura que a cinzenta.",
               "Base T2 com líquido suprimido: líquido escuro e branca mais escura que a cinzenta."
-            ],
-            "visual": "ponderacoes-no-encefalo"
+            ]
           }
         },
         {
@@ -875,51 +874,35 @@ export const RTG_2026_M29: ProductionBatchV1 = {
             },
             "payload": {
               "prompt": "Toque nos ventrículos da imagem em que o líquido está escuro e a substância branca é mais escura que a cinzenta.",
-              "imageRef": "diagram:ponderacoes-no-encefalo",
+              "imageRef": "image:rtg-2026:m29:rm-ponderacoes-encefalo-01",
               "regions": [
                 {
                   "id": "region:rtg-2026:m29:aula-03:i2:1",
                   "label": "Ventrículos da primeira imagem",
-                  "x": 0.1187,
-                  "y": 0.3833,
-                  "width": 0.1,
-                  "height": 0.1417
+                  "x": 0.1233,
+                  "y": 0.3137,
+                  "width": 0.0867,
+                  "height": 0.3467
                 },
                 {
                   "id": "region:rtg-2026:m29:aula-03:i2:2",
-                  "label": "Gordura da primeira imagem",
-                  "x": 0.1187,
-                  "y": 0.1917,
-                  "width": 0.1,
-                  "height": 0.0833
+                  "label": "Ventrículos da segunda imagem",
+                  "x": 0.4708,
+                  "y": 0.3066,
+                  "width": 0.0892,
+                  "height": 0.3538
                 },
                 {
                   "id": "region:rtg-2026:m29:aula-03:i2:3",
-                  "label": "Ventrículos da segunda imagem",
-                  "x": 0.45,
-                  "y": 0.3833,
-                  "width": 0.1,
-                  "height": 0.1417
-                },
-                {
-                  "id": "region:rtg-2026:m29:aula-03:i2:4",
-                  "label": "Substância branca da segunda imagem",
-                  "x": 0.4594,
-                  "y": 0.6292,
-                  "width": 0.0813,
-                  "height": 0.0833
-                },
-                {
-                  "id": "region:rtg-2026:m29:aula-03:i2:5",
                   "label": "Ventrículos da terceira imagem",
-                  "x": 0.7813,
-                  "y": 0.3833,
-                  "width": 0.1,
-                  "height": 0.1417
+                  "x": 0.79,
+                  "y": 0.3184,
+                  "width": 0.0867,
+                  "height": 0.342
                 }
               ],
               "correctRegionIds": [
-                "region:rtg-2026:m29:aula-03:i2:5"
+                "region:rtg-2026:m29:aula-03:i2:3"
               ]
             }
           }
@@ -1153,7 +1136,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
                 },
                 {
                   "speaker": "lia",
-                  "text": "Compare as duas imagens do esquema e descreva o que mudou. Depois, o que sobrou claro."
+                  "text": "Compare as duas imagens do abdome e descreva o que mudou. Depois, pense no que pode atrapalhar essa mudança."
                 }
               ]
             }
@@ -1165,7 +1148,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Gordura clara, gordura apagada",
-            "body": "No esquema, a imagem da esquerda não tem supressão: a gordura sob a pele e a medula do osso são claras. Na da direita, com supressão de gordura, o sinal da gordura é apagado e esses tecidos escurecem. A supressão que separa a gordura pela frequência depende de um campo bem regular. Metal perto da região desnivela o campo, e ali a gordura pode escapar da supressão: sobra uma faixa clara junto ao objeto. Você descreve a faixa e o objeto à equipe; não refaz nem ajusta a série.",
+            "body": "Na atividade, duas imagens do mesmo corte do abdome diferem só pela supressão de gordura. Sem supressão, a gordura sob a pele é clara. Com supressão de gordura, o sinal da gordura é apagado e ela escurece. A supressão que separa a gordura pela frequência depende de um campo bem regular. Metal perto da região desnivela o campo, e ali a gordura pode escapar da supressão: sobra uma faixa clara junto ao objeto. Você descreve a faixa e o objeto à equipe; não refaz nem ajusta a série.",
             "keyPoints": [
               "Supressão de gordura: o sinal da gordura é apagado e ela escurece.",
               "Metal perto desnivela o campo, e a supressão pode falhar ali.",
@@ -1292,61 +1275,53 @@ export const RTG_2026_M29: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Toque na imagem: Toque no lugar da imagem da direita em que a supressão de gordura não funcionou."
+              "label": "Toque na imagem: Toque na gordura sob a pele da imagem em que a supressão de gordura foi usada."
             },
-            "help": "Na imagem da direita, onde ainda sobrou gordura com sinal?",
+            "help": "Procure a imagem em que a faixa de gordura sob a pele ficou escura.",
             "type": "hotspot",
             "feedback": {
-              "correct": "Isso mesmo: a faixa que ficou clara é gordura que a supressão não apagou, perto do objeto.",
-              "incorrect": "O objeto é a possível causa, e não o lugar da falha. Procure onde a gordura continua clara na imagem da direita."
+              "correct": "Isso mesmo: com a supressão, o sinal da gordura sob a pele é apagado e ela escurece.",
+              "incorrect": "Compare a gordura sob a pele nas duas imagens: onde ela continua clara, a supressão não foi usada."
             },
             "payload": {
-              "prompt": "Toque no lugar da imagem da direita em que a supressão de gordura não funcionou.",
-              "imageRef": "diagram:supressao-de-gordura",
+              "prompt": "Toque na gordura sob a pele da imagem em que a supressão de gordura foi usada.",
+              "imageRef": "image:rtg-2026:m29:rm-supressao-gordura-01",
               "regions": [
                 {
                   "id": "region:rtg-2026:m29:aula-04:i3:1",
                   "label": "Gordura sob a pele, imagem da esquerda",
-                  "x": 0.1875,
-                  "y": 0.1708,
-                  "width": 0.1,
-                  "height": 0.0833
+                  "x": 0.125,
+                  "y": 0.1774,
+                  "width": 0.2417,
+                  "height": 0.0806
                 },
                 {
                   "id": "region:rtg-2026:m29:aula-04:i3:2",
-                  "label": "Medula, imagem da esquerda",
-                  "x": 0.1969,
-                  "y": 0.425,
-                  "width": 0.0813,
-                  "height": 0.0833
+                  "label": "Gordura sob a pele, imagem da direita",
+                  "x": 0.625,
+                  "y": 0.1774,
+                  "width": 0.2417,
+                  "height": 0.0806
                 },
                 {
                   "id": "region:rtg-2026:m29:aula-04:i3:3",
-                  "label": "Gordura sob a pele, imagem da direita",
-                  "x": 0.6875,
-                  "y": 0.1708,
-                  "width": 0.1,
-                  "height": 0.0833
+                  "label": "Coluna, imagem da esquerda",
+                  "x": 0.2125,
+                  "y": 0.576,
+                  "width": 0.0833,
+                  "height": 0.1728
                 },
                 {
                   "id": "region:rtg-2026:m29:aula-04:i3:4",
-                  "label": "Faixa clara da lateral, à direita",
-                  "x": 0.8688,
-                  "y": 0.4,
-                  "width": 0.0813,
-                  "height": 0.1
-                },
-                {
-                  "id": "region:rtg-2026:m29:aula-04:i3:5",
-                  "label": "Pequeno objeto na borda, à direita",
-                  "x": 0.7312,
-                  "y": 0.7167,
-                  "width": 0.0813,
-                  "height": 0.0917
+                  "label": "Coluna, imagem da direita",
+                  "x": 0.7125,
+                  "y": 0.576,
+                  "width": 0.0833,
+                  "height": 0.1728
                 }
               ],
               "correctRegionIds": [
-                "region:rtg-2026:m29:aula-04:i3:4"
+                "region:rtg-2026:m29:aula-04:i3:2"
               ]
             }
           }
@@ -1362,7 +1337,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": true,
             "accessibility": {
-              "label": "Certo ou errado: Julgue o que você faz diante da faixa clara junto do objeto, na imagem da direita."
+              "label": "Certo ou errado: Julgue o que você faz diante de uma faixa clara de gordura junto de um objeto, numa série com supressão."
             },
             "help": "Pergunte de cada frase: é descrever e avisar, ou é decidir sozinho?",
             "type": "true-false",
@@ -1371,7 +1346,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
               "incorrect": "Releia o fim do conceito: você descreve a faixa e o objeto, e não ajusta, nem repete, nem conclui."
             },
             "payload": {
-              "prompt": "Julgue o que você faz diante da faixa clara junto do objeto, na imagem da direita.",
+              "prompt": "Julgue o que você faz diante de uma faixa clara de gordura junto de um objeto, numa série com supressão.",
               "statements": [
                 {
                   "id": "statement:rtg-2026:m29:aula-04:i4:1",
@@ -1462,7 +1437,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Você lê a supressão de gordura",
-            "body": "Agora você diz o que a supressão de gordura muda, a gordura sob a pele e a medula ficam escuras, e reconhece a faixa clara perto de metal como possível falha. E leva isso à equipe, sem ajustar nada.",
+            "body": "Agora você diz o que a supressão de gordura muda, a gordura sob a pele fica escura, e reconhece a faixa clara perto de metal como possível falha. E leva isso à equipe, sem ajustar nada.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -1542,7 +1517,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
             "accessibility": {
               "label": "Múltipla escolha: Na aula anterior, o que pode acontecer com a supressão de gordura perto de um objeto de metal?"
             },
-            "help": "Lembre onde sobrou a faixa clara no esquema da aula anterior.",
+            "help": "Lembre o que a aula anterior disse da gordura clara junto ao metal.",
             "type": "multiple-choice",
             "feedback": {
               "correct": "Perto de metal o campo se distorce, e a supressão pode falhar, deixando gordura clara.",
@@ -3828,24 +3803,6 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "region:rtg-2026:m29:aula-03:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:ucsd-fmri-estrutural",
-        "source:rtg-2026:m29:mrimaster-liquido-suprimido"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m29:aula-03:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:ucsd-fmri-estrutural",
-        "source:rtg-2026:m29:mrimaster-liquido-suprimido"
-      ]
-    },
-    {
       "claimId": "interaction:rtg-2026:m29:aula-03:i2:answer",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -4522,15 +4479,6 @@ export const RTG_2026_M29: ProductionBatchV1 = {
     },
     {
       "claimId": "region:rtg-2026:m29:aula-04:i3:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024",
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m29:aula-04:i3:5",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -6636,6 +6584,38 @@ export const RTG_2026_M29: ProductionBatchV1 = {
           ]
         }
       }
+    ],
+    "images": [
+      {
+        "id": "image:rtg-2026:m29:rm-ponderacoes-encefalo-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-ponderacoes-encefalo-01.jpg",
+        "sourcePage": "https://github.com/andersonsmelo/Radiant/blob/main/docs/evidence/2026-11-19-figuras/imagens-vps.md",
+        "author": "Anderson Melo, acervo próprio, anonimizado",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "retrievedAt": "2026-11-22",
+        "sha256Original": "c1460a3ab86633836c0365e5e76587ec6aba4383c79cf660b88bacabf00c7079",
+        "sha256Asset": "c1460a3ab86633836c0365e5e76587ec6aba4383c79cf660b88bacabf00c7079",
+        "modification": "o T2 axial é a imagem nativa; o T1 e o FLAIR, adquiridos em volume no plano sagital, foram reformatados (MPR, interpolação linear) no plano exato do corte do T2; recorte centrado na cabeça em cada painel, janela por percentis (0,5 a 99,7) em cada painel, redução para 1200 x 424 e conversão para JPEG em tons de cinza; sem retoque",
+        "alt": "Três imagens de ressonância magnética de um mesmo corte axial da cabeça, lado a lado, em tons de cinza sobre fundo preto, com brilhos diferentes entre as três.",
+        "width": 1200,
+        "height": 424
+      },
+      {
+        "id": "image:rtg-2026:m29:rm-supressao-gordura-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-supressao-gordura-01.jpg",
+        "sourcePage": "https://github.com/andersonsmelo/Radiant/blob/main/docs/evidence/2026-11-19-figuras/imagens-vps.md",
+        "author": "Anderson Melo, acervo próprio, anonimizado",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "retrievedAt": "2026-11-22",
+        "sha256Original": "1556193fd930bee412cec4bb7cbf6ddcdb04e8ceac41a87035e638092dca0728",
+        "sha256Asset": "1556193fd930bee412cec4bb7cbf6ddcdb04e8ceac41a87035e638092dca0728",
+        "modification": "imagens nativas, sem reformatação; mesmo recorte nas duas, janela de 0 ao percentil 99,5 em cada painel, redução para 1200 x 434 e conversão para JPEG em tons de cinza; sem retoque",
+        "alt": "Duas imagens de ressonância magnética de um mesmo corte axial do abdome superior, lado a lado, em tons de cinza sobre fundo preto, com brilhos diferentes em alguns tecidos.",
+        "width": 1200,
+        "height": 434
+      }
     ]
   },
   "schemaRefs": {
@@ -6652,7 +6632,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "de02d3e4953aa07cc614367c850e05d4c8847b359c4ac95dd345f617bd2733e3"
+      "materialSha256": "df30e2c272150687bdc95b77018df2625e936cc79b6de8f50734fc1f37ae40d8"
     },
     {
       "schemaVersion": 1,
@@ -6661,7 +6641,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "de02d3e4953aa07cc614367c850e05d4c8847b359c4ac95dd345f617bd2733e3"
+      "materialSha256": "df30e2c272150687bdc95b77018df2625e936cc79b6de8f50734fc1f37ae40d8"
     },
     {
       "schemaVersion": 1,
@@ -6670,7 +6650,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "de02d3e4953aa07cc614367c850e05d4c8847b359c4ac95dd345f617bd2733e3"
+      "materialSha256": "df30e2c272150687bdc95b77018df2625e936cc79b6de8f50734fc1f37ae40d8"
     },
     {
       "schemaVersion": 1,
@@ -6679,7 +6659,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "de02d3e4953aa07cc614367c850e05d4c8847b359c4ac95dd345f617bd2733e3"
+      "materialSha256": "df30e2c272150687bdc95b77018df2625e936cc79b6de8f50734fc1f37ae40d8"
     },
     {
       "schemaVersion": 1,
@@ -6688,7 +6668,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "de02d3e4953aa07cc614367c850e05d4c8847b359c4ac95dd345f617bd2733e3"
+      "materialSha256": "df30e2c272150687bdc95b77018df2625e936cc79b6de8f50734fc1f37ae40d8"
     },
     {
       "schemaVersion": 1,
@@ -6697,7 +6677,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "de02d3e4953aa07cc614367c850e05d4c8847b359c4ac95dd345f617bd2733e3"
+      "materialSha256": "df30e2c272150687bdc95b77018df2625e936cc79b6de8f50734fc1f37ae40d8"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

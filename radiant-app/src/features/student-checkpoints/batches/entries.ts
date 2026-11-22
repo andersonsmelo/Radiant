@@ -260,7 +260,7 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
   "batch:rtg-2026:m28": {
     "slug": "rtg-2026-m28",
     "title": "Anatomia seccional II: abdome, pelve, pescoço e coluna",
-    "description": "Completa o mapa dos cortes axiais com abdome superior, pelve, pescoço e coluna em esquemas, e ensina a reconhecer os três planos e a altura de um corte em tomografias reais, só localizando, sem interpretar.",
+    "description": "Completa o mapa dos cortes axiais com abdome superior, pelve e pescoço em tomografias reais e a coluna em esquema, e ensina a reconhecer os três planos e a altura de um corte, só localizando, sem interpretar.",
     "unitTitle": "Anatomia seccional II: abdome, pelve, pescoço e coluna",
     "reward": {
       "id": "node:reward:rtg-2026:m28",

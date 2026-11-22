@@ -233,5 +233,111 @@
     "usedIn": [
       "m30-05"
     ]
+  },
+  {
+    "id": "image:rtg-2026:m28:tc-axial-abdome-superior-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m28/tc-axial-abdome-superior-01.jpg",
+    "sourcePage": "https://github.com/andersonsmelo/Radiant/blob/main/docs/evidence/2026-11-19-figuras/imagens-vps.md",
+    "author": "Anderson Melo, acervo próprio, anonimizado",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "1eceb4f783388d4ea1e2e896a12b2e750a46b948fd1447b5095b219d01aa3627",
+    "sha256Asset": "1eceb4f783388d4ea1e2e896a12b2e750a46b948fd1447b5095b219d01aa3627",
+    "modification": "recorte do corte axial, janela de partes moles (centro 40, largura 350 HU), ampliação de 2,5 vezes e conversão para JPEG em tons de cinza; sem retoque",
+    "alt": "Tomografia computadorizada de um corte axial do abdome superior, em tons de cinza sobre fundo preto, em formato horizontal. A frente do corpo fica no alto, e a coluna aparece embaixo, no meio, entre costelas muito claras.",
+    "width": 1100,
+    "height": 950,
+    "projection": "axial",
+    "region": "abdome superior",
+    "descriptionFromSource": "Tomografia computadorizada do abdome com contraste, fase portal, corte axial de 2 mm de espessura.",
+    "usedIn": [
+      "m28-01",
+      "m28-06"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m28:tc-axial-pelve-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m28/tc-axial-pelve-01.jpg",
+    "sourcePage": "https://github.com/andersonsmelo/Radiant/blob/main/docs/evidence/2026-11-19-figuras/imagens-vps.md",
+    "author": "Anderson Melo, acervo próprio, anonimizado",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "7a5730f4fdefe0ba8b9d2c8d0a9bca1f0011a67775beb8813e8e081e738b9758",
+    "sha256Asset": "7a5730f4fdefe0ba8b9d2c8d0a9bca1f0011a67775beb8813e8e081e738b9758",
+    "modification": "recorte do corte axial, janela de partes moles (centro 40, largura 350 HU), ampliação de 2,5 vezes e conversão para JPEG em tons de cinza; sem retoque",
+    "alt": "Tomografia computadorizada de um corte axial da pelve, em tons de cinza sobre fundo preto, em formato horizontal. Os ossos aparecem muito claros e as partes moles, em tons de cinza.",
+    "width": 1100,
+    "height": 850,
+    "projection": "axial",
+    "region": "pelve",
+    "descriptionFromSource": "Tomografia computadorizada com contraste, fase portal, corte axial de 2 mm de espessura, de um volume que cobre o abdome e a pelve, na altura da sínfise púbica e das cabeças do fêmur.",
+    "usedIn": [
+      "m28-02"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m28:tc-axial-pescoco-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m28/tc-axial-pescoco-01.jpg",
+    "sourcePage": "https://github.com/andersonsmelo/Radiant/blob/main/docs/evidence/2026-11-19-figuras/imagens-vps.md",
+    "author": "Anderson Melo, acervo próprio, anonimizado",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "e203d39e96b0c00b207ea5a5012b7f0f19011b7bb968262d9a2a8f784ea84353",
+    "sha256Asset": "e203d39e96b0c00b207ea5a5012b7f0f19011b7bb968262d9a2a8f784ea84353",
+    "modification": "recorte do corte axial, janela de partes moles (centro 40, largura 350 HU), ampliação de 4 vezes e conversão para JPEG em tons de cinza; sem retoque",
+    "alt": "Tomografia computadorizada de um corte axial do pescoço, em tons de cinza sobre fundo preto, em formato horizontal. Há uma forma redonda preta no meio, perto do alto, e ossos muito claros embaixo.",
+    "width": 1080,
+    "height": 800,
+    "projection": "axial",
+    "region": "pescoço",
+    "descriptionFromSource": "Tomografia computadorizada do pescoço com contraste, corte axial de 2 mm de espessura.",
+    "usedIn": [
+      "m28-03"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m29:rm-ponderacoes-encefalo-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-ponderacoes-encefalo-01.jpg",
+    "sourcePage": "https://github.com/andersonsmelo/Radiant/blob/main/docs/evidence/2026-11-19-figuras/imagens-vps.md",
+    "author": "Anderson Melo, acervo próprio, anonimizado",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "c1460a3ab86633836c0365e5e76587ec6aba4383c79cf660b88bacabf00c7079",
+    "sha256Asset": "c1460a3ab86633836c0365e5e76587ec6aba4383c79cf660b88bacabf00c7079",
+    "modification": "o T2 axial é a imagem nativa; o T1 e o FLAIR, adquiridos em volume no plano sagital, foram reformatados (MPR, interpolação linear) no plano exato do corte do T2; recorte centrado na cabeça em cada painel, janela por percentis (0,5 a 99,7) em cada painel, redução para 1200 x 424 e conversão para JPEG em tons de cinza; sem retoque",
+    "alt": "Três imagens de ressonância magnética de um mesmo corte axial da cabeça, lado a lado, em tons de cinza sobre fundo preto, com brilhos diferentes entre as três.",
+    "width": 1200,
+    "height": 424,
+    "projection": "axial",
+    "region": "encéfalo",
+    "descriptionFromSource": "Ressonância magnética do encéfalo, corte axial, em três sequências, da esquerda para a direita: T1 3D (sagital reformatado), T2 axial 2D e FLAIR 3D com saturação de gordura (sagital reformatado).",
+    "usedIn": [
+      "m29-03"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m29:rm-supressao-gordura-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-supressao-gordura-01.jpg",
+    "sourcePage": "https://github.com/andersonsmelo/Radiant/blob/main/docs/evidence/2026-11-19-figuras/imagens-vps.md",
+    "author": "Anderson Melo, acervo próprio, anonimizado",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "1556193fd930bee412cec4bb7cbf6ddcdb04e8ceac41a87035e638092dca0728",
+    "sha256Asset": "1556193fd930bee412cec4bb7cbf6ddcdb04e8ceac41a87035e638092dca0728",
+    "modification": "imagens nativas, sem reformatação; mesmo recorte nas duas, janela de 0 ao percentil 99,5 em cada painel, redução para 1200 x 434 e conversão para JPEG em tons de cinza; sem retoque",
+    "alt": "Duas imagens de ressonância magnética de um mesmo corte axial do abdome superior, lado a lado, em tons de cinza sobre fundo preto, com brilhos diferentes em alguns tecidos.",
+    "width": 1200,
+    "height": 434,
+    "projection": "axial",
+    "region": "abdome superior",
+    "descriptionFromSource": "Ressonância magnética do abdome superior, corte axial, em apneia, na ponderação T2: à esquerda sem supressão de gordura e à direita com supressão de gordura, na mesma posição de corte.",
+    "usedIn": [
+      "m29-04"
+    ]
   }
 ]

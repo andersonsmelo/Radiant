@@ -291,9 +291,9 @@ describe('selos nos itens reais das 40 unidades (E12)', () => {
         Math.hypot(Math.max(0, a.left - (b.left + b.width), b.left - (a.left + a.width)), Math.max(0, a.top - (b.top + b.height), b.top - (a.top + a.height)));
     const labels = items.filter(item => item.points && item.points.length > 1);
 
-    it('encontra os 90 itens de figura das 40 unidades (82 de desenho e 8 de imagem real)', () => {
+    it('encontra os 90 itens de figura das 40 unidades (76 de desenho e 14 de imagem real)', () => {
         expect(items.length).toBe(90);
-        expect(items.filter(item => item.imageId).length).toBe(8);
+        expect(items.filter(item => item.imageId).length).toBe(14);
     });
 
     it('rotular: nenhum selo cobre o ponto de outro alvo nem fica mais perto dele que do próprio ponto (mais 8 pt)', () => {
