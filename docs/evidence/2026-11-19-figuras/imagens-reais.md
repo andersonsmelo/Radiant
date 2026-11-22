@@ -123,3 +123,21 @@ Parecer em [`revisoes/imagens-reais.md`](revisoes/imagens-reais.md), com a seç�
 - Cadastro: `descriptionFromSource` da (c) com a legenda inteira; `alt` da (d) sem "azul-claro" (4, 10). Isto muda o `rtgImages.ts` gerado (créditos).
 - Guarda: `hotspotTouch.test.ts` passou a cobrir também os itens com `imageId` (quadro de 280 pt com a proporção do cadastro), 90 itens; vista falhando com o defeito específico (13).
 - Não aplicado: achado 8 (opcional, "se o dono quiser a cúpula mais ao centro", mudaria a região do diafragma); 11 e 14 são registros para o controlador, sem mudança de arquivo.
+
+## Capturas no iPhone (2026-11-22)
+
+Medido em 2026-11-22 no simulador "Radiant F7" (iPhone, dev client), com o Metro no Node 20 e `EXPO_NO_TYPESCRIPT_SETUP=1`, na ponta `d60265c1`. Os roteiros foram gerados por uma cópia de trabalho do `figuras-no-simulador.mjs` adaptada a `imageId`, fora do git; nenhum roteiro versionado mudou. Resultado por roteiro:
+
+- `ios-real-m23-aula01.jpg` (M23.01 i2, rotular): a radiografia real inteira, com o marcador "L" e as letras "ETB" no alto à direita de quem olha. Os pontos 1 (marcador), 2 (pulmão) e 3 (cúpula) caem sobre a estrutura, e os selos não cobrem o marcador.
+- `ios-real-m30-aula02.jpg` (M30.02 i2, rotular): painéis A e B lado a lado. Os três pontos ficam no fêmur do painel A, e os selos não cobrem o colo. O roteiro reprovou depois desse passo, no toque em "Continuar" que vem depois de rotular. É o defeito conhecido dos roteiros no iPhone (plano de continuidade, seção 3.3), e o passo 6 (i4) não foi capturado.
+- `ios-real-m30-aula04.jpg` (M30.04 i2, tocar): coluna lombar real com o cimento em L2 e quatro regiões sobre os corpos vertebrais. A região 1 cobre o cimento, e os selos ficam fora das regiões.
+- `ios-real-m30-aula05.jpg` (M30.05 i2, rotular): DXA de corpo inteiro real, com o painel de osso e o mapa de composição. Os pontos ficam na cabeça, no tronco, no braço e na diáfise do fêmur, e o selo 4 deixa livre o vértice do V.
+- `ios-real-m30-aula06.jpg` (M30.06 i2, tocar): o mesmo painel duplo, com as regiões do fêmur e da coluna.
+- M23.05 (i3) não foi capturada. Nas três tentativas, o roteiro parou no passo 4, a bancada de colimação do joelho: os toques em "Diminuir largura" não baixaram o campo de 27 cm. Isso aconteceu antes da imagem, e a mesma radiografia aparece na captura da M23.01.
+
+Este documento não prova o seguinte:
+- os pontos foram vistos no tamanho da captura, e não no aparelho;
+- o Android e o VoiceOver não foram vistos.
+
+Ao fim, o Metro estava parado, o simulador desligado e a porta 8081 livre, e `radiant-app/expo-env.d.ts` não existia.
+
