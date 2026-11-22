@@ -46,5 +46,25 @@ Método: render de cada figura a 840 x 630 px (280 x 210 pt a 3x) no Chrome; tin
 - Verificador nas 40 unidades: todas OK (saída 0 em cada arquivo). `--check` de `build-rtg-batches.mjs`, de `generate-rtg-maestro.mjs` (m22, m31) e de `figuras-no-simulador.mjs`: ok.
 - `node --test scripts/content/*.test.mjs scripts/qa/*.test.mjs scripts/content/figuras/*.test.mjs scripts/content/figuras/fluxos/*.test.mjs`: 490 testes, 488 passam, 1 falha (a conhecida e alheia `registerSource normalizes metadata for the pilot book`) e 1 ignorado.
 - Jest de `src/ui/diagrams`, `lesson-flow` e `student-checkpoints`: 66 suítes, 1635 testes, todos passam; `tsc --noEmit` e `eslint` nos arquivos tocados: saída 0; `test:maestro-contract`: 13 de 13; `test:copy-style-contract`: 65 de 65; `docs-contract`: passa.
-- O gate completo `npm run quality` e o `visual:qa:strict` foram medidos na integração (297 suítes, 4611 testes, sem regressão) e **não foram repetidos** depois desta correção.
+- O gate completo `npm run quality` e o `visual:qa:strict` foram medidos na integração (297 suítes, 4611 testes, sem regressão). **Repetidos em 2026-11-22 depois da correção**, sobre `258090be` com o link da licença na tela de créditos (abaixo), Node 20.20.2, `EXPO_NO_DOTENV=1 CI=1 caffeinate -i npm run quality`, Metro e simulador desligados: 297 suítes, 4.612 testes, `visual:qa:strict` sem regressão, saída 0.
 - Peso: os três specs somam 12,5 KiB (.ts); os tetos do teste do registro (total e 240 KiB por figura) seguem passando no jest acima.
+
+## Link da licença na tela de créditos (parecer M1, 2026-11-22)
+
+A tela de créditos mostrava "Licença: ISC" e só ligava à página de origem (https://lucide.dev). Desde 2026-11-22, cada radiografia e cada ilustração tem também o link "Ver a licença", que abre o `licenseUrl` do registro (`ImageCreditsScreen.tsx`). O teste `ImageCreditsScreen.test.tsx` passou a exigir dois links por cartão e que o link de licença de cada ilustração abra o `licenseUrl` dela. Foi visto falhando antes do conserto pelo motivo previsto: o link "Abrir a licença da ilustração 1" não existia, com 2 de 3 testes reprovados. O vermelho está em `.superpowers/sdd/2026-11-20-figuras-fases-2-6/vermelho-f4-c.txt`, fora do git. A tela não foi vista no simulador.
+
+## Capturas no iPhone (2026-11-22)
+
+Medido em 2026-11-22, no simulador "Radiant F7" (iPhone, dev client), com o Metro no Node 20 e `EXPO_NO_TYPESCRIPT_SETUP=1`, na ponta `258090be` mais o link da licença. Os roteiros de `radiant-app/.maestro/figuras/` rodaram um por vez, sem alteração, e todos saíram com código 0: `m22-aula-04`, `m22-aula-06`, `m31-aula-03`, `m31-aula-04` e `m31-aula-05`. O `m22-aula-04` só passou na terceira execução. Nas duas primeiras, o app parou antes da aula, no `journey-trail`: na primeira, o menu do dev client apareceu depois do prazo do subfluxo, durante a compilação inicial do bundle; na segunda, o dev client ficou na lista de servidores. Nenhuma falha chegou à figura.
+
+- `ios-fluxo-ris-pacs-m22-aula04-passo4.jpg` (rotular, 5 pontos): cinco cartões em serpentina (prancheta, lista com marcas, símbolo de radiação em âmbar, imagens empilhadas e tela com visto), ligados por setas azuis. Inteiro e legível. Os selos 1 a 5 ficam acima dos cartões, e cada ponto vazado fica no canto superior esquerdo do cartão, sem cobrir o ícone. Ponto de atenção: o selo encosta na borda superior do cartão.
+- `ios-fluxo-ris-pacs-m22-aula06-passo4.jpg` (tocar, 4 regiões): as regiões, em contorno ciano, coincidem com os cartões. O arquivo de imagens, que é o bloco parado do enunciado, não tem região. Os selos 1 a 4 ficam fora das regiões.
+- `ios-cadeia-de-custodia-m31-aula03-passo4.jpg` (rotular, 5 pontos): pacote, aperto de mãos, quadro âmbar, caderno com caneta e pasta com cadeado. A disposição é a mesma do primeiro fluxo, e o cadeado da pasta é visível.
+- `ios-cadeia-de-custodia-m31-aula04-passo4.jpg` (tocar, 5 regiões): as regiões coincidem com os cartões. Os selos ficam fora delas, numerados fora da ordem do fluxo (1, 5 e 3 em cima; 4 e 2 embaixo).
+- `ios-fluxo-de-pesquisa-m31-aula05-passo4.jpg` (rotular, 5 pontos): folha com visto, folha com caneta, quadro âmbar, olho riscado e pasta com cadeado. Inteiro e legível.
+
+Este documento não prova o seguinte:
+- os pontos e os selos foram vistos no tamanho da captura (644 px de largura nesta leitura), e não no aparelho;
+- o Android e o VoiceOver não foram vistos.
+
+Ao fim, o Metro estava parado, o app encerrado, o simulador desligado e a porta 8081 livre, e `radiant-app/expo-env.d.ts` não existia.

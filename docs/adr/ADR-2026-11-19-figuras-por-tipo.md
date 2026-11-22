@@ -67,6 +67,15 @@ Decisões que mudaram produto ou método, uma por linha (as demais, R4 a R7, R9,
 - A **pessoa do kit** (R1): ver a prancha e as cenas no simulador e aceitar ou pedir outra.
 - A **mudança do selo e do marcador** no app, que vale para todas as figuras (R14 e R15).
 - **Fase 5 sem trocas** (R23 em especial: a radiografia-roteiro fica com o esquema) e **a ordem das fases** (R8).
-- **Fase 3:** ver a amostra e decidir se os 14 gráficos vão a volume.
-- **Fase 4:** aceitar licença ISC para ícones, trocar de conjunto, ou manter os fluxos atuais.
+- ~~**Fase 3:** ver a amostra e decidir se os 14 gráficos vão a volume.~~ Decidido pelo dono em 2026-11-21 (adendo de 2026-11-22).
+- ~~**Fase 4:** aceitar licença ISC para ícones, trocar de conjunto, ou manter os fluxos atuais.~~ Decidido pelo dono em 2026-11-21 (adendo de 2026-11-22).
 - Como antes: merge da pilha de PRs #89 a #97, build e loja.
+
+## Adendo de 2026-11-22 (decisões do dono sobre as fases 3 e 4)
+
+Decisor: o dono do projeto, em 2026-11-21, na conversa com o controlador. Registro: Claude, em 2026-11-22.
+
+1. **Fase 3, palavra por palavra: "Sim, produza".** Os 14 gráficos foram redesenhados em código pela [gramática de gráficos](../content/2026-11-19-gramatica-de-graficos.md), revisados por revisor independente, corrigidos e vistos no iPhone ([fase-3](../evidence/2026-11-19-figuras/fase-3.md)). São figuras de código e não entram em `figuras.json`.
+2. **Fase 4, palavra por palavra: "Aceito a ISC".** A licença ISC passa a ser aceita **só para ícones de conjunto aberto**; para arte, a regra continua CC0, domínio público ou CC BY. A régua `OPEN_LICENSE` de `scripts/content/rtg-figuras.mjs` aceita `ISC`. Os três fluxos (`cadeia-de-custodia`, `fluxo-de-pesquisa`, `fluxo-ris-pacs`) usam ícones do Lucide v1.77.0, versionados com a licença em `scripts/content/figuras/vendor/lucide/` ([fase-4](../evidence/2026-11-19-figuras/fase-4.md)).
+3. **Consequência da regra ISC (controlador, R28).** A revisão achou quatro ícones do Lucide com desenho herdado do Feather, que é MIT: `clipboard-list`, `monitor-check`, `package` e `hard-drive`. Foram trocados por ícones sem origem Feather, para que a licença dos fluxos continue só ISC, como o dono aceitou. Desde 2026-11-22, a tela de créditos liga cada imagem e cada ilustração ao texto da licença, além da página de origem.
+
