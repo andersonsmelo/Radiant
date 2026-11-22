@@ -307,7 +307,7 @@ texto dentro: o rótulo vem do conteúdo.
 | `monitor-e-padrao-de-teste` | parado | Monitor com padrão de teste: degraus de cinza, dois quadrados com quadradinhos, pares de linhas; janela ao lado e seu reflexo no canto da tela. |
 | `fluxo-ris-pacs` | parado | Cinco blocos ligados por setas em serpentina: prancheta, lista, tubo de raios X com mesa, cilindro de armazenamento e monitor com imagem. |
 | `compressao-de-imagem` | parado | Imagem de 8 por 8 pixels, um disco, três vezes: original, igual sem perda e em blocos grosseiros com perda; acima, barras longa, média e curta. |
-| `radiografia-roteiro` | parado | Esquema de radiografia de tórax em PA: pulmões escuros, coluna, coração, costelas e diafragma, com etiqueta, marcador de lado e margens claras no filme. |
+| `radiografia-roteiro` | parado | Esquema de radiografia de tórax em PA: pulmões escuros, coluna, coração, costelas e diafragma, com etiqueta, marcador de lado e margens claras no filme. Desde 2026-11-22, sem uso em aula: as aulas passaram à imagem real (`imageId`), ver `docs/evidence/2026-11-19-figuras/imagens-reais.md`. |
 | `artefatos-de-objeto` | parado | Esquema de radiografia de tórax em PA com quatro objetos densos sobrepostos ao corpo, além de pulmões, coração, costelas e clavículas. |
 | `artefatos-do-detector` | parado | Esquema de radiografia de tórax em PA com três marcas estranhas à anatomia sobre a imagem, além de pulmões, coração, costelas e diafragma. |
 | `ossos-do-pe` | parado | Pé direito visto de cima e deitado: calcanhar à esquerda, dedos à direita, lado do hálux em cima. Tarso, metatarsos e falanges em três cores. |
@@ -338,10 +338,10 @@ texto dentro: o rótulo vem do conteúdo.
 | `supressao-de-gordura` | parado | O mesmo corte da coxa duas vezes: num, a gordura sob a pele e a medula brilham; no outro, estão apagadas, menos um trecho junto de um pequeno objeto metálico. |
 | `artefatos-de-rm` | parado | Três cortes ovais: um com cópias fracas da estrutura central, um com buraco preto de borda clara e torta, um com uma parte de fora repetida dentro. |
 | `dxa-dois-feixes` | parado | Densitômetro de lado: paciente deitado de costas na mesa, fonte sob o tampo, detector acima e um feixe estreito de duas cores subindo entre eles. |
-| `dxa-regioes-de-interesse` | parado | Coluna lombar de frente com quatro caixas, uma por vértebra, e fêmur proximal com caixa no colo, região no trocanter e contorno do quadril total. |
+| `dxa-regioes-de-interesse` | parado | Coluna lombar de frente com quatro caixas, uma por vértebra, e fêmur proximal com caixa no colo, região no trocanter e contorno do quadril total. Desde 2026-11-22, sem uso em aula: as aulas passaram à imagem real (`imageId`), ver `docs/evidence/2026-11-19-figuras/imagens-reais.md`. |
 | `dxa-posicionamento` | parado | Duas cenas: de lado, paciente com as pernas dobradas sobre um bloco; de cima, pernas estendidas, posicionador entre os pés e um pé girado preso por faixa. |
-| `dxa-interferencias` | parado | Imagem de coluna lombar de frente, inclinada, com um ponto metálico muito claro, um zíper ao lado e caixas de vértebra, uma delas fora do lugar. |
-| `corpo-inteiro-composicao` | parado | Corpo inteiro deitado visto de cima, com o esqueleto por dentro e linhas que o dividem em regiões; ao lado, três faixas de cores diferentes empilhadas. |
+| `dxa-interferencias` | parado | Imagem de coluna lombar de frente, inclinada, com um ponto metálico muito claro, um zíper ao lado e caixas de vértebra, uma delas fora do lugar. Desde 2026-11-22, sem uso em aula: as aulas passaram à imagem real (`imageId`), ver `docs/evidence/2026-11-19-figuras/imagens-reais.md`. |
+| `corpo-inteiro-composicao` | parado | Corpo inteiro deitado visto de cima, com o esqueleto por dentro e linhas que o dividem em regiões; ao lado, três faixas de cores diferentes empilhadas. Desde 2026-11-22, sem uso em aula: as aulas passaram à imagem real (`imageId`), ver `docs/evidence/2026-11-19-figuras/imagens-reais.md`. |
 | `radiografia-veterinaria` | parado | Cão deitado de lado sobre a mesa, com sacos de areia nas patas e calha de espuma; tubo acima com campo de luz no tórax; três pessoas em posições diferentes. |
 | `cadeia-de-custodia` | parado | Cinco blocos em serpentina ligados por setas: invólucro lacrado, prancheta entre mãos, aparelho de imagem, livro de registro e armário com cadeado. |
 | `fluxo-de-pesquisa` | parado | Cinco blocos em serpentina ligados por setas: documento com selo, folha com caneta, aparelho de imagem, ficha com tarja e cilindro com cadeado. |

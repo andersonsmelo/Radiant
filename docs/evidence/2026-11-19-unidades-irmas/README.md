@@ -37,8 +37,10 @@ fechado sem `loop validate`, pelo mesmo motivo do lote 1.
 Dezessete diagramas novos, conferidos por imagem pelo controlador. Simplificações e
 limites conhecidos do lote 2:
 
-- `radiografia-roteiro`, `artefatos-de-objeto`, `artefatos-do-detector`: esquemas
-  desenhados de um tórax em PA, não imagens reais. A trança parece uma corrente de
+- `artefatos-de-objeto`, `artefatos-do-detector`: esquemas
+  desenhados de um tórax em PA, não imagens reais. (`radiografia-roteiro`, `dxa-regioes-de-interesse`,
+  `dxa-interferencias` e `corpo-inteiro-composicao` foram trocadas em 2026-11-22 por imagem real:
+  `../2026-11-19-figuras/imagens-reais.md`; os esquemas delas ficam no registro, sem uso em aula.) A trança parece uma corrente de
   elos; a linha morta está clara, e em alguns sistemas aparece escura; o corte de
   grade em faixas laterais é descrição do esquema, sem fonte lida.
 - `vertebra-tipica`: sem alvo para a lâmina.
@@ -157,7 +159,7 @@ Simplificações e limites conhecidos do lote 4:
   porque as fontes divergem.
 - `supressao-de-gordura`: o metal é desenhado como objeto, não como vazio de sinal.
 - `linha-do-tempo-tr-te`: sem o pulso de 180 graus.
-- `dxa-regioes-de-interesse`: limites aproximados; o alvo da pelve fica na asa do ilíaco.
+- `dxa-regioes-de-interesse`: trocada em 2026-11-22 por imagem real; os limites aproximados e o alvo da asa do ilíaco eram do esquema, que não é mais usado.
 - `dxa-posicionamento`: o posicionador ficou alto e as pernas afastadas.
 - `radiografia-veterinaria`: o cão é esquemático, refeito uma vez; no item da calha, o
   toque no saco de areia vizinho conta como acerto.
