@@ -6,7 +6,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m23",
-  "materialSha256": "26564a04f021d777c4cb09324266e0a15fa0149e19f724b9945691b46d6a1e3f",
+  "materialSha256": "88e7bbfc0ce2c4abc7533e71e7d2bf6ed93ac46556245b1c19ca71be8a5a161e",
   "trackId": "track:rtg-2026:m23",
   "unitId": "unit:rtg-2026:m23",
   "contentVersion": "rtg-2026-m23-v1",
@@ -512,17 +512,17 @@ export const RTG_2026_M23: ProductionBatchV1 = {
           "role": "hook",
           "payload": {
             "title": "O que não é do paciente",
-            "body": "Hoje você vai conseguir achar, num esquema, os objetos de fora do corpo e dizer o que se faz antes da exposição.",
+            "body": "Hoje você vai conseguir achar, na radiografia, uma marca de fora do corpo e dizer o que se faz antes da exposição.",
             "dialogue": {
-              "setting": "Sala de exame, esquema na tela",
+              "setting": "Sala de exame, radiografia na tela",
               "lines": [
                 {
                   "speaker": "duda",
-                  "text": "Neste esquema tem muita coisa que não parece costela. Como eu sei o que é do corpo?"
+                  "text": "Tem uma marca clara no alto da radiografia. Como eu sei o que é do corpo?"
                 },
                 {
                   "speaker": "caio",
-                  "text": "O corpo tem forma e lugar que você já estudou. O que não segue isso veio de fora."
+                  "text": "Compare a forma e o trajeto da marca com as estruturas que você já estudou."
                 },
                 {
                   "speaker": "pixel",
@@ -538,7 +538,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Marcas que vieram de fora",
-            "body": "Artefato é uma marca na imagem que não corresponde ao corpo do paciente. Objetos de fora do corpo estão entre os artefatos citados como causa de repetição. Joias, objetos de metal e roupas que atrapalhem a imagem saem antes da exposição. Uma trança de cabelo sobre o tórax pode imitar uma sombra do próprio pulmão. Um fio ligado ao paciente, como o de um eletrodo, ou o cabelo sobre o campo, você descreve e leva à equipe, que decide como lidar. No esquema, diga onde está a marca e de onde ela provavelmente vem.",
+            "body": "Artefato é uma marca na imagem que não corresponde ao corpo do paciente. Objetos de fora do corpo estão entre os artefatos citados como causa de repetição. Joias, objetos de metal e roupas que atrapalhem a imagem saem antes da exposição. Uma trança de cabelo sobre o tórax pode imitar uma sombra do próprio pulmão. Um fio ligado ao paciente, como o de um eletrodo, ou o cabelo sobre o campo, você descreve e leva à equipe, que decide como lidar. Na radiografia, diga onde está a marca e de onde ela provavelmente vem.",
             "keyPoints": [
               "Artefato: marca que não corresponde ao corpo.",
               "Adorno e roupa com metal saem antes da exposição.",
@@ -604,78 +604,45 @@ export const RTG_2026_M23: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Encontre os riscos: Toque em todas as marcas do esquema que vieram de fora do corpo do paciente."
+              "label": "Toque na imagem: Toque na marca de fora do corpo que poderia ter sido evitada no preparo."
             },
-            "help": "Compare cada marca com as estruturas do corpo que você conhece: osso e coração têm forma e lugar certos.",
-            "type": "risk-hunt",
+            "help": "Compare o trajeto da marca com a forma dos ossos e do coração.",
+            "type": "hotspot",
             "feedback": {
-              "correct": "Isso mesmo: você achou as quatro marcas de fora e deixou de lado o que é do corpo.",
-              "incorrect": "Alguma marca ficou de fora, ou uma estrutura do corpo foi marcada. Pergunte de cada uma: é do paciente ou veio de fora?"
+              "correct": "Isso mesmo: as duas linhas claras se juntam no pingente do colar. Tirar a joia antes do exame evita essa marca.",
+              "incorrect": "O ombro e o coração fazem parte do corpo. Procure a marca clara que cruza a parte alta do tórax e se junta no centro."
             },
             "payload": {
-              "prompt": "Toque em todas as marcas do esquema que vieram de fora do corpo do paciente.",
-              "imageRef": "diagram:artefatos-de-objeto",
+              "prompt": "Toque na marca de fora do corpo que poderia ter sido evitada no preparo.",
+              "imageRef": "image:rtg-2026:m23:torax-artefato-colar-01",
               "regions": [
                 {
                   "id": "region:rtg-2026:m23:aula-02:i2:1",
-                  "label": "Colar com pingente",
-                  "x": 0.428,
-                  "y": 0.058,
-                  "width": 0.144,
-                  "height": 0.25,
-                  "explanation": "O colar com pingente é adorno de metal sobre o campo: a sombra não é do corpo, e o preparo pede que joias saiam antes."
+                  "label": "Região do ombro",
+                  "x": 0.07,
+                  "y": 0.09,
+                  "width": 0.16,
+                  "height": 0.14
                 },
                 {
                   "id": "region:rtg-2026:m23:aula-02:i2:2",
-                  "label": "Clavícula",
-                  "x": 0.606,
-                  "y": 0.167,
-                  "width": 0.125,
-                  "height": 0.1,
-                  "explanation": "A clavícula é osso do paciente: a barra clara que cruza o alto do tórax faz parte do corpo."
+                  "label": "Marca em V no centro superior",
+                  "x": 0.36,
+                  "y": 0.22,
+                  "width": 0.16,
+                  "height": 0.16
                 },
                 {
                   "id": "region:rtg-2026:m23:aula-02:i2:3",
-                  "label": "Trança de cabelo",
-                  "x": 0.263,
-                  "y": 0.013,
-                  "width": 0.113,
-                  "height": 0.375,
-                  "explanation": "A trança desce sobre o ombro e o ápice, no lado direito do paciente: é cabelo, de fora do corpo, e você descreve onde ela está."
-                },
-                {
-                  "id": "region:rtg-2026:m23:aula-02:i2:4",
-                  "label": "Botão de roupa",
-                  "x": 0.279,
-                  "y": 0.46,
-                  "width": 0.08,
-                  "height": 0.08,
-                  "explanation": "O botão de quatro furos, sobre o pulmão do lado direito do paciente, é de roupa: peça de fora do corpo que deixou sombra."
-                },
-                {
-                  "id": "region:rtg-2026:m23:aula-02:i2:5",
-                  "label": "Coração",
-                  "x": 0.453,
-                  "y": 0.6,
-                  "width": 0.219,
-                  "height": 0.209,
-                  "explanation": "O coração é do paciente: a sombra grande no centro, inclinada para o lado esquerdo do paciente, faz parte do corpo."
-                },
-                {
-                  "id": "region:rtg-2026:m23:aula-02:i2:6",
-                  "label": "Eletrodo com fio",
-                  "x": 0.697,
-                  "y": 0.45,
-                  "width": 0.081,
-                  "height": 0.083,
-                  "explanation": "O eletrodo com fio, no lado esquerdo do paciente, é aparelho ligado a ele: fica de fora do corpo, e você descreve e leva à equipe."
+                  "label": "Sombra do coração",
+                  "x": 0.51,
+                  "y": 0.44,
+                  "width": 0.17,
+                  "height": 0.15
                 }
               ],
-              "riskRegionIds": [
-                "region:rtg-2026:m23:aula-02:i2:1",
-                "region:rtg-2026:m23:aula-02:i2:3",
-                "region:rtg-2026:m23:aula-02:i2:4",
-                "region:rtg-2026:m23:aula-02:i2:6"
+              "correctRegionIds": [
+                "region:rtg-2026:m23:aula-02:i2:2"
               ]
             }
           }
@@ -757,7 +724,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": true,
             "accessibility": {
-              "label": "Certo ou errado: Julgue cada afirmação sobre objetos de fora no esquema."
+              "label": "Certo ou errado: Julgue cada afirmação sobre objetos de fora do corpo."
             },
             "help": "Pense no que cabe ao estudante diante de cada objeto.",
             "type": "true-false",
@@ -766,7 +733,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
               "incorrect": "Releia o conceito: adorno e roupa saem antes, e fio ou cabelo você descreve e leva à equipe."
             },
             "payload": {
-              "prompt": "Julgue cada afirmação sobre objetos de fora no esquema.",
+              "prompt": "Julgue cada afirmação sobre objetos de fora do corpo.",
               "statements": [
                 {
                   "id": "statement:rtg-2026:m23:aula-02:i4:1",
@@ -874,7 +841,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "O que você consegue fazer agora",
-            "body": "Você acha no esquema o colar, o botão, a trança e o eletrodo, separa o que é do corpo do que veio de fora e leva à equipe o que não é seu decidir.",
+            "body": "Você localiza o colar na radiografia, distingue o que é do corpo e sabe quando descrever outras marcas externas à equipe.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -2413,7 +2380,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:m23:aula-02"
         ],
-        "prompt": "No esquema, uma fileira de elos claros desce do alto, pelo ombro, até o ápice de um pulmão, sem seguir nenhum osso. Qual é a origem provável?",
+        "prompt": "Em outra radiografia, uma fileira de elos claros desce do alto, pelo ombro, até o ápice de um pulmão, sem seguir nenhum osso. Qual é a origem provável?",
         "options": [
           {
             "id": "option:rtg-2026:m23:aula-02:c1:a",
@@ -2447,7 +2414,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:m23:aula-02"
         ],
-        "prompt": "Uma sombra redonda de quatro furos aparece sobre o pulmão do esquema. Qual é a origem provável?",
+        "prompt": "Em outra radiografia, uma sombra redonda de quatro furos aparece sobre um pulmão. Qual é a origem provável?",
         "options": [
           {
             "id": "option:rtg-2026:m23:aula-02:c2:a",
@@ -3444,7 +3411,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
     },
     {
       "claimId": "region:rtg-2026:m23:aula-02:i2:1",
-      "claimKind": "correct-answer",
+      "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m23:pmc-rejeicao-radiografia-digital",
@@ -3454,13 +3421,17 @@ export const RTG_2026_M23: ProductionBatchV1 = {
     },
     {
       "claimId": "region:rtg-2026:m23:aula-02:i2:2",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m23:pmc-rejeicao-radiografia-digital",
+        "source:rtg-2026:m23:radiologyinfo-torax",
+        "source:rtg-2026:m23:esr-caso-tranca"
+      ]
     },
     {
       "claimId": "region:rtg-2026:m23:aula-02:i2:3",
-      "claimKind": "correct-answer",
+      "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m23:pmc-rejeicao-radiografia-digital",
@@ -3469,23 +3440,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "region:rtg-2026:m23:aula-02:i2:4",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m23:pmc-rejeicao-radiografia-digital",
-        "source:rtg-2026:m23:radiologyinfo-torax",
-        "source:rtg-2026:m23:esr-caso-tranca"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m23:aula-02:i2:5",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "region:rtg-2026:m23:aula-02:i2:6",
+      "claimId": "interaction:rtg-2026:m23:aula-02:i2:answer",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -6508,7 +6463,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
           "competencyIds": [
             "competency:rtg-2026:m23:aula-02"
           ],
-          "prompt": "Um colar aparece sobre o campo do esquema. Que tipo de artefato é?",
+          "prompt": "Um colar aparece no campo de uma radiografia. Que tipo de artefato é?",
           "options": [
             {
               "id": "option:rtg-2026:m23:aula-02:rg:a",
@@ -6542,7 +6497,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
           "competencyIds": [
             "competency:rtg-2026:m23:aula-02"
           ],
-          "prompt": "No esquema, um disco com um fio comprido aparece sobre o peito, do lado esquerdo do paciente. O que você diz à equipe?",
+          "prompt": "Em outra radiografia, um disco com um fio comprido aparece sobre o peito, do lado esquerdo do paciente. O que você diz à equipe?",
           "options": [
             {
               "id": "option:rtg-2026:m23:aula-02:rt:a",
@@ -6871,6 +6826,21 @@ export const RTG_2026_M23: ProductionBatchV1 = {
         "alt": "Radiografia do tórax em tons de cinza, em formato horizontal, com as clavículas no alto. No canto superior direito há uma tira com a letra L, as letras ETB e um círculo.",
         "width": 1200,
         "height": 973
+      },
+      {
+        "id": "image:rtg-2026:m23:torax-artefato-colar-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m23/torax-artefato-colar-01.jpg",
+        "sourcePage": "https://onlinelibrary.wiley.com/doi/10.1002/jmrs.70006#jmrs70006-fig-0002",
+        "author": "Emily Huanke Liu, Daniel Carrion e Mohamed Khaldoun Badawy, Journal of Medical Radiation Sciences",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "retrievedAt": "2026-11-23",
+        "sha256Original": "2f1f4f02f6e69004e4acd6164f3874cbeace8fedba9905bb40b63393dc269f70",
+        "sha256Asset": "e3db18cbe85af9a4121d08defd1b885d4908071fabaedeffa99cb89a50479ffd",
+        "modification": "isolamento do painel C da figura 2, conversão para tons de cinza e JPEG",
+        "alt": "Radiografia frontal do tórax em tons de cinza, com clavículas no alto, contorno do coração na metade inferior e uma linha clara em V sobre o centro da imagem.",
+        "width": 337,
+        "height": 333
       }
     ]
   },
@@ -6888,7 +6858,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "26564a04f021d777c4cb09324266e0a15fa0149e19f724b9945691b46d6a1e3f"
+      "materialSha256": "88e7bbfc0ce2c4abc7533e71e7d2bf6ed93ac46556245b1c19ca71be8a5a161e"
     },
     {
       "schemaVersion": 1,
@@ -6897,7 +6867,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "26564a04f021d777c4cb09324266e0a15fa0149e19f724b9945691b46d6a1e3f"
+      "materialSha256": "88e7bbfc0ce2c4abc7533e71e7d2bf6ed93ac46556245b1c19ca71be8a5a161e"
     },
     {
       "schemaVersion": 1,
@@ -6906,7 +6876,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "26564a04f021d777c4cb09324266e0a15fa0149e19f724b9945691b46d6a1e3f"
+      "materialSha256": "88e7bbfc0ce2c4abc7533e71e7d2bf6ed93ac46556245b1c19ca71be8a5a161e"
     },
     {
       "schemaVersion": 1,
@@ -6915,7 +6885,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "26564a04f021d777c4cb09324266e0a15fa0149e19f724b9945691b46d6a1e3f"
+      "materialSha256": "88e7bbfc0ce2c4abc7533e71e7d2bf6ed93ac46556245b1c19ca71be8a5a161e"
     },
     {
       "schemaVersion": 1,
@@ -6924,7 +6894,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "26564a04f021d777c4cb09324266e0a15fa0149e19f724b9945691b46d6a1e3f"
+      "materialSha256": "88e7bbfc0ce2c4abc7533e71e7d2bf6ed93ac46556245b1c19ca71be8a5a161e"
     },
     {
       "schemaVersion": 1,
@@ -6933,7 +6903,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "26564a04f021d777c4cb09324266e0a15fa0149e19f724b9945691b46d6a1e3f"
+      "materialSha256": "88e7bbfc0ce2c4abc7533e71e7d2bf6ed93ac46556245b1c19ca71be8a5a161e"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

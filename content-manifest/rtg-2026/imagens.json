@@ -171,6 +171,27 @@
     ]
   },
   {
+    "id": "image:rtg-2026:m23:torax-artefato-colar-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m23/torax-artefato-colar-01.jpg",
+    "sourcePage": "https://onlinelibrary.wiley.com/doi/10.1002/jmrs.70006#jmrs70006-fig-0002",
+    "author": "Emily Huanke Liu, Daniel Carrion e Mohamed Khaldoun Badawy, Journal of Medical Radiation Sciences",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-23",
+    "sha256Original": "2f1f4f02f6e69004e4acd6164f3874cbeace8fedba9905bb40b63393dc269f70",
+    "sha256Asset": "e3db18cbe85af9a4121d08defd1b885d4908071fabaedeffa99cb89a50479ffd",
+    "modification": "isolamento do painel C da figura 2, conversão para tons de cinza e JPEG",
+    "alt": "Radiografia frontal do tórax em tons de cinza, com clavículas no alto, contorno do coração na metade inferior e uma linha clara em V sobre o centro da imagem.",
+    "width": 337,
+    "height": 333,
+    "projection": "frontal",
+    "region": "tórax",
+    "descriptionFromSource": "Figura 2, painel C: radiografia de tórax com artefato por colar.",
+    "usedIn": [
+      "m23-02"
+    ]
+  },
+  {
     "id": "image:rtg-2026:m30:dxa-quadril-coluna-01",
     "file": "radiant-app/assets/content/rtg-2026/imagens/m30/dxa-quadril-coluna-01.jpg",
     "sourcePage": "https://ojrd.biomedcentral.com/articles/10.1186/1750-1172-5-30",

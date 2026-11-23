@@ -122,6 +122,8 @@ a troca das figuras segue um
 (base técnica) feita na branch `claude/figuras-base`, sem merge. Lotes 5 e 6 da C, fase D
 (conversão) e fase E (integração): não iniciados. Estado no [`STATUS.md`](../STATUS.md).
 
+**Figuras da RTG-2026 (2026-11-23).** Piloto de radiografia real com artefato de colar integrado à M23.02 na branch `claude/figuras-fase-1`. O acompanhamento da frente segue no [`STATUS.md`](../STATUS.md).
+
 ## 3. Estratégia
 
 1. **Local-first é o produto lançável.** A API não entra no caminho crítico do

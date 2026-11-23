@@ -98,3 +98,6 @@ Decisor: o dono do projeto, na conversa de 2026-11-22. Registro: Claude.
 4. **Continuam sem solução aberta:** `artefatos-de-objeto`, `artefatos-do-detector`, `artefatos-de-rm` e `monitor-e-padrao-de-teste`. As três primeiras são radiografia ou artefato que o acervo não tem; o monitor é equipamento.
 5. **Roteiros Maestro:** desde `f88b41d1`, o gerador centraliza o botão da bancada e do laboratório antes de tocar, porque o rodapé fixo engolia o toque. Foi o que travava o roteiro da M23.05.
 
+## Adendo de 2026-11-23 (piloto de artefato de objeto)
+
+Anderson aprovou o prosseguimento após ver a amostra. O primeiro piloto usa o painel C da figura 2 de Liu, Carrion e Badawy, com crédito CC BY 4.0. A M23.02 concentra o toque no colar e mantém os demais exemplos no conteúdo textual da aula. A M23.06 conserva o exercício de distinguir adorno e roupa no esquema. [Evidência](../evidence/2026-11-19-figuras/imagens-reais.md#piloto-de-artefato-de-objeto-2026-11-23).

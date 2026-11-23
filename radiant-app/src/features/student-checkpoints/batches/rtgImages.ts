@@ -103,6 +103,18 @@ export const RTG_IMAGES: readonly RtgImageCredit[] = [
     "source": require('../../../../assets/content/rtg-2026/imagens/m23/torax-pa-roteiro-01.jpg'),
   },
   {
+      "id": "image:rtg-2026:m23:torax-artefato-colar-01",
+      "author": "Emily Huanke Liu, Daniel Carrion e Mohamed Khaldoun Badawy, Journal of Medical Radiation Sciences",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "sourcePage": "https://onlinelibrary.wiley.com/doi/10.1002/jmrs.70006#jmrs70006-fig-0002",
+      "modification": "isolamento do painel C da figura 2, conversão para tons de cinza e JPEG",
+      "alt": "Radiografia frontal do tórax em tons de cinza, com clavículas no alto, contorno do coração na metade inferior e uma linha clara em V sobre o centro da imagem.",
+      "width": 337,
+      "height": 333,
+    "source": require('../../../../assets/content/rtg-2026/imagens/m23/torax-artefato-colar-01.jpg'),
+  },
+  {
       "id": "image:rtg-2026:m30:dxa-quadril-coluna-01",
       "author": "Dominique P. Germain, figura de Caroline Lebreton, Orphanet Journal of Rare Diseases, 2010",
       "license": "CC BY 2.0",

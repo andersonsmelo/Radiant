@@ -486,19 +486,19 @@
    "id": "m23-02",
    "code": "M23.02",
    "title": "O que não é do paciente",
-   "objective": "Hoje você vai conseguir achar, num esquema, os objetos de fora do corpo e dizer o que se faz antes da exposição.",
-   "competency": "Achar no esquema os objetos de fora do corpo e descrever a origem provável.",
+   "objective": "Hoje você vai conseguir achar, na radiografia, uma marca de fora do corpo e dizer o que se faz antes da exposição.",
+   "competency": "Achar na radiografia uma marca de fora do corpo e descrever a origem provável.",
    "minutes": 5,
    "scene": {
-    "setting": "Sala de exame, esquema na tela",
+    "setting": "Sala de exame, radiografia na tela",
     "lines": [
      {
       "speaker": "duda",
-      "text": "Neste esquema tem muita coisa que não parece costela. Como eu sei o que é do corpo?"
+      "text": "Tem uma marca clara no alto da radiografia. Como eu sei o que é do corpo?"
      },
      {
       "speaker": "caio",
-      "text": "O corpo tem forma e lugar que você já estudou. O que não segue isso veio de fora."
+      "text": "Compare a forma e o trajeto da marca com as estruturas que você já estudou."
      },
      {
       "speaker": "pixel",
@@ -508,7 +508,7 @@
    },
    "concept": {
     "title": "Marcas que vieram de fora",
-    "body": "Artefato é uma marca na imagem que não corresponde ao corpo do paciente. Objetos de fora do corpo estão entre os artefatos citados como causa de repetição. Joias, objetos de metal e roupas que atrapalhem a imagem saem antes da exposição. Uma trança de cabelo sobre o tórax pode imitar uma sombra do próprio pulmão. Um fio ligado ao paciente, como o de um eletrodo, ou o cabelo sobre o campo, você descreve e leva à equipe, que decide como lidar. No esquema, diga onde está a marca e de onde ela provavelmente vem.",
+    "body": "Artefato é uma marca na imagem que não corresponde ao corpo do paciente. Objetos de fora do corpo estão entre os artefatos citados como causa de repetição. Joias, objetos de metal e roupas que atrapalhem a imagem saem antes da exposição. Uma trança de cabelo sobre o tórax pode imitar uma sombra do próprio pulmão. Um fio ligado ao paciente, como o de um eletrodo, ou o cabelo sobre o campo, você descreve e leva à equipe, que decide como lidar. Na radiografia, diga onde está a marca e de onde ela provavelmente vem.",
     "keyPoints": [
      "Artefato: marca que não corresponde ao corpo.",
      "Adorno e roupa com metal saem antes da exposição.",
@@ -550,69 +550,37 @@
     },
     {
      "id": "i2",
-     "type": "risk-hunt",
+     "type": "hotspot",
      "role": "practice",
-     "prompt": "Toque em todas as marcas do esquema que vieram de fora do corpo do paciente.",
-     "diagramId": "artefatos-de-objeto",
+     "prompt": "Toque na marca de fora do corpo que poderia ter sido evitada no preparo.",
+     "imageId": "image:rtg-2026:m23:torax-artefato-colar-01",
      "regions": [
       {
-       "label": "Colar com pingente",
-       "x": 0.428,
-       "y": 0.058,
-       "width": 0.144,
-       "height": 0.25,
-       "risk": true,
-       "feedback": "O colar com pingente é adorno de metal sobre o campo: a sombra não é do corpo, e o preparo pede que joias saiam antes."
+       "label": "Região do ombro",
+       "x": 0.07,
+       "y": 0.09,
+       "width": 0.16,
+       "height": 0.14
       },
       {
-       "label": "Clavícula",
-       "x": 0.606,
-       "y": 0.167,
-       "width": 0.125,
-       "height": 0.1,
-       "risk": false,
-       "feedback": "A clavícula é osso do paciente: a barra clara que cruza o alto do tórax faz parte do corpo."
+       "label": "Marca em V no centro superior",
+       "x": 0.36,
+       "y": 0.22,
+       "width": 0.16,
+       "height": 0.16,
+       "correct": true
       },
       {
-       "label": "Trança de cabelo",
-       "x": 0.263,
-       "y": 0.013,
-       "width": 0.113,
-       "height": 0.375,
-       "risk": true,
-       "feedback": "A trança desce sobre o ombro e o ápice, no lado direito do paciente: é cabelo, de fora do corpo, e você descreve onde ela está."
-      },
-      {
-       "label": "Botão de roupa",
-       "x": 0.279,
-       "y": 0.46,
-       "width": 0.08,
-       "height": 0.08,
-       "risk": true,
-       "feedback": "O botão de quatro furos, sobre o pulmão do lado direito do paciente, é de roupa: peça de fora do corpo que deixou sombra."
-      },
-      {
-       "label": "Coração",
-       "x": 0.453,
-       "y": 0.6,
-       "width": 0.219,
-       "height": 0.209,
-       "risk": false,
-       "feedback": "O coração é do paciente: a sombra grande no centro, inclinada para o lado esquerdo do paciente, faz parte do corpo."
-      },
-      {
-       "label": "Eletrodo com fio",
-       "x": 0.697,
-       "y": 0.45,
-       "width": 0.081,
-       "height": 0.083,
-       "risk": true,
-       "feedback": "O eletrodo com fio, no lado esquerdo do paciente, é aparelho ligado a ele: fica de fora do corpo, e você descreve e leva à equipe."
+       "label": "Sombra do coração",
+       "x": 0.51,
+       "y": 0.44,
+       "width": 0.17,
+       "height": 0.15
       }
      ],
-     "feedbackCorrect": "Isso mesmo: você achou as quatro marcas de fora e deixou de lado o que é do corpo.",
-     "feedbackIncorrect": "Alguma marca ficou de fora, ou uma estrutura do corpo foi marcada. Pergunte de cada uma: é do paciente ou veio de fora?",
-     "help": "Compare cada marca com as estruturas do corpo que você conhece: osso e coração têm forma e lugar certos.",
+     "feedbackCorrect": "Isso mesmo: as duas linhas claras se juntam no pingente do colar. Tirar a joia antes do exame evita essa marca.",
+     "feedbackIncorrect": "O ombro e o coração fazem parte do corpo. Procure a marca clara que cruza a parte alta do tórax e se junta no centro.",
+     "help": "Compare o trajeto da marca com a forma dos ossos e do coração.",
      "sourceIds": [
       "pmc-rejeicao-radiografia-digital",
       "radiologyinfo-torax",
@@ -666,7 +634,7 @@
      "id": "i4",
      "type": "true-false",
      "role": "safety",
-     "prompt": "Julgue cada afirmação sobre objetos de fora no esquema.",
+     "prompt": "Julgue cada afirmação sobre objetos de fora do corpo.",
      "statements": [
       {
        "text": "Colar, botão com metal e outros adornos podem deixar sombra sobre o campo.",
@@ -758,7 +726,7 @@
    ],
    "closing": {
     "title": "O que você consegue fazer agora",
-    "body": "Você acha no esquema o colar, o botão, a trança e o eletrodo, separa o que é do corpo do que veio de fora e leva à equipe o que não é seu decidir.",
+    "body": "Você localiza o colar na radiografia, distingue o que é do corpo e sabe quando descrever outras marcas externas à equipe.",
     "line": {
      "speaker": "caio",
      "text": "Descrever bem a marca já é metade do trabalho. O resto é com a equipe."
@@ -766,7 +734,7 @@
    },
    "checkpoint": [
     {
-     "prompt": "No esquema, uma fileira de elos claros desce do alto, pelo ombro, até o ápice de um pulmão, sem seguir nenhum osso. Qual é a origem provável?",
+     "prompt": "Em outra radiografia, uma fileira de elos claros desce do alto, pelo ombro, até o ápice de um pulmão, sem seguir nenhum osso. Qual é a origem provável?",
      "options": [
       {
        "label": "Uma costela do paciente",
@@ -795,7 +763,7 @@
      ]
     },
     {
-     "prompt": "Uma sombra redonda de quatro furos aparece sobre o pulmão do esquema. Qual é a origem provável?",
+     "prompt": "Em outra radiografia, uma sombra redonda de quatro furos aparece sobre um pulmão. Qual é a origem provável?",
      "options": [
       {
        "label": "Uma costela do paciente",
@@ -827,7 +795,7 @@
     "guided": {
      "hook": "Complete a frase: um colar sobre o campo é um objeto que veio de fora do...",
      "item": {
-      "prompt": "Um colar aparece sobre o campo do esquema. Que tipo de artefato é?",
+      "prompt": "Um colar aparece no campo de uma radiografia. Que tipo de artefato é?",
       "options": [
        {
         "label": "Marca de falha do detector",
@@ -858,7 +826,7 @@
     },
     "transfer": {
      "item": {
-      "prompt": "No esquema, um disco com um fio comprido aparece sobre o peito, do lado esquerdo do paciente. O que você diz à equipe?",
+      "prompt": "Em outra radiografia, um disco com um fio comprido aparece sobre o peito, do lado esquerdo do paciente. O que você diz à equipe?",
       "options": [
        {
         "label": "Há um eletrodo com fio sobre o lado esquerdo do paciente",
