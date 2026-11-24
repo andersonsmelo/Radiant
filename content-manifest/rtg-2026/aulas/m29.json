@@ -69,6 +69,24 @@
       "accessedAt": "2026-11-19",
       "use": "factual-reference",
       "licenseNote": "Página para o público; consultada para ruído e protetor auricular, campainha de chamada, intercomunicador, ficar parado e sensação de lugar fechado, sem reprodução de texto."
+    },
+    {
+      "id": "narai-2022-movimento-rm",
+      "title": "Movement-related artefacts (MR-ART) dataset of matched motion-corrupted and clean structural MRI brain scans",
+      "publisher": "Scientific Data",
+      "url": "https://doi.org/10.1038/s41597-022-01694-8",
+      "accessedAt": "2026-11-24",
+      "use": "factual-reference",
+      "licenseNote": "Artigo em CC BY 4.0. A figura 1 compara aquisições sem movimento e com movimento de cabeça, com os créditos dos recortes no registro de imagens."
+    },
+    {
+      "id": "santini-2007-dobramento-rm",
+      "title": "MRI Aliasing.jpg: duas aquisições de uma esfera de teste",
+      "publisher": "Francesco Santini, Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/w/index.php?title=File:MRI_Aliasing.jpg&oldid=1268911842",
+      "accessedAt": "2026-11-24",
+      "use": "factual-reference",
+      "licenseNote": "Exemplo de dobramento com campo reduzido. O autor dedicou a imagem ao domínio público e o crédito está no registro de imagens."
     }
   ],
   "lessons": [
@@ -1439,9 +1457,9 @@
       },
       "concept": {
         "title": "Três marcas, três causas",
-        "body": "Movimento deixa cópias fracas da estrutura, os fantasmas, repetidas pelo corte; ficar parado ajuda a reduzi-los. Metal deixa um vazio de sinal, preto, com borda clara e torta ao redor. Dobra é a anatomia que ficou fora do campo de visão e aparece no lado oposto da imagem. Metal que ninguém esperava na imagem pede parar e avisar a equipe. Você descreve a marca e o lugar dela; a equipe avalia a causa e decide o que fazer. Você não repete a série por conta própria.",
+        "body": "O movimento pode borrar os contornos e deixar cópias fracas da estrutura repetidas pelo corte, os fantasmas. Ficar parado ajuda a reduzir esses artefatos. Metal deixa um vazio de sinal, preto, com borda clara e torta ao redor. Dobra é a anatomia que ficou fora do campo de visão e aparece no lado oposto da imagem. Metal que ninguém esperava na imagem pede parar e avisar a equipe. Você descreve a marca e o lugar dela; a equipe avalia a causa e decide o que fazer. Você não repete a série por conta própria.",
         "keyPoints": [
-          "Movimento: cópias fracas, os fantasmas.",
+          "Movimento: contornos borrados ou cópias fracas, os fantasmas.",
           "Metal: vazio de sinal com borda clara e torta. Pare e avise a equipe.",
           "Dobra: anatomia de fora do campo aparece no lado oposto."
         ]
@@ -1482,48 +1500,35 @@
         },
         {
           "id": "i2",
-          "type": "label",
+          "type": "comparison",
           "role": "practice",
-          "prompt": "Rotule as marcas do esquema, tocando na ficha e no ponto.",
-          "diagramId": "artefatos-de-rm",
-          "points": [
+          "prompt": "Em qual imagem há uma área escura com perda de sinal e áreas muito claras ao redor, junto a um implante?",
+          "options": [
             {
-              "label": "Fantasmas",
-              "x": 0.1625,
-              "y": 0.1875,
-              "where": "à esquerda, cópias fracas empilhadas acima do corte oval"
+              "label": "Imagem A",
+              "imageId": "image:rtg-2026:m29:rm-artefato-movimento-axial-01",
+              "correct": false,
+              "feedback": "Na imagem A, o movimento borrou os contornos. Procure a perda de sinal com brilho concentrado ao redor."
             },
             {
-              "label": "Vazio de sinal",
-              "x": 0.4875,
-              "y": 0.3667,
-              "where": "no corte do meio, a grande mancha preta"
+              "label": "Imagem B",
+              "imageId": "image:rtg-2026:m29:rm-artefato-metal-ombro-01",
+              "correct": true,
+              "feedback": "Isso. Na imagem B, o metal do implante distorce a imagem, com perda de sinal nas áreas escuras e acúmulo de sinal nas áreas claras."
             },
             {
-              "label": "Borda distorcida",
-              "x": 0.4875,
-              "y": 0.5834,
-              "where": "no corte do meio, a borda clara e torta abaixo da mancha"
-            },
-            {
-              "label": "Parte dobrada",
-              "x": 0.6938,
-              "y": 0.5,
-              "where": "no corte da direita, o oval claro na borda esquerda da caixa"
-            },
-            {
-              "label": "Anatomia de fora",
-              "x": 0.9063,
-              "y": 0.5,
-              "where": "no corte da direita, o contorno tracejado além da caixa"
+              "label": "Imagem C",
+              "imageId": "image:rtg-2026:m29:rm-artefato-dobramento-esfera-01",
+              "correct": false,
+              "feedback": "Na imagem C, partes da esfera se projetam sobre a borda oposta quando o campo é reduzido. É um exemplo de dobramento."
             }
           ],
-          "feedbackCorrect": "Isso mesmo: cada marca ficou ligada ao ponto certo do esquema.",
-          "feedbackIncorrect": "Alguma ficha está fora do lugar: procure cópias fracas, a mancha preta com a borda, a forma dentro da caixa e o que ficou fora dela.",
-          "help": "Comece pelo corte da esquerda, depois o do meio e por último o da direita.",
+          "help": "Compare a distribuição das áreas claras e escuras e observe o que aparece ao redor de cada uma.",
           "sourceIds": [
             "krupa-2015-artefatos-rm",
-            "pmc-artefatos-de-metal-2024"
+            "pmc-artefatos-de-metal-2024",
+            "narai-2022-movimento-rm",
+            "santini-2007-dobramento-rm"
           ]
         },
         {
@@ -1858,54 +1863,28 @@
         },
         {
           "id": "i2",
-          "type": "hotspot",
+          "type": "comparison",
           "role": "practice",
-          "prompt": "Dona Zuleica pergunta por que precisa ficar parada. Toque na marca que o movimento do paciente pode deixar na imagem.",
-          "diagramId": "artefatos-de-rm",
-          "regions": [
+          "prompt": "Dona Zuleica pergunta por que precisa ficar parada. Em qual imagem o movimento deixou os contornos menos nítidos?",
+          "options": [
             {
-              "label": "Cópias fracas acima do corte",
-              "x": 0.1125,
-              "y": 0.1417,
-              "width": 0.1,
-              "height": 0.0917,
-              "correct": true
+              "label": "Imagem A",
+              "imageId": "image:rtg-2026:m29:rm-movimento-sagital-referencia-01",
+              "correct": false,
+              "feedback": "Observe o contorno do cérebro nas duas imagens. Na imagem B ele está mais borrado."
             },
             {
-              "label": "Mancha preta do corte do meio",
-              "x": 0.4375,
-              "y": 0.3167,
-              "width": 0.1,
-              "height": 0.1
-            },
-            {
-              "label": "Borda clara abaixo da mancha",
-              "x": 0.4375,
-              "y": 0.5417,
-              "width": 0.1,
-              "height": 0.0833
-            },
-            {
-              "label": "Forma clara dentro do campo",
-              "x": 0.6531,
-              "y": 0.3917,
-              "width": 0.0813,
-              "height": 0.2167
-            },
-            {
-              "label": "Contorno tracejado fora do campo",
-              "x": 0.8656,
-              "y": 0.3917,
-              "width": 0.0813,
-              "height": 0.2167
+              "label": "Imagem B",
+              "imageId": "image:rtg-2026:m29:rm-movimento-sagital-artefato-01",
+              "correct": true,
+              "feedback": "Isso. Na imagem B, o movimento deixou os contornos menos definidos."
             }
           ],
-          "feedbackCorrect": "Isso mesmo: o movimento deixa cópias fracas da estrutura, e é por isso que ficar parado importa.",
-          "feedbackIncorrect": "Essa marca vem de outra causa. Procure as cópias fracas repetidas, que o movimento do paciente produz.",
-          "help": "Qual das marcas aparece como cópias da mesma estrutura?",
+          "help": "Compare a nitidez das bordas e dos sulcos nas duas imagens.",
           "sourceIds": [
             "krupa-2015-artefatos-rm",
-            "radiologyinfo-preparo-rm"
+            "radiologyinfo-preparo-rm",
+            "narai-2022-movimento-rm"
           ]
         },
         {

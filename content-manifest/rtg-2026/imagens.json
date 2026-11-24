@@ -361,5 +361,110 @@
     "usedIn": [
       "m29-04"
     ]
+  },
+  {
+    "id": "image:rtg-2026:m29:rm-artefato-movimento-axial-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-artefato-movimento-axial-01.jpg",
+    "sourcePage": "https://www.nature.com/articles/s41597-022-01694-8#Fig1",
+    "author": "Ádám Nárai, Petra Hermann, Tibor Auer, Péter Kemenczky, János Szalma, István Homolya, Eszter Somogyi, Pál Vakli, Béla Weiss e Zoltán Vidnyánszky, Scientific Data",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-24",
+    "sha256Original": "88d3272122e6fc4fea3abfde378daf45c6b35f9bcc6037b9c40b9d3b83b245f0",
+    "sha256Asset": "77844829b481b2e1d8921d81b84aee5966493ab2f31644bb835905ebfa448f96",
+    "modification": "Recorte para separar o painel, sem redimensionamento; codificação JPEG em tons de cinza.",
+    "alt": "Corte axial do encéfalo em tons de cinza, com contornos internos pouco definidos e faixas difusas.",
+    "width": 218,
+    "height": 172,
+    "projection": "axial",
+    "region": "encéfalo",
+    "descriptionFromSource": "Figura 1, aquisição HM2, corte axial com movimento de cabeça.",
+    "usedIn": [
+      "m29-05"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m29:rm-artefato-metal-ombro-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-artefato-metal-ombro-01.jpg",
+    "sourcePage": "https://link.springer.com/article/10.1007/s00256-024-04624-4#Fig1",
+    "author": "Georg C. Feuerriegel e Reto Sutter, Skeletal Radiology",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-24",
+    "sha256Original": "d3b678b02420c0f408f41325af93ea0343e85da85b2a1fa68f5beedc3c1feb18",
+    "sha256Asset": "66cf78506e4af7ab3c7ac8c732730862b07234d34f983a8195ae677fa77b7614",
+    "modification": "Recorte para separar o painel, sem redimensionamento; codificação JPEG em tons de cinza.",
+    "alt": "Corte sagital de um ombro em tons de cinza, com áreas muito claras agrupadas ao redor de pontos escuros.",
+    "width": 636,
+    "height": 602,
+    "projection": "sagital",
+    "region": "ombro",
+    "descriptionFromSource": "Figura 1B, corte sagital do ombro com alteração do sinal ao redor de âncoras metálicas.",
+    "usedIn": [
+      "m29-05"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m29:rm-artefato-dobramento-esfera-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-artefato-dobramento-esfera-01.jpg",
+    "sourcePage": "https://commons.wikimedia.org/w/index.php?title=File:MRI_Aliasing.jpg&oldid=1268911842",
+    "author": "Francesco Santini",
+    "license": "Domínio público",
+    "licenseUrl": "https://commons.wikimedia.org/w/index.php?title=File:MRI_Aliasing.jpg&oldid=1268911842#Licensing",
+    "retrievedAt": "2026-11-24",
+    "sha256Original": "349f935a6c9cde71c390b35e550e67d2252ad7e88c3e062d79601007e1bf0916",
+    "sha256Asset": "97cf448fc327a87169e4d3b0d42401ebd998535645efdfac9525c2c08b47acbb",
+    "modification": "Recorte das duas aquisições para excluir a legenda impressa; codificação JPEG em tons de cinza, sem redimensionamento.",
+    "alt": "Duas imagens em tons de cinza de uma esfera de teste. Na primeira, o quadro mostra todo o círculo. Na segunda, partes claras da esfera aparecem em bordas opostas.",
+    "width": 256,
+    "height": 123,
+    "projection": "comparativo",
+    "region": "objeto de teste",
+    "descriptionFromSource": "Duas aquisições de uma esfera de teste, com campo adequado à esquerda e campo reduzido à direita.",
+    "usedIn": [
+      "m29-05"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m29:rm-movimento-sagital-referencia-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-movimento-sagital-referencia-01.jpg",
+    "sourcePage": "https://www.nature.com/articles/s41597-022-01694-8#Fig1",
+    "author": "Ádám Nárai, Petra Hermann, Tibor Auer, Péter Kemenczky, János Szalma, István Homolya, Eszter Somogyi, Pál Vakli, Béla Weiss e Zoltán Vidnyánszky, Scientific Data",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-24",
+    "sha256Original": "88d3272122e6fc4fea3abfde378daf45c6b35f9bcc6037b9c40b9d3b83b245f0",
+    "sha256Asset": "68c439f723bed716d12a441ea2974ba4cc324307973a009f02c0a15840f20e71",
+    "modification": "Recorte para separar o painel, sem redimensionamento; codificação JPEG em tons de cinza.",
+    "alt": "Corte sagital do encéfalo em tons de cinza, com contornos e sulcos bem definidos.",
+    "width": 218,
+    "height": 207,
+    "projection": "sagital",
+    "region": "encéfalo",
+    "descriptionFromSource": "Figura 1, aquisição de referência STAND, corte sagital do voluntário.",
+    "usedIn": [
+      "m29-06"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m29:rm-movimento-sagital-artefato-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-movimento-sagital-artefato-01.jpg",
+    "sourcePage": "https://www.nature.com/articles/s41597-022-01694-8#Fig1",
+    "author": "Ádám Nárai, Petra Hermann, Tibor Auer, Péter Kemenczky, János Szalma, István Homolya, Eszter Somogyi, Pál Vakli, Béla Weiss e Zoltán Vidnyánszky, Scientific Data",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-24",
+    "sha256Original": "88d3272122e6fc4fea3abfde378daf45c6b35f9bcc6037b9c40b9d3b83b245f0",
+    "sha256Asset": "8899e246162c7408540833b90711d3255efb0bc5cfefdc36957799c68e24f635",
+    "modification": "Recorte para separar o painel, sem redimensionamento; codificação JPEG em tons de cinza.",
+    "alt": "Corte sagital do encéfalo em tons de cinza, com contornos e sulcos borrados.",
+    "width": 218,
+    "height": 207,
+    "projection": "sagital",
+    "region": "encéfalo",
+    "descriptionFromSource": "Figura 1, aquisição HM2, corte sagital do mesmo voluntário com movimento de cabeça.",
+    "usedIn": [
+      "m29-06"
+    ]
   }
 ]

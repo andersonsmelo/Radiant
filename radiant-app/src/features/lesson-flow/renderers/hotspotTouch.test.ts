@@ -291,8 +291,8 @@ describe('selos nos itens reais das 40 unidades (E12)', () => {
         Math.hypot(Math.max(0, a.left - (b.left + b.width), b.left - (a.left + a.width)), Math.max(0, a.top - (b.top + b.height), b.top - (a.top + a.height)));
     const labels = items.filter(item => item.points && item.points.length > 1);
 
-    it('encontra os 90 itens de figura das 40 unidades (74 de desenho e 16 de imagem real)', () => {
-        expect(items.length).toBe(90);
+    it('encontra os 88 itens com pontos ou regiões nas 40 unidades (72 de desenho e 16 de imagem real)', () => {
+        expect(items.length).toBe(88);
         expect(items.filter(item => item.imageId).length).toBe(16);
     });
 
