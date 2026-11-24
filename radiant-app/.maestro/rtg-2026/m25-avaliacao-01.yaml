@@ -1,0 +1,238 @@
+appId: com.ascendcreative.radiant
+name: 'RTG M25: avaliação 1 (aula 01)'
+tags:
+  - rtg-2026
+  - generated
+---
+# Gerado por scripts/qa/generate-rtg-maestro.mjs a partir da aula-fonte. Não edite à mão.
+# BLOQUEADA EM INSTALAÇÃO LIMPA: a tela de avaliação mostra "Bloqueada" até a aula 01 estar concluída
+# (unlockRule do nó), e o app não é alterado para contornar isso. Por isso o flow joga a aula 01 antes e só então abre a rota /checkpoint.
+# Sem repetir launchApp: reaberto com clearState, o progresso se perderia. Não medido em aparelho.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
+    clearState: true
+    permissions:
+      all: deny
+- runFlow: ../subflows/dismiss-dev-client.yaml
+- runFlow: ../subflows/dismiss-first-run.yaml
+- assertVisible:
+    id: journey-trail
+- openLink: 'radiantapp://learn?blockId=activity%3Artg-2026%3Am25%3Aaula-01&nodeId=node%3Aactivity%3Artg-2026%3Am25%3Aaula-01'
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+- assertVisible: 'Passo 1 de 8'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 2 de 8'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 3 de 8'
+# interaction i1 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m25:aula-01:i1:c'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m25:aula-01:i1:c'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 4 de 8'
+# interaction i2 label
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 1, na frente do alto, acima do furo do olho, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 1, na frente do alto, acima do furo do olho, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Frontal'
+- tapOn:
+    id: 'label-chip-Frontal'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 2, no meio do alto da calota, a área mais larga, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 2, no meio do alto da calota, a área mais larga, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Parietal'
+- tapOn:
+    id: 'label-chip-Parietal'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 3, na parte de trás, a curva que fecha o crânio, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 3, na parte de trás, a curva que fecha o crânio, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Occipital'
+- tapOn:
+    id: 'label-chip-Occipital'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 4, abaixo do alto da calota, junto ao orifício do ouvido, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 4, abaixo do alto da calota, junto ao orifício do ouvido, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Temporal'
+- tapOn:
+    id: 'label-chip-Temporal'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 5, abaixo do furo do olho, a peça que segura os dentes de cima, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 5, abaixo do furo do olho, a peça que segura os dentes de cima, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Maxila'
+- tapOn:
+    id: 'label-chip-Maxila'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 6, embaixo, a peça escura que segura os dentes de baixo, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 6, embaixo, a peça escura que segura os dentes de baixo, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Mandíbula'
+- tapOn:
+    id: 'label-chip-Mandíbula'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 5 de 8'
+# interaction i3 categorize
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Maxila'
+- tapOn:
+    id: 'categorize-item-Maxila'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Face'
+- tapOn:
+    id: 'categorize-group-Face'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Mandíbula'
+- tapOn:
+    id: 'categorize-item-Mandíbula'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Face'
+- tapOn:
+    id: 'categorize-group-Face'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Temporal'
+- tapOn:
+    id: 'categorize-item-Temporal'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Caixa craniana'
+- tapOn:
+    id: 'categorize-group-Caixa craniana'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Parietal'
+- tapOn:
+    id: 'categorize-item-Parietal'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Caixa craniana'
+- tapOn:
+    id: 'categorize-group-Caixa craniana'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Zigomático'
+- tapOn:
+    id: 'categorize-item-Zigomático'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Face'
+- tapOn:
+    id: 'categorize-group-Face'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Esfenoide'
+- tapOn:
+    id: 'categorize-item-Esfenoide'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Caixa craniana'
+- tapOn:
+    id: 'categorize-group-Caixa craniana'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 6 de 8'
+# interaction i4 hotspot
+- scrollUntilVisible:
+    element:
+      text: 'Selecionar Maxila na imagem'
+- tapOn: 'Selecionar Maxila na imagem'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 7 de 8'
+# interaction i5 true-false
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- assertVisible: 'Afirmação 2 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-errado'
+- tapOn:
+    id: 'true-false-errado'
+- assertVisible: 'Afirmação 3 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- assertVisible: 'Afirmação 4 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 8 de 8'
+- tapOn: 'Concluir e voltar'
+- assertVisible: 'A lição foi concluída'
+- openLink: 'radiantapp://checkpoint?nodeId=node%3Acheckpoint%3Artg-2026%3Am25%3Aaula-01'
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+- extendedWaitUntil:
+    visible: 'Começar avaliação'
+    timeout: 15000
+- tapOn: 'Começar avaliação'
+# item 1
+- scrollUntilVisible:
+    element:
+      text: 'O occipital'
+- tapOn: 'O occipital'
+- scrollUntilVisible:
+    element:
+      text: 'Próxima questão'
+- tapOn: 'Próxima questão'
+# item 2
+- scrollUntilVisible:
+    element:
+      text: 'A maxila'
+- tapOn: 'A maxila'
+- scrollUntilVisible:
+    element:
+      text: 'Enviar avaliação'
+- tapOn: 'Enviar avaliação'
+- extendedWaitUntil:
+    visible: 'Avaliação concluída'
+    timeout: 15000

@@ -36,7 +36,7 @@ for p in health ready v1/content/catalog; do curl -s -o /dev/null -w "$p %{http_
 
 O estado do Play só se mede abrindo o Play Console; não há comando.
 
-## Trilha dobrada (1.7) — fases A, B e lotes 1 e 2 da C em branches, medido em 2026-11-19
+## Trilha dobrada (1.7) — fases A, B e lotes 1 a 3 da C em branches, medido em 2026-11-19
 
 O dono pediu em 2026-11-18 a trilha `rtg-2026` com o dobro do tamanho (cerca de 48
 unidades e 310 aulas), sem lei brasileira nem código de ética e com menos texto.
@@ -99,7 +99,27 @@ bancada (M23). Cada unidade tem parecer de revisão independente por IA (70 corr
 ao todo). Gate do app: 4.230 testes, saída 0; testes de conteúdo e de roteiros 407 de
 408 (a mesma falha de ambiente).
 [Evidência](evidence/2026-11-19-unidades-irmas/README.md). PR #93, em rascunho. **Nada
-foi visto em simulador ou aparelho.** Faltam quatro lotes (16 unidades, 104 aulas).
+foi visto em simulador ou aparelho.** Faltavam quatro lotes.
+
+**Fase C, lote 3, na branch `claude/trilha-dobrada-fase-c-lote-3`, empilhada no lote 2,
+sem merge (medido em 2026-11-19):** mais quatro unidades irmãs, 24 aulas: M25 (crânio,
+face e exames no leito, depois da M08), M26 (exames contrastados e fluoroscopia, depois
+da M09), M27 (criança, idoso e gestante na aquisição, depois da M16) e M28 (anatomia
+seccional II, depois da M10). O catálogo ganhou 17 diagramas e tem 68. É o primeiro
+lote com imagens reais novas, por decisão do dono em 2026-11-19 ("Radiografias reais"):
+cinco, do Wikimedia Commons, uma radiografia de crânio de perfil (CC BY 3.0) e quatro
+tomografias de um mesmo exame (CC0). Sobre a imagem real os itens só perguntam a
+projeção, o plano e qual corte está mais alto; a anatomia fina fica nos diagramas. Não
+se achou, com licença aceita, crânio de frente, exame com bário nem mão de criança e
+de adulto. O inventário mede 36 unidades e 229 aulas; as quatro novas têm de 47,9% a
+50,0% de passos de texto ou formato antigo, passo visual em 6 de 6 aulas e 9 a 11
+famílias de interação. Cada unidade tem parecer de revisão independente por IA (70
+correções ao todo). Gate do app: 4.281 testes, saída 0; testes de conteúdo e de
+roteiros 407 de 408 (a mesma falha de ambiente). A linha de base do contrato de texto
+ganhou um teto para `rtgImages.ts`, porque a licença "CC BY 3.0" conta como rótulo em
+maiúsculas.
+[Evidência](evidence/2026-11-19-unidades-irmas/README.md). **Nada foi visto em
+simulador ou aparelho.** Faltam três lotes (12 unidades, 80 aulas).
 
 **Decisão aberta para o dono, medida em 2026-11-19:** com 310 aulas concluídas, o
 armazenamento da revisão espaçada fica em 1,64 MiB no caso comum, abaixo do teto de

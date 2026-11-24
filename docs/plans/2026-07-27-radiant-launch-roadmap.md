@@ -113,7 +113,9 @@ internacional): feita na branch `claude/trilha-dobrada` em 2026-11-18, sem merge
 empilhada na A, sem merge (PR #90). Fase C (unidades irmãs): lote 1 de 6 feito em
 2026-11-19 (M17 a M20), na branch `claude/trilha-dobrada-fase-c-lote-1`, sem merge (PR
 #91); lote 2 feito em 2026-11-19 (M21 a M24), na branch
-`claude/trilha-dobrada-fase-c-lote-2`, sem merge (PR #93).** Lotes 3 a 6 da C, fase D
+`claude/trilha-dobrada-fase-c-lote-2`, sem merge (PR #93); lote 3 feito em 2026-11-19
+(M25 a M28), na branch `claude/trilha-dobrada-fase-c-lote-3`, sem merge.** Lotes 4 a 6
+da C, fase D
 (conversão) e fase E (integração): não iniciados. Estado no [`STATUS.md`](../STATUS.md).
 
 ## 3. Estratégia

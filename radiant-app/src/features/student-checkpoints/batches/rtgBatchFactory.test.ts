@@ -114,7 +114,7 @@ describe('fábrica de lotes rtg-2026', () => {
             approvals: { technical: 'pending', editorial: 'pending', accessibility: 'pending', rights: 'pending', schema: 'pending', product: 'pending' } } as EditorialCandidate)).toBe(batch.materialSha256);
         expect(() => buildRtgBatch({ ...fixture(), unit: { ...source.unit, id: 'm99' } })).toThrow('rtg-batch-unknown-unit:m99');
         // Núcleo na ordem da ementa, com as unidades da 1.6 na posição pedagógica (mapa de 2026-11-13).
-        expect(RTG_UNIT_ORDER).toEqual(['m01', 'm17', 'm02', 'm18', 'm03', 'm19', 'm15', 'm20', 'm04', 'm21', 'm05', 'm22', 'm06', 'm23', 'm07', 'm24', 'm08', 'm09', 'm16', 'm10', 'm11', 'm12', 'm13', 'm14',
+        expect(RTG_UNIT_ORDER).toEqual(['m01', 'm17', 'm02', 'm18', 'm03', 'm19', 'm15', 'm20', 'm04', 'm21', 'm05', 'm22', 'm06', 'm23', 'm07', 'm24', 'm08', 'm25', 'm09', 'm26', 'm16', 'm27', 'm10', 'm28', 'm11', 'm12', 'm13', 'm14',
             's-tc', 's-rm', 's-md', 's-mn', 's-rt', 's-ir', 's-od', 's-us']);
     });
 });

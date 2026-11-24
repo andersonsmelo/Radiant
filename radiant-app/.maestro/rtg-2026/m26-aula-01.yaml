@@ -1,0 +1,149 @@
+appId: com.ascendcreative.radiant
+name: 'RTG M26: aula 01 até o resumo'
+tags:
+  - rtg-2026
+  - generated
+---
+# Gerado por scripts/qa/generate-rtg-maestro.mjs a partir da aula-fonte. Não edite à mão.
+# Entrada pelo link da rota /learn. LessonFlowScreen não recusa nó bloqueado e a aula 01 não tem unlockRule,
+# então a unidade abre numa instalação limpa, mesmo que a trilha a mostre atrás do cadeado. Não medido em aparelho.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
+    clearState: true
+    permissions:
+      all: deny
+- runFlow: ../subflows/dismiss-dev-client.yaml
+- runFlow: ../subflows/dismiss-first-run.yaml
+- assertVisible:
+    id: journey-trail
+- openLink: 'radiantapp://learn?blockId=activity%3Artg-2026%3Am26%3Aaula-01&nodeId=node%3Aactivity%3Artg-2026%3Am26%3Aaula-01'
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+- assertVisible: 'Passo 1 de 8'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 2 de 8'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 3 de 8'
+# interaction i1 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m26:aula-01:i1:c'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m26:aula-01:i1:c'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 4 de 8'
+# interaction i2 categorize
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-É engolido pela pessoa'
+- tapOn:
+    id: 'categorize-item-É engolido pela pessoa'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Bário'
+- tapOn:
+    id: 'categorize-group-Bário'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Preenche o tubo digestivo por dentro'
+- tapOn:
+    id: 'categorize-item-Preenche o tubo digestivo por dentro'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Bário'
+- tapOn:
+    id: 'categorize-group-Bário'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Enche rins, ureteres e bexiga'
+- tapOn:
+    id: 'categorize-item-Enche rins, ureteres e bexiga'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Iodado pela veia'
+- tapOn:
+    id: 'categorize-group-Iodado pela veia'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Entra por enema no estudo do cólon'
+- tapOn:
+    id: 'categorize-item-Entra por enema no estudo do cólon'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Bário'
+- tapOn:
+    id: 'categorize-group-Bário'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Segue pelo sangue até os rins'
+- tapOn:
+    id: 'categorize-item-Segue pelo sangue até os rins'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Iodado pela veia'
+- tapOn:
+    id: 'categorize-group-Iodado pela veia'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 5 de 8'
+# interaction i3 matching
+- scrollUntilVisible:
+    element:
+      text: 'Associar Esôfago, estômago e duodeno a Bário engolido'
+- tapOn: 'Associar Esôfago, estômago e duodeno a Bário engolido'
+- scrollUntilVisible:
+    element:
+      text: 'Associar Cólon e reto a Bário por enema, pelo reto'
+- tapOn: 'Associar Cólon e reto a Bário por enema, pelo reto'
+- scrollUntilVisible:
+    element:
+      text: 'Associar Rins, ureteres e bexiga a Iodado na veia, filtrado pelos rins'
+- tapOn: 'Associar Rins, ureteres e bexiga a Iodado na veia, filtrado pelos rins'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 6 de 8'
+# interaction i4 true-false
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- assertVisible: 'Afirmação 2 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-errado'
+- tapOn:
+    id: 'true-false-errado'
+- assertVisible: 'Afirmação 3 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-errado'
+- tapOn:
+    id: 'true-false-errado'
+- assertVisible: 'Afirmação 4 de 4'
+- scrollUntilVisible:
+    element:
+      id: 'true-false-certo'
+- tapOn:
+    id: 'true-false-certo'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 7 de 8'
+# interaction i5 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m26:aula-01:i5:a'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m26:aula-01:i5:a'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 8 de 8'
+- tapOn: 'Concluir e voltar'
+- assertVisible: 'A lição foi concluída'

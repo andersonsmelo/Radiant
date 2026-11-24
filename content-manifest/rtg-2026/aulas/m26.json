@@ -1,0 +1,2222 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m26",
+    "code": "M26",
+    "title": "Exames contrastados e fluoroscopia",
+    "summary": "Você segue o caminho do bário e do iodado no corpo, nomeia a cadeia da fluoroscopia, vê como pulso e imagem retida mudam a exposição, aprende onde ficar na sala e acompanha os estudos digestivo e urinário."
+  },
+  "sources": [
+    {
+      "id": "rinfo-contraste",
+      "title": "Contrast Materials",
+      "publisher": "RadiologyInfo.org (RSNA e ACR)",
+      "url": "https://www.radiologyinfo.org/en/info/safety-contrast",
+      "use": "factual-reference",
+      "licenseNote": "Página para pacientes; consultada para vias do bário e do iodado, usos e eliminação do bário, com redação própria.",
+      "accessedAt": "2026-11-19"
+    },
+    {
+      "id": "rinfo-trato-alto",
+      "title": "Upper GI Tract Imaging (Esophagram, Barium Swallow)",
+      "publisher": "RadiologyInfo.org (RSNA e ACR)",
+      "url": "https://www.radiologyinfo.org/en/info/uppergi",
+      "use": "factual-reference",
+      "licenseNote": "Página para pacientes; consultada para o estudo do trato digestivo alto, preparo e fezes claras depois do bário, com redação própria.",
+      "accessedAt": "2026-11-19"
+    },
+    {
+      "id": "rinfo-colon",
+      "title": "Lower GI Tract Imaging (Barium Enema)",
+      "publisher": "RadiologyInfo.org (RSNA e ACR)",
+      "url": "https://www.radiologyinfo.org/en/info/lowergi",
+      "use": "factual-reference",
+      "licenseNote": "Página para pacientes; consultada para as etapas do estudo do cólon e do preparo, com redação própria.",
+      "accessedAt": "2026-11-19"
+    },
+    {
+      "id": "rinfo-urografia",
+      "title": "Urography",
+      "publisher": "RadiologyInfo.org (RSNA e ACR)",
+      "url": "https://www.radiologyinfo.org/en/info/urography",
+      "use": "factual-reference",
+      "licenseNote": "Página para pacientes; consultada para os papéis do tecnólogo, do radiologista e do médico que pediu o exame, com redação própria.",
+      "accessedAt": "2026-11-19"
+    },
+    {
+      "id": "cun-urografia",
+      "title": "Intravenous urography",
+      "publisher": "Clínica Universidad de Navarra",
+      "url": "https://www.cun.es/en/diseases-treatments/diagnosis-procedures/intravenous-urography",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional para pacientes; consultada para as fases da urografia e para a filtração do iodado pelos rins, com redação própria.",
+      "accessedAt": "2026-11-19"
+    },
+    {
+      "id": "medlineplus-cistouretrografia",
+      "title": "Voiding cystourethrogram",
+      "publisher": "MedlinePlus (U.S. National Library of Medicine)",
+      "url": "https://medlineplus.gov/ency/article/003784.htm",
+      "use": "factual-reference",
+      "licenseNote": "Enciclopédia médica para pacientes; consultada para sonda, contraste na bexiga e fases de enchimento e de micção, com redação própria.",
+      "accessedAt": "2026-11-19"
+    },
+    {
+      "id": "niddk-trato-alto",
+      "title": "Upper GI Series",
+      "publisher": "NIDDK (National Institutes of Health)",
+      "url": "https://www.niddk.nih.gov/health-information/diagnostic-tests/upper-gi-series",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional para pacientes; consultada para o papel do técnico e do radiologista e para o bário nas fezes, com redação própria.",
+      "accessedAt": "2026-11-19"
+    },
+    {
+      "id": "kjp-espalhamento",
+      "title": "Radiation safety for pain physicians: principles and recommendations",
+      "publisher": "The Korean Journal of Pain, 2022;35(2):129-139 (PubMed Central)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8977205",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto com licença CC BY-NC 4.0; consultado para espalhamento, lado do tubo, distância, avental, protetor de tireoide e pulsada, com redação própria.",
+      "accessedAt": "2026-11-19"
+    },
+    {
+      "id": "imagewisely-fluoroscopia",
+      "title": "Fluoroscopy: diagnostic procedures",
+      "publisher": "Image Wisely (ACR, RSNA, ASRT e AAPM)",
+      "url": "https://www.imagewisely.org/Imaging-Modalities/Fluoroscopy/Diagnostic-Procedures",
+      "use": "factual-reference",
+      "licenseNote": "Página de orientação profissional; consultada para imagem retida, pulsada e tempo de feixe ligado, com redação própria.",
+      "accessedAt": "2026-11-19"
+    },
+    {
+      "id": "imagewisely-equipe",
+      "title": "Fluoroscopy: team performance",
+      "publisher": "Image Wisely (ACR, RSNA, ASRT e AAPM)",
+      "url": "https://www.imagewisely.org/Imaging-Modalities/Fluoroscopy/Team-Performance",
+      "use": "factual-reference",
+      "licenseNote": "Página de orientação profissional; consultada para o pedal (manter o pé no pedal sem olhar o monitor é erro de quem começa), com redação própria.",
+      "accessedAt": "2026-11-19"
+    },
+    {
+      "id": "landauer-protecao-fluoro",
+      "title": "Occupational radiation safety in interventional radiology",
+      "publisher": "Landauer (blog técnico)",
+      "url": "https://www.landauer.com/blog/occupational-radiation-safety-interventional-radiology",
+      "use": "factual-reference",
+      "licenseNote": "Texto técnico de fabricante de dosímetros; consultado para o espalhamento nas pernas com o tubo sob a mesa e para barreiras presas à mesa, suspensas e móveis, com redação própria.",
+      "accessedAt": "2026-11-19"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m26-01",
+      "code": "M26.01",
+      "title": "Dois meios, dois caminhos",
+      "objective": "Hoje você vai conseguir dizer por onde cada meio de contraste, bário ou iodado, passa no corpo.",
+      "competency": "Distinguir contraste de bário e iodado e o caminho de cada um no corpo.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de fluoroscopia do serviço-escola",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Hoje tem um exame com bário e outro com contraste na veia. Não é tudo o mesmo contraste?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Não. Cada meio entra de um jeito e faz um caminho diferente dentro do corpo."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos seguir cada um pelo desenho. Por onde entra, aonde chega e como sai?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Dois meios, dois caminhos",
+        "body": "Há dois meios de contraste para raios X. O bário, dado por boca ou por enema, preenche o tubo digestivo por dentro e sai nas fezes. O iodado, em geral na veia, segue pelo sangue, e os rins o filtram: enche rins, ureteres e bexiga. Nos angiogramas ele vai também pela artéria e, em alguns exames, por boca ou enema. No desenho, amarelo e azul são só convenção, e não a cor do contraste.",
+        "keyPoints": [
+          "Bário: boca ou enema, enche o tubo digestivo e sai nas fezes.",
+          "Iodado pela veia: passa pelo sangue e pelos rins e enche o sistema urinário.",
+          "O serviço define qual meio cada exame usa."
+        ],
+        "visual": "contraste-no-corpo"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na unidade de preparo e contraste, qual era o seu papel diante do meio de contraste de um exame?",
+          "options": [
+            {
+              "label": "Escolher o meio de contraste mais adequado para a pessoa.",
+              "correct": false,
+              "feedback": "Escolher é decisão do serviço, e não sua. Retome os limites do seu papel."
+            },
+            {
+              "label": "Administrar o contraste quando a equipe estiver ocupada.",
+              "correct": false,
+              "feedback": "Administrar não é tarefa do estudante. Confira de novo o que cabe a você."
+            },
+            {
+              "label": "Conferir o preparo e levar à equipe o que não combina.",
+              "correct": true,
+              "feedback": "Você confere e comunica, e quem decide e administra é a equipe."
+            },
+            {
+              "label": "Prescrever a dose depois de ler o pedido do exame.",
+              "correct": false,
+              "feedback": "Prescrever é do médico do serviço. Retome de quem é cada decisão."
+            }
+          ],
+          "help": "Pense no que você pode fazer sem escolher, prescrever nem administrar.",
+          "sourceIds": [
+            "rinfo-contraste"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada frase no meio de contraste a que ela se aplica.",
+          "categories": [
+            "Bário",
+            "Iodado pela veia"
+          ],
+          "items": [
+            {
+              "label": "Preenche o tubo digestivo por dentro",
+              "category": "Bário"
+            },
+            {
+              "label": "Entra por enema no estudo do cólon",
+              "category": "Bário"
+            },
+            {
+              "label": "É engolido pela pessoa",
+              "category": "Bário"
+            },
+            {
+              "label": "Segue pelo sangue até os rins",
+              "category": "Iodado pela veia"
+            },
+            {
+              "label": "Enche rins, ureteres e bexiga",
+              "category": "Iodado pela veia"
+            }
+          ],
+          "feedbackCorrect": "Você separou o meio que percorre o tubo digestivo do que passa pelo sangue e pelos rins.",
+          "feedbackIncorrect": "Pergunte de cada frase: o contraste fica dentro do tubo digestivo ou passa pelo sangue e pelos rins?",
+          "help": "Um deles é engolido; o outro entra pela veia.",
+          "sourceIds": [
+            "rinfo-contraste",
+            "cun-urografia"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada parte do corpo ao contraste e à via que a enchem nos estudos desta aula.",
+          "pairs": [
+            {
+              "left": "Esôfago, estômago e duodeno",
+              "right": "Bário engolido"
+            },
+            {
+              "left": "Cólon e reto",
+              "right": "Bário por enema, pelo reto"
+            },
+            {
+              "left": "Rins, ureteres e bexiga",
+              "right": "Iodado na veia, filtrado pelos rins"
+            },
+            {
+              "left": "Vasos sanguíneos num angiograma",
+              "right": "Iodado em veia ou artéria"
+            }
+          ],
+          "feedbackCorrect": "Cada região fica ligada ao meio e à via que a enchem.",
+          "feedbackIncorrect": "Releia o conceito: o bário vai por boca ou enema; o iodado, em geral, pelo sangue.",
+          "help": "Comece pelo que é engolido e pelo que sobe pelo reto.",
+          "sourceIds": [
+            "rinfo-contraste",
+            "rinfo-trato-alto",
+            "rinfo-colon",
+            "cun-urografia"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre os dois meios de contraste.",
+          "statements": [
+            {
+              "text": "O bário preenche o tubo digestivo por dentro e sai nas fezes.",
+              "correct": true,
+              "feedback": "Certo: o bário percorre o tubo digestivo e é expelido nas fezes."
+            },
+            {
+              "text": "O bário é injetado na veia para encher o tubo digestivo.",
+              "correct": false,
+              "feedback": "Errado: o bário é dado por boca ou por enema, e não pela veia."
+            },
+            {
+              "text": "O bário engolido é filtrado pelos rins antes de sair do corpo.",
+              "correct": false,
+              "feedback": "Errado: o bário fica dentro do tubo digestivo e sai nas fezes; quem passa pelos rins é o iodado dado na veia."
+            },
+            {
+              "text": "O iodado que enche a bexiga passou antes pelos rins.",
+              "correct": true,
+              "feedback": "Certo: injetado na veia, o iodado é filtrado pelos rins e desce pelos ureteres."
+            }
+          ],
+          "feedbackCorrect": "Você separou a via de entrada e a via de saída de cada meio.",
+          "feedbackIncorrect": "Retome o conceito: o caminho do bário é o tubo digestivo, e o do iodado pela veia passa pelos rins.",
+          "help": "Pense em qual dos dois meios é engolido.",
+          "sourceIds": [
+            "rinfo-contraste",
+            "cun-urografia"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Dois dias depois do estudo com bário, Dona Marta liga ao serviço: as fezes estão claras. O que você pode informar dentro do seu papel?",
+          "options": [
+            {
+              "label": "Que o bário sai nas fezes e pode deixá-las claras por dias.",
+              "correct": true,
+              "feedback": "Isso: o bário sai nas fezes, e elas podem ficar claras por alguns dias."
+            },
+            {
+              "label": "Que a cor mostra que o contraste foi filtrado pelos rins dela.",
+              "correct": false,
+              "feedback": "O bário não passa pelos rins: ele sai nas fezes. Retome o caminho do bário."
+            },
+            {
+              "label": "Que o estudo precisa ser repetido, porque o bário ficou retido.",
+              "correct": false,
+              "feedback": "Fezes claras não pedem repetir o estudo por si. Retome para onde o bário vai."
+            },
+            {
+              "label": "Que bário nunca muda a cor das fezes.",
+              "correct": false,
+              "feedback": "Pode mudar, por alguns dias. Confira de novo como o bário sai do corpo."
+            }
+          ],
+          "help": "Pense na via de saída do bário.",
+          "sourceIds": [
+            "rinfo-trato-alto",
+            "rinfo-contraste"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Dois caminhos no corpo",
+        "body": "Agora você consegue dizer que o bário percorre o tubo digestivo por dentro e sai nas fezes, e que o iodado dado pela veia passa pelo sangue e pelos rins. Qual meio entra em cada exame, quem define é o serviço.",
+        "line": {
+          "speaker": "lia",
+          "text": "Saber o caminho ajuda a entender o exame. Escolher o meio continua sendo do serviço."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Seu Jorge vai engolir contraste para o estudo do estômago. Que meio é esse e para onde ele vai?",
+          "options": [
+            {
+              "label": "Bário, que preenche o tubo digestivo e sai nas fezes.",
+              "correct": true,
+              "feedback": "Isso: o bário engolido percorre o tubo digestivo."
+            },
+            {
+              "label": "Iodado, que segue pelo sangue até os rins.",
+              "correct": false,
+              "feedback": "O iodado pela veia é que passa pelos rins. Retome o caminho do bário."
+            },
+            {
+              "label": "Iodado, que enche só a bexiga depois de filtrado.",
+              "correct": false,
+              "feedback": "Encher a bexiga é o caminho do iodado pela veia. Confira de novo."
+            },
+            {
+              "label": "Bário, que é injetado e eliminado pela urina.",
+              "correct": false,
+              "feedback": "O bário não é injetado nem sai pela urina. Retome a via dele."
+            }
+          ],
+          "sourceIds": [
+            "rinfo-contraste",
+            "rinfo-trato-alto"
+          ]
+        },
+        {
+          "prompt": "Para o contraste encher a bexiga numa urografia, por onde ele passa antes de chegar lá?",
+          "options": [
+            {
+              "label": "Pelo esôfago e pelo estômago, como o bário.",
+              "correct": false,
+              "feedback": "Esse é o caminho do bário engolido. Retome o do iodado pela veia."
+            },
+            {
+              "label": "Pelo cólon, subindo por uma sonda no reto.",
+              "correct": false,
+              "feedback": "Essa é a via do enema. Confira o caminho do iodado na urografia."
+            },
+            {
+              "label": "Pelo pulmão, que o devolve à bexiga.",
+              "correct": false,
+              "feedback": "O contraste não passa pelo pulmão até a bexiga. Retome o papel dos rins."
+            },
+            {
+              "label": "Pelo sangue e pelos rins, que o filtram.",
+              "correct": true,
+              "feedback": "Isso: injetado na veia, o iodado é filtrado pelos rins."
+            }
+          ],
+          "sourceIds": [
+            "cun-urografia"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o bário enche o tubo … e sai nas …",
+          "item": {
+            "prompt": "O bário engolido sai do corpo por qual via?",
+            "options": [
+              {
+                "label": "Pela urina, depois dos rins.",
+                "correct": false,
+                "feedback": "Isso é do iodado pela veia. Retome o caminho do bário."
+              },
+              {
+                "label": "Pelas fezes.",
+                "correct": true,
+                "feedback": "Isso: o bário é expelido nas fezes."
+              },
+              {
+                "label": "Pelo ar que a pessoa expira.",
+                "correct": false,
+                "feedback": "O bário não sai pela respiração. Confira de novo."
+              },
+              {
+                "label": "Ele fica no corpo para sempre.",
+                "correct": false,
+                "feedback": "O bário é expelido do corpo. Retome a via de saída."
+              }
+            ],
+            "sourceIds": [
+              "rinfo-contraste"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma colega diz que o contraste iodado só pode ser dado pela veia. O que você corrige?",
+            "options": [
+              {
+                "label": "Que ele só pode ser dado por enema, nunca pela veia.",
+                "correct": false,
+                "feedback": "A via mais comum é a veia, e não só o enema. Confira de novo."
+              },
+              {
+                "label": "Que ele só pode ser dado pela artéria, e nunca por boca.",
+                "correct": false,
+                "feedback": "A artéria é uma das vias, mas não a única. Retome as vias."
+              },
+              {
+                "label": "Que há exames com iodado por boca ou por enema.",
+                "correct": true,
+                "feedback": "Isso: a fonte cita também as vias oral e retal."
+              },
+              {
+                "label": "Nada a corrigir: o iodado só vai pela veia, sempre.",
+                "correct": false,
+                "feedback": "Há exames com iodado por boca ou enema. Retome o conceito."
+              }
+            ],
+            "sourceIds": [
+              "rinfo-contraste"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m26-02",
+      "code": "M26.02",
+      "title": "A cadeia da fluoroscopia",
+      "objective": "Hoje você vai conseguir nomear tubo, receptor, monitor e pedal e dizer o que cada um faz.",
+      "competency": "Nomear tubo, receptor, monitor e pedal e dizer o que cada um faz.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de fluoroscopia, serviço-escola",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Esta é a fluoroscopia: um vídeo de raios X, em tempo real, na tela."
+          },
+          {
+            "speaker": "duda",
+            "text": "Vídeo de raios X? Mas quem faz o vídeo, o tubo ou a tela?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Cada peça tem uma tarefa na cadeia. Vamos achar cada uma no desenho."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Quatro peças na cadeia",
+        "body": "Na fluoroscopia, o tubo emite o feixe, que atravessa a mesa e o paciente. O receptor, do outro lado, capta o que passou e o converte em sinal. O monitor mostra esse sinal como vídeo, quase na hora. O pedal fica com quem opera e aciona o feixe; o pé vai ao pedal só enquanto se olha o monitor. Neste esquema, o tubo fica sob a mesa e o receptor, acima do paciente. Na ordem ensinada nesta aula, a cadeia vai do pedal à imagem.",
+        "keyPoints": [
+          "Tubo emite; receptor capta; monitor mostra.",
+          "O pedal fica com quem opera e aciona o feixe.",
+          "Neste esquema, o tubo fica sob a mesa e o receptor acima."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na cadeia da radiografia, o que fica depois do paciente e registra o que passou do feixe?",
+          "options": [
+            {
+              "label": "O tubo, que emite e registra.",
+              "correct": false,
+              "feedback": "O tubo só emite o feixe. Retome quem registra a imagem."
+            },
+            {
+              "label": "O detector.",
+              "correct": true,
+              "feedback": "Isso: o detector recebe o feixe e registra a imagem."
+            },
+            {
+              "label": "O colimador, que fecha o campo.",
+              "correct": false,
+              "feedback": "O colimador limita o campo, mas não registra. Retome a cadeia."
+            },
+            {
+              "label": "O gerador, que produz a tensão.",
+              "correct": false,
+              "feedback": "O gerador alimenta o tubo e não registra imagem. Confira de novo."
+            }
+          ],
+          "help": "Pense no que recebe o feixe do lado oposto ao tubo.",
+          "sourceIds": [
+            "imagewisely-fluoroscopia"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule as quatro peças da cadeia, tocando na ficha e no ponto.",
+          "diagramId": "fluoroscopia-cadeia",
+          "points": [
+            {
+              "label": "Tubo",
+              "x": 0.369,
+              "y": 0.683,
+              "where": "sob o tampo, a caixa de onde o cone amarelo se abre"
+            },
+            {
+              "label": "Receptor",
+              "x": 0.369,
+              "y": 0.204,
+              "where": "no alto, a caixa larga acima do paciente deitado"
+            },
+            {
+              "label": "Monitor",
+              "x": 0.9,
+              "y": 0.288,
+              "where": "à direita, a tela num suporte alto"
+            },
+            {
+              "label": "Pedal",
+              "x": 0.669,
+              "y": 0.842,
+              "where": "no chão, o pequeno bloco perto dos pés da silhueta"
+            }
+          ],
+          "distractors": [],
+          "feedbackCorrect": "Cada peça ficou no lugar certo da cadeia.",
+          "feedbackIncorrect": "Alguma ficha ficou no ponto errado: lembre que o feixe sai de baixo e chega em cima.",
+          "help": "Siga o cone amarelo: onde ele nasce e onde termina?",
+          "sourceIds": [
+            "kjp-espalhamento",
+            "rinfo-trato-alto",
+            "imagewisely-equipe"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Na ordem ensinada nesta aula, siga o caminho do feixe, do pedal à imagem.",
+          "items": [
+            "O operador aciona o pedal",
+            "O tubo emite o feixe",
+            "O feixe atravessa a mesa e o paciente",
+            "O receptor capta o que passou",
+            "O monitor mostra a imagem em vídeo"
+          ],
+          "feedbackCorrect": "Do pedal à imagem, a cadeia ficou na ordem.",
+          "feedbackIncorrect": "Comece pelo que liga o feixe e termine no que mostra a imagem.",
+          "help": "Primeiro algo liga o feixe; por último, alguém vê a imagem.",
+          "sourceIds": [
+            "kjp-espalhamento",
+            "rinfo-trato-alto",
+            "imagewisely-fluoroscopia",
+            "imagewisely-equipe"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada função pelo momento da cadeia em que ela acontece.",
+          "categories": [
+            "Antes de o feixe atravessar o paciente",
+            "Depois de o feixe atravessar o paciente"
+          ],
+          "items": [
+            {
+              "label": "Emite o feixe",
+              "category": "Antes de o feixe atravessar o paciente"
+            },
+            {
+              "label": "Aciona a emissão",
+              "category": "Antes de o feixe atravessar o paciente"
+            },
+            {
+              "label": "Capta o que passou",
+              "category": "Depois de o feixe atravessar o paciente"
+            },
+            {
+              "label": "Mostra o vídeo da imagem",
+              "category": "Depois de o feixe atravessar o paciente"
+            }
+          ],
+          "feedbackCorrect": "Você separou o que acontece antes do paciente do que vem depois.",
+          "feedbackIncorrect": "Siga a cadeia: o que aciona e emite vem antes de o feixe chegar ao paciente; o que capta e mostra vem depois.",
+          "help": "O feixe sai de um lado e é captado do outro.",
+          "sourceIds": [
+            "kjp-espalhamento",
+            "rinfo-trato-alto",
+            "imagewisely-equipe"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "conversation",
+          "role": "transfer",
+          "speaker": "paciente",
+          "name": "Seu Jorge",
+          "prompt": "Seu Jorge está deitado na mesa e quer entender o aparelho. Responda como estudante, sem sair do seu papel.",
+          "turns": [
+            {
+              "line": "Moço, é essa tela que solta a radiação em mim?",
+              "options": [
+                {
+                  "label": "A tela só mostra; o feixe sai do tubo, sob a mesa.",
+                  "correct": true,
+                  "reply": "Ah, então a tela é só um vídeo do que passa pelo meu corpo."
+                },
+                {
+                  "label": "Sim, a tela também emite radiação, só que bem menos que o tubo.",
+                  "correct": false,
+                  "reply": "Bem menos... então ainda vem um pouquinho da tela?"
+                },
+                {
+                  "label": "Quem emite é o receptor, o aparelho que fica acima do senhor.",
+                  "correct": false,
+                  "reply": "O de cima? Eu achava que ele só ficava olhando."
+                }
+              ]
+            },
+            {
+              "line": "E quem decide a hora em que o feixe liga?",
+              "options": [
+                {
+                  "label": "O próprio aparelho liga sozinho assim que o senhor se mexe na mesa.",
+                  "correct": false,
+                  "reply": "Sozinho? Então eu preciso ficar bem quietinho."
+                },
+                {
+                  "label": "A tela comanda o feixe: ela liga quando precisa de uma imagem nova.",
+                  "correct": false,
+                  "reply": "A tela decide? Não sabia que ela mandava em alguma coisa."
+                },
+                {
+                  "label": "Quem opera aciona o pedal, seguindo o protocolo do serviço.",
+                  "correct": true,
+                  "reply": "Entendi, tem alguém com o pé no pedal."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Você explicou a cadeia sem sair do papel: a tela mostra, o tubo emite e o pedal está com quem opera.",
+          "feedbackIncorrect": "Retome a cadeia: o tubo emite, o receptor capta, o monitor mostra e o pedal está com quem opera.",
+          "help": "Pense em qual peça emite e qual só mostra.",
+          "sourceIds": [
+            "kjp-espalhamento",
+            "rinfo-trato-alto",
+            "imagewisely-equipe"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "A cadeia em ordem",
+        "body": "Agora você consegue nomear tubo, receptor, monitor e pedal e dizer a tarefa de cada um: o tubo emite, o receptor capta, o monitor mostra e o pedal, com quem opera, aciona o feixe.",
+        "line": {
+          "speaker": "caio",
+          "text": "Quando você sabe qual peça faz o quê, a sala deixa de ser um mistério."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Duda aponta a caixa que fica sob a mesa e emite o feixe. Qual peça da cadeia é essa?",
+          "options": [
+            {
+              "label": "O receptor, acima do paciente.",
+              "correct": false,
+              "feedback": "O receptor capta, e não emite. Retome a posição de cada peça."
+            },
+            {
+              "label": "O tubo.",
+              "correct": true,
+              "feedback": "Isso: o tubo emite o feixe."
+            },
+            {
+              "label": "O monitor, ao lado da mesa.",
+              "correct": false,
+              "feedback": "O monitor mostra a imagem. Confira de novo."
+            },
+            {
+              "label": "O pedal, no chão.",
+              "correct": false,
+              "feedback": "O pedal aciona o feixe, mas fica com quem opera, no chão. Retome qual peça emite."
+            }
+          ],
+          "sourceIds": [
+            "kjp-espalhamento"
+          ]
+        },
+        {
+          "prompt": "Na fluoroscopia, o que o monitor faz?",
+          "options": [
+            {
+              "label": "Emite o feixe que atravessa o paciente.",
+              "correct": false,
+              "feedback": "Quem emite é o tubo. Retome o papel do monitor."
+            },
+            {
+              "label": "Capta o feixe depois do paciente.",
+              "correct": false,
+              "feedback": "Quem capta é o receptor. Confira de novo."
+            },
+            {
+              "label": "Mostra o vídeo do que o receptor captou.",
+              "correct": true,
+              "feedback": "Isso: o monitor mostra o sinal como vídeo, quase na hora."
+            },
+            {
+              "label": "Aciona o feixe.",
+              "correct": false,
+              "feedback": "Isso é do pedal, com quem opera. Retome a cadeia."
+            }
+          ],
+          "sourceIds": [
+            "rinfo-trato-alto"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o feixe sai do … e é captado pelo …",
+          "item": {
+            "prompt": "No esquema desta aula, de onde sai o feixe?",
+            "options": [
+              {
+                "label": "Do monitor, ao lado da mesa.",
+                "correct": false,
+                "feedback": "O monitor só mostra. Retome onde o feixe nasce."
+              },
+              {
+                "label": "Do receptor, acima do paciente.",
+                "correct": false,
+                "feedback": "O receptor capta o feixe. Confira de novo."
+              },
+              {
+                "label": "Do pedal, no chão.",
+                "correct": false,
+                "feedback": "O pedal só aciona o feixe. Retome a peça que emite."
+              },
+              {
+                "label": "Do tubo, sob a mesa.",
+                "correct": true,
+                "feedback": "Isso: o tubo fica sob a mesa e o feixe sobe."
+              }
+            ],
+            "sourceIds": [
+              "kjp-espalhamento"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um colega diz que o receptor aciona o feixe. O que você corrige?",
+            "options": [
+              {
+                "label": "Que o receptor só capta; quem emite é o tubo.",
+                "correct": true,
+                "feedback": "Isso: o receptor capta o que passou pelo paciente."
+              },
+              {
+                "label": "Nada: o receptor aciona o feixe.",
+                "correct": false,
+                "feedback": "Acionar o feixe é do pedal. Retome a cadeia."
+              },
+              {
+                "label": "Que o receptor emite um feixe mais fraco.",
+                "correct": false,
+                "feedback": "O receptor não emite feixe. Confira de novo."
+              },
+              {
+                "label": "Que quem aciona o feixe é o monitor.",
+                "correct": false,
+                "feedback": "O monitor só mostra a imagem. Retome o papel de cada peça."
+              }
+            ],
+            "sourceIds": [
+              "kjp-espalhamento"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m26-03",
+      "code": "M26.03",
+      "title": "Pulsar e reter a imagem",
+      "objective": "Hoje você vai conseguir explicar como pulsos, imagem retida e tempo de pedal mudam a exposição.",
+      "competency": "Explicar como pulso, última imagem retida e tempo de pedal mudam a exposição.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de fluoroscopia, serviço-escola",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "A imagem ficou parada na tela. Será que o aparelho travou?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Não travou: a imagem ficou retida. E o feixe pode sair em pulsos, e não o tempo todo."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Olhe o desenho: o que muda no feixe e o que a tela guarda?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Pulsos, imagem retida e tempo",
+        "body": "Na fluoroscopia contínua, o feixe fica ligado sem pausa enquanto dura a aquisição. Na pulsada, ele sai em pulsos curtos, com pausas sem feixe: menos pulsos por segundo, menos exposição. A última imagem pode ficar retida na tela e ser olhada sem nova exposição. Menos tempo de feixe ligado, menos exposição: o pé vai ao pedal só quando se olha o monitor. Alguns estudos, como o de deglutição, pedem mais pulsos.",
+        "keyPoints": [
+          "Pulsada: pausas sem feixe entre os pulsos.",
+          "Imagem retida: olha-se sem nova exposição.",
+          "Menos tempo de feixe ligado, menos exposição."
+        ],
+        "visual": "fluoroscopia-pulsada"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, qual peça da cadeia mostra a imagem em vídeo para quem opera?",
+          "options": [
+            {
+              "label": "O tubo, sob a mesa.",
+              "correct": false,
+              "feedback": "O tubo emite o feixe. Retome quem mostra a imagem."
+            },
+            {
+              "label": "O receptor, acima do paciente.",
+              "correct": false,
+              "feedback": "O receptor capta o que passou. Confira de novo."
+            },
+            {
+              "label": "O monitor.",
+              "correct": true,
+              "feedback": "Isso: o monitor mostra o sinal captado como vídeo."
+            },
+            {
+              "label": "O pedal, no chão.",
+              "correct": false,
+              "feedback": "O pedal liga o feixe. Retome qual peça mostra o vídeo."
+            }
+          ],
+          "help": "Pense na peça que o operador olha.",
+          "sourceIds": [
+            "rinfo-trato-alto"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre a fluoroscopia pulsada.",
+          "statements": [
+            {
+              "text": "Na pulsada, há pausas sem feixe entre os pulsos.",
+              "correct": true,
+              "feedback": "Certo: o feixe sai em pulsos curtos, com pausas entre um e outro."
+            },
+            {
+              "text": "Pulsar é deixar o mesmo feixe contínuo mais forte, sem pausas.",
+              "correct": false,
+              "feedback": "Errado: pulsar é ligar o feixe em pulsos, com pausas, e não reforçá-lo."
+            },
+            {
+              "text": "Com menos pulsos por segundo, a exposição tende a cair.",
+              "correct": true,
+              "feedback": "Certo: pulsos mais espaçados deixam menos tempo de feixe ligado."
+            },
+            {
+              "text": "A pulsada deixa o feixe ligado durante as pausas.",
+              "correct": false,
+              "feedback": "Errado: nas pausas o feixe está desligado, e é isso que reduz a exposição."
+            }
+          ],
+          "feedbackCorrect": "Você separou o pulso da pausa e viu o efeito do número de pulsos.",
+          "feedbackIncorrect": "Retome o conceito: pulsada tem pausas sem feixe, e menos pulsos por segundo reduz a exposição.",
+          "help": "Pense no que existe entre dois pulsos.",
+          "sourceIds": [
+            "imagewisely-fluoroscopia",
+            "kjp-espalhamento"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "blitz",
+          "role": "practice",
+          "prompt": "Responda verdadeiro ou falso a cada afirmação sobre pulso, imagem retida e tempo de feixe.",
+          "statements": [
+            {
+              "text": "A última imagem retida pode ser olhada sem novo feixe.",
+              "correct": true,
+              "feedback": "Verdade: com o feixe desligado, a imagem retida segue na tela para ser olhada."
+            },
+            {
+              "text": "Menos pulsos por segundo aumentam a exposição do paciente.",
+              "correct": false,
+              "feedback": "Falso: com menos pulsos por segundo há menos tempo de feixe, e a exposição cai."
+            },
+            {
+              "text": "Menos tempo de feixe ligado, menos exposição.",
+              "correct": true,
+              "feedback": "Verdade: quanto menos tempo de feixe ligado, menos exposição."
+            },
+            {
+              "text": "Um estudo de deglutição pode pedir mais pulsos por segundo.",
+              "correct": true,
+              "feedback": "Verdade: alguns estudos, como o de deglutição, pedem mais pulsos por segundo."
+            },
+            {
+              "text": "Para rever uma imagem já retida, é preciso uma nova exposição.",
+              "correct": false,
+              "feedback": "Falso: a imagem retida pode ser revista na tela sem nova exposição."
+            },
+            {
+              "text": "O número de pulsos por segundo é igual em todo estudo.",
+              "correct": false,
+              "feedback": "Falso: o ajuste varia com o estudo, e o serviço define o valor."
+            }
+          ],
+          "feedbackCorrect": "Você manteve o ritmo e separou o que reduz a exposição do que não reduz.",
+          "feedbackIncorrect": "Reveja o retorno de cada afirmação: pausa, imagem retida e tempo de feixe têm explicação própria.",
+          "help": "Leia cada afirmação sem pressa e pense se há feixe ligado.",
+          "sourceIds": [
+            "imagewisely-fluoroscopia",
+            "kjp-espalhamento"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "multi-select",
+          "role": "practice",
+          "prompt": "Marque todas as medidas que reduzem a exposição do paciente, segundo a aula.",
+          "options": [
+            {
+              "label": "Manter o pé no pedal enquanto conversa, sem olhar o monitor",
+              "correct": false,
+              "feedback": "Pedal acionado é feixe ligado: conversar com o pedal acionado só aumenta a exposição."
+            },
+            {
+              "label": "Olhar a imagem retida em vez de acionar de novo",
+              "correct": true,
+              "feedback": "A imagem retida se olha sem novo feixe, e isso poupa exposição."
+            },
+            {
+              "label": "Menos tempo de feixe ligado",
+              "correct": true,
+              "feedback": "Menos tempo de feixe ligado significa menos exposição."
+            },
+            {
+              "label": "Acionar o pedal mais vezes para a tela ficar mais nítida",
+              "correct": false,
+              "feedback": "Acionar mais vezes aumenta o tempo de feixe, e não é medida de redução."
+            },
+            {
+              "label": "Pausas entre os pulsos, na fluoroscopia pulsada",
+              "correct": true,
+              "feedback": "As pausas deixam o feixe desligado entre os pulsos, e isso reduz a exposição."
+            }
+          ],
+          "feedbackCorrect": "Você marcou o que reduz o feixe ligado e deixou de fora o que o aumenta.",
+          "feedbackIncorrect": "Pergunte de cada medida: ela reduz o tempo de feixe ligado ou o aumenta?",
+          "help": "Pense no que diminui o tempo em que há feixe ligado.",
+          "sourceIds": [
+            "imagewisely-fluoroscopia",
+            "imagewisely-equipe"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "No estudo de deglutição de Seu Jorge, a equipe usa mais pulsos por segundo que no estudo de estômago. Duda estranha. Que explicação combina com a aula?",
+          "options": [
+            {
+              "label": "Menos pulsos reduz a exposição, mas alguns estudos pedem mais.",
+              "correct": true,
+              "feedback": "Isso: alguns estudos, como o de deglutição, pedem mais pulsos, e o serviço define o ajuste."
+            },
+            {
+              "label": "A equipe errou: mais pulsos nunca é o ajuste certo.",
+              "correct": false,
+              "feedback": "Há estudos que pedem mais pulsos, como o de deglutição. Retome o conceito."
+            },
+            {
+              "label": "Mais pulsos deixam o feixe desligado por mais tempo.",
+              "correct": false,
+              "feedback": "Mais pulsos significam mais tempo de feixe, e não menos. Confira de novo."
+            },
+            {
+              "label": "O número de pulsos é o mesmo em todo estudo.",
+              "correct": false,
+              "feedback": "O ajuste varia com o estudo, e o serviço define o valor. Retome o conceito."
+            }
+          ],
+          "help": "Pense no que o estudo de deglutição precisa mostrar em movimento.",
+          "sourceIds": [
+            "imagewisely-fluoroscopia"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Pulso, imagem e tempo",
+        "body": "Agora você consegue explicar que o pulso deixa pausas sem feixe, que a imagem retida se olha sem nova exposição e que menos tempo de feixe ligado significa menos exposição.",
+        "line": {
+          "speaker": "lia",
+          "text": "Dose se poupa com escolhas pequenas, repetidas a cada pedal."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Na fluoroscopia pulsada, o que acontece com o feixe entre um pulso e o seguinte?",
+          "options": [
+            {
+              "label": "Fica desligado, numa pausa.",
+              "correct": true,
+              "feedback": "Isso: entre os pulsos há pausas sem feixe."
+            },
+            {
+              "label": "Fica ligado, só que mais fraco.",
+              "correct": false,
+              "feedback": "O feixe fica desligado nas pausas. Retome o que é pulsar."
+            },
+            {
+              "label": "Fica ligado e mais forte, para compensar.",
+              "correct": false,
+              "feedback": "Pulsar não reforça o feixe. Confira de novo."
+            },
+            {
+              "label": "Troca de lado, passando para o receptor.",
+              "correct": false,
+              "feedback": "O feixe não troca de lado. Retome o conceito."
+            }
+          ],
+          "sourceIds": [
+            "imagewisely-fluoroscopia"
+          ]
+        },
+        {
+          "prompt": "A equipe precisa olhar de novo a última imagem do estudo. Como isso pode ser feito sem nova exposição?",
+          "options": [
+            {
+              "label": "Mantendo o feixe ligado até terminar de olhar.",
+              "correct": false,
+              "feedback": "Feixe ligado é exposição. Retome a imagem retida."
+            },
+            {
+              "label": "Desligando e religando o aparelho inteiro.",
+              "correct": false,
+              "feedback": "Religar o aparelho não traz a imagem de volta. Confira de novo."
+            },
+            {
+              "label": "Olhando a última imagem, retida na tela.",
+              "correct": true,
+              "feedback": "Isso: ela fica na tela e pode ser olhada sem nova exposição."
+            },
+            {
+              "label": "Pedindo ao monitor que emita um feixe mais fraco.",
+              "correct": false,
+              "feedback": "O monitor só mostra a imagem. Retome o papel dele."
+            }
+          ],
+          "sourceIds": [
+            "imagewisely-fluoroscopia"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: menos tempo de feixe ligado, … exposição.",
+          "item": {
+            "prompt": "Segundo a aula, o que acontece com a exposição quando o feixe fica menos tempo ligado?",
+            "options": [
+              {
+                "label": "Ela aumenta, porque a imagem fica menos nítida.",
+                "correct": false,
+                "feedback": "Menos tempo reduz a exposição. Retome a relação."
+              },
+              {
+                "label": "Ela diminui.",
+                "correct": true,
+                "feedback": "Isso: menos tempo de feixe ligado, menos exposição."
+              },
+              {
+                "label": "Ela não muda.",
+                "correct": false,
+                "feedback": "O tempo de feixe ligado muda a exposição. Confira de novo."
+              },
+              {
+                "label": "Ela dobra a cada pausa.",
+                "correct": false,
+                "feedback": "As pausas reduzem o tempo de feixe. Retome o conceito."
+              }
+            ],
+            "sourceIds": [
+              "imagewisely-fluoroscopia"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Numa sala de treino, a equipe discute uma imagem parada na tela sem fazer nova exposição. Qual é a explicação coerente?",
+            "options": [
+              {
+                "label": "O feixe segue ligado, e ninguém percebeu.",
+                "correct": false,
+                "feedback": "A cena diz que não há nova exposição. Retome a imagem retida."
+              },
+              {
+                "label": "A tela guarda a imagem e emite um feixe.",
+                "correct": false,
+                "feedback": "A tela não emite feixe. Confira de novo."
+              },
+              {
+                "label": "A pausa dura até o pulso seguinte.",
+                "correct": false,
+                "feedback": "Pausa é da pulsada, e aqui o pedal está solto. Retome o conceito."
+              },
+              {
+                "label": "É a última imagem, retida na tela.",
+                "correct": true,
+                "feedback": "Isso: a imagem retida fica na tela sem novo feixe."
+              }
+            ],
+            "sourceIds": [
+              "imagewisely-fluoroscopia"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m26-04",
+      "code": "M26.04",
+      "title": "Onde ficar na sala",
+      "objective": "Hoje você vai conseguir apontar onde o espalhamento é mais forte e que barreiras e distância protegem a equipe.",
+      "competency": "Achar os pontos de mais radiação espalhada e as barreiras na sala de fluoroscopia.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de fluoroscopia, com a fluoroscopia ligada",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Vou ficar bem junto da mesa, do lado do tubo, para ver melhor o paciente."
+          },
+          {
+            "speaker": "caio",
+            "text": "Calma. De onde vem a radiação que chega na gente quando o feixe está ligado?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos ver de onde ela sai e onde ela chega mais forte."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Espalhamento e barreiras",
+        "body": "Na fluoroscopia, o que mais chega à equipe é o espalhamento que sai do paciente. Com o tubo sob a mesa, ele é mais forte do lado do tubo, na altura das pernas; acima da mesa, é mais fraco. As barreiras somam-se: avental, protetor de tireoide, saiote preso à lateral da mesa e biombo. A distância ajuda: neste esquema, a leitura cai com o quadrado da distância, e dobrá-la deixa um quarto. A equipe usa o que o serviço define, e o estudante fica onde a supervisão indicar.",
+        "keyPoints": [
+          "O espalhamento sai do paciente e é mais forte do lado do tubo.",
+          "Avental, protetor, saiote e biombo se somam à distância.",
+          "Fraco não é zero: a barreira do serviço vale em cima também."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na unidade de dosimetria, você usou um esquema com fonte pontual. Nele, o que acontece com a leitura quando a distância dobra?",
+          "options": [
+            {
+              "label": "Cai a um quarto da leitura anterior.",
+              "correct": true,
+              "feedback": "Isso: neste esquema, dobrar a distância deixa um quarto da leitura."
+            },
+            {
+              "label": "Cai à metade da leitura anterior.",
+              "correct": false,
+              "feedback": "A metade é da blindagem por camada, e não da distância. Retome a relação com o quadrado."
+            },
+            {
+              "label": "Dobra, porque a radiação se espalha mais.",
+              "correct": false,
+              "feedback": "A leitura cai quando a distância cresce. Confira de novo."
+            },
+            {
+              "label": "Fica igual, pois o feixe é o mesmo.",
+              "correct": false,
+              "feedback": "A leitura muda com a distância. Retome o esquema."
+            }
+          ],
+          "help": "Pense no quadrado da distância, que vale só neste esquema.",
+          "sourceIds": [
+            "kjp-espalhamento"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "parameter-lab",
+          "role": "practice",
+          "prompt": "Neste esquema o espalhamento sai do paciente como de um ponto. A partir de 1 m, ache o menor afastamento da grade que já deixa a leitura abaixo da metade.",
+          "model": "inverse-square",
+          "start": 1,
+          "goal": {
+            "atLeast": 1.5,
+            "atMost": 1.5
+          },
+          "hints": {
+            "tooLow": "A 1 m a leitura ainda está inteira: dê o primeiro passo para trás.",
+            "tooHigh": "Aqui já está bem abaixo da metade, mas não é o menor afastamento: volte um passo."
+          },
+          "feedbackCorrect": "Isso: neste esquema, de 1 m para 1,5 m a leitura já cai para menos da metade, perto de 44%.",
+          "feedbackIncorrect": "Ainda não: compare a leitura de cada passo com a metade e fique no primeiro que passa abaixo dela.",
+          "help": "Eleve ao quadrado quantas vezes a distância cresceu e veja se passa de 2.",
+          "sourceIds": [
+            "kjp-espalhamento"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "risk-hunt",
+          "role": "practice",
+          "prompt": "Com o feixe ligado, toque em todas as regiões do esquema aonde chega espalhamento que vem do paciente.",
+          "diagramId": "sala-de-fluoroscopia-espalhada",
+          "regions": [
+            {
+              "label": "Pernas do operador, atrás do saiote",
+              "x": 0.615,
+              "y": 0.6,
+              "width": 0.085,
+              "height": 0.25,
+              "risk": false,
+              "feedback": "No esquema, os raios fortes param no saiote, entre a mesa e o operador, e não chegam às pernas dele."
+            },
+            {
+              "label": "Abaixo da mesa, do lado do tubo",
+              "x": 0.36,
+              "y": 0.55,
+              "width": 0.17,
+              "height": 0.3,
+              "risk": true,
+              "feedback": "Ali passam os raios grossos: com o tubo sob a mesa, o espalhamento é mais forte nessa altura, a das pernas."
+            },
+            {
+              "label": "Pessoa afastada, atrás do biombo",
+              "x": 0.87,
+              "y": 0.5,
+              "width": 0.09,
+              "height": 0.35,
+              "risk": false,
+              "feedback": "No esquema nenhum raio chega a ela: a distância e o biombo reduzem muito o que alcança quem fica ali."
+            },
+            {
+              "label": "Pescoço do operador",
+              "x": 0.605,
+              "y": 0.21,
+              "width": 0.09,
+              "height": 0.09,
+              "risk": true,
+              "feedback": "Os raios finos de cima chegam ao pescoço: mais fraco não é zero, e é por isso que existe o protetor de tireoide."
+            }
+          ],
+          "feedbackCorrect": "Você marcou onde o espalhamento chega e deixou de fora o que distância e barreira protegem.",
+          "feedbackIncorrect": "Releia o desenho: marque onde os raios terminam no corpo ou no espaço, e não o que fica protegido atrás das barreiras.",
+          "help": "Siga cada raio que sai do paciente até onde ele termina.",
+          "sourceIds": [
+            "kjp-espalhamento",
+            "landauer-protecao-fluoro"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "multi-select",
+          "role": "safety",
+          "criticalSafety": true,
+          "prompt": "Marque todas as medidas que reduzem o espalhamento que chega à equipe, segundo a aula.",
+          "options": [
+            {
+              "label": "Ficar junto ao tubo para ver melhor, se o avental estiver vestido",
+              "correct": false,
+              "feedback": "Junto ao tubo o espalhamento é mais forte, e o avental sozinho não compensa. Fique onde a supervisão indicar."
+            },
+            {
+              "label": "Aumentar a distância do paciente quando a supervisão permite",
+              "correct": true,
+              "feedback": "A distância reduz o espalhamento: neste esquema, dobrar deixa um quarto da leitura."
+            },
+            {
+              "label": "Vestir o avental e o protetor de tireoide indicados pelo serviço",
+              "correct": true,
+              "feedback": "As barreiras de vestir cobrem tronco e pescoço, onde o espalhamento chega."
+            },
+            {
+              "label": "Dispensar o protetor de tireoide, porque em cima o espalhamento é fraco",
+              "correct": false,
+              "feedback": "Mais fraco não é zero: o protetor de tireoide segue valendo, conforme o serviço."
+            },
+            {
+              "label": "Ficar atrás do biombo quando a supervisão indicar",
+              "correct": true,
+              "feedback": "O biombo reduz muito o espalhamento que chega a quem fica atrás dele."
+            }
+          ],
+          "feedbackCorrect": "Você marcou distância e barreiras e deixou de fora o que aproxima da fonte ou dispensa proteção.",
+          "feedbackIncorrect": "Pergunte de cada medida: ela afasta da fonte ou barra o espalhamento, ou deixa mais exposto?",
+          "help": "Distância e barreira reduzem; aproximar-se ou dispensar proteção, não.",
+          "sourceIds": [
+            "kjp-espalhamento",
+            "landauer-protecao-fluoro",
+            "imagewisely-fluoroscopia"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "conversation",
+          "role": "transfer",
+          "speaker": "duda",
+          "prompt": "Duda está de avental e quer ajuda para escolher onde ficar. Responda como colega de turma.",
+          "turns": [
+            {
+              "line": "Vou ficar rente à mesa, do lado do tubo, para ver melhor o paciente. Pode ser?",
+              "options": [
+                {
+                  "label": "Vamos ver onde a supervisão indica e usar as barreiras do serviço.",
+                  "correct": true,
+                  "reply": "Combinado, vou perguntar à Profa. Lia onde posso ficar."
+                },
+                {
+                  "label": "Pode ir, o avental serve para qualquer lugar da sala, sem diferença.",
+                  "correct": false,
+                  "reply": "Então fico ali, rente à mesa, mesmo."
+                },
+                {
+                  "label": "Pode ir, o espalhamento é igual em todo canto, então tanto faz.",
+                  "correct": false,
+                  "reply": "Igual em todo canto? Que prático."
+                }
+              ]
+            },
+            {
+              "line": "Em cima da mesa o espalhamento é mais fraco. Dá para dispensar o protetor de tireoide?",
+              "options": [
+                {
+                  "label": "Dá, se a exposição for curta, porque em pouco tempo não chega nada.",
+                  "correct": false,
+                  "reply": "Então hoje fico sem, o exame é rápido."
+                },
+                {
+                  "label": "Não: mais fraco não é zero, e o serviço define o protetor.",
+                  "correct": true,
+                  "reply": "Tá, então coloco o protetor antes de entrar."
+                },
+                {
+                  "label": "Dá, porque o protetor só serve para o espalhamento de baixo.",
+                  "correct": false,
+                  "reply": "Só de baixo? Que bom, então fico sem."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Você combinou o lugar com a supervisão e manteve o protetor mesmo com espalhamento mais fraco.",
+          "feedbackIncorrect": "Retome a aula: o lugar vem da supervisão, e mais fraco não é zero.",
+          "help": "Pense em quem define onde ficar e no que o protetor cobre.",
+          "sourceIds": [
+            "kjp-espalhamento",
+            "imagewisely-fluoroscopia"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Distância e barreira",
+        "body": "Agora você consegue apontar onde o espalhamento é mais forte, do lado do tubo, e lembrar que avental, protetor, saiote, biombo e distância se somam. Onde ficar, quem indica é a supervisão.",
+        "line": {
+          "speaker": "caio",
+          "text": "Ver de onde a radiação vem é o primeiro passo para escolher onde não estar."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Com o tubo sob a mesa, em qual região o espalhamento é mais forte?",
+          "options": [
+            {
+              "label": "Do lado do receptor, na altura da cabeça.",
+              "correct": false,
+              "feedback": "Acima da mesa o espalhamento é mais fraco. Retome o lado do tubo."
+            },
+            {
+              "label": "Igual em toda a sala, sem diferença.",
+              "correct": false,
+              "feedback": "Ele não é igual: depende do lado do tubo. Confira de novo."
+            },
+            {
+              "label": "Atrás do biombo, longe do paciente.",
+              "correct": false,
+              "feedback": "Atrás do biombo é onde menos chega. Retome o desenho."
+            },
+            {
+              "label": "Do lado do tubo, na altura das pernas.",
+              "correct": true,
+              "feedback": "Isso: ali o espalhamento é mais forte, e acima da mesa é mais fraco."
+            }
+          ],
+          "sourceIds": [
+            "kjp-espalhamento",
+            "landauer-protecao-fluoro"
+          ]
+        },
+        {
+          "prompt": "Qual destes itens é uma barreira entre a equipe e o espalhamento?",
+          "options": [
+            {
+              "label": "O pedal do operador.",
+              "correct": false,
+              "feedback": "O pedal liga o feixe e não barra o espalhamento. Retome as barreiras."
+            },
+            {
+              "label": "O saiote na lateral da mesa.",
+              "correct": true,
+              "feedback": "Isso: o saiote, preso à lateral da mesa, barra o espalhamento que vai para as pernas."
+            },
+            {
+              "label": "O monitor de imagem.",
+              "correct": false,
+              "feedback": "O monitor mostra a imagem. Confira de novo."
+            },
+            {
+              "label": "O número de pulsos por segundo.",
+              "correct": false,
+              "feedback": "Pulsos mudam o feixe, e não são barreira. Retome o conceito."
+            }
+          ],
+          "sourceIds": [
+            "kjp-espalhamento",
+            "landauer-protecao-fluoro"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o espalhamento sai do … e é mais forte do lado do …",
+          "item": {
+            "prompt": "Qual item cobre o pescoço do operador, onde o espalhamento chega?",
+            "options": [
+              {
+                "label": "O saiote da mesa.",
+                "correct": false,
+                "feedback": "O saiote cobre a lateral da mesa, e não o pescoço. Retome as barreiras."
+              },
+              {
+                "label": "O pedal do operador.",
+                "correct": false,
+                "feedback": "O pedal liga o feixe. Confira de novo."
+              },
+              {
+                "label": "O protetor de tireoide.",
+                "correct": true,
+                "feedback": "Isso: ele cobre o pescoço e a tireoide."
+              },
+              {
+                "label": "O monitor de imagem.",
+                "correct": false,
+                "feedback": "O monitor só mostra a imagem. Retome o que cobre o pescoço."
+              }
+            ],
+            "sourceIds": [
+              "kjp-espalhamento"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Duda quer ficar a 1 m da mesa, e a Profa. Lia sugere 2 m. No esquema, o que muda na leitura?",
+            "options": [
+              {
+                "label": "Ela cai a um quarto da leitura a 1 m.",
+                "correct": true,
+                "feedback": "Isso: dobrar a distância deixa um quarto da leitura, neste esquema."
+              },
+              {
+                "label": "Ela cai à metade da leitura a 1 m.",
+                "correct": false,
+                "feedback": "A metade é da blindagem por camada. Retome a distância."
+              },
+              {
+                "label": "Ela fica igual, pois o feixe é o mesmo.",
+                "correct": false,
+                "feedback": "A leitura cai com a distância. Confira de novo."
+              },
+              {
+                "label": "Ela dobra, pois há mais área.",
+                "correct": false,
+                "feedback": "A leitura cai quando a distância cresce. Retome o esquema."
+              }
+            ],
+            "sourceIds": [
+              "kjp-espalhamento"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m26-05",
+      "code": "M26.05",
+      "title": "O tubo digestivo com contraste",
+      "objective": "Hoje você vai conseguir ordenar o percurso do bário engolido e dizer o que cabe a você no preparo.",
+      "competency": "Ordenar o percurso do bário nos estudos do tubo digestivo e dizer o que cabe ao estudante no preparo.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de fluoroscopia, estudo do estômago",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Seu Jorge",
+            "text": "Vou tomar aquele leite grosso? Disseram que dá para ver o líquido descendo pela tela."
+          },
+          {
+            "speaker": "caio",
+            "text": "Dá, sim. O radiologista acompanha o bário no monitor enquanto o senhor bebe."
+          },
+          {
+            "speaker": "duda",
+            "text": "E o jejum e o preparo? Quem confere tudo isso?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos seguir o bário e ver o que fica com você."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Percurso do bário e preparo",
+        "body": "No estudo do trato digestivo alto, a pessoa bebe o bário, que passa pelo esôfago e pelo estômago e chega ao duodeno, enquanto o radiologista acompanha na tela. A mesa se inclina, e as imagens são feitas depois que o bário reveste o trato. No estudo do cólon, o bário entra por uma sonda no reto, por gravidade, e a pessoa se vira em várias posições; no fim, expele o que sobrou. O preparo, como jejum ou limpeza do intestino, vem do protocolo: você confere se foi feito e avisa a equipe se não foi.",
+        "keyPoints": [
+          "Bário engolido: esôfago, estômago e duodeno.",
+          "Estudo do cólon: sonda no reto e várias posições.",
+          "O preparo vem do protocolo; você confere e avisa."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na primeira aula, o bário dado por boca ou por enema sai do corpo por qual via?",
+          "options": [
+            {
+              "label": "Pela urina, depois dos rins.",
+              "correct": false,
+              "feedback": "Esse é o caminho do iodado pela veia. Retome o do bário."
+            },
+            {
+              "label": "Pelo suor, ao longo do dia.",
+              "correct": false,
+              "feedback": "O bário não sai pelo suor. Confira de novo."
+            },
+            {
+              "label": "Pela expiração, como um gás.",
+              "correct": false,
+              "feedback": "O bário não sai pela respiração. Retome a via de saída."
+            },
+            {
+              "label": "Pelas fezes.",
+              "correct": true,
+              "feedback": "Isso: o bário é expelido nas fezes."
+            }
+          ],
+          "help": "Pense onde o bário passou dentro do corpo.",
+          "sourceIds": [
+            "rinfo-contraste"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "No estudo do trato digestivo alto, o bário desce pelo esôfago. Toque na parte seguinte, onde ele chega.",
+          "diagramId": "trato-digestivo",
+          "regions": [
+            {
+              "label": "Fígado",
+              "x": 0.17,
+              "y": 0.22,
+              "width": 0.33,
+              "height": 0.26
+            },
+            {
+              "label": "Estômago",
+              "x": 0.56,
+              "y": 0.23,
+              "width": 0.19,
+              "height": 0.29,
+              "correct": true
+            },
+            {
+              "label": "Intestino delgado",
+              "x": 0.35,
+              "y": 0.7,
+              "width": 0.36,
+              "height": 0.21
+            },
+            {
+              "label": "Intestino grosso",
+              "x": 0.21,
+              "y": 0.58,
+              "width": 0.09,
+              "height": 0.38
+            }
+          ],
+          "feedbackCorrect": "Isso: depois do esôfago o bário chega ao estômago e segue até o duodeno.",
+          "feedbackIncorrect": "Essa parte não é a seguinte no percurso do bário engolido: acompanhe a descida a partir do esôfago.",
+          "help": "Siga o tubo que desce do pescoço: onde ele se abre?",
+          "sourceIds": [
+            "rinfo-trato-alto",
+            "niddk-trato-alto"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Na ordem ensinada nesta aula, ordene o percurso do bário engolido.",
+          "items": [
+            "Boca, quando a pessoa bebe",
+            "Esôfago",
+            "Estômago",
+            "Duodeno, início do intestino delgado"
+          ],
+          "feedbackCorrect": "O bário desceu na ordem: da boca ao duodeno.",
+          "feedbackIncorrect": "Siga a descida do líquido, da boca até o início do intestino delgado.",
+          "help": "O bário segue o caminho do alimento engolido.",
+          "sourceIds": [
+            "rinfo-trato-alto"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada ação em quem a faz num estudo do tubo digestivo.",
+          "categories": [
+            "Cabe a você",
+            "Cabe ao protocolo ou à equipe"
+          ],
+          "items": [
+            {
+              "label": "Conferir com a pessoa se o preparo foi feito",
+              "category": "Cabe a você"
+            },
+            {
+              "label": "Avisar a equipe se o preparo veio incompleto",
+              "category": "Cabe a você"
+            },
+            {
+              "label": "Definir o jejum e a limpeza do intestino",
+              "category": "Cabe ao protocolo ou à equipe"
+            },
+            {
+              "label": "Escolher o meio de contraste do estudo",
+              "category": "Cabe ao protocolo ou à equipe"
+            },
+            {
+              "label": "Definir qual bário e quanto a pessoa recebe",
+              "category": "Cabe ao protocolo ou à equipe"
+            }
+          ],
+          "feedbackCorrect": "Você separou o que confere e avisa do que o protocolo e a equipe definem.",
+          "feedbackIncorrect": "Pergunte de cada ação: você confere e comunica, ou ela define o preparo e o contraste?",
+          "help": "Você confere e avisa; escolher e definir é do serviço.",
+          "sourceIds": [
+            "rinfo-trato-alto",
+            "rinfo-colon",
+            "rinfo-contraste"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Julgue cada afirmação sobre o estudo do cólon com bário.",
+          "statements": [
+            {
+              "text": "No estudo do cólon, o bário entra por uma sonda no reto.",
+              "correct": true,
+              "feedback": "Certo: uma pequena sonda no reto deixa o bário entrar, por gravidade."
+            },
+            {
+              "text": "A pessoa é virada e reposicionada várias vezes durante o estudo.",
+              "correct": true,
+              "feedback": "Certo: a pessoa é reposicionada para ver o cólon de ângulos diferentes."
+            },
+            {
+              "text": "No fim, a pessoa expele o bário que sobrou.",
+              "correct": true,
+              "feedback": "Certo: a maior parte sai pela sonda, e a pessoa expele o resto no banheiro."
+            },
+            {
+              "text": "No estudo do estômago, o bário entra por sonda no reto.",
+              "correct": false,
+              "feedback": "Errado: no estudo do estômago o bário é engolido, e a sonda no reto é do estudo do cólon."
+            }
+          ],
+          "feedbackCorrect": "Você separou o estudo do cólon do estudo do trato digestivo alto.",
+          "feedbackIncorrect": "Retome o conceito: no cólon, o bário vai por sonda no reto, e a pessoa se vira várias vezes.",
+          "help": "Pense em por onde o bário entra em cada estudo.",
+          "sourceIds": [
+            "rinfo-colon",
+            "rinfo-trato-alto"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Percurso e preparo",
+        "body": "Agora você consegue ordenar o percurso do bário engolido, da boca ao duodeno, diferenciar o estudo do cólon e dizer que o preparo vem do protocolo: você confere e avisa a equipe.",
+        "line": {
+          "speaker": "lia",
+          "text": "Preparo é parte do exame. Conferir bem é o que evita repetir o estudo."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "No estudo do cólon, como o bário entra?",
+          "options": [
+            {
+              "label": "Por uma sonda no reto, por gravidade.",
+              "correct": true,
+              "feedback": "Isso: a sonda no reto deixa o bário entrar por gravidade."
+            },
+            {
+              "label": "Engolido pela pessoa, como no estudo do estômago.",
+              "correct": false,
+              "feedback": "Engolir é do estudo do trato digestivo alto. Retome o do cólon."
+            },
+            {
+              "label": "Injetado na veia do braço.",
+              "correct": false,
+              "feedback": "O bário não é injetado na veia. Confira de novo."
+            },
+            {
+              "label": "Inalado por uma máscara.",
+              "correct": false,
+              "feedback": "Não se inala bário. Retome a via do estudo do cólon."
+            }
+          ],
+          "sourceIds": [
+            "rinfo-colon"
+          ]
+        },
+        {
+          "prompt": "Seu Jorge pergunta quem decide a limpeza do intestino para o estudo do cólon. O que você responde?",
+          "options": [
+            {
+              "label": "Eu decido, conforme o que o senhor preferir no dia.",
+              "correct": false,
+              "feedback": "Decidir o preparo é do protocolo, e não seu. Retome o seu papel."
+            },
+            {
+              "label": "O senhor decide sozinho, na hora do exame.",
+              "correct": false,
+              "feedback": "O preparo é definido antes, pelo protocolo. Confira de novo."
+            },
+            {
+              "label": "O protocolo define; eu confiro o que foi feito.",
+              "correct": true,
+              "feedback": "Isso: o preparo vem do protocolo, e você confere e avisa."
+            },
+            {
+              "label": "Não existe limpeza, é só chegar ao exame.",
+              "correct": false,
+              "feedback": "Há preparo, e o protocolo o define. Retome o conceito."
+            }
+          ],
+          "sourceIds": [
+            "rinfo-colon"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o bário engolido desce pelo esôfago e chega ao …",
+          "item": {
+            "prompt": "No estudo do trato digestivo alto, qual parte vem logo depois do esôfago?",
+            "options": [
+              {
+                "label": "O fígado, ao lado dele.",
+                "correct": false,
+                "feedback": "O fígado não é parte do tubo digestivo por onde o bário passa. Retome o percurso."
+              },
+              {
+                "label": "O estômago.",
+                "correct": true,
+                "feedback": "Isso: depois do esôfago, o bário chega ao estômago."
+              },
+              {
+                "label": "O cólon, em moldura.",
+                "correct": false,
+                "feedback": "O cólon vem bem depois, no fim do percurso. Confira de novo."
+              },
+              {
+                "label": "A bexiga, na pelve.",
+                "correct": false,
+                "feedback": "A bexiga é do sistema urinário. Retome o percurso do bário."
+              }
+            ],
+            "sourceIds": [
+              "rinfo-trato-alto"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Duda diz que, no estudo do estômago, o bário entra por sonda no reto. Qual é a correção?",
+            "options": [
+              {
+                "label": "Que é engolido; a sonda é do estudo do cólon.",
+                "correct": true,
+                "feedback": "Isso: o bário do estudo do estômago é engolido."
+              },
+              {
+                "label": "Nada: no estômago também entra por sonda.",
+                "correct": false,
+                "feedback": "Não: no estômago o bário é engolido. Retome o conceito."
+              },
+              {
+                "label": "Que é injetado na veia, mas só no estômago.",
+                "correct": false,
+                "feedback": "O bário não é injetado na veia. Confira de novo."
+              },
+              {
+                "label": "Que é inalado por uma máscara antes do exame.",
+                "correct": false,
+                "feedback": "Não se inala bário. Retome a via do estudo."
+              }
+            ],
+            "sourceIds": [
+              "rinfo-trato-alto",
+              "rinfo-colon"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m26-06",
+      "code": "M26.06",
+      "title": "O trato urinário e a equipe",
+      "objective": "Hoje você vai conseguir seguir as fases de um estudo urinário e comunicar o que vê sem interpretar a imagem.",
+      "competency": "Seguir as fases de um estudo urinário e comunicar o que observa à equipe.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de fluoroscopia, estudo urinário",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Dona Marta",
+            "text": "Vão me dar contraste na veia e depois vou ter de urinar no meio do exame?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Pode ser, mas a hora de urinar é combinada com a equipe, no momento certo."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos seguir as fases do estudo e ver o que você diz a ela."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Fases do estudo urinário",
+        "body": "Na urografia, uma imagem inicial confere o abdome; depois o iodado entra pela veia, e os rins o filtram. As imagens saem em série enquanto o contraste passa por rins, ureteres e bexiga. Com a bexiga cheia, a pessoa urina, e uma imagem final mostra a bexiga vazia. Na cistouretrografia, o contraste entra na bexiga por uma sonda, e há imagens no enchimento e na micção. Quem examina as imagens é o radiologista; você descreve o que a pessoa diz e o que observa, sem interpretar.",
+        "keyPoints": [
+          "Urografia: imagem inicial, contraste na veia, série e imagem final.",
+          "Cistouretrografia: sonda, enchimento e micção.",
+          "Quem examina as imagens é o radiologista."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na unidade de preparo, uma pessoa conta, antes da urografia, que teve reação a contraste em outro exame. O que você faz?",
+          "options": [
+            {
+              "label": "Segue o exame e comenta depois, no fim do turno.",
+              "correct": false,
+              "feedback": "Informação de risco se avisa antes de seguir. Retome a triagem."
+            },
+            {
+              "label": "Anota com as palavras dela e avisa a equipe antes de seguir.",
+              "correct": true,
+              "feedback": "Isso: você anota e leva à equipe, que avalia, antes de seguir."
+            },
+            {
+              "label": "Conclui que o exame fica cancelado e avisa a pessoa.",
+              "correct": false,
+              "feedback": "Concluir não é seu papel: quem avalia é a equipe. Confira de novo."
+            },
+            {
+              "label": "Anota que não houve reação, para não preocupar.",
+              "correct": false,
+              "feedback": "Anotar diferente do que foi dito esconde a informação. Retome o registro."
+            }
+          ],
+          "help": "Lembre da triagem: você registra e comunica.",
+          "sourceIds": [
+            "rinfo-contraste",
+            "rinfo-urografia"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Na ordem ensinada nesta aula, ordene as fases da urografia.",
+          "items": [
+            "Imagem inicial do abdome, sem contraste",
+            "Contraste iodado injetado na veia",
+            "Imagens em série enquanto o contraste passa pelo sistema urinário",
+            "A pessoa urina, com a bexiga cheia",
+            "Imagem final com a bexiga vazia"
+          ],
+          "feedbackCorrect": "As fases ficaram na ordem: da imagem inicial à imagem final.",
+          "feedbackIncorrect": "Comece pela imagem sem contraste e termine com a bexiga vazia.",
+          "help": "O contraste só aparece depois da injeção, e a bexiga vazia vem por último.",
+          "sourceIds": [
+            "cun-urografia"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Na cistouretrografia, na fase da micção, o contraste sai da bexiga. Toque na estrutura por onde ele passa.",
+          "diagramId": "sistema-urinario",
+          "regions": [
+            {
+              "label": "Rim do lado direito do paciente",
+              "x": 0.27,
+              "y": 0.1,
+              "width": 0.15,
+              "height": 0.21
+            },
+            {
+              "label": "Rim do lado esquerdo do paciente",
+              "x": 0.57,
+              "y": 0.07,
+              "width": 0.15,
+              "height": 0.21
+            },
+            {
+              "label": "Bexiga",
+              "x": 0.41,
+              "y": 0.56,
+              "width": 0.18,
+              "height": 0.2
+            },
+            {
+              "label": "Uretra",
+              "x": 0.46,
+              "y": 0.77,
+              "width": 0.08,
+              "height": 0.2,
+              "correct": true
+            }
+          ],
+          "feedbackCorrect": "Isso: ao urinar, o contraste sai da bexiga pela uretra.",
+          "feedbackIncorrect": "Essa estrutura não é a via de saída da bexiga: procure o canal que sai dela.",
+          "help": "Procure o canal fino que sai da base da bexiga.",
+          "sourceIds": [
+            "medlineplus-cistouretrografia"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "conversation",
+          "role": "practice",
+          "speaker": "paciente",
+          "name": "Dona Marta",
+          "prompt": "Dona Marta está no estudo urinário e faz perguntas. Responda como estudante, sem sair do seu papel.",
+          "turns": [
+            {
+              "line": "Estou com muita vontade de urinar. Posso ir ao banheiro agora?",
+              "options": [
+                {
+                  "label": "Vou avisar a equipe, que diz a hora certa de urinar.",
+                  "correct": true,
+                  "reply": "Tá bom, aguardo aqui. Mas não demora muito, tá?"
+                },
+                {
+                  "label": "Pode ir agora mesmo, o aparelho espera a senhora voltar sem problema.",
+                  "correct": false,
+                  "reply": "Que bom, então vou rapidinho ao banheiro."
+                },
+                {
+                  "label": "Segure por conta própria o quanto aguentar, sem comentar com ninguém.",
+                  "correct": false,
+                  "reply": "Sem comentar com ninguém? Está difícil de segurar."
+                }
+              ]
+            },
+            {
+              "line": "O senhor viu alguma coisa na imagem? Está tudo bem comigo?",
+              "options": [
+                {
+                  "label": "Pela imagem que vi na tela, está tudo normal, a senhora pode ficar tranquila e ir para casa.",
+                  "correct": false,
+                  "reply": "Ufa, que bom. Mas quem confirma isso para mim?"
+                },
+                {
+                  "label": "Quem examina as imagens é o radiologista; o relatório segue para o médico que pediu.",
+                  "correct": true,
+                  "reply": "Entendi. Então espero o resultado com o meu médico."
+                },
+                {
+                  "label": "Vi uma sombra pequena na bexiga, mas costuma passar sozinha, não precisa se preocupar com isso.",
+                  "correct": false,
+                  "reply": "Uma sombra? Meu Deus, o que isso quer dizer?"
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Você avisou a equipe sobre a hora de urinar e deixou a análise para o radiologista.",
+          "feedbackIncorrect": "Retome a aula: a hora de urinar é combinada com a equipe, e quem examina as imagens é o radiologista.",
+          "help": "Pense no que você decide e no que você apenas comunica.",
+          "sourceIds": [
+            "cun-urografia",
+            "rinfo-urografia"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Julgue cada afirmação sobre a cistouretrografia.",
+          "statements": [
+            {
+              "text": "Na cistouretrografia, o contraste entra na bexiga por uma sonda.",
+              "correct": true,
+              "feedback": "Certo: uma sonda fina passa pela uretra até a bexiga, e o contraste entra por ela."
+            },
+            {
+              "text": "Na cistouretrografia, o contraste é injetado na veia do braço.",
+              "correct": false,
+              "feedback": "Errado: isso é da urografia. Na cistouretrografia o contraste entra pela sonda, na bexiga."
+            },
+            {
+              "text": "Há imagens no enchimento da bexiga e na hora de urinar.",
+              "correct": true,
+              "feedback": "Certo: as imagens são feitas com a bexiga cheia e depois durante o esvaziamento."
+            },
+            {
+              "text": "O estudante diz à pessoa o que a imagem mostra.",
+              "correct": false,
+              "feedback": "Errado: quem examina as imagens é o radiologista; o estudante descreve o que observa."
+            }
+          ],
+          "feedbackCorrect": "Você separou a via da cistouretrografia da urografia e o seu papel do do radiologista.",
+          "feedbackIncorrect": "Retome o conceito: na cistouretrografia o contraste vai pela sonda, e a análise é do radiologista.",
+          "help": "Pense em por onde o contraste entra em cada estudo.",
+          "sourceIds": [
+            "medlineplus-cistouretrografia",
+            "rinfo-urografia"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Fases e comunicação",
+        "body": "Agora você consegue seguir as fases da urografia e da cistouretrografia, dizer por onde o contraste passa e comunicar o que a pessoa diz e o que você vê, deixando a análise das imagens para o radiologista.",
+        "line": {
+          "speaker": "lia",
+          "text": "Descrever bem o que você vê é útil. Dar o resultado da imagem não é parte do seu papel."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Na urografia, o que a pessoa faz depois que a bexiga está cheia de contraste?",
+          "options": [
+            {
+              "label": "Bebe mais água e a imagem é feita com a bexiga cheia.",
+              "correct": false,
+              "feedback": "A imagem final é feita com a bexiga vazia. Retome as fases."
+            },
+            {
+              "label": "Urina, e depois é feita uma imagem com a bexiga vazia.",
+              "correct": true,
+              "feedback": "Isso: urina, e uma imagem final mostra a bexiga vazia."
+            },
+            {
+              "label": "Engole bário e espera o contraste descer.",
+              "correct": false,
+              "feedback": "Bário não faz parte da urografia. Confira de novo."
+            },
+            {
+              "label": "Recebe nova injeção e a urografia recomeça.",
+              "correct": false,
+              "feedback": "Não há nova injeção para a imagem final. Retome as fases."
+            }
+          ],
+          "sourceIds": [
+            "cun-urografia"
+          ]
+        },
+        {
+          "prompt": "Na cistouretrografia, em quais duas fases as imagens são feitas?",
+          "options": [
+            {
+              "label": "Na injeção na veia e na saída do contraste pelas fezes.",
+              "correct": false,
+              "feedback": "Esse não é o estudo. Retome as fases da cistouretrografia."
+            },
+            {
+              "label": "Só antes do contraste, sem nenhuma depois.",
+              "correct": false,
+              "feedback": "Há imagens com o contraste na bexiga. Confira de novo."
+            },
+            {
+              "label": "No esôfago e no estômago, em sequência.",
+              "correct": false,
+              "feedback": "Esôfago e estômago são do estudo digestivo. Retome o urinário."
+            },
+            {
+              "label": "No enchimento da bexiga e na micção.",
+              "correct": true,
+              "feedback": "Isso: há imagens com a bexiga enchendo e durante o esvaziamento."
+            }
+          ],
+          "sourceIds": [
+            "medlineplus-cistouretrografia"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na urografia, o contraste entra pela … e os … o filtram.",
+          "item": {
+            "prompt": "Por onde o contraste iodado entra, na urografia?",
+            "options": [
+              {
+                "label": "Pela veia.",
+                "correct": true,
+                "feedback": "Isso: é injetado na veia e filtrado pelos rins."
+              },
+              {
+                "label": "Pela boca, engolido como o bário.",
+                "correct": false,
+                "feedback": "Engolir é do bário no estudo digestivo. Retome a via da urografia."
+              },
+              {
+                "label": "Por uma sonda no reto.",
+                "correct": false,
+                "feedback": "A sonda no reto é do estudo do cólon. Confira de novo."
+              },
+              {
+                "label": "Pela sonda, direto na bexiga.",
+                "correct": false,
+                "feedback": "Isso é da cistouretrografia. Retome a via da urografia."
+              }
+            ],
+            "sourceIds": [
+              "cun-urografia"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Depois da urografia, Seu Jorge pergunta se o exame dele deu algo ruim. O que cabe a você responder?",
+            "options": [
+              {
+                "label": "Que a imagem estava normal, pelo que viu na tela.",
+                "correct": false,
+                "feedback": "Dizer isso é interpretar. Retome o seu papel."
+              },
+              {
+                "label": "Que ele pode ficar sem se preocupar, porque quase sempre é normal.",
+                "correct": false,
+                "feedback": "Garantir um resultado é fora do seu papel. Confira de novo."
+              },
+              {
+                "label": "Que o radiologista examina as imagens e o relatório vai ao médico.",
+                "correct": true,
+                "feedback": "Isso: você não interpreta, e quem examina é o radiologista."
+              },
+              {
+                "label": "Que a imagem mostrou algo, mas que explica depois.",
+                "correct": false,
+                "feedback": "Insinuar um achado é interpretar. Retome o conceito."
+              }
+            ],
+            "sourceIds": [
+              "rinfo-urografia"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

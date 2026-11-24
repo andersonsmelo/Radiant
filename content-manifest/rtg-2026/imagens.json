@@ -40,5 +40,112 @@
     "usedIn": [
       "m08-01"
     ]
+  },
+  {
+    "id": "image:rtg-2026:m25:cranio-perfil-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m25/cranio-perfil-01.jpg",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Lat_lebka.jpg",
+    "author": "Tomáš Vendiš",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "retrievedAt": "2026-11-19",
+    "sha256Original": "0002971bd3e700d5254ddc9040c83971b99c7c3339d2a3e786ee2d6bdb7a9117",
+    "sha256Asset": "8d77dda67135a4a414fb211aa9c4163cd08dd176c762e9412545a96abc255f0c",
+    "modification": "redução e conversão para JPEG",
+    "alt": "Radiografia de crânio em tons de cinza, em formato quase quadrado, sobre fundo escuro. Há uma letra L no canto inferior direito e um retângulo vazio, apenas com contorno, no canto inferior esquerdo.",
+    "width": 1102,
+    "height": 1200,
+    "projection": "lateral (perfil)",
+    "region": "crânio",
+    "descriptionFromSource": "x-ray image of skull (lat.)",
+    "usedIn": [
+      "m25-03"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m28:tc-axial-abdome-figado-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m28/tc-axial-abdome-figado-01.jpg",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:CT_of_a_normal_abdomen_and_pelvis,_axial_plane_33.png",
+    "author": "Mikael Häggström",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "retrievedAt": "2026-11-19",
+    "sha256Original": "954dcab7a698398eb5b41d3874cb469210df4b39ec68977638ee4217eeff6cbe",
+    "sha256Asset": "02c85dd6ba7cfbfff78d01376527433de70e135f7718dcd159a72cd6c3ff6c89",
+    "modification": "recorte da área da imagem axial (removido o quadro de localização à direita) e conversão para JPEG",
+    "alt": "Tomografia em tons de cinza sobre fundo preto, em formato horizontal. Uma silhueta oval do corpo ocupa a imagem, e há a letra P no canto inferior esquerdo. Não há outras marcações de texto.",
+    "width": 528,
+    "height": 346,
+    "projection": "axial",
+    "region": "transição entre tórax e abdome",
+    "descriptionFromSource": "Computed tomography of the abdomen and pelvis, performed as a contrast CT, here presented in the axial plane with 3 mm slice thickness. It shows normal anatomy, with no injuries. The subject is a 21 year old male who had blunt trauma to the upper abdomen during motocross.",
+    "usedIn": [
+      "m28-05",
+      "m28-06"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m28:tc-axial-torax-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m28/tc-axial-torax-01.jpg",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:CT_of_a_normal_abdomen_and_pelvis,_axial_plane_13.png",
+    "author": "Mikael Häggström",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "retrievedAt": "2026-11-19",
+    "sha256Original": "8ede9339671bb8fd19a947a8762354a863a07ddec753365d226d265e09e2b873",
+    "sha256Asset": "2cbd9f827025f45633daf3c7f9903cc870616c47e69c2b3433b819b606f06456",
+    "modification": "recorte da área da imagem axial (removido o quadro de localização à direita) e conversão para JPEG",
+    "alt": "Tomografia em tons de cinza sobre fundo preto, em formato horizontal. Dois campos escuros grandes ladeiam uma massa clara central, e há a letra P no canto inferior esquerdo. Não há outras marcações de texto.",
+    "width": 528,
+    "height": 346,
+    "projection": "axial",
+    "region": "tórax",
+    "descriptionFromSource": "Computed tomography of the abdomen and pelvis, performed as a contrast CT, here presented in the axial plane with 3 mm slice thickness. It shows normal anatomy, with no injuries. The subject is a 21 year old male who had blunt trauma to the upper abdomen during motocross.",
+    "usedIn": [
+      "m28-05",
+      "m28-06"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m28:tc-coronal-abdome-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m28/tc-coronal-abdome-01.jpg",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:CT_of_a_normal_abdomen_and_pelvis,_coronal_plane_90.png",
+    "author": "Mikael Häggström",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "retrievedAt": "2026-11-19",
+    "sha256Original": "2db8cb23220fc57d2ed3484a219eff959b845b2c1af3b21aa4acd17de846ed9d",
+    "sha256Asset": "3fa7171b4e4187056dbe358c24f0256e510d61f321f0910b78cee68b4bbe94d9",
+    "modification": "recorte da área da imagem coronal (removidos o quadro de localização e as marcas do visualizador à direita) e conversão para JPEG",
+    "alt": "Tomografia em tons de cinza sobre fundo preto. O tronco aparece de frente, da base do tórax até o quadril, com a coluna clara no centro. Não há marcações de texto.",
+    "width": 500,
+    "height": 672,
+    "projection": "coronal",
+    "region": "abdome e pelve",
+    "descriptionFromSource": "Computed tomography of the abdomen and pelvis, performed as a contrast CT, here presented in the coronal plane with 3 mm slice thickness. It shows normal anatomy, with no injuries. The subject is a 21 year old male who had blunt trauma to the upper abdomen during motocross.",
+    "usedIn": [
+      "m28-05"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m28:tc-sagital-abdome-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m28/tc-sagital-abdome-01.jpg",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:CT_of_a_normal_abdomen_and_pelvis,_sagittal_plane_79.png",
+    "author": "Mikael Häggström",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "retrievedAt": "2026-11-19",
+    "sha256Original": "ab7b356d971b750a6570dcefe0af00fc4daf999ffbd62febebf139622654af06",
+    "sha256Asset": "910a5c1867aa071cb3b790280d27b1a5587a05f19883405fa4d94789061c2bb7",
+    "modification": "conversão para JPEG",
+    "alt": "Tomografia em tons de cinza, em formato vertical e estreito. Uma coluna de estruturas claras e arredondadas corre de cima para baixo, curvando-se na parte inferior. Não há marcações de texto visíveis.",
+    "width": 260,
+    "height": 511,
+    "projection": "sagital",
+    "region": "abdome e pelve",
+    "descriptionFromSource": "Computed tomography of the abdomen and pelvis, performed as a contrast CT, here presented in the sagittal plane with 3 mm slice thickness. It shows normal anatomy, with no injuries. The subject is a 21 year old male who had blunt trauma to the upper abdomen during motocross.",
+    "usedIn": [
+      "m28-05"
+    ]
   }
 ]

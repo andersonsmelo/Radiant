@@ -1,0 +1,2334 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m27",
+    "code": "M27",
+    "title": "Criança, idoso e gestante na aquisição",
+    "summary": "Como a sala muda para três públicos: a criança, que pede conversa, apoio leve e campo ajustado; a pessoa idosa, que pede fala, pele e chão cuidados; e a gestante, cujo exame a equipe decidiu."
+  },
+  "sources": [
+    {
+      "id": "r101-ped",
+      "title": "Pediatric Radiography: Techniques, Positioning, and Dose Reduction",
+      "publisher": "Radiography 101",
+      "url": "https://radiography101.org/articles/pediatric-radiography-techniques",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página de ensino de radiografia, aberta; consultada para fatos sobre comunicação por idade, imobilização e proteção de quem segura, sem reprodução de texto."
+    },
+    {
+      "id": "r101-shield",
+      "title": "Patient Contact Shielding in X-Ray Imaging: Current Guidance",
+      "publisher": "Radiography 101",
+      "url": "https://radiography101.org/articles/patient-shielding-radiography-obsolete",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página de ensino, aberta; consultada para fatos sobre colimação, gestação, repetição e política do serviço, sem reprodução de texto."
+    },
+    {
+      "id": "r101-hip",
+      "title": "Hip X-Ray Positioning: AP, Frog-Leg Lateral, Cross-Table, and Dunn Methods",
+      "publisher": "Radiography 101",
+      "url": "https://radiography101.org/articles/hip-xray-positioning",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página de ensino, aberta; consultada para o cuidado com a pele frágil e com o movimento do paciente idoso, sem reprodução de texto."
+    },
+    {
+      "id": "who-falls",
+      "title": "Falls (fact sheet)",
+      "publisher": "World Health Organization",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/falls",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional da OMS; consultada para fatos sobre fatores de risco de queda, sem reprodução de texto."
+    },
+    {
+      "id": "who-ageing",
+      "title": "Ageing and health (fact sheet)",
+      "publisher": "World Health Organization",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/ageing-and-health",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional da OMS; consultada para fatos sobre perda auditiva, visão e quedas na idade avançada, sem reprodução de texto."
+    },
+    {
+      "id": "pmc-hearing",
+      "title": "Patient–healthcare provider communication and age-related hearing loss: a qualitative study of patients' perspectives",
+      "publisher": "Irish Journal of Medical Science (2023), PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10808372/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto; consultado para fatos sobre comunicação com idosos que ouvem menos, sem reprodução de texto."
+    },
+    {
+      "id": "pmc-geri-chest",
+      "title": "Geriatric Chest Imaging: When and How to Image the Elderly Lung, Age-Related Changes, and Common Pathologies",
+      "publisher": "Radiology Research and Practice (2013), PMC",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3713368/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto; consultado para fatos sobre tempo, assistência e apoio no posicionamento do idoso, sem reprodução de texto."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m27-01",
+      "code": "M27.01",
+      "title": "Falar com a criança e com quem a acompanha",
+      "objective": "Hoje você vai conseguir ajustar a explicação à idade da criança e combinar com a equipe o papel de quem a acompanha.",
+      "competency": "Ajustar a fala à idade da criança e combinar, com a equipe, o papel do acompanhante na sala.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de radiografia simulada",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Seu Jorge",
+            "text": "Meu filho Teo tem quatro anos e já chegou chorando. Ele não entende por que tem que deitar sozinho."
+          },
+          {
+            "speaker": "caio",
+            "text": "Com criança, o exame começa na conversa. A máquina vem depois."
+          },
+          {
+            "speaker": "duda",
+            "text": "Mas o que eu digo a um menino de quatro anos? E o pai dele, fica onde?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Duas perguntas: como falar em cada idade e quem fica na sala com a criança."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Cada idade, uma conversa",
+        "body": "A fala muda com a idade. Com um bebê, você conversa sobretudo com o responsável e explica cada passo. A criança pequena entende frase simples e concreta; evite perguntas de sim ou não, que convidam à recusa. No pré-escolar, brincar de exame ajuda, sempre com explicação verdadeira. O adolescente ouve a explicação direto e diz se quer o responsável por perto. Quem fica na sala durante a exposição, o serviço e a equipe definem: essa pessoa usa a proteção e fica fora do feixe.",
+        "keyPoints": [
+          "A idade define a fala: bebê com o responsável, adolescente direto.",
+          "Criança pequena: frase simples, sem pergunta de sim ou não.",
+          "Quem fica na sala: a equipe combina, com proteção e fora do feixe."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula sobre dor, o que você fazia antes de tocar na pessoa?",
+          "options": [
+            {
+              "label": "Tocar logo, para ganhar tempo",
+              "correct": false,
+              "feedback": "Tocar sem avisar surpreende a pessoa e pode piorar a dor: a aula de dor pedia o aviso antes."
+            },
+            {
+              "label": "Explicar cada passo e avisar que vai tocar",
+              "correct": true,
+              "feedback": "Isso: explicar cada passo e avisar antes de tocar vale para dor e vale também para a criança."
+            },
+            {
+              "label": "Esperar a pessoa perguntar o que vem",
+              "correct": false,
+              "feedback": "Esperar a pergunta deixa a pessoa no escuro; quem conduz explica antes."
+            },
+            {
+              "label": "Explicar só depois de posicionar",
+              "correct": false,
+              "feedback": "Explicar depois deixa o susto para o meio do posicionamento; a explicação vem antes."
+            }
+          ],
+          "sourceIds": [
+            "r101-ped"
+          ],
+          "help": "Pense no que acalma uma pessoa que sente dor ao ser tocada."
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada idade à fala que a aula ensinou.",
+          "pairs": [
+            {
+              "left": "Bebê",
+              "right": "Conversar sobretudo com o responsável, explicando cada passo"
+            },
+            {
+              "left": "Criança pequena",
+              "right": "Frase simples e concreta, sem pergunta de sim ou não"
+            },
+            {
+              "left": "Pré-escolar",
+              "right": "Brincar de exame, com explicação verdadeira"
+            },
+            {
+              "left": "Adolescente",
+              "right": "Explicar direto a ele e perguntar se quer o responsável perto"
+            }
+          ],
+          "feedbackCorrect": "Cada idade pede um jeito de falar: do bebê, que depende do responsável, ao adolescente, que ouve direto.",
+          "feedbackIncorrect": "Releia o conceito: o bebê não conversa, o adolescente ouve direto, e a criança pequena precisa de frase simples.",
+          "help": "Pergunte quem entende a explicação em cada idade.",
+          "sourceIds": [
+            "r101-ped"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Antes do disparo, uma das pessoas da cena precisa que você avise a equipe. Toque nela.",
+          "diagramId": "contencao-pediatrica",
+          "regions": [
+            {
+              "label": "Acompanhante à cabeceira",
+              "x": 0.05,
+              "y": 0.283,
+              "width": 0.113,
+              "height": 0.15
+            },
+            {
+              "label": "Faixa sobre as pernas",
+              "x": 0.481,
+              "y": 0.533,
+              "width": 0.1,
+              "height": 0.117
+            },
+            {
+              "label": "Pessoa junto aos pés da mesa",
+              "x": 0.856,
+              "y": 0.208,
+              "width": 0.1,
+              "height": 0.342,
+              "correct": true
+            },
+            {
+              "label": "Campo de luz",
+              "x": 0.313,
+              "y": 0.258,
+              "width": 0.119,
+              "height": 0.208
+            }
+          ],
+          "feedbackCorrect": "Isso: quem fica na sala durante a exposição usa a proteção que o serviço define e fica fora do feixe; sem proteção, você avisa a equipe antes do disparo.",
+          "feedbackIncorrect": "Essa região não pede aviso. Compare o que cada pessoa veste e quem fica ao alcance do espalhamento sem proteção.",
+          "help": "Compare o que cada pessoa da cena veste e onde ela está.",
+          "sourceIds": [
+            "r101-ped"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "conversation",
+          "role": "practice",
+          "speaker": "paciente",
+          "name": "Seu Jorge",
+          "prompt": "Seu Jorge é pai do Teo, de 4 anos, e está aflito. Ajude a combinar o papel dele, sem prometer o que cabe à equipe.",
+          "turns": [
+            {
+              "line": "Moço, o Teo não quer deitar. Eu fico com ele ou saio? Eu faço o que for preciso.",
+              "options": [
+                {
+                  "label": "O senhor fica com ele, pai sempre pode ficar na sala com a criança.",
+                  "correct": false,
+                  "reply": "Então fico aqui do lado dele o tempo todo."
+                },
+                {
+                  "label": "A equipe confirma se o senhor fica, e com que proteção.",
+                  "correct": true,
+                  "reply": "Tá bem, eu espero a equipe me dizer."
+                },
+                {
+                  "label": "Melhor sair: criança fica mais calma sozinha com a gente, sem pai.",
+                  "correct": false,
+                  "reply": "Mas ele vai ficar com muito medo sem mim."
+                }
+              ]
+            },
+            {
+              "line": "O que eu falo pra ele? Ele pergunta toda hora se vai doer.",
+              "options": [
+                {
+                  "label": "Diga que ele não vai sentir nada, para ele se acalmar logo.",
+                  "correct": false,
+                  "reply": "Então digo isso e pronto, né?"
+                },
+                {
+                  "label": "Diga que precisa ficar quieto e pronto, sem explicar mais nada.",
+                  "correct": false,
+                  "reply": "Mas ele vai chorar mais se eu só mandar."
+                },
+                {
+                  "label": "Conte o que vai acontecer, em frases simples e verdadeiras.",
+                  "correct": true,
+                  "reply": "Entendi, vou falar do jeito simples com ele."
+                }
+              ]
+            },
+            {
+              "line": "Posso segurar o braço dele quando a máquina ligar?",
+              "options": [
+                {
+                  "label": "Pode, segure firme com as duas mãos onde achar melhor.",
+                  "correct": false,
+                  "reply": "Então seguro firme onde eu alcançar."
+                },
+                {
+                  "label": "Segure, mas sem avental, para ele não estranhar.",
+                  "correct": false,
+                  "reply": "Tá, sem avental então, para ele não ter medo."
+                },
+                {
+                  "label": "Se a equipe combinar, de avental e fora do campo.",
+                  "correct": true,
+                  "reply": "Combinado, aguardo a equipe falar comigo."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Você combinou o papel do pai com a equipe e falou com o menino em frases simples.",
+          "feedbackIncorrect": "Releia o conceito: o papel de quem fica é combinado com a equipe, e a criança ouve frases simples e verdadeiras.",
+          "help": "O que você promete e o que depende da equipe?",
+          "sourceIds": [
+            "r101-ped"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Julgue cada afirmação sobre a conversa com crianças de idades diferentes.",
+          "statements": [
+            {
+              "text": "Com uma criança pequena, perguntar se ela quer começar é um bom convite.",
+              "correct": false,
+              "feedback": "Pergunta de sim ou não convida à recusa: diga em frase simples o que vai acontecer."
+            },
+            {
+              "text": "Com um adolescente, a explicação vai direto a ele, e não só ao responsável.",
+              "correct": true,
+              "feedback": "Certo: o adolescente é o paciente, e a explicação é dele; ele diz se quer o responsável por perto."
+            },
+            {
+              "text": "Com um bebê, você conversa sobretudo com o responsável, passo a passo.",
+              "correct": true,
+              "feedback": "Certo: o bebê não entende a fala, então o responsável recebe a explicação de cada passo."
+            },
+            {
+              "text": "Dizer a um pré-escolar que nada vai acontecer ajuda a acalmá-lo.",
+              "correct": false,
+              "feedback": "A explicação é verdadeira, mesmo na brincadeira: prometer o que não vai acontecer quebra a confiança."
+            }
+          ],
+          "feedbackCorrect": "Você separou o convite que atrapalha da explicação que acalma, em cada idade.",
+          "feedbackIncorrect": "Releia o conceito: frase simples e verdadeira para a criança, o responsável no centro com o bebê e a fala direta para o adolescente.",
+          "help": "Pense em quem entende a explicação e em quem ouve a pergunta.",
+          "sourceIds": [
+            "r101-ped"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Conversa antes da máquina",
+        "body": "Você ajusta a fala à idade, inclui o responsável e confirma com a equipe quem fica na sala e com que proteção.",
+        "line": {
+          "speaker": "lia",
+          "text": "Uma boa conversa poupa tempo e repetições."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma criança de 2 anos recusa deitar na mesa. Qual fala combina com o que a aula ensinou?",
+          "options": [
+            {
+              "label": "Você quer deitar agora?",
+              "correct": false,
+              "feedback": "A pergunta de sim ou não convida à recusa, e a criança de 2 anos pode dizer não."
+            },
+            {
+              "label": "Se não deitar, não vamos terminar nunca.",
+              "correct": false,
+              "feedback": "Ameaçar não explica nada e assusta; a aula pedia frase simples e verdadeira."
+            },
+            {
+              "label": "Fique quieto, é rápido, não tem o que explicar.",
+              "correct": false,
+              "feedback": "Dizer que não há o que explicar tira a criança da conversa, que é onde ela se acalma."
+            },
+            {
+              "label": "Vamos deitar na mesa agora, e eu conto cada passo.",
+              "correct": true,
+              "feedback": "Isso: frase simples e concreta, com cada passo explicado."
+            }
+          ],
+          "sourceIds": [
+            "r101-ped"
+          ]
+        },
+        {
+          "prompt": "Um adolescente chega com a mãe para o exame. A quem você explica o procedimento?",
+          "options": [
+            {
+              "label": "A ele direto, e pergunto se quer a mãe perto.",
+              "correct": true,
+              "feedback": "Isso: o adolescente é o paciente e ouve a explicação direto, e ele diz se quer a mãe por perto."
+            },
+            {
+              "label": "Só à mãe, porque ele é menor de idade.",
+              "correct": false,
+              "feedback": "Explicar só à mãe deixa o paciente de fora; o adolescente ouve a explicação direto."
+            },
+            {
+              "label": "A ninguém, porque ele já sabe o que é exame.",
+              "correct": false,
+              "feedback": "Sem explicação, ele não sabe o que fazer nem por quê; a explicação vem antes, dirigida a ele."
+            },
+            {
+              "label": "Aos dois, mas só depois do disparo.",
+              "correct": false,
+              "feedback": "Explicar depois do disparo é tarde demais: a explicação vem antes."
+            }
+          ],
+          "sourceIds": [
+            "r101-ped"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: com um bebê, eu converso sobretudo com...",
+          "item": {
+            "prompt": "Com um bebê, com quem você conversa sobretudo, e de que jeito?",
+            "options": [
+              {
+                "label": "Com o bebê, em frases longas e técnicas",
+                "correct": false,
+                "feedback": "O bebê não entende a explicação; falar técnico não ajuda ninguém."
+              },
+              {
+                "label": "Com ninguém, para o ambiente ficar quieto",
+                "correct": false,
+                "feedback": "O silêncio não explica nada; o responsável precisa saber cada passo."
+              },
+              {
+                "label": "Com o responsável, explicando cada passo",
+                "correct": true,
+                "feedback": "Isso: o responsável recebe a explicação de cada passo."
+              },
+              {
+                "label": "Com o responsável, mas só ao fim do exame",
+                "correct": false,
+                "feedback": "Explicar só no fim é tarde; cada passo é explicado antes de acontecer."
+              }
+            ],
+            "sourceIds": [
+              "r101-ped"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma avó quer entrar na sala para acalmar o neto. Qual é a resposta do estudante?",
+            "options": [
+              {
+                "label": "Entre, avó sempre pode ficar na sala.",
+                "correct": false,
+                "feedback": "Ninguém entra por parentesco: o papel e a proteção são combinados com a equipe."
+              },
+              {
+                "label": "Vou confirmar com a equipe o papel e a proteção.",
+                "correct": true,
+                "feedback": "Isso: quem fica tem papel combinado com a equipe e proteção."
+              },
+              {
+                "label": "Melhor esperar fora, sem perguntar à equipe.",
+                "correct": false,
+                "feedback": "Decidir sozinho tira do responsável a chance de ajudar e passa por cima da equipe."
+              },
+              {
+                "label": "Entre, mas só depois do primeiro disparo.",
+                "correct": false,
+                "feedback": "Entrar depois do disparo não combina papel nem proteção antes da exposição."
+              }
+            ],
+            "sourceIds": [
+              "r101-ped"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m27-02",
+      "code": "M27.02",
+      "title": "Segurar e imobilizar",
+      "objective": "Hoje você vai conseguir dizer a ordem de escolha para manter a criança parada e os limites que a imobilização não cruza.",
+      "competency": "Reconhecer o que mantém a criança parada com o mínimo de restrição, os cuidados com quem segura e os limites da imobilização.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de radiografia simulada",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "O Teo não para. Posso apertar a faixa bem forte, só para garantir?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Imobilizar não é prender. A pergunta é: qual é a ajuda mais leve que resolve?"
+          },
+          {
+            "speaker": "lia",
+            "text": "E nessa escolha, Duda, qual é o seu papel?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos montar a escada das opções, da mais leve à mais restrita."
+          }
+        ]
+      },
+      "concept": {
+        "title": "A ajuda mais leve que resolve",
+        "body": "Manter a criança parada evita repetir a imagem, e a ajuda é a menos restritiva que resolve: primeiro explicar e acalmar, depois um apoio ou faixa que o serviço aprova; segurar com a mão, só quando for necessário. Se alguém segura, vale o que você viu na aula de proteção: adulto voluntário, não grávido, nunca outro paciente, com proteção e o corpo todo fora do feixe. Nunca se prende sobre o local machucado, nem se atrapalha respiração ou circulação, nem se deixa a criança sozinha no apoio. A equipe escolhe o recurso, pelo protocolo do serviço.",
+        "keyPoints": [
+          "Da mais leve à mais restrita: conversa, apoio ou faixa, mão.",
+          "Quem segura, como na aula de proteção: adulto voluntário, não grávido, protegido, fora do feixe.",
+          "Imobilizar nunca é força: sem pressão sobre o machucado, sem atrapalhar a respiração, sem deixar sozinha."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, com uma criança pequena, qual fala combina com a idade?",
+          "options": [
+            {
+              "label": "Uma pergunta de sim ou não para ela escolher",
+              "correct": false,
+              "feedback": "A pergunta de sim ou não convida à recusa; a criança pequena precisa de frase simples."
+            },
+            {
+              "label": "Uma explicação longa dirigida só ao responsável",
+              "correct": false,
+              "feedback": "O responsável participa, mas a criança pequena também ouve frases dirigidas a ela."
+            },
+            {
+              "label": "Uma frase simples que diga o que vai acontecer",
+              "correct": true,
+              "feedback": "Isso: frase simples e concreta, com a verdade sobre o que vem."
+            },
+            {
+              "label": "Um silêncio até ela se acalmar sozinha",
+              "correct": false,
+              "feedback": "O silêncio não explica nada e pode aumentar o medo."
+            }
+          ],
+          "sourceIds": [
+            "r101-ped"
+          ],
+          "help": "Lembre como a criança pequena entende a explicação."
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Toque nos dois recursos da cena que ajudam a manter a criança parada sem que uma pessoa precise segurar.",
+          "diagramId": "contencao-pediatrica",
+          "regions": [
+            {
+              "label": "Mão do acompanhante",
+              "x": 0.15,
+              "y": 0.5,
+              "width": 0.09,
+              "height": 0.13
+            },
+            {
+              "label": "Faixa sobre as pernas",
+              "x": 0.481,
+              "y": 0.533,
+              "width": 0.1,
+              "height": 0.117,
+              "correct": true
+            },
+            {
+              "label": "Campo de luz",
+              "x": 0.313,
+              "y": 0.258,
+              "width": 0.119,
+              "height": 0.208
+            },
+            {
+              "label": "Apoio de espuma",
+              "x": 0.695,
+              "y": 0.5,
+              "width": 0.09,
+              "height": 0.14,
+              "correct": true
+            },
+            {
+              "label": "Pessoa junto aos pés da mesa",
+              "x": 0.856,
+              "y": 0.208,
+              "width": 0.1,
+              "height": 0.342
+            }
+          ],
+          "feedbackCorrect": "A faixa e o apoio mantêm a posição sem mão no feixe: é o tipo de ajuda mais leve, que a equipe aprova e escolhe.",
+          "feedbackIncorrect": "Procure o que prende ou apoia o corpo, e não as pessoas ou a luz: dois recursos da cena fazem isso sem mão de ninguém.",
+          "help": "Pense no que ficaria no lugar mesmo se ninguém encostasse na criança.",
+          "sourceIds": [
+            "r101-ped"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada conduta pela ordem de escolha que a aula ensinou.",
+          "categories": [
+            "Primeira escolha",
+            "Só se for necessário",
+            "Nunca"
+          ],
+          "items": [
+            {
+              "label": "Explicar e acalmar a criança antes",
+              "category": "Primeira escolha"
+            },
+            {
+              "label": "Apoio ou faixa que o serviço aprova",
+              "category": "Primeira escolha"
+            },
+            {
+              "label": "Adulto voluntário de avental segurando",
+              "category": "Só se for necessário"
+            },
+            {
+              "label": "Faixa apertada sobre o local machucado",
+              "category": "Nunca"
+            },
+            {
+              "label": "Deixar a criança sozinha no apoio",
+              "category": "Nunca"
+            },
+            {
+              "label": "Outro paciente segurando a criança",
+              "category": "Nunca"
+            }
+          ],
+          "feedbackCorrect": "Você ordenou do mais leve ao mais restrito e separou o que não se faz.",
+          "feedbackIncorrect": "Pergunte de cada conduta: é a ajuda mais leve, só entra se for necessário, ou machuca e não se faz?",
+          "help": "Quem vem primeiro: a conversa e o apoio, ou a mão?",
+          "sourceIds": [
+            "r101-ped"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "multi-select",
+          "role": "safety",
+          "criticalSafety": true,
+          "prompt": "Marque todas as condutas seguras quando a criança continua se mexendo e a faixa já está posta.",
+          "options": [
+            {
+              "label": "Avisar a equipe e esperar a decisão sobre outro recurso",
+              "correct": true,
+              "feedback": "Quem escolhe o recurso é a equipe: você descreve o que vê e espera."
+            },
+            {
+              "label": "Apertar mais a faixa até a criança parar",
+              "correct": false,
+              "feedback": "Apertar mais é força, e pode atrapalhar a respiração ou a circulação."
+            },
+            {
+              "label": "Conferir se ela respira com folga e a faixa não aperta",
+              "correct": true,
+              "feedback": "Respiração e circulação não podem ser atrapalhadas por nenhum recurso."
+            },
+            {
+              "label": "Pedir que outro paciente da sala segure as pernas",
+              "correct": false,
+              "feedback": "Outro paciente nunca segura: ele também se expõe sem necessidade."
+            },
+            {
+              "label": "Não deixá-la sozinha no apoio, nem por um instante",
+              "correct": true,
+              "feedback": "A criança num recurso de imobilização não fica sozinha: alguém da equipe acompanha o tempo todo."
+            },
+            {
+              "label": "Pôr a mão no campo de luz para firmar o braço",
+              "correct": false,
+              "feedback": "Nenhuma parte do corpo de quem ajuda entra no feixe."
+            }
+          ],
+          "feedbackCorrect": "Você marcou o que protege a criança e deixou de fora a força e a mão no feixe.",
+          "feedbackIncorrect": "Releia os limites: sem força, sem atrapalhar a respiração, sem deixar a criança sozinha, sem mão no feixe e sem outro paciente.",
+          "help": "Quais condutas descrevem, conferem ou acompanham, em vez de forçar?",
+          "sourceIds": [
+            "r101-ped"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Uma criança com dor no braço chega para o exame. Julgue cada afirmação sobre manter o braço parado.",
+          "statements": [
+            {
+              "text": "A equipe escolhe o recurso, e você descreve o que observa.",
+              "correct": true,
+              "feedback": "Certo: o recurso é escolha da equipe, e a sua parte é descrever e ajudar."
+            },
+            {
+              "text": "Dá para prender o braço com a faixa sobre o local que dói.",
+              "correct": false,
+              "feedback": "Nunca se prende sobre o local machucado: a pressão aumenta a dor e o risco."
+            },
+            {
+              "text": "Deixar a criança sozinha no apoio enquanto você ajusta o painel é seguro.",
+              "correct": false,
+              "feedback": "A criança não fica sozinha em um recurso de imobilização, nem por pouco tempo."
+            }
+          ],
+          "feedbackCorrect": "Você manteve o limite: sem prender o local machucado e sem deixá-la sozinha.",
+          "feedbackIncorrect": "Releia o conceito: o recurso é escolha da equipe, a faixa não passa sobre o machucado e a criança fica acompanhada.",
+          "help": "Quem escolhe o recurso, e o que a faixa nunca pode cobrir?",
+          "sourceIds": [
+            "r101-ped"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Imobilizar com cuidado",
+        "body": "Você conhece a ordem das ajudas, quem pode segurar com proteção e os limites que a imobilização não cruza. Quem escolhe o recurso é a equipe.",
+        "line": {
+          "speaker": "caio",
+          "text": "Ajuda leve, e o olho na criança o tempo todo."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Qual destas é a primeira escolha para manter uma criança parada?",
+          "options": [
+            {
+              "label": "Pedir a outro paciente que segure a criança",
+              "correct": false,
+              "feedback": "Outro paciente nunca segura; ele se expõe sem necessidade."
+            },
+            {
+              "label": "Apertar a faixa até ela parar de reagir",
+              "correct": false,
+              "feedback": "Apertar é força; a ajuda é proporcional e não atrapalha a respiração."
+            },
+            {
+              "label": "Conversar e usar um apoio que o serviço aprova",
+              "correct": true,
+              "feedback": "Isso: a conversa e o apoio aprovado são as ajudas mais leves, antes da mão."
+            },
+            {
+              "label": "Segurar com a mão desde o início",
+              "correct": false,
+              "feedback": "A mão só entra quando for necessário, depois da ajuda mais leve."
+            }
+          ],
+          "sourceIds": [
+            "r101-ped"
+          ]
+        },
+        {
+          "prompt": "Qual destas situações a imobilização nunca permite?",
+          "options": [
+            {
+              "label": "Faixa folgada sobre as pernas, sem apertar",
+              "correct": false,
+              "feedback": "Faixa folgada, que não aperta nem atrapalha a respiração, está dentro do limite."
+            },
+            {
+              "label": "Apoio de espuma aprovado ao lado do corpo",
+              "correct": false,
+              "feedback": "O apoio aprovado é a ajuda leve que a aula põe antes da mão."
+            },
+            {
+              "label": "Responsável protegido ao lado, fora do feixe",
+              "correct": false,
+              "feedback": "Com papel combinado, proteção e o corpo fora do feixe, o responsável pode ajudar, se o serviço permite."
+            },
+            {
+              "label": "Faixa no tórax que encurta a respiração",
+              "correct": true,
+              "feedback": "Isso: nenhum recurso pode atrapalhar a respiração; a faixa justa é força."
+            }
+          ],
+          "sourceIds": [
+            "r101-ped"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: se a criança continua se mexendo, eu primeiro...",
+          "item": {
+            "prompt": "A criança continua se mexendo mesmo com a faixa. Qual é o primeiro passo do estudante?",
+            "options": [
+              {
+                "label": "Apertar a faixa até ela parar",
+                "correct": false,
+                "feedback": "Apertar é força e pode atrapalhar a respiração e a circulação."
+              },
+              {
+                "label": "Pedir a um paciente que ajude a segurar",
+                "correct": false,
+                "feedback": "Outro paciente nunca segura a criança."
+              },
+              {
+                "label": "Segurar o campo de luz com a mão",
+                "correct": false,
+                "feedback": "Nenhuma parte do corpo entra no feixe."
+              },
+              {
+                "label": "Descrever à equipe e esperar a decisão",
+                "correct": true,
+                "feedback": "Isso: descrever e aguardar, porque quem escolhe o recurso é a equipe."
+              }
+            ],
+            "sourceIds": [
+              "r101-ped"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "O pai quer segurar o filho, está sem avental e com a mão perto do campo. O que o estudante faz?",
+            "options": [
+              {
+                "label": "Deixa, pois ele é o pai e conhece o filho",
+                "correct": false,
+                "feedback": "Ser o pai não dispensa avental nem tira a mão do feixe."
+              },
+              {
+                "label": "Avisa a equipe antes: avental e mão fora do feixe",
+                "correct": true,
+                "feedback": "Isso: avental e mãos fora do feixe são combinados com a equipe antes da exposição."
+              },
+              {
+                "label": "Mede o tempo e dispara, para não demorar",
+                "correct": false,
+                "feedback": "Disparar assim expõe a mão dele ao feixe."
+              },
+              {
+                "label": "Pede que ele espere no corredor sozinho, sem avisar",
+                "correct": false,
+                "feedback": "Decidir sozinho passa por cima da equipe, que combina o papel dele."
+              }
+            ],
+            "sourceIds": [
+              "r101-ped"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m27-03",
+      "code": "M27.03",
+      "title": "Campo pequeno, tempo curto",
+      "objective": "Hoje você vai conseguir reconhecer um campo grande demais numa criança e conferir o campo ajustado antes do disparo.",
+      "competency": "Reconhecer um campo aberto além da região de interesse numa criança e conferir o campo ajustado à região definida pelo protocolo.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de radiografia simulada",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Abri o campo bem grande para garantir que nada fica de fora. Não é mais seguro?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Fora do que o pedido manda, o que entra no campo é radiação sem necessidade."
+          },
+          {
+            "speaker": "lia",
+            "text": "Corpo pequeno, região pequena. E quem define qual é a região?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos comparar um campo aberto com um campo ajustado."
+          }
+        ]
+      },
+      "concept": {
+        "title": "O campo cabe na região",
+        "body": "A criança é pequena, e um campo aberto alcança partes que o pedido não inclui. O campo se ajusta à região de interesse que o protocolo do serviço define, antes da exposição, e não além dos limites daquela anatomia. A região não é escolha do estudante: o pedido e o protocolo a dizem. Você confere o campo de luz sobre a criança. Tempo curto também conta: com a criança calma e bem apoiada, a imagem sai de primeira, e repetir seria outra exposição.",
+        "keyPoints": [
+          "Campo ajustado à região que o pedido e o protocolo definem.",
+          "Campo de luz conferido antes da exposição.",
+          "Imagem de primeira evita repetir a exposição."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, o que vem antes de segurar a criança com a mão?",
+          "options": [
+            {
+              "label": "Pedir a outro paciente que ajude",
+              "correct": false,
+              "feedback": "Outro paciente nunca segura a criança."
+            },
+            {
+              "label": "Apertar a faixa até ela parar",
+              "correct": false,
+              "feedback": "Apertar é força, e a ajuda é a mais leve que resolve."
+            },
+            {
+              "label": "Chamar mais gente para a sala",
+              "correct": false,
+              "feedback": "Mais gente na sala amplia quem se expõe; a ajuda começa pela mais leve."
+            },
+            {
+              "label": "Um apoio ou faixa que o serviço aprova",
+              "correct": true,
+              "feedback": "Isso: o apoio ou a faixa aprovados vêm antes da mão."
+            }
+          ],
+          "sourceIds": [
+            "r101-ped"
+          ],
+          "help": "Lembre da escada, da ajuda mais leve para a mais restrita."
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "O pedido é de tórax nas duas crianças. Toque nas partes do corpo que entraram no feixe sem o pedido incluí-las.",
+          "diagramId": "colimacao-pediatrica",
+          "regions": [
+            {
+              "label": "Pernas da criança da esquerda",
+              "x": 0.194,
+              "y": 0.7,
+              "width": 0.113,
+              "height": 0.2,
+              "correct": true
+            },
+            {
+              "label": "Cabeça da criança da esquerda",
+              "x": 0.206,
+              "y": 0.15,
+              "width": 0.087,
+              "height": 0.1,
+              "correct": true
+            },
+            {
+              "label": "Tórax da criança da direita",
+              "x": 0.644,
+              "y": 0.263,
+              "width": 0.181,
+              "height": 0.175
+            },
+            {
+              "label": "Abdome e pelve da criança da direita",
+              "x": 0.662,
+              "y": 0.467,
+              "width": 0.144,
+              "height": 0.217
+            }
+          ],
+          "feedbackCorrect": "Isso: o campo aberto da esquerda alcança a cabeça e as pernas, que o pedido de tórax não inclui. Vale só para este esquema.",
+          "feedbackIncorrect": "Essa parte não entrou no feixe sem pedido: ou é o tórax pedido, ou ficou fora do campo. Procure o campo aberto além do tórax.",
+          "help": "Compare os dois retângulos de luz com a região do pedido.",
+          "sourceIds": [
+            "r101-ped",
+            "r101-shield"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "O pedido é de tórax. Julgue cada afirmação sobre os dois campos do esquema.",
+          "statements": [
+            {
+              "text": "O campo da cabeça aos pés expõe partes que o pedido não inclui.",
+              "correct": true,
+              "feedback": "Certo: o campo aberto alcança partes fora da região de interesse."
+            },
+            {
+              "text": "Quem decide a região a radiografar é o estudante, olhando a criança pequena.",
+              "correct": false,
+              "feedback": "A região vem do pedido e do protocolo do serviço, e o estudante ajusta o campo a ela."
+            },
+            {
+              "text": "Um campo grande é preferível, porque evita deixar a região de fora.",
+              "correct": false,
+              "feedback": "O campo ajustado já cobre a região; o grande só expõe o que não foi pedido."
+            },
+            {
+              "text": "Conferir o campo de luz antes da exposição faz parte do trabalho.",
+              "correct": true,
+              "feedback": "Certo: o campo de luz mostra o que o feixe vai cobrir, e a conferência vem antes."
+            }
+          ],
+          "feedbackCorrect": "Você separou o campo ajustado do campo aberto e deixou a região com quem define.",
+          "feedbackIncorrect": "Releia o conceito: o campo cabe na região do pedido, e o estudante confere, mas não escolhe a região.",
+          "help": "Quem define a região, e o que o campo grande acrescenta?",
+          "sourceIds": [
+            "r101-ped",
+            "r101-shield"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase com as palavras do banco.",
+          "text": "O campo se ajusta à {{1}} de interesse que o {{2}} define, antes da exposição.",
+          "answers": [
+            "região",
+            "protocolo"
+          ],
+          "distractors": [
+            "criança",
+            "estudante",
+            "tempo"
+          ],
+          "feedbackCorrect": "Isso: o campo cabe na região de interesse que o protocolo define.",
+          "feedbackIncorrect": "Pense no que o campo cobre e em quem define a região: não é o estudante, e sim o protocolo do serviço.",
+          "help": "O campo cobre uma parte do corpo; quem diz qual é?",
+          "sourceIds": [
+            "r101-ped"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multi-select",
+          "role": "transfer",
+          "prompt": "Uma criança de 2 anos vai fazer um exame de tórax. Marque tudo o que você confere antes do disparo.",
+          "options": [
+            {
+              "label": "O campo de luz cobre a região que o protocolo define",
+              "correct": true,
+              "feedback": "O campo cobre a região de interesse, e o protocolo a define."
+            },
+            {
+              "label": "Nenhuma parte de quem ajuda está dentro do feixe",
+              "correct": true,
+              "feedback": "Quem ajuda fica com o corpo todo fora do feixe."
+            },
+            {
+              "label": "O campo está aberto até os pés, por garantia",
+              "correct": false,
+              "feedback": "Campo aberto alcança partes que o pedido não inclui."
+            },
+            {
+              "label": "A criança está calma e apoiada, acompanhada o tempo todo",
+              "correct": true,
+              "feedback": "Criança calma e apoiada ajuda a imagem sair de primeira, sem repetir a exposição."
+            },
+            {
+              "label": "Se o campo parecer grande, trocar o exame por outro",
+              "correct": false,
+              "feedback": "Trocar o exame não é do estudante: ajuste o campo à região ou chame a equipe."
+            }
+          ],
+          "feedbackCorrect": "Você conferiu campo, quem ajuda e a criança, e deixou de fora o campo aberto e a troca do exame.",
+          "feedbackIncorrect": "Releia o conceito: o campo cabe na região do protocolo, quem ajuda fica fora do feixe e a decisão do exame é da equipe.",
+          "help": "O que você confere no campo, em quem ajuda e na criança?",
+          "sourceIds": [
+            "r101-ped",
+            "r101-shield"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O campo cabe na criança",
+        "body": "Você reconhece um campo aberto demais, confere o campo ajustado à região do protocolo e cuida para a imagem sair de primeira.",
+        "line": {
+          "speaker": "lia",
+          "text": "Campo pequeno, conferência rápida, criança calma."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Qual é a consequência de um campo aberto além da região de interesse numa criança?",
+          "options": [
+            {
+              "label": "Mais partes do corpo ficam expostas sem necessidade",
+              "correct": true,
+              "feedback": "Isso: o campo aberto alcança partes que o pedido não inclui."
+            },
+            {
+              "label": "A imagem fica mais nítida na região de interesse",
+              "correct": false,
+              "feedback": "Abrir o campo não melhora a região; só amplia o que é exposto."
+            },
+            {
+              "label": "A chance de repetir a imagem diminui",
+              "correct": false,
+              "feedback": "O campo aberto não evita repetição; a imagem de primeira vem de apoio e calma."
+            },
+            {
+              "label": "O apoio da criança deixa de ser necessário",
+              "correct": false,
+              "feedback": "O apoio não depende do tamanho do campo."
+            }
+          ],
+          "sourceIds": [
+            "r101-ped"
+          ]
+        },
+        {
+          "prompt": "Quem define a região que o campo deve cobrir?",
+          "options": [
+            {
+              "label": "O estudante, olhando a criança",
+              "correct": false,
+              "feedback": "O estudante confere o campo, mas a região vem do pedido."
+            },
+            {
+              "label": "O responsável que acompanha a criança",
+              "correct": false,
+              "feedback": "O responsável participa da conversa, mas não define a região."
+            },
+            {
+              "label": "O pedido e o protocolo do serviço",
+              "correct": true,
+              "feedback": "Isso: o pedido e o protocolo dizem a região, e o campo se ajusta a ela."
+            },
+            {
+              "label": "A criança, por onde sente incômodo",
+              "correct": false,
+              "feedback": "Onde a criança sente incômodo ajuda a descrever, mas não define a região."
+            }
+          ],
+          "sourceIds": [
+            "r101-ped"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o campo se ajusta à região de interesse e não além dos limites da...",
+          "item": {
+            "prompt": "Qual é o objetivo de ajustar o campo à região de interesse numa criança?",
+            "options": [
+              {
+                "label": "Deixar a criança parada sem apoio",
+                "correct": false,
+                "feedback": "O campo não imobiliza; quem apoia é o recurso aprovado."
+              },
+              {
+                "label": "Expor só a região que o pedido inclui",
+                "correct": true,
+                "feedback": "Isso: o campo cobre só a região de interesse."
+              },
+              {
+                "label": "Dispensar a conferência do campo de luz",
+                "correct": false,
+                "feedback": "A conferência continua, antes da exposição."
+              },
+              {
+                "label": "Trocar o exame por outro mais curto",
+                "correct": false,
+                "feedback": "Trocar o exame é decisão da equipe, e não do campo."
+              }
+            ],
+            "sourceIds": [
+              "r101-ped"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Duda abre o campo grande \"por garantia\" numa criança. O que você sugere a ela?",
+            "options": [
+              {
+                "label": "Deixar assim, pois é mais seguro",
+                "correct": false,
+                "feedback": "O campo aberto expõe o que o pedido não inclui."
+              },
+              {
+                "label": "Fechar o campo mais ainda, até sumir da imagem",
+                "correct": false,
+                "feedback": "Fechar além da região pode deixar de fora o que o pedido inclui."
+              },
+              {
+                "label": "Dispensar o campo de luz e disparar",
+                "correct": false,
+                "feedback": "O campo de luz é a conferência antes da exposição."
+              },
+              {
+                "label": "Ajustar o campo à região que o protocolo define",
+                "correct": true,
+                "feedback": "Isso: campo ajustado à região do protocolo, conferido no campo de luz."
+              }
+            ],
+            "sourceIds": [
+              "r101-ped"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m27-04",
+      "code": "M27.04",
+      "title": "O paciente idoso",
+      "objective": "Hoje você vai conseguir reconhecer riscos de queda e adaptar fala e apoio a uma pessoa idosa durante o posicionamento.",
+      "competency": "Reconhecer pele frágil, audição, visão e equilíbrio como parte do posicionamento e adaptar a abordagem, sem forçar.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de radiografia simulada",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Dona Marta",
+            "text": "Meu filho, fale de frente para mim. O ouvido já não é o de antes, e a vista também cansa."
+          },
+          {
+            "speaker": "duda",
+            "text": "Falo mais alto, então?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Gritar distorce o som. Pense no que ajuda: de frente, devagar, e onde ela pisa."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Audição, visão, pele e equilíbrio: quatro coisas para olhar antes de posicionar."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Posicionar com a idade em conta",
+        "body": "Com a idade, ouvir e enxergar ficam mais difíceis, o equilíbrio falha mais e a pele pode ser frágil. No posicionamento, isso vira ação: fale de frente, devagar, sem gritar e com palavras simples, e confira se foi entendido; mantenha a sala iluminada e o caminho sem tapete solto nem obstáculo; toque e mova com cuidado, sem puxar, com a ajuda da equipe e pelo protocolo do serviço. Se a pessoa não consegue a posição padrão, não force: descreva e peça apoio à equipe.",
+        "keyPoints": [
+          "Audição: de frente, devagar, sem gritar, confirmando.",
+          "Visão e equilíbrio: sala iluminada e caminho livre.",
+          "Pele frágil: mover com cuidado, com a equipe."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula sobre dor, o que você faz diante de uma pessoa que sente dor ao se mover?",
+          "options": [
+            {
+              "label": "Pergunta o que ela consegue e não força",
+              "correct": true,
+              "feedback": "Isso: perguntar o que a pessoa consegue e não forçar é a base da abordagem com dor."
+            },
+            {
+              "label": "Move o membro até a posição padrão, devagar",
+              "correct": false,
+              "feedback": "Mover contra a dor é o que a aula de dor pede para não fazer."
+            },
+            {
+              "label": "Pede que a pessoa aguente, porque é rápido",
+              "correct": false,
+              "feedback": "Pedir que aguente ignora a dor e pode piorar a situação."
+            },
+            {
+              "label": "Retira o gesso para facilitar o posicionamento",
+              "correct": false,
+              "feedback": "Gesso e tala não se retiram por conta própria."
+            }
+          ],
+          "sourceIds": [
+            "r101-ped",
+            "r101-hip"
+          ],
+          "help": "Lembre se você move contra a dor ou pergunta antes."
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada característica da idade à adaptação que a aula ensinou.",
+          "pairs": [
+            {
+              "left": "Audição reduzida",
+              "right": "Falar de frente, devagar e sem gritar, confirmando que entendeu"
+            },
+            {
+              "left": "Visão reduzida",
+              "right": "Manter a sala iluminada no caminho até o receptor"
+            },
+            {
+              "left": "Pele frágil",
+              "right": "Mover com cuidado, sem puxar, com a ajuda da equipe"
+            },
+            {
+              "left": "Equilíbrio instável",
+              "right": "Tirar do caminho o tapete solto e outros obstáculos"
+            }
+          ],
+          "feedbackCorrect": "Cada mudança da idade virou uma ação no posicionamento.",
+          "feedbackIncorrect": "Releia o conceito: o ouvido pede fala de frente e devagar, a visão pede luz, a pele pede cuidado e o equilíbrio pede caminho livre.",
+          "help": "Pergunte de cada adaptação qual sentido ou qual risco ela atende.",
+          "sourceIds": [
+            "pmc-hearing",
+            "who-ageing",
+            "who-falls",
+            "r101-hip"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multi-select",
+          "role": "practice",
+          "prompt": "Marque todas as ações que ajudam uma pessoa idosa com audição reduzida a entender o exame.",
+          "options": [
+            {
+              "label": "Ficar de frente para ela, para ela ver o seu rosto",
+              "correct": true,
+              "feedback": "De frente, a pessoa vê o rosto e apoia a escuta no que vê."
+            },
+            {
+              "label": "Falar mais alto, quase gritando",
+              "correct": false,
+              "feedback": "Gritar costuma distorcer a fala de quem ouve menos; fale devagar e claro."
+            },
+            {
+              "label": "Falar devagar e fazer pausas",
+              "correct": true,
+              "feedback": "Pausas dão tempo de entender, e a fala rápida atrapalha."
+            },
+            {
+              "label": "Usar palavras simples, em vez de termos técnicos",
+              "correct": true,
+              "feedback": "Termos técnicos são o que mais se perde na conversa."
+            },
+            {
+              "label": "Falar de costas enquanto ajusta o equipamento",
+              "correct": false,
+              "feedback": "De costas, ela não vê o rosto e não entende a explicação."
+            },
+            {
+              "label": "Pedir que avise se não estiver entendendo",
+              "correct": true,
+              "feedback": "Pedir o aviso abre espaço para repetir e reformular."
+            }
+          ],
+          "feedbackCorrect": "Você marcou o que facilita a escuta e deixou de fora o grito e a fala de costas.",
+          "feedbackIncorrect": "Releia o conceito: de frente, devagar, sem gritar e com palavras simples, confirmando que entendeu.",
+          "help": "O que ajuda a pessoa a ouvir e a ver, em vez de só aumentar o volume?",
+          "sourceIds": [
+            "pmc-hearing"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "risk-hunt",
+          "role": "safety",
+          "criticalSafety": true,
+          "prompt": "Dona Marta vai ficar de pé diante do receptor. Toque em todas as situações da cena que aumentam o risco de queda.",
+          "diagramId": "idoso-apoios-e-riscos",
+          "regions": [
+            {
+              "label": "Barra de apoio junto ao receptor",
+              "x": 0.09,
+              "y": 0.5,
+              "width": 0.08,
+              "height": 0.24,
+              "risk": false,
+              "feedback": "A barra firme junto ao receptor dá onde a pessoa se segurar: é apoio, e não risco."
+            },
+            {
+              "label": "Degrau no chão",
+              "x": 0.487,
+              "y": 0.808,
+              "width": 0.106,
+              "height": 0.083,
+              "risk": true,
+              "feedback": "Um degrau no chão é obstáculo para quem se equilibra mal: a equipe resolve o caminho antes do exame."
+            },
+            {
+              "label": "Banco ao lado",
+              "x": 0.294,
+              "y": 0.658,
+              "width": 0.138,
+              "height": 0.233,
+              "risk": false,
+              "feedback": "O banco está ao lado, fora do caminho dela: aqui ele não é obstáculo. Se ela precisar sentar, a equipe confere se ele é firme."
+            },
+            {
+              "label": "Tapete com a ponta solta",
+              "x": 0.619,
+              "y": 0.81,
+              "width": 0.181,
+              "height": 0.09,
+              "risk": true,
+              "feedback": "A ponta solta do tapete pode prender o pé: piso irregular é risco de queda para quem se equilibra mal."
+            },
+            {
+              "label": "Andador longe da pessoa",
+              "x": 0.831,
+              "y": 0.533,
+              "width": 0.156,
+              "height": 0.358,
+              "risk": true,
+              "feedback": "Ela usa o andador para se firmar, e ele ficou longe: avise a equipe antes de ela andar até ele, e siga o protocolo do serviço."
+            }
+          ],
+          "feedbackCorrect": "Isso: você achou o degrau, o tapete e o andador longe, e deixou a barra e o banco, que ajudam.",
+          "feedbackIncorrect": "Releia a cena: algum obstáculo do piso ou o andador longe ficou de fora, ou o apoio foi marcado como risco.",
+          "help": "Procure o que pode fazer tropeçar e o que deveria estar ao alcance da pessoa.",
+          "sourceIds": [
+            "who-falls",
+            "pmc-geri-chest"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "conversation",
+          "role": "transfer",
+          "speaker": "paciente",
+          "name": "Dona Marta",
+          "prompt": "Dona Marta, idosa, está na maca, ouve mal e tem a pele fina nos braços. Ajude-a durante a passagem para a mesa.",
+          "turns": [
+            {
+              "line": "O que o senhor disse? Não escutei, aqui tem muito barulho.",
+              "options": [
+                {
+                  "label": "Vou repetir mais alto, quase gritando, até a senhora ouvir.",
+                  "correct": false,
+                  "reply": "Gritando eu escuto pior ainda, o som fica estranho."
+                },
+                {
+                  "label": "Vou me aproximar, ficar de frente e falar mais devagar.",
+                  "correct": true,
+                  "reply": "Assim eu consigo ver o seu rosto e acompanhar melhor."
+                },
+                {
+                  "label": "Deixa para lá, uma colega explica depois.",
+                  "correct": false,
+                  "reply": "Mas eu queria entender antes de me mexerem."
+                }
+              ]
+            },
+            {
+              "line": "Meu braço é fino e rasga fácil. Me puxe com cuidado.",
+              "options": [
+                {
+                  "label": "Aviso a equipe e movo a senhora devagar.",
+                  "correct": true,
+                  "reply": "Assim eu fico mais tranquila, obrigada."
+                },
+                {
+                  "label": "Pode deixar, eu puxo rápido pelo braço, é mais fácil.",
+                  "correct": false,
+                  "reply": "Rápido pelo braço me assusta, filho."
+                },
+                {
+                  "label": "Então a senhora se vira sozinha, para ninguém encostar.",
+                  "correct": false,
+                  "reply": "Sozinha eu não consigo, estou com receio de cair."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Você falou de frente e devagar e cuidou da pele fina, combinando o movimento com a equipe.",
+          "feedbackIncorrect": "Releia o conceito: ouvido pede fala de frente e devagar, e pele frágil pede toque e movimento com cuidado.",
+          "help": "Como a pessoa ouve melhor, e como a pele rasga menos?",
+          "sourceIds": [
+            "pmc-hearing",
+            "r101-hip"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "A pessoa inteira, antes da posição",
+        "body": "Você olha audição, visão, pele e equilíbrio como parte do posicionamento, adapta a fala e o apoio e, quando a posição padrão não vem, descreve e pede apoio.",
+        "line": {
+          "speaker": "caio",
+          "text": "Posição boa é a que a pessoa consegue manter sem se machucar."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma pessoa idosa ouve mal. Qual fala ajuda mais?",
+          "options": [
+            {
+              "label": "Falar de frente, devagar e sem gritar",
+              "correct": true,
+              "feedback": "Isso: de frente, devagar e sem gritar, confirmando que entendeu."
+            },
+            {
+              "label": "Falar muito alto, de longe, para a sala ouvir",
+              "correct": false,
+              "feedback": "Falar alto e de longe distorce a fala e a pessoa não vê o rosto."
+            },
+            {
+              "label": "Falar rápido, para o exame acabar logo",
+              "correct": false,
+              "feedback": "Fala rápida tira o tempo de entender."
+            },
+            {
+              "label": "Falar só com o acompanhante, sem olhar para ela",
+              "correct": false,
+              "feedback": "A pessoa é a paciente e merece a explicação direta."
+            }
+          ],
+          "sourceIds": [
+            "pmc-hearing"
+          ]
+        },
+        {
+          "prompt": "Qual situação da sala aumenta o risco de queda de quem se equilibra mal?",
+          "options": [
+            {
+              "label": "A barra de apoio presa junto ao receptor",
+              "correct": false,
+              "feedback": "A barra firme é apoio e ajuda a se segurar."
+            },
+            {
+              "label": "Um tapete com a ponta solta no caminho",
+              "correct": true,
+              "feedback": "Isso: a ponta solta pode prender o pé de quem se equilibra mal."
+            },
+            {
+              "label": "Um banco fora do caminho, ao lado do receptor",
+              "correct": false,
+              "feedback": "O banco fora do caminho dá onde sentar."
+            },
+            {
+              "label": "A sala bem iluminada no caminho até o receptor",
+              "correct": false,
+              "feedback": "Luz boa no caminho ajuda quem enxerga menos a ver onde pisa."
+            }
+          ],
+          "sourceIds": [
+            "who-falls"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: para quem se equilibra mal, o caminho fica livre de...",
+          "item": {
+            "prompt": "Qual destas ações ajuda uma pessoa idosa que se equilibra mal?",
+            "options": [
+              {
+                "label": "Tirar do caminho o tapete solto e os obstáculos",
+                "correct": true,
+                "feedback": "Isso: caminho livre, sem tapete solto, reduz o risco de queda."
+              },
+              {
+                "label": "Pedir que ela se apresse para o exame durar menos",
+                "correct": false,
+                "feedback": "A pressa aumenta o risco de queda."
+              },
+              {
+                "label": "Afastar o apoio para ela não se acostumar",
+                "correct": false,
+                "feedback": "Tirar o apoio deixa a pessoa sem onde se firmar."
+              },
+              {
+                "label": "Deixar o tapete no caminho para amortecer",
+                "correct": false,
+                "feedback": "O tapete solto pode prender o pé."
+              }
+            ],
+            "sourceIds": [
+              "who-falls"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma pessoa idosa de pele fina precisa mudar de posição na mesa. O que o estudante faz?",
+            "options": [
+              {
+                "label": "Puxa pelo braço, que é mais rápido",
+                "correct": false,
+                "feedback": "Puxar pelo braço pode rasgar a pele fina."
+              },
+              {
+                "label": "Pede que ela se vire sozinha e depressa",
+                "correct": false,
+                "feedback": "Pedir pressa aumenta o risco de queda e de ferir a pele."
+              },
+              {
+                "label": "Move devagar, com cuidado, com apoio da equipe",
+                "correct": true,
+                "feedback": "Isso: mover devagar e com cuidado protege a pele frágil."
+              },
+              {
+                "label": "Dispensa a mudança de posição por conta própria",
+                "correct": false,
+                "feedback": "Dispensar a posição não é do estudante; descreva e peça apoio à equipe."
+              }
+            ],
+            "sourceIds": [
+              "r101-hip"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m27-05",
+      "code": "M27.05",
+      "title": "A gestante com exame indicado",
+      "objective": "Hoje você vai conseguir dizer o que muda na sala quando a equipe decidiu fazer o exame numa gestante.",
+      "competency": "Dizer o que muda na sala quando a equipe decidiu o exame da gestante: abdome fora do feixe, proteção de contato do serviço, conversa sem promessa.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de radiografia simulada",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Paula",
+            "text": "A equipe explicou que o exame é necessário, mesmo eu estando grávida. Mas fico pensando no bebê."
+          },
+          {
+            "speaker": "duda",
+            "text": "Então a decisão já foi tomada. E agora, o que eu faço de diferente na sala?"
+          },
+          {
+            "speaker": "caio",
+            "text": "A decisão foi da equipe. O seu trabalho começa depois dela."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Olhe o desenho: o que o campo alcança e o que ele deixa de fora?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "O que muda depois da decisão",
+        "body": "Quem decide fazer, adiar ou trocar o exame é a equipe, pelo protocolo do serviço. Decidido o exame, o campo se fecha à região pedida, e o abdome, fora dela, fica fora do feixe. A proteção de contato é o serviço que define. Você explica com calma o que vem, sem prometer. Se o campo parece alcançar o abdome, pare e peça apoio à equipe. No esquema, o campo cheio fica no tórax; o tracejado, aberto demais, alcança o abdome.",
+        "keyPoints": [
+          "A equipe decide fazer, adiar ou trocar o exame.",
+          "Campo fechado à região pedida: o abdome fica fora do feixe.",
+          "Proteção de contato: o serviço define."
+        ],
+        "visual": "gestante-campo-e-feixe"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula sobre gestação, a paciente diz que a menstruação atrasou. O que vem antes de qualquer exposição?",
+          "options": [
+            {
+              "label": "Expor logo, que o exame já está pedido",
+              "correct": false,
+              "feedback": "Expor sem pausa ignora a dúvida de gestação, que vai para a equipe antes."
+            },
+            {
+              "label": "Pausar e avisar a equipe",
+              "correct": true,
+              "feedback": "Isso: pausar e avisar a equipe vem antes de qualquer exposição."
+            },
+            {
+              "label": "Decidir sozinho se o exame continua",
+              "correct": false,
+              "feedback": "Decidir fazer ou adiar é da equipe, e não do estudante."
+            },
+            {
+              "label": "Anotar com outras palavras e seguir",
+              "correct": false,
+              "feedback": "Anotar com outras palavras muda o que a paciente disse e não resolve a dúvida."
+            }
+          ],
+          "sourceIds": [
+            "r101-shield"
+          ],
+          "help": "Lembre o que a dúvida de gestação pede antes do disparo."
+        },
+        {
+          "id": "i2",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase com as palavras do banco.",
+          "text": "Quem decide fazer, adiar ou trocar o exame é a {{1}}, e a proteção de contato é definida pelo {{2}}.",
+          "answers": [
+            "equipe",
+            "serviço"
+          ],
+          "distractors": [
+            "estudante",
+            "paciente",
+            "acompanhante"
+          ],
+          "feedbackCorrect": "Isso: a equipe decide o exame, e o serviço define a proteção de contato.",
+          "feedbackIncorrect": "Pense em quem decide: não é o estudante, nem a paciente, nem o acompanhante, e a proteção de contato vem do serviço.",
+          "help": "Quem decide o exame, e quem define a proteção de contato?",
+          "sourceIds": [
+            "r101-shield"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "blitz",
+          "role": "practice",
+          "prompt": "Responda verdadeiro ou falso a cada afirmação sobre a gestante com exame decidido pela equipe.",
+          "statements": [
+            {
+              "text": "Quem decide fazer o exame é a equipe, e não o estudante.",
+              "correct": true,
+              "feedback": "A decisão de fazer, adiar ou trocar o exame é da equipe."
+            },
+            {
+              "text": "O estudante pode adiar o exame por conta própria, por prudência.",
+              "correct": false,
+              "feedback": "Adiar é decisão da equipe; o estudante descreve a dúvida e pede apoio."
+            },
+            {
+              "text": "Fechar o campo à região pedida ajuda a manter o abdome fora do feixe.",
+              "correct": true,
+              "feedback": "Posição e campo fechados à região são o que mantém o abdome fora do feixe."
+            },
+            {
+              "text": "A proteção de contato é a mesma em todos os serviços.",
+              "correct": false,
+              "feedback": "A proteção de contato é o que o serviço define, e a prática varia entre serviços."
+            },
+            {
+              "text": "Explicar com calma o que vai acontecer faz parte do cuidado.",
+              "correct": true,
+              "feedback": "A explicação calma acolhe a paciente sem prometer o que não cabe ao estudante."
+            },
+            {
+              "text": "Dá para prometer que o exame não oferece nenhum risco.",
+              "correct": false,
+              "feedback": "Prometer isso não cabe ao estudante; a dúvida vai para a equipe."
+            },
+            {
+              "text": "Se ela pergunta pelo bebê, você troca o exame por outro sem radiação.",
+              "correct": false,
+              "feedback": "Trocar o exame é decisão da equipe, e não do estudante."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que é da equipe, o que é do serviço e o que você faz na sala.",
+          "feedbackIncorrect": "Releia o conceito: a equipe decide o exame, o serviço define a proteção de contato, e você cuida da posição e da conversa.",
+          "help": "Pergunte de cada afirmação: é decisão da equipe, do serviço ou sua?",
+          "sourceIds": [
+            "r101-shield"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Paula já está posicionada para uma radiografia de tórax em PA, e a equipe decidiu fazer o exame. Ela pergunta se o campo vai pegar a barriga. Ao olhar o campo de luz, ele parece cobrir parte do abdome dela.",
+          "prompt": "Qual é a sua ação, como estudante?",
+          "options": [
+            {
+              "label": "Disparar assim, porque a equipe já decidiu o exame",
+              "correct": false,
+              "feedback": "A decisão do exame não dispensa conferir o campo antes da exposição."
+            },
+            {
+              "label": "Prometer à paciente que o campo não alcança o bebê",
+              "correct": false,
+              "feedback": "Prometer não cabe ao estudante, ainda mais com o campo parecendo alcançar o abdome."
+            },
+            {
+              "label": "Pausar, descrever o campo à equipe e aguardar",
+              "correct": true,
+              "feedback": "Isso: pausar antes de expor, descrever o que vê e deixar a equipe conferir o campo."
+            },
+            {
+              "label": "Adiar o exame, porque a barriga está no campo",
+              "correct": false,
+              "feedback": "Adiar é decisão da equipe; você descreve o campo e pede apoio."
+            }
+          ],
+          "sourceIds": [
+            "r101-shield"
+          ],
+          "help": "Quem confere o campo quando ele parece errado, e quem decide adiar?"
+        },
+        {
+          "id": "i5",
+          "type": "conversation",
+          "role": "transfer",
+          "speaker": "paciente",
+          "name": "Paula",
+          "prompt": "Paula é gestante, a equipe decidiu o exame e ela tem medo pelo bebê. Conduza a conversa, sem prometer o que não cabe a você.",
+          "turns": [
+            {
+              "line": "Vocês vão fazer o exame mesmo grávida? Isso não faz mal para o bebê?",
+              "options": [
+                {
+                  "label": "Não faz mal nenhum, pode ficar tranquila, eu garanto.",
+                  "correct": false,
+                  "reply": "Garante assim, tão depressa? Isso me deixa mais desconfiada."
+                },
+                {
+                  "label": "A equipe decidiu o exame; eu explico o que vem.",
+                  "correct": true,
+                  "reply": "Está bem, pode me explicar então."
+                },
+                {
+                  "label": "Se a senhora está com medo, a gente cancela agora.",
+                  "correct": false,
+                  "reply": "Cancelar assim, de repente? Eu só queria entender."
+                }
+              ]
+            },
+            {
+              "line": "O senhor vai pôr um avental na minha barriga?",
+              "options": [
+                {
+                  "label": "Sim, sempre se põe avental na barriga de gestante.",
+                  "correct": false,
+                  "reply": "Sempre? Então não tem exceção nenhuma."
+                },
+                {
+                  "label": "Não, nunca se usa avental na barriga de gestante.",
+                  "correct": false,
+                  "reply": "Nunca? Mas uma amiga contou que usou."
+                },
+                {
+                  "label": "Isso o serviço define: vou perguntar à equipe.",
+                  "correct": true,
+                  "reply": "Está bem, aguardo a resposta da equipe."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Você acolheu a paciente, levou a decisão e a proteção de contato à equipe e não prometeu o que não cabe a você.",
+          "feedbackIncorrect": "Releia o conceito: a equipe decide o exame, o serviço define a proteção de contato, e você explica sem prometer.",
+          "help": "O que você promete, e o que você leva à equipe?",
+          "sourceIds": [
+            "r101-shield"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Depois da decisão da equipe",
+        "body": "Você sabe o que muda na sala: abdome fora do feixe pela posição e pelo campo, proteção de contato definida pelo serviço e uma conversa calma, sem promessa.",
+        "line": {
+          "speaker": "lia",
+          "text": "A equipe decide o exame, e você cuida do que fica na sala."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Quem decide fazer, adiar ou trocar o exame de uma gestante?",
+          "options": [
+            {
+              "label": "A equipe, pelo protocolo do serviço",
+              "correct": true,
+              "feedback": "Isso: a decisão é da equipe, pelo protocolo do serviço."
+            },
+            {
+              "label": "O estudante, depois de conversar com ela",
+              "correct": false,
+              "feedback": "O estudante conversa e descreve, mas a decisão é da equipe."
+            },
+            {
+              "label": "A paciente, sozinha, na hora da exposição",
+              "correct": false,
+              "feedback": "A paciente participa da conversa, mas não decide sozinha o exame."
+            },
+            {
+              "label": "O acompanhante, se ela estiver com medo",
+              "correct": false,
+              "feedback": "O acompanhante apoia a paciente, e a decisão é da equipe."
+            }
+          ],
+          "sourceIds": [
+            "r101-shield"
+          ]
+        },
+        {
+          "prompt": "Paula pergunta se o exame é seguro para o bebê. Qual resposta cabe ao estudante?",
+          "options": [
+            {
+              "label": "Garantir que o exame não oferece risco",
+              "correct": false,
+              "feedback": "Garantir isso não cabe ao estudante."
+            },
+            {
+              "label": "Dizer que o exame deve ser cancelado",
+              "correct": false,
+              "feedback": "Cancelar é decisão da equipe."
+            },
+            {
+              "label": "Explicar o que será feito e avisar a equipe",
+              "correct": true,
+              "feedback": "Isso: explicar com calma e levar a dúvida à equipe, sem prometer."
+            },
+            {
+              "label": "Mudar de assunto até a paciente esquecer",
+              "correct": false,
+              "feedback": "Mudar de assunto não acolhe a dúvida da paciente."
+            }
+          ],
+          "sourceIds": [
+            "r101-shield"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: depois que a equipe decide o exame, eu mantenho o abdome fora do...",
+          "item": {
+            "prompt": "O que o cuidado com o abdome pede da posição e do campo, depois da decisão da equipe?",
+            "options": [
+              {
+                "label": "Abrir o campo, por garantia, para nada ficar de fora",
+                "correct": false,
+                "feedback": "O campo aberto alcança o que não foi pedido."
+              },
+              {
+                "label": "Dispensar a conferência do campo de luz na hora",
+                "correct": false,
+                "feedback": "A conferência continua, antes da exposição."
+              },
+              {
+                "label": "Manter o abdome fora do feixe, com o campo fechado à região",
+                "correct": true,
+                "feedback": "Isso: posição e campo fechados à região mantêm o abdome fora do feixe."
+              },
+              {
+                "label": "Trocar o exame, se o campo parecer grande demais",
+                "correct": false,
+                "feedback": "Trocar o exame é decisão da equipe."
+              }
+            ],
+            "sourceIds": [
+              "r101-shield"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma colega diz que vai adiar o exame da gestante, por precaução. O que você observa?",
+            "options": [
+              {
+                "label": "Está certo, adiar é sempre mais seguro",
+                "correct": false,
+                "feedback": "Adiar não é sempre mais seguro, e a decisão é da equipe."
+              },
+              {
+                "label": "A decisão de adiar é da equipe, e não de um estudante",
+                "correct": true,
+                "feedback": "Isso: fazer, adiar ou trocar o exame é decisão da equipe."
+              },
+              {
+                "label": "Adiar só vale se ela concordar",
+                "correct": false,
+                "feedback": "O que a paciente diz entra na conversa, mas a decisão é da equipe."
+              },
+              {
+                "label": "Você mesmo troca o exame, para a colega não adiar",
+                "correct": false,
+                "feedback": "Trocar o exame também não é do estudante."
+              }
+            ],
+            "sourceIds": [
+              "r101-shield"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m27-06",
+      "code": "M27.06",
+      "title": "Três pacientes, três adaptações",
+      "objective": "Hoje você vai conseguir ligar a cada paciente a adaptação certa e reconhecer o que continua sendo decisão da equipe.",
+      "competency": "Integrar as adaptações para criança, pessoa idosa e gestante e reconhecer o que é decisão da equipe.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de radiografia simulada",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "Plantão de manhã: um menino de três anos, uma senhora de oitenta e uma gestante com exame decidido."
+          },
+          {
+            "speaker": "duda",
+            "text": "Três pessoas, três cuidados. Eu confundo qual é de quem."
+          },
+          {
+            "speaker": "caio",
+            "text": "Pergunte de cada cuidado: o que ele resolve?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos juntar as cinco aulas."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Cada paciente, um cuidado",
+        "body": "Cada paciente muda a sala de um jeito. Na criança: fala pela idade, a ajuda mais leve que resolve, nunca força, campo ajustado à região. Na pessoa idosa: fala de frente e devagar, pele cuidada, sala iluminada e caminho livre. Na gestante: campo fechado à região pedida, com o abdome fora do feixe. Em todos, quem decide fazer, adiar ou trocar o exame é a equipe, a proteção de contato é o serviço que define, e na dúvida você para, descreve e pede apoio.",
+        "keyPoints": [
+          "Criança: fala pela idade, ajuda leve, campo ajustado.",
+          "Pessoa idosa: fala de frente, pele cuidada, caminho livre.",
+          "Gestante: abdome fora do feixe; exame e proteção de contato não são do estudante."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, quem define se há proteção de contato sobre o abdome da gestante?",
+          "options": [
+            {
+              "label": "O estudante, pela posição da paciente",
+              "correct": false,
+              "feedback": "O estudante cuida da posição, mas não define a proteção de contato."
+            },
+            {
+              "label": "A paciente, no momento do exame",
+              "correct": false,
+              "feedback": "A paciente participa da conversa, mas a proteção de contato não é escolha dela."
+            },
+            {
+              "label": "O acompanhante, se estiver na sala",
+              "correct": false,
+              "feedback": "O acompanhante apoia a paciente e não define proteção."
+            },
+            {
+              "label": "O serviço, pelo seu protocolo",
+              "correct": true,
+              "feedback": "Isso: a proteção de contato é o que o serviço define."
+            }
+          ],
+          "sourceIds": [
+            "r101-shield"
+          ],
+          "help": "Lembre quem define a proteção, e a decisão do exame."
+        },
+        {
+          "id": "i2",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada cuidado no paciente a quem ele mais se aplica.",
+          "categories": [
+            "Criança",
+            "Pessoa idosa",
+            "Gestante"
+          ],
+          "items": [
+            {
+              "label": "Frase simples, sem pergunta de sim ou não",
+              "category": "Criança"
+            },
+            {
+              "label": "Faixa ou apoio, nunca a força",
+              "category": "Criança"
+            },
+            {
+              "label": "Falar de frente, devagar e sem gritar",
+              "category": "Pessoa idosa"
+            },
+            {
+              "label": "Caminho sem tapete solto e sala iluminada",
+              "category": "Pessoa idosa"
+            },
+            {
+              "label": "Abdome fora do feixe, pela posição e pelo campo",
+              "category": "Gestante"
+            },
+            {
+              "label": "Dúvida sobre o bebê vai à equipe, sem promessa",
+              "category": "Gestante"
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada cuidado ao paciente que ele resolve.",
+          "feedbackIncorrect": "Pergunte de cada cuidado qual risco ele atende: movimento, queda, ou o abdome no feixe.",
+          "help": "Pense no que cada cuidado resolve, e em quem tem esse problema.",
+          "sourceIds": [
+            "r101-ped",
+            "pmc-hearing",
+            "who-falls",
+            "r101-shield"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Dona Marta se equilibra mal e chegou com o apoio que ela usa para andar, que ficou longe dela. Toque nesse apoio.",
+          "diagramId": "idoso-apoios-e-riscos",
+          "regions": [
+            {
+              "label": "Barra de apoio",
+              "x": 0.09,
+              "y": 0.5,
+              "width": 0.08,
+              "height": 0.24
+            },
+            {
+              "label": "Banco",
+              "x": 0.294,
+              "y": 0.658,
+              "width": 0.138,
+              "height": 0.233
+            },
+            {
+              "label": "Degrau",
+              "x": 0.487,
+              "y": 0.808,
+              "width": 0.106,
+              "height": 0.083
+            },
+            {
+              "label": "Tapete",
+              "x": 0.619,
+              "y": 0.81,
+              "width": 0.181,
+              "height": 0.09
+            },
+            {
+              "label": "Andador",
+              "x": 0.831,
+              "y": 0.533,
+              "width": 0.156,
+              "height": 0.358,
+              "correct": true
+            }
+          ],
+          "feedbackCorrect": "Isso: o andador dela ficou longe; você avisa a equipe antes de ela andar até ele, pelo protocolo do serviço.",
+          "feedbackIncorrect": "Essa parte da cena não é o apoio que ela trouxe para andar. Procure o que é dela e ficou longe.",
+          "help": "Separe o que é da sala do que ela trouxe consigo.",
+          "sourceIds": [
+            "who-falls",
+            "pmc-geri-chest"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "conversation",
+          "role": "practice",
+          "speaker": "lia",
+          "prompt": "Lia quer ouvir como você organiza o que diz à equipe com três pacientes ao mesmo tempo.",
+          "turns": [
+            {
+              "line": "A gestante com exame decidido chega junto com o menino de 3 anos, que precisa de apoio. Por onde você começa?",
+              "options": [
+                {
+                  "label": "Atendo quem chegou primeiro e depois vejo o resto.",
+                  "correct": false,
+                  "reply": "Então a ordem fica por conta de quem chegou antes."
+                },
+                {
+                  "label": "Pergunto à equipe a ordem e o que cada caso pede.",
+                  "correct": true,
+                  "reply": "Então combino com a equipe antes de começar."
+                },
+                {
+                  "label": "Resolvo sozinho para não incomodar a equipe agora.",
+                  "correct": false,
+                  "reply": "Sozinho? Então me conta como você faria."
+                }
+              ]
+            },
+            {
+              "line": "A avó do menino, de 80 anos, quer segurar o neto e está tonta. O que você diz à equipe?",
+              "options": [
+                {
+                  "label": "Conto à equipe que ela está tonta, e a equipe decide.",
+                  "correct": true,
+                  "reply": "Entendo. E enquanto isso, onde ela fica?"
+                },
+                {
+                  "label": "Deixo ela segurar em pé, sem avental, para ser rápido.",
+                  "correct": false,
+                  "reply": "Em pé e sem avental, para ganhar tempo?"
+                },
+                {
+                  "label": "Peço que espere em pé no corredor, sem apoio nenhum.",
+                  "correct": false,
+                  "reply": "Em pé, sozinha no corredor? Hum, não sei."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Você levou à equipe a ordem e o estado de quem acompanha, sem decidir sozinho.",
+          "feedbackIncorrect": "Releia o conceito: a ordem e o papel de quem acompanha são combinados com a equipe, e quem está tonta não segura sem a equipe decidir.",
+          "help": "O que você combina com a equipe e o que você faz sozinho?",
+          "sourceIds": [
+            "r101-ped",
+            "r101-shield",
+            "who-falls"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Um avô de 80 anos quer acompanhar a neta de 3 anos. Julgue cada afirmação.",
+          "statements": [
+            {
+              "text": "A equipe combina o papel dele e a proteção antes de ele ficar na sala.",
+              "correct": true,
+              "feedback": "Certo: quem fica tem papel e proteção combinados com a equipe."
+            },
+            {
+              "text": "Se ele se equilibra mal, o caminho dele fica livre de tapete solto.",
+              "correct": true,
+              "feedback": "Certo: piso com tapete solto é risco de queda para quem se equilibra mal."
+            },
+            {
+              "text": "Ele pode segurar a neta sem avental, se for só por um instante.",
+              "correct": false,
+              "feedback": "Quem segura usa avental e mantém o corpo fora do feixe, mesmo por um instante."
+            },
+            {
+              "text": "Falar de frente e devagar ajuda, se ele ouve mal.",
+              "correct": true,
+              "feedback": "Certo: de frente e devagar, sem gritar, ajuda quem ouve menos."
+            }
+          ],
+          "feedbackCorrect": "Você juntou o papel combinado, a proteção, o apoio e a fala adaptada.",
+          "feedbackIncorrect": "Releia o conceito: papel e proteção combinados, caminho livre, avental para quem segura e fala de frente e devagar.",
+          "help": "O avô é acompanhante e também pessoa idosa: que cuidados valem para os dois papéis?",
+          "sourceIds": [
+            "r101-ped",
+            "pmc-hearing",
+            "who-falls"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Três pacientes, uma sala",
+        "body": "Você liga cada paciente ao cuidado certo e mantém o que é da equipe com a equipe: decidir o exame e definir a proteção de contato. Na dúvida, para, descreve e pede apoio.",
+        "line": {
+          "speaker": "lia",
+          "text": "Adaptar é cuidar de quem está na sala, dentro do que a equipe decidiu."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Qual cuidado vale para os três pacientes da aula?",
+          "options": [
+            {
+              "label": "O estudante decide trocar o exame se achar melhor",
+              "correct": false,
+              "feedback": "Trocar o exame não é do estudante, em nenhum dos três casos."
+            },
+            {
+              "label": "Quem decide fazer, adiar ou trocar o exame é a equipe",
+              "correct": true,
+              "feedback": "Isso: nos três casos, a decisão do exame é da equipe."
+            },
+            {
+              "label": "A proteção de contato é sempre a mesma",
+              "correct": false,
+              "feedback": "A proteção de contato é o que o serviço define, e varia entre serviços."
+            },
+            {
+              "label": "A força é a ajuda mais rápida para quem não colabora",
+              "correct": false,
+              "feedback": "A imobilização nunca é força."
+            }
+          ],
+          "sourceIds": [
+            "r101-ped",
+            "r101-shield"
+          ]
+        },
+        {
+          "prompt": "Qual par liga o paciente à adaptação certa?",
+          "options": [
+            {
+              "label": "Pessoa idosa que ouve mal: de frente, devagar",
+              "correct": true,
+              "feedback": "Isso: de frente, devagar e sem gritar ajuda quem ouve menos."
+            },
+            {
+              "label": "Criança pequena: pergunta de sim ou não",
+              "correct": false,
+              "feedback": "A pergunta de sim ou não convida à recusa."
+            },
+            {
+              "label": "Gestante: campo aberto, por garantia",
+              "correct": false,
+              "feedback": "O campo aberto alcança o que não foi pedido."
+            },
+            {
+              "label": "Pessoa idosa de pele fina: puxar pelo braço",
+              "correct": false,
+              "feedback": "Puxar pelo braço pode rasgar a pele."
+            }
+          ],
+          "sourceIds": [
+            "r101-ped",
+            "pmc-hearing",
+            "r101-hip"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na dúvida, eu paro, descrevo e...",
+          "item": {
+            "prompt": "Diante de dúvida sobre um desses pacientes, qual é o passo do estudante?",
+            "options": [
+              {
+                "label": "Decidir sozinho o que fazer, para ganhar tempo",
+                "correct": false,
+                "feedback": "Decidir sozinho passa por cima da equipe."
+              },
+              {
+                "label": "Esperar a dúvida passar sozinha, sem avisar",
+                "correct": false,
+                "feedback": "A dúvida não passa sozinha, e esperar pode expor a pessoa."
+              },
+              {
+                "label": "Parar, descrever o que vê e pedir apoio à equipe",
+                "correct": true,
+                "feedback": "Isso: parar, descrever e pedir apoio é o passo do estudante."
+              },
+              {
+                "label": "Seguir o exame e anotar a dúvida depois",
+                "correct": false,
+                "feedback": "Seguir deixa a dúvida para depois da exposição."
+              }
+            ],
+            "sourceIds": [
+              "r101-shield"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um bebê chega com o pai, que aperta a faixa \"para garantir\". O que você faz?",
+            "options": [
+              {
+                "label": "Deixa, pois o pai conhece o filho",
+                "correct": false,
+                "feedback": "O pai participa, mas a faixa não pode atrapalhar a respiração nem a circulação."
+              },
+              {
+                "label": "Aperta mais, para o bebê não se mexer",
+                "correct": false,
+                "feedback": "Apertar é força e pode atrapalhar a respiração do bebê."
+              },
+              {
+                "label": "Pede que ele afrouxe e avisa a equipe",
+                "correct": true,
+                "feedback": "Isso: afrouxar e avisar a equipe, porque a faixa não pode apertar."
+              },
+              {
+                "label": "Retira a faixa e segura o bebê sem avental",
+                "correct": false,
+                "feedback": "Segurar sem avental expõe quem segura."
+              }
+            ],
+            "sourceIds": [
+              "r101-ped"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

@@ -50,6 +50,23 @@ import { joelhoFrenteEPerfil } from './specs/joelho-frente-e-perfil';
 import { femurProximalEQuadril } from './specs/femur-proximal-e-quadril';
 import { pelveDeFrente } from './specs/pelve-de-frente';
 import { vertebraTipica } from './specs/vertebra-tipica';
+import { corteAbdomeSuperior } from './specs/corte-abdome-superior';
+import { cortePelve } from './specs/corte-pelve';
+import { cortePescoco } from './specs/corte-pescoco';
+import { colunaSagitalEAxial } from './specs/coluna-sagital-e-axial';
+import { contrasteNoCorpo } from './specs/contraste-no-corpo';
+import { fluoroscopiaCadeia } from './specs/fluoroscopia-cadeia';
+import { fluoroscopiaPulsada } from './specs/fluoroscopia-pulsada';
+import { salaDeFluoroscopiaEspalhada } from './specs/sala-de-fluoroscopia-espalhada';
+import { contencaoPediatrica } from './specs/contencao-pediatrica';
+import { idosoApoiosERiscos } from './specs/idoso-apoios-e-riscos';
+import { colimacaoPediatrica } from './specs/colimacao-pediatrica';
+import { gestanteCampoEFeixe } from './specs/gestante-campo-e-feixe';
+import { cranioDePerfilOssos } from './specs/cranio-de-perfil-ossos';
+import { linhasDoCranio } from './specs/linhas-do-cranio';
+import { seiosDaFace } from './specs/seios-da-face';
+import { raioXMovelNoLeito } from './specs/raio-x-movel-no-leito';
+import { traumaRaioHorizontal } from './specs/trauma-raio-horizontal';
 
 export const DIAGRAMS: Record<string, DiagramSpec> = {
   [tuboRaiosX.id]: tuboRaiosX,
@@ -103,6 +120,23 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [femurProximalEQuadril.id]: femurProximalEQuadril,
   [pelveDeFrente.id]: pelveDeFrente,
   [vertebraTipica.id]: vertebraTipica,
+  [corteAbdomeSuperior.id]: corteAbdomeSuperior,
+  [cortePelve.id]: cortePelve,
+  [cortePescoco.id]: cortePescoco,
+  [colunaSagitalEAxial.id]: colunaSagitalEAxial,
+  [contrasteNoCorpo.id]: contrasteNoCorpo,
+  [fluoroscopiaCadeia.id]: fluoroscopiaCadeia,
+  [fluoroscopiaPulsada.id]: fluoroscopiaPulsada,
+  [salaDeFluoroscopiaEspalhada.id]: salaDeFluoroscopiaEspalhada,
+  [contencaoPediatrica.id]: contencaoPediatrica,
+  [idosoApoiosERiscos.id]: idosoApoiosERiscos,
+  [colimacaoPediatrica.id]: colimacaoPediatrica,
+  [gestanteCampoEFeixe.id]: gestanteCampoEFeixe,
+  [cranioDePerfilOssos.id]: cranioDePerfilOssos,
+  [linhasDoCranio.id]: linhasDoCranio,
+  [seiosDaFace.id]: seiosDaFace,
+  [raioXMovelNoLeito.id]: raioXMovelNoLeito,
+  [traumaRaioHorizontal.id]: traumaRaioHorizontal,
 };
 
 export const DIAGRAM_IDS: readonly string[] = Object.keys(DIAGRAMS);

@@ -191,6 +191,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Tórax, abdome e cabeça."
     }
   },
+  "batch:rtg-2026:m25": {
+    "slug": "rtg-2026-m25",
+    "title": "Crânio, face, exame no leito e trauma",
+    "description": "Nomeia os ossos, as linhas de referência e os seios da cabeça, ensina a distinguir o crânio de frente do de perfil e organiza o exame no leito e em trauma, com a equipe no comando.",
+    "unitTitle": "Crânio, face, exame no leito e trauma",
+    "reward": {
+      "id": "node:reward:rtg-2026:m25",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Crânio, face, exame no leito e trauma."
+    }
+  },
   "batch:rtg-2026:m09": {
     "slug": "rtg-2026-m09",
     "title": "Preparo, contraste e cuidado ampliado",
@@ -200,6 +211,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "id": "node:reward:rtg-2026:m09",
       "title": "Unidade concluída",
       "description": "Você concluiu a unidade Preparo, contraste e cuidado ampliado."
+    }
+  },
+  "batch:rtg-2026:m26": {
+    "slug": "rtg-2026-m26",
+    "title": "Exames contrastados e fluoroscopia",
+    "description": "Você segue o caminho do bário e do iodado no corpo, nomeia a cadeia da fluoroscopia, vê como pulso e imagem retida mudam a exposição, aprende onde ficar na sala e acompanha os estudos digestivo e urinário.",
+    "unitTitle": "Exames contrastados e fluoroscopia",
+    "reward": {
+      "id": "node:reward:rtg-2026:m26",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Exames contrastados e fluoroscopia."
     }
   },
   "batch:rtg-2026:m16": {
@@ -213,6 +235,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade A condição do paciente na aquisição."
     }
   },
+  "batch:rtg-2026:m27": {
+    "slug": "rtg-2026-m27",
+    "title": "Criança, idoso e gestante na aquisição",
+    "description": "Como a sala muda para três públicos: a criança, que pede conversa, apoio leve e campo ajustado; a pessoa idosa, que pede fala, pele e chão cuidados; e a gestante, cujo exame a equipe decidiu.",
+    "unitTitle": "Criança, idoso e gestante na aquisição",
+    "reward": {
+      "id": "node:reward:rtg-2026:m27",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Criança, idoso e gestante na aquisição."
+    }
+  },
   "batch:rtg-2026:m10": {
     "slug": "rtg-2026-m10",
     "title": "Anatomia seccional e introdução à TC",
@@ -222,6 +255,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "id": "node:reward:rtg-2026:m10",
       "title": "Unidade concluída",
       "description": "Você concluiu a unidade Anatomia seccional e introdução à TC."
+    }
+  },
+  "batch:rtg-2026:m28": {
+    "slug": "rtg-2026-m28",
+    "title": "Anatomia seccional II: abdome, pelve, pescoço e coluna",
+    "description": "Completa o mapa dos cortes axiais com abdome superior, pelve, pescoço e coluna em esquemas, e ensina a reconhecer os três planos e a altura de um corte em tomografias reais, só localizando, sem interpretar.",
+    "unitTitle": "Anatomia seccional II: abdome, pelve, pescoço e coluna",
+    "reward": {
+      "id": "node:reward:rtg-2026:m28",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Anatomia seccional II: abdome, pelve, pescoço e coluna."
     }
   },
   "batch:rtg-2026:m11": {
