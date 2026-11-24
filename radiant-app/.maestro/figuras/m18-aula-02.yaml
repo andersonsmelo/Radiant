@@ -42,51 +42,71 @@ tags:
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Osso do dedo'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Osso do dedo'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Osso longo'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Osso longo'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Esterno'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Esterno'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Osso plano'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Osso plano'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Vértebra'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Vértebra'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Osso irregular'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Osso irregular'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Escápula'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Escápula'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Osso plano'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Osso plano'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Úmero'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Úmero'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Osso longo'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Osso longo'
 - tapOn: 'Conferir resposta'

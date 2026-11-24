@@ -98,61 +98,85 @@ tags:
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Cuboide, à frente do calcâneo'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Cuboide, à frente do calcâneo'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Tarsais'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Tarsais'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Os dois ossos do hálux'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Os dois ossos do hálux'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Falanges'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Falanges'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Osso do meio de um dos outros quatro dedos'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Osso do meio de um dos outros quatro dedos'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Falanges'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Falanges'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Osso comprido do meio do pé que leva ao hálux'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Osso comprido do meio do pé que leva ao hálux'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Metatarsais'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Metatarsais'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Haste do meio do pé, numerada de 1 a 5'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Haste do meio do pé, numerada de 1 a 5'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Metatarsais'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Metatarsais'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Tálus, que se encaixa no tornozelo'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Tálus, que se encaixa no tornozelo'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Tarsais'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Tarsais'
 - tapOn: 'Conferir resposta'

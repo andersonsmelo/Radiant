@@ -32,6 +32,10 @@ const scrollTo = (kind, value, direction) => `- scrollUntilVisible:\n    element
 const scrollToCentred = value => `${scrollTo('text', value)}\n    centerElement: true`;
 const tapText = label => [scrollTo('text', label), text(label)];
 const tapId = value => [scrollTo('id', value), id(value)];
+const tapCentered = (kind, value, direction) => [
+  `${scrollTo(kind, value, direction)}\n    centerElement: true`,
+  kind === 'id' ? id(value) : text(value),
+];
 
 /** Os toques que respondem certo a uma interação, na ordem em que o aluno os faz. */
 function answerCommands(interaction) {
@@ -57,7 +61,8 @@ function answerCommands(interaction) {
           [current[at - 1], current[at]] = [current[at], current[at - 1]];
         }
       });
-      return [...commands, ...tapText('Selecionar esta ordem')];
+      // Centralize a ordem para o toque não cair no botão fixo de conferir.
+      return [...commands, ...tapCentered('text', 'Selecionar esta ordem', 'DOWN')];
     }
     case 'matching':
       // O último par se completa sozinho (MatchingStepRenderer.choose): n - 1 toques.
@@ -73,8 +78,11 @@ function answerCommands(interaction) {
       ]);
     case 'categorize': {
       const group = new Map(payload.categories.map(category => [category.id, category.label]));
-      // O item ativo é o primeiro pendente (ordem de exibição); tocar nele e no grupo basta.
-      return payload.items.flatMap(item => [...tapId(`categorize-item-${item.label}`), ...tapId(`categorize-group-${group.get(item.categoryId)}`)]);
+      // Os grupos ficam acima das fichas. Centralize o alvo antes do toque por causa do rodapé fixo.
+      return payload.items.flatMap(item => [
+        ...tapCentered('id', `categorize-item-${item.label}`, 'DOWN'),
+        ...tapCentered('id', `categorize-group-${group.get(item.categoryId)}`, 'UP'),
+      ]);
     }
     case 'multi-select':
       return payload.options.filter(option => payload.correctOptionIds.includes(option.id)).flatMap(option => tapId(`multi-select-${option.label}`));

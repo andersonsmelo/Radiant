@@ -101,51 +101,71 @@ tags:
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Pulseira com o sobrenome escrito diferente do pedido'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Pulseira com o sobrenome escrito diferente do pedido'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Parar e pedir apoio'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Parar e pedir apoio'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Punho do paciente sem pulseira'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Punho do paciente sem pulseira'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Parar e pedir apoio'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Parar e pedir apoio'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Paciente conferido na recepção, prestes a iniciar o exame'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Paciente conferido na recepção, prestes a iniciar o exame'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Conferir e seguir'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Conferir e seguir'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Paciente diz nome e nascimento que batem com a pulseira'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Paciente diz nome e nascimento que batem com a pulseira'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Conferir e seguir'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Conferir e seguir'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Paciente sonolento, que não consegue responder'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Paciente sonolento, que não consegue responder'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Parar e pedir apoio'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Parar e pedir apoio'
 - tapOn: 'Conferir resposta'

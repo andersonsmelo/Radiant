@@ -93,6 +93,8 @@ Aqui não há página web de licença a ler: a origem é o acervo do dono, que l
 
 **9. Prévias da evidência pouco legíveis.** `docs/evidence/2026-11-19-figuras/imagens-vps/*.png`. Elas foram reduzidas a poucas cores (faixas visíveis no cinza) para caber em 300 KiB. A do abdome sobrepõe os dois itens (M28.01 i2 e M28.06 i4) no mesmo quadro, com selos "1" a "5" e "1" a "4" misturados. As posições batem com as minhas contas. Sugestão: uma prévia por item.
 
+**Correção de 2026-11-24.** A TC do abdome ganhou dois arquivos de 720 px, cada um com os alvos do seu item. As posições e a numeração dos selos vêm das funções do aplicativo na régua de 280 pt. Conferidos visualmente cinco pontos de rotulagem e quatro regiões de toque, ambos abaixo de 300 KiB. [M28.01 i2](../imagens-vps/corte-abdome-superior-m28-01-i2.png) · [M28.06 i4](../imagens-vps/corte-abdome-superior-m28-06-i4.png).
+
 **10. `sourcePage` aponta para um arquivo que ainda não está na `main`.** `imagens.json`, linha 240, e as outras quatro entradas. O link da tela de créditos só abre depois do merge, e só se o repositório for público, o que não pude verificar (sem acesso remoto). A evidência também diz qual é a resposta da M29.04 i3, mas o caminho até ela é longo demais para importar.
 
 **11. Autor sem parênteses (ressalva aceita).** `imagens.json`, linha 241. Fica registrada a pendência: escapar o autor no `ImageCreditsScreen.test.tsx` e só então voltar aos parênteses da V3, se o dono quiser.

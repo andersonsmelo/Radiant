@@ -43,61 +43,85 @@ tags:
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Falar de frente, devagar e sem gritar'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Falar de frente, devagar e sem gritar'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Pessoa idosa'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Pessoa idosa'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Frase simples, sem pergunta de sim ou não'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Frase simples, sem pergunta de sim ou não'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Criança'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Criança'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Faixa ou apoio, nunca a força'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Faixa ou apoio, nunca a força'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Criança'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Criança'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Caminho sem tapete solto e sala iluminada'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Caminho sem tapete solto e sala iluminada'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Pessoa idosa'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Pessoa idosa'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Abdome fora do feixe, pela posição e pelo campo'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Abdome fora do feixe, pela posição e pelo campo'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Gestante'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Gestante'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Dúvida sobre o bebê vai à equipe, sem promessa'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Dúvida sobre o bebê vai à equipe, sem promessa'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Gestante'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Gestante'
 - tapOn: 'Conferir resposta'

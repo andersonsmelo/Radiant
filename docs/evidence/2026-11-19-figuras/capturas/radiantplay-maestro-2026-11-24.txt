@@ -1,0 +1,198 @@
+Resultados extraídos dos comandos Maestro, 2026-11-24
+Árvore do aplicativo: 52e9c468. Dispositivos: RadiantPlay Android e Radiant F7 iOS 26.5.
+
+Android launcher original
+  FAILED runFlowCommand
+  COMPLETED assertConditionCommand visible DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)
+  FAILED runFlowCommand
+  FAILED tapOnElement http://localhost:8081
+
+Android launcher com endereço do emulador; conexão pelo bundle
+  COMPLETED assertConditionCommand visible DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)
+  FAILED assertConditionCommand visible journey-trail
+  A rota de lição já enfileirada abriu com o bundle. M23.02 foi verificada no teste seguinte.
+
+Android fechamento da folha de desenvolvimento
+  COMPLETED assertConditionCommand visible (?i:connected to:?)
+  COMPLETED assertConditionCommand visible DEVELOPMENT SERVERS|This is the developer menu\. .*|(?i:connected to:?)
+  COMPLETED backPressCommand Voltar
+  COMPLETED assertConditionCommand notVisible (?i:connected to:?)
+  COMPLETED assertConditionCommand visible Passo 2 de 8
+
+Android M23.02
+  COMPLETED assertConditionCommand visible Passo 1 de 8
+  COMPLETED assertConditionCommand visible Passo 2 de 8
+  COMPLETED assertConditionCommand visible Passo 3 de 8
+  COMPLETED scrollUntilVisible lesson-option-option:rtg-2026:m23:aula-02:i1:a (direction=DOWN, center=False)
+  COMPLETED assertConditionCommand visible Passo 4 de 8
+  COMPLETED assertConditionCommand visible Isso mesmo: as duas linhas claras.*
+
+iOS M23.02
+  COMPLETED assertConditionCommand visible Passo 1 de 8
+  COMPLETED assertConditionCommand visible Passo 2 de 8
+  COMPLETED assertConditionCommand visible Passo 3 de 8
+  COMPLETED scrollUntilVisible lesson-option-option:rtg-2026:m23:aula-02:i1:a (direction=DOWN, center=False)
+  COMPLETED assertConditionCommand visible Passo 4 de 8
+  COMPLETED assertConditionCommand visible Isso mesmo: as duas linhas claras.*
+
+Android M24.04
+  COMPLETED assertConditionCommand visible Passo 1 de 8
+  COMPLETED assertConditionCommand visible Passo 2 de 8
+  COMPLETED assertConditionCommand visible Passo 3 de 8
+  COMPLETED scrollUntilVisible lesson-option-option:rtg-2026:m24:aula-04:i1:a (direction=DOWN, center=False)
+  COMPLETED assertConditionCommand visible Passo 4 de 8
+  COMPLETED scrollUntilVisible Ponto 1, à esquerda da figura, a asa larga, no alto, sem rótulo (direction=UP, center=False)
+  COMPLETED scrollUntilVisible label-chip-Ílio (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible Ponto 2, no centro, o osso triangular com quatro pares de furos, sem rótulo (direction=UP, center=False)
+  COMPLETED scrollUntilVisible label-chip-Sacro (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible Ponto 3, à direita, a linha entre o osso central e a asa larga, sem rótulo (direction=UP, center=False)
+  COMPLETED scrollUntilVisible label-chip-Articulação sacroilíaca (direction=DOWN, center=False)
+  COMPLETED assertConditionCommand visible Passo 5 de 8
+
+iOS M24.04
+  COMPLETED assertConditionCommand visible Passo 1 de 8
+  COMPLETED assertConditionCommand visible Passo 2 de 8
+  COMPLETED assertConditionCommand visible Passo 3 de 8
+  COMPLETED scrollUntilVisible lesson-option-option:rtg-2026:m24:aula-04:i1:a (direction=DOWN, center=False)
+  COMPLETED assertConditionCommand visible Passo 4 de 8
+  COMPLETED scrollUntilVisible Ponto 1, à esquerda da figura, a asa larga, no alto, sem rótulo (direction=UP, center=False)
+  COMPLETED scrollUntilVisible label-chip-Ílio (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible Ponto 2, no centro, o osso triangular com quatro pares de furos, sem rótulo (direction=UP, center=False)
+  COMPLETED scrollUntilVisible label-chip-Sacro (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible Ponto 3, à direita, a linha entre o osso central e a asa larga, sem rótulo (direction=UP, center=False)
+  COMPLETED scrollUntilVisible label-chip-Articulação sacroilíaca (direction=DOWN, center=False)
+  COMPLETED assertConditionCommand visible Passo 5 de 8
+
+Android M25.05 original
+  COMPLETED assertConditionCommand visible Passo 1 de 8
+  COMPLETED assertConditionCommand visible Passo 2 de 8
+  COMPLETED assertConditionCommand visible Passo 3 de 8
+  COMPLETED scrollUntilVisible lesson-option-option:rtg-2026:m25:aula-05:i1:c (direction=DOWN, center=False)
+  COMPLETED assertConditionCommand visible Passo 4 de 8
+  COMPLETED scrollUntilVisible categorize-item-Profissional de passagem, sem tarefa no exame (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible categorize-group-Se afasta da área (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible categorize-item-Paciente do leito vizinho, que não pode sair (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible categorize-group-Fica, com proteção (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible categorize-item-Profissional que precisa ficar perto do leito (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible categorize-group-Fica, com proteção (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible categorize-item-Visitante da família do paciente (direction=DOWN, center=False)
+  FAILED scrollUntilVisible categorize-group-Se afasta da área (direction=DOWN, center=False)
+
+Android M25.05 com classificação centralizada
+  COMPLETED assertConditionCommand visible Passo 1 de 8
+  COMPLETED assertConditionCommand visible Passo 2 de 8
+  COMPLETED assertConditionCommand visible Passo 3 de 8
+  COMPLETED scrollUntilVisible lesson-option-option:rtg-2026:m25:aula-05:i1:c (direction=DOWN, center=False)
+  COMPLETED assertConditionCommand visible Passo 4 de 8
+  COMPLETED scrollUntilVisible categorize-item-Profissional de passagem, sem tarefa no exame (direction=DOWN, center=True)
+  COMPLETED scrollUntilVisible categorize-group-Se afasta da área (direction=UP, center=True)
+  COMPLETED scrollUntilVisible categorize-item-Paciente do leito vizinho, que não pode sair (direction=DOWN, center=True)
+  COMPLETED scrollUntilVisible categorize-group-Fica, com proteção (direction=UP, center=True)
+  COMPLETED scrollUntilVisible categorize-item-Profissional que precisa ficar perto do leito (direction=DOWN, center=True)
+  COMPLETED scrollUntilVisible categorize-group-Fica, com proteção (direction=UP, center=True)
+  COMPLETED scrollUntilVisible categorize-item-Visitante da família do paciente (direction=DOWN, center=True)
+  COMPLETED scrollUntilVisible categorize-group-Se afasta da área (direction=UP, center=True)
+  COMPLETED assertConditionCommand visible Você separou quem se afasta de quem fica protegido: o serviço define a proteção de cada um\.
+  COMPLETED assertConditionCommand visible Passo 5 de 8
+  COMPLETED scrollUntilVisible Subir Pedir que visitantes e equipe sem função se afastem (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible Subir Fechar o campo na região pedida (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible Subir Afastar-se do aparelho e do feixe, com proteção (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible Selecionar esta ordem (direction=DOWN, center=False)
+  COMPLETED assertConditionCommand visible Passo 6 de 8
+
+iOS M25.05 antes de centralizar a seleção da ordem
+  COMPLETED assertConditionCommand visible Passo 1 de 8
+  COMPLETED assertConditionCommand visible Passo 2 de 8
+  COMPLETED assertConditionCommand visible Passo 3 de 8
+  COMPLETED scrollUntilVisible lesson-option-option:rtg-2026:m25:aula-05:i1:c (direction=DOWN, center=False)
+  COMPLETED assertConditionCommand visible Passo 4 de 8
+  COMPLETED scrollUntilVisible categorize-item-Profissional de passagem, sem tarefa no exame (direction=DOWN, center=True)
+  COMPLETED scrollUntilVisible categorize-group-Se afasta da área (direction=UP, center=True)
+  COMPLETED scrollUntilVisible categorize-item-Paciente do leito vizinho, que não pode sair (direction=DOWN, center=True)
+  COMPLETED scrollUntilVisible categorize-group-Fica, com proteção (direction=UP, center=True)
+  COMPLETED scrollUntilVisible categorize-item-Profissional que precisa ficar perto do leito (direction=DOWN, center=True)
+  COMPLETED scrollUntilVisible categorize-group-Fica, com proteção (direction=UP, center=True)
+  COMPLETED scrollUntilVisible categorize-item-Visitante da família do paciente (direction=DOWN, center=True)
+  COMPLETED scrollUntilVisible categorize-group-Se afasta da área (direction=UP, center=True)
+  COMPLETED assertConditionCommand visible Você separou quem se afasta de quem fica protegido: o serviço define a proteção de cada um\.
+  COMPLETED assertConditionCommand visible Passo 5 de 8
+  COMPLETED scrollUntilVisible Subir Pedir que visitantes e equipe sem função se afastem (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible Subir Fechar o campo na região pedida (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible Subir Afastar-se do aparelho e do feixe, com proteção (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible Selecionar esta ordem (direction=DOWN, center=False)
+  FAILED tapOnElement Continuar
+
+iOS M25.05 com seleção da ordem centralizada
+  COMPLETED assertConditionCommand visible O que não é do paciente
+  COMPLETED assertConditionCommand visible Passo 1 de 8
+  COMPLETED assertConditionCommand visible Passo 2 de 8
+  COMPLETED assertConditionCommand visible Passo 3 de 8
+  COMPLETED scrollUntilVisible lesson-option-option:rtg-2026:m25:aula-05:i1:c (direction=DOWN, center=False)
+  COMPLETED assertConditionCommand visible Passo 4 de 8
+  COMPLETED scrollUntilVisible categorize-item-Profissional de passagem, sem tarefa no exame (direction=DOWN, center=True)
+  COMPLETED scrollUntilVisible categorize-group-Se afasta da área (direction=UP, center=True)
+  COMPLETED scrollUntilVisible categorize-item-Paciente do leito vizinho, que não pode sair (direction=DOWN, center=True)
+  COMPLETED scrollUntilVisible categorize-group-Fica, com proteção (direction=UP, center=True)
+  COMPLETED scrollUntilVisible categorize-item-Profissional que precisa ficar perto do leito (direction=DOWN, center=True)
+  COMPLETED scrollUntilVisible categorize-group-Fica, com proteção (direction=UP, center=True)
+  COMPLETED scrollUntilVisible categorize-item-Visitante da família do paciente (direction=DOWN, center=True)
+  COMPLETED scrollUntilVisible categorize-group-Se afasta da área (direction=UP, center=True)
+  COMPLETED assertConditionCommand visible Você separou quem se afasta de quem fica protegido: o serviço define a proteção de cada um\.
+  COMPLETED assertConditionCommand visible Passo 5 de 8
+  COMPLETED scrollUntilVisible Subir Pedir que visitantes e equipe sem função se afastem (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible Subir Fechar o campo na região pedida (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible Subir Afastar-se do aparelho e do feixe, com proteção (direction=DOWN, center=False)
+  COMPLETED scrollUntilVisible Selecionar esta ordem (direction=DOWN, center=True)
+  COMPLETED assertConditionCommand notVisible Na ordem: afastar quem sobra.*
+  COMPLETED assertConditionCommand visible Passo 6 de 8
+
+Android M25.05, toque na figura
+  COMPLETED assertConditionCommand visible Passo 6 de 8
+  COMPLETED assertConditionCommand visible 2 marcadas
+  COMPLETED assertConditionCommand visible Isso mesmo: você achou quem está perto demais.*
+  COMPLETED assertConditionCommand visible Passo 7 de 8
+
+iOS M25.05, toque na figura
+  COMPLETED assertConditionCommand visible Passo 6 de 8
+  COMPLETED assertConditionCommand visible 2 marcadas
+  COMPLETED assertConditionCommand visible Isso mesmo: você achou quem está perto demais.*
+  COMPLETED assertConditionCommand visible Passo 7 de 8
+
+Testes de regressão antes das correções
+not ok 9 - classification centres each token and scrolls back up to its group
+  ---
+  duration_ms: 197.567875
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/figuras-fechamento/scripts/qa/generate-rtg-maestro.test.mjs:147:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+    +   undefined,
+    +   undefined,
+    +   undefined,
+    +   undefined
+    -   'UP',
+    -   'UP',
+    -   'UP',
+    -   'UP'
+      ]
+  code: 'ERR_ASSERTION'
+not ok 10 - ordering centres its selection button away from the fixed footer
+  ---
+  duration_ms: 265.234
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/figuras-fechamento/scripts/qa/generate-rtg-maestro.test.mjs:168:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      {
+    -   centerElement: true,
+    -   direction: 'DOWN',
+        element: {
+          text: 'Selecionar esta ordem'
+        }
+      }
+  code: 'ERR_ASSERTION'

@@ -125,3 +125,30 @@ O que muda na projeção para as 72 figuras:
 | Soma de SVG importado | | 8.346.795 | 7,96 |
 
 A soma projetada (8.346.795) passa do teto do teste (8.116.109) em 230.686 bytes, cerca de 3%. O teto não foi alterado. Duas ressalvas: 13 das 24 figuras de anatomia ficaram fora do método de acervo e ainda não têm método nem peso, e nenhuma cena da fase 2 foi medida além do leito do piloto. O bundle não foi exportado de novo nesta remedição; pela razão de 1,008 medida na seção 1, as 11 figuras acrescentam cerca de 1,5 MiB crus ao bundle em relação às versões em código.
+
+
+## 9. Medição na árvore reconciliada (2026-11-24)
+
+**Diafragma no RadiantPlay, M20.01 passo 2 de 8.** Três gravações Maestro no mesmo emulador, com o Metro no Node 20.20.2 e a árvore `52e9c468`. Em todas, o novo cabeçalho, o título e a figura aparecem no mesmo quadro, com diferença observável de **0 ms** entre o passo e a figura. O vídeo é de quadros variáveis. Os intervalos entre o último quadro do passo 1 e o primeiro do passo 2 foram **450, 391 e 340 ms**, respectivamente. Esse intervalo inclui a transição inteira capturada e limita a resolução da medida, sem fornecer o tempo exato do toque ao primeiro desenho. Tempo interno do renderer e desempenho em aparelho físico continuam sem medida.
+
+**Orçamento das figuras.** Na mesma árvore, as 48 figuras importadas somam **4.142.438** unidades em `layer.svg.length`, abaixo de **8.116.109**, pelo mesmo cálculo do teste do registro. Margem de **3.973.671** unidades. O bundle completo e os assets raster são medidas distintas.
+
+
+**Bundle Hermes.** Exportações locais em Node 20.20.2, a partir de `52e9c468`. Os arquivos do app eram idênticos aos do commit. Para cada plataforma, foi executado `EXPO_NO_DOTENV=1 EXPO_NO_TYPESCRIPT_SETUP=1 CI=1 npx expo export --platform <ios|android> --output-dir <pasta-temporária>`. O tamanho comprimido usa `gzip -9 -c | wc -c` no único `.hbc` de cada exportação. A comparação usa a árvore de 2026-11-19, `f8ed69d1`, da seção 1. O delta inclui todas as mudanças entre as duas árvores.
+
+| Plataforma | Hermes cru | gzip -9 | Delta cru | Delta gzip |
+| --- | ---: | ---: | ---: | ---: |
+| iOS | 18.174.955 bytes | 5.874.899 bytes | +3.844.796 bytes | +1.021.130 bytes |
+| Android | 18.170.925 bytes | 5.872.315 bytes | +3.844.510 bytes | +1.021.438 bytes |
+
+O bundle inteiro continua acima de 8 MiB, como já ocorria na árvore anterior ao piloto. O limite automatizado das figuras importadas permanece atendido. A interpretação do limite do plano original está na seção 6.
+
+## 10. Reprovas e confirmações no Maestro (2026-11-24)
+
+No **RadiantPlay**, o seletor antigo do launcher reprovou porque o Metro aparece como `10.0.2.2:8081`. O endereço alternativo conectou. Em teste separado, a folha do menu foi aberta com a tecla Menu do emulador. O subfluxo atualizado fechou a folha com Voltar e retornou à aula. Na M25.05, o roteiro original rolou para baixo atrás do quarto grupo, que estava acima da ficha. A rolagem para cima, com os controles centralizados, confirmou a classificação e chegou ao passo 5.
+
+No **Radiant F7**, a mesma classificação confirmou a resposta correta. Na ordenação seguinte, o alvo “Selecionar esta ordem” foi encontrado perto do rodapé e o toque caiu em sua área. A captura da falha já mostrava o passo 6 quando o roteiro ainda procurava o segundo “Continuar”. Centralizar o botão levou ao passo 6 com os dois toques esperados. A M23.02 chegou ao retorno correto com as três ações previstas de “Continuar”. A M24.04 avançou após rotular ílio, sacro e articulação sacroilíaca, no F7 e no RadiantPlay. As duas regiões corretas da M25.05 foram selecionadas na própria figura nos dois simuladores e confirmadas antes do passo 7.
+
+As provas acima usam o cliente de desenvolvimento já instalado, com entrada por link de lição. Foram regenerados os 31 YAMLs afetados. A bateria em Android de todos os lotes segue depois das decisões visuais do plano.
+
+[Resultados do Maestro](capturas/radiantplay-maestro-2026-11-24.txt) · [Colar](capturas/android-m23-aula02-artefato-colar.jpg) · [Rotulagem](capturas/android-m24-aula04-rotulagem.jpg) · [Cena do leito, dois riscos selecionados](capturas/android-m25-aula05-cena-leito.jpg).

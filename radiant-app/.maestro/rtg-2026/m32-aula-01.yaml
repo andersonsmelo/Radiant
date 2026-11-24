@@ -87,61 +87,85 @@ tags:
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Falha corrigida, e o serviço quer ver se resolveu'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Falha corrigida, e o serviço quer ver se resolveu'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Depois da manutenção'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Depois da manutenção'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Comparar o valor de hoje com o de referência'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Comparar o valor de hoje com o de referência'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Constância'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Constância'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Equipamento instalado, ainda sem paciente'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Equipamento instalado, ainda sem paciente'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Aceitação'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Aceitação'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Repetição das mesmas medidas a cada período'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Repetição das mesmas medidas a cada período'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Constância'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Constância'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Valores de referência a fixar antes do primeiro uso'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Valores de referência a fixar antes do primeiro uso'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Aceitação'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Aceitação'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Detector recalibrado pela assistência técnica'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Detector recalibrado pela assistência técnica'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Depois da manutenção'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Depois da manutenção'
 - tapOn: 'Conferir resposta'

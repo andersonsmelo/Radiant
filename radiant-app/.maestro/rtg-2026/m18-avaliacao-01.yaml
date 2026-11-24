@@ -44,61 +44,85 @@ tags:
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Crânio'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Crânio'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Esqueleto axial'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Esqueleto axial'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Úmero'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Úmero'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Esqueleto apendicular'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Esqueleto apendicular'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Sacro'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Sacro'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Esqueleto axial'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Esqueleto axial'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Fêmur'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Fêmur'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Esqueleto apendicular'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Esqueleto apendicular'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Escápula'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Escápula'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Esqueleto apendicular'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Esqueleto apendicular'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Esterno'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Esterno'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Esqueleto axial'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Esqueleto axial'
 - tapOn: 'Conferir resposta'

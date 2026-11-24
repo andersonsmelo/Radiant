@@ -76,7 +76,7 @@ Todas as regiões e pontos foram medidos sobre o JPEG final (pixels) e abertos n
 
 ## Correções da revisão independente (2026-11-22)
 
-Parecer em `revisoes/imagens-vps.md`, com "Correções aplicadas" por achado. Os pontos de m28-01 i2 (pâncreas) e m28-02 i2 (cabeça do fêmur e acetábulo, que trocaram de lado) foram movidos e as prévias regeradas. As prévias passaram a ter uma por item no caso do abdome (m28-01 i2 à esquerda, m28-06 i4 à direita, no mesmo arquivo) (900 px de largura e 96 cores; o abdome em dois quadros de 640 px lado a lado).
+Parecer em `revisoes/imagens-vps.md`, com "Correções aplicadas" por achado. Os pontos de m28-01 i2 (pâncreas) e m28-02 i2 (cabeça do fêmur e acetábulo, que trocaram de lado) foram movidos e as prévias regeradas. A prévia original do abdome ficou com dois quadros de 640 px lado a lado. Em 2026-11-24 ela foi desdobrada em arquivos separados, ambos conferidos, com a geometria do app no quadro de 280 pt. [M28.01 i2](imagens-vps/corte-abdome-superior-m28-01-i2.png) · [M28.06 i4](imagens-vps/corte-abdome-superior-m28-06-i4.png).
 
 ## Capturas no iPhone (2026-11-22, noite)
 

@@ -44,51 +44,71 @@ tags:
 - scrollUntilVisible:
     element:
       id: 'categorize-item-É engolido pela pessoa'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-É engolido pela pessoa'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Bário'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Bário'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Preenche o tubo digestivo por dentro'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Preenche o tubo digestivo por dentro'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Bário'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Bário'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Enche rins, ureteres e bexiga'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Enche rins, ureteres e bexiga'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Iodado pela veia'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Iodado pela veia'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Entra por enema no estudo do cólon'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Entra por enema no estudo do cólon'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Bário'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Bário'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Segue pelo sangue até os rins'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Segue pelo sangue até os rins'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Iodado pela veia'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Iodado pela veia'
 - tapOn: 'Conferir resposta'

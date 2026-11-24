@@ -143,3 +143,39 @@ test('bench and parameter-lab buttons are centred before the taps, so the fixed 
   }
   assert.ok(scrolls > 0, 'a trilha tem passos de bancada');
 });
+
+test('classification centres each token and scrolls back up to its group', async () => {
+  const { lessonCommands } = await import('./generate-rtg-maestro.mjs');
+  const { readRtgImages, readRtgSources } = await import('../content/build-rtg-batches.mjs');
+  const { doc } = (await readRtgSources()).find(({ doc }) => doc.unit.id === 'm25');
+  const factory = createRequire(import.meta.url)('../content/load-app-contract.cjs')
+    .loadAppContract('features/student-checkpoints/batches/rtgBatchFactory.ts');
+  const activity = factory.buildRtgBatch(doc, await readRtgImages()).batch.activities[4];
+  const commands = commandsOf(`appId: x\n---\n${lessonCommands(activity).join('\n')}\n`);
+  const classification = commands.filter(command =>
+    /^categorize-(item|group)-/.test(command.scrollUntilVisible?.element.id ?? ''));
+  assert.equal(classification.length, 8);
+  assert.deepEqual(classification.filter((_, index) => index % 2).map(command =>
+    command.scrollUntilVisible.direction), ['UP', 'UP', 'UP', 'UP']);
+  for (const [index, command] of classification.entries()) {
+    const scroll = command.scrollUntilVisible;
+    if (index % 2 === 0) assert.equal(scroll.direction, 'DOWN', scroll.element.id);
+    assert.equal(scroll.centerElement, true, scroll.element.id);
+    assert.equal(commands[commands.indexOf(command) + 1].tapOn.id, scroll.element.id);
+  }
+});
+
+test('ordering centres its selection button away from the fixed footer', async () => {
+  const { lessonCommands } = await import('./generate-rtg-maestro.mjs');
+  const { readRtgImages, readRtgSources } = await import('../content/build-rtg-batches.mjs');
+  const { doc } = (await readRtgSources()).find(({ doc }) => doc.unit.id === 'm25');
+  const factory = createRequire(import.meta.url)('../content/load-app-contract.cjs')
+    .loadAppContract('features/student-checkpoints/batches/rtgBatchFactory.ts');
+  const activity = factory.buildRtgBatch(doc, await readRtgImages()).batch.activities[4];
+  const commands = commandsOf(`appId: x\n---\n${lessonCommands(activity).join('\n')}\n`);
+  const selection = commands.findIndex(command => command.tapOn === 'Selecionar esta ordem');
+  assert.ok(selection > 0);
+  assert.deepEqual(commands[selection - 1].scrollUntilVisible, {
+    element: { text: 'Selecionar esta ordem' }, direction: 'DOWN', centerElement: true,
+  });
+});

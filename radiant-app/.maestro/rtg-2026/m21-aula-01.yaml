@@ -113,6 +113,8 @@ tags:
 - scrollUntilVisible:
     element:
       text: 'Selecionar esta ordem'
+    direction: DOWN
+    centerElement: true
 - tapOn: 'Selecionar esta ordem'
 - tapOn: 'Continuar'
 - tapOn: 'Continuar'

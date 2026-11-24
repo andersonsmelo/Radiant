@@ -107,61 +107,85 @@ tags:
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Maxila'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Maxila'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Face'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Face'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Mandíbula'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Mandíbula'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Face'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Face'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Temporal'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Temporal'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Caixa craniana'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Caixa craniana'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Parietal'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Parietal'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Caixa craniana'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Caixa craniana'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Zigomático'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Zigomático'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Face'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Face'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Esfenoide'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Esfenoide'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Caixa craniana'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Caixa craniana'
 - tapOn: 'Conferir resposta'

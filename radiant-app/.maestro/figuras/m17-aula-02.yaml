@@ -42,51 +42,71 @@ tags:
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Líquido derramado no piso ao lado da mesa'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Líquido derramado no piso ao lado da mesa'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Eu corrijo agora'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Eu corrijo agora'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Bolsa de sonda caída no chão, ainda ligada'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Bolsa de sonda caída no chão, ainda ligada'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Chamo a equipe'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Chamo a equipe'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Roda da maca sem freio, perto da mesa'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Roda da maca sem freio, perto da mesa'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Eu corrijo agora'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Eu corrijo agora'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Cadeira parada entre a maca e a mesa'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Cadeira parada entre a maca e a mesa'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Eu corrijo agora'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Eu corrijo agora'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Dreno preso à grade da maca'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Dreno preso à grade da maca'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Chamo a equipe'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Chamo a equipe'
 - tapOn: 'Conferir resposta'
