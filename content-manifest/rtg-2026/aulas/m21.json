@@ -1,0 +1,2204 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m21",
+    "code": "M21",
+    "title": "Radiobiologia e dosimetria",
+    "summary": "Do fóton ao DNA, das três grandezas de dose ao dosímetro pessoal e ao indicador do equipamento, e da distância e blindagem em números à leitura de um registro de dose que destoa."
+  },
+  "sources": [
+    {
+      "id": "icrpaedia-grandezas",
+      "title": "Absorbed, Equivalent, and Effective Dose",
+      "publisher": "ICRPaedia (ICRP)",
+      "url": "https://icrpaedia.org/Absorbed,_Equivalent,_and_Effective_Dose",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "openstax-bio-32-2",
+      "title": "College Physics 2e, 32.2 Biological Effects of Ionizing Radiation",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/college-physics-2e/pages/32-2-biological-effects-of-ionizing-radiation",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Material CC BY-NC-SA 4.0; consulta para fatos, redação própria."
+    },
+    {
+      "id": "hps-dano-indireto",
+      "title": "Ask the Expert: indirect ionization and its effects on DNA",
+      "publisher": "Health Physics Society",
+      "url": "https://hps.org/publicinformation/ate/q13187/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "pmc-dano-dna-2017",
+      "title": "Artigo de revisão sobre dano e reparo do DNA por radiação ionizante (Int J Mol Sci 2017, 18:2749)",
+      "publisher": "PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5751348/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "pmc-kap-pele",
+      "title": "Reference air kerma and kerma-area product as estimators of peak skin dose for fluoroscopically guided interventions",
+      "publisher": "PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3145218/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "pmc-protecao-ir",
+      "title": "Radiation Protection in Interventional Radiology",
+      "publisher": "PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8817818/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "pmc-dosimetro-controle",
+      "title": "Ionising Radiation Exposure to Orthopaedic Trainees: The Effect of Sub-Specialty Training",
+      "publisher": "PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1963658/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "wiki-hvl",
+      "title": "Half-value layer",
+      "publisher": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Half-value_layer",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consulta para fatos gerais de física; fonte fraca, por isso o esquema declara seus limites."
+    },
+    {
+      "id": "wiki-inverso",
+      "title": "Inverse-square law",
+      "publisher": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Inverse-square_law",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consulta para fatos gerais de física; fonte fraca, por isso o esquema declara seus limites."
+    },
+    {
+      "id": "cdc-alara",
+      "title": "ALARA: time, distance and shielding",
+      "publisher": "CDC",
+      "url": "https://www.cdc.gov/radiation-health/safety/alara.html",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "icrpaedia-efeitos",
+      "title": "Effects of Exposure",
+      "publisher": "ICRPaedia (ICRP)",
+      "url": "https://icrpaedia.org/Effects_of_Exposure",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "pmc-dosimetro-olho",
+      "title": "Characterization of Small Dosimeters Used for Measurement of Eye Lens Dose for Medical Staff during Fluoroscopic Examination",
+      "publisher": "PubMed Central (Diagnostics, 2021)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7909523/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "ptw-diamentor",
+      "title": "DIAMENTOR RS-KDK (câmara de produto dose-área)",
+      "publisher": "PTW Dosimetry (fabricante)",
+      "url": "https://www.ptwdosimetry.com/en/products/diamentor-rs-kdk",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, sem reprodução de texto."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m21-01",
+      "code": "M21.01",
+      "title": "Do fóton ao DNA",
+      "objective": "Hoje você vai conseguir distinguir ação direta de ação indireta da radiação sobre o DNA e quebra simples de quebra dupla.",
+      "competency": "Distinguir ação direta e indireta e quebra simples e dupla do DNA, num esquema simplificado.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Laboratório didático",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Lia, a radiação fura o DNA como uma bala?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Às vezes atinge a molécula direto. Mas a célula tem água, e isso muda a história."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Hoje vamos seguir o caminho do fóton até a fita de DNA."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Direta, indireta, simples, dupla",
+        "body": "A radiação pode lesar o DNA de dois jeitos. Na ação direta, ela ioniza a própria molécula de DNA. Na ação indireta, ela age na água da célula: o fóton atinge uma molécula de água, forma-se um radical livre muito reativo, o radical chega ao DNA e rompe a fita. Raios X lesam o DNA também por essa via. A quebra simples afeta uma fita e costuma ser reparada com facilidade. A quebra dupla rompe as duas fitas, perto uma da outra: é uma lesão mais séria, e o reparo dela muitas vezes sai impreciso. É um esquema: não prevê o que acontece com uma pessoa.",
+        "keyPoints": [
+          "Direta: a radiação atinge o DNA. Indireta: atinge a água e um radical chega ao DNA.",
+          "Quebra simples costuma ser reparada; na dupla, o reparo muitas vezes sai impreciso.",
+          "É conceito de célula, e não prevê o caso de uma pessoa."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na M04 você separou reações teciduais de efeitos estocásticos. Qual destes é um exemplo de reação tecidual?",
+          "options": [
+            {
+              "label": "Queimadura de pele",
+              "correct": true,
+              "feedback": "Isso: a queimadura de pele só aparece acima de um limiar de dose."
+            },
+            {
+              "label": "Aumento da chance de câncer",
+              "correct": false,
+              "feedback": "Esse é um efeito estocástico: probabilidade que cresce com a dose, sem limiar."
+            },
+            {
+              "label": "Efeito hereditário",
+              "correct": false,
+              "feedback": "Efeito hereditário também é estocástico, tratado como probabilidade."
+            },
+            {
+              "label": "Nenhum efeito, em qualquer dose",
+              "correct": false,
+              "feedback": "Para fins de proteção, assume-se que doses pequenas trazem um pequeno aumento de risco."
+            }
+          ],
+          "help": "Pense no exemplo que só aparece acima de uma dose limiar.",
+          "sourceIds": [
+            "icrpaedia-efeitos"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule o esquema do DNA, tocando na ficha e no ponto que ela nomeia.",
+          "diagramId": "dano-ao-dna",
+          "points": [
+            {
+              "label": "Impacto direto",
+              "x": 0.139,
+              "y": 0.667,
+              "where": "à esquerda, o ponto circulado na fita de cima"
+            },
+            {
+              "label": "Água atingida",
+              "x": 0.673,
+              "y": 0.275,
+              "where": "no alto à direita, o círculo grande com dois pequenos"
+            },
+            {
+              "label": "Radical",
+              "x": 0.745,
+              "y": 0.496,
+              "where": "à direita, o ponto ciano descendo rumo à fita de cima"
+            },
+            {
+              "label": "Quebra simples",
+              "x": 0.376,
+              "y": 0.817,
+              "where": "embaixo, um corte só na fita de baixo"
+            },
+            {
+              "label": "Quebra dupla",
+              "x": 0.845,
+              "y": 0.742,
+              "where": "à direita, as duas fitas cortadas na mesma altura"
+            }
+          ],
+          "distractors": [
+            "Reparo celular"
+          ],
+          "feedbackCorrect": "Isso mesmo: o impacto direto está na fita, o radical vem da água e a quebra dupla rompe as duas fitas.",
+          "feedbackIncorrect": "Alguma ficha está fora do lugar: siga o caminho do radical, que parte da água, e conte quantas fitas cada corte rompe.",
+          "help": "Comece pelo ponto que a seta do fóton atinge na fita de cima.",
+          "sourceIds": [
+            "hps-dano-indireto",
+            "pmc-dano-dna-2017"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Ordene a ação indireta, na ordem ensinada nesta aula.",
+          "items": [
+            "O fóton atinge uma molécula de água",
+            "Forma-se um radical livre",
+            "O radical chega ao DNA",
+            "A fita do DNA se rompe"
+          ],
+          "feedbackCorrect": "Isso: do fóton à água, da água ao radical, do radical à fita.",
+          "feedbackIncorrect": "Retome o caminho: o dano ao DNA vem por último, depois que o radical se forma e chega à fita.",
+          "help": "O radical só existe depois que o fóton atinge a água.",
+          "sourceIds": [
+            "hps-dano-indireto",
+            "pmc-dano-dna-2017"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre o dano ao DNA.",
+          "statements": [
+            {
+              "text": "Na ação direta, a radiação ioniza a própria molécula de DNA.",
+              "correct": true,
+              "feedback": "Certo: na via direta, o fóton ou a partícula atinge o DNA."
+            },
+            {
+              "text": "Uma quebra simples rompe as duas fitas do DNA.",
+              "correct": false,
+              "feedback": "Errado: a simples rompe uma fita só; as duas, perto uma da outra, são quebra dupla."
+            },
+            {
+              "text": "Raios X também lesam o DNA pela via indireta, pela água da célula.",
+              "correct": true,
+              "feedback": "Certo: radicais formados na água da célula chegam ao DNA e o lesam."
+            },
+            {
+              "text": "Toda quebra dupla deixa um dano que a célula nunca consegue reparar.",
+              "correct": false,
+              "feedback": "Errado: a célula tem sistemas de reparo, que podem restaurar o DNA ou errar."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que cada via faz e o que cada quebra rompe.",
+          "feedbackIncorrect": "Releia o conceito: direta e indireta diferem no caminho, e simples e dupla, no número de fitas rompidas.",
+          "help": "Conte as fitas rompidas e pergunte de onde veio o dano.",
+          "sourceIds": [
+            "hps-dano-indireto",
+            "pmc-dano-dna-2017"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "cloze",
+          "role": "transfer",
+          "prompt": "Complete a frase sobre o esquema.",
+          "text": "Num esquema, um radical vindo da água rompe só uma fita do DNA: é uma ação {{1}} que deixa uma quebra {{2}}.",
+          "answers": [
+            "indireta",
+            "simples"
+          ],
+          "distractors": [
+            "direta",
+            "dupla",
+            "oblíqua"
+          ],
+          "feedbackCorrect": "Isso: o radical vem da água, a ação é indireta, e uma fita só dá quebra simples.",
+          "feedbackIncorrect": "Veja de onde veio o dano e quantas fitas se romperam: água e radical indicam o caminho indireto.",
+          "help": "Origem na água e uma fita só: dois dados, duas lacunas.",
+          "sourceIds": [
+            "hps-dano-indireto",
+            "pmc-dano-dna-2017"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você distingue ação direta de indireta, segue o radical da água até o DNA e separa quebra simples de dupla, sem prever o que ocorre com uma pessoa.",
+        "line": {
+          "speaker": "lia",
+          "text": "Na próxima aula damos nome e unidade à energia que chega ao tecido."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Num esquema, um fóton atinge uma molécula de água e um radical segue até o DNA. Que ação é essa?",
+          "options": [
+            {
+              "label": "Ação direta, sobre o próprio DNA",
+              "correct": false,
+              "feedback": "Na direta, o fóton atinge a molécula de DNA, sem passar pela água."
+            },
+            {
+              "label": "Quebra dupla, por definição",
+              "correct": false,
+              "feedback": "Dupla ou simples depende de quantas fitas se rompem, não do caminho."
+            },
+            {
+              "label": "Ação indireta, mediada pela água",
+              "correct": true,
+              "feedback": "Isso: o dano vem do radical formado na água."
+            },
+            {
+              "label": "Reparo celular, feito pela água",
+              "correct": false,
+              "feedback": "O reparo é resposta da célula ao dano, e não etapa da ação."
+            }
+          ],
+          "sourceIds": [
+            "hps-dano-indireto",
+            "pmc-dano-dna-2017"
+          ]
+        },
+        {
+          "prompt": "O que separa uma quebra dupla de uma quebra simples?",
+          "options": [
+            {
+              "label": "A dupla rompe as duas fitas, e o reparo dela tende a sair impreciso",
+              "correct": true,
+              "feedback": "Isso: duas fitas rompidas perto uma da outra são lesão mais séria, de reparo muitas vezes impreciso."
+            },
+            {
+              "label": "A dupla vem sempre da ação direta, e a simples da indireta",
+              "correct": false,
+              "feedback": "As duas quebras podem vir dos dois caminhos."
+            },
+            {
+              "label": "A simples rompe as duas fitas, e a dupla só uma",
+              "correct": false,
+              "feedback": "É o contrário: a dupla é a que rompe as duas fitas."
+            },
+            {
+              "label": "A dupla só ocorre em células que não se dividem",
+              "correct": false,
+              "feedback": "O número de fitas rompidas não depende disso."
+            }
+          ],
+          "sourceIds": [
+            "hps-dano-indireto",
+            "pmc-dano-dna-2017"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na ação indireta, o radical vem da água atingida pelo...",
+          "item": {
+            "prompt": "Na ação indireta, de onde vem o radical que chega ao DNA?",
+            "options": [
+              {
+                "label": "Da própria fita de DNA",
+                "correct": false,
+                "feedback": "Esse é o caminho direto, sem radical da água."
+              },
+              {
+                "label": "Da água da célula atingida pelo fóton",
+                "correct": true,
+                "feedback": "Isso: o fóton atinge a água, e dela sai o radical."
+              },
+              {
+                "label": "Do tubo de raios X",
+                "correct": false,
+                "feedback": "O tubo produz o feixe, e não o radical dentro da célula."
+              },
+              {
+                "label": "Do núcleo do átomo de tungstênio",
+                "correct": false,
+                "feedback": "O alvo de tungstênio produz raios X, e não radicais na célula."
+              }
+            ],
+            "sourceIds": [
+              "hps-dano-indireto",
+              "pmc-dano-dna-2017"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um colega diz que o DNA só é lesado quando o fóton bate nele. O que você responde?",
+            "options": [
+              {
+                "label": "Isso mesmo, a água da célula não participa do dano",
+                "correct": false,
+                "feedback": "A água participa: dela vêm os radicais."
+              },
+              {
+                "label": "Só há dano indireto, a via direta não existe",
+                "correct": false,
+                "feedback": "As duas vias existem: direta e indireta."
+              },
+              {
+                "label": "Só a quebra dupla vem da água, a simples vem do fóton",
+                "correct": false,
+                "feedback": "As duas quebras podem vir dos dois caminhos."
+              },
+              {
+                "label": "Há também a via indireta, pela água da célula",
+                "correct": true,
+                "feedback": "Isso: da água da célula vêm radicais que também lesam o DNA."
+              }
+            ],
+            "sourceIds": [
+              "hps-dano-indireto",
+              "pmc-dano-dna-2017"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m21-02",
+      "code": "M21.02",
+      "title": "Três grandezas de dose",
+      "objective": "Hoje você vai conseguir dizer o que a dose absorvida, a equivalente e a efetiva respondem, com a unidade de cada uma.",
+      "competency": "Dizer o que dose absorvida, equivalente e efetiva respondem, com as unidades.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de estudo",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "No relatório aparece gray, e na ficha da equipe, sievert. É a mesma coisa?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Parecem primas, mas respondem perguntas diferentes."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos separar as três perguntas."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Três perguntas, três doses",
+        "body": "A dose absorvida é a energia depositada por quilograma de matéria, em gray (Gy). A dose equivalente multiplica a absorvida num órgão por um fator da radiação, que vale 1 para fótons e é maior para partículas como as alfa, e usa sievert (Sv). A dose efetiva soma as equivalentes de vários órgãos, cada uma com um fator do tecido, também em sievert. Os fatores vêm da ICRP. São grandezas de proteção, e não o risco de uma pessoa.",
+        "keyPoints": [
+          "Absorvida: energia por quilograma, em gray.",
+          "Equivalente: leva em conta o tipo de radiação, em sievert.",
+          "Efetiva: leva em conta os órgãos, em sievert."
+        ],
+        "visual": "grandezas-de-dose"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na M04, os limites de dose do trabalhador e do público aparecem em mSv. O mSv é um submúltiplo de qual unidade?",
+          "options": [
+            {
+              "label": "Do sievert",
+              "correct": true,
+              "feedback": "Isso: milissievert é a milésima parte do sievert."
+            },
+            {
+              "label": "Do gray",
+              "correct": false,
+              "feedback": "O gray mede dose absorvida; os limites de proteção são dados em sievert."
+            },
+            {
+              "label": "Do becquerel",
+              "correct": false,
+              "feedback": "O becquerel mede atividade da fonte, e não dose."
+            },
+            {
+              "label": "Do coulomb por quilograma",
+              "correct": false,
+              "feedback": "Essa unidade é de exposição, e o limite não é expresso nela."
+            }
+          ],
+          "help": "Limites de dose para proteção usam a unidade das grandezas ponderadas.",
+          "sourceIds": [
+            "icrpaedia-grandezas",
+            "openstax-bio-32-2"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada grandeza à pergunta que ela responde.",
+          "pairs": [
+            {
+              "left": "Dose absorvida",
+              "right": "Quanta energia ficou por quilograma?"
+            },
+            {
+              "left": "Dose equivalente",
+              "right": "Como o tipo de radiação pesa num órgão?"
+            },
+            {
+              "left": "Dose efetiva",
+              "right": "Como somar vários órgãos, cada um com seu peso?"
+            },
+            {
+              "left": "Fator da radiação, para fótons",
+              "right": "Vale 1"
+            }
+          ],
+          "feedbackCorrect": "Isso: cada grandeza responde a uma pergunta diferente.",
+          "feedbackIncorrect": "Retome o conceito: a absorvida só conta energia, a equivalente pesa o tipo de radiação e a efetiva pesa os órgãos.",
+          "help": "Pergunte de cada uma: ela pesa o tipo de radiação, os órgãos ou nada?",
+          "sourceIds": [
+            "icrpaedia-grandezas",
+            "openstax-bio-32-2"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Em que unidade cada grandeza se expressa? Classifique cada item.",
+          "categories": [
+            "Gray (Gy)",
+            "Sievert (Sv)"
+          ],
+          "items": [
+            {
+              "label": "Energia depositada por quilograma",
+              "category": "Gray (Gy)"
+            },
+            {
+              "label": "Dose num órgão, pesada pelo tipo de radiação",
+              "category": "Sievert (Sv)"
+            },
+            {
+              "label": "Dose num bloco de tecido, sem pesos",
+              "category": "Gray (Gy)"
+            },
+            {
+              "label": "Soma pesada de vários órgãos",
+              "category": "Sievert (Sv)"
+            }
+          ],
+          "feedbackCorrect": "Isso: sem pesos, em gray; com pesos de radiação ou de tecido, em sievert.",
+          "feedbackIncorrect": "Confira se o item aplica algum peso: sem peso, gray; com peso, sievert.",
+          "help": "Quem usa fator de ponderação usa sievert.",
+          "sourceIds": [
+            "icrpaedia-grandezas",
+            "openstax-bio-32-2"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "multiple-choice",
+          "role": "practice",
+          "prompt": "Dois feixes, um de fótons e outro de partículas pesadas, depositam a mesma energia por quilograma no mesmo bloco de tecido. O que difere entre eles?",
+          "options": [
+            {
+              "label": "A dose absorvida, que passa a ser maior para as partículas",
+              "correct": false,
+              "feedback": "A energia por quilograma é a mesma, então a absorvida é igual."
+            },
+            {
+              "label": "A dose equivalente, pelo fator da radiação das partículas",
+              "correct": true,
+              "feedback": "Isso: a absorvida é igual, mas a equivalente pesa o tipo de radiação."
+            },
+            {
+              "label": "O fator dos fótons, que deixa de valer 1",
+              "correct": false,
+              "feedback": "O fator dos fótons continua valendo 1."
+            },
+            {
+              "label": "O número de órgãos somados na dose efetiva",
+              "correct": false,
+              "feedback": "Nesta comparação há um bloco só; não há soma de órgãos."
+            }
+          ],
+          "help": "A energia por quilograma é igual. O que a outra grandeza acrescenta?",
+          "sourceIds": [
+            "icrpaedia-grandezas",
+            "openstax-bio-32-2"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Julgue cada afirmação sobre as grandezas de dose.",
+          "statements": [
+            {
+              "text": "A dose efetiva é um valor para o corpo todo, e não só para um órgão.",
+              "correct": true,
+              "feedback": "Certo: ela soma as equivalentes de vários órgãos."
+            },
+            {
+              "text": "A dose absorvida, em gray, já inclui o tipo de radiação e o órgão.",
+              "correct": false,
+              "feedback": "Errado: o gray só conta energia por quilograma, sem pesos."
+            },
+            {
+              "text": "Para fótons, o fator da radiação vale 1.",
+              "correct": true,
+              "feedback": "Certo: com fótons, a equivalente em sievert tem o mesmo valor da absorvida em gray."
+            },
+            {
+              "text": "A dose efetiva diz qual é o risco de uma pessoa em particular.",
+              "correct": false,
+              "feedback": "Errado: os fatores vêm de médias, e a grandeza serve à proteção, e não ao caso individual."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que cada grandeza responde e o limite de uso.",
+          "feedbackIncorrect": "Releia o conceito: o gray não pesa nada, o sievert pesa, e nenhuma delas prevê o caso de uma pessoa.",
+          "help": "Lembre o que cada grandeza soma ou pesa.",
+          "sourceIds": [
+            "icrpaedia-grandezas",
+            "openstax-bio-32-2"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você diz o que cada dose responde: absorvida em gray, equivalente e efetiva em sievert, e sabe que elas servem à proteção, e não ao caso de uma pessoa.",
+        "line": {
+          "speaker": "caio",
+          "text": "Agora o relatório do crachá começa a fazer sentido."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Qual é a unidade da dose absorvida e o que ela mede?",
+          "options": [
+            {
+              "label": "Sievert: energia depositada por quilograma",
+              "correct": false,
+              "feedback": "O sievert é de grandezas ponderadas, e não de energia pura."
+            },
+            {
+              "label": "Gray: energia depositada por quilograma",
+              "correct": true,
+              "feedback": "Isso: um gray é um joule por quilograma."
+            },
+            {
+              "label": "Gray: soma pesada de vários órgãos",
+              "correct": false,
+              "feedback": "A soma pesada é a dose efetiva, em sievert."
+            },
+            {
+              "label": "Sievert: fator do tipo de radiação",
+              "correct": false,
+              "feedback": "O fator não tem unidade de dose; multiplica a absorvida."
+            }
+          ],
+          "sourceIds": [
+            "icrpaedia-grandezas",
+            "openstax-bio-32-2"
+          ]
+        },
+        {
+          "prompt": "Um relatório traz uma grandeza em sievert que soma vários órgãos, cada um com seu fator. Qual é?",
+          "options": [
+            {
+              "label": "A dose absorvida",
+              "correct": false,
+              "feedback": "A absorvida é em gray, e sem soma pesada."
+            },
+            {
+              "label": "A dose equivalente",
+              "correct": false,
+              "feedback": "A equivalente é de um órgão, sem a soma dos tecidos."
+            },
+            {
+              "label": "A atividade da fonte",
+              "correct": false,
+              "feedback": "A atividade é em becquerel, e não é dose."
+            },
+            {
+              "label": "A dose efetiva",
+              "correct": true,
+              "feedback": "Isso: a efetiva soma as equivalentes ponderadas pelos tecidos."
+            }
+          ],
+          "sourceIds": [
+            "icrpaedia-grandezas",
+            "openstax-bio-32-2"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: a dose absorvida é energia por...",
+          "item": {
+            "prompt": "Em que unidade se expressa a dose absorvida?",
+            "options": [
+              {
+                "label": "Sievert",
+                "correct": false,
+                "feedback": "O sievert é das grandezas ponderadas."
+              },
+              {
+                "label": "Becquerel",
+                "correct": false,
+                "feedback": "Becquerel é atividade da fonte."
+              },
+              {
+                "label": "Gray",
+                "correct": true,
+                "feedback": "Isso: gray, um joule por quilograma."
+              },
+              {
+                "label": "Hertz",
+                "correct": false,
+                "feedback": "Hertz mede frequência, e não dose."
+              }
+            ],
+            "sourceIds": [
+              "icrpaedia-grandezas",
+              "openstax-bio-32-2"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um texto de estudo diz que a dose efetiva mostra o destino de um paciente. O que você responde?",
+            "options": [
+              {
+                "label": "É grandeza de proteção, e não prevê o caso de uma pessoa",
+                "correct": true,
+                "feedback": "Isso: os fatores são médias para proteção."
+              },
+              {
+                "label": "Está certo, a dose efetiva prevê o caso de cada pessoa",
+                "correct": false,
+                "feedback": "A efetiva não prevê o caso individual."
+              },
+              {
+                "label": "Está certo, mas só para fótons com fator 1",
+                "correct": false,
+                "feedback": "O fator 1 não torna a grandeza individual."
+              },
+              {
+                "label": "Está errado porque a efetiva é em gray",
+                "correct": false,
+                "feedback": "A efetiva é em sievert, e não em gray."
+              }
+            ],
+            "sourceIds": [
+              "icrpaedia-grandezas",
+              "openstax-bio-32-2"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m21-03",
+      "code": "M21.03",
+      "title": "O dosímetro pessoal",
+      "objective": "Hoje você vai conseguir dizer onde cada dosímetro fica, o que ele registra e o que não fazer com ele.",
+      "competency": "Dizer onde cada dosímetro fica, o que ele mede e o que não fazer com ele.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de raios X, antes do turno",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Caio, por que você usa um crachá no peito e outro no dedo?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Cada um conta uma parte do corpo. E tem um terceiro que nem sai da parede."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos descobrir de quem é cada um."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Quem usa qual dosímetro",
+        "body": "O dosímetro pessoal registra a dose que o corpo de quem o usa recebeu no período; ele não reduz dose. O de tronco fala do corpo, o de anel da mão, e um perto do olho, ou o do colarinho, ajuda a estimar a dose no cristalino. O dosímetro de referência fica guardado longe das fontes e mede a radiação de fundo. Com avental, o serviço define se o de tronco vai por cima ou por baixo e se há um segundo; a figura mostra um arranjo. Cada um usa o seu e, fora do turno, o guarda longe de fontes de radiação.",
+        "keyPoints": [
+          "Registra a dose de quem o usa, e não protege.",
+          "Cada posição fala de uma parte do corpo: tronco, mão, olho.",
+          "O de referência fica guardado longe das fontes, e não vai para o turno."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, qual fator da dose equivalente vale 1 para fótons?",
+          "options": [
+            {
+              "label": "O fator de ponderação do tecido",
+              "correct": false,
+              "feedback": "Esse pesa cada órgão na dose efetiva."
+            },
+            {
+              "label": "A unidade gray",
+              "correct": false,
+              "feedback": "O gray é unidade de dose absorvida, e não fator."
+            },
+            {
+              "label": "O fator de ponderação da radiação",
+              "correct": true,
+              "feedback": "Isso: ele pesa o tipo de radiação e vale 1 para fótons."
+            },
+            {
+              "label": "A atividade da fonte",
+              "correct": false,
+              "feedback": "Atividade é em becquerel e não pesa dose."
+            }
+          ],
+          "help": "O fator que depende do tipo de radiação, e não do órgão.",
+          "sourceIds": [
+            "icrpaedia-grandezas",
+            "openstax-bio-32-2"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule os dosímetros da figura, tocando na ficha e no ponto.",
+          "diagramId": "dosimetro-no-corpo",
+          "points": [
+            {
+              "label": "Dosímetro de tronco",
+              "x": 0.395,
+              "y": 0.342,
+              "where": "no peito, à frente da peça azul"
+            },
+            {
+              "label": "Dosímetro de anel",
+              "x": 0.653,
+              "y": 0.408,
+              "where": "na ponta do braço estendido, em volta de um dedo"
+            },
+            {
+              "label": "Dosímetro junto ao olho",
+              "x": 0.463,
+              "y": 0.121,
+              "where": "na cabeça, preso à haste ao lado do rosto"
+            },
+            {
+              "label": "Dosímetro de referência",
+              "x": 0.875,
+              "y": 0.267,
+              "where": "à direita, pendurado num quadro na parede"
+            }
+          ],
+          "distractors": [
+            "Dosímetro de pé"
+          ],
+          "feedbackCorrect": "Isso mesmo: tronco, mão, olho e o de referência, que fica no quadro, longe do feixe.",
+          "feedbackIncorrect": "Alguma ficha está fora do lugar: associe cada dosímetro à parte do corpo que ele representa.",
+          "help": "Quatro dosímetros: um no corpo, um na mão, um na cabeça e um fora de quem trabalha.",
+          "sourceIds": [
+            "pmc-protecao-ir",
+            "pmc-dosimetro-controle",
+            "pmc-dosimetro-olho"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multi-select",
+          "role": "practice",
+          "prompt": "Marque todas as condutas de acordo com o uso do dosímetro pessoal.",
+          "options": [
+            {
+              "label": "Emprestar o seu a um colega que esqueceu o dele",
+              "correct": false,
+              "feedback": "O dosímetro é individual: a leitura precisa ser de quem o usou."
+            },
+            {
+              "label": "Usar só o seu dosímetro",
+              "correct": true,
+              "feedback": "Certo: a leitura só vale para quem o usa."
+            },
+            {
+              "label": "Trocar a posição por conta própria para a leitura sair menor",
+              "correct": false,
+              "feedback": "A posição segue o serviço; mudar para o número cair falsifica o registro."
+            },
+            {
+              "label": "Usá-lo na posição que o serviço definiu",
+              "correct": true,
+              "feedback": "Certo: com avental, por exemplo, o serviço define o arranjo."
+            },
+            {
+              "label": "Deixá-lo pendurado na sala durante o turno, sem usar",
+              "correct": false,
+              "feedback": "Pendurado na sala, ele registra a radiação da sala, e não a sua dose."
+            },
+            {
+              "label": "Guardá-lo, fora do turno, longe de fontes de radiação",
+              "correct": true,
+              "feedback": "Certo: perto de uma fonte, ele registraria dose que ninguém recebeu."
+            }
+          ],
+          "feedbackCorrect": "Você marcou as três condutas e deixou de fora as que mudam ou desvirtuam a leitura.",
+          "feedbackIncorrect": "Releia o conceito: dosímetro individual, na posição do serviço, e longe de fontes fora do turno.",
+          "help": "A leitura precisa ser de quem usa, onde o serviço manda.",
+          "sourceIds": [
+            "pmc-protecao-ir",
+            "pmc-dosimetro-controle"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "true-false",
+          "role": "safety",
+          "criticalSafety": true,
+          "prompt": "Julgue cada afirmação sobre o dosímetro.",
+          "statements": [
+            {
+              "text": "O dosímetro de anel registra a dose da mão de quem o usa.",
+              "correct": true,
+              "feedback": "Certo: o anel fala da mão, e o de tronco do corpo."
+            },
+            {
+              "text": "O dosímetro de referência deve ser usado por quem entra na sala.",
+              "correct": false,
+              "feedback": "Errado: ele fica guardado longe das fontes e mede só a radiação de fundo."
+            },
+            {
+              "text": "Deixar o dosímetro sozinho no feixe é um bom teste dele.",
+              "correct": false,
+              "feedback": "Errado: testar cabe ao responsável; no feixe ele registra dose que ninguém recebeu."
+            },
+            {
+              "text": "Com avental, o serviço define se o de tronco vai por cima ou por baixo.",
+              "correct": true,
+              "feedback": "Certo: a figura mostra um arranjo, e não a regra geral."
+            }
+          ],
+          "feedbackCorrect": "Você separou o uso certo do que desvirtua a leitura.",
+          "feedbackIncorrect": "Retome: cada dosímetro fala de uma parte, o de referência não é vestido e o arranjo com avental é do serviço.",
+          "help": "Pense no que cada um mede e em quem decide o arranjo.",
+          "sourceIds": [
+            "pmc-protecao-ir",
+            "pmc-dosimetro-controle"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "cloze",
+          "role": "transfer",
+          "prompt": "Complete a frase sobre um exame feito fora da sala de raios X.",
+          "text": "Na radiografia no leito da enfermaria, o dosímetro {{1}} vai com quem trabalha, e o de referência continua {{2}}.",
+          "answers": [
+            "pessoal",
+            "guardado"
+          ],
+          "distractors": [
+            "coletivo",
+            "no leito",
+            "exposto"
+          ],
+          "feedbackCorrect": "Isso: o pessoal acompanha quem trabalha em qualquer lugar, e o de referência segue guardado longe das fontes.",
+          "feedbackIncorrect": "Pense no papel de cada um: um registra a dose de uma pessoa, o outro mede só o fundo e não sai do lugar.",
+          "help": "Qual dosímetro é de uma pessoa, e qual não sai do lugar?",
+          "sourceIds": [
+            "pmc-protecao-ir",
+            "pmc-dosimetro-controle"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você diz o que cada dosímetro representa, onde o de referência fica e o que não fazer com o seu: emprestar, mudar de posição por conta própria ou deixar perto de fontes.",
+        "line": {
+          "speaker": "lia",
+          "text": "E quando a leitura vem estranha? É o que vemos na última aula."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Qual parte do corpo o dosímetro de anel representa?",
+          "options": [
+            {
+              "label": "O corpo todo",
+              "correct": false,
+              "feedback": "O corpo é do dosímetro de tronco."
+            },
+            {
+              "label": "O cristalino",
+              "correct": false,
+              "feedback": "O cristalino é de um dosímetro junto ao olho ou no colarinho."
+            },
+            {
+              "label": "O ambiente da sala",
+              "correct": false,
+              "feedback": "O anel acompanha a mão de quem o usa, e não mede o ambiente."
+            },
+            {
+              "label": "A mão que o usa",
+              "correct": true,
+              "feedback": "Isso: o anel fala da dose na mão."
+            }
+          ],
+          "sourceIds": [
+            "pmc-protecao-ir",
+            "pmc-dosimetro-controle",
+            "pmc-dosimetro-olho"
+          ]
+        },
+        {
+          "prompt": "Um colega propõe usar o dosímetro de referência no turno, porque está sobrando. O que você responde?",
+          "options": [
+            {
+              "label": "Ele fica guardado, longe das fontes, sem uso",
+              "correct": true,
+              "feedback": "Isso: usado no turno, ele deixaria de medir só a radiação de fundo."
+            },
+            {
+              "label": "Pode usar, ele mede o mesmo que o pessoal",
+              "correct": false,
+              "feedback": "O de referência não mede a dose de ninguém."
+            },
+            {
+              "label": "Pode usar, mas só em exames curtos",
+              "correct": false,
+              "feedback": "O tamanho do exame não muda o papel dele."
+            },
+            {
+              "label": "Pode usar, se o seu estiver no armário",
+              "correct": false,
+              "feedback": "Sem o seu, você avisa o responsável antes de entrar."
+            }
+          ],
+          "sourceIds": [
+            "pmc-protecao-ir",
+            "pmc-dosimetro-controle"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o dosímetro de tronco registra a dose do...",
+          "item": {
+            "prompt": "Qual dosímetro registra a dose do corpo, e não de uma parte só?",
+            "options": [
+              {
+                "label": "O de anel",
+                "correct": false,
+                "feedback": "O anel fala da mão, e não do corpo todo."
+              },
+              {
+                "label": "O de tronco",
+                "correct": true,
+                "feedback": "Isso: o de tronco fala do corpo."
+              },
+              {
+                "label": "O de referência",
+                "correct": false,
+                "feedback": "Esse fica guardado longe das fontes e mede o fundo."
+              },
+              {
+                "label": "O de pé",
+                "correct": false,
+                "feedback": "Esse não faz parte do arranjo mostrado."
+              }
+            ],
+            "sourceIds": [
+              "pmc-protecao-ir",
+              "pmc-dosimetro-controle"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Seu dosímetro caiu no chão da sala durante o turno e você não sabe se foi exposto. Qual é a atitude certa?",
+            "options": [
+              {
+                "label": "Continuar usando, sem contar a ninguém o que houve",
+                "correct": false,
+                "feedback": "Sem aviso, o registro pode carregar uma leitura que ninguém entende."
+              },
+              {
+                "label": "Trocar por conta própria pelo dosímetro de referência",
+                "correct": false,
+                "feedback": "O de referência fica guardado e mede só o fundo; a troca não cabe a você."
+              },
+              {
+                "label": "Avisar o responsável pela proteção e descrever o caso",
+                "correct": true,
+                "feedback": "Isso: parar, descrever e pedir apoio."
+              },
+              {
+                "label": "Descartar o dosímetro e seguir sem ele no turno",
+                "correct": false,
+                "feedback": "Sem dosímetro, o aviso vem antes de entrar na sala."
+              }
+            ],
+            "sourceIds": [
+              "pmc-protecao-ir",
+              "pmc-dosimetro-controle"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m21-04",
+      "code": "M21.04",
+      "title": "O que o equipamento informa",
+      "objective": "Hoje você vai conseguir ler o produto dose-área como indicador do equipamento, sem tratá-lo como dose do paciente.",
+      "competency": "Ler o produto dose-área como indicador do equipamento, sem tratá-lo como dose do paciente.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de comando",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Depois do exame apareceu um valor em Gy·cm² na tela. É a dose do paciente?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Boa pergunta. O que será que esse número multiplica?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Hoje a conta envolve o campo e a saída do tubo."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Um número do equipamento",
+        "body": "O produto dose-área é um indicador do equipamento: multiplica a radiação do feixe pela área do campo. No esquema, uma câmara presa ao colimador mede o feixe. A unidade mostrada varia por equipamento, como Gy·cm² ou µGy·m². Com a mesma saída, campo maior dá valor maior. Mas o mesmo valor pode vir de pouca dose em área grande ou de muita dose em área pequena. Por isso não é a dose do paciente, nem diz a dose na pele.",
+        "keyPoints": [
+          "Multiplica a radiação do feixe pela área do campo.",
+          "É indicador do equipamento, e não dose do paciente.",
+          "Dúvida sobre o valor: leve ao responsável pelo caso."
+        ],
+        "visual": "produto-dose-area"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, o dosímetro pessoal registrava a dose de quem?",
+          "options": [
+            {
+              "label": "Do paciente do exame",
+              "correct": false,
+              "feedback": "O dosímetro pessoal fala do profissional que o usa."
+            },
+            {
+              "label": "De quem o usa, no período",
+              "correct": true,
+              "feedback": "Isso: o dosímetro é individual."
+            },
+            {
+              "label": "Da sala inteira, sem pessoa",
+              "correct": false,
+              "feedback": "Medir o ambiente não é o papel do dosímetro pessoal."
+            },
+            {
+              "label": "De qualquer um que passe pela sala",
+              "correct": false,
+              "feedback": "A leitura só vale para quem o usou."
+            }
+          ],
+          "help": "Lembre quem usa o crachá e a quem a leitura se refere.",
+          "sourceIds": [
+            "pmc-protecao-ir",
+            "pmc-dosimetro-controle"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase com as palavras do banco.",
+          "text": "O produto dose-área multiplica a radiação do feixe pela {{1}} do campo, e a unidade mostrada varia por {{2}}.",
+          "answers": [
+            "área",
+            "equipamento"
+          ],
+          "distractors": [
+            "espessura",
+            "paciente",
+            "temperatura"
+          ],
+          "feedbackCorrect": "Isso: feixe vezes área do campo, em unidade que muda por equipamento.",
+          "feedbackIncorrect": "Releia o conceito: o produto envolve o tamanho do campo, e a unidade depende do equipamento que a mostra.",
+          "help": "O que se multiplica pela radiação é uma medida do campo.",
+          "sourceIds": [
+            "pmc-kap-pele",
+            "ptw-diamentor"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "blitz",
+          "role": "practice",
+          "prompt": "Responda verdadeiro ou falso a cada afirmação sobre o produto dose-área.",
+          "statements": [
+            {
+              "text": "O produto dose-área é a dose absorvida pelo paciente.",
+              "correct": false,
+              "feedback": "Falso: é indicador do equipamento, e não a dose do paciente."
+            },
+            {
+              "text": "Com a mesma saída, um campo mais aberto dá valor maior.",
+              "correct": true,
+              "feedback": "Verdade: o valor cresce com a área do campo."
+            },
+            {
+              "text": "O valor mostrado é um indicador do equipamento.",
+              "correct": true,
+              "feedback": "Verdade: o equipamento o calcula do feixe e da área."
+            },
+            {
+              "text": "Uma só leitura diz a dose na pele de uma pessoa.",
+              "correct": false,
+              "feedback": "Falso: o mesmo valor pode vir de combinações diferentes de dose e área."
+            },
+            {
+              "text": "A unidade mostrada pode variar de um equipamento para outro.",
+              "correct": true,
+              "feedback": "Verdade: Gy·cm² é um exemplo, e cada equipamento mostra a sua."
+            },
+            {
+              "text": "Dois exames com o mesmo valor deram a mesma dose em cada ponto.",
+              "correct": false,
+              "feedback": "Falso: pouca dose em área grande e muita em área pequena dão o mesmo valor."
+            },
+            {
+              "text": "Com a mesma saída, fechar o campo diminui o valor.",
+              "correct": true,
+              "feedback": "Verdade: a área cai, e o produto cai com ela."
+            }
+          ],
+          "feedbackCorrect": "Você separou indicador do equipamento de dose do paciente.",
+          "feedbackIncorrect": "Releia o conceito: o valor depende de feixe e área, e não revela a dose em um ponto.",
+          "help": "Leia cada afirmação com calma antes de responder.",
+          "sourceIds": [
+            "pmc-kap-pele",
+            "ptw-diamentor"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "criticalSafety": true,
+          "context": "Depois de um exame de treino, a tela mostra o produto dose-área. Duda pergunta: então esse foi o valor que o paciente recebeu na pele?",
+          "prompt": "Qual é a sua resposta, dentro do papel de estudante?",
+          "options": [
+            {
+              "label": "Sim, o valor mostrado é a dose recebida na pele",
+              "correct": false,
+              "feedback": "O valor não diz a dose na pele."
+            },
+            {
+              "label": "Sim, desde que a unidade seja gray por centímetro quadrado",
+              "correct": false,
+              "feedback": "A unidade não faz do indicador uma dose."
+            },
+            {
+              "label": "Não: é indicador do equipamento, e a equipe interpreta o caso",
+              "correct": true,
+              "feedback": "Isso: você explica o que é o número e encaminha a interpretação."
+            },
+            {
+              "label": "Não sei, então eu calculo a dose do paciente a partir do valor",
+              "correct": false,
+              "feedback": "Estudante não calcula dose de paciente; a equipe responde."
+            }
+          ],
+          "help": "Diga o que o número é e quem interpreta o caso.",
+          "sourceIds": [
+            "pmc-kap-pele"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multi-select",
+          "role": "transfer",
+          "prompt": "Marque tudo o que muda o valor do produto dose-área no equipamento.",
+          "options": [
+            {
+              "label": "Trocar a janela da imagem na tela do monitor",
+              "correct": false,
+              "feedback": "A janela é exibição da imagem, e não muda o feixe nem o campo."
+            },
+            {
+              "label": "Abrir o campo, mantendo a saída",
+              "correct": true,
+              "feedback": "Certo: a área cresce, e o produto cresce com ela."
+            },
+            {
+              "label": "Mudar o brilho do monitor de exibição",
+              "correct": false,
+              "feedback": "O brilho é da tela, e não do feixe."
+            },
+            {
+              "label": "Aumentar a saída, mantendo o campo",
+              "correct": true,
+              "feedback": "Certo: mais radiação sobre a mesma área aumenta o produto."
+            }
+          ],
+          "feedbackCorrect": "Você marcou o campo e a saída, que entram na conta, e deixou de fora a tela.",
+          "feedbackIncorrect": "Revise: o produto vem do feixe e da área do campo, e o que muda só a exibição não entra.",
+          "help": "O que entra na conta é o feixe e o campo.",
+          "sourceIds": [
+            "pmc-kap-pele"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você lê o produto dose-área como indicador do equipamento, que cresce com a saída e com o campo, e o leva à equipe sem tratá-lo como dose do paciente.",
+        "line": {
+          "speaker": "caio",
+          "text": "Número na tela não é laudo de dose: o que ele é, você agora sabe dizer."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Dois exames de treino mostram o mesmo produto dose-área. O que se pode afirmar?",
+          "options": [
+            {
+              "label": "Que o paciente recebeu a mesma dose na pele nos dois exames",
+              "correct": false,
+              "feedback": "O valor não diz a dose na pele."
+            },
+            {
+              "label": "Que o campo foi exatamente o mesmo nos dois exames",
+              "correct": false,
+              "feedback": "Campos diferentes podem dar o mesmo produto."
+            },
+            {
+              "label": "Só que o indicador é igual; a dose em cada ponto pode diferir",
+              "correct": true,
+              "feedback": "Isso: o mesmo valor pode vir de dose e área diferentes."
+            },
+            {
+              "label": "Que o equipamento está descalibrado e precisa de ajuste",
+              "correct": false,
+              "feedback": "Valores iguais não indicam defeito."
+            }
+          ],
+          "sourceIds": [
+            "pmc-kap-pele"
+          ]
+        },
+        {
+          "prompt": "Com a mesma saída do tubo, o campo é aberto. O que acontece com o valor mostrado?",
+          "options": [
+            {
+              "label": "Ele diminui, porque a radiação se dilui",
+              "correct": false,
+              "feedback": "O produto soma sobre a área, e não cai por diluição."
+            },
+            {
+              "label": "Ele aumenta, porque a área do campo cresce",
+              "correct": true,
+              "feedback": "Isso: o produto cresce com a área."
+            },
+            {
+              "label": "Não muda, porque só a saída conta",
+              "correct": false,
+              "feedback": "A área do campo também entra."
+            },
+            {
+              "label": "Passa a ser a dose do paciente",
+              "correct": false,
+              "feedback": "Mudar o campo não transforma o indicador em dose."
+            }
+          ],
+          "sourceIds": [
+            "pmc-kap-pele"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o produto dose-área multiplica a radiação pela...",
+          "item": {
+            "prompt": "Qual é o papel do produto dose-área no exame?",
+            "options": [
+              {
+                "label": "Dose que o paciente recebeu na pele do exame",
+                "correct": false,
+                "feedback": "O valor não diz a dose na pele."
+              },
+              {
+                "label": "Medida da qualidade da imagem no monitor",
+                "correct": false,
+                "feedback": "A qualidade da imagem se descreve por ruído, contraste e resolução."
+              },
+              {
+                "label": "Dose do profissional que está na sala",
+                "correct": false,
+                "feedback": "Quem mede a dose do profissional é o dosímetro pessoal."
+              },
+              {
+                "label": "Indicador do equipamento, e não dose do paciente",
+                "correct": true,
+                "feedback": "Isso: ele descreve o feixe e o campo."
+              }
+            ],
+            "sourceIds": [
+              "pmc-kap-pele"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um familiar pergunta se o valor na tela é seguro para o paciente. O que você faz?",
+            "options": [
+              {
+                "label": "Explica o que o indicador é e leva a pergunta ao responsável",
+                "correct": true,
+                "feedback": "Isso: você explica o conceito e encaminha o caso."
+              },
+              {
+                "label": "Responde que é seguro, porque o valor está na tela",
+                "correct": false,
+                "feedback": "Julgar o caso não cabe ao estudante."
+              },
+              {
+                "label": "Calcula a dose do paciente e informa",
+                "correct": false,
+                "feedback": "Estudante não calcula dose de paciente."
+              },
+              {
+                "label": "Pede que ele não faça perguntas durante o exame",
+                "correct": false,
+                "feedback": "Dúvida de familiar se acolhe e se encaminha."
+              }
+            ],
+            "sourceIds": [
+              "pmc-kap-pele"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m21-05",
+      "code": "M21.05",
+      "title": "Distância e blindagem em números",
+      "objective": "Hoje você vai conseguir prever o que a distância e as camadas de blindagem fazem com a leitura relativa, num esquema simplificado.",
+      "competency": "Prever o efeito de dobrar a distância e de somar camadas de blindagem num esquema simplificado.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Laboratório didático",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Todo mundo sabe que afastar ajuda. A pergunta é: quanto?"
+          },
+          {
+            "speaker": "duda",
+            "text": "E a blindagem? Quanto cada camada corta?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos testar no esquema, prevendo antes de mexer."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Distância e camadas, em frações",
+        "body": "Neste esquema, a fonte emite como um ponto, e a leitura relativa cai com o quadrado da distância: a 2 m sobra um quarto da leitura de 1 m, e a 3 m, um nono. A blindagem se conta em camadas semirredutoras: cada uma deixa passar metade. Duas camadas deixam um quarto, e três, um oitavo. As leituras são frações da inicial, e não dose de ninguém. Vale só para este esquema simplificado, e não para um feixe real.",
+        "keyPoints": [
+          "Distância: a leitura cai com o quadrado dela.",
+          "Cada camada semirredutora deixa passar metade.",
+          "Leitura relativa, só neste esquema, e não dose."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, por que o produto dose-área não é a dose do paciente?",
+          "options": [
+            {
+              "label": "Porque ele só vale para campos pequenos",
+              "correct": false,
+              "feedback": "O produto vale para qualquer campo."
+            },
+            {
+              "label": "Porque o valor muda de um exame de treino para outro",
+              "correct": false,
+              "feedback": "Variar entre exames não explica a diferença."
+            },
+            {
+              "label": "Porque a unidade é sempre o sievert",
+              "correct": false,
+              "feedback": "A unidade mostrada é como Gy·cm², e varia por equipamento."
+            },
+            {
+              "label": "Valores iguais podem vir de dose e área diferentes",
+              "correct": true,
+              "feedback": "Isso: dose e área trocam de lugar sem mudar o produto."
+            }
+          ],
+          "help": "Pense no que dois valores iguais podem esconder.",
+          "sourceIds": [
+            "pmc-kap-pele"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "parameter-lab",
+          "role": "practice",
+          "prompt": "Afaste a fonte até a leitura relativa cair abaixo de 10% da inicial.",
+          "model": "inverse-square",
+          "start": 1,
+          "goal": {
+            "atLeast": 3.5
+          },
+          "hints": {
+            "tooLow": "A leitura ainda está acima de 10%: afaste mais a fonte do ponto de medida.",
+            "tooHigh": "Afastou além do necessário: aproxime um pouco a fonte."
+          },
+          "feedbackCorrect": "Isso: a partir de 3,5 m a leitura fica abaixo de 10% da inicial, no esquema.",
+          "feedbackIncorrect": "Ainda não chegou: a leitura cai com o quadrado da distância, então olhe o valor enquanto afasta.",
+          "help": "A 3 m a leitura é um nono. Basta isso para ficar abaixo de 10%?",
+          "sourceIds": [
+            "wiki-inverso",
+            "wiki-hvl",
+            "cdc-alara"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "parameter-lab",
+          "role": "practice",
+          "prompt": "Some camadas semirredutoras até passar só um oitavo da radiação.",
+          "model": "shielding",
+          "start": 0,
+          "goal": {
+            "atLeast": 3,
+            "atMost": 3
+          },
+          "hints": {
+            "tooLow": "Ainda passa mais de um oitavo: some mais camadas.",
+            "tooHigh": "Passou do ponto: tire uma camada."
+          },
+          "feedbackCorrect": "Isso: três camadas, cada uma deixando passar metade, dão um oitavo.",
+          "feedbackIncorrect": "Ainda não chegou: cada camada deixa passar metade da radiação que chega a ela.",
+          "help": "Metade, metade da metade, e de novo.",
+          "sourceIds": [
+            "wiki-inverso",
+            "wiki-hvl",
+            "cdc-alara"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Antes de mexer no esquema, ligue cada mudança à leitura que você espera.",
+          "pairs": [
+            {
+              "left": "Triplicar a distância",
+              "right": "Leitura em um nono"
+            },
+            {
+              "left": "Dobrar a distância",
+              "right": "Leitura em um quarto"
+            },
+            {
+              "left": "Somar uma camada",
+              "right": "Passa metade"
+            },
+            {
+              "left": "Somar quatro camadas",
+              "right": "Passa um dezesseis avos"
+            }
+          ],
+          "feedbackCorrect": "Isso: distância eleva ao quadrado, e cada camada divide por dois.",
+          "feedbackIncorrect": "Refaça: a distância age com o quadrado, e cada camada deixa passar metade da que chega.",
+          "help": "Quadrado do fator, para distância; metade por camada.",
+          "sourceIds": [
+            "wiki-inverso",
+            "wiki-hvl",
+            "cdc-alara"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Julgue cada afirmação sobre este esquema.",
+          "statements": [
+            {
+              "text": "Neste esquema, a 4 m sobra um dezesseis avos da leitura de 1 m.",
+              "correct": true,
+              "feedback": "Certo: quatro vezes a distância divide a leitura por quatro ao quadrado, ou seja, por dezesseis."
+            },
+            {
+              "text": "Uma leitura relativa de 25% é a dose que alguém recebeu no mês.",
+              "correct": false,
+              "feedback": "Errado: é fração da leitura inicial, no esquema, e não dose de ninguém."
+            },
+            {
+              "text": "Neste esquema, três camadas deixam passar menos radiação que duas.",
+              "correct": true,
+              "feedback": "Certo: cada camada a mais deixa passar menos."
+            },
+            {
+              "text": "O esquema vale só como modelo simplificado, e não para feixes reais.",
+              "correct": true,
+              "feedback": "Certo: o esquema simplifica a física, e um feixe real não segue essas frações à risca."
+            }
+          ],
+          "feedbackCorrect": "Você usou o esquema com seus limites.",
+          "feedbackIncorrect": "Releia: distância e camadas são frações da leitura inicial, só neste esquema.",
+          "help": "Na distância, eleve o fator ao quadrado; nas camadas, divida por dois a cada uma.",
+          "sourceIds": [
+            "wiki-inverso",
+            "wiki-hvl",
+            "cdc-alara"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Você prevê, no esquema, a fração da leitura depois de mudar a distância ou somar camadas, e lembra que são frações relativas, e não dose.",
+        "line": {
+          "speaker": "lia",
+          "text": "Agora vamos ver o que fazer quando um número real destoa."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "No esquema, a fonte vai de 1 m para 3 m. Que fração da leitura inicial sobra?",
+          "options": [
+            {
+              "label": "Um terço",
+              "correct": false,
+              "feedback": "Seria uma queda proporcional à distância, e não ao quadrado."
+            },
+            {
+              "label": "Um sexto",
+              "correct": false,
+              "feedback": "Esse valor não vem da regra do quadrado."
+            },
+            {
+              "label": "Metade",
+              "correct": false,
+              "feedback": "Metade vem de uma camada, e não da distância."
+            },
+            {
+              "label": "Um nono",
+              "correct": true,
+              "feedback": "Isso: a leitura cai com o quadrado da distância."
+            }
+          ],
+          "sourceIds": [
+            "wiki-inverso",
+            "wiki-hvl",
+            "cdc-alara"
+          ]
+        },
+        {
+          "prompt": "No esquema, quantas camadas semirredutoras deixam passar um dezesseis avos da radiação?",
+          "options": [
+            {
+              "label": "Duas",
+              "correct": false,
+              "feedback": "Duas camadas deixam um quarto."
+            },
+            {
+              "label": "Quatro",
+              "correct": true,
+              "feedback": "Isso: metade, quatro vezes, dá um dezesseis avos."
+            },
+            {
+              "label": "Oito",
+              "correct": false,
+              "feedback": "Oito camadas deixariam muito menos."
+            },
+            {
+              "label": "Dezesseis",
+              "correct": false,
+              "feedback": "Dezesseis é o denominador, e não o número de camadas: conte quantas metades dão um dezesseis avos."
+            }
+          ],
+          "sourceIds": [
+            "wiki-inverso",
+            "wiki-hvl",
+            "cdc-alara"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: dobrando a distância, a leitura cai a...",
+          "item": {
+            "prompt": "Num esquema de fonte pontual, a distância dobra. O que acontece com a leitura?",
+            "options": [
+              {
+                "label": "Cai a um terço",
+                "correct": false,
+                "feedback": "Um terço seria proporcional à distância, e não ao quadrado."
+              },
+              {
+                "label": "Fica igual à leitura inicial",
+                "correct": false,
+                "feedback": "A distância muda a leitura, e muito."
+              },
+              {
+                "label": "Cai a um quarto",
+                "correct": true,
+                "feedback": "Isso: dobrar a distância dá um quarto."
+              },
+              {
+                "label": "Sobe ao dobro",
+                "correct": false,
+                "feedback": "Afastar a fonte faz a leitura cair, e não subir."
+              }
+            ],
+            "sourceIds": [
+              "wiki-inverso",
+              "wiki-hvl",
+              "cdc-alara"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "No esquema, a leitura relativa mostra 12,5%. Que conclusão cabe ao estudante?",
+            "options": [
+              {
+                "label": "Que é fração da leitura inicial, e não dose de alguém",
+                "correct": true,
+                "feedback": "Isso: é leitura relativa do esquema."
+              },
+              {
+                "label": "Que alguém recebeu 12,5% do limite de dose anual",
+                "correct": false,
+                "feedback": "A leitura não se refere a limite nem a pessoa."
+              },
+              {
+                "label": "Que a blindagem do esquema falhou em barrar",
+                "correct": false,
+                "feedback": "12,5% é o esperado para três camadas."
+              },
+              {
+                "label": "Que o esquema vale também para o feixe real",
+                "correct": false,
+                "feedback": "O esquema não cobre feixes reais."
+              }
+            ],
+            "sourceIds": [
+              "wiki-inverso",
+              "wiki-hvl",
+              "cdc-alara"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m21-06",
+      "code": "M21.06",
+      "title": "Ler um registro de dose ocupacional",
+      "objective": "Hoje você vai conseguir reconhecer uma leitura fora do habitual no registro de dose, parar e levá-la ao responsável pela proteção radiológica.",
+      "competency": "Reconhecer leitura fora do habitual, parar e levar ao responsável pela proteção.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de convivência do serviço",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Chegou o relatório do mês. A minha leitura de tronco veio bem acima do que costuma ser."
+          },
+          {
+            "speaker": "duda",
+            "text": "Será que o dosímetro estragou? Dá para arrumar o número?"
+          },
+          {
+            "speaker": "lia",
+            "text": "Calma. Primeiro: o que dá para fazer com um número que não bate?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Leitura que destoa",
+        "body": "O registro mostra a dose de cada pessoa, por período. Uma leitura que destoa do que costuma aparecer pode ter causa no trabalho ou no dosímetro: o tempo de exposição, a posição, o lugar onde ele ficou. O estudante não explica o valor, não o corrige e não o descarta. Ele para, descreve o que sabe (período, posição do dosímetro, o que fez) e leva ao responsável pela proteção radiológica, que investiga a causa: confere a leitura e a rotina de trabalho.",
+        "keyPoints": [
+          "Leitura fora do habitual: parar e descrever.",
+          "Levar ao responsável pela proteção radiológica, que investiga.",
+          "Nunca explicar, corrigir ou descartar o valor por conta própria."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula 5, as leituras do esquema eram:",
+          "options": [
+            {
+              "label": "Frações da leitura inicial, sem ser dose",
+              "correct": true,
+              "feedback": "Isso: eram leituras relativas, só do esquema."
+            },
+            {
+              "label": "A dose recebida por um profissional no mês",
+              "correct": false,
+              "feedback": "O esquema não representa dose de ninguém."
+            },
+            {
+              "label": "O limite anual de dose do trabalhador",
+              "correct": false,
+              "feedback": "O esquema não trata de limite."
+            },
+            {
+              "label": "A dose absorvida pelo paciente do exame",
+              "correct": false,
+              "feedback": "O esquema não calcula dose de paciente."
+            }
+          ],
+          "help": "Lembre o que o esquema dizia sobre o significado dos percentuais.",
+          "sourceIds": [
+            "wiki-inverso",
+            "wiki-hvl",
+            "cdc-alara"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "No relatório do mês, tronco, olho e referência vieram como de costume; o anel veio bem acima. Toque no ponto do corpo cuja leitura você vai descrever ao responsável.",
+          "diagramId": "dosimetro-no-corpo",
+          "regions": [
+            {
+              "label": "Peito",
+              "x": 0.316,
+              "y": 0.237,
+              "width": 0.157,
+              "height": 0.21
+            },
+            {
+              "label": "Mão estendida",
+              "x": 0.575,
+              "y": 0.303,
+              "width": 0.157,
+              "height": 0.21,
+              "correct": true
+            },
+            {
+              "label": "Olho",
+              "x": 0.385,
+              "y": 0.016,
+              "width": 0.157,
+              "height": 0.21
+            },
+            {
+              "label": "Quadro de parede",
+              "x": 0.797,
+              "y": 0.162,
+              "width": 0.157,
+              "height": 0.21
+            }
+          ],
+          "feedbackCorrect": "Isso: o anel fala da mão, e é isso que você descreve ao responsável.",
+          "feedbackIncorrect": "Esse ponto não é o do anel: ache no relatório a leitura que destoa e lembre que parte do corpo ela representa.",
+          "help": "O anel está em volta de um dedo.",
+          "sourceIds": [
+            "pmc-protecao-ir",
+            "pmc-dosimetro-controle"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "conversation",
+          "role": "practice",
+          "prompt": "Caio recebeu um relatório com leitura fora do habitual. Ajude-o a conduzir o caso.",
+          "speaker": "caio",
+          "turns": [
+            {
+              "line": "Minha leitura de tronco veio bem mais alta que a dos outros meses. O que você faria primeiro?",
+              "options": [
+                {
+                  "label": "Pararia e levaria o relatório ao responsável pela proteção radiológica.",
+                  "correct": true,
+                  "reply": "Ok, então levo o relatório hoje."
+                },
+                {
+                  "label": "Esperaria o próximo mês para ver se o valor se repete, antes de falar com alguém.",
+                  "correct": false,
+                  "reply": "Ok, então espero o mês que vem."
+                },
+                {
+                  "label": "Diria que foi o dosímetro velho, e deixaria o assunto de lado.",
+                  "correct": false,
+                  "reply": "Ok, então deixo o assunto de lado."
+                }
+              ]
+            },
+            {
+              "line": "Tem um espaço de observações no registro. Posso só ajustar o número para o habitual?",
+              "options": [
+                {
+                  "label": "Ajusto, se anotar ao lado o motivo do ajuste.",
+                  "correct": false,
+                  "reply": "Ok, então ajusto e anoto o motivo."
+                },
+                {
+                  "label": "Ajusto só um pouco, para ficar mais próximo do habitual.",
+                  "correct": false,
+                  "reply": "Ok, então ajusto só um pouco."
+                },
+                {
+                  "label": "Não mexa no valor; leve-o como está.",
+                  "correct": true,
+                  "reply": "Ok, então levo o número como está."
+                }
+              ]
+            },
+            {
+              "line": "Lembrei que meu dosímetro ficou num gancho dentro da sala, por vários exames, enquanto eu estava no comando. Conto?",
+              "options": [
+                {
+                  "label": "Conte só se o valor passar do limite anual de dose.",
+                  "correct": false,
+                  "reply": "Ok, então só conto se passar do limite."
+                },
+                {
+                  "label": "Conte o que lembra: período, local e tarefas.",
+                  "correct": true,
+                  "reply": "Ok, então conto tudo isso."
+                },
+                {
+                  "label": "Não conte: o responsável só quer saber o número do relatório.",
+                  "correct": false,
+                  "reply": "Ok, então só levo o número."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Você parou, não mexeu no valor e levou o que lembrava ao responsável.",
+          "feedbackIncorrect": "Reveja o turno: parar, descrever o que se sabe e levar o valor, como está, ao responsável.",
+          "help": "Quem explica a causa e confere o dosímetro é o responsável, e não o estudante.",
+          "sourceIds": [
+            "pmc-protecao-ir",
+            "pmc-dosimetro-controle"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "categorize",
+          "role": "safety",
+          "criticalSafety": true,
+          "prompt": "Classifique cada ação diante de uma leitura fora do habitual.",
+          "categories": [
+            "Leva ao responsável",
+            "Não faz por conta própria"
+          ],
+          "items": [
+            {
+              "label": "Descreve o período e a posição do dosímetro",
+              "category": "Leva ao responsável"
+            },
+            {
+              "label": "Entrega o registro com o valor original",
+              "category": "Leva ao responsável"
+            },
+            {
+              "label": "Apaga a leitura do registro",
+              "category": "Não faz por conta própria"
+            },
+            {
+              "label": "Explica o valor como defeito do aparelho",
+              "category": "Não faz por conta própria"
+            },
+            {
+              "label": "Reduz o valor para ficar no habitual",
+              "category": "Não faz por conta própria"
+            }
+          ],
+          "feedbackCorrect": "Você separou o que se leva do que ninguém faz sozinho.",
+          "feedbackIncorrect": "Pergunte de cada ação: ela leva o fato ao responsável ou muda e explica o valor por conta própria?",
+          "help": "Descrever e entregar o original ajuda; apagar, corrigir e explicar sozinho, não.",
+          "sourceIds": [
+            "pmc-protecao-ir",
+            "pmc-dosimetro-controle"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Julgue cada afirmação sobre uma leitura fora do habitual.",
+          "statements": [
+            {
+              "text": "Uma leitura alta já prova que alguém passou do limite de dose.",
+              "correct": false,
+              "feedback": "Errado: o valor sozinho não prova isso; quem investiga é o responsável."
+            },
+            {
+              "text": "O responsável verifica a leitura e os hábitos de trabalho.",
+              "correct": true,
+              "feedback": "Certo: a investigação olha as duas coisas."
+            },
+            {
+              "text": "O estudante pode concluir sozinho a causa da leitura alta.",
+              "correct": false,
+              "feedback": "Errado: a causa se investiga, e não cabe ao estudante concluí-la."
+            },
+            {
+              "text": "Descrever o que se lembra do período ajuda a investigação.",
+              "correct": true,
+              "feedback": "Certo: posição, lugar e tarefas do período entram na verificação."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que o estudante faz do que cabe ao responsável.",
+          "feedbackIncorrect": "Releia: o estudante descreve e leva; a causa e o dosímetro são verificados pelo responsável.",
+          "help": "Quem investiga a causa?",
+          "sourceIds": [
+            "pmc-protecao-ir",
+            "pmc-dosimetro-controle"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "O que você consegue fazer agora",
+        "body": "Diante de uma leitura fora do habitual, você para, descreve o que sabe e leva o valor, como está, ao responsável pela proteção radiológica, sem explicar, corrigir nem descartar.",
+        "line": {
+          "speaker": "lia",
+          "text": "Parar e descrever também é proteção."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma leitura do relatório destoa do habitual. Qual é o primeiro passo do estudante?",
+          "options": [
+            {
+              "label": "Corrigir o valor para o habitual antes de falar",
+              "correct": false,
+              "feedback": "Corrigir o registro por conta própria esconde o fato."
+            },
+            {
+              "label": "Explicar à equipe a causa como se fosse certa",
+              "correct": false,
+              "feedback": "A causa é investigada pelo responsável."
+            },
+            {
+              "label": "Parar, descrever e levar ao responsável pela proteção",
+              "correct": true,
+              "feedback": "Isso: o caso vai a quem investiga."
+            },
+            {
+              "label": "Aguardar o mês seguinte para comparar os valores",
+              "correct": false,
+              "feedback": "Esperar adia a verificação sem necessidade."
+            }
+          ],
+          "sourceIds": [
+            "pmc-protecao-ir",
+            "pmc-dosimetro-controle"
+          ]
+        },
+        {
+          "prompt": "Que informação ajuda quem vai investigar a leitura?",
+          "options": [
+            {
+              "label": "Onde o dosímetro ficou e o que foi feito no período",
+              "correct": true,
+              "feedback": "Isso: posição e tarefas entram na verificação."
+            },
+            {
+              "label": "Uma estimativa própria da dose do paciente do exame",
+              "correct": false,
+              "feedback": "Estudante não calcula dose de paciente."
+            },
+            {
+              "label": "A opinião do estudante sobre a causa da leitura",
+              "correct": false,
+              "feedback": "A opinião não substitui os fatos."
+            },
+            {
+              "label": "Um valor corrigido para ficar no habitual",
+              "correct": false,
+              "feedback": "O valor entra como está, sem correção."
+            }
+          ],
+          "sourceIds": [
+            "pmc-protecao-ir",
+            "pmc-dosimetro-controle"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: leitura fora do habitual, eu paro, descrevo e levo ao...",
+          "item": {
+            "prompt": "Diante de uma leitura fora do habitual, a quem se leva o caso?",
+            "options": [
+              {
+                "label": "Ao responsável pela proteção radiológica",
+                "correct": true,
+                "feedback": "Isso: é quem investiga a leitura e a rotina."
+              },
+              {
+                "label": "Ao paciente do exame",
+                "correct": false,
+                "feedback": "O paciente não tem a ver com o registro da equipe."
+              },
+              {
+                "label": "Ao colega do turno seguinte",
+                "correct": false,
+                "feedback": "O colega não investiga a leitura."
+              },
+              {
+                "label": "A ninguém, até o próximo relatório",
+                "correct": false,
+                "feedback": "Esperar adia a verificação."
+              }
+            ],
+            "sourceIds": [
+              "pmc-protecao-ir",
+              "pmc-dosimetro-controle"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma colega acha que a leitura dela é erro do dosímetro e quer ignorá-la. O que você sugere?",
+            "options": [
+              {
+                "label": "Ignorar, porque dosímetro erra com frequência",
+                "correct": false,
+                "feedback": "Descartar o valor esconde o fato."
+              },
+              {
+                "label": "Levar o valor ao responsável, que verifica tudo",
+                "correct": true,
+                "feedback": "Isso: a verificação cabe ao responsável."
+              },
+              {
+                "label": "Pedir que ela corrija o número no registro",
+                "correct": false,
+                "feedback": "Corrigir o registro não cabe a ela nem a você."
+              },
+              {
+                "label": "Trocar o dosímetro e esquecer a leitura anterior",
+                "correct": false,
+                "feedback": "A leitura anterior continua no registro e se leva ao responsável."
+              }
+            ],
+            "sourceIds": [
+              "pmc-protecao-ir",
+              "pmc-dosimetro-controle"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
