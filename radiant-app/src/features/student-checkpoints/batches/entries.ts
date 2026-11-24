@@ -279,6 +279,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Fundamentos próprios da RM."
     }
   },
+  "batch:rtg-2026:m29": {
+    "slug": "rtg-2026-m29",
+    "title": "Sequências, contraste e artefatos básicos de RM",
+    "description": "Aprofunda o que o aluno vê mudar na imagem de ressonância: as curvas de T1 e T2, os intervalos TR e TE, o brilho de cada ponderação, a supressão de gordura e três artefatos comuns, sempre com a equipe.",
+    "unitTitle": "Sequências, contraste e artefatos básicos de RM",
+    "reward": {
+      "id": "node:reward:rtg-2026:m29",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Sequências, contraste e artefatos básicos de RM."
+    }
+  },
   "batch:rtg-2026:m12": {
     "slug": "rtg-2026-m12",
     "title": "Mamografia e densitometria",
@@ -288,6 +299,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "id": "node:reward:rtg-2026:m12",
       "title": "Unidade concluída",
       "description": "Você concluiu a unidade Mamografia e densitometria."
+    }
+  },
+  "batch:rtg-2026:m30": {
+    "slug": "rtg-2026-m30",
+    "title": "Densitometria óssea e composição corporal",
+    "description": "Abre o método da densitometria: os dois níveis de energia, as regiões medidas, a posição que se repete, o que estraga a medida, o exame de corpo inteiro e a comparação entre exames, sem interpretar resultado.",
+    "unitTitle": "Densitometria óssea e composição corporal",
+    "reward": {
+      "id": "node:reward:rtg-2026:m30",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Densitometria óssea e composição corporal."
     }
   },
   "batch:rtg-2026:m13": {
@@ -301,6 +323,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Panorama de MN, RT e intervencionista."
     }
   },
+  "batch:rtg-2026:m31": {
+    "slug": "rtg-2026-m31",
+    "title": "Outros campos: veterinária, forense e pesquisa",
+    "description": "A mesma técnica a serviço de outros fins: o exame de um animal, a imagem como evidência, a pesquisa com participantes e a radiografia de objetos, e o que muda no papel de quem adquire.",
+    "unitTitle": "Outros campos: veterinária, forense e pesquisa",
+    "reward": {
+      "id": "node:reward:rtg-2026:m31",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Outros campos: veterinária, forense e pesquisa."
+    }
+  },
   "batch:rtg-2026:m14": {
     "slug": "rtg-2026-m14",
     "title": "Qualidade, gestão e integração",
@@ -310,6 +343,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "id": "node:reward:rtg-2026:m14",
       "title": "Unidade concluída",
       "description": "Você concluiu a unidade Qualidade, gestão e integração."
+    }
+  },
+  "batch:rtg-2026:m32": {
+    "slug": "rtg-2026-m32",
+    "title": "Controle de qualidade de equipamentos e níveis de referência",
+    "description": "Mostra o que se testa num equipamento de raios X (feixe, alinhamento, detector, monitor), o que fazer quando um teste falha e para que serve, e para que não serve, um nível de referência.",
+    "unitTitle": "Controle de qualidade de equipamentos e níveis de referência",
+    "reward": {
+      "id": "node:reward:rtg-2026:m32",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Controle de qualidade de equipamentos e níveis de referência."
     }
   },
   "batch:rtg-2026:s-tc": {

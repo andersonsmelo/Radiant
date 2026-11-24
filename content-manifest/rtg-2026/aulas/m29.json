@@ -1,0 +1,2208 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m29",
+    "code": "M29",
+    "title": "Sequências, contraste e artefatos básicos de RM",
+    "summary": "Aprofunda o que o aluno vê mudar na imagem de ressonância: as curvas de T1 e T2, os intervalos TR e TE, o brilho de cada ponderação, a supressão de gordura e três artefatos comuns, sempre com a equipe."
+  },
+  "sources": [
+    {
+      "id": "ridgway-2010-fisica-rm",
+      "title": "Cardiovascular magnetic resonance physics for clinicians: part I (J Cardiovasc Magn Reson, 2010)",
+      "publisher": "PubMed Central (acesso aberto)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3016368/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto; consultado para sinal da magnetização transversal, T1, T2, TR, TE, e brilho de gordura e líquido em T1 e T2, sem reprodução de texto."
+    },
+    {
+      "id": "krupa-2015-artefatos-rm",
+      "title": "MRI artifacts and their management (artigo de revisão, PMC4340093)",
+      "publisher": "PubMed Central (acesso aberto)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4340093/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto; consultado para movimento, metal, dobra e supressão de gordura imperfeita, sem reprodução de texto."
+    },
+    {
+      "id": "pmc-artefatos-de-metal-2024",
+      "title": "Managing hardware-related metal artifacts in MRI: current and evolving techniques (PMC11303499)",
+      "publisher": "PubMed Central (acesso aberto)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11303499/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto; consultado para vazio de sinal, acúmulo de sinal e distorção junto a metal, e para a falha da supressão de gordura por frequência quando o metal desnivela o campo, sem reprodução de texto."
+    },
+    {
+      "id": "ucsd-fmri-estrutural",
+      "title": "Structural MRI Imaging (3T How To), Center for Functional MRI",
+      "publisher": "Universidade da Califórnia, San Diego",
+      "url": "https://fmri.ucsd.edu/Howto/3T/structure.html",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional; consultada para o brilho de líquido, gordura e substâncias branca e cinzenta em T1 e T2, sem reprodução de texto."
+    },
+    {
+      "id": "mrimaster-liquido-suprimido",
+      "title": "FLAIR MRI: como o líquido aparece na imagem com o líquido suprimido",
+      "publisher": "MRI Master",
+      "url": "https://mrimaster.com/characterise-image-flair/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página educativa; consultada para o líquido escuro e a substância cinzenta mais clara que a branca na imagem de base T2 com o líquido suprimido, sem reprodução de texto."
+    },
+    {
+      "id": "radiologyinfo-rm-cabeca",
+      "title": "MRI of the Head (Brain): imagem de qualidade depende de ficar parado",
+      "publisher": "RadiologyInfo.org (RSNA e ACR)",
+      "url": "https://www.radiologyinfo.org/en/info/mri-brain",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página para o público; consultada para a qualidade da imagem depender de ficar parado e para quem analisa e comunica o resultado, sem reprodução de texto."
+    },
+    {
+      "id": "radiologyinfo-preparo-rm",
+      "title": "How to Prepare for Your MRI Exam",
+      "publisher": "RadiologyInfo.org (RSNA e ACR)",
+      "url": "https://www.radiologyinfo.org/en/info/how-to-prepare-for-mri-exam",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página para o público; consultada para ruído e protetor auricular, campainha de chamada, intercomunicador, ficar parado e sensação de lugar fechado, sem reprodução de texto."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m29-01",
+      "code": "M29.01",
+      "title": "Duas curvas, dois tecidos",
+      "objective": "Hoje você vai conseguir distinguir, numa curva, a recuperação de T1 e o decaimento de T2 de dois tecidos.",
+      "competency": "Distinguir recuperação T1 e decaimento T2 em dois tecidos.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de estudo do setor de ressonância",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Na prova simulada caiu um gráfico com duas curvas amarelas e duas azuis, e eu li tudo ao contrário."
+          },
+          {
+            "speaker": "caio",
+            "text": "Acontece. Antes da conta, pergunte para onde a curva vai: ela sobe ou ela cai?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Uma sobe e a outra cai. O que cada uma está contando sobre o tecido?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Subir e cair, rápido e devagar",
+        "body": "Depois do pulso, dois relógios correm. No gráfico da esquerda, a magnetização longitudinal se recupera: é o T1, e a curva sobe. No da direita, o sinal transversal se desfaz: é o T2, e a curva cai. Nos dois, a curva amarela é de um tecido de tempos curtos e a azul, de um de tempos longos, como o líquido. O esquema simplifica: as duas sobem ao mesmo patamar, e isso vale só para este desenho.",
+        "keyPoints": [
+          "Curva que sobe: recuperação, T1. Curva que cai: perda de sinal, T2.",
+          "Tempo curto: a curva chega depressa. Tempo longo: ela demora.",
+          "Com o mesmo intervalo, T1 curto chega ao pulso seguinte com mais magnetização. T2 longo ainda tem sinal na hora de ler o eco."
+        ],
+        "visual": "relaxacao-t1-t2"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na unidade de fundamentos da ressonância, a magnetização se divide em duas partes depois do pulso. Qual delas gira e é captada pela bobina como sinal?",
+          "options": [
+            {
+              "label": "A magnetização longitudinal, que se recupera ao longo do campo",
+              "correct": false,
+              "feedback": "A longitudinal se recupera ao longo do campo e não é o que a bobina capta. Retome qual parte gira."
+            },
+            {
+              "label": "O campo do ímã principal, que fica sempre ligado",
+              "correct": false,
+              "feedback": "O campo do ímã é constante e não gira: ele não induz o sinal na bobina. Retome qual parte gira depois do pulso."
+            },
+            {
+              "label": "A magnetização transversal, que gira e induz tensão na bobina",
+              "correct": true,
+              "feedback": "A transversal gira e induz tensão na bobina: esse é o sinal que o exame mede."
+            },
+            {
+              "label": "O hélio líquido que resfria as bobinas do aparelho",
+              "correct": false,
+              "feedback": "O hélio só resfria o ímã supercondutor e não produz sinal. Retome o que gira depois do pulso de RF."
+            }
+          ],
+          "help": "Pense na parte inclinada pelo pulso, que gira em torno do campo.",
+          "sourceIds": [
+            "ridgway-2010-fisica-rm"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule cada curva do esquema pelo tempo que ela mostra, tocando na ficha e no ponto.",
+          "diagramId": "relaxacao-t1-t2",
+          "points": [
+            {
+              "label": "T1 curto",
+              "x": 0.1157,
+              "y": 0.5417,
+              "where": "à esquerda, a curva que sobe depressa até o topo"
+            },
+            {
+              "label": "T1 longo",
+              "x": 0.4094,
+              "y": 0.3625,
+              "where": "à esquerda, a curva que sobe devagar e fica abaixo do topo"
+            },
+            {
+              "label": "Patamar",
+              "x": 0.1531,
+              "y": 0.2333,
+              "where": "à esquerda, a linha tracejada no alto"
+            },
+            {
+              "label": "T2 curto",
+              "x": 0.6031,
+              "y": 0.5208,
+              "where": "à direita, a curva que cai depressa até perto de zero"
+            },
+            {
+              "label": "T2 longo",
+              "x": 0.8969,
+              "y": 0.6625,
+              "where": "à direita, a curva que cai devagar e termina mais alta"
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: a curva que chega depressa ao patamar é de T1 curto, e a que se desfaz devagar é de T2 longo.",
+          "feedbackIncorrect": "Alguma ficha está fora do lugar: veja se a curva sobe ou cai e se ela chega depressa ou devagar.",
+          "help": "Primeiro olhe o gráfico: curva que sobe é T1, curva que cai é T2. Depois veja a rapidez.",
+          "sourceIds": [
+            "ridgway-2010-fisica-rm"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada tempo ao que ele significa para o sinal, como ensinado nesta aula.",
+          "pairs": [
+            {
+              "left": "T1 curto",
+              "right": "Chega ao pulso seguinte com mais magnetização"
+            },
+            {
+              "left": "T1 longo",
+              "right": "Chega ao pulso seguinte com menos magnetização"
+            },
+            {
+              "left": "T2 curto",
+              "right": "Tem pouco sinal na hora de ler o eco"
+            },
+            {
+              "left": "T2 longo",
+              "right": "Ainda tem sinal na hora de ler o eco"
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: T1 diz o quanto o tecido se recupera entre os pulsos, e T2 diz o quanto sobra de sinal na leitura.",
+          "feedbackIncorrect": "Confira de novo: T1 fala da recuperação entre pulsos, e T2 fala do sinal que sobra na hora de ler o eco.",
+          "help": "T1 é o que sobe entre os pulsos. T2 é o que cai até a leitura.",
+          "sourceIds": [
+            "ridgway-2010-fisica-rm"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre os dois gráficos.",
+          "statements": [
+            {
+              "text": "A curva que sobe mostra a magnetização longitudinal se recuperando.",
+              "correct": true,
+              "feedback": "Certo: a subida é a recuperação da magnetização longitudinal, e o tempo dela é o T1."
+            },
+            {
+              "text": "A curva que cai mostra a perda do sinal da magnetização transversal.",
+              "correct": true,
+              "feedback": "Certo: a queda é a perda do sinal transversal, e o tempo dela é o T2."
+            },
+            {
+              "text": "Num tecido de T2 longo, o sinal transversal dura mais.",
+              "correct": true,
+              "feedback": "Certo: T2 longo quer dizer que a curva cai devagar, e o sinal permanece por mais tempo."
+            },
+            {
+              "text": "O patamar comum das duas curvas vale como regra para todos os tecidos.",
+              "correct": false,
+              "feedback": "Errado: o patamar comum é uma simplificação que vale só para este desenho."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que sobe do que cai e não tomou o desenho por regra.",
+          "feedbackIncorrect": "Releia o conceito: subida é T1, queda é T2, e o patamar comum é só do esquema.",
+          "help": "Para cada frase, veja primeiro se ela fala de subir ou de cair.",
+          "sourceIds": [
+            "ridgway-2010-fisica-rm"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Duda leu o gráfico da esquerda e disse: \"a curva azul mostra o sinal sumindo devagar\". O que corrigir na frase?",
+          "options": [
+            {
+              "label": "Nada: toda curva azul mostra o sinal sumindo devagar",
+              "correct": false,
+              "feedback": "A cor só diferencia os tecidos. Quem diz se é recuperação ou perda é a direção da curva, e a da esquerda sobe."
+            },
+            {
+              "label": "A da esquerda mostra recuperação: a azul se recupera devagar",
+              "correct": true,
+              "feedback": "No gráfico da esquerda a curva sobe: é recuperação, e a azul se recupera devagar. A perda de sinal está no da direita."
+            },
+            {
+              "label": "A azul é a curva rápida e a amarela é a lenta",
+              "correct": false,
+              "feedback": "Nos dois gráficos a azul é a lenta e a amarela é a rápida. O erro da frase está em confundir subida com perda."
+            },
+            {
+              "label": "O gráfico da esquerda mostra o T2, e não o T1",
+              "correct": false,
+              "feedback": "O gráfico da esquerda mostra a subida do T1. O T2 é o da direita, onde as curvas caem."
+            }
+          ],
+          "help": "Olhe a direção da curva da esquerda antes de olhar a cor.",
+          "sourceIds": [
+            "ridgway-2010-fisica-rm"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você lê as duas curvas",
+        "body": "Agora você distingue a curva que sobe, a recuperação de T1, da que cai, o decaimento de T2, e sabe dizer qual tecido é rápido e qual é lento. O patamar comum é só do desenho.",
+        "line": {
+          "speaker": "lia",
+          "text": "Na próxima aula, esses dois relógios ganham uma linha do tempo."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "No esquema, o tecido azul tem a curva lenta nos dois gráficos: sobe devagar à esquerda e cai devagar à direita. Que par de tempos combina com ele?",
+          "options": [
+            {
+              "label": "T1 longo e T2 longo",
+              "correct": true,
+              "feedback": "Subir devagar é T1 longo e cair devagar é T2 longo: é o par do líquido no esquema."
+            },
+            {
+              "label": "T1 curto e T2 curto",
+              "correct": false,
+              "feedback": "Tempos curtos dão curvas rápidas. As curvas azuis são as lentas nos dois gráficos."
+            },
+            {
+              "label": "T1 longo e T2 curto",
+              "correct": false,
+              "feedback": "A subida lenta é T1 longo, mas a queda lenta é T2 longo, e não curto."
+            },
+            {
+              "label": "T1 curto e T2 longo",
+              "correct": false,
+              "feedback": "A queda lenta é T2 longo, mas a subida lenta é T1 longo, e não curto."
+            }
+          ],
+          "sourceIds": [
+            "ridgway-2010-fisica-rm"
+          ]
+        },
+        {
+          "prompt": "No esquema, o tecido amarelo chega cedo ao patamar da esquerda e perde o sinal cedo no gráfico da direita. Que leitura combina com ele?",
+          "options": [
+            {
+              "label": "T1 e T2 mais longos que os do tecido azul",
+              "correct": false,
+              "feedback": "Chegar cedo e perder o sinal cedo são sinais de tempos curtos, e não longos."
+            },
+            {
+              "label": "T1 e T2 mais curtos que os do tecido azul",
+              "correct": true,
+              "feedback": "Recuperação rápida é T1 curto e queda rápida é T2 curto, os dois menores que os do azul."
+            },
+            {
+              "label": "T1 mais curto e T2 mais longo que os do azul",
+              "correct": false,
+              "feedback": "O T1 curto está certo, mas o sinal que some cedo é de T2 curto, e não longo."
+            },
+            {
+              "label": "T1 mais longo e T2 mais curto que os do azul",
+              "correct": false,
+              "feedback": "O T2 curto está certo, mas chegar cedo ao patamar é T1 curto, e não longo."
+            }
+          ],
+          "sourceIds": [
+            "ridgway-2010-fisica-rm"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: se a curva do gráfico sobe até o topo, ela mostra a ...",
+          "item": {
+            "prompt": "Num gráfico, a curva sobe até um patamar. O que ela mostra?",
+            "options": [
+              {
+                "label": "A perda do sinal transversal, descrita pelo T2",
+                "correct": false,
+                "feedback": "A perda de sinal é a curva que cai. A que sobe é a recuperação."
+              },
+              {
+                "label": "A frequência do pulso de radiofrequência",
+                "correct": false,
+                "feedback": "O gráfico mostra a magnetização no tempo, e não a frequência do pulso."
+              },
+              {
+                "label": "O ruído que as bobinas de gradiente produzem",
+                "correct": false,
+                "feedback": "O ruído não aparece nessas curvas: elas mostram a magnetização em função do tempo."
+              },
+              {
+                "label": "A recuperação da magnetização longitudinal (T1)",
+                "correct": true,
+                "feedback": "Curva que sobe mostra a recuperação da magnetização longitudinal, e o tempo dela é o T1."
+              }
+            ],
+            "sourceIds": [
+              "ridgway-2010-fisica-rm"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um texto de divulgação diz: \"quanto maior o T2, mais rápido o sinal some\". Que correção deixa a frase fiel à aula?",
+            "options": [
+              {
+                "label": "Quanto maior o T2, mais rápido o tecido se recupera",
+                "correct": false,
+                "feedback": "Recuperação é assunto do T1. O T2 fala de quanto dura o sinal."
+              },
+              {
+                "label": "Quanto maior o T1, mais rápido o sinal some",
+                "correct": false,
+                "feedback": "O T1 descreve a recuperação, e não a perda de sinal. A frase continua errada."
+              },
+              {
+                "label": "Quanto maior o T2, mais devagar o sinal some",
+                "correct": true,
+                "feedback": "T2 longo é curva que cai devagar: o sinal transversal dura mais."
+              },
+              {
+                "label": "A frase está correta como foi escrita",
+                "correct": false,
+                "feedback": "A frase inverte a relação: T2 maior significa sinal que dura mais, e não que some mais rápido."
+              }
+            ],
+            "sourceIds": [
+              "ridgway-2010-fisica-rm"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m29-02",
+      "code": "M29.02",
+      "title": "Os dois relógios: TR e TE",
+      "objective": "Hoje você vai conseguir dizer, numa linha do tempo, o que TR e TE marcam.",
+      "competency": "Dizer o que TR e TE marcam numa linha do tempo.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de estudo do setor de ressonância",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Na linha do tempo da apostila há duas chaves, e eu sempre troco qual é qual."
+          },
+          {
+            "speaker": "lia",
+            "text": "Troque menos: cada chave parte de um ponto e chega a outro. Onde ficam esses pontos?"
+          },
+          {
+            "speaker": "pixel",
+            "text": "Veja onde cada chave começa. Isso ajuda mais do que decorar o tamanho."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Dois intervalos contados a partir do pulso",
+        "body": "Cada repetição começa com um pulso de excitação, a barra amarela. O TE é o intervalo do pulso ao centro do eco: a chave curta. O TR é o intervalo de um pulso até o pulso seguinte: a chave longa. Na ordem: pulso de excitação, sinal que começa a se desfazer, centro do eco, que fecha o TE, e pulso seguinte, que fecha o TR. Os dois intervalos contam a partir do pulso.",
+        "keyPoints": [
+          "TE: do pulso ao centro do eco. É a chave curta.",
+          "TR: de um pulso ao pulso seguinte. É a chave longa."
+        ],
+        "visual": "linha-do-tempo-tr-te"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na unidade de fundamentos, qual parte do equipamento emite os pulsos de radiofrequência que começam cada repetição?",
+          "options": [
+            {
+              "label": "A bobina de RF, que emite o pulso e capta o sinal",
+              "correct": true,
+              "feedback": "A bobina de RF emite o pulso e também capta o sinal de volta."
+            },
+            {
+              "label": "As bobinas de gradiente, que localizam o sinal",
+              "correct": false,
+              "feedback": "Os gradientes variam o campo conforme a posição e fazem o ruído. Quem emite o pulso é a bobina de RF."
+            },
+            {
+              "label": "O ímã principal, que mantém o campo constante",
+              "correct": false,
+              "feedback": "O ímã principal só cria o campo forte e constante. Quem emite o pulso é a bobina de RF."
+            },
+            {
+              "label": "O hélio líquido, que resfria o ímã supercondutor",
+              "correct": false,
+              "feedback": "O hélio líquido resfria o ímã e não emite pulso. Quem emite é a bobina de RF."
+            }
+          ],
+          "help": "Lembre qual bobina emite e capta radiofrequência.",
+          "sourceIds": [
+            "ridgway-2010-fisica-rm"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque os momentos de uma repetição na ordem ensinada nesta aula.",
+          "items": [
+            "Pulso de excitação",
+            "Sinal começa a se desfazer",
+            "Centro do eco, que fecha o TE",
+            "Pulso seguinte, que fecha o TR"
+          ],
+          "feedbackCorrect": "Isso mesmo: o pulso abre a repetição, o eco fecha o TE e o pulso seguinte fecha o TR.",
+          "feedbackIncorrect": "Reveja a linha do tempo: o TE termina no centro do eco, e o TR só termina no pulso seguinte.",
+          "help": "Siga a linha do tempo da esquerda para a direita, começando pelo primeiro pulso.",
+          "sourceIds": [
+            "ridgway-2010-fisica-rm"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre a linha do tempo.",
+          "statements": [
+            {
+              "text": "O TE é contado do pulso de excitação até o centro do eco.",
+              "correct": true,
+              "feedback": "Certo: o TE parte do pulso e termina no centro do eco."
+            },
+            {
+              "text": "O TR é contado do centro do eco até o pulso seguinte.",
+              "correct": false,
+              "feedback": "Errado: o TR parte de um pulso e vai até o pulso seguinte, passando pelo eco."
+            },
+            {
+              "text": "A chave longa marca o intervalo de um pulso ao seguinte.",
+              "correct": true,
+              "feedback": "Certo: a chave longa vai de pulso a pulso, e esse intervalo é o TR."
+            },
+            {
+              "text": "TR e TE são dois nomes para o mesmo intervalo.",
+              "correct": false,
+              "feedback": "Errado: o TE termina no eco, e o TR só termina no pulso seguinte."
+            }
+          ],
+          "feedbackCorrect": "Você separou o intervalo até o eco do intervalo entre pulsos.",
+          "feedbackIncorrect": "Releia o conceito: os dois contam a partir do pulso, mas terminam em pontos diferentes.",
+          "help": "Para cada frase, procure onde o intervalo começa e onde termina.",
+          "sourceIds": [
+            "ridgway-2010-fisica-rm"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase com os termos do banco.",
+          "text": "O {{1}} vai do pulso ao centro do eco, e o {{2}} vai de um pulso ao pulso seguinte.",
+          "answers": [
+            "TE",
+            "TR"
+          ],
+          "distractors": [
+            "T1",
+            "T2"
+          ],
+          "feedbackCorrect": "Isso mesmo: TE até o eco e TR de pulso a pulso.",
+          "feedbackIncorrect": "T1 e T2 são tempos do tecido. Os intervalos da linha do tempo são o TE, até o eco, e o TR, entre pulsos.",
+          "help": "Qual intervalo é o curto e qual é o longo na figura?",
+          "sourceIds": [
+            "ridgway-2010-fisica-rm"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Numa apostila, a linha A tem os pulsos bem mais afastados que a linha B, e o eco fica à mesma distância do primeiro pulso nas duas. O que difere entre A e B?",
+          "options": [
+            {
+              "label": "O TR é maior em A, e o TE é igual nas duas",
+              "correct": true,
+              "feedback": "Pulsos mais afastados mostram TR maior, e o eco à mesma distância mostra TE igual."
+            },
+            {
+              "label": "O TE é maior em A, e o TR é igual nas duas",
+              "correct": false,
+              "feedback": "O eco está à mesma distância do pulso nas duas, então o TE é igual. O que muda é o espaço entre pulsos, o TR."
+            },
+            {
+              "label": "Os dois são maiores em A",
+              "correct": false,
+              "feedback": "Só o intervalo entre pulsos cresce em A. O eco fica à mesma distância, então o TE não muda."
+            },
+            {
+              "label": "Nada muda, pois o eco está igual nas duas",
+              "correct": false,
+              "feedback": "O eco igual só mantém o TE. Os pulsos mais afastados mudam o TR."
+            }
+          ],
+          "help": "Veja o que cada distância mede: pulso a eco e pulso a pulso.",
+          "sourceIds": [
+            "ridgway-2010-fisica-rm"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você lê o TR e o TE",
+        "body": "Agora você diz o que cada chave da linha do tempo marca: o TE vai do pulso ao centro do eco, e o TR vai de um pulso ao seguinte. Você só lê os intervalos; quem os define é o protocolo.",
+        "line": {
+          "speaker": "caio",
+          "text": "Na sala, é exatamente isso que eu pergunto quando a tela mostra dois tempos."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Na linha do tempo, a chave que vai do primeiro pulso ao pulso seguinte marca o quê?",
+          "options": [
+            {
+              "label": "O TE, o intervalo até o eco",
+              "correct": false,
+              "feedback": "O TE termina no eco, bem antes do pulso seguinte. A chave que chega ao pulso seguinte é outra."
+            },
+            {
+              "label": "O T1 do tecido, o tempo de recuperação",
+              "correct": false,
+              "feedback": "T1 é tempo do tecido e não aparece como chave da linha do tempo. Essa chave é um intervalo do protocolo."
+            },
+            {
+              "label": "O TR, o intervalo entre dois pulsos",
+              "correct": true,
+              "feedback": "A chave de pulso a pulso é o TR."
+            },
+            {
+              "label": "A duração do eco, do começo ao fim dele",
+              "correct": false,
+              "feedback": "A chave não mede a duração do eco: ela vai de um pulso ao seguinte."
+            }
+          ],
+          "sourceIds": [
+            "ridgway-2010-fisica-rm"
+          ]
+        },
+        {
+          "prompt": "Duda mediu, na figura, a distância do eco até o pulso seguinte e chamou de TE. O que está errado?",
+          "options": [
+            {
+              "label": "Nada: o TE mede justamente o que sobra depois do eco",
+              "correct": false,
+              "feedback": "O TE não mede o que vem depois do eco. Ele vai do pulso ao centro do eco."
+            },
+            {
+              "label": "O certo seria chamar essa distância de T1, tempo do tecido",
+              "correct": false,
+              "feedback": "T1 é tempo do tecido, e não um intervalo da linha do tempo. O erro está no ponto de partida do TE."
+            },
+            {
+              "label": "O certo seria medir o TE de pulso a pulso, como o TR",
+              "correct": false,
+              "feedback": "De pulso a pulso é o TR. O TE termina no centro do eco."
+            },
+            {
+              "label": "O TE conta a partir do pulso e termina no centro do eco",
+              "correct": true,
+              "feedback": "O TE parte do pulso de excitação e termina no centro do eco, e não depois dele."
+            }
+          ],
+          "sourceIds": [
+            "ridgway-2010-fisica-rm"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o TE começa no pulso e termina no ...",
+          "item": {
+            "prompt": "Qual ponto da linha do tempo fecha o TE?",
+            "options": [
+              {
+                "label": "O pulso seguinte",
+                "correct": false,
+                "feedback": "O pulso seguinte fecha o TR, e não o TE."
+              },
+              {
+                "label": "O centro do eco",
+                "correct": true,
+                "feedback": "O TE vai do pulso ao centro do eco."
+              },
+              {
+                "label": "O primeiro pulso",
+                "correct": false,
+                "feedback": "O primeiro pulso abre o TE, e não o fecha."
+              },
+              {
+                "label": "O fim do patamar de recuperação",
+                "correct": false,
+                "feedback": "O patamar é do gráfico de T1 e não é ponto da linha do tempo."
+              }
+            ],
+            "sourceIds": [
+              "ridgway-2010-fisica-rm"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma colega diz: \"se o eco vier mais tarde depois do pulso, o intervalo que cresce é o TR\". Que correção cabe?",
+            "options": [
+              {
+                "label": "Cresce o TE; o TR continua sendo entre pulsos",
+                "correct": true,
+                "feedback": "O eco mais tarde alonga o intervalo do pulso até o eco, o TE. O TR continua sendo de pulso a pulso."
+              },
+              {
+                "label": "Nada: quando o eco demora, o TR é que cresce",
+                "correct": false,
+                "feedback": "O TR só muda quando muda o espaço entre pulsos. O eco mais tarde muda o TE."
+              },
+              {
+                "label": "Cresce o T1, pois o tecido demora mais a se recuperar",
+                "correct": false,
+                "feedback": "O T1 é do tecido e não muda com o instante da leitura."
+              },
+              {
+                "label": "Crescem o TE e o TR, os dois no mesmo tanto",
+                "correct": false,
+                "feedback": "O eco mais tarde, sozinho, não mexe no espaço entre pulsos. Só o TE cresce."
+              }
+            ],
+            "sourceIds": [
+              "ridgway-2010-fisica-rm"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m29-03",
+      "code": "M29.03",
+      "title": "Reconhecer a ponderação",
+      "objective": "Hoje você vai conseguir reconhecer, pelo brilho do líquido e da gordura, uma imagem em T1, uma em T2 e uma com o líquido suprimido.",
+      "competency": "Reconhecer T1, T2 e uma imagem com líquido suprimido pelo brilho do líquido e da gordura.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de comando",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Três imagens do mesmo corte da cabeça, e eu não sei qual é qual."
+          },
+          {
+            "speaker": "caio",
+            "text": "Não olhe tudo de uma vez. Escolha uma pista e compare nas três imagens."
+          },
+          {
+            "speaker": "pixel",
+            "text": "O líquido dentro da cabeça e a gordura em volta mudam de brilho. O que mais muda?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "O brilho conta a ponderação",
+        "body": "O mesmo corte da cabeça aparece em três imagens. Na ponderada em T1, o líquido dos ventrículos é escuro, a gordura é clara e a substância branca é mais clara que a cinzenta. Na ponderada em T2, o líquido é claro e a branca é mais escura que a cinzenta. A terceira é de base T2 com o líquido suprimido: líquido escuro, branca mais escura que a cinzenta. Você reconhece a imagem; a equipe decide o que ela significa.",
+        "keyPoints": [
+          "T1: líquido escuro, gordura clara, substância branca mais clara que a cinzenta.",
+          "T2: líquido claro, substância branca mais escura que a cinzenta.",
+          "Base T2 com líquido suprimido: líquido escuro e branca mais escura que a cinzenta."
+        ],
+        "visual": "ponderacoes-no-encefalo"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na unidade de fundamentos, você viu que certa combinação de tempos favorece a ponderação em T2. Qual é ela?",
+          "options": [
+            {
+              "label": "TR curto e TE curto",
+              "correct": false,
+              "feedback": "TR e TE curtos favorecem a ponderação em T1. Retome qual combinação deixa o líquido claro."
+            },
+            {
+              "label": "TR longo e TE curto",
+              "correct": false,
+              "feedback": "TR longo com TE curto não é a combinação ensinada para T2: ela pede também TE longo."
+            },
+            {
+              "label": "Só o pulso de RF define a ponderação",
+              "correct": false,
+              "feedback": "A ponderação vem dos tempos TR e TE, e não de o pulso existir. Retome os dois tempos."
+            },
+            {
+              "label": "TR longo e TE longo",
+              "correct": true,
+              "feedback": "TR e TE longos favorecem a ponderação em T2, em que o líquido fica claro."
+            }
+          ],
+          "help": "Lembre os dois tempos e qual ponderação cada par favorece.",
+          "sourceIds": [
+            "ridgway-2010-fisica-rm"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Toque nos ventrículos da imagem em que o líquido está escuro e a substância branca é mais escura que a cinzenta.",
+          "diagramId": "ponderacoes-no-encefalo",
+          "regions": [
+            {
+              "label": "Ventrículos da primeira imagem",
+              "x": 0.1187,
+              "y": 0.3833,
+              "width": 0.1,
+              "height": 0.1417
+            },
+            {
+              "label": "Gordura da primeira imagem",
+              "x": 0.1187,
+              "y": 0.1917,
+              "width": 0.1,
+              "height": 0.0833
+            },
+            {
+              "label": "Ventrículos da segunda imagem",
+              "x": 0.45,
+              "y": 0.3833,
+              "width": 0.1,
+              "height": 0.1417
+            },
+            {
+              "label": "Substância branca da segunda imagem",
+              "x": 0.4594,
+              "y": 0.6292,
+              "width": 0.0813,
+              "height": 0.0833
+            },
+            {
+              "label": "Ventrículos da terceira imagem",
+              "x": 0.7813,
+              "y": 0.3833,
+              "width": 0.1,
+              "height": 0.1417,
+              "correct": true
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: líquido escuro com a branca mais escura que a cinzenta é a imagem com o líquido suprimido.",
+          "feedbackIncorrect": "Compare as duas imagens de líquido escuro: em uma a substância branca é mais clara que a cinzenta, na outra é mais escura.",
+          "help": "Duas imagens têm líquido escuro. Desempate pela substância branca.",
+          "sourceIds": [
+            "ucsd-fmri-estrutural",
+            "mrimaster-liquido-suprimido"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada descrição de imagem no grupo da ponderação que ela combina.",
+          "categories": [
+            "Ponderada em T1",
+            "Ponderada em T2",
+            "Líquido suprimido"
+          ],
+          "items": [
+            {
+              "label": "Líquido escuro e gordura clara",
+              "category": "Ponderada em T1"
+            },
+            {
+              "label": "Substância branca mais clara que a cinzenta",
+              "category": "Ponderada em T1"
+            },
+            {
+              "label": "Ventrículos brilhantes, quase brancos",
+              "category": "Ponderada em T2"
+            },
+            {
+              "label": "Líquido claro e cinzenta mais clara que a branca",
+              "category": "Ponderada em T2"
+            },
+            {
+              "label": "Líquido escuro e branca mais escura que a cinzenta",
+              "category": "Líquido suprimido"
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: o brilho do líquido separa T2 das outras, e a substância branca separa T1 do líquido suprimido.",
+          "feedbackIncorrect": "Confira o líquido primeiro. Se ele é escuro, compare a substância branca com a cinzenta.",
+          "help": "Líquido claro aponta T2. Líquido escuro pede uma segunda pista.",
+          "sourceIds": [
+            "ucsd-fmri-estrutural",
+            "mrimaster-liquido-suprimido",
+            "ridgway-2010-fisica-rm"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "multi-select",
+          "role": "safety",
+          "criticalSafety": true,
+          "prompt": "Marque tudo o que cabe a você diante de uma série cuja imagem não combina com o pedido.",
+          "options": [
+            {
+              "label": "Trocar a ponderação na tela para combinar com o pedido",
+              "correct": false,
+              "feedback": "Trocar a ponderação é mudar o protocolo, e isso não é tarefa do estudante."
+            },
+            {
+              "label": "Descrever à tecnóloga o brilho que você vê no líquido",
+              "correct": true,
+              "feedback": "Descrever o que se vê, com palavras simples, é o que cabe a você."
+            },
+            {
+              "label": "Escrever no registro o que a diferença quer dizer",
+              "correct": false,
+              "feedback": "Dar significado à imagem é da equipe, e não do estudante. Você descreve."
+            },
+            {
+              "label": "Comparar o que vê com o que a folha do protocolo pede",
+              "correct": true,
+              "feedback": "Comparar a imagem com o pedido é conferir, e a diferença vai para a equipe."
+            },
+            {
+              "label": "Refazer a série por conta própria, com outro ajuste",
+              "correct": false,
+              "feedback": "Decidir repetir e mexer em ajuste não é do estudante: a equipe decide."
+            },
+            {
+              "label": "Aguardar a equipe antes de qualquer nova série",
+              "correct": true,
+              "feedback": "Aguardar a equipe evita nova série sem decisão de quem pode decidir."
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você descreve, compara e espera, sem mexer no protocolo nem dar significado à imagem.",
+          "feedbackIncorrect": "Releia o que cabe ao estudante: descrever, comparar e aguardar. Trocar, repetir e interpretar ficam com a equipe.",
+          "help": "Pergunte de cada ação: é descrever e conferir, ou é decidir e interpretar?",
+          "sourceIds": [
+            "ridgway-2010-fisica-rm"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Dona Celina faz, em simulação, uma série da cabeça. A folha do protocolo pede imagem com o líquido suprimido, mas na tela os ventrículos aparecem claros. A tecnóloga está na sala de comando.",
+          "prompt": "O que você faz diante dessa diferença?",
+          "options": [
+            {
+              "label": "Muda a série na tela para a de líquido suprimido",
+              "correct": false,
+              "feedback": "Mudar a série é alterar o protocolo, e isso não é tarefa do estudante."
+            },
+            {
+              "label": "Anota que a imagem está correta, pois o líquido aparece",
+              "correct": false,
+              "feedback": "O líquido visível não prova que o pedido foi cumprido: o pedido era líquido escuro."
+            },
+            {
+              "label": "Descreve a diferença à tecnóloga e aguarda a resposta",
+              "correct": true,
+              "feedback": "Descrever a diferença e aguardar mantém a decisão com a equipe."
+            },
+            {
+              "label": "Conclui que a folha errou e corrige o pedido sozinho",
+              "correct": false,
+              "feedback": "Corrigir o pedido por conta própria é o que a regra proíbe: diante da diferença, descreva e peça apoio."
+            }
+          ],
+          "help": "Compare o que a folha pede com o que a tela mostra, e pense em quem decide.",
+          "sourceIds": [
+            "mrimaster-liquido-suprimido",
+            "ucsd-fmri-estrutural"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você reconhece a ponderação",
+        "body": "Agora você reconhece T1 pelo líquido escuro e pela gordura clara, T2 pelo líquido claro e a imagem de base T2 com líquido suprimido pelo líquido escuro com a branca mais escura que a cinzenta. E sabe descrever uma diferença à equipe.",
+        "line": {
+          "speaker": "lia",
+          "text": "Descrever bem já é metade do trabalho. A outra metade é a equipe."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Numa imagem da cabeça, os ventrículos estão claros e a substância branca é mais escura que a cinzenta. Que ponderação combina?",
+          "options": [
+            {
+              "label": "Em T1, pois o líquido é claro",
+              "correct": false,
+              "feedback": "Em T1 o líquido é escuro. Líquido claro aponta outra ponderação."
+            },
+            {
+              "label": "Em T2, pois o líquido é claro",
+              "correct": true,
+              "feedback": "Líquido claro com a branca mais escura que a cinzenta combina com a ponderação em T2."
+            },
+            {
+              "label": "Líquido suprimido, pois a branca é escura",
+              "correct": false,
+              "feedback": "Na imagem com líquido suprimido, o líquido fica escuro. Aqui ele está claro."
+            },
+            {
+              "label": "Nenhuma: só a gordura revela a ponderação",
+              "correct": false,
+              "feedback": "O brilho do líquido e o contraste entre substâncias também revelam a ponderação."
+            }
+          ],
+          "sourceIds": [
+            "ucsd-fmri-estrutural"
+          ]
+        },
+        {
+          "prompt": "Numa imagem da cabeça, o líquido é escuro e a gordura do couro cabeludo é clara. O que mais se espera para combinar com a ponderação em T1?",
+          "options": [
+            {
+              "label": "Ventrículos claros como o couro cabeludo",
+              "correct": false,
+              "feedback": "Na T1 o líquido é escuro. Ventrículos claros seriam T2."
+            },
+            {
+              "label": "Substância branca mais escura que a cinzenta",
+              "correct": false,
+              "feedback": "Na T1 a branca é mais clara que a cinzenta, e não mais escura."
+            },
+            {
+              "label": "Substância branca mais clara que a cinzenta",
+              "correct": true,
+              "feedback": "Na T1 a branca é mais clara que a cinzenta."
+            },
+            {
+              "label": "Líquido claro em todas as regiões",
+              "correct": false,
+              "feedback": "Na T1 o líquido é escuro, e não claro."
+            }
+          ],
+          "sourceIds": [
+            "ucsd-fmri-estrutural"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: numa imagem ponderada em T2, o líquido dos ventrículos aparece ...",
+          "item": {
+            "prompt": "Como aparece o líquido dos ventrículos numa imagem ponderada em T2?",
+            "options": [
+              {
+                "label": "Claro, brilhante",
+                "correct": true,
+                "feedback": "Na ponderação em T2 o líquido é claro."
+              },
+              {
+                "label": "Escuro, como na T1",
+                "correct": false,
+                "feedback": "Escuro é o líquido da T1. Na T2 ele é claro."
+              },
+              {
+                "label": "Ausente da imagem",
+                "correct": false,
+                "feedback": "O líquido continua na imagem: o que muda é o brilho dele."
+              },
+              {
+                "label": "Igual à substância cinzenta",
+                "correct": false,
+                "feedback": "O líquido se destaca das substâncias: na T2 fica claro."
+              }
+            ],
+            "sourceIds": [
+              "ucsd-fmri-estrutural"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num corte da coluna, o líquido dentro do canal aparece claro. Que ponderação combina?",
+            "options": [
+              {
+                "label": "Em T1, que deixa o líquido claro",
+                "correct": false,
+                "feedback": "Em T1 o líquido é escuro. O líquido claro é de T2."
+              },
+              {
+                "label": "Com líquido suprimido, que deixa o líquido claro",
+                "correct": false,
+                "feedback": "Na imagem com líquido suprimido, o líquido fica escuro."
+              },
+              {
+                "label": "Não dá para dizer: cada região muda a regra",
+                "correct": false,
+                "feedback": "O brilho do líquido guia a ponderação em qualquer região."
+              },
+              {
+                "label": "Em T2, que deixa o líquido claro",
+                "correct": true,
+                "feedback": "Líquido claro combina com a ponderação em T2."
+              }
+            ],
+            "sourceIds": [
+              "ucsd-fmri-estrutural"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m29-04",
+      "code": "M29.04",
+      "title": "Apagar a gordura",
+      "objective": "Hoje você vai conseguir dizer o que a supressão de gordura muda na imagem e o que pode atrapalhá-la.",
+      "competency": "Dizer o que a supressão de gordura muda na imagem e o que a atrapalha.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de comando",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Essa série saiu com a gordura toda escura. Será que alguém estragou a imagem?"
+          },
+          {
+            "speaker": "duda",
+            "text": "Estragou? Eu achei que fosse de propósito, mas não sei como se apaga gordura."
+          },
+          {
+            "speaker": "lia",
+            "text": "Compare as duas imagens do esquema e descreva o que mudou. Depois, o que sobrou claro."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Gordura clara, gordura apagada",
+        "body": "No esquema, a imagem da esquerda não tem supressão: a gordura sob a pele e a medula do osso são claras. Na da direita, com supressão de gordura, o sinal da gordura é apagado e esses tecidos escurecem. A supressão que separa a gordura pela frequência depende de um campo bem regular. Metal perto da região desnivela o campo, e ali a gordura pode escapar da supressão: sobra uma faixa clara junto ao objeto. Você descreve a faixa e o objeto à equipe; não refaz nem ajusta a série.",
+        "keyPoints": [
+          "Supressão de gordura: o sinal da gordura é apagado e ela escurece.",
+          "Metal perto desnivela o campo, e a supressão pode falhar ali.",
+          "Faixa clara junto de objeto: descreva e avise a equipe."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, na imagem ponderada em T1, como aparecem a gordura do couro cabeludo e o líquido dos ventrículos?",
+          "options": [
+            {
+              "label": "Gordura escura e líquido claro",
+              "correct": false,
+              "feedback": "Isso inverte a T1: nela a gordura é clara e o líquido é escuro."
+            },
+            {
+              "label": "Gordura clara e líquido escuro",
+              "correct": true,
+              "feedback": "Na T1 a gordura é clara e o líquido é escuro."
+            },
+            {
+              "label": "Gordura clara e líquido claro",
+              "correct": false,
+              "feedback": "Na T1 o líquido é escuro. Só a gordura é clara."
+            },
+            {
+              "label": "Gordura escura e líquido escuro",
+              "correct": false,
+              "feedback": "Na T1 a gordura é clara. Retome o que aparece claro."
+            }
+          ],
+          "help": "Pense na imagem em que o líquido era a parte escura.",
+          "sourceIds": [
+            "ridgway-2010-fisica-rm",
+            "ucsd-fmri-estrutural"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "cloze",
+          "role": "prediction",
+          "prompt": "Complete a frase com as palavras do banco.",
+          "text": "A supressão de gordura {{1}} o sinal da gordura. Perto de metal, a falha deixa uma faixa {{2}} de gordura.",
+          "answers": [
+            "apaga",
+            "clara"
+          ],
+          "distractors": [
+            "realça",
+            "escura",
+            "repete"
+          ],
+          "feedbackCorrect": "Isso mesmo: a supressão apaga o sinal da gordura, e a falha perto de metal deixa uma faixa clara.",
+          "feedbackIncorrect": "Pense no que a supressão faz com a gordura e no que sobra onde ela falha: gordura que continua com sinal.",
+          "help": "Se a supressão falha, a gordura volta a ter sinal. Como ela fica na imagem?",
+          "sourceIds": [
+            "ridgway-2010-fisica-rm",
+            "pmc-artefatos-de-metal-2024",
+            "krupa-2015-artefatos-rm"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Toque no lugar da imagem da direita em que a supressão de gordura não funcionou.",
+          "diagramId": "supressao-de-gordura",
+          "regions": [
+            {
+              "label": "Gordura sob a pele, imagem da esquerda",
+              "x": 0.1875,
+              "y": 0.1708,
+              "width": 0.1,
+              "height": 0.0833
+            },
+            {
+              "label": "Medula, imagem da esquerda",
+              "x": 0.1969,
+              "y": 0.425,
+              "width": 0.0813,
+              "height": 0.0833
+            },
+            {
+              "label": "Gordura sob a pele, imagem da direita",
+              "x": 0.6875,
+              "y": 0.1708,
+              "width": 0.1,
+              "height": 0.0833
+            },
+            {
+              "label": "Faixa clara da lateral, à direita",
+              "x": 0.8688,
+              "y": 0.4,
+              "width": 0.0813,
+              "height": 0.1,
+              "correct": true
+            },
+            {
+              "label": "Pequeno objeto na borda, à direita",
+              "x": 0.7312,
+              "y": 0.7167,
+              "width": 0.0813,
+              "height": 0.0917
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: a faixa que ficou clara é gordura que a supressão não apagou, perto do objeto.",
+          "feedbackIncorrect": "O objeto é a possível causa, e não o lugar da falha. Procure onde a gordura continua clara na imagem da direita.",
+          "help": "Na imagem da direita, onde ainda sobrou gordura com sinal?",
+          "sourceIds": [
+            "pmc-artefatos-de-metal-2024",
+            "krupa-2015-artefatos-rm"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "true-false",
+          "role": "safety",
+          "criticalSafety": true,
+          "prompt": "Julgue o que você faz diante da faixa clara junto do objeto, na imagem da direita.",
+          "statements": [
+            {
+              "text": "Você descreve à equipe a faixa clara e o objeto que está ao lado dela.",
+              "correct": true,
+              "feedback": "Certo: descrever a faixa e o objeto dá à equipe o que ela precisa para avaliar."
+            },
+            {
+              "text": "Você refaz a série com outro ajuste até a faixa clara sumir.",
+              "correct": false,
+              "feedback": "Errado: ajustar e repetir a série não é tarefa do estudante. A equipe decide."
+            },
+            {
+              "text": "Você conclui que o objeto é seguro porque a imagem saiu legível.",
+              "correct": false,
+              "feedback": "Errado: imagem legível não prova que o objeto é seguro. Quem avalia é a equipe."
+            },
+            {
+              "text": "Metal perto da região é uma explicação possível para a falha ali.",
+              "correct": true,
+              "feedback": "Certo: metal distorce o campo, e a supressão de gordura pode falhar perto dele."
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você descreve, liga a falha ao metal como hipótese e deixa a decisão com a equipe.",
+          "feedbackIncorrect": "Releia o fim do conceito: você descreve a faixa e o objeto, e não ajusta, nem repete, nem conclui.",
+          "help": "Pergunte de cada frase: é descrever e avisar, ou é decidir sozinho?",
+          "sourceIds": [
+            "pmc-artefatos-de-metal-2024",
+            "krupa-2015-artefatos-rm"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multi-select",
+          "role": "transfer",
+          "prompt": "Numa série descrita da coluna de Seu Otávio, com supressão de gordura, aparece uma faixa clara de gordura em volta de um parafuso que a ficha já registra. Marque tudo o que combina com a aula.",
+          "options": [
+            {
+              "label": "A faixa clara mostra que o parafuso se soltou",
+              "correct": false,
+              "feedback": "A faixa clara é gordura que a supressão não apagou, e não prova que o parafuso se soltou."
+            },
+            {
+              "label": "O parafuso pode distorcer o campo, e a supressão pode falhar perto dele",
+              "correct": true,
+              "feedback": "Parafuso é metal, e perto de metal a supressão de gordura pode falhar."
+            },
+            {
+              "label": "Você ajusta a supressão até a faixa clara sumir",
+              "correct": false,
+              "feedback": "Ajustar a supressão é mexer no protocolo, e isso não é tarefa do estudante."
+            },
+            {
+              "label": "Você descreve onde está a faixa e deixa a equipe avaliar",
+              "correct": true,
+              "feedback": "Descrever o lugar e o aspecto da faixa e aguardar a equipe é o que cabe a você."
+            },
+            {
+              "label": "Como a ficha registra o parafuso, a faixa não precisa ser comentada",
+              "correct": false,
+              "feedback": "O registro do parafuso não dispensa a descrição: uma marca nova na imagem vai à equipe."
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você liga a faixa ao metal próximo e descreve, sem ajustar nem concluir.",
+          "feedbackIncorrect": "Confira o que sobrou ou faltou: a falha perto de metal e a descrição à equipe são o que combina.",
+          "help": "Parafuso é metal. O que a aula diz do metal perto da supressão de gordura?",
+          "sourceIds": [
+            "krupa-2015-artefatos-rm",
+            "pmc-artefatos-de-metal-2024"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você lê a supressão de gordura",
+        "body": "Agora você diz o que a supressão de gordura muda, a gordura sob a pele e a medula ficam escuras, e reconhece a faixa clara perto de metal como possível falha. E leva isso à equipe, sem ajustar nada.",
+        "line": {
+          "speaker": "caio",
+          "text": "Faixa clara perto de metal: descreva onde, e chame a tecnóloga."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Numa imagem com supressão de gordura, a gordura sob a pele aparece escura. O que isso mostra?",
+          "options": [
+            {
+              "label": "Que falta gordura no paciente nessa região",
+              "correct": false,
+              "feedback": "Gordura escura aqui não mostra falta de gordura. É o efeito esperado da supressão."
+            },
+            {
+              "label": "Que há metal perto da região examinada",
+              "correct": false,
+              "feedback": "A gordura escura é o efeito esperado da supressão. Metal faria o contrário: uma faixa clara onde falha."
+            },
+            {
+              "label": "Que o paciente se mexeu durante a série",
+              "correct": false,
+              "feedback": "Movimento deixa cópias fracas da estrutura, e não gordura escura."
+            },
+            {
+              "label": "Que o sinal da gordura foi apagado, como esperado",
+              "correct": true,
+              "feedback": "A supressão apaga o sinal da gordura, e ela fica escura."
+            }
+          ],
+          "sourceIds": [
+            "ridgway-2010-fisica-rm"
+          ]
+        },
+        {
+          "prompt": "Em que situação a supressão de gordura pode falhar numa região?",
+          "options": [
+            {
+              "label": "Quando há metal perto, que distorce o campo",
+              "correct": true,
+              "feedback": "Metal perto distorce o campo, e a supressão pode falhar ali."
+            },
+            {
+              "label": "Quando o paciente respira devagar",
+              "correct": false,
+              "feedback": "Respirar devagar não faz a supressão falhar. O campo distorcido por metal faz."
+            },
+            {
+              "label": "Quando o TE é alongado em demasia",
+              "correct": false,
+              "feedback": "Mudar o TE altera a ponderação, e não a regularidade do campo que a supressão exige."
+            },
+            {
+              "label": "Quando a bobina está bem posicionada",
+              "correct": false,
+              "feedback": "Bobina bem posicionada ajuda a imagem. A falha vem de campo irregular, como o criado por metal."
+            }
+          ],
+          "sourceIds": [
+            "pmc-artefatos-de-metal-2024",
+            "krupa-2015-artefatos-rm"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: com a supressão de gordura, a gordura sob a pele fica ...",
+          "item": {
+            "prompt": "Como aparece a gordura sob a pele numa imagem com supressão de gordura?",
+            "options": [
+              {
+                "label": "Clara, mais do que na imagem sem supressão",
+                "correct": false,
+                "feedback": "Sem supressão ela é clara. Com a supressão ela escurece."
+              },
+              {
+                "label": "Duplicada do lado oposto da imagem",
+                "correct": false,
+                "feedback": "Duplicar é marca de movimento ou dobra, e não efeito da supressão."
+              },
+              {
+                "label": "Escura, pois o sinal dela foi apagado",
+                "correct": true,
+                "feedback": "A supressão apaga o sinal da gordura, e ela escurece."
+              },
+              {
+                "label": "Sem mudança em relação à imagem sem supressão",
+                "correct": false,
+                "feedback": "A supressão existe para mudar o sinal da gordura, que escurece."
+              }
+            ],
+            "sourceIds": [
+              "ridgway-2010-fisica-rm"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Em outra região, numa série com supressão, uma faixa clara de gordura aparece colada a um clipe. O que descrever à equipe?",
+            "options": [
+              {
+                "label": "Que a gordura do paciente aumentou nessa região",
+                "correct": false,
+                "feedback": "A faixa clara é efeito de falha, e não aumento de gordura. Nada disso é conclusão do estudante."
+              },
+              {
+                "label": "A faixa clara, o clipe e a falha provável",
+                "correct": true,
+                "feedback": "Descrever a faixa, o clipe e a possível falha dá à equipe o que ela precisa."
+              },
+              {
+                "label": "Que o clipe é seguro, porque a imagem saiu",
+                "correct": false,
+                "feedback": "Imagem legível não prova que o clipe é seguro. Quem avalia é a equipe."
+              },
+              {
+                "label": "Que a série deve ser refeita com outro ajuste",
+                "correct": false,
+                "feedback": "Pedir ou fazer outro ajuste é decisão da equipe, e não do estudante."
+              }
+            ],
+            "sourceIds": [
+              "pmc-artefatos-de-metal-2024",
+              "krupa-2015-artefatos-rm"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m29-05",
+      "code": "M29.05",
+      "title": "Três artefatos comuns",
+      "objective": "Hoje você vai conseguir reconhecer a marca do movimento, a do metal e a da dobra, e dizer a quem avisar.",
+      "competency": "Reconhecer movimento, metal e dobra e a quem avisar.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de comando",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Apareceram três imagens estranhas no treino, e eu quero logo dar nome a cada uma."
+          },
+          {
+            "speaker": "caio",
+            "text": "Descreva a marca antes de dar nome: onde ela está e como se parece."
+          },
+          {
+            "speaker": "lia",
+            "text": "E diante de uma marca que ninguém esperava, o que vem antes de qualquer nome?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Três marcas, três causas",
+        "body": "Movimento deixa cópias fracas da estrutura, os fantasmas, repetidas pelo corte; ficar parado ajuda a reduzi-los. Metal deixa um vazio de sinal, preto, com borda clara e torta ao redor. Dobra é a anatomia que ficou fora do campo de visão e aparece no lado oposto da imagem. Metal que ninguém esperava na imagem pede parar e avisar a equipe. Você descreve a marca e o lugar dela; a equipe avalia a causa e decide o que fazer. Você não repete a série por conta própria.",
+        "keyPoints": [
+          "Movimento: cópias fracas, os fantasmas.",
+          "Metal: vazio de sinal com borda clara e torta. Pare e avise a equipe.",
+          "Dobra: anatomia de fora do campo aparece no lado oposto."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, o que pode acontecer com a supressão de gordura perto de um objeto de metal?",
+          "options": [
+            {
+              "label": "Pode apagar também o sinal do osso vizinho",
+              "correct": false,
+              "feedback": "O que a aula mostrou foi falha, com gordura que continua clara, e não apagar a mais."
+            },
+            {
+              "label": "Pode falhar e deixar uma faixa clara de gordura",
+              "correct": true,
+              "feedback": "Perto de metal o campo se distorce, e a supressão pode falhar, deixando gordura clara."
+            },
+            {
+              "label": "Passa a funcionar melhor, com mais contraste",
+              "correct": false,
+              "feedback": "Metal atrapalha a supressão. O campo irregular que ele cria faz a gordura voltar a ter sinal."
+            },
+            {
+              "label": "Não muda: metal não interfere na supressão",
+              "correct": false,
+              "feedback": "Metal interfere: distorce o campo, e a supressão pode falhar perto dele."
+            }
+          ],
+          "help": "Lembre onde sobrou a faixa clara no esquema da aula anterior.",
+          "sourceIds": [
+            "pmc-artefatos-de-metal-2024",
+            "krupa-2015-artefatos-rm"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule as marcas do esquema, tocando na ficha e no ponto.",
+          "diagramId": "artefatos-de-rm",
+          "points": [
+            {
+              "label": "Fantasmas",
+              "x": 0.1625,
+              "y": 0.1875,
+              "where": "à esquerda, cópias fracas empilhadas acima do corte oval"
+            },
+            {
+              "label": "Vazio de sinal",
+              "x": 0.4875,
+              "y": 0.3667,
+              "where": "no corte do meio, a grande mancha preta"
+            },
+            {
+              "label": "Borda distorcida",
+              "x": 0.4875,
+              "y": 0.5834,
+              "where": "no corte do meio, a borda clara e torta abaixo da mancha"
+            },
+            {
+              "label": "Parte dobrada",
+              "x": 0.6938,
+              "y": 0.5,
+              "where": "no corte da direita, o oval claro na borda esquerda da caixa"
+            },
+            {
+              "label": "Anatomia de fora",
+              "x": 0.9063,
+              "y": 0.5,
+              "where": "no corte da direita, o contorno tracejado além da caixa"
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: cada marca ficou ligada ao ponto certo do esquema.",
+          "feedbackIncorrect": "Alguma ficha está fora do lugar: procure cópias fracas, a mancha preta com a borda, a forma dentro da caixa e o que ficou fora dela.",
+          "help": "Comece pelo corte da esquerda, depois o do meio e por último o da direita.",
+          "sourceIds": [
+            "krupa-2015-artefatos-rm",
+            "pmc-artefatos-de-metal-2024"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada marca descrita pela causa a que ela se liga.",
+          "categories": [
+            "Movimento do paciente",
+            "Objeto de metal",
+            "Anatomia fora do campo"
+          ],
+          "items": [
+            {
+              "label": "Cópias fracas do braço, repetidas além do corpo",
+              "category": "Movimento do paciente"
+            },
+            {
+              "label": "Mancha preta de borda clara junto a um grampo",
+              "category": "Objeto de metal"
+            },
+            {
+              "label": "O contorno do braço reaparece do lado oposto do tórax",
+              "category": "Anatomia fora do campo"
+            },
+            {
+              "label": "Faixa de gordura clara colada a um parafuso",
+              "category": "Objeto de metal"
+            },
+            {
+              "label": "Cópias da cabeça depois de ele mexer o pescoço",
+              "category": "Movimento do paciente"
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: cópias combinam com movimento, mancha e faixa junto a objeto combinam com metal, e reaparecer do outro lado é dobra.",
+          "feedbackIncorrect": "Releia as três marcas do conceito: cópias fracas, vazio com borda ou faixa junto a objeto, e anatomia que reaparece do lado oposto.",
+          "help": "Pergunte de cada marca: o que a produziu, o paciente, um objeto ou o campo de visão?",
+          "sourceIds": [
+            "krupa-2015-artefatos-rm",
+            "pmc-artefatos-de-metal-2024"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "blitz",
+          "role": "practice",
+          "prompt": "Responda verdadeiro ou falso a cada afirmação sobre as três marcas.",
+          "statements": [
+            {
+              "text": "Cópias fracas da mesma estrutura são marca de movimento.",
+              "correct": true,
+              "feedback": "Movimento durante a aquisição cria cópias fracas da estrutura, os fantasmas."
+            },
+            {
+              "text": "Metal perto da região pode deixar uma área preta sem sinal.",
+              "correct": true,
+              "feedback": "Metal pode deixar um vazio de sinal, preto, com distorção em volta."
+            },
+            {
+              "text": "A dobra repete na imagem a anatomia de dentro do campo.",
+              "correct": false,
+              "feedback": "A dobra traz para o lado oposto a anatomia que ficou fora do campo de visão."
+            },
+            {
+              "text": "Ficar parado ajuda a reduzir os fantasmas de movimento.",
+              "correct": true,
+              "feedback": "Manter o paciente parado reduz os fantasmas."
+            },
+            {
+              "text": "A dobra é a marca de que o paciente se mexeu.",
+              "correct": false,
+              "feedback": "A dobra vem de anatomia fora do campo, e não de movimento do paciente."
+            },
+            {
+              "text": "Metal que ninguém esperava na imagem: você repete a série por conta própria.",
+              "correct": false,
+              "feedback": "Diante de metal inesperado, você para e avisa a equipe. Repetir não é seu."
+            },
+            {
+              "text": "Mancha preta inesperada de borda clara: você para e avisa a equipe.",
+              "correct": true,
+              "feedback": "Marca inesperada de metal pede parar e avisar a equipe, que avalia o caso."
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você separou cada marca da sua causa e sabe quem avisar.",
+          "feedbackIncorrect": "Reveja as afirmações: cada uma tem a explicação no retorno.",
+          "help": "Leia cada afirmação com calma antes de responder.",
+          "sourceIds": [
+            "krupa-2015-artefatos-rm",
+            "pmc-artefatos-de-metal-2024"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multi-select",
+          "role": "transfer",
+          "prompt": "Numa série descrita de pelve, aparece uma área preta de borda clara junto à cintura de Dona Zuleica, e a ficha não registra nenhum objeto. Marque tudo o que você faz.",
+          "options": [
+            {
+              "label": "Repete a série com outro campo de visão",
+              "correct": false,
+              "feedback": "Repetir a série e mexer no campo de visão não é seu, e não resolve uma marca de metal."
+            },
+            {
+              "label": "Para e descreve a marca e o lugar à tecnóloga",
+              "correct": true,
+              "feedback": "Parar e descrever dá à equipe a marca e o lugar dela."
+            },
+            {
+              "label": "Anota \"metal\" no registro como a causa certa",
+              "correct": false,
+              "feedback": "Fixar a causa no registro é conclusão da equipe, e não do estudante."
+            },
+            {
+              "label": "Espera a equipe decidir o que fazer a seguir",
+              "correct": true,
+              "feedback": "Aguardar evita nova série sem decisão de quem pode decidir."
+            },
+            {
+              "label": "Pergunta à paciente se ela escondeu algum objeto",
+              "correct": false,
+              "feedback": "Interrogar a paciente não é seu papel, e a triagem é da equipe."
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você para, descreve e espera, e deixa a causa com a equipe.",
+          "feedbackIncorrect": "Confira o que sobrou ou faltou: parar, descrever e aguardar são suas. Repetir, anotar a causa e interrogar ficam com a equipe.",
+          "help": "Marca preta que ninguém esperava: qual é o primeiro passo?",
+          "sourceIds": [
+            "krupa-2015-artefatos-rm",
+            "pmc-artefatos-de-metal-2024"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você reconhece três marcas",
+        "body": "Agora você reconhece cópias fracas como movimento, o vazio de sinal com borda clara como metal e a anatomia do lado oposto como dobra, e sabe que metal inesperado pede parar e avisar a equipe.",
+        "line": {
+          "speaker": "lia",
+          "text": "Marca é para descrever. O nome e a decisão ficam com a equipe."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Numa série de abdome, uma forma clara aparece por cima da borda do corpo, com o contorno exato do braço que ficou fora do campo de visão, do outro lado. O que você descreve à tecnóloga?",
+          "options": [
+            {
+              "label": "Que a paciente mexeu o braço durante a série",
+              "correct": false,
+              "feedback": "Movimento deixa cópias fracas repetidas pelo corte. Aqui é uma forma só, com o contorno do braço de fora do campo."
+            },
+            {
+              "label": "Que há um objeto de metal junto da borda do corpo",
+              "correct": false,
+              "feedback": "Metal deixa vazio de sinal com borda clara. Aqui há anatomia que reaparece, e não uma mancha preta."
+            },
+            {
+              "label": "Que a forma repete o braço de fora do campo, no lado oposto",
+              "correct": true,
+              "feedback": "Descrever a forma e de onde ela vem dá à equipe a marca da dobra; a decisão sobre a série é dela."
+            },
+            {
+              "label": "Nada, porque a forma faz parte da anatomia do abdome",
+              "correct": false,
+              "feedback": "A forma não é do abdome: tem o contorno do braço que ficou fora do campo. Marca na imagem se descreve à equipe."
+            }
+          ],
+          "sourceIds": [
+            "krupa-2015-artefatos-rm"
+          ]
+        },
+        {
+          "prompt": "Uma série mostra uma mancha preta de borda clara que ninguém esperava. O que você faz primeiro?",
+          "options": [
+            {
+              "label": "Repete a série com outro campo de visão",
+              "correct": false,
+              "feedback": "Repetir a série não é seu papel, e o campo de visão não explica essa mancha."
+            },
+            {
+              "label": "Anota \"artefato de movimento\" e segue",
+              "correct": false,
+              "feedback": "Mancha preta de borda clara não é marca de movimento, e anotar a causa sozinho também não cabe a você."
+            },
+            {
+              "label": "Pergunta ao paciente se ele escondeu algo",
+              "correct": false,
+              "feedback": "Interrogar o paciente não é seu papel. A triagem é da equipe."
+            },
+            {
+              "label": "Para e descreve a marca e o lugar à equipe",
+              "correct": true,
+              "feedback": "Marca inesperada de metal pede parar e avisar a equipe."
+            }
+          ],
+          "sourceIds": [
+            "krupa-2015-artefatos-rm",
+            "pmc-artefatos-de-metal-2024"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: junto ao vazio de sinal do metal, a borda aparece ...",
+          "item": {
+            "prompt": "No esquema do metal, como aparece a borda junto ao vazio de sinal?",
+            "options": [
+              {
+                "label": "Escura e reta, igual ao vazio de sinal",
+                "correct": false,
+                "feedback": "O vazio é preto, mas a borda junto dele fica clara e torta, com sinal acumulado."
+              },
+              {
+                "label": "Clara e torta, com sinal acumulado",
+                "correct": true,
+                "feedback": "O metal tira o sinal de um ponto e acumula sinal ao lado: a borda fica clara e torta."
+              },
+              {
+                "label": "Repetida em cópias fracas pelo corte",
+                "correct": false,
+                "feedback": "Cópias fracas repetidas são marca de movimento, e não da borda do metal."
+              },
+              {
+                "label": "Deslocada para o lado oposto da imagem",
+                "correct": false,
+                "feedback": "Aparecer do lado oposto é marca de dobra, e não da borda do metal."
+              }
+            ],
+            "sourceIds": [
+              "pmc-artefatos-de-metal-2024"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um texto diz: \"fantasmas na imagem indicam metal no corpo do paciente\". Que correção deixa a frase fiel à aula?",
+            "options": [
+              {
+                "label": "Nada: fantasmas e metal são a mesma marca",
+                "correct": false,
+                "feedback": "São marcas diferentes, com causas diferentes."
+              },
+              {
+                "label": "Fantasmas combinam com dobra, e não com metal",
+                "correct": false,
+                "feedback": "A dobra é outra marca: anatomia de fora do campo que reaparece do lado oposto."
+              },
+              {
+                "label": "Fantasmas são de movimento; metal deixa vazio de sinal",
+                "correct": true,
+                "feedback": "Fantasmas são de movimento. O metal deixa vazio de sinal com distorção."
+              },
+              {
+                "label": "Fantasmas indicam sempre que o paciente tem implante",
+                "correct": false,
+                "feedback": "Fantasma não indica implante: combina com movimento."
+              }
+            ],
+            "sourceIds": [
+              "krupa-2015-artefatos-rm",
+              "pmc-artefatos-de-metal-2024"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m29-06",
+      "code": "M29.06",
+      "title": "Dentro do túnel",
+      "objective": "Hoje você vai conseguir preparar o paciente para o ruído, o tempo e a imobilidade e levar à equipe o que ele disser.",
+      "competency": "Preparar o paciente para ruído, tempo e imobilidade e comunicar o que vê.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de preparo",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Dona Zuleica",
+            "text": "Vou ficar muito tempo lá dentro? Tenho medo de não aguentar ficar parada."
+          },
+          {
+            "speaker": "duda",
+            "text": "Eu sei que o barulho incomoda, mas não sei bem o que posso dizer a ela."
+          },
+          {
+            "speaker": "caio",
+            "text": "Fale do que a equipe já orientou e não prometa o que não é seu. O resto vai para a tecnóloga."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Ruído, imobilidade e tempo",
+        "body": "Dentro do túnel pesam três coisas para o paciente. O aparelho faz barulhos altos de batida, e a equipe entrega protetor de ouvido. Mexer borra a imagem, por isso ficar parado importa. Algumas pessoas se sentem fechadas no túnel; a tecnóloga vê e ouve o paciente pelo intercomunicador, e ele pode chamar a equipe pela campainha. Você explica o que a equipe já orientou, sem prometer duração nem resultado. Perguntas sobre duração vão para a tecnóloga, e quem analisa e comunica o resultado é a equipe médica.",
+        "keyPoints": [
+          "Ruído alto: há proteção para os ouvidos.",
+          "Ficar parado importa: mexer borra a imagem.",
+          "Duração e imagem: você não promete, a tecnóloga responde."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na unidade de fundamentos, qual item o paciente leva na mão para chamar a equipe durante a série?",
+          "options": [
+            {
+              "label": "O cartão do implante",
+              "correct": false,
+              "feedback": "O cartão serve para a triagem antes da sala, e não para chamar a equipe."
+            },
+            {
+              "label": "A bobina de recepção",
+              "correct": false,
+              "feedback": "A bobina capta o sinal e fica junto da região examinada, e não serve para chamar."
+            },
+            {
+              "label": "O protetor auricular",
+              "correct": false,
+              "feedback": "O protetor reduz o ruído, mas não chama a equipe. Retome o item da mão."
+            },
+            {
+              "label": "A campainha",
+              "correct": true,
+              "feedback": "A campainha fica na mão do paciente para ele chamar a equipe."
+            }
+          ],
+          "help": "Lembre o que fica ao alcance da mão do paciente.",
+          "sourceIds": [
+            "radiologyinfo-preparo-rm"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Dona Zuleica pergunta por que precisa ficar parada. Toque na marca que o movimento do paciente pode deixar na imagem.",
+          "diagramId": "artefatos-de-rm",
+          "regions": [
+            {
+              "label": "Cópias fracas acima do corte",
+              "x": 0.1125,
+              "y": 0.1417,
+              "width": 0.1,
+              "height": 0.0917,
+              "correct": true
+            },
+            {
+              "label": "Mancha preta do corte do meio",
+              "x": 0.4375,
+              "y": 0.3167,
+              "width": 0.1,
+              "height": 0.1
+            },
+            {
+              "label": "Borda clara abaixo da mancha",
+              "x": 0.4375,
+              "y": 0.5417,
+              "width": 0.1,
+              "height": 0.0833
+            },
+            {
+              "label": "Forma clara dentro do campo",
+              "x": 0.6531,
+              "y": 0.3917,
+              "width": 0.0813,
+              "height": 0.2167
+            },
+            {
+              "label": "Contorno tracejado fora do campo",
+              "x": 0.8656,
+              "y": 0.3917,
+              "width": 0.0813,
+              "height": 0.2167
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: o movimento deixa cópias fracas da estrutura, e é por isso que ficar parado importa.",
+          "feedbackIncorrect": "Essa marca vem de outra causa. Procure as cópias fracas repetidas, que o movimento do paciente produz.",
+          "help": "Qual das marcas aparece como cópias da mesma estrutura?",
+          "sourceIds": [
+            "krupa-2015-artefatos-rm",
+            "radiologyinfo-preparo-rm"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "conversation",
+          "role": "practice",
+          "speaker": "paciente",
+          "name": "Dona Zuleica",
+          "prompt": "Dona Zuleica está aflita antes do exame. Ajude-a, sem prometer o que não é seu.",
+          "turns": [
+            {
+              "line": "Esse barulho todo não faz mal? Dizem que o aparelho é bem alto.",
+              "options": [
+                {
+                  "label": "É só um barulhinho que você nem vai notar, fique calma.",
+                  "correct": false,
+                  "reply": "Nem vou notar? Mas me disseram que é alto."
+                },
+                {
+                  "label": "Pode ser alto, por isso há proteção para os ouvidos.",
+                  "correct": true,
+                  "reply": "Ah, então tem protetor. Isso me deixa mais calma."
+                },
+                {
+                  "label": "Você se acostuma em poucos minutos, é só ignorar.",
+                  "correct": false,
+                  "reply": "Poucos minutos? Eu não sei se consigo me acostumar."
+                }
+              ]
+            },
+            {
+              "line": "E quanto tempo eu vou ficar parada lá dentro?",
+              "options": [
+                {
+                  "label": "A tecnóloga diz a duração, vou chamá-la.",
+                  "correct": true,
+                  "reply": "Está bem, prefiro saber por ela mesma."
+                },
+                {
+                  "label": "Dez minutinhos, eu prometo que passa rápido.",
+                  "correct": false,
+                  "reply": "Dez minutos só? Tomara que seja isso mesmo."
+                },
+                {
+                  "label": "Depende de você: se ficar quieta, acaba logo.",
+                  "correct": false,
+                  "reply": "Depende de mim? Agora fiquei com mais medo."
+                }
+              ]
+            },
+            {
+              "line": "E se eu não aguentar ficar parada?",
+              "options": [
+                {
+                  "label": "Aguente até o fim, depois a gente conversa.",
+                  "correct": false,
+                  "reply": "Até o fim? E se eu passar mal?"
+                },
+                {
+                  "label": "Mexa só um pouco, a imagem se arruma depois.",
+                  "correct": false,
+                  "reply": "Posso me mexer, então? Pensei que não pudesse."
+                },
+                {
+                  "label": "Aperte a campainha, a equipe vem até você.",
+                  "correct": true,
+                  "reply": "Ah, tem uma campainha. Vou segurar com firmeza."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você explicou o ruído e a campainha, e deixou a duração com a tecnóloga.",
+          "feedbackIncorrect": "Reveja a conversa: explique o que a equipe orientou, não prometa duração nem resultado e lembre a campainha.",
+          "help": "Responda com o que a equipe já orientou, sem prometer o que não é seu.",
+          "sourceIds": [
+            "radiologyinfo-preparo-rm"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada dúvida do paciente ao que você faz, como ensinado nesta aula.",
+          "pairs": [
+            {
+              "left": "Medo do barulho",
+              "right": "Explica que há proteção para os ouvidos"
+            },
+            {
+              "left": "Pergunta sobre a duração",
+              "right": "Leva a pergunta à tecnóloga"
+            },
+            {
+              "left": "Aflição com lugar fechado",
+              "right": "Lembra a campainha e avisa a equipe"
+            },
+            {
+              "left": "Quer saber o que a imagem mostra",
+              "right": "Diz que a equipe responsável fala sobre a imagem"
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: o que a equipe já orientou você explica, e o resto vai para a tecnóloga.",
+          "feedbackIncorrect": "Confira de novo: o ruído tem proteção, a duração é da tecnóloga, a aflição pede a campainha e a imagem é da equipe.",
+          "help": "Separe o que você pode explicar do que precisa levar à equipe.",
+          "sourceIds": [
+            "radiologyinfo-preparo-rm"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Seu Otávio, em simulação, diz que é a primeira vez e que ficou aflito num exame anterior. Julgue cada afirmação.",
+          "statements": [
+            {
+              "text": "Você escuta a aflição dele e a leva à tecnóloga antes de começar.",
+              "correct": true,
+              "feedback": "Certo: levar a aflição à equipe antes da série deixa a equipe preparada."
+            },
+            {
+              "text": "Você garante que desta vez ele não vai sentir nada.",
+              "correct": false,
+              "feedback": "Errado: prometer ausência de desconforto não é seu e pode ser falso."
+            },
+            {
+              "text": "Você lembra que a campainha chama a equipe se ele precisar.",
+              "correct": true,
+              "feedback": "Certo: a campainha é o meio de ele chamar a equipe durante a série."
+            },
+            {
+              "text": "Você diz que pode se mexer à vontade, pois a imagem se corrige depois.",
+              "correct": false,
+              "feedback": "Errado: mexer borra a imagem, e a imagem não se corrige sozinha depois."
+            }
+          ],
+          "feedbackCorrect": "Você ouviu, lembrou a campainha e não prometeu o que não é seu.",
+          "feedbackIncorrect": "Releia o conceito: você explica o que a equipe orientou, leva a aflição à tecnóloga e não promete.",
+          "help": "Pergunte de cada frase: é levar à equipe ou é prometer algo?",
+          "sourceIds": [
+            "radiologyinfo-preparo-rm",
+            "radiologyinfo-rm-cabeca"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você prepara quem entra no túnel",
+        "body": "Agora você explica ao paciente o ruído e a proteção, a importância de ficar parado e a campainha, sem prometer duração nem resultado. E leva à tecnóloga o que ele perguntar além disso.",
+        "line": {
+          "speaker": "lia",
+          "text": "Preparar é explicar o que se sabe e passar adiante o resto."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Um paciente pergunta quanto tempo a série vai durar. Qual resposta cabe a você?",
+          "options": [
+            {
+              "label": "Dizer que a tecnóloga informa a duração e chamá-la",
+              "correct": true,
+              "feedback": "A duração é informada pela tecnóloga, e você a chama."
+            },
+            {
+              "label": "Dizer um tempo aproximado para tranquilizar",
+              "correct": false,
+              "feedback": "Dar um tempo sem saber é prometer o que não é seu e pode ser falso."
+            },
+            {
+              "label": "Dizer que só depende de ele ficar quieto",
+              "correct": false,
+              "feedback": "A duração não depende só do paciente, e essa resposta pode aumentar a aflição."
+            },
+            {
+              "label": "Dizer que não vale a pena saber o tempo",
+              "correct": false,
+              "feedback": "Negar a pergunta não ajuda. O certo é levá-la à tecnóloga."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-preparo-rm"
+          ]
+        },
+        {
+          "prompt": "O que ficar parado ajuda a evitar na imagem?",
+          "options": [
+            {
+              "label": "A mancha preta que o metal costuma deixar",
+              "correct": false,
+              "feedback": "A mancha preta vem de metal. Ficar parado não a evita."
+            },
+            {
+              "label": "O borramento e as cópias fracas do movimento",
+              "correct": true,
+              "feedback": "Mexer borra a imagem e cria cópias fracas, e ficar parado ajuda a evitá-los."
+            },
+            {
+              "label": "A dobra de anatomia de fora do campo",
+              "correct": false,
+              "feedback": "A dobra vem do campo de visão. Ficar parado não a evita."
+            },
+            {
+              "label": "O ruído que o aparelho produz durante a série",
+              "correct": false,
+              "feedback": "O ruído é do aparelho. Ficar parado não o reduz, e por isso há proteção para os ouvidos."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-preparo-rm",
+            "radiologyinfo-rm-cabeca",
+            "krupa-2015-artefatos-rm"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: se o paciente sente aflição com lugar fechado, ele pode chamar a equipe pela ...",
+          "item": {
+            "prompt": "Um paciente diz que tem medo de lugar fechado. Qual meio ele tem para chamar a equipe durante a série?",
+            "options": [
+              {
+                "label": "O protetor auricular, que abafa o barulho",
+                "correct": false,
+                "feedback": "O protetor abafa o ruído, e não chama a equipe."
+              },
+              {
+                "label": "A bobina, que fica junto do corpo",
+                "correct": false,
+                "feedback": "A bobina capta o sinal, e não chama a equipe."
+              },
+              {
+                "label": "A campainha, que fica na mão dele",
+                "correct": true,
+                "feedback": "A campainha na mão do paciente chama a equipe."
+              },
+              {
+                "label": "A porta da sala, que ele pode abrir",
+                "correct": false,
+                "feedback": "A porta não é o meio de chamar: dentro do túnel, o paciente chama a equipe pela campainha."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-preparo-rm"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Uma criança, em simulação, pergunta se o exame dói. Qual resposta cabe a você?",
+            "options": [
+              {
+                "label": "Garantir que não vai doer nada, para ela relaxar",
+                "correct": false,
+                "feedback": "Garantir ausência de dor é prometer o que não é seu."
+              },
+              {
+                "label": "Dizer que ela precisa ser corajosa e ficar quieta",
+                "correct": false,
+                "feedback": "Cobrar coragem não ajuda e não explica nada."
+              },
+              {
+                "label": "Responder que depende do resultado da imagem dela",
+                "correct": false,
+                "feedback": "A imagem não está em jogo agora, e quem fala sobre ela é a equipe responsável."
+              },
+              {
+                "label": "Explicar o que se sabe e levar o resto à tecnóloga",
+                "correct": true,
+                "feedback": "Explicar o que se sabe e levar o resto à tecnóloga é o que cabe a você."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-preparo-rm"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

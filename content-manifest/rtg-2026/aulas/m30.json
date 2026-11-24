@@ -1,0 +1,2279 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m30",
+    "code": "M30",
+    "title": "Densitometria óssea e composição corporal",
+    "summary": "Abre o método da densitometria: os dois níveis de energia, as regiões medidas, a posição que se repete, o que estraga a medida, o exame de corpo inteiro e a comparação entre exames, sem interpretar resultado."
+  },
+  "sources": [
+    {
+      "id": "radiologyinfo-dexa",
+      "title": "Bone Density Scan (DEXA, DXA)",
+      "publisher": "RadiologyInfo.org (RSNA e ACR)",
+      "url": "https://www.radiologyinfo.org/en/info/dexa",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional para pacientes; consultada para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "iscd-adult-positions",
+      "title": "ISCD Official Positions, Adult",
+      "publisher": "International Society for Clinical Densitometry",
+      "url": "https://iscd.org/learn/official-positions/adult-positions/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Orientação de uma sociedade profissional; consultada só como referência factual do que se mede, sem reprodução de texto."
+    },
+    {
+      "id": "dxa-practice-guideline-2025",
+      "title": "Updated practice guideline for dual-energy X-ray absorptiometry (DXA)",
+      "publisher": "Eur J Nucl Med Mol Imaging, via PubMed Central (acesso aberto)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11732917/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto; consultado para fatos, redação própria."
+    },
+    {
+      "id": "dxa-pitfalls-2013",
+      "title": "Dual energy X-ray absorptiometry: Pitfalls in measurement and interpretation of bone mineral density",
+      "publisher": "Indian J Endocrinol Metab, via PubMed Central (acesso aberto)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3683192/",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto; consultado para fatos, redação própria."
+    },
+    {
+      "id": "body-composition-dxa-2017",
+      "title": "Body Composition by DXA",
+      "publisher": "Bone, via PubMed Central (acesso aberto)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5659281",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Manuscrito de acesso aberto; consultado para fatos, redação própria."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m30-01",
+      "code": "M30.01",
+      "title": "Dois feixes, duas energias",
+      "objective": "Hoje você vai conseguir nomear as peças do densitômetro e explicar por que o feixe tem dois níveis de energia.",
+      "competency": "Nomear fonte, braço do detector e mesa no esquema do densitômetro e explicar por que o feixe tem dois níveis de energia.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de densitometria",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Dona Aurora",
+            "text": "Vou ficar deitada embaixo daquele braço grande? E por que dizem que são dois feixes?"
+          },
+          {
+            "speaker": "caio",
+            "text": "O braço passa por cima da senhora, e a outra peça fica sob a mesa. Cada uma tem o seu papel."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Quem fica onde? E por que o aparelho precisa de dois níveis de energia?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Duas peças e dois níveis de energia",
+        "body": "Na densitometria central, a pessoa deita de costas numa mesa acolchoada. Neste esquema, a fonte de raios X fica sob a mesa e o detector, num braço acima dela. O feixe é estreito e tem dois níveis de energia: um é absorvido sobretudo pelo tecido mole e o outro, pelo osso. Com as duas medidas, o programa separa osso de tecido mole. A dose é baixa em comparação com outros exames de raios X. Quem interpreta o resultado é o médico.",
+        "keyPoints": [
+          "Fonte sob a mesa; detector no braço acima.",
+          "Dois níveis: um pega mais tecido mole, o outro, osso.",
+          "O programa calcula; o médico interpreta."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na M12, você viu quem interpreta o resultado da densitometria. Quem é?",
+          "options": [
+            {
+              "label": "O tecnólogo que posicionou a pessoa",
+              "correct": false,
+              "feedback": "Posicionar e conferir a técnica é o seu papel; interpretar o resultado, não."
+            },
+            {
+              "label": "A própria pessoa examinada, ao ver a tela",
+              "correct": false,
+              "feedback": "A tela mostra a medida, mas quem interpreta e responde é o médico."
+            },
+            {
+              "label": "O médico, a partir do que o aparelho mediu",
+              "correct": true,
+              "feedback": "Isso: o aparelho mede, e o médico interpreta o resultado."
+            },
+            {
+              "label": "O programa do aparelho, sozinho",
+              "correct": false,
+              "feedback": "O programa calcula a medida, mas não interpreta o caso da pessoa."
+            }
+          ],
+          "help": "Separe quem produz a medida de quem decide o que ela significa.",
+          "sourceIds": [
+            "radiologyinfo-dexa"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule as partes do densitômetro vistas de lado, tocando na ficha e no ponto.",
+          "diagramId": "dxa-dois-feixes",
+          "points": [
+            {
+              "label": "Fonte de raios X",
+              "x": 0.5313,
+              "y": 0.7333,
+              "where": "embaixo, o bloco azul sob o tampo, no meio do desenho"
+            },
+            {
+              "label": "Braço do detector",
+              "x": 0.5313,
+              "y": 0.1292,
+              "where": "no alto, o bloco azul que fica acima do corpo"
+            },
+            {
+              "label": "Feixe",
+              "x": 0.5313,
+              "y": 0.3542,
+              "where": "as duas linhas finas de cores diferentes, subindo retas"
+            },
+            {
+              "label": "Paciente",
+              "x": 0.3,
+              "y": 0.5208,
+              "where": "a figura deitada de costas, na altura do peito"
+            },
+            {
+              "label": "Mesa",
+              "x": 0.8938,
+              "y": 0.6125,
+              "where": "a faixa onde o corpo se apoia, na ponta direita do desenho"
+            }
+          ],
+          "distractors": [
+            "Grade antidifusora"
+          ],
+          "feedbackCorrect": "Isso mesmo: a fonte fica sob a mesa, a pessoa deitada no meio e o detector no braço acima.",
+          "feedbackIncorrect": "Alguma ficha está fora do lugar: siga o caminho de baixo para cima, da fonte, pela pessoa, até o detector.",
+          "help": "Comece pelo que está embaixo da mesa e suba até o alto do desenho.",
+          "sourceIds": [
+            "radiologyinfo-dexa"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre o feixe e as peças do densitômetro.",
+          "statements": [
+            {
+              "text": "Neste esquema, a fonte fica sob a mesa e o detector, no braço acima.",
+              "correct": true,
+              "feedback": "Certo: a pessoa fica entre as duas peças, e o feixe a atravessa de baixo para cima."
+            },
+            {
+              "text": "Os dois níveis de energia servem para medir o osso duas vezes e tirar a média.",
+              "correct": false,
+              "feedback": "Errado: o ganho dos dois níveis é separar osso de tecido mole, que absorvem cada nível de um modo; não é repetir a medida."
+            },
+            {
+              "text": "Um nível é absorvido sobretudo pelo tecido mole e o outro, pelo osso.",
+              "correct": true,
+              "feedback": "Certo: essa diferença de absorção é o que o programa usa para separar um do outro."
+            },
+            {
+              "text": "Com o resultado na tela, o tecnólogo diz à pessoa o que ele significa.",
+              "correct": false,
+              "feedback": "Errado: o resultado é interpretado pelo médico; você pode explicar o exame, mas não o que o resultado significa."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que o aparelho faz do que cabe ao médico.",
+          "feedbackIncorrect": "Releia o conceito: os dois níveis separam osso de tecido mole, e a interpretação é do médico.",
+          "help": "Pense no que cada nível de energia faz com osso e com tecido mole.",
+          "sourceIds": [
+            "radiologyinfo-dexa",
+            "body-composition-dxa-2017"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "O feixe sai de uma peça, atravessa a pessoa e chega a outra. Toque na peça onde ele chega depois de atravessar o corpo.",
+          "diagramId": "dxa-dois-feixes",
+          "regions": [
+            {
+              "label": "Peça sob o tampo",
+              "x": 0.4625,
+              "y": 0.675,
+              "width": 0.1375,
+              "height": 0.1167
+            },
+            {
+              "label": "Peça no alto do braço",
+              "x": 0.4375,
+              "y": 0.075,
+              "width": 0.1875,
+              "height": 0.1083,
+              "correct": true
+            },
+            {
+              "label": "Tronco da pessoa",
+              "x": 0.225,
+              "y": 0.4583,
+              "width": 0.15,
+              "height": 0.125
+            },
+            {
+              "label": "Ponta da mesa",
+              "x": 0.8375,
+              "y": 0.5667,
+              "width": 0.1125,
+              "height": 0.0917
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: o feixe sobe pela pessoa e chega ao detector, no alto do braço.",
+          "feedbackIncorrect": "Essa peça não recebe o feixe: ele sai de baixo da mesa, sobe pela pessoa e chega a quem está acima dela.",
+          "help": "O feixe sobe: depois de atravessar a pessoa, o que vem acima dela?",
+          "sourceIds": [
+            "radiologyinfo-dexa"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "conversation",
+          "role": "transfer",
+          "speaker": "paciente",
+          "name": "Dona Aurora",
+          "prompt": "Dona Aurora está tensa com o aparelho. Responda sem prometer o que cabe à equipe ou ao médico.",
+          "turns": [
+            {
+              "line": "Dois níveis de energia... isso quer dizer que vou levar o dobro de radiação?",
+              "options": [
+                {
+                  "label": "Sim, é o dobro, mas a senhora aguenta bem: é só um exame rápido e sem dor.",
+                  "correct": false,
+                  "reply": "Hum, então é bastante, né? Fiquei com receio."
+                },
+                {
+                  "label": "Separam osso de tecido mole. E a dose é baixa em comparação com outros raios X.",
+                  "correct": true,
+                  "reply": "Ah, então é para separar as coisas. Isso me tranquiliza um pouco."
+                },
+                {
+                  "label": "Não existe radiação nesse aparelho, a senhora pode ficar completamente tranquila.",
+                  "correct": false,
+                  "reply": "Sem nenhuma radiação? Estranho, achei que tinha."
+                }
+              ]
+            },
+            {
+              "line": "E quando acabar, o aparelho já me diz se meus ossos estão bem?",
+              "options": [
+                {
+                  "label": "O aparelho mede; quem interpreta o resultado é o médico.",
+                  "correct": true,
+                  "reply": "Entendi. Então vou esperar o médico me explicar."
+                },
+                {
+                  "label": "Posso olhar a tela com a senhora e explicar o que cada número quer dizer.",
+                  "correct": false,
+                  "reply": "Que bom, então me explica agora mesmo."
+                },
+                {
+                  "label": "Sim, a tela já mostra se está tudo bem, é só a senhora aguardar um instante.",
+                  "correct": false,
+                  "reply": "Então fico esperando a tela me contar."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você explicou a função dos dois níveis e deixou a interpretação com o médico.",
+          "feedbackIncorrect": "Reveja as falas: a dose se descreve como baixa em comparação com outros exames, e quem interpreta é o médico.",
+          "help": "Diga o que o exame faz, sem prometer o que cabe ao médico.",
+          "sourceIds": [
+            "radiologyinfo-dexa",
+            "body-composition-dxa-2017"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você conhece o caminho do feixe",
+        "body": "Agora você consegue nomear fonte, detector e mesa no esquema e explicar por que o feixe tem dois níveis de energia, deixando a interpretação com o médico.",
+        "line": {
+          "speaker": "caio",
+          "text": "Quem sabe onde cada peça fica sabe também onde olhar quando algo sair do esperado."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "No esquema do densitômetro, onde fica a fonte de raios X em relação à pessoa deitada?",
+          "options": [
+            {
+              "label": "Acima dela, no braço do detector",
+              "correct": false,
+              "feedback": "No esquema, o braço acima da pessoa leva o detector, e não a fonte."
+            },
+            {
+              "label": "Sob a mesa, com o detector no braço acima",
+              "correct": true,
+              "feedback": "Isso: a fonte fica sob a mesa e o feixe sobe pela pessoa até o detector."
+            },
+            {
+              "label": "Ao lado da mesa, na altura do ombro",
+              "correct": false,
+              "feedback": "A fonte não fica ao lado: ela fica sob a mesa, de onde o feixe sobe."
+            },
+            {
+              "label": "Atrás da mesa, no piso da sala",
+              "correct": false,
+              "feedback": "No esquema, a fonte está sob o tampo, e não no piso atrás da mesa."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-dexa"
+          ]
+        },
+        {
+          "prompt": "O que acontece com os dois níveis de energia ao atravessar osso e tecido mole?",
+          "options": [
+            {
+              "label": "Os dois são absorvidos do mesmo modo pelos dois tecidos",
+              "correct": false,
+              "feedback": "Se fosse assim, o programa não teria como separar um tecido do outro."
+            },
+            {
+              "label": "Só o osso absorve; o tecido mole deixa tudo passar",
+              "correct": false,
+              "feedback": "O tecido mole também absorve: um dos níveis é absorvido sobretudo por ele."
+            },
+            {
+              "label": "O tecido mole absorve os dois e o osso não absorve nenhum",
+              "correct": false,
+              "feedback": "Um dos níveis é absorvido sobretudo pelo osso, e é isso que o separa do tecido mole."
+            },
+            {
+              "label": "Osso e tecido mole os absorvem de modos diferentes",
+              "correct": true,
+              "feedback": "Isso: a diferença de absorção permite ao programa separar osso de tecido mole."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-dexa",
+            "body-composition-dxa-2017"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: sob a mesa fica a fonte de raios X, e o detector fica no braço ...",
+          "item": {
+            "prompt": "Que peça fica no braço acima da pessoa deitada?",
+            "options": [
+              {
+                "label": "A fonte de raios X",
+                "correct": false,
+                "feedback": "A fonte fica sob a mesa; no braço acima fica outra peça."
+              },
+              {
+                "label": "O detector",
+                "correct": true,
+                "feedback": "Isso: o detector recebe o feixe depois que ele atravessa a pessoa."
+              },
+              {
+                "label": "O tampo da mesa",
+                "correct": false,
+                "feedback": "O tampo é onde a pessoa se apoia, e não fica no braço."
+              },
+              {
+                "label": "O pé da mesa",
+                "correct": false,
+                "feedback": "O pé sustenta a mesa e não faz parte do braço do detector."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-dexa"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Caio separa limalha de ferro e areia com um ímã. O que lembra o papel dos dois níveis de energia do densitômetro?",
+            "options": [
+              {
+                "label": "Medir o mesmo material duas vezes para tirar a média",
+                "correct": false,
+                "feedback": "O ímã não repete a medida: ele usa uma diferença entre os materiais."
+              },
+              {
+                "label": "Deixar o material mais leve para a medida ficar fácil",
+                "correct": false,
+                "feedback": "Nem o ímã nem os níveis de energia mudam o peso do material."
+              },
+              {
+                "label": "Usar uma diferença entre os materiais para separá-los",
+                "correct": true,
+                "feedback": "Isso: o ímã separa pela diferença magnética, e os níveis, pela diferença de absorção."
+              },
+              {
+                "label": "Esconder o material que atrapalha a medida",
+                "correct": false,
+                "feedback": "Nada é escondido: a diferença entre os materiais é usada para separá-los."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-dexa",
+              "body-composition-dxa-2017"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m30-02",
+      "code": "M30.02",
+      "title": "Onde se mede",
+      "objective": "Hoje você vai conseguir localizar as regiões medidas na coluna lombar e no fêmur proximal.",
+      "competency": "Localizar, num esquema, as regiões de interesse da coluna lombar (L1 a L4) e do fêmur proximal (colo, trocânter e quadril total).",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de análise",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "No esquema há umas caixas desenhadas sobre a coluna e sobre o fêmur. O aparelho mede o osso inteiro?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Não: ele mede dentro de regiões. Cada região tem um lugar e um nome."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Onde ficam essas regiões, e como saber de que vértebra é cada caixa?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Medir dentro de regiões",
+        "body": "A medida acontece dentro de regiões de interesse. Na coluna lombar, de frente, entram as vértebras L1 a L4, uma caixa em cada. As vértebras se contam de baixo para cima, e a crista ilíaca costuma ficar na altura do espaço entre L4 e L5. No fêmur proximal há a região do colo, a do trocânter e o quadril total, que reúne colo, trocânter e parte do fêmur. A caixa do colo não inclui a região do trocânter. Neste esquema os limites são aproximados; o protocolo do serviço define os reais.",
+        "keyPoints": [
+          "Coluna: L1 a L4, uma caixa por vértebra.",
+          "Fêmur: colo, trocânter e quadril total.",
+          "A caixa do colo não inclui o trocânter."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, o que o programa faz com os dois níveis de energia do feixe?",
+          "options": [
+            {
+              "label": "Mede o osso duas vezes e tira a média",
+              "correct": false,
+              "feedback": "Os dois níveis não repetem a medida: cada um é absorvido de um modo por osso e tecido mole."
+            },
+            {
+              "label": "Aumenta o contraste da imagem para o médico",
+              "correct": false,
+              "feedback": "O programa não retoca a imagem: ele usa os dois níveis para separar os tecidos."
+            },
+            {
+              "label": "Corrige o movimento da pessoa durante a medida",
+              "correct": false,
+              "feedback": "Movimento não se corrige com os dois níveis; por isso se pede que a pessoa fique imóvel."
+            },
+            {
+              "label": "Separa o osso do tecido mole na medida",
+              "correct": true,
+              "feedback": "Isso: a diferença de absorção dos dois níveis permite separar osso de tecido mole."
+            }
+          ],
+          "help": "Lembre o que osso e tecido mole fazem de diferente com cada nível.",
+          "sourceIds": [
+            "radiologyinfo-dexa"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule cinco regiões do esquema, tocando na ficha e no ponto. A coluna está à esquerda do desenho e o fêmur, à direita.",
+          "diagramId": "dxa-regioes-de-interesse",
+          "points": [
+            {
+              "label": "Vértebra L1",
+              "x": 0.2188,
+              "y": 0.1625,
+              "where": "a caixa mais alta da coluna"
+            },
+            {
+              "label": "Vértebra L4",
+              "x": 0.2188,
+              "y": 0.5875,
+              "where": "a caixa mais baixa da coluna"
+            },
+            {
+              "label": "Colo do fêmur",
+              "x": 0.7625,
+              "y": 0.3333,
+              "where": "a caixa estreita e inclinada, junto da parte redonda"
+            },
+            {
+              "label": "Trocânter maior",
+              "x": 0.55,
+              "y": 0.4208,
+              "where": "a região sombreada na saliência de fora do osso"
+            },
+            {
+              "label": "Quadril total",
+              "x": 0.6281,
+              "y": 0.7792,
+              "where": "dentro do contorno tracejado, na haste do osso"
+            }
+          ],
+          "distractors": [
+            "Cabeça do fêmur"
+          ],
+          "feedbackCorrect": "Isso mesmo: as caixas da coluna vão de L1, no alto, até L4, e o fêmur tem colo, trocânter e o contorno do quadril total.",
+          "feedbackIncorrect": "Alguma ficha está fora do lugar: na coluna conte de L1 até L4, e no fêmur separe a caixa do colo, a região do trocânter e o contorno tracejado.",
+          "help": "Na coluna, a primeira caixa de cima é a primeira vértebra medida.",
+          "sourceIds": [
+            "iscd-adult-positions",
+            "dxa-practice-guideline-2025"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada região à descrição, como no esquema desta aula.",
+          "pairs": [
+            {
+              "left": "Coluna lombar",
+              "right": "Quatro caixas, uma por vértebra, de L1 a L4"
+            },
+            {
+              "left": "Colo do fêmur",
+              "right": "Caixa estreita que não inclui o trocânter"
+            },
+            {
+              "left": "Trocânter",
+              "right": "Região sobre a saliência de fora do fêmur"
+            },
+            {
+              "left": "Quadril total",
+              "right": "Reúne colo, trocânter e parte do fêmur"
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada região ao que ela cobre neste esquema.",
+          "feedbackIncorrect": "Reveja o conceito: o quadril total reúne as outras regiões do fêmur, e a caixa do colo deixa o trocânter de fora.",
+          "help": "Uma das regiões do fêmur é a soma das outras.",
+          "sourceIds": [
+            "iscd-adult-positions",
+            "dxa-practice-guideline-2025"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "A caixa do colo do fêmur nunca pode invadir uma região vizinha do próprio fêmur, que tem região própria. Toque nessa região.",
+          "diagramId": "dxa-regioes-de-interesse",
+          "regions": [
+            {
+              "label": "Vértebra L1",
+              "x": 0.1563,
+              "y": 0.1167,
+              "width": 0.125,
+              "height": 0.0917
+            },
+            {
+              "label": "Colo do fêmur",
+              "x": 0.7219,
+              "y": 0.2792,
+              "width": 0.0813,
+              "height": 0.1083
+            },
+            {
+              "label": "Trocânter maior",
+              "x": 0.5062,
+              "y": 0.3417,
+              "width": 0.0875,
+              "height": 0.1583,
+              "correct": true
+            },
+            {
+              "label": "Vértebra L4",
+              "x": 0.1563,
+              "y": 0.5417,
+              "width": 0.125,
+              "height": 0.0917
+            },
+            {
+              "label": "Asa do osso do quadril",
+              "x": 0.325,
+              "y": 0.8,
+              "width": 0.0875,
+              "height": 0.1
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: a caixa do colo não inclui o trocânter, que tem região própria.",
+          "feedbackIncorrect": "Essa não é a região vizinha do colo: as vértebras e a asa do quadril nem são do fêmur, e o colo é a própria caixa.",
+          "help": "Pense na saliência do lado de fora do osso, perto do colo.",
+          "sourceIds": [
+            "dxa-practice-guideline-2025"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "categorize",
+          "role": "transfer",
+          "prompt": "Na bancada, Duda separa fichas de regiões. Coloque cada uma no exame a que pertence.",
+          "categories": [
+            "Coluna lombar",
+            "Fêmur proximal"
+          ],
+          "items": [
+            {
+              "label": "Quatro caixas, de L1 a L4",
+              "category": "Coluna lombar"
+            },
+            {
+              "label": "Região do colo",
+              "category": "Fêmur proximal"
+            },
+            {
+              "label": "Referência: crista ilíaca perto de L4 e L5",
+              "category": "Coluna lombar"
+            },
+            {
+              "label": "Região do trocânter",
+              "category": "Fêmur proximal"
+            }
+          ],
+          "feedbackCorrect": "Você separou as regiões de cada exame.",
+          "feedbackIncorrect": "Pergunte de cada ficha: ela fala de vértebras e de como contá-las, ou de partes do fêmur?",
+          "help": "Vértebras e crista ilíaca ficam juntas; colo e trocânter ficam no fêmur.",
+          "sourceIds": [
+            "iscd-adult-positions",
+            "dxa-practice-guideline-2025"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você sabe onde o aparelho mede",
+        "body": "Agora você consegue localizar as caixas da coluna lombar, de L1 a L4, e as regiões do fêmur proximal, sabendo que neste esquema os limites são aproximados.",
+        "line": {
+          "speaker": "lia",
+          "text": "Quando você sabe onde se mede, fica fácil notar quando algo está fora do lugar."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Na coluna lombar do esquema, quais vértebras recebem uma caixa cada?",
+          "options": [
+            {
+              "label": "De L1 a L4",
+              "correct": true,
+              "feedback": "Isso: as quatro caixas cobrem as vértebras de L1 a L4."
+            },
+            {
+              "label": "De L2 a L5",
+              "correct": false,
+              "feedback": "A contagem começa em L1, e a quinta lombar fica sem caixa no esquema."
+            },
+            {
+              "label": "Só a primeira e a última lombar",
+              "correct": false,
+              "feedback": "Cada vértebra de L1 a L4 tem a própria caixa, e não só as das pontas."
+            },
+            {
+              "label": "Todas, da torácica à última lombar",
+              "correct": false,
+              "feedback": "A caixa vai de L1 a L4; a vértebra de cima e a de baixo ficam de fora."
+            }
+          ],
+          "sourceIds": [
+            "iscd-adult-positions",
+            "dxa-practice-guideline-2025"
+          ]
+        },
+        {
+          "prompt": "Para conferir o nível de uma vértebra, a crista ilíaca serve de referência. Perto de qual espaço ela costuma ficar?",
+          "options": [
+            {
+              "label": "Entre L1 e L2",
+              "correct": false,
+              "feedback": "Esse espaço fica bem mais acima, perto do alto da região medida."
+            },
+            {
+              "label": "Entre L2 e L3",
+              "correct": false,
+              "feedback": "Esse espaço fica na parte de cima da coluna lombar, longe da crista."
+            },
+            {
+              "label": "Entre L4 e L5",
+              "correct": true,
+              "feedback": "Isso: a crista ilíaca costuma ficar na altura do espaço entre L4 e L5."
+            },
+            {
+              "label": "Entre L5 e o sacro",
+              "correct": false,
+              "feedback": "Esse espaço fica abaixo da crista, perto da base da coluna."
+            }
+          ],
+          "sourceIds": [
+            "dxa-practice-guideline-2025"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: as vértebras se contam ...",
+          "item": {
+            "prompt": "Em que direção se contam as vértebras lombares, segundo a aula?",
+            "options": [
+              {
+                "label": "De cima para baixo, a partir do crânio",
+                "correct": false,
+                "feedback": "A aula conta de baixo para cima, apoiando-se na crista ilíaca."
+              },
+              {
+                "label": "De baixo para cima",
+                "correct": true,
+                "feedback": "Isso: a contagem parte de baixo, onde a crista ilíaca ajuda a achar L4 e L5."
+              },
+              {
+                "label": "Do centro para as pontas",
+                "correct": false,
+                "feedback": "Não há contagem a partir do centro: ela segue a coluna, de baixo para cima."
+              },
+              {
+                "label": "Da esquerda para a direita",
+                "correct": false,
+                "feedback": "A coluna se conta no sentido vertical, e não de lado a lado."
+              }
+            ],
+            "sourceIds": [
+              "dxa-practice-guideline-2025"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Numa maquete da coluna sem números, Duda quer achar L4. Que referência óssea da aula ela usa?",
+            "options": [
+              {
+                "label": "A crista ilíaca, perto de L4 e L5",
+                "correct": true,
+                "feedback": "Isso: a crista ilíaca é a referência para achar L4 e L5."
+              },
+              {
+                "label": "O trocânter maior, na saliência do fêmur",
+                "correct": false,
+                "feedback": "O trocânter fica no fêmur e não ajuda a contar as vértebras."
+              },
+              {
+                "label": "A cabeça do fêmur, redonda e no encaixe",
+                "correct": false,
+                "feedback": "A cabeça do fêmur está no quadril e não serve para contar a coluna."
+              },
+              {
+                "label": "A caixa do colo, estreita e inclinada",
+                "correct": false,
+                "feedback": "Essa caixa mede o fêmur; para contar vértebras a referência é outra."
+              }
+            ],
+            "sourceIds": [
+              "dxa-practice-guideline-2025"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m30-03",
+      "code": "M30.03",
+      "title": "Posicionar para repetir",
+      "objective": "Hoje você vai conseguir ordenar o posicionamento do fêmur e dizer para que serve cada apoio.",
+      "competency": "Ordenar o posicionamento para a medida do fêmur e relacionar cada apoio ao que ele faz na coluna e no fêmur.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de densitometria",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Deitar a pessoa na mesa não basta? Para que tantos apoios?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Cada apoio tem uma função. E a posição de hoje precisa poder se repetir no exame de daqui a um ano."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Para que serve cada apoio, e em que ordem a pessoa é posicionada para o fêmur?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Cada apoio tem um motivo",
+        "body": "Para a coluna, a pessoa deita de costas com quadril e joelhos dobrados e as pernas sobre um bloco acolchoado, que aplaina a lombar. A coluna fica reta, no meio da mesa. Para o fêmur, o pé vai a um suporte que gira o quadril para dentro; assim o colo do fêmur fica paralelo à mesa. Neste esquema, uma faixa prende o pé. Na ordem ensinada para o fêmur: deitar a pessoa, centrar o corpo na mesa, pôr o pé no suporte, prender o pé e pedir imobilidade. A exatidão da medida depende da posição correta em todo exame.",
+        "keyPoints": [
+          "Bloco: aplaina a lombar.",
+          "Suporte do pé: gira o quadril para dentro.",
+          "A mesma posição se repete a cada exame."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, qual vértebra recebe a caixa mais alta da coluna no esquema?",
+          "options": [
+            {
+              "label": "L1",
+              "correct": true,
+              "feedback": "Isso: a primeira caixa, de cima, cobre L1."
+            },
+            {
+              "label": "L2",
+              "correct": false,
+              "feedback": "L2 é a segunda caixa; a mais alta cobre a vértebra anterior a ela."
+            },
+            {
+              "label": "L3",
+              "correct": false,
+              "feedback": "L3 é a terceira caixa, no meio da coluna medida."
+            },
+            {
+              "label": "L5",
+              "correct": false,
+              "feedback": "L5 fica sem caixa no esquema, abaixo da última caixa."
+            }
+          ],
+          "help": "Lembre onde começa a contagem das caixas.",
+          "sourceIds": [
+            "iscd-adult-positions",
+            "dxa-practice-guideline-2025"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Na vista de cima, toque no pé que está na posição ensinada para a medida do fêmur.",
+          "diagramId": "dxa-posicionamento",
+          "regions": [
+            {
+              "label": "Coluna reta sobre a mesa",
+              "x": 0.1062,
+              "y": 0.5417,
+              "width": 0.1938,
+              "height": 0.0917
+            },
+            {
+              "label": "Bloco sob as pernas",
+              "x": 0.3813,
+              "y": 0.4667,
+              "width": 0.0938,
+              "height": 0.1417
+            },
+            {
+              "label": "Posicionador entre os pés",
+              "x": 0.7312,
+              "y": 0.5333,
+              "width": 0.0875,
+              "height": 0.1
+            },
+            {
+              "label": "Pé à esquerda do desenho",
+              "x": 0.6062,
+              "y": 0.75,
+              "width": 0.0813,
+              "height": 0.1,
+              "correct": true
+            },
+            {
+              "label": "Pé à direita do desenho",
+              "x": 0.87,
+              "y": 0.77,
+              "width": 0.08,
+              "height": 0.16
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: este pé está girado para dentro e preso ao posicionador, como pede a medida do fêmur.",
+          "feedbackIncorrect": "Essa região não é o pé posicionado para o fêmur: procure o pé girado para dentro, preso junto ao posicionador.",
+          "help": "Lembre o que o suporte faz com o pé e, com ele, com o quadril.",
+          "sourceIds": [
+            "radiologyinfo-dexa",
+            "dxa-practice-guideline-2025"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Na ordem ensinada nesta aula, ordene o posicionamento do fêmur.",
+          "items": [
+            "Deitar a pessoa de costas na mesa",
+            "Centrar o corpo na mesa",
+            "Pôr o pé no suporte, virado para dentro",
+            "Prender o pé na posição",
+            "Pedir que a pessoa fique imóvel"
+          ],
+          "feedbackCorrect": "Você seguiu a ordem ensinada, do corpo na mesa até a imobilidade.",
+          "feedbackIncorrect": "Retome a ordem: primeiro o corpo na mesa, depois o pé no suporte e preso, e só então a imobilidade.",
+          "help": "Primeiro o corpo todo, depois o pé, e por último o pedido de imobilidade.",
+          "sourceIds": [
+            "radiologyinfo-dexa",
+            "dxa-practice-guideline-2025"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada apoio ou cuidado ao que ele faz.",
+          "pairs": [
+            {
+              "left": "Bloco sob as pernas",
+              "right": "Reduz a curva da região lombar"
+            },
+            {
+              "left": "Suporte que gira o pé",
+              "right": "Deixa o colo do fêmur paralelo à mesa"
+            },
+            {
+              "left": "Coluna reta, no meio da mesa",
+              "right": "Evita coluna girada na imagem"
+            },
+            {
+              "left": "Faixa no pé, neste esquema",
+              "right": "Mantém o pé na posição virada"
+            }
+          ],
+          "feedbackCorrect": "Cada apoio ficou ligado ao que ele faz.",
+          "feedbackIncorrect": "Reveja o conceito: o bloco trata da curva lombar, e o suporte do pé, da rotação do fêmur.",
+          "help": "Separe o que age na coluna do que age no fêmur.",
+          "sourceIds": [
+            "radiologyinfo-dexa",
+            "dxa-practice-guideline-2025",
+            "dxa-pitfalls-2013"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "conversation",
+          "role": "transfer",
+          "speaker": "paciente",
+          "name": "Dona Beatriz",
+          "prompt": "Dona Beatriz sente o bloco incômodo nos joelhos e hesita. Conduza a conversa dentro do seu papel.",
+          "turns": [
+            {
+              "line": "O bloco está apertando atrás dos meus joelhos. Dá para tirar e esticar as pernas?",
+              "options": [
+                {
+                  "label": "Dá, esticar as pernas é mais confortável, e a medida sai igual do mesmo jeito.",
+                  "correct": false,
+                  "reply": "Ótimo, então pode tirar o bloco logo."
+                },
+                {
+                  "label": "Vou parar um instante, ouvir onde incomoda e chamar a equipe para decidir.",
+                  "correct": true,
+                  "reply": "Obrigada. Não quero atrapalhar o exame."
+                },
+                {
+                  "label": "Aguente só mais um pouco, o bloco precisa ficar para a medida valer.",
+                  "correct": false,
+                  "reply": "Está bem... vou tentar aguentar."
+                }
+              ]
+            },
+            {
+              "line": "E a faixa do pé também aperta. Posso soltar eu mesma?",
+              "options": [
+                {
+                  "label": "Pode soltar, a senhora sabe melhor do que ninguém o que é confortável para o pé.",
+                  "correct": false,
+                  "reply": "Beleza, solto agora e pronto."
+                },
+                {
+                  "label": "Deixe a faixa, é só mais um minuto, depois a senhora relaxa e a medida sai.",
+                  "correct": false,
+                  "reply": "Tá bom, aguento mais um pouco."
+                },
+                {
+                  "label": "Prefiro que espere: a equipe decide se ajusta, e eu registro o relato.",
+                  "correct": true,
+                  "reply": "Está bem, espero a equipe chegar."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você parou, ouviu e levou a decisão à equipe.",
+          "feedbackIncorrect": "Reveja as falas: ajustar apoio cabe à equipe, e o relato da pessoa vai para o registro.",
+          "help": "Diante de desconforto, o que você ouve e a quem você leva a decisão?",
+          "sourceIds": [
+            "radiologyinfo-dexa",
+            "dxa-practice-guideline-2025"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você sabe o porquê de cada apoio",
+        "body": "Agora você consegue ordenar o posicionamento do fêmur e dizer o que o bloco, o suporte e a faixa fazem, lembrando que a mesma posição precisa se repetir a cada exame.",
+        "line": {
+          "speaker": "caio",
+          "text": "Posição não é capricho: é o que deixa o exame de hoje conversar com o de amanhã."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Por que a mesma posição precisa ser repetida a cada exame?",
+          "options": [
+            {
+              "label": "Para a pessoa se acostumar e ficar mais relaxada",
+              "correct": false,
+              "feedback": "Conforto ajuda, mas o motivo é técnico: a medida depende da posição."
+            },
+            {
+              "label": "Para o exame demorar menos a cada vez",
+              "correct": false,
+              "feedback": "Tempo não é o motivo: a exatidão da medida é que depende da posição."
+            },
+            {
+              "label": "A exatidão da medida depende da posição em todo exame",
+              "correct": true,
+              "feedback": "Isso: sem a mesma posição, a medida de um exame não acompanha a do outro."
+            },
+            {
+              "label": "Porque o aparelho só liga se a posição for idêntica",
+              "correct": false,
+              "feedback": "O aparelho não trava pela posição: o cuidado é seu, para a medida ser exata."
+            }
+          ],
+          "sourceIds": [
+            "dxa-practice-guideline-2025"
+          ]
+        },
+        {
+          "prompt": "Dona Beatriz está deitada de costas, com quadril e joelhos dobrados e as pernas sobre o bloco. Que medida está sendo preparada?",
+          "options": [
+            {
+              "label": "A da coluna lombar",
+              "correct": true,
+              "feedback": "Isso: o bloco sob as pernas aplaina a lombar para a medida da coluna."
+            },
+            {
+              "label": "A do fêmur, com o quadril girado",
+              "correct": false,
+              "feedback": "Para o fêmur, a perna fica estendida e o pé vai ao suporte que o gira para dentro."
+            },
+            {
+              "label": "A do corpo inteiro, por regiões",
+              "correct": false,
+              "feedback": "No corpo inteiro a pessoa fica estendida; o bloco sob as pernas é da medida da coluna."
+            },
+            {
+              "label": "Nenhuma: o bloco é só conforto",
+              "correct": false,
+              "feedback": "O bloco não é só conforto: ele aplaina a lombar para a medida da coluna."
+            }
+          ],
+          "sourceIds": [
+            "radiologyinfo-dexa",
+            "dxa-practice-guideline-2025"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: para aplainar a região lombar, as pernas sobem num ...",
+          "item": {
+            "prompt": "Que apoio aplaina a região lombar na medida da coluna?",
+            "options": [
+              {
+                "label": "O bloco sob as pernas",
+                "correct": true,
+                "feedback": "Isso: o bloco eleva as pernas e aplaina a pelve e a lombar."
+              },
+              {
+                "label": "O suporte que gira o pé",
+                "correct": false,
+                "feedback": "Esse suporte age no fêmur, girando o quadril para dentro."
+              },
+              {
+                "label": "A faixa sobre o pé",
+                "correct": false,
+                "feedback": "A faixa prende o pé na posição; não age na curva da lombar."
+              },
+              {
+                "label": "O braço do detector",
+                "correct": false,
+                "feedback": "O braço leva o detector acima da pessoa e não muda a curva da lombar."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-dexa",
+              "dxa-practice-guideline-2025"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num estúdio, um fotógrafo põe uma almofada sob os joelhos do modelo deitado para as costas ficarem retas. O que no densitômetro faz algo parecido?",
+            "options": [
+              {
+                "label": "O suporte que gira o pé",
+                "correct": false,
+                "feedback": "Ele gira o quadril para dentro; não reduz a curva das costas."
+              },
+              {
+                "label": "A faixa que prende o pé",
+                "correct": false,
+                "feedback": "A faixa mantém o pé na posição; ela não age nas costas."
+              },
+              {
+                "label": "O braço do detector",
+                "correct": false,
+                "feedback": "O braço leva o detector e não ajusta a posição das costas."
+              },
+              {
+                "label": "O bloco sob as pernas",
+                "correct": true,
+                "feedback": "Isso: como a almofada, o bloco aplaina a parte baixa da coluna."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-dexa",
+              "dxa-practice-guideline-2025"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m30-04",
+      "code": "M30.04",
+      "title": "O que estraga a medida",
+      "objective": "Hoje você vai conseguir achar na imagem o que não deveria estar lá e dizer a quem avisar.",
+      "competency": "Reconhecer metal, zíper, coluna inclinada e caixa de região fora da vértebra num esquema de imagem e avisar a equipe, sem decidir repetir nem excluir.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de análise",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "A imagem da coluna saiu com um ponto muito branco sobre uma vértebra. Eu apago ou repito?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Nenhuma das duas. Primeiro olhe a imagem inteira e descreva o que vê."
+          },
+          {
+            "speaker": "pixel",
+            "text": "O que não deveria estar na imagem? E a quem você conta?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Descrever, não corrigir",
+        "body": "Na imagem da coluna, confira o que não é osso e o que não está no lugar. Metal, como um zíper, um botão ou uma joia, pode alterar a medida. A coluna deve ficar reta, com os processos espinhosos no meio da imagem. A caixa de cada região deve cobrir a vértebra. Antes de deitar a pessoa, roupa sem metal e sem joias ajuda. Retirar o objeto, excluir uma vértebra ou repetir a aquisição é decisão da equipe. Você descreve o que vê e avisa.",
+        "keyPoints": [
+          "Metal, coluna torta ou caixa fora da vértebra: descreva.",
+          "Quem corrige, exclui ou repete é a equipe.",
+          "Roupa sem metal e sem joias, antes de deitar."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, que apoio gira o quadril para dentro na medida do fêmur?",
+          "options": [
+            {
+              "label": "O bloco sob as pernas",
+              "correct": false,
+              "feedback": "O bloco age na coluna, aplainando a lombar."
+            },
+            {
+              "label": "O suporte em que o pé é preso",
+              "correct": true,
+              "feedback": "Isso: o suporte gira o pé e, com ele, o quadril para dentro."
+            },
+            {
+              "label": "A faixa da cintura",
+              "correct": false,
+              "feedback": "Não há faixa de cintura nesse esquema: a faixa prende o pé."
+            },
+            {
+              "label": "O tampo acolchoado da mesa",
+              "correct": false,
+              "feedback": "O tampo só sustenta a pessoa e não gira o quadril."
+            }
+          ],
+          "help": "Pense no apoio em que o pé fica preso.",
+          "sourceIds": [
+            "radiologyinfo-dexa",
+            "dxa-practice-guideline-2025"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "risk-hunt",
+          "role": "practice",
+          "prompt": "Na imagem esquemática da coluna, toque em tudo que pode estragar a medida.",
+          "diagramId": "dxa-interferencias",
+          "regions": [
+            {
+              "label": "Asa do quadril, à esquerda do desenho",
+              "x": 0.2062,
+              "y": 0.6667,
+              "width": 0.0875,
+              "height": 0.1,
+              "risk": false,
+              "feedback": "A asa do osso do quadril é anatomia, e não interferência: ela serve de referência para contar as vértebras."
+            },
+            {
+              "label": "Ponto muito claro sobre uma vértebra",
+              "x": 0.4156,
+              "y": 0.3625,
+              "width": 0.0813,
+              "height": 0.1,
+              "risk": true,
+              "feedback": "Um ponto muito claro sobre a vértebra pode ser metal e alterar a medida: você descreve onde está e avisa a equipe."
+            },
+            {
+              "label": "Caixa sobre meia vértebra e o disco",
+              "x": 0.375,
+              "y": 0.625,
+              "width": 0.1437,
+              "height": 0.1,
+              "risk": true,
+              "feedback": "Neste esquema a caixa cobre meia vértebra e o disco: a região medida não é a vértebra. Você descreve, e a equipe corrige."
+            },
+            {
+              "label": "Caixa sobre uma vértebra, no alto",
+              "x": 0.325,
+              "y": 0.0583,
+              "width": 0.1437,
+              "height": 0.125,
+              "risk": false,
+              "feedback": "Esta caixa cobre a vértebra, de disco a disco: está no lugar e não é problema."
+            },
+            {
+              "label": "Linha de dentes ao lado da coluna",
+              "x": 0.7781,
+              "y": 0.4167,
+              "width": 0.0813,
+              "height": 0.1667,
+              "risk": true,
+              "feedback": "O zíper é metal que não deveria estar na imagem: zíperes estão entre os objetos que interferem. Você descreve e avisa; a equipe avalia."
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: o metal, o zíper e a caixa fora do lugar podem estragar a medida, e a asa do osso e a caixa certa, não.",
+          "feedbackIncorrect": "Reveja a imagem: falta marcar algo que interfere, ou foi marcada uma parte que está certa.",
+          "help": "Procure o que não é osso e o que não está sobre a vértebra.",
+          "sourceIds": [
+            "dxa-pitfalls-2013",
+            "dxa-practice-guideline-2025"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "multi-select",
+          "role": "practice",
+          "prompt": "Marque todas as atitudes certas ao ver um ponto muito claro sobre uma vértebra.",
+          "options": [
+            {
+              "label": "Apagar o ponto da imagem antes de mostrar à equipe",
+              "correct": false,
+              "feedback": "Apagar esconde o problema: a equipe precisa ver a imagem como ela saiu."
+            },
+            {
+              "label": "Descrever onde o ponto está e como ele parece",
+              "correct": true,
+              "feedback": "Descrever com precisão ajuda a equipe a entender o que aconteceu."
+            },
+            {
+              "label": "Excluir a vértebra do cálculo por conta própria",
+              "correct": false,
+              "feedback": "Excluir uma vértebra é decisão da equipe, e não do estudante."
+            },
+            {
+              "label": "Avisar a equipe antes de qualquer outra ação",
+              "correct": true,
+              "feedback": "O aviso vem primeiro: a equipe decide o que fazer com a imagem."
+            },
+            {
+              "label": "Esperar o fim do turno para comentar o ponto",
+              "correct": false,
+              "feedback": "Esperar deixa a pessoa e a imagem sem decisão: o aviso é imediato."
+            },
+            {
+              "label": "Registrar o que foi visto e o que foi dito à equipe",
+              "correct": true,
+              "feedback": "O registro deixa claro o que foi observado e a quem foi comunicado."
+            }
+          ],
+          "feedbackCorrect": "Você descreveu, avisou e registrou, sem decidir pela equipe.",
+          "feedbackIncorrect": "Releia o conceito: você descreve, avisa e registra; apagar, excluir e esperar não são o seu papel.",
+          "help": "O que é seu fazer, e o que é da equipe decidir?",
+          "sourceIds": [
+            "dxa-pitfalls-2013",
+            "dxa-practice-guideline-2025"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada cuidado conforme o momento em que ele aparece.",
+          "categories": [
+            "Antes de deitar a pessoa",
+            "Na imagem já feita"
+          ],
+          "items": [
+            {
+              "label": "Pedir que tire joias e objetos de metal",
+              "category": "Antes de deitar a pessoa"
+            },
+            {
+              "label": "Notar um ponto muito claro sobre a vértebra",
+              "category": "Na imagem já feita"
+            },
+            {
+              "label": "Conferir se a roupa tem zíper ou botão de metal",
+              "category": "Antes de deitar a pessoa"
+            },
+            {
+              "label": "Ver a caixa fora da vértebra",
+              "category": "Na imagem já feita"
+            },
+            {
+              "label": "Ver a coluna inclinada em relação ao eixo",
+              "category": "Na imagem já feita"
+            }
+          ],
+          "feedbackCorrect": "Você separou o que se previne do que se vê depois.",
+          "feedbackIncorrect": "Pergunte de cada cuidado: dá para evitar com a pessoa ainda vestida, ou só aparece olhando a imagem?",
+          "help": "Roupa e joias se conferem antes; o resto aparece na imagem.",
+          "sourceIds": [
+            "radiologyinfo-dexa",
+            "dxa-pitfalls-2013"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Na imagem do fêmur de Dona Zélia, Duda vê uma linha de dentes claros ao lado do osso. Julgue cada afirmação dela.",
+          "statements": [
+            {
+              "text": "Uma linha de dentes de zíper na imagem pode interferir na medida.",
+              "correct": true,
+              "feedback": "Certo: zíper de metal está entre os objetos que interferem; a equipe avalia o efeito."
+            },
+            {
+              "text": "Posso excluir a região do fêmur do cálculo por conta própria.",
+              "correct": false,
+              "feedback": "Errado: excluir uma região é decisão da equipe, e não do estudante."
+            },
+            {
+              "text": "Descrevo a linha e aviso a equipe, que decide o que fazer.",
+              "correct": true,
+              "feedback": "Certo: você descreve e avisa, e a equipe decide a correção."
+            },
+            {
+              "text": "Posso repetir a aquisição agora, sem falar com ninguém.",
+              "correct": false,
+              "feedback": "Errado: repetir é nova exposição e decisão da equipe, depois do seu aviso."
+            }
+          ],
+          "feedbackCorrect": "Você manteve o seu papel: descrever e avisar.",
+          "feedbackIncorrect": "Releia o conceito: retirar, excluir ou repetir é decisão da equipe.",
+          "help": "O que o estudante faz, e o que fica com a equipe?",
+          "sourceIds": [
+            "dxa-pitfalls-2013",
+            "dxa-practice-guideline-2025"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você acha o que não deveria estar lá",
+        "body": "Agora você consegue achar metal, zíper, coluna torta e caixa fora do lugar num esquema de imagem e dizer o que fazer: descrever e avisar a equipe.",
+        "line": {
+          "speaker": "lia",
+          "text": "Quem descreve com clareza poupa tempo da equipe e protege a medida."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Na imagem da coluna, como os processos espinhosos devem aparecer?",
+          "options": [
+            {
+              "label": "Desviados para um lado, seguindo a mesa",
+              "correct": false,
+              "feedback": "Desviados indicam coluna fora do eixo: eles devem ficar no meio da imagem."
+            },
+            {
+              "label": "Fora da imagem, para mostrar só os corpos",
+              "correct": false,
+              "feedback": "Eles ficam na imagem, no meio dela, com a coluna reta."
+            },
+            {
+              "label": "Em curva, acompanhando a lombar",
+              "correct": false,
+              "feedback": "A coluna deve ficar reta na imagem, e não em curva."
+            },
+            {
+              "label": "No meio da imagem, com a coluna reta",
+              "correct": true,
+              "feedback": "Isso: coluna reta e processos espinhosos no meio da imagem."
+            }
+          ],
+          "sourceIds": [
+            "dxa-pitfalls-2013"
+          ]
+        },
+        {
+          "prompt": "Duda vê um zíper ao lado da coluna e quer excluir a vértebra da conta. O que você diz?",
+          "options": [
+            {
+              "label": "Exclua, para a medida não ficar errada",
+              "correct": false,
+              "feedback": "Excluir vértebra é decisão da equipe, e não de quem posiciona."
+            },
+            {
+              "label": "Descreva o que vê e avise: a equipe decide",
+              "correct": true,
+              "feedback": "Isso: você descreve e avisa, e a equipe decide a correção."
+            },
+            {
+              "label": "Repita agora, antes de a pessoa se levantar",
+              "correct": false,
+              "feedback": "Repetir é nova exposição e decisão da equipe, depois do aviso."
+            },
+            {
+              "label": "Deixe como está, zíper não altera a medida",
+              "correct": false,
+              "feedback": "Metal na imagem se descreve e se avisa: quem avalia o efeito na medida é a equipe."
+            }
+          ],
+          "sourceIds": [
+            "dxa-pitfalls-2013",
+            "dxa-practice-guideline-2025"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: diante de metal na imagem, eu descrevo o que vejo e ...",
+          "item": {
+            "prompt": "O que você faz depois de descrever o que viu na imagem?",
+            "options": [
+              {
+                "label": "Apago o ponto e sigo o turno",
+                "correct": false,
+                "feedback": "Apagar esconde o problema e a equipe fica sem saber."
+              },
+              {
+                "label": "Excluo a vértebra por minha conta",
+                "correct": false,
+                "feedback": "Excluir uma vértebra é decisão da equipe."
+              },
+              {
+                "label": "Aviso a equipe",
+                "correct": true,
+                "feedback": "Isso: depois de descrever, você avisa a equipe, que decide."
+              },
+              {
+                "label": "Espero a pessoa ir embora",
+                "correct": false,
+                "feedback": "Esperar deixa a imagem sem decisão; o aviso é imediato."
+              }
+            ],
+            "sourceIds": [
+              "dxa-pitfalls-2013",
+              "dxa-practice-guideline-2025"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Numa foto de documento, um reflexo cobre parte do rosto. Que ideia da aula essa situação lembra?",
+            "options": [
+              {
+                "label": "Uma caixa fora da vértebra mede a região certa",
+                "correct": false,
+                "feedback": "Não: caixa fora da vértebra mede outra região, e não a pedida."
+              },
+              {
+                "label": "Um objeto brilhante sobre a região atrapalha a leitura",
+                "correct": true,
+                "feedback": "Isso: como o reflexo na foto, o metal sobre a região pode alterar a medida."
+              },
+              {
+                "label": "A coluna inclinada sempre melhora a imagem da medida",
+                "correct": false,
+                "feedback": "Coluna inclinada é uma interferência, e não uma melhora."
+              },
+              {
+                "label": "Roupa solta e sem metal deixa a pessoa mais pesada",
+                "correct": false,
+                "feedback": "Roupa solta e sem metal ajuda a medida; peso não está em jogo."
+              }
+            ],
+            "sourceIds": [
+              "radiologyinfo-dexa",
+              "dxa-pitfalls-2013"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m30-05",
+      "code": "M30.05",
+      "title": "Corpo inteiro e composição",
+      "objective": "Hoje você vai conseguir dizer em que componentes e regiões o exame de corpo inteiro divide o corpo.",
+      "competency": "Dizer que o exame de corpo inteiro separa osso, massa magra e gordura, por regiões (cabeça, braços, tronco e pernas).",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de densitometria",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Seu Lauro",
+            "text": "Disseram que desta vez o exame é do corpo todo. Vão olhar só os ossos?"
+          },
+          {
+            "speaker": "caio",
+            "text": "O exame abrange o corpo todo e separa o que há nele em partes. Cada parte tem nome."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Quais são essas partes? E como o corpo é dividido em regiões?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Três componentes, quatro regiões",
+        "visual": "corpo-inteiro-composicao",
+        "body": "O exame de corpo inteiro abrange o corpo todo e separa três componentes: osso, massa magra e gordura. Linhas de corte dividem o corpo em cabeça, braços, tronco e pernas, e cada região recebe os três valores. Na figura, as três faixas são só legenda de cor, sem proporção. O laudo traz a massa magra total e a massa de gordura total. A posição de braços e pernas segue o que o serviço define.",
+        "keyPoints": [
+          "Três componentes: osso, massa magra e gordura.",
+          "Regiões: cabeça, braços, tronco e pernas."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, o que um objeto de metal sobre a vértebra pode fazer com a medida?",
+          "options": [
+            {
+              "label": "Melhorar a nitidez da imagem da coluna",
+              "correct": false,
+              "feedback": "Metal não melhora a imagem: ele é uma interferência."
+            },
+            {
+              "label": "Aproximar a caixa da região da vértebra",
+              "correct": false,
+              "feedback": "O metal não move a caixa; ele soma outra coisa à imagem."
+            },
+            {
+              "label": "Alterar a medida, e por isso se avisa a equipe",
+              "correct": true,
+              "feedback": "Isso: metal pode alterar a medida, e você descreve e avisa."
+            },
+            {
+              "label": "Nada, porque só o osso aparece na imagem",
+              "correct": false,
+              "feedback": "Objetos densos também aparecem na imagem e podem interferir."
+            }
+          ],
+          "help": "Lembre a lista de interferências da aula anterior.",
+          "sourceIds": [
+            "dxa-pitfalls-2013"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule as quatro regiões em que o exame divide o corpo, tocando na ficha e no ponto.",
+          "diagramId": "corpo-inteiro-composicao",
+          "points": [
+            {
+              "label": "Cabeça",
+              "x": 0.3438,
+              "y": 0.1167,
+              "where": "no alto, a forma redonda acima da linha do queixo"
+            },
+            {
+              "label": "Tronco",
+              "x": 0.3438,
+              "y": 0.3458,
+              "where": "no meio do desenho, entre as duas linhas dos ombros"
+            },
+            {
+              "label": "Braço",
+              "x": 0.2219,
+              "y": 0.5708,
+              "where": "à esquerda do desenho, a forma comprida solta do corpo"
+            },
+            {
+              "label": "Perna",
+              "x": 0.3062,
+              "y": 0.829,
+              "where": "embaixo, a forma comprida abaixo do V"
+            }
+          ],
+          "distractors": [
+            "Pescoço"
+          ],
+          "feedbackCorrect": "Isso mesmo: as linhas de corte separam cabeça, tronco, braços e pernas.",
+          "feedbackIncorrect": "Alguma ficha está fora do lugar: siga as linhas de corte, da linha do queixo até o V entre as pernas.",
+          "help": "Comece pelo alto do desenho e desça seguindo as linhas.",
+          "sourceIds": [
+            "body-composition-dxa-2017"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Separe o que é componente do corpo e o que é região do corpo.",
+          "categories": [
+            "Componente",
+            "Região"
+          ],
+          "items": [
+            {
+              "label": "Massa magra",
+              "category": "Componente"
+            },
+            {
+              "label": "Pernas",
+              "category": "Região"
+            },
+            {
+              "label": "Gordura",
+              "category": "Componente"
+            },
+            {
+              "label": "Tronco",
+              "category": "Região"
+            },
+            {
+              "label": "Osso",
+              "category": "Componente"
+            },
+            {
+              "label": "Cabeça",
+              "category": "Região"
+            }
+          ],
+          "feedbackCorrect": "Você separou do que o corpo é feito do lugar onde ele está.",
+          "feedbackIncorrect": "Pergunte de cada ficha: ela diz do que o corpo é feito, ou em que parte do corpo se mede?",
+          "help": "Região é um lugar do corpo; componente é um material.",
+          "sourceIds": [
+            "body-composition-dxa-2017"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre a figura e o exame.",
+          "statements": [
+            {
+              "text": "O exame separa o corpo em osso, massa magra e gordura.",
+              "correct": true,
+              "feedback": "Certo: são os três componentes que o exame separa."
+            },
+            {
+              "text": "As três faixas mostram quanto de cada componente a pessoa tem.",
+              "correct": false,
+              "feedback": "Errado: as faixas têm a mesma altura; são legenda de cor, e não proporção medida."
+            },
+            {
+              "text": "Cada região, como as pernas, recebe os três valores.",
+              "correct": true,
+              "feedback": "Certo: cada região é avaliada para osso, massa magra e gordura."
+            },
+            {
+              "text": "O exame de corpo inteiro mede só a coluna e o quadril.",
+              "correct": false,
+              "feedback": "Errado: o exame abrange o corpo todo, e não só os locais da coluna e do fêmur."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que a figura mostra do que ela só ilustra.",
+          "feedbackIncorrect": "Releia o conceito: as faixas são só legenda de cor, e o exame abrange o corpo todo.",
+          "help": "As faixas da figura medem alguma coisa ou só dão cor aos componentes?",
+          "sourceIds": [
+            "body-composition-dxa-2017"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Seu Lauro, paciente simulado, está com os braços cruzados sobre o peito, e a mesa é estreita. Duda quer deixá-los assim para caber e diz que a posição dos braços não faz diferença. O pedido é de corpo inteiro.",
+          "prompt": "O que você faz diante da sugestão de Duda?",
+          "options": [
+            {
+              "label": "Deixar os braços assim, pois a posição não faz diferença",
+              "correct": false,
+              "feedback": "A posição de braços e pernas segue o padrão do serviço, então ela importa."
+            },
+            {
+              "label": "Perguntar à equipe qual posição de braços o serviço define",
+              "correct": true,
+              "feedback": "Isso: a posição de braços, mãos, pernas e pés segue o que o serviço define."
+            },
+            {
+              "label": "Pedir que ele afaste os braços o máximo que conseguir",
+              "correct": false,
+              "feedback": "Afastar ao máximo é decisão sua, e não o que o serviço definiu."
+            },
+            {
+              "label": "Trocar o exame de corpo inteiro pelo da coluna",
+              "correct": false,
+              "feedback": "Trocar o exame não é decisão do estudante, e o pedido continua sendo de corpo inteiro."
+            }
+          ],
+          "help": "Quem define o padrão de posição dos braços e das pernas?",
+          "sourceIds": [
+            "dxa-practice-guideline-2025"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você separa o corpo em componentes e regiões",
+        "body": "Agora você consegue dizer que o exame de corpo inteiro separa osso, massa magra e gordura, por cabeça, braços, tronco e pernas, e que as faixas da figura são só legenda de cor.",
+        "line": {
+          "speaker": "caio",
+          "text": "Quando alguém perguntar o que o exame faz, você já tem as três palavras e as quatro regiões."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Em quantos componentes o exame de corpo inteiro separa o corpo, segundo a aula?",
+          "options": [
+            {
+              "label": "Em dois: massa magra e gordura, sem o osso",
+              "correct": false,
+              "feedback": "O osso também é um componente: são osso, massa magra e gordura."
+            },
+            {
+              "label": "Em três: osso, massa magra e gordura",
+              "correct": true,
+              "feedback": "Isso: são os três componentes que o exame separa."
+            },
+            {
+              "label": "Em cinco, um para cada região do corpo",
+              "correct": false,
+              "feedback": "As regiões são cabeça, braços, tronco e pernas; os componentes são outros."
+            },
+            {
+              "label": "Em um só: a massa total do corpo",
+              "correct": false,
+              "feedback": "O exame separa três componentes, e não só o total."
+            }
+          ],
+          "sourceIds": [
+            "body-composition-dxa-2017"
+          ]
+        },
+        {
+          "prompt": "Na figura, o que as três faixas de cor empilhadas representam?",
+          "options": [
+            {
+              "label": "Três regiões do corpo, todas com a mesma massa total",
+              "correct": false,
+              "feedback": "As regiões são mostradas pelas linhas de corte, e não pelas faixas."
+            },
+            {
+              "label": "A parte do corpo que recebe mais radiação no exame",
+              "correct": false,
+              "feedback": "As faixas não indicam radiação: elas dão cor aos componentes."
+            },
+            {
+              "label": "Os três componentes, como legenda de cor sem proporção",
+              "correct": true,
+              "feedback": "Isso: as faixas são só legenda dos componentes, sem proporção medida."
+            },
+            {
+              "label": "Três exames feitos em dias diferentes, em sequência",
+              "correct": false,
+              "feedback": "As faixas não representam datas: elas representam os componentes."
+            }
+          ],
+          "sourceIds": [
+            "body-composition-dxa-2017"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: osso, massa magra e ...",
+          "item": {
+            "prompt": "Qual é o terceiro componente que o exame de corpo inteiro separa?",
+            "options": [
+              {
+                "label": "Cartilagem",
+                "correct": false,
+                "feedback": "Cartilagem não está entre os componentes do exame."
+              },
+              {
+                "label": "Sangue",
+                "correct": false,
+                "feedback": "Sangue não é um dos três componentes separados."
+              },
+              {
+                "label": "Pele",
+                "correct": false,
+                "feedback": "Pele não é um componente: o exame separa osso, massa magra e outro."
+              },
+              {
+                "label": "Gordura",
+                "correct": true,
+                "feedback": "Isso: osso, massa magra e gordura são os três componentes."
+              }
+            ],
+            "sourceIds": [
+              "body-composition-dxa-2017"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Numa loja, o estoque se divide por prateleira e, em cada prateleira, por tipo de produto. No exame, o que corresponde à prateleira?",
+            "options": [
+              {
+                "label": "A região do corpo, como as pernas",
+                "correct": true,
+                "feedback": "Isso: a prateleira é o lugar, como a região do corpo."
+              },
+              {
+                "label": "O componente, como a gordura",
+                "correct": false,
+                "feedback": "O tipo de produto corresponde ao componente, e não à prateleira."
+              },
+              {
+                "label": "O relatório do médico",
+                "correct": false,
+                "feedback": "O relatório é o resultado, e não o lugar onde se mede."
+              },
+              {
+                "label": "A faixa de cor da figura",
+                "correct": false,
+                "feedback": "A faixa é só legenda de cor dos componentes."
+              }
+            ],
+            "sourceIds": [
+              "body-composition-dxa-2017"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m30-06",
+      "code": "M30.06",
+      "title": "Comparar com o exame anterior",
+      "objective": "Hoje você vai conseguir dizer o que precisa se repetir para dois exames serem comparáveis.",
+      "competency": "Reconhecer o que precisa ser igual (região, posição e caixas) para comparar dois exames e levar à equipe o que falta.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Recepção do setor",
+        "lines": [
+          {
+            "speaker": "paciente",
+            "name": "Seu Heitor",
+            "text": "Trouxe o exame do ano passado. Vão medir igualzinho, para o médico poder comparar?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Quem compara é o médico. A nossa parte é medir de um jeito que possa ser comparado."
+          },
+          {
+            "speaker": "pixel",
+            "text": "O que precisa se repetir de um exame para o outro?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Repetir para poder comparar",
+        "visual": "dxa-posicionamento",
+        "body": "Para o médico comparar dois exames, a medida precisa se repetir: a mesma região, o mesmo lado, a mesma posição e as mesmas caixas. Na figura, o bloco sob as pernas e o pé virado para dentro, preso ao suporte, são posições a repetir. As caixas das regiões do quadril são replicadas de um exame para o outro. Qual lado ou região medir, o protocolo do serviço define; na dúvida, você leva à equipe.",
+        "keyPoints": [
+          "Mesma região, mesmo lado, mesma posição, mesmas caixas.",
+          "Caixas do quadril: replicadas a cada exame.",
+          "Lado e região: o protocolo define."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula de posicionamento, para que serve o bloco sob as pernas na medida da coluna?",
+          "options": [
+            {
+              "label": "Aplaina a pelve e a parte baixa da coluna",
+              "correct": true,
+              "feedback": "Isso: o bloco reduz a curva lombar para a medida da coluna."
+            },
+            {
+              "label": "Gira o quadril para dentro, para o fêmur",
+              "correct": false,
+              "feedback": "Quem gira o quadril é o suporte do pé, no exame do fêmur."
+            },
+            {
+              "label": "Prende o pé para a pessoa não se mexer",
+              "correct": false,
+              "feedback": "Quem prende o pé neste esquema é a faixa, e não o bloco."
+            },
+            {
+              "label": "Leva o detector para perto da pessoa",
+              "correct": false,
+              "feedback": "O bloco só apoia as pernas; o detector fica no braço acima."
+            }
+          ],
+          "help": "Pense no que acontece com a curva da região lombar.",
+          "sourceIds": [
+            "radiologyinfo-dexa",
+            "dxa-practice-guideline-2025"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "O exame anterior mediu o quadril total. Toque no contorno que marca a região que o exame novo precisa medir de novo.",
+          "diagramId": "dxa-regioes-de-interesse",
+          "regions": [
+            {
+              "label": "Área sombreada na saliência",
+              "x": 0.5062,
+              "y": 0.3417,
+              "width": 0.0875,
+              "height": 0.1583
+            },
+            {
+              "label": "Caixa estreita e inclinada",
+              "x": 0.7219,
+              "y": 0.2792,
+              "width": 0.0813,
+              "height": 0.1083
+            },
+            {
+              "label": "Contorno tracejado, na haste",
+              "x": 0.5625,
+              "y": 0.7333,
+              "width": 0.1313,
+              "height": 0.0917,
+              "correct": true
+            },
+            {
+              "label": "Caixa mais alta da coluna",
+              "x": 0.1563,
+              "y": 0.1167,
+              "width": 0.125,
+              "height": 0.0917
+            },
+            {
+              "label": "Caixa mais baixa da coluna",
+              "x": 0.1563,
+              "y": 0.5417,
+              "width": 0.125,
+              "height": 0.0917
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: o contorno tracejado é o quadril total, e o exame novo mede de novo essa mesma região.",
+          "feedbackIncorrect": "Essa é outra região: o quadril total é o contorno que reúne colo, trocânter e a parte logo abaixo.",
+          "help": "Qual região do fêmur reúne as outras duas?",
+          "sourceIds": [
+            "dxa-practice-guideline-2025",
+            "iscd-adult-positions"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre comparar dois exames.",
+          "statements": [
+            {
+              "text": "O exame novo deve medir as mesmas regiões que o anterior.",
+              "correct": true,
+              "feedback": "Certo: sem a mesma região, os dois exames não medem a mesma coisa."
+            },
+            {
+              "text": "O estudante escolhe o lado do quadril a medir no exame de acompanhamento.",
+              "correct": false,
+              "feedback": "Errado: o lado e a região o protocolo do serviço define; dúvidas vão para a equipe."
+            },
+            {
+              "text": "A posição do pé e das pernas deve repetir a do exame anterior.",
+              "correct": true,
+              "feedback": "Certo: a exatidão da medida depende da posição correta em todo exame."
+            },
+            {
+              "text": "As caixas das regiões do quadril são replicadas no exame seguinte.",
+              "correct": true,
+              "feedback": "Certo: replicar as caixas mantém a mesma região medida ao longo do tempo."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que precisa se repetir do que o protocolo define.",
+          "feedbackIncorrect": "Releia o conceito: região, posição e caixas se repetem, e o lado é definido pelo protocolo.",
+          "help": "Pense no que precisa ser igual, e em quem decide o lado.",
+          "sourceIds": [
+            "dxa-practice-guideline-2025",
+            "iscd-adult-positions"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "case-decision",
+          "role": "safety",
+          "context": "Seu Heitor trouxe o exame de outro serviço, sem registro de como o pé foi posicionado. Duda propõe: posicionar como parecer melhor e anotar que está igual ao anterior.",
+          "prompt": "O que você faz diante da proposta de Duda?",
+          "options": [
+            {
+              "label": "Posicionar do jeito que parecer melhor e anotar que é igual",
+              "correct": false,
+              "feedback": "Anotar \"igual\" sem saber a posição anterior registra algo que ninguém conferiu."
+            },
+            {
+              "label": "Pedir que ele lembre a posição e anotar o que ele disser",
+              "correct": false,
+              "feedback": "A lembrança da pessoa não substitui o registro: ela pode não saber a posição."
+            },
+            {
+              "label": "Medir só a coluna, que não precisa de registro de posição",
+              "correct": false,
+              "feedback": "Trocar a região não é decisão sua, e a coluna também depende de posição."
+            },
+            {
+              "label": "Avisar a equipe de que falta o registro e seguir o que ela definir",
+              "correct": true,
+              "feedback": "Isso: falta a posição anterior, e quem decide como seguir é a equipe."
+            }
+          ],
+          "help": "Sem o registro, você descobre a posição ou avisa quem decide?",
+          "sourceIds": [
+            "dxa-practice-guideline-2025",
+            "iscd-adult-positions"
+          ],
+          "criticalSafety": true
+        },
+        {
+          "id": "i5",
+          "type": "conversation",
+          "role": "transfer",
+          "speaker": "paciente",
+          "name": "Seu Heitor",
+          "prompt": "Seu Heitor quer saber se o exame de hoje será igual ao do ano passado. Responda dentro do seu papel.",
+          "turns": [
+            {
+              "line": "O médico vai comparar os dois, né? Vão me medir do mesmo jeito?",
+              "options": [
+                {
+                  "label": "Cada exame é de um jeito, e o programa se encarrega de ajustar depois.",
+                  "correct": false,
+                  "reply": "Então não importa como eu fique, é isso?"
+                },
+                {
+                  "label": "Confiro no registro como foi feito e sigo o protocolo.",
+                  "correct": true,
+                  "reply": "Ótimo, então tem um registro. Isso me dá confiança."
+                },
+                {
+                  "label": "Vou deixar o senhor na posição mais confortável, que o resto se acerta.",
+                  "correct": false,
+                  "reply": "Bom, o conforto é importante, mas e a comparação?"
+                }
+              ]
+            },
+            {
+              "line": "Hoje meu quadril esquerdo dói menos. Posso medir ele em vez do direito?",
+              "options": [
+                {
+                  "label": "Pode, o lado que dói menos é sempre o melhor para medir.",
+                  "correct": false,
+                  "reply": "Então medimos o esquerdo e pronto."
+                },
+                {
+                  "label": "Se o senhor prefere, medimos o esquerdo, e eu anoto a sua escolha.",
+                  "correct": false,
+                  "reply": "Está bem, eu escolhi o esquerdo."
+                },
+                {
+                  "label": "O protocolo define o lado. Aviso a equipe do que o senhor disse.",
+                  "correct": true,
+                  "reply": "Tudo bem, então aguardo a equipe."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você disse que segue o registro e o protocolo, e levou a escolha de lado à equipe.",
+          "feedbackIncorrect": "Reveja as falas: a comparação depende de repetir região e posição, e o lado é definido pelo protocolo.",
+          "help": "O que o protocolo define, e o que você leva à equipe?",
+          "sourceIds": [
+            "dxa-practice-guideline-2025",
+            "iscd-adult-positions"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você sabe o que repetir",
+        "body": "Agora você consegue dizer que região, posição e caixas precisam se repetir para dois exames serem comparáveis, e leva à equipe o que o protocolo define.",
+        "line": {
+          "speaker": "lia",
+          "text": "Medir hoje já é preparar o exame de amanhã: quem repete bem facilita o trabalho de todos."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Para dois exames do fêmur serem comparáveis, o que precisa se repetir?",
+          "options": [
+            {
+              "label": "A região medida e a posição da perna e do pé",
+              "correct": true,
+              "feedback": "Isso: região e posição precisam se repetir para a medida ser comparável."
+            },
+            {
+              "label": "A roupa que a pessoa veste no dia do exame",
+              "correct": false,
+              "feedback": "A roupa deve ser sem metal, mas o que se repete para comparar é a região e a posição."
+            },
+            {
+              "label": "O nome de quem marcou o exame na agenda",
+              "correct": false,
+              "feedback": "Quem marcou o exame não muda a medida: região e posição, sim."
+            },
+            {
+              "label": "A pessoa que acompanha a medida na sala",
+              "correct": false,
+              "feedback": "Quem acompanha não muda a medida; região e posição, sim."
+            }
+          ],
+          "sourceIds": [
+            "dxa-practice-guideline-2025",
+            "iscd-adult-positions"
+          ]
+        },
+        {
+          "prompt": "Ao repetir o exame do fêmur, o que acontece com as caixas das regiões do quadril?",
+          "options": [
+            {
+              "label": "São desenhadas maiores, por segurança",
+              "correct": false,
+              "feedback": "Caixa maior mede outra região, e a comparação se perde."
+            },
+            {
+              "label": "Ficam a critério de quem posiciona no dia",
+              "correct": false,
+              "feedback": "Não é escolha do dia: as caixas repetem as do exame anterior."
+            },
+            {
+              "label": "São trocadas pelas caixas da coluna",
+              "correct": false,
+              "feedback": "Coluna e quadril são regiões diferentes; uma não substitui a outra."
+            },
+            {
+              "label": "São replicadas como no exame anterior",
+              "correct": true,
+              "feedback": "Isso: replicar as caixas mantém a mesma região medida."
+            }
+          ],
+          "sourceIds": [
+            "dxa-practice-guideline-2025"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: quem define qual lado do quadril medir é ...",
+          "item": {
+            "prompt": "Quem define qual lado do quadril medir no exame de acompanhamento?",
+            "options": [
+              {
+                "label": "O estudante, pelo que for mais fácil",
+                "correct": false,
+                "feedback": "O estudante não escolhe o lado: isso é do protocolo."
+              },
+              {
+                "label": "O protocolo do serviço",
+                "correct": true,
+                "feedback": "Isso: o protocolo define o lado, e dúvidas vão para a equipe."
+              },
+              {
+                "label": "A própria pessoa, pelo que sente",
+                "correct": false,
+                "feedback": "A pessoa conta o que sente, mas o lado é definido pelo protocolo."
+              },
+              {
+                "label": "O programa, ao terminar a medida",
+                "correct": false,
+                "feedback": "O programa calcula; a definição do lado vem antes, do protocolo."
+              }
+            ],
+            "sourceIds": [
+              "dxa-practice-guideline-2025",
+              "iscd-adult-positions"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Duda compara a altura de uma criança em duas datas: na primeira, descalça e de pé; na segunda, de tênis e curvada. O que falhou, como na densitometria?",
+            "options": [
+              {
+                "label": "A criança cresceu pouco entre as datas",
+                "correct": false,
+                "feedback": "O problema não é o crescimento: é que a medida não foi repetida do mesmo jeito."
+              },
+              {
+                "label": "O metro usado era de outra cor",
+                "correct": false,
+                "feedback": "A cor do metro não importa: o que falhou foi a forma de medir."
+              },
+              {
+                "label": "A posição e as condições da medida não se repetiram",
+                "correct": true,
+                "feedback": "Isso: sem repetir a posição, as duas medidas não são comparáveis."
+              },
+              {
+                "label": "A data da segunda medida era próxima demais",
+                "correct": false,
+                "feedback": "A data não é o problema aqui: o que falhou foi a posição na medida."
+              }
+            ],
+            "sourceIds": [
+              "dxa-practice-guideline-2025"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
