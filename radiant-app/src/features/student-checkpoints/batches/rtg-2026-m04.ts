@@ -6,7 +6,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m04",
-  "materialSha256": "90d74f58332a02df349818b9c6e3381f7b76d28b2533cb83531ace87c03cce15",
+  "materialSha256": "cecd60c5d5e8645995ddcd6000e1866466f1a11925dac9f4db1103397ce8143e",
   "trackId": "track:rtg-2026:m04",
   "unitId": "unit:rtg-2026:m04",
   "contentVersion": "rtg-2026-m04-v1",
@@ -20,22 +20,31 @@ export const RTG_2026_M04: ProductionBatchV1 = {
   ],
   "sources": [
     {
-      "id": "source:rtg-2026:m04:anvisa-rdc-611-2022",
-      "title": "RDC nº 611, de 9 de março de 2022",
-      "publisher": "Anvisa (texto compilado, cópia hospedada pelo CBR)",
-      "url": "https://cbr.org.br/wp-content/uploads/2023/08/RDC-ANVISA-de-2022-no-611_Requisitos-sanitarios-de-organizacao-e-funcionamento-de-servico-de-radiologia-diagnostica-ou-intervencionista.pdf",
-      "accessedAt": "2026-11-05",
+      "id": "source:rtg-2026:m04:iaea-gsr-part3-2014",
+      "title": "Radiation Protection and Safety of Radiation Sources: International Basic Safety Standards (IAEA Safety Standards Series No. GSR Part 3)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1578_web-57265295.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para fatos (arts. 21 a 23, 37, 43 a 60, 65 a 69, 78 a 81), sem reprodução de texto."
+      "licenseNote": "Requisitos de proteção (justificação, otimização, limites, exposição médica, mulheres grávidas, área controlada, monitoração); consulta para fatos, sem reprodução de texto."
     },
     {
-      "id": "source:rtg-2026:m04:cnen-norma-3-01",
-      "title": "Norma ANSN 3.01 (antiga CNEN NN 3.01): Requisitos Básicos de Radioproteção e Segurança Radiológica de Fontes de Radiação, Resolução CNEN 344/25",
-      "publisher": "CNEN",
-      "url": "https://www.gov.br/cnen/pt-br/acesso-rapido/normas/grupo-3/ansn-3-01-requisitos-basicos-de-radioprotecao-e-seguranca-radiologica-de-fontes-de-radiacao.pdf",
-      "accessedAt": "2026-11-05",
+      "id": "source:rtg-2026:m04:iaea-ssg46-2018",
+      "title": "Radiation Protection and Safety in Medical Uses of Ionizing Radiation (IAEA Safety Standards Series No. SSG-46)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB1775_web.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para definições (art. 6º) e arts. 45, 47, 51 a 54 e 89, sem reprodução de texto."
+      "licenseNote": "Guia de segurança para radiologia, medicina nuclear e radioterapia: papéis, acompanhantes, EPI, monitoração, sinalização, qualidade, rejeitos; consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "source:rtg-2026:m04:icrpaedia-dose-limits",
+      "title": "Dose limits (ICRPaedia)",
+      "publisher": "International Commission on Radiological Protection (ICRP)",
+      "url": "https://icrpaedia.org/Dose_limits",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Valores dos limites de dose e a exclusão da exposição médica; consulta para fatos, sem reprodução de texto."
     },
     {
       "id": "source:rtg-2026:m04:icrpaedia-principios",
@@ -803,7 +812,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
           "source:rtg-2026:m04:radiopaedia-compton",
           "source:rtg-2026:m04:radiopaedia-contraste",
           "source:rtg-2026:m04:openstax-raios-x",
-          "source:rtg-2026:m04:anvisa-rdc-611-2022"
+          "source:rtg-2026:m04:iaea-ssg46-2018"
         ]
       },
       "steps": [
@@ -1052,7 +1061,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
             "help": "Olhe para quem está no ambiente e não faz parte do exame.",
             "type": "case-decision",
             "feedback": {
-              "correct": "Isso. Você descreve e a equipe decide: a norma pede barreira ou distância para os demais pacientes e distância para o público.",
+              "correct": "Isso. Você descreve e a equipe decide: a proteção pede barreira ou distância para os demais pacientes e distância para o público.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -1062,7 +1071,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:m04:aula-03:i5:a",
                   "label": "O leito vizinho sem barreira e o visitante próximo",
-                  "explanation": "Isso. Você descreve e a equipe decide: a norma pede barreira ou distância para os demais pacientes e distância para o público."
+                  "explanation": "Isso. Você descreve e a equipe decide: a proteção pede barreira ou distância para os demais pacientes e distância para o público."
                 },
                 {
                   "id": "option:rtg-2026:m04:aula-03:i5:b",
@@ -1112,9 +1121,9 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenance": {
         "contentVersion": "rtg-2026-m04-v1",
         "sourceIds": [
-          "source:rtg-2026:m04:icrpaedia-efeitos",
-          "source:rtg-2026:m04:anvisa-rdc-611-2022",
-          "source:rtg-2026:m04:cnen-norma-3-01"
+          "source:rtg-2026:m04:iaea-ssg46-2018",
+          "source:rtg-2026:m04:iaea-gsr-part3-2014",
+          "source:rtg-2026:m04:icrpaedia-efeitos"
         ]
       },
       "steps": [
@@ -1425,8 +1434,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:m04:icrpaedia-efeitos",
           "source:rtg-2026:m04:icrpaedia-principios",
-          "source:rtg-2026:m04:anvisa-rdc-611-2022",
-          "source:rtg-2026:m04:cnen-norma-3-01",
+          "source:rtg-2026:m04:iaea-gsr-part3-2014",
+          "source:rtg-2026:m04:iaea-ssg46-2018",
           "source:rtg-2026:m04:icrpaedia-categorias"
         ]
       },
@@ -1463,11 +1472,11 @@ export const RTG_2026_M04: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Três princípios e quem responde",
-            "body": "A proteção radiológica se apoia em três princípios. Justificação: a exposição precisa trazer mais benefício que dano. Otimização: manter as doses tão baixas quanto razoavelmente exequível; no paciente, a dose necessária e suficiente para o objetivo. Limitação de dose: vale para exposição ocupacional e do público, não para a exposição médica de pacientes. A RDC 611 soma a prevenção de acidentes e aponta o responsável legal como principal responsável por aplicá-la; ele designa o supervisor de proteção radiológica. Cada membro da equipe segue os procedimentos, usa o dosímetro e informa qualquer evento que aumente o risco.",
+            "body": "A proteção radiológica se apoia em três princípios. Justificação: a exposição precisa trazer mais benefício que dano. Otimização: manter as doses tão baixas quanto razoavelmente exequível; no paciente, a dose necessária e suficiente para o objetivo. Limitação de dose: vale para exposição ocupacional e do público, não para a exposição médica de pacientes. A prevenção de acidentes completa o conjunto. A direção do serviço é a principal responsável por aplicá-lo: dá os recursos e designa o responsável pela proteção radiológica. Cada membro da equipe segue os procedimentos, usa o dosímetro (troca a cada 1 a 3 meses, conforme o serviço) e informa qualquer evento que aumente o risco.",
             "keyPoints": [
               "Limite de dose não se aplica ao paciente; justificação e otimização, sim.",
-              "A RDC 611 remete aos limites da CNEN (norma 3.01): em dose efetiva, 20 mSv por ano para o trabalhador e 1 mSv por ano para o público.",
-              "O responsável legal responde pelo serviço; cada membro da equipe informa riscos."
+              "Limites de dose efetiva (ICRP 103 e IAEA GSR Part 3): trabalhador, 20 mSv por ano em média de 5 anos, sem passar de 50 mSv num único ano; público, 1 mSv por ano.",
+              "A direção do serviço responde por ele; cada membro da equipe informa riscos."
             ]
           }
         },
@@ -1623,22 +1632,22 @@ export const RTG_2026_M04: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Caso com decisão: Qual separação de responsabilidades está de acordo com a norma?"
+              "label": "Caso com decisão: Qual separação de responsabilidades está de acordo com a boa prática de proteção?"
             },
             "help": "Pergunte quem tem poder para prover recursos e quem está perto o bastante para notar o defeito.",
             "type": "case-decision",
             "feedback": {
-              "correct": "Isso. O responsável legal assegura recursos e designa o supervisor; cada membro da equipe informa de imediato o que pode aumentar o risco.",
+              "correct": "Isso. A direção do serviço assegura recursos e designa o responsável; cada membro da equipe informa de imediato o que pode aumentar o risco.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "context": "No serviço simulado, três situações aparecem no mesmo dia: falta vestimenta de proteção para todas as salas; ninguém foi designado como supervisor de proteção radiológica; e um técnico percebe um defeito que pode aumentar a dose. A Profa. Lia pede que você separe quem responde por quê, segundo a RDC 611.",
-              "prompt": "Qual separação de responsabilidades está de acordo com a norma?",
+              "context": "No serviço simulado, três situações aparecem no mesmo dia: falta vestimenta de proteção para todas as salas; ninguém foi designado como responsável pela proteção radiológica; e um técnico percebe um defeito que pode aumentar a dose. A Profa. Lia pede que você separe quem responde por quê, segundo os princípios de proteção.",
+              "prompt": "Qual separação de responsabilidades está de acordo com a boa prática de proteção?",
               "options": [
                 {
                   "id": "option:rtg-2026:m04:aula-05:i4:a",
-                  "label": "Recursos e designação: responsável legal. Informar o defeito: o técnico",
-                  "explanation": "Isso. O responsável legal assegura recursos e designa o supervisor; cada membro da equipe informa de imediato o que pode aumentar o risco."
+                  "label": "Recursos e designação: a direção do serviço. Informar o defeito: o técnico",
+                  "explanation": "Isso. A direção do serviço assegura recursos e designa o responsável; cada membro da equipe informa de imediato o que pode aumentar o risco."
                 },
                 {
                   "id": "option:rtg-2026:m04:aula-05:i4:b",
@@ -1652,8 +1661,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
                 },
                 {
                   "id": "option:rtg-2026:m04:aula-05:i4:d",
-                  "label": "Tudo cabe ao supervisor, e o restante da equipe só aguarda ordens",
-                  "explanation": "O supervisor é designado pelo responsável legal, e cada membro da equipe tem o dever de informar eventos."
+                  "label": "Tudo cabe ao responsável, e o restante da equipe só aguarda ordens",
+                  "explanation": "O responsável é designado pela direção do serviço, e cada membro da equipe tem o dever de informar eventos."
                 }
               ],
               "correctOptionId": "option:rtg-2026:m04:aula-05:i4:a"
@@ -1736,7 +1745,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenance": {
         "contentVersion": "rtg-2026-m04-v1",
         "sourceIds": [
-          "source:rtg-2026:m04:anvisa-rdc-611-2022",
+          "source:rtg-2026:m04:iaea-gsr-part3-2014",
+          "source:rtg-2026:m04:iaea-ssg46-2018",
           "source:rtg-2026:m04:cdc-alara",
           "source:rtg-2026:m04:radiopaedia-inverso-quadrado"
         ]
@@ -1774,10 +1784,10 @@ export const RTG_2026_M04: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Parar, descrever, chamar",
-            "body": "Reconhecer a ação insegura vem antes da exposição. Ajudam três ideias: menos tempo, mais distância e blindagem. Dobrar a distância de uma fonte pontual reduz a dose a um quarto. Pela RDC 611, o acompanhante só fica na sala se for imprescindível para conter, confortar ou ajudar: voluntário, com vestimenta de proteção, nunca gestante nem menor de 18 anos. O serviço deve ter imobilização mecânica. Ninguém segura o receptor de imagem com as mãos durante a exposição. Antes do disparo, a aula segue esta ordem: quem fica na sala, proteção de quem fica, cabine, último olhar pelo visor. Na dúvida, você para, descreve o que viu e chama a equipe.",
+            "body": "Reconhecer a ação insegura vem antes da exposição. Ajudam tempo, distância e blindagem: dobrar a distância de uma fonte pontual reduz a dose a um quarto. O acompanhante só fica na sala se for imprescindível: adulto que aceita ajudar, orientado sobre o risco, com vestimenta de proteção e que não esteja gestante. Criança é evitada sempre que houver outra pessoa; a regra do serviço define o resto. O serviço tem imobilização mecânica, e, fora da radiografia odontológica intraoral, ninguém segura o receptor com as mãos. Antes do disparo: quem fica, proteção, cabine, último olhar pelo visor. Na dúvida, pare, descreva o que viu e chame a equipe.",
             "keyPoints": [
               "Tempo, distância e blindagem.",
-              "Acompanhante: só se imprescindível, voluntário e protegido.",
+              "Acompanhante: só se imprescindível; adulto voluntário, orientado, protegido e não gestante.",
               "Na dúvida: parar, descrever e chamar a equipe."
             ]
           }
@@ -1806,13 +1816,13 @@ export const RTG_2026_M04: ProductionBatchV1 = {
               "options": [
                 {
                   "id": "option:rtg-2026:m04:aula-06:i1:a",
-                  "label": "Apenas ao responsável legal do serviço",
-                  "explanation": "Ele é o principal responsável, mas não é o único que precisa avisar."
+                  "label": "Apenas à direção do serviço",
+                  "explanation": "Ela é a principal responsável, mas não é a única que precisa avisar."
                 },
                 {
                   "id": "option:rtg-2026:m04:aula-06:i1:b",
                   "label": "Apenas ao paciente que notou o problema",
-                  "explanation": "O paciente pode avisar, mas o dever descrito na norma é da equipe."
+                  "explanation": "O paciente pode avisar, mas o dever de informar é da equipe."
                 },
                 {
                   "id": "option:rtg-2026:m04:aula-06:i1:c",
@@ -1821,7 +1831,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
                 },
                 {
                   "id": "option:rtg-2026:m04:aula-06:i1:d",
-                  "label": "Apenas à autoridade sanitária, em visita",
+                  "label": "Apenas a um fiscal externo, em visita",
                   "explanation": "A fiscalização não substitui o aviso imediato dentro do serviço."
                 }
               ],
@@ -1845,7 +1855,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
             "help": "Comece pelas pessoas e termine pelo último olhar antes da exposição.",
             "type": "ordering",
             "feedback": {
-              "correct": "Sequência da aula: primeiro as pessoas, depois a proteção delas, depois a sua posição e, por fim, um último olhar. A RDC 611 traz as exigências; a ordem é um roteiro de estudo.",
+              "correct": "Sequência da aula: primeiro as pessoas, depois a proteção delas, depois a sua posição e, por fim, um último olhar. A proteção das pessoas é exigência do serviço; a ordem é um roteiro de estudo.",
               "incorrect": "Confira de novo: não faz sentido conferir a proteção antes de saber quem fica, nem olhar pelo visor antes de estar na cabine."
             },
             "payload": {
@@ -1936,7 +1946,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
             "accessibility": {
               "label": "Caso com decisão: Qual é a sua ação agora, como estudante?"
             },
-            "help": "Procure no caso quem não pode ficar na sala durante a exposição.",
+            "help": "Procure no caso quem deve ser evitado como acompanhante na exposição.",
             "type": "case-decision",
             "feedback": {
               "correct": "Isso. Você interrompe o atalho e leva os fatos ao técnico: criança agitada e mãe grávida oferecendo contenção. A decisão é da equipe.",
@@ -1949,7 +1959,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:m04:aula-06:i4:a",
                   "label": "Deixar a mãe segurar, já que será rápido",
-                  "explanation": "Rapidez não muda a regra: gestante não pode atuar como acompanhante durante a exposição."
+                  "explanation": "Rapidez não muda a conduta: quem ajuda a segurar não deve estar gestante, e a equipe ainda não decidiu."
                 },
                 {
                   "id": "option:rtg-2026:m04:aula-06:i4:b",
@@ -1984,7 +1994,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
             "accessibility": {
               "label": "Caso com decisão: O que você faz antes de qualquer exposição?"
             },
-            "help": "Compare o que você vê com o que a norma pede de quem fica perto do feixe.",
+            "help": "Compare o que você vê com o que se espera de quem fica perto do feixe.",
             "type": "case-decision",
             "feedback": {
               "correct": "Isso. Você descreve o que viu: uma pessoa sem proteção com a mão perto do feixe. O técnico e a equipe decidem o próximo passo.",
@@ -2272,7 +2282,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m04:cnen-norma-3-01"
+          "source:rtg-2026:m04:icrpaedia-efeitos"
         ]
       },
       {
@@ -2313,7 +2323,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:m04:aula-05"
         ],
-        "prompt": "Duda pergunta qual é o limite anual de dose para o paciente. O que as normas estabelecem?",
+        "prompt": "Duda pergunta qual é o limite anual de dose para o paciente. O que a proteção radiológica estabelece?",
         "options": [
           {
             "id": "option:rtg-2026:m04:aula-05:c1:a",
@@ -2338,8 +2348,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m04:cnen-norma-3-01",
-          "source:rtg-2026:m04:icrpaedia-principios"
+          "source:rtg-2026:m04:iaea-gsr-part3-2014",
+          "source:rtg-2026:m04:icrpaedia-dose-limits"
         ]
       },
       {
@@ -2347,11 +2357,11 @@ export const RTG_2026_M04: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:m04:aula-05"
         ],
-        "prompt": "Uma técnica do serviço simulado descobre que está grávida. Pela RDC 611, qual é o primeiro passo dela?",
+        "prompt": "Uma técnica do serviço simulado descobre que está grávida. Qual é o primeiro passo dela?",
         "options": [
           {
             "id": "option:rtg-2026:m04:aula-05:c2:a",
-            "label": "Notificar o responsável legal do serviço"
+            "label": "Notificar a direção do serviço"
           },
           {
             "id": "option:rtg-2026:m04:aula-05:c2:b",
@@ -2368,11 +2378,11 @@ export const RTG_2026_M04: ProductionBatchV1 = {
         ],
         "correctOptionId": "option:rtg-2026:m04:aula-05:c2:a",
         "feedback": {
-          "correct": "Isso. A notificação permite rever as condições de trabalho para proteger o embrião ou feto.",
+          "correct": "Isso. Avisar não é motivo de afastamento: permite ao serviço adaptar as condições de trabalho para proteger o embrião ou feto.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m04:anvisa-rdc-611-2022"
+          "source:rtg-2026:m04:iaea-gsr-part3-2014"
         ]
       },
       {
@@ -2401,11 +2411,12 @@ export const RTG_2026_M04: ProductionBatchV1 = {
         ],
         "correctOptionId": "option:rtg-2026:m04:aula-06:c1:a",
         "feedback": {
-          "correct": "Isso. Menor de 18 anos não pode atuar como acompanhante durante a exposição. Você para, descreve o que viu e a equipe decide.",
+          "correct": "Isso. Acompanhante é adulto orientado e protegido; criança é evitada quando há outra pessoa. Você para, descreve o que viu e a equipe decide.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m04:anvisa-rdc-611-2022"
+          "source:rtg-2026:m04:iaea-ssg46-2018",
+          "source:rtg-2026:m04:iaea-gsr-part3-2014"
         ]
       },
       {
@@ -2413,7 +2424,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:m04:aula-06"
         ],
-        "prompt": "Um pai adulto precisa ficar na sala para confortar o filho durante a radiografia simulada. Pela RDC 611, o que é obrigatório para ele durante a exposição?",
+        "prompt": "Um pai adulto precisa ficar na sala para confortar o filho durante a radiografia simulada. Qual cuidado é indispensável para ele durante a exposição?",
         "options": [
           {
             "id": "option:rtg-2026:m04:aula-06:c2:a",
@@ -2438,7 +2449,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:m04:anvisa-rdc-611-2022"
+          "source:rtg-2026:m04:iaea-ssg46-2018",
+          "source:rtg-2026:m04:iaea-gsr-part3-2014"
         ]
       }
     ]
@@ -3718,7 +3730,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -3732,7 +3744,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -3752,7 +3764,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -3760,7 +3772,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -3768,7 +3780,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -3776,7 +3788,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -3802,7 +3814,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -3810,7 +3822,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -3821,7 +3833,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
         "source:rtg-2026:m04:radiopaedia-compton",
         "source:rtg-2026:m04:radiopaedia-contraste",
         "source:rtg-2026:m04:openstax-raios-x",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -3832,7 +3844,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
         "source:rtg-2026:m04:radiopaedia-compton",
         "source:rtg-2026:m04:radiopaedia-contraste",
         "source:rtg-2026:m04:openstax-raios-x",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -3843,7 +3855,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
         "source:rtg-2026:m04:radiopaedia-compton",
         "source:rtg-2026:m04:radiopaedia-contraste",
         "source:rtg-2026:m04:openstax-raios-x",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -4055,8 +4067,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4064,8 +4076,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4091,8 +4103,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4100,8 +4112,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4109,7 +4121,6 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01",
         "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
@@ -4118,7 +4129,6 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01",
         "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
@@ -4127,7 +4137,6 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01",
         "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
@@ -4136,7 +4145,6 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01",
         "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
@@ -4145,7 +4153,6 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01",
         "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
@@ -4154,7 +4161,6 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01",
         "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
@@ -4163,7 +4169,6 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01",
         "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
@@ -4172,7 +4177,6 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01",
         "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
@@ -4181,7 +4185,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4201,7 +4205,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4215,7 +4219,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4223,7 +4227,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4232,7 +4236,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -4247,7 +4251,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -4268,7 +4272,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -4277,7 +4281,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -4285,8 +4289,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4312,8 +4315,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4321,8 +4323,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4330,8 +4331,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4339,9 +4339,9 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022",
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4349,9 +4349,9 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022",
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4359,9 +4359,9 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022",
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4369,7 +4369,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4395,7 +4395,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4403,7 +4403,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4411,7 +4411,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4469,7 +4469,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4489,7 +4489,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4503,7 +4503,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4511,7 +4511,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-efeitos"
       ]
     },
     {
@@ -4520,7 +4520,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -4535,7 +4535,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -4556,7 +4556,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -4565,7 +4565,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-efeitos",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -4624,7 +4624,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-principios",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4633,7 +4633,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-principios",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4642,7 +4642,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-principios",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4651,7 +4651,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-principios",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4660,7 +4660,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-principios",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4669,7 +4669,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-principios",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4678,7 +4678,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-principios",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4687,7 +4687,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-principios",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4695,7 +4695,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -4703,7 +4704,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -4711,7 +4713,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -4719,7 +4722,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -4727,7 +4731,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -4735,7 +4740,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -4743,7 +4749,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -4751,7 +4758,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -4759,7 +4767,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4767,7 +4775,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4793,7 +4801,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4801,7 +4809,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4809,8 +4817,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01",
-        "source:rtg-2026:m04:icrpaedia-categorias"
+        "source:rtg-2026:m04:icrpaedia-categorias",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4830,8 +4838,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01",
-        "source:rtg-2026:m04:icrpaedia-categorias"
+        "source:rtg-2026:m04:icrpaedia-categorias",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4845,8 +4853,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01",
-        "source:rtg-2026:m04:icrpaedia-categorias"
+        "source:rtg-2026:m04:icrpaedia-categorias",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4854,8 +4862,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01",
-        "source:rtg-2026:m04:icrpaedia-categorias"
+        "source:rtg-2026:m04:icrpaedia-categorias",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4865,8 +4873,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-efeitos",
         "source:rtg-2026:m04:icrpaedia-principios",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022",
-        "source:rtg-2026:m04:cnen-norma-3-01",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018",
         "source:rtg-2026:m04:icrpaedia-categorias"
       ]
     },
@@ -4877,8 +4885,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-efeitos",
         "source:rtg-2026:m04:icrpaedia-principios",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022",
-        "source:rtg-2026:m04:cnen-norma-3-01",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018",
         "source:rtg-2026:m04:icrpaedia-categorias"
       ]
     },
@@ -4889,8 +4897,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m04:icrpaedia-efeitos",
         "source:rtg-2026:m04:icrpaedia-principios",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022",
-        "source:rtg-2026:m04:cnen-norma-3-01",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018",
         "source:rtg-2026:m04:icrpaedia-categorias"
       ]
     },
@@ -4899,8 +4907,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01",
-        "source:rtg-2026:m04:icrpaedia-principios"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:icrpaedia-dose-limits"
       ]
     },
     {
@@ -4926,8 +4934,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01",
-        "source:rtg-2026:m04:icrpaedia-principios"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:icrpaedia-dose-limits"
       ]
     },
     {
@@ -4935,8 +4943,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01",
-        "source:rtg-2026:m04:icrpaedia-principios"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:icrpaedia-dose-limits"
       ]
     },
     {
@@ -4944,8 +4952,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:cnen-norma-3-01",
-        "source:rtg-2026:m04:icrpaedia-principios"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:icrpaedia-dose-limits"
       ]
     },
     {
@@ -4953,7 +4961,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4961,7 +4969,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4987,7 +4995,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -4995,7 +5003,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5003,8 +5011,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:icrpaedia-principios",
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-principios"
       ]
     },
     {
@@ -5030,8 +5037,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:icrpaedia-principios",
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-principios"
       ]
     },
     {
@@ -5039,8 +5045,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:icrpaedia-principios",
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-principios"
       ]
     },
     {
@@ -5048,8 +5053,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:icrpaedia-principios",
-        "source:rtg-2026:m04:cnen-norma-3-01"
+        "source:rtg-2026:m04:icrpaedia-principios"
       ]
     },
     {
@@ -5057,7 +5061,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5077,7 +5082,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5091,7 +5097,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5099,7 +5106,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5107,7 +5115,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5127,7 +5135,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5141,7 +5149,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5149,7 +5157,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5157,7 +5165,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5165,7 +5173,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5173,7 +5181,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5181,7 +5189,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5189,7 +5197,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5197,7 +5205,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5205,7 +5213,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5213,7 +5221,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5223,7 +5231,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m04:cdc-alara",
         "source:rtg-2026:m04:radiopaedia-inverso-quadrado",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5233,7 +5241,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m04:cdc-alara",
         "source:rtg-2026:m04:radiopaedia-inverso-quadrado",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5243,7 +5251,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m04:cdc-alara",
         "source:rtg-2026:m04:radiopaedia-inverso-quadrado",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5253,7 +5261,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m04:cdc-alara",
         "source:rtg-2026:m04:radiopaedia-inverso-quadrado",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5263,7 +5271,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m04:cdc-alara",
         "source:rtg-2026:m04:radiopaedia-inverso-quadrado",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5273,7 +5281,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m04:cdc-alara",
         "source:rtg-2026:m04:radiopaedia-inverso-quadrado",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5283,7 +5291,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m04:cdc-alara",
         "source:rtg-2026:m04:radiopaedia-inverso-quadrado",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5293,7 +5301,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m04:cdc-alara",
         "source:rtg-2026:m04:radiopaedia-inverso-quadrado",
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5301,7 +5309,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5327,7 +5336,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5335,7 +5345,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5343,7 +5354,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5351,7 +5363,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5365,7 +5377,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5385,7 +5397,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5393,7 +5405,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5401,7 +5413,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018",
         "source:rtg-2026:m04:cdc-alara",
         "source:rtg-2026:m04:radiopaedia-inverso-quadrado"
       ]
@@ -5411,7 +5424,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018",
         "source:rtg-2026:m04:cdc-alara",
         "source:rtg-2026:m04:radiopaedia-inverso-quadrado"
       ]
@@ -5421,7 +5435,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014",
+        "source:rtg-2026:m04:iaea-ssg46-2018",
         "source:rtg-2026:m04:cdc-alara",
         "source:rtg-2026:m04:radiopaedia-inverso-quadrado"
       ]
@@ -5431,7 +5446,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5439,7 +5455,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5465,7 +5482,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5473,7 +5491,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5481,7 +5500,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5495,7 +5515,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5515,7 +5536,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5523,7 +5545,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018",
+        "source:rtg-2026:m04:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5531,7 +5554,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5551,7 +5574,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5565,7 +5588,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5573,7 +5596,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5581,7 +5604,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5589,7 +5612,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5615,7 +5638,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     },
     {
@@ -5623,7 +5646,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:m04:anvisa-rdc-611-2022"
+        "source:rtg-2026:m04:iaea-ssg46-2018"
       ]
     }
   ],
@@ -5876,7 +5899,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m04:cnen-norma-3-01"
+            "source:rtg-2026:m04:icrpaedia-efeitos"
           ]
         },
         "transfer": {
@@ -5910,7 +5933,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
           },
           "sourceIds": [
             "source:rtg-2026:m04:icrpaedia-efeitos",
-            "source:rtg-2026:m04:anvisa-rdc-611-2022"
+            "source:rtg-2026:m04:iaea-ssg46-2018"
           ]
         }
       },
@@ -5947,8 +5970,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m04:icrpaedia-principios",
-            "source:rtg-2026:m04:cnen-norma-3-01"
+            "source:rtg-2026:m04:icrpaedia-principios"
           ]
         },
         "transfer": {
@@ -5981,7 +6003,8 @@ export const RTG_2026_M04: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m04:anvisa-rdc-611-2022"
+            "source:rtg-2026:m04:iaea-gsr-part3-2014",
+            "source:rtg-2026:m04:iaea-ssg46-2018"
           ]
         }
       },
@@ -6018,7 +6041,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m04:anvisa-rdc-611-2022"
+            "source:rtg-2026:m04:iaea-ssg46-2018"
           ]
         },
         "transfer": {
@@ -6047,11 +6070,11 @@ export const RTG_2026_M04: ProductionBatchV1 = {
           ],
           "correctOptionId": "option:rtg-2026:m04:aula-06:rt:a",
           "feedback": {
-            "correct": "Isso. Segurar o receptor com as mãos durante a exposição é proibido, salvo em técnicas odontológicas intraorais; a equipe busca outro meio de apoio.",
+            "correct": "Isso. Fora da radiografia odontológica intraoral, ninguém segura o receptor com as mãos durante a exposição; a equipe busca outro meio de apoio.",
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:m04:anvisa-rdc-611-2022"
+            "source:rtg-2026:m04:iaea-ssg46-2018"
           ]
         }
       }
@@ -6071,7 +6094,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "90d74f58332a02df349818b9c6e3381f7b76d28b2533cb83531ace87c03cce15"
+      "materialSha256": "cecd60c5d5e8645995ddcd6000e1866466f1a11925dac9f4db1103397ce8143e"
     },
     {
       "schemaVersion": 1,
@@ -6080,7 +6103,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "90d74f58332a02df349818b9c6e3381f7b76d28b2533cb83531ace87c03cce15"
+      "materialSha256": "cecd60c5d5e8645995ddcd6000e1866466f1a11925dac9f4db1103397ce8143e"
     },
     {
       "schemaVersion": 1,
@@ -6089,7 +6112,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "90d74f58332a02df349818b9c6e3381f7b76d28b2533cb83531ace87c03cce15"
+      "materialSha256": "cecd60c5d5e8645995ddcd6000e1866466f1a11925dac9f4db1103397ce8143e"
     },
     {
       "schemaVersion": 1,
@@ -6098,7 +6121,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "90d74f58332a02df349818b9c6e3381f7b76d28b2533cb83531ace87c03cce15"
+      "materialSha256": "cecd60c5d5e8645995ddcd6000e1866466f1a11925dac9f4db1103397ce8143e"
     },
     {
       "schemaVersion": 1,
@@ -6107,7 +6130,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "90d74f58332a02df349818b9c6e3381f7b76d28b2533cb83531ace87c03cce15"
+      "materialSha256": "cecd60c5d5e8645995ddcd6000e1866466f1a11925dac9f4db1103397ce8143e"
     },
     {
       "schemaVersion": 1,
@@ -6116,7 +6139,7 @@ export const RTG_2026_M04: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "90d74f58332a02df349818b9c6e3381f7b76d28b2533cb83531ace87c03cce15"
+      "materialSha256": "cecd60c5d5e8645995ddcd6000e1866466f1a11925dac9f4db1103397ce8143e"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

@@ -6,7 +6,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:s-od",
-  "materialSha256": "a62da7e971bff78f4c50b0aef68b15755a9a866fc1af6b34b7dee3cedac57be3",
+  "materialSha256": "932366705a572d834e7995f6cb4f3afb83d413cfba49db12bd49a431591673d3",
   "trackId": "track:rtg-2026:s-od",
   "unitId": "unit:rtg-2026:s-od",
   "contentVersion": "rtg-2026-s-od-v1",
@@ -21,22 +21,31 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
   ],
   "sources": [
     {
-      "id": "source:rtg-2026:s-od:anvisa-rdc-611-2022",
-      "title": "RDC nº 611, de 9 de março de 2022",
-      "publisher": "Anvisa",
-      "url": "https://cbr.org.br/wp-content/uploads/2023/08/RDC-ANVISA-de-2022-no-611_Requisitos-sanitarios-de-organizacao-e-funcionamento-de-servico-de-radiologia-diagnostica-ou-intervencionista.pdf",
-      "accessedAt": "2026-11-13",
+      "id": "source:rtg-2026:s-od:iaea-gsr-part3-2014",
+      "title": "Radiation Protection and Safety of Radiation Sources: International Basic Safety Standards (IAEA Safety Standards Series No. GSR Part 3)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1578_web-57265295.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Ato normativo federal, cópia compilada no site do CBR; consultado para fatos (arts. 43, 56, 78 e 79), sem reprodução de texto."
+      "licenseNote": "Requisitos de proteção (justificação, otimização, limites, exposição médica, mulheres grávidas, área controlada, monitoração); consulta para fatos, sem reprodução de texto."
     },
     {
-      "id": "source:rtg-2026:s-od:cbr-ins-anvisa-2021",
-      "title": "RDC 611 e instruções normativas de radiologia diagnóstica ou intervencionista",
-      "publisher": "Colégio Brasileiro de Radiologia",
-      "url": "https://cbr.org.br/en/comissao-de-protecao-radiologica/legislacao-e-recomendacoes-cpr-cbr/anvisa-cpr-cbr/",
-      "accessedAt": "2026-11-13",
+      "id": "source:rtg-2026:s-od:iaea-ssg46-2018",
+      "title": "Radiation Protection and Safety in Medical Uses of Ionizing Radiation (IAEA Safety Standards Series No. SSG-46)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB1775_web.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Página de listagem consultada para o número e o assunto das INs 94/2021 (sistemas extraorais) e 95/2021 (sistemas intraorais); o texto das INs não foi lido."
+      "licenseNote": "Guia de segurança para radiologia, medicina nuclear e radioterapia: papéis, acompanhantes, EPI, monitoração, sinalização, qualidade, rejeitos; consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "source:rtg-2026:s-od:who-identificacao-paciente-2007",
+      "title": "Patient Identification (Patient Safety Solutions, volume 1, solution 2)",
+      "publisher": "WHO Collaborating Centre for Patient Safety Solutions",
+      "url": "https://cdn.who.int/media/docs/default-source/patient-safety/patient-safety-solutions/ps-solution2-patient-identification.pdf?sfvrsn=ff81d7f9_6",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Dois identificadores sem o número do quarto; consulta para fatos, sem reprodução de texto."
     },
     {
       "id": "source:rtg-2026:s-od:fda-ada-2012",
@@ -475,7 +484,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Três aparelhos, três imagens",
-            "body": "O aparelho intraoral usa um receptor dentro da boca e mostra poucos dentes com detalhe. O panorâmico é extraoral: gira ao redor da cabeça e registra dentes e maxilares numa imagem plana. A tomografia de feixe cônico produz uma imagem tridimensional da mandíbula e das estruturas da face, usada em cirurgia oral, ortodontia e endodontia. A Anvisa trata sistemas intraorais e extraorais em instruções normativas separadas, as INs 95 e 94 de 2021. Qual aparelho usar para cada paciente é decisão do serviço, e não do aluno.",
+            "body": "O aparelho intraoral usa um receptor dentro da boca e mostra poucos dentes com detalhe. O panorâmico é extraoral: gira ao redor da cabeça e registra dentes e maxilares numa imagem plana. A tomografia de feixe cônico produz uma imagem tridimensional da mandíbula e das estruturas da face, usada em cirurgia oral, ortodontia e endodontia. Qual aparelho usar para cada paciente é decisão do serviço, e não do aluno.",
             "keyPoints": [
               "Intraoral: poucos dentes, com detalhe.",
               "Panorâmico: dentes e maxilares numa imagem plana.",
@@ -1094,7 +1103,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-s-od-v1",
         "sourceIds": [
           "source:rtg-2026:s-od:rondon-2014",
-          "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-od:iaea-ssg46-2018"
         ]
       },
       "steps": [
@@ -1407,7 +1416,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
           "source:rtg-2026:s-od:ada-raios-x-2024",
           "source:rtg-2026:s-od:vanacker-2019",
           "source:rtg-2026:s-od:hpa-crce-010-2010",
-          "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-od:iaea-ssg46-2018"
         ]
       },
       "steps": [
@@ -1738,9 +1747,10 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenance": {
         "contentVersion": "rtg-2026-s-od-v1",
         "sourceIds": [
-          "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+          "source:rtg-2026:s-od:iaea-gsr-part3-2014",
           "source:rtg-2026:s-od:fda-ada-2012",
-          "source:rtg-2026:s-od:ada-raios-x-2024"
+          "source:rtg-2026:s-od:ada-raios-x-2024",
+          "source:rtg-2026:s-od:iaea-ssg46-2018"
         ]
       },
       "steps": [
@@ -1764,7 +1774,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
                 },
                 {
                   "speaker": "pixel",
-                  "text": "Vamos ver o que a norma pede e onde cada coisa se aplica."
+                  "text": "Vamos ver o que a justificação pede e onde cada coisa se aplica."
                 }
               ]
             }
@@ -1776,11 +1786,11 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Justificar, limitar, proteger",
-            "body": "A RDC 611/2022 pede justificação, otimização e limitação de dose em todo procedimento. Exposição que não pode ser justificada é proibida, inclusive expor alguém só para treinar. Sobre avental e protetor de tireoide, as orientações mudaram e variam: siga o protocolo do serviço e, na dúvida, chame a equipe. Acompanhante só entra quando é imprescindível, e gestantes e menores de 18 anos não podem fazer esse papel. Nesta aula, a conferência segue esta ordem: pedido registrado, proteção do paciente, colimação ao tamanho do receptor, ida ao ponto de disparo definido pelo serviço e disparo com a supervisora presente.",
+            "body": "Todo procedimento pede justificação, otimização e limitação de dose. Exposição sem justificativa não deve acontecer, nem expor um colega só para treinar. Sobre avental e protetor de tireoide, as orientações variam: siga o protocolo do serviço e, na dúvida, chame a equipe. Na intraoral, o paciente segura o receptor, com posicionador quando possível; quem opera não o segura. Para conter o paciente, use imobilizador; faltando outro jeito, um adulto que aceita ajudar, orientado e protegido, nunca gestante. Criança é evitada se houver outra pessoa. Conferência desta aula: pedido registrado, proteção do paciente, colimação ao receptor, ida ao ponto de disparo definido pelo serviço e disparo com a supervisora presente.",
             "keyPoints": [
-              "Exposição sem justificativa é proibida, inclusive só para treino.",
+              "Exposição sem justificativa não deve acontecer, nem só para treino.",
               "Proteções do paciente: siga o protocolo do serviço.",
-              "Gestantes e menores de 18 anos não são acompanhantes."
+              "Acompanhante: adulto orientado e voluntário, nunca gestante."
             ]
           }
         },
@@ -1945,10 +1955,10 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
             "accessibility": {
               "label": "Caso com decisão: Na simulação, a mãe de uma criança, grávida, se oferece para segurar o filho durante a radiografia. O que você faz?"
             },
-            "help": "A norma tem uma regra sobre quem pode fazer esse papel.",
+            "help": "Pense em quem não deve ajudar a conter o paciente.",
             "type": "case-decision",
             "feedback": {
-              "correct": "Isso: gestantes não podem exercer esse papel, e a equipe resolve como seguir.",
+              "correct": "Isso: gestante não faz esse papel, e a equipe resolve como seguir.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -1958,12 +1968,12 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-od:aula-06:i4:a",
                   "label": "Deixo, porque ela mesma se ofereceu a ajudar.",
-                  "explanation": "A oferta não muda a norma: gestantes não podem exercer essa atividade."
+                  "explanation": "A oferta não muda o cuidado: gestante não faz esse papel."
                 },
                 {
                   "id": "option:rtg-2026:s-od:aula-06:i4:b",
                   "label": "Deixo, desde que ela use avental de proteção.",
-                  "explanation": "O avental não anula a regra. Gestantes não podem exercer o papel."
+                  "explanation": "O avental não anula o cuidado. Gestante não faz esse papel."
                 },
                 {
                   "id": "option:rtg-2026:s-od:aula-06:i4:c",
@@ -1972,8 +1982,8 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
                 },
                 {
                   "id": "option:rtg-2026:s-od:aula-06:i4:d",
-                  "label": "Não deixo que ela contenha a criança e chamo a equipe.",
-                  "explanation": "Isso: gestantes não podem exercer esse papel, e a equipe resolve como seguir."
+                  "label": "Não deixo que ela contenha e chamo a equipe.",
+                  "explanation": "Isso: gestante não faz esse papel, e a equipe resolve como seguir."
                 }
               ],
               "correctOptionId": "option:rtg-2026:s-od:aula-06:i4:d"
@@ -2010,7 +2020,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-od:aula-06:i5:b",
                   "label": "Expor um colega voluntário para treinar a técnica.",
-                  "explanation": "Exposição só para treino não pode ser justificada. É proibida."
+                  "explanation": "Exposição só para treino não tem justificativa de exame. Não se faz."
                 },
                 {
                   "id": "option:rtg-2026:s-od:aula-06:i5:c",
@@ -2064,7 +2074,9 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenance": {
         "contentVersion": "rtg-2026-s-od-v1",
         "sourceIds": [
-          "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+          "source:rtg-2026:s-od:iaea-gsr-part3-2014",
+          "source:rtg-2026:s-od:who-identificacao-paciente-2007",
+          "source:rtg-2026:s-od:iaea-ssg46-2018",
           "source:rtg-2026:s-od:ada-raios-x-2024",
           "source:rtg-2026:s-od:vanacker-2019",
           "source:rtg-2026:s-od:hpa-crce-010-2010"
@@ -2103,7 +2115,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Fazer sob supervisão, levar o resto à equipe",
-            "body": "A RDC 611/2022 diz que só opera o equipamento quem é legalmente habilitado ou está em treinamento sob supervisão direta de um profissional habilitado. Na simulação, você está nesse segundo caso. Você confere os dados do paciente com o registro, a colimação e a posição segundo o protocolo. Tudo que exige decisão vai à equipe: trocar o tipo de exame, mudar o campo, repetir uma imagem, dispensar uma proteção. E exposição só para treino não pode ser justificada.",
+            "body": "Quem opera o equipamento precisa de formação e competência para isso, e o serviço e as regras locais definem quem pode. Quem está em treinamento atua sob supervisão direta de um profissional qualificado do serviço. Na simulação, você está nesse caso. Você confere os dados do paciente com o registro, a colimação e a posição segundo o protocolo. Tudo que exige decisão vai à equipe: trocar o tipo de exame, mudar o campo, repetir uma imagem, dispensar uma proteção. E exposição só para treino não tem justificativa de exame.",
             "keyPoints": [
               "Em treinamento, você atua sob supervisão direta.",
               "Dado que não confere, imagem com erro e dúvida: leve à equipe.",
@@ -2122,35 +2134,35 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: Na aula anterior você viu o que a norma diz sobre exposição sem justificativa. Qual é a regra?"
+              "label": "Múltipla escolha: Na aula anterior você viu o que se faz com exposição sem justificativa. O que vale?"
             },
-            "help": "Pense na palavra proibida.",
+            "help": "Pense no que a justificação pede.",
             "type": "multiple-choice",
             "feedback": {
-              "correct": "Isso: exposição que não pode ser justificada é proibida.",
+              "correct": "Isso: exposição que não pode ser justificada não deve acontecer.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "prompt": "Na aula anterior você viu o que a norma diz sobre exposição sem justificativa. Qual é a regra?",
+              "prompt": "Na aula anterior você viu o que se faz com exposição sem justificativa. O que vale?",
               "options": [
                 {
                   "id": "option:rtg-2026:s-od:aula-07:i1:a",
-                  "label": "Ela é proibida.",
-                  "explanation": "Isso: exposição que não pode ser justificada é proibida."
+                  "label": "Ela não deve acontecer.",
+                  "explanation": "Isso: exposição que não pode ser justificada não deve acontecer."
                 },
                 {
                   "id": "option:rtg-2026:s-od:aula-07:i1:b",
-                  "label": "Ela é permitida, se o paciente aceitar.",
+                  "label": "Vale se o paciente concordar",
                   "explanation": "A aceitação não justifica. Retome a regra."
                 },
                 {
                   "id": "option:rtg-2026:s-od:aula-07:i1:c",
-                  "label": "Ela é permitida em treino de aluno.",
-                  "explanation": "Treino de aluno é um dos exemplos de exposição proibida."
+                  "label": "Serve como treino de aluno",
+                  "explanation": "Treino de aluno não é justificativa de exame."
                 },
                 {
                   "id": "option:rtg-2026:s-od:aula-07:i1:d",
-                  "label": "Ela é permitida, se for rápida.",
+                  "label": "É aceita quando for rápida",
                   "explanation": "Rapidez não substitui a justificativa."
                 }
               ],
@@ -2280,10 +2292,10 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
             "accessibility": {
               "label": "Caso com decisão: Um colega sugere: \"Deixa eu ser o paciente, só para ver se a sua posição está certa.\" O que você faz?"
             },
-            "help": "Qual regra proíbe exposição para treino?",
+            "help": "Treino é justificativa de exame?",
             "type": "case-decision",
             "feedback": {
-              "correct": "Isso: exposição só para treino não pode ser justificada.",
+              "correct": "Isso: exposição só para treino não tem justificativa de exame.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -2298,7 +2310,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-od:aula-07:i4:b",
                   "label": "Recuso e aviso a supervisora.",
-                  "explanation": "Isso: exposição só para treino não pode ser justificada."
+                  "explanation": "Isso: exposição só para treino não tem justificativa de exame."
                 },
                 {
                   "id": "option:rtg-2026:s-od:aula-07:i4:c",
@@ -2651,7 +2663,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
         },
         "sourceIds": [
           "source:rtg-2026:s-od:rondon-2014",
-          "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-od:iaea-ssg46-2018"
         ]
       },
       {
@@ -2726,32 +2738,32 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:s-od:aula-06"
         ],
-        "prompt": "Segundo a norma, o que acontece com uma exposição que não pode ser justificada?",
+        "prompt": "Pelo princípio da justificação, o que se faz com uma exposição que não pode ser justificada?",
         "options": [
           {
             "id": "option:rtg-2026:s-od:aula-06:c1:a",
-            "label": "Ela é permitida, se for rápida."
+            "label": "Vale se o aluno estiver de avental"
           },
           {
             "id": "option:rtg-2026:s-od:aula-06:c1:b",
-            "label": "Ela é proibida."
+            "label": "Ela não deve acontecer."
           },
           {
             "id": "option:rtg-2026:s-od:aula-06:c1:c",
-            "label": "Ela é permitida, se o paciente topar."
+            "label": "É aceita quando o paciente topar"
           },
           {
             "id": "option:rtg-2026:s-od:aula-06:c1:d",
-            "label": "Ela é permitida, para treino de alunos."
+            "label": "Serve como treino para alunos"
           }
         ],
         "correctOptionId": "option:rtg-2026:s-od:aula-06:c1:b",
         "feedback": {
-          "correct": "Isso: exposição sem justificativa é proibida.",
+          "correct": "Isso: exposição sem justificativa não deve acontecer.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-od:iaea-gsr-part3-2014"
         ]
       },
       {
@@ -2785,7 +2797,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
         },
         "sourceIds": [
           "source:rtg-2026:s-od:ada-raios-x-2024",
-          "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-od:iaea-ssg46-2018"
         ]
       },
       {
@@ -2793,7 +2805,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:s-od:aula-07"
         ],
-        "prompt": "Segundo a norma, em que condição alguém em formação opera o equipamento?",
+        "prompt": "Segundo a aula, em que condição alguém em formação opera o equipamento?",
         "options": [
           {
             "id": "option:rtg-2026:s-od:aula-07:c1:a",
@@ -2809,16 +2821,16 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
           },
           {
             "id": "option:rtg-2026:s-od:aula-07:c1:d",
-            "label": "Sob supervisão direta de profissional habilitado"
+            "label": "Sob supervisão direta de quem é qualificado"
           }
         ],
         "correctOptionId": "option:rtg-2026:s-od:aula-07:c1:d",
         "feedback": {
-          "correct": "Isso: a norma exige supervisão direta.",
+          "correct": "Isso: a aula exige supervisão direta.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-od:iaea-gsr-part3-2014"
         ]
       },
       {
@@ -2851,7 +2863,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+          "source:rtg-2026:s-od:iaea-ssg46-2018",
           "source:rtg-2026:s-od:rondon-2014"
         ]
       }
@@ -4619,7 +4631,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:rondon-2014",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -4628,7 +4640,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:rondon-2014",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -4655,7 +4667,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:rondon-2014",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -4664,7 +4676,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:rondon-2014",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -4723,7 +4735,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:rondon-2014",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -4732,7 +4744,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:rondon-2014",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -4741,7 +4753,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:rondon-2014",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -4762,7 +4774,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:rondon-2014",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -4771,7 +4783,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:rondon-2014",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -4780,7 +4792,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:rondon-2014",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -4789,7 +4801,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:rondon-2014",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -4798,7 +4810,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:rondon-2014",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -4807,7 +4819,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:rondon-2014",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -4866,7 +4878,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:rondon-2014",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -4881,7 +4893,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:rondon-2014",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -4902,7 +4914,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:rondon-2014",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -4911,7 +4923,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:rondon-2014",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5223,7 +5235,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:vanacker-2019",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5250,7 +5262,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:vanacker-2019",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5259,7 +5271,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:vanacker-2019",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5268,7 +5280,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:vanacker-2019",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5333,7 +5345,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
         "source:rtg-2026:s-od:ada-raios-x-2024",
         "source:rtg-2026:s-od:vanacker-2019",
         "source:rtg-2026:s-od:hpa-crce-010-2010",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5344,7 +5356,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
         "source:rtg-2026:s-od:ada-raios-x-2024",
         "source:rtg-2026:s-od:vanacker-2019",
         "source:rtg-2026:s-od:hpa-crce-010-2010",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5355,7 +5367,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
         "source:rtg-2026:s-od:ada-raios-x-2024",
         "source:rtg-2026:s-od:vanacker-2019",
         "source:rtg-2026:s-od:hpa-crce-010-2010",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5468,7 +5480,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:vanacker-2019",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5483,7 +5495,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:vanacker-2019",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5504,7 +5516,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:vanacker-2019",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5513,7 +5525,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:vanacker-2019",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5571,7 +5583,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5591,7 +5603,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5605,7 +5617,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5613,7 +5625,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5621,7 +5633,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012"
       ]
     },
@@ -5630,7 +5642,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012"
       ]
     },
@@ -5639,7 +5651,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012"
       ]
     },
@@ -5648,7 +5660,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012"
       ]
     },
@@ -5657,7 +5669,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012"
       ]
     },
@@ -5666,7 +5678,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012"
       ]
     },
@@ -5675,7 +5687,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012"
       ]
     },
@@ -5684,7 +5696,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012"
       ]
     },
@@ -5693,7 +5705,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012"
       ]
     },
@@ -5703,7 +5715,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:ada-raios-x-2024",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5718,7 +5730,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:ada-raios-x-2024",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5739,7 +5751,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:ada-raios-x-2024",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5748,7 +5760,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:ada-raios-x-2024",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5756,7 +5768,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5782,7 +5794,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5790,7 +5802,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5798,7 +5810,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5806,7 +5818,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012"
       ]
     },
@@ -5815,7 +5827,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012"
       ]
     },
@@ -5830,7 +5842,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012"
       ]
     },
@@ -5845,7 +5857,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012"
       ]
     },
@@ -5854,7 +5866,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012"
       ]
     },
@@ -5863,7 +5875,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012"
       ]
     },
@@ -5872,9 +5884,10 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012",
-        "source:rtg-2026:s-od:ada-raios-x-2024"
+        "source:rtg-2026:s-od:ada-raios-x-2024",
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5882,9 +5895,10 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012",
-        "source:rtg-2026:s-od:ada-raios-x-2024"
+        "source:rtg-2026:s-od:ada-raios-x-2024",
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5892,9 +5906,10 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
         "source:rtg-2026:s-od:fda-ada-2012",
-        "source:rtg-2026:s-od:ada-raios-x-2024"
+        "source:rtg-2026:s-od:ada-raios-x-2024",
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5902,7 +5917,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5916,7 +5931,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5936,7 +5951,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5944,7 +5959,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5953,7 +5968,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:ada-raios-x-2024",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5974,7 +5989,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:ada-raios-x-2024",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5989,7 +6004,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:ada-raios-x-2024",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -5998,7 +6013,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-od:ada-raios-x-2024",
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -6006,7 +6021,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -6020,7 +6035,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -6040,7 +6055,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -6048,7 +6063,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -6056,7 +6071,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6082,7 +6097,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6090,7 +6105,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6098,7 +6113,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6106,7 +6121,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6114,7 +6129,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6140,7 +6155,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6148,7 +6163,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6156,7 +6171,8 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:who-identificacao-paciente-2007",
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -6176,7 +6192,8 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:who-identificacao-paciente-2007",
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -6190,7 +6207,8 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:who-identificacao-paciente-2007",
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -6198,7 +6216,8 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:who-identificacao-paciente-2007",
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -6206,7 +6225,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024"
       ]
     },
@@ -6215,7 +6234,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024"
       ]
     },
@@ -6224,7 +6243,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024"
       ]
     },
@@ -6233,7 +6252,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024"
       ]
     },
@@ -6242,7 +6261,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024"
       ]
     },
@@ -6251,7 +6270,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024"
       ]
     },
@@ -6260,7 +6279,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024"
       ]
     },
@@ -6269,7 +6288,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024"
       ]
     },
@@ -6278,7 +6297,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024"
       ]
     },
@@ -6287,7 +6306,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024"
       ]
     },
@@ -6296,7 +6315,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024"
       ]
     },
@@ -6305,7 +6324,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6319,7 +6338,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6339,7 +6358,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6347,7 +6366,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6409,7 +6428,9 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
+        "source:rtg-2026:s-od:who-identificacao-paciente-2007",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024",
         "source:rtg-2026:s-od:vanacker-2019",
         "source:rtg-2026:s-od:hpa-crce-010-2010"
@@ -6420,7 +6441,9 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
+        "source:rtg-2026:s-od:who-identificacao-paciente-2007",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024",
         "source:rtg-2026:s-od:vanacker-2019",
         "source:rtg-2026:s-od:hpa-crce-010-2010"
@@ -6431,7 +6454,9 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014",
+        "source:rtg-2026:s-od:who-identificacao-paciente-2007",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024",
         "source:rtg-2026:s-od:vanacker-2019",
         "source:rtg-2026:s-od:hpa-crce-010-2010"
@@ -6442,7 +6467,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6468,7 +6493,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6476,7 +6501,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6484,7 +6509,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6492,7 +6517,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:rondon-2014"
       ]
     },
@@ -6501,7 +6526,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:rondon-2014"
       ]
     },
@@ -6528,7 +6553,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:rondon-2014"
       ]
     },
@@ -6537,7 +6562,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:rondon-2014"
       ]
     },
@@ -6546,7 +6571,8 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:who-identificacao-paciente-2007",
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -6566,7 +6592,8 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:who-identificacao-paciente-2007",
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -6580,7 +6607,8 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:who-identificacao-paciente-2007",
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -6588,7 +6616,8 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-od:who-identificacao-paciente-2007",
+        "source:rtg-2026:s-od:iaea-ssg46-2018"
       ]
     },
     {
@@ -6596,7 +6625,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024"
       ]
     },
@@ -6611,7 +6640,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024"
       ]
     },
@@ -6632,7 +6661,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024"
       ]
     },
@@ -6641,7 +6670,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-od:iaea-ssg46-2018",
         "source:rtg-2026:s-od:ada-raios-x-2024"
       ]
     }
@@ -6966,7 +6995,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
           },
           "sourceIds": [
             "source:rtg-2026:s-od:vanacker-2019",
-            "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+            "source:rtg-2026:s-od:iaea-ssg46-2018"
           ]
         },
         "transfer": {
@@ -7005,7 +7034,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       },
       {
         "competencyId": "competency:rtg-2026:s-od:aula-06",
-        "hook": "Complete: gestantes e menores de 18 anos não podem…",
+        "hook": "Complete: gestantes não podem ser…",
         "guided": {
           "id": "recovery-item:rtg-2026:s-od:aula-06:guiada",
           "competencyIds": [
@@ -7032,11 +7061,11 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
           ],
           "correctOptionId": "option:rtg-2026:s-od:aula-06:rg:b",
           "feedback": {
-            "correct": "Isso: gestantes e menores de 18 anos não podem exercer esse papel.",
+            "correct": "Isso: gestante não faz esse papel, mesmo se oferecendo.",
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+            "source:rtg-2026:s-od:iaea-ssg46-2018"
           ]
         },
         "transfer": {
@@ -7069,7 +7098,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+            "source:rtg-2026:s-od:iaea-gsr-part3-2014"
           ]
         }
       },
@@ -7106,7 +7135,8 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-od:anvisa-rdc-611-2022"
+            "source:rtg-2026:s-od:who-identificacao-paciente-2007",
+            "source:rtg-2026:s-od:iaea-ssg46-2018"
           ]
         },
         "transfer": {
@@ -7139,7 +7169,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-od:anvisa-rdc-611-2022",
+            "source:rtg-2026:s-od:iaea-ssg46-2018",
             "source:rtg-2026:s-od:ada-raios-x-2024"
           ]
         }
@@ -7160,7 +7190,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a62da7e971bff78f4c50b0aef68b15755a9a866fc1af6b34b7dee3cedac57be3"
+      "materialSha256": "932366705a572d834e7995f6cb4f3afb83d413cfba49db12bd49a431591673d3"
     },
     {
       "schemaVersion": 1,
@@ -7169,7 +7199,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a62da7e971bff78f4c50b0aef68b15755a9a866fc1af6b34b7dee3cedac57be3"
+      "materialSha256": "932366705a572d834e7995f6cb4f3afb83d413cfba49db12bd49a431591673d3"
     },
     {
       "schemaVersion": 1,
@@ -7178,7 +7208,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a62da7e971bff78f4c50b0aef68b15755a9a866fc1af6b34b7dee3cedac57be3"
+      "materialSha256": "932366705a572d834e7995f6cb4f3afb83d413cfba49db12bd49a431591673d3"
     },
     {
       "schemaVersion": 1,
@@ -7187,7 +7217,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a62da7e971bff78f4c50b0aef68b15755a9a866fc1af6b34b7dee3cedac57be3"
+      "materialSha256": "932366705a572d834e7995f6cb4f3afb83d413cfba49db12bd49a431591673d3"
     },
     {
       "schemaVersion": 1,
@@ -7196,7 +7226,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a62da7e971bff78f4c50b0aef68b15755a9a866fc1af6b34b7dee3cedac57be3"
+      "materialSha256": "932366705a572d834e7995f6cb4f3afb83d413cfba49db12bd49a431591673d3"
     },
     {
       "schemaVersion": 1,
@@ -7205,7 +7235,7 @@ export const RTG_2026_S_OD: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a62da7e971bff78f4c50b0aef68b15755a9a866fc1af6b34b7dee3cedac57be3"
+      "materialSha256": "932366705a572d834e7995f6cb4f3afb83d413cfba49db12bd49a431591673d3"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

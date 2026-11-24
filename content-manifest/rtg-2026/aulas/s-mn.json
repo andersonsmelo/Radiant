@@ -8,15 +8,6 @@
   },
   "sources": [
     {
-      "id": "cnen-norma-3-05",
-      "title": "Norma ANSN 3.05: Requisitos de Segurança e Proteção Radiológica para Serviços de Medicina Nuclear (Resolução CNEN 159/13)",
-      "publisher": "CNEN/ANSN",
-      "url": "https://www.gov.br/cnen/pt-br/acesso-rapido/normas/grupo-3/ansn-3-05-requisitos-de-seguranca-e-protecao-radiologica-para-servicos-de-medicina-nuclear.pdf",
-      "accessedAt": "2026-11-07",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para fatos, sem reprodução de texto."
-    },
-    {
       "id": "radiologyinfo-medicina-nuclear",
       "title": "General Nuclear Medicine",
       "publisher": "RadiologyInfo.org (ACR e RSNA)",
@@ -86,7 +77,7 @@
       "url": "https://www.vumc.org/safety/sites/default/files/public_files/rad/vch/nuclear-medicine-emergency-procedures-vch.pdf",
       "accessedAt": "2026-11-07",
       "use": "factual-reference",
-      "licenseNote": "Procedimento de hospital dos EUA, usado só como exemplo da lógica geral; no Brasil vale o plano de proteção do serviço."
+      "licenseNote": "Procedimento de hospital dos EUA, usado só como exemplo da lógica geral; vale o plano de proteção do serviço."
     },
     {
       "id": "iaea-srs-40",
@@ -123,6 +114,33 @@
       "accessedAt": "2026-11-07",
       "use": "factual-reference",
       "licenseNote": "Artigo em acervo aberto; consultado para fatos, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "iaea-ssg46-2018",
+      "title": "Radiation Protection and Safety in Medical Uses of Ionizing Radiation (IAEA Safety Standards Series No. SSG-46)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB1775_web.pdf",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Guia de segurança para radiologia, medicina nuclear e radioterapia: papéis, acompanhantes, EPI, monitoração, sinalização, qualidade, rejeitos; consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "iaea-gsr-part3-2014",
+      "title": "Radiation Protection and Safety of Radiation Sources: International Basic Safety Standards (IAEA Safety Standards Series No. GSR Part 3)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1578_web-57265295.pdf",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Requisitos de proteção (justificação, otimização, limites, exposição médica, mulheres grávidas, área controlada, monitoração); consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "who-residuos-saude-modulo-18",
+      "title": "Training modules in health care waste management, Module 18: Management of chemical, cytotoxic, pharmaceutical and radioactive wastes",
+      "publisher": "World Health Organization (WHO)",
+      "url": "https://cdn.who.int/media/docs/default-source/wash-documents/wash-in-hcf/training-modules-in-health-care-waste-management/module-18---management-of-chemical-cytotoxic-pharmaceutical-and-radioactive-wastes.pdf?sfvrsn=c2ac154f_2",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Rotulagem e armazenamento de rejeito radioativo; consulta para fatos, sem reprodução de texto."
     }
   ],
   "lessons": [
@@ -567,7 +585,7 @@
           "feedbackIncorrect": "Confira de novo: nada é manipulado antes da inspeção, e nada é administrado antes de aferir e conferir.",
           "help": "Pergunte a cada etapa o que precisa ter acontecido antes dela.",
           "sourceIds": [
-            "cnen-norma-3-05",
+            "iaea-ssg46-2018",
             "radiologyinfo-medicina-nuclear"
           ]
         },
@@ -585,9 +603,9 @@
               "feedback": "Abrir é manipular, e essa tarefa é de pessoal treinado e autorizado. Retome qual é o seu papel no percurso."
             },
             {
-              "label": "Não toca, mantém distância e avisa Caio e o supervisor",
+              "label": "Não toca, mantém distância e avisa Caio e o responsável",
               "correct": true,
-              "feedback": "Isso. Integridade e contaminação do embalado são conferidas por quem é autorizado, e o supervisor de proteção precisa saber."
+              "feedback": "Isso. Integridade e contaminação do embalado são conferidas por quem é autorizado, e o responsável pela proteção radiológica precisa saber."
             },
             {
               "label": "Enxuga a mancha com papel absorvente e anota o horário",
@@ -602,7 +620,7 @@
           ],
           "help": "Pense em quem tem autorização para cada ação nesse percurso.",
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -672,7 +690,7 @@
             }
           ],
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -700,7 +718,7 @@
             }
           ],
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018"
           ]
         }
       ],
@@ -762,7 +780,7 @@
               }
             ],
             "sourceIds": [
-              "cnen-norma-3-05"
+              "iaea-ssg46-2018"
             ]
           }
         }
@@ -886,7 +904,7 @@
           "help": "Dois itens ficam ligados à câmara; os outros dois são usados fora da aquisição.",
           "sourceIds": [
             "peterson-detectores-spect",
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -915,12 +933,12 @@
             {
               "label": "Não usa o monitor, descreve o que viu e chama a equipe",
               "correct": true,
-              "feedback": "Isso. Suspeita de funcionamento irregular ou de contaminação vai ao supervisor de proteção, que define o que testar."
+              "feedback": "Isso. Suspeita de funcionamento irregular ou de contaminação vai ao responsável pela proteção radiológica, e o programa do serviço define o que testar."
             }
           ],
           "help": "Há duas explicações possíveis, e nenhuma delas cabe a você decidir sozinho.",
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -952,7 +970,7 @@
           ],
           "help": "Compare a dúvida sobre o jaleco com a pergunta que cada instrumento responde.",
           "sourceIds": [
-            "cnen-norma-3-05",
+            "iaea-ssg46-2018",
             "iaea-srs-40"
           ]
         }
@@ -1057,7 +1075,7 @@
         },
         "transfer": {
           "item": {
-            "prompt": "No levantamento periódico, o supervisor quer saber quanta radiação há num ponto da sala onde há fontes guardadas. Que instrumento responde a essa pergunta?",
+            "prompt": "No levantamento periódico, o responsável pela proteção quer saber quanta radiação há num ponto da sala onde há fontes guardadas. Que instrumento responde a essa pergunta?",
             "options": [
               {
                 "label": "O medidor de atividade",
@@ -1081,7 +1099,7 @@
               }
             ],
             "sourceIds": [
-              "cnen-norma-3-05"
+              "iaea-ssg46-2018"
             ]
           }
         }
@@ -1117,10 +1135,10 @@
       },
       "concept": {
         "title": "Parar, afastar, chamar",
-        "body": "Quem manipula ou administra usa luvas descartáveis, jaleco de manga longa e monitores de tórax e extremidade. Corpo, roupas e superfícies são monitorados diariamente e a cada suspeita. Na suspeita de derramamento, a ordem ensinada aqui é: parar, avisar quem está perto, afastar quem não está envolvido e limitar a circulação, chamar a equipe e o supervisor de proteção. No serviço vale o plano dele; chamar não espera. Quem limpa e mede é pessoal treinado. Rejeito é segregado por meia-vida e características físicas, químicas e biológicas, identificado com conteúdo, radionuclídeo e datas de armazenamento e de liberação prevista, e guardado em local sinalizado e controlado. O estudante não decide descarte.",
+        "body": "Quem manipula ou administra usa luvas, jaleco de manga longa e monitores de tórax e extremidade. Corpo, roupas e superfícies são monitorados na rotina e a cada suspeita. Na suspeita de derramamento: parar, avisar quem está perto, afastar os não envolvidos, limitar a circulação e chamar a equipe e o responsável pela proteção. Vale o plano do serviço. Quem limpa e mede é pessoal treinado. Rejeito é segregado por meia-vida, forma física e química e risco do conteúdo, identificado com conteúdo, radionuclídeo e datas de armazenamento e liberação prevista, em local sinalizado. Guarda até decair (tecnécio-99m: cerca de 10 meias-vidas) e medida antes da liberação. O estudante não decide descarte.",
         "keyPoints": [
-          "Parar, avisar, afastar, chamar a equipe e o supervisor.",
-          "Monitoração diária e a cada suspeita.",
+          "Parar, avisar, afastar, chamar a equipe e o responsável.",
+          "Monitoração de rotina e a cada suspeita.",
           "Rejeito segue segregação, identificação e o plano do serviço."
         ]
       },
@@ -1166,7 +1184,7 @@
             "Parar o que está fazendo",
             "Avisar quem está por perto",
             "Afastar quem não está envolvido e limitar a circulação",
-            "Chamar a equipe e o supervisor de proteção"
+            "Chamar a equipe e o responsável pela proteção"
           ],
           "feedbackCorrect": "Essa é a ordem da aula: parar, avisar, afastar e chamar, sem demora. A limpeza fica com pessoal treinado, e no serviço vale o plano dele.",
           "feedbackIncorrect": "Retome o conceito: primeiro você para. Depois vêm as pessoas ao redor, e a chamada fecha a sequência, sem demora.",
@@ -1174,37 +1192,38 @@
           "sourceIds": [
             "vumc-emergencias-mn",
             "iaea-srs-40",
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018"
           ]
         },
         {
           "id": "i3",
           "type": "matching",
           "role": "practice",
-          "prompt": "Ligue cada critério de segregação de rejeitos aos grupos que a norma prevê.",
+          "prompt": "Ligue cada critério de segregação de rejeitos ao grupo que ele separa.",
           "pairs": [
             {
               "left": "Meia-vida física",
               "right": "Curta ou longa"
             },
             {
-              "left": "Características físicas",
-              "right": "Sólido, líquido, perfurocortante, rouparia"
+              "left": "Forma física",
+              "right": "Sólido, líquido, rouparia"
             },
             {
-              "left": "Características químicas",
-              "right": "Orgânico ou inorgânico"
+              "left": "Forma química",
+              "right": "Aquoso ou orgânico"
             },
             {
-              "left": "Características biológicas",
-              "right": "Putrescível ou patogênico"
+              "left": "Risco do conteúdo",
+              "right": "Infectante ou tóxico"
             }
           ],
           "feedbackCorrect": "Certo. Separar assim ajuda o serviço a controlar o armazenamento e o tempo de decaimento de cada grupo.",
-          "feedbackIncorrect": "Retome os quatro critérios: tempo, forma do material, química e risco biológico. Ligue cada um à palavra que combina.",
+          "feedbackIncorrect": "Retome os quatro critérios: tempo, forma física, forma química e risco do conteúdo. Ligue cada um à palavra que combina.",
           "help": "Pense no que cada critério observa no material.",
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "who-residuos-saude-modulo-18"
           ]
         },
         {
@@ -1228,7 +1247,7 @@
             {
               "label": "Para, avisa, afasta as pessoas e chama a equipe",
               "correct": true,
-              "feedback": "Isso. As pessoas ficam longe do local, e a equipe e o supervisor de proteção assumem medição e limpeza."
+              "feedback": "Isso. As pessoas ficam longe do local, e a equipe e o responsável pela proteção assumem medição e limpeza."
             },
             {
               "label": "Recolhe a seringa e relata tudo ao fim do turno",
@@ -1240,7 +1259,7 @@
           "sourceIds": [
             "vumc-emergencias-mn",
             "iaea-srs-40",
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -1251,9 +1270,9 @@
           "prompt": "O que você faz diante dessa seringa?",
           "options": [
             {
-              "label": "Não mexe, afasta colegas e avisa o supervisor",
+              "label": "Não mexe, afasta colegas e avisa o responsável",
               "correct": true,
-              "feedback": "Isso. A origem e o destino desse material são decisão da equipe e do supervisor de proteção, não sua."
+              "feedback": "Isso. A origem e o destino desse material são decisão da equipe e do responsável pela proteção, não sua."
             },
             {
               "label": "Passa a seringa para a caixa de rejeito, de pinça",
@@ -1263,7 +1282,7 @@
             {
               "label": "Fecha o saco e leva para a coleta comum do setor",
               "correct": false,
-              "feedback": "Isso faz um possível rejeito sair do controle do serviço. Confira de novo o que a norma exige."
+              "feedback": "Isso faz um possível rejeito sair do controle do serviço. Confira de novo o que o serviço exige."
             },
             {
               "label": "Deixa como está, pois seringa sem marca não é rejeito",
@@ -1273,7 +1292,8 @@
           ],
           "help": "Pense em quem controla o que entra e o que sai como rejeito no serviço.",
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "who-residuos-saude-modulo-18"
           ]
         }
       ],
@@ -1290,28 +1310,28 @@
           "prompt": "Um colega pergunta quando corpo, roupas e superfícies passíveis de contaminação são monitorados. O que a aula ensinou?",
           "options": [
             {
-              "label": "Só depois de derramamento confirmado",
+              "label": "Depois que o derramamento for confirmado",
               "correct": false,
-              "feedback": "Esperar confirmação deixaria de fora a rotina e a suspeita. Retome a frequência ensinada."
+              "feedback": "Esperar confirmação deixaria de fora a rotina e a suspeita. Retome quando a monitoração acontece."
             },
             {
-              "label": "Só ao fim do ano, para o relatório",
+              "label": "Ao fim do ano, quando o relatório pede",
               "correct": false,
               "feedback": "Relatório anual é outra coisa. Confira de novo a rotina de monitoração."
             },
             {
-              "label": "Só na troca mensal do monitor individual",
+              "label": "Quando o monitor individual é trocado",
               "correct": false,
-              "feedback": "A troca mensal é do monitor individual. Retome a monitoração de corpo e superfícies."
+              "feedback": "A troca é do monitor individual, e o período é do serviço. Retome a monitoração de corpo e superfícies."
             },
             {
-              "label": "Diariamente e a cada suspeita",
+              "label": "Na rotina do serviço e a cada suspeita",
               "correct": true,
-              "feedback": "Isso. A monitoração é diária e também acontece sempre que há suspeita, com registro."
+              "feedback": "Isso. A monitoração é sistemática, no ritmo definido pelo serviço, e também acontece sempre que há suspeita, com registro."
             }
           ],
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -1339,7 +1359,8 @@
             }
           ],
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "who-residuos-saude-modulo-18"
           ]
         }
       ],
@@ -1365,13 +1386,14 @@
                 "feedback": "Luva não troca treinamento nem autorização. Retome o que o estudante faz."
               },
               {
-                "label": "Pessoal treinado, com o supervisor",
+                "label": "Pessoal treinado, com o responsável",
                 "correct": true,
                 "feedback": "Isso. A limpeza e a medição são de pessoal treinado, conforme o plano do serviço."
               }
             ],
             "sourceIds": [
-              "cnen-norma-3-05",
+              "iaea-ssg46-2018",
+              "who-residuos-saude-modulo-18",
               "vumc-emergencias-mn",
               "iaea-srs-40"
             ]
@@ -1403,7 +1425,8 @@
               }
             ],
             "sourceIds": [
-              "cnen-norma-3-05"
+              "iaea-ssg46-2018",
+              "who-residuos-saude-modulo-18"
             ]
           }
         }
@@ -1462,7 +1485,7 @@
             {
               "label": "Na sala de espera exclusiva para injetados",
               "correct": true,
-              "feedback": "Isso. O serviço precisa ter sala de espera exclusiva e fisicamente delimitada para quem foi injetado."
+              "feedback": "Isso. O serviço separa um espaço de espera próprio, delimitado, para quem foi injetado."
             },
             {
               "label": "No laboratório, ao lado das fontes em uso",
@@ -1472,12 +1495,13 @@
             {
               "label": "Em qualquer corredor, sem espaço definido",
               "correct": false,
-              "feedback": "A norma prevê espaço próprio para essa espera. Retome o que vem depois da administração."
+              "feedback": "O serviço prevê espaço próprio para essa espera. Retome o que vem depois da administração."
             }
           ],
           "help": "Lembre que, depois da administração, a pessoa passa a emitir radiação.",
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "iaea-gsr-part3-2014"
           ]
         },
         {
@@ -1527,7 +1551,8 @@
           "help": "Pense em quem precisa da informação antes de qualquer próximo passo.",
           "sourceIds": [
             "radiologyinfo-medicina-nuclear",
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "iaea-gsr-part3-2014"
           ]
         },
         {
@@ -1561,7 +1586,8 @@
           ],
           "help": "Pense em quem precisa saber disso antes da administração.",
           "sourceIds": [
-            "cnen-norma-3-05",
+            "iaea-ssg46-2018",
+            "iaea-gsr-part3-2014",
             "radiologyinfo-medicina-nuclear"
           ]
         },
@@ -1594,7 +1620,8 @@
           ],
           "help": "Pergunte a si mesmo quem tem o dever de instruir sobre os cuidados com familiares.",
           "sourceIds": [
-            "cnen-norma-3-05",
+            "iaea-ssg46-2018",
+            "iaea-gsr-part3-2014",
             "radiologyinfo-medicina-nuclear"
           ]
         }
@@ -1693,7 +1720,8 @@
               }
             ],
             "sourceIds": [
-              "cnen-norma-3-05",
+              "iaea-ssg46-2018",
+              "iaea-gsr-part3-2014",
               "radiologyinfo-medicina-nuclear"
             ]
           }
@@ -1738,8 +1766,8 @@
       "id": "s-mn-06",
       "code": "S-MN.06",
       "title": "Cintilografia, SPECT e qualidade",
-      "objective": "Hoje você vai conseguir dizer para que serve cada teste de qualidade, com que frequência ele aparece e o que fazer quando um resultado sai da tolerância.",
-      "competency": "Associar testes de qualidade à finalidade e à frequência, e parar e avisar diante de falha.",
+      "objective": "Hoje você vai conseguir dizer para que serve cada teste, quando o programa do serviço manda fazê-lo e o que fazer se o resultado sair da tolerância.",
+      "competency": "Associar testes de qualidade à finalidade e ao momento que o programa do serviço define, e parar e avisar diante de falha.",
       "minutes": 6,
       "scene": {
         "setting": "Sala de exames, antes do primeiro paciente",
@@ -1760,10 +1788,10 @@
       },
       "concept": {
         "title": "Cada teste, uma pergunta",
-        "body": "No SPECT, diferente da planar, as cabeças giram, coletam projeções em vários ângulos e o computador reconstrói em 3D. A norma prevê testes com perguntas próprias. Uniformidade em baixa densidade de contagem: a câmara responde igual em todo o campo? Janela de energia: está centrada para cada radionuclídeo em uso? Radiação de fundo: como está a contagem da sala? Esses são diários ou no dia de uso. Centro de rotação, mensal: o giro do SPECT está alinhado? O medidor de atividade tem testes diários, como repetibilidade. Resultado fora da tolerância: não ajuste, não ignore. Pare, registre e avise a equipe e o supervisor, que define o que refazer após conserto.",
+        "body": "No SPECT, diferente da planar, as cabeças giram, coletam projeções em vários ângulos e o computador reconstrói em 3D. O programa do serviço define quando fazer cada teste, e cada um tem sua pergunta. Uniformidade em baixa densidade de contagem: a câmara responde igual em todo o campo? Janela de energia: está centrada para cada radionuclídeo? Radiação de fundo: como está a contagem? Centro de rotação: o giro do SPECT está alinhado? O medidor de atividade também tem testes, como repetibilidade. Fora da tolerância, não ajuste: pare, registre e avise a equipe e o responsável pela proteção. Após conserto, o físico médico define os testes a refazer, pelo programa.",
         "keyPoints": [
           "SPECT: projeções em vários ângulos, reconstruídas em 3D.",
-          "Cada teste responde a uma pergunta e tem uma frequência.",
+          "Cada teste responde a uma pergunta; o programa do serviço diz quando fazê-lo.",
           "Fora da tolerância: pare, registre, avise."
         ]
       },
@@ -1860,7 +1888,8 @@
           "feedbackIncorrect": "Retome o conceito: leia o nome do teste e procure a pergunta que usa a mesma ideia: campo, energia, sala ou giro.",
           "help": "Um dos testes só faz sentido para quem gira. Comece por ele.",
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "iaea-srs-40"
           ]
         },
         {
@@ -1884,17 +1913,18 @@
             {
               "label": "Para, registra o que viu e avisa a equipe agora",
               "correct": true,
-              "feedback": "Isso. O resultado fica como apareceu, e a equipe e o supervisor de proteção decidem os próximos passos."
+              "feedback": "Isso. O resultado fica como apareceu, e a equipe e o responsável pela proteção decidem os próximos passos."
             },
             {
               "label": "Libera a agenda, pois o resultado de ontem vale",
               "correct": false,
-              "feedback": "O teste é do dia em que a câmara é usada. Retome a frequência da uniformidade."
+              "feedback": "O resultado de ontem não responde pela câmara de hoje. Retome o que fazer com uma falha."
             }
           ],
           "help": "Pense em quem precisa saber do resultado antes da agenda começar.",
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "iaea-srs-40"
           ]
         },
         {
@@ -1920,20 +1950,21 @@
               "feedback": "O problema continuaria ali para o próximo uso. Retome quem precisa saber."
             },
             {
-              "label": "Não usa o medidor e relata à colega e ao supervisor",
+              "label": "Não usa o medidor e relata à colega e ao responsável",
               "correct": true,
               "feedback": "Isso. A regra é a mesma em todo equipamento: fora da tolerância, pare, registre o que viu e avise."
             }
           ],
           "help": "Compare com o que você faria com a câmara gama.",
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "iaea-srs-40"
           ]
         }
       ],
       "closing": {
         "title": "Teste é para ser ouvido",
-        "body": "Agora você consegue dizer o que cada teste pergunta, com que frequência ele aparece e o que fazer quando a resposta vem ruim: parar, registrar e avisar.",
+        "body": "Agora você consegue dizer o que cada teste pergunta, quando o programa do serviço manda fazê-lo e o que fazer quando a resposta vem ruim: parar, registrar e avisar.",
         "line": {
           "speaker": "caio",
           "text": "Teste fora da faixa é o equipamento avisando. A gente ouve e passa adiante."
@@ -1941,31 +1972,32 @@
       },
       "checkpoint": [
         {
-          "prompt": "Com que frequência a norma prevê o teste de uniformidade para baixa densidade de contagem na câmara cintilográfica?",
+          "prompt": "Por que o teste de uniformidade de hoje não pode ser dispensado porque o de ontem passou?",
           "options": [
             {
-              "label": "Diariamente ou no dia em que a câmara for usada",
+              "label": "Ele mostra o estado de hoje; o programa do serviço define quando",
               "correct": true,
-              "feedback": "Isso. Esse teste, como o de janela de energia e o de fundo, acompanha o dia de uso."
+              "feedback": "Isso. O teste confere o estado do equipamento naquele momento, e o programa de garantia da qualidade do serviço define quando ele é feito."
             },
             {
-              "label": "A cada semestre, junto do relatório do físico",
+              "label": "O resultado de ontem vale enquanto ninguém reclamar do exame",
               "correct": false,
-              "feedback": "Semestrais existem, mas não são estes. Retome a lista de testes do dia."
+              "feedback": "O resultado de ontem não fala do equipamento de hoje. Retome o que o teste confere."
             },
             {
-              "label": "Só quando um paciente reclamar da demora",
+              "label": "Cada técnico de plantão escolhe sozinho o que testar e quando",
               "correct": false,
-              "feedback": "Teste de qualidade não depende de reclamação. Confira de novo a frequência."
+              "feedback": "Quando testar não é escolha de cada técnico. Confira de novo quem define."
             },
             {
-              "label": "Apenas na instalação, na fase de aceitação",
+              "label": "Repetir o teste só atrasa a agenda do dia",
               "correct": false,
-              "feedback": "A aceitação é só o começo. Retome o que se repete no dia a dia."
+              "feedback": "Atraso de agenda não dispensa teste. Retome o que o teste protege."
             }
           ],
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "iaea-srs-40"
           ]
         },
         {
@@ -1977,23 +2009,24 @@
               "feedback": "Essa decisão não é do estudante. Retome o final do conceito."
             },
             {
-              "label": "A recepção, conforme o tamanho da agenda",
+              "label": "A recepção, conforme o tamanho da agenda do dia",
               "correct": false,
               "feedback": "A agenda não define testes. Confira de novo quem responde pela proteção."
             },
             {
-              "label": "O supervisor de proteção radiológica",
+              "label": "O físico médico, pelo programa do serviço",
               "correct": true,
-              "feedback": "Isso. Após reparo ou suspeita de funcionamento irregular, é ele quem determina os testes pertinentes."
+              "feedback": "Isso. Após reparo ou suspeita de funcionamento irregular, o físico médico, pelo programa de qualidade do serviço, determina os testes pertinentes."
             },
             {
-              "label": "O fabricante, sem comunicar o serviço",
+              "label": "O fabricante, sem comunicar nada ao serviço",
               "correct": false,
-              "feedback": "O fabricante orienta, mas a norma aponta alguém do serviço. Retome quem responde pela proteção ali."
+              "feedback": "O fabricante orienta, mas a decisão fica com alguém do serviço. Retome quem responde pela proteção ali."
             }
           ],
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "iaea-srs-40"
           ]
         }
       ],
@@ -2004,7 +2037,7 @@
             "prompt": "Na simulação, o teste de janela de energia do dia sai fora da faixa. O que você faz?",
             "options": [
               {
-                "label": "Avisa a equipe e o supervisor de proteção",
+                "label": "Avisa a equipe e o responsável pela proteção",
                 "correct": true,
                 "feedback": "Isso. Depois de parar e registrar o que viu, a informação vai para quem decide."
               },
@@ -2025,7 +2058,8 @@
               }
             ],
             "sourceIds": [
-              "cnen-norma-3-05"
+              "iaea-ssg46-2018",
+              "iaea-srs-40"
             ]
           }
         },
@@ -2051,18 +2085,19 @@
               {
                 "label": "Se a janela está centrada para esse material",
                 "correct": true,
-                "feedback": "Isso. A norma pede verificar a janela para todos os radionuclídeos usados na rotina."
+                "feedback": "Isso. A janela é verificada para todos os radionuclídeos usados na rotina."
               }
             ],
             "sourceIds": [
-              "cnen-norma-3-05"
+              "iaea-ssg46-2018",
+              "iaea-srs-40"
             ]
           }
         }
       },
       "diagramIdeas": [
         "Comparação entre planar, com uma cabeça parada, e SPECT, com cabeças girando",
-        "Calendário de testes: diário, mensal e semestral, com a pergunta de cada um"
+        "Quadro de testes de qualidade, com a pergunta de cada um"
       ]
     },
     {
@@ -2091,7 +2126,7 @@
       },
       "concept": {
         "title": "Duas séries, um alinhamento",
-        "body": "No PET, cada pósitron encontra um elétron; os dois se aniquilam e geram dois fótons gama em direções opostas, registrados pelos detectores. Nos híbridos, a TC faz dois trabalhos: correção de atenuação e localização anatômica. As duas séries precisam coincidir: o co-registro é testado a cada trimestre. A respiração pode desalinhá-las; metal, como implante, marca-passo ou cateter de quimioterapia, pode gerar artefato na correção. No PET com FDG, em geral há repouso de 30 a 60 minutos, evitando movimento e fala; a TC leva menos de 2 minutos e o PET, de 20 a 30. Braços elevados reduzem o truncamento, quando o corpo sai do campo menor da TC.",
+        "body": "No PET, cada pósitron encontra um elétron; os dois se aniquilam e geram dois fótons gama em direções opostas, registrados pelos detectores. Nos híbridos, a TC faz dois trabalhos: correção de atenuação e localização anatômica. As duas séries precisam coincidir: o co-registro é testado pelo serviço. A respiração pode desalinhá-las; metal, como implante, marca-passo ou cateter de quimioterapia, pode gerar artefato na correção. No PET com FDG, em geral há repouso de 30 a 60 minutos, evitando movimento e fala; a TC leva menos de 2 minutos e o PET, de 20 a 30. Braços elevados reduzem o truncamento, quando o corpo sai do campo menor da TC.",
         "keyPoints": [
           "A TC corrige a atenuação e situa o sinal na anatomia.",
           "Respiração e metal podem atrapalhar o híbrido.",
@@ -2180,7 +2215,8 @@
           "sourceIds": [
             "pettinato-artefatos-pet-ct",
             "willowson-spect-ct",
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "iaea-gsr-part3-2014"
           ]
         },
         {
@@ -2248,7 +2284,8 @@
           ],
           "help": "Lembre que você não precisa saber a causa para agir bem.",
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "iaea-gsr-part3-2014"
           ]
         }
       ],
@@ -2412,7 +2449,7 @@
       },
       "concept": {
         "title": "Cada etapa deixa rastro",
-        "body": "Cada etapa deixa um registro. A ordem ensinada aqui é: inspeção do embalado; testes de qualidade do dia, com data, resultado e responsável; controle de qualidade do radiofármaco, antes da administração; atividade prescrita e administrada, com identificação do paciente; rejeito, com datas e visto. Para achar a falha, procure a primeira etapa sem registro, fora de ordem ou com valor divergente. Em suspeita de paciente errado, órgão errado ou atividade diferente da prescrita, você não corrige nada: descreve e avisa a equipe e o supervisor de proteção. Titular, responsável técnico e supervisor investigam, registram e informam paciente e médico.",
+        "body": "Cada etapa deixa um registro, nesta ordem: inspeção do embalado; testes de qualidade da câmara, com data, resultado e responsável; controle de qualidade do radiofármaco, antes da administração; atividade prescrita e administrada, com identificação do paciente; rejeito, com datas e visto. Para achar a falha, procure a primeira etapa sem registro, fora de ordem ou com valor divergente. Em suspeita de paciente errado, órgão errado ou atividade diferente da prescrita, você não corrige nada: descreve e avisa a equipe e o responsável pela proteção. A direção do serviço e a equipe investigam, registram e informam paciente e médico, e o evento significativo vai ao regulador pelas regras locais.",
         "keyPoints": [
           "Registro conta o que aconteceu, não o que deveria acontecer.",
           "Procure a primeira etapa sem registro, fora de ordem ou divergente.",
@@ -2442,14 +2479,15 @@
               "feedback": "Isso. É a conferência que une material, prescrição e pessoa. Hoje você a procura nas fichas."
             },
             {
-              "label": "Local de rejeito, datas e visto do supervisor",
+              "label": "Local de rejeito, datas e visto do responsável",
               "correct": false,
               "feedback": "Isso é registro de rejeito, no fim do percurso. Retome o que vem antes da administração."
             }
           ],
           "help": "Pense no que precisa estar certo sobre o material e sobre a pessoa.",
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "iaea-gsr-part3-2014"
           ]
         },
         {
@@ -2459,7 +2497,7 @@
           "prompt": "Ordene os registros do fluxo, na ordem ensinada nesta aula.",
           "items": [
             "Inspeção do embalado",
-            "Testes de qualidade do dia",
+            "Testes de qualidade da câmara",
             "Controle de qualidade do radiofármaco",
             "Atividade prescrita e administrada, com identificação",
             "Rejeito, com datas e visto"
@@ -2468,7 +2506,8 @@
           "feedbackIncorrect": "Retome o conceito: comece pelo que chega ao serviço e termine pelo que sobra. O paciente aparece depois das conferências.",
           "help": "Pergunte o que precisa estar registrado antes de haver administração.",
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "iaea-gsr-part3-2014"
           ]
         },
         {
@@ -2483,7 +2522,7 @@
             },
             {
               "left": "Uniformidade de hoje sem data nem responsável",
-              "right": "Testes de qualidade do dia"
+              "right": "Testes de qualidade da câmara"
             },
             {
               "left": "Atividade administrada em branco",
@@ -2498,7 +2537,8 @@
           "feedbackIncorrect": "Retome o conceito: leia o achado e pergunte em que momento do percurso aquele dado deveria ter sido anotado.",
           "help": "Procure a palavra do achado que aponta para o momento do percurso.",
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "iaea-gsr-part3-2014"
           ]
         },
         {
@@ -2515,7 +2555,7 @@
               "feedback": "Corrigir sozinho apaga o rastro de um possível evento grave. Retome o que o estudante faz."
             },
             {
-              "label": "Param, descrevem e chamam a equipe e o supervisor",
+              "label": "Param, descrevem e chamam a equipe e o responsável",
               "correct": true,
               "feedback": "Isso. Suspeita de paciente errado é investigada por quem responde pelo serviço, e o registro fica como está."
             },
@@ -2532,7 +2572,8 @@
           ],
           "help": "Pense no que acontece com a investigação se o papel mudar antes de ela começar.",
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "iaea-gsr-part3-2014"
           ]
         },
         {
@@ -2565,7 +2606,8 @@
           ],
           "help": "Leia os horários das duas fichas e compare com a ordem ensinada.",
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "iaea-gsr-part3-2014"
           ]
         }
       ],
@@ -2603,7 +2645,8 @@
             }
           ],
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "iaea-gsr-part3-2014"
           ]
         },
         {
@@ -2620,9 +2663,9 @@
               "feedback": "Seu papel é apontar. Confira de novo quem investiga."
             },
             {
-              "label": "Titular, responsável técnico e supervisor",
+              "label": "A direção do serviço e a equipe",
               "correct": true,
-              "feedback": "Isso. Eles investigam, registram, previnem nova ocorrência e informam o paciente e o médico."
+              "feedback": "Isso. Elas investigam, registram, previnem nova ocorrência e informam o paciente e o médico."
             },
             {
               "label": "A recepção, ao confirmar a agenda do dia",
@@ -2631,7 +2674,8 @@
             }
           ],
           "sourceIds": [
-            "cnen-norma-3-05"
+            "iaea-ssg46-2018",
+            "iaea-gsr-part3-2014"
           ]
         }
       ],
@@ -2663,7 +2707,8 @@
               }
             ],
             "sourceIds": [
-              "cnen-norma-3-05"
+              "iaea-ssg46-2018",
+              "iaea-gsr-part3-2014"
             ]
           }
         },
@@ -2693,7 +2738,8 @@
               }
             ],
             "sourceIds": [
-              "cnen-norma-3-05"
+              "iaea-ssg46-2018",
+              "iaea-gsr-part3-2014"
             ]
           }
         }

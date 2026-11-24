@@ -17,13 +17,13 @@
       "licenseNote": "Artigo de acesso aberto; consultado para zonas, projéteis, triagem, ruído, quench, emergência e gestação, com redação própria."
     },
     {
-      "id": "anvisa-in-97-2021",
-      "title": "Instrução Normativa IN nº 97, de 27 de maio de 2021",
-      "publisher": "Anvisa",
-      "url": "https://anvisalegis.datalegis.net/action/ActionDatalegis.php?acao=abrirTextoAto&tipo=INM&numeroAto=00000097&seqAto=000&valorAno=2021&orgao=DC/ANVISA/MS&codTipo=&desItem=&desItemFim=&cod_menu=1696&cod_modulo=134&pesquisa=true",
-      "accessedAt": "2026-11-06",
+      "id": "acr-manual-mr-safety-2024",
+      "title": "ACR Manual on MR Safety (2024)",
+      "publisher": "American College of Radiology (ACR)",
+      "url": "https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/Clinical/Radiology-Safety/Manual-on-MR-Safety.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para zonas, detecção de metais, sinalização, porta, evacuação de gases, comunicação e proteção auditiva, sem reprodução de texto."
+      "licenseNote": "Zonas de segurança em RM, porta da sala do ímã, acompanhantes, proteção auditiva e gestantes; consulta para fatos, sem reprodução de texto."
     },
     {
       "id": "fda-rm-beneficios-riscos",
@@ -285,11 +285,11 @@
       },
       "concept": {
         "title": "Três campos, três cuidados",
-        "body": "De fora para dentro: ímã principal, bobinas de gradiente e bobina de transmissão de RF; a bobina de recepção fica junto ao paciente. O campo principal é constante e atrai objetos magnéticos. Os gradientes, ligados e desligados depressa, fazem ruído alto e podem estimular nervos. A RF pode aquecer. O ímã supercondutor usa hélio líquido. No quench, o campo é perdido e o hélio sai depressa por um tubo para fora do prédio. Se essa saída falhar, o gás entra na sala e dilui o oxigênio. Então todos saem e só voltam quando a equipe autoriza. Acionar o quench não é tarefa do estudante: ele segue o plano do serviço.",
+        "body": "De fora para dentro: ímã principal, gradientes e transmissão de RF. O campo principal atrai objetos magnéticos. Os gradientes fazem ruído alto e podem estimular nervos. A RF pode aquecer. No ímã supercondutor, o quench perde o campo e solta o hélio líquido por um tubo para fora do prédio. Se vazar para a sala, a pressão sobe e o gás dilui o oxigênio; por isso o projeto tem alívio de pressão e exaustão de emergência. Todos saem e só voltam quando a equipe autoriza. Acionar o quench não é tarefa do estudante. Se a porta precisar ficar aberta, uma barreira de aviso fica na entrada.",
         "keyPoints": [
           "Campo principal: atração. Gradientes: ruído e estímulo de nervos. RF: aquecimento.",
           "Hélio na sala: sair, seguir o plano do serviço e só voltar quando a equipe autorizar.",
-          "A IN 97/2021 da Anvisa prevê, em salas com hélio e tubo de quench, porta que abre para fora."
+          "A porta da sala do ímã fica fechada e, sem monitoramento, de preferência trancada, mas deve abrir por dentro."
         ]
       },
       "interactions": [
@@ -359,16 +359,16 @@
           "id": "i5",
           "type": "case-decision",
           "role": "transfer",
-          "context": "Numa visita técnica a um serviço em obra, com equipamento que usa hélio e tubo de quench, você vê no desenho que a porta da sala do equipamento abre para dentro dela. O supervisor da visita está por perto, conversando com o engenheiro da obra.",
+          "context": "Numa visita técnica a um serviço, você vê que a porta da sala do equipamento está aberta, sem ninguém vigiando a entrada e sem faixa de barreira, enquanto outras pessoas circulam no corredor. O supervisor da visita está por perto, conversando com a equipe do setor.",
           "prompt": "O que você faz com essa observação?",
           "options": [
-            { "label": "Considera correta, porque protege melhor o ímã", "correct": false, "feedback": "A IN 97/2021 prevê o contrário para esse tipo de sala: abertura para fora. Retome o que a norma diz sobre a porta." },
-            { "label": "Aponta a divergência da norma ao supervisor", "correct": true, "feedback": "A IN 97/2021 prevê porta abrindo para fora nessas salas. Descrever a divergência a quem responde é o seu papel." },
-            { "label": "Deixa de lado, pois porta não é tema sanitário", "correct": false, "feedback": "A norma sanitária trata justamente do projeto dessa porta. Confira de novo o que a Anvisa prevê." },
-            { "label": "Pede ao engenheiro que mude o desenho hoje", "correct": false, "feedback": "Dar ordem de obra não cabe ao estudante em visita. O que cabe é descrever a divergência ao supervisor." }
+            {"label": "Considera normal, porque a porta fica aberta só um instante", "correct": false, "feedback": "Porta aberta sem vigilância deixa passar objetos magnéticos. Retome como a entrada da sala do ímã é controlada."},
+            {"label": "Descreve o que viu ao supervisor", "correct": true, "feedback": "Porta aberta sem vigilância nem barreira é falha no controle de acesso. Descrever o que viu a quem responde é o seu papel."},
+            {"label": "Deixa de lado, pois porta não é tema de segurança", "correct": false, "feedback": "A entrada da sala do ímã é o ponto mais crítico do controle de acesso. Confira de novo o que se espera dessa porta."},
+            {"label": "Assume a vigilância da porta por conta própria", "correct": false, "feedback": "Controlar o acesso à sala é tarefa da equipe do setor, não do estudante em visita. O que cabe é descrever ao supervisor."}
           ],
-          "help": "Lembre o que a norma brasileira prevê para o projeto dessa sala.",
-          "sourceIds": ["anvisa-in-97-2021"]
+          "help": "Lembre como a entrada da sala do ímã deve ser controlada.",
+          "sourceIds": ["acr-manual-mr-safety-2024", "shah-aran-2023-seguranca-rm"]
         }
       ],
       "closing": {
@@ -451,7 +451,7 @@
         "body": "Projétil, queimadura, ruído e falha de dispositivo vêm do mesmo ambiente, e nenhuma barreira basta sozinha. A zona II faz a anamnese e levanta as questões de segurança. A sinalização na porta avisa. A sala sem supervisão fica trancada. O sistema de detecção monitora o acesso às zonas III e IV, mas o detector ferromagnético pode não acusar prata, cobre ou fibra de carbono. Dispositivo de segurança desconhecida é tratado como MR Unsafe. Quem avalia é a equipe. Diante de dúvida, nesta ordem: parar, manter a pessoa fora, descrever o que ouviu, chamar a equipe, aguardar a resposta. Profissional grávida fica fora da zona IV durante a série.",
         "keyPoints": [
           "Silêncio do detector não prova segurança.",
-          "O ruído pode chegar a 100 dB ou mais: a IN 97/2021 manda oferecer proteção auditiva ao paciente e a quem fica na sala.",
+          "O ruído é intenso, e o protetor precisa trazê-lo abaixo de 99 dB(A): ofereça proteção auditiva ao paciente e a quem fica na sala.",
           "Esta unidade é simulação: não comprova operação real e não libera implante."
         ]
       },
@@ -484,7 +484,7 @@
           "feedbackCorrect": "Cada barreira cobre uma parte do risco. Juntas elas reduzem falhas, mas nenhuma substitui a avaliação da equipe.",
           "feedbackIncorrect": "Alguma barreira ficou com a tarefa de outra. Retome: o que é pergunta, o que é aviso, o que é tranca e o que é aparelho?",
           "help": "Pergunte de cada barreira: ela conversa, avisa, trava ou mede?",
-          "sourceIds": ["anvisa-in-97-2021", "shah-aran-2023-seguranca-rm", "baker-2024-queimaduras-rf"]
+          "sourceIds": ["acr-manual-mr-safety-2024", "shah-aran-2023-seguranca-rm", "baker-2024-queimaduras-rf"]
         },
         {
           "id": "i3",
@@ -501,7 +501,7 @@
           "feedbackCorrect": "Parar e manter a pessoa fora vem antes de qualquer explicação. Depois, a informação chega inteira a quem pode avaliar.",
           "feedbackIncorrect": "Alguma ação passou à frente. Retome: primeiro a pessoa fica fora de perigo; só depois vêm a descrição e a equipe.",
           "help": "O que precisa estar garantido antes de você começar a explicar a situação?",
-          "sourceIds": ["fda-rm-beneficios-riscos", "anvisa-in-97-2021"]
+          "sourceIds": ["fda-rm-beneficios-riscos", "acr-manual-mr-safety-2024"]
         },
         {
           "id": "i4",
@@ -578,14 +578,14 @@
         },
         "transfer": {
           "item": {
-            "prompt": "A equipe avaliou o caso e decidiu que um acompanhante fica na sala durante a série. Que proteção a IN 97/2021 manda o serviço oferecer a ele?",
+            "prompt": "A equipe avaliou o caso e decidiu que um acompanhante fica na sala durante a série. Que proteção a boa prática de segurança em RM indica que o serviço ofereça a ele?",
             "options": [
-              { "label": "Um avental de chumbo, como em radiologia", "correct": false, "feedback": "Avental não é a proteção que a norma cita para o risco desta aula. Retome o que ela manda oferecer a quem fica na sala." },
-              { "label": "Nenhuma, pois o ruído só afeta o paciente", "correct": false, "feedback": "O ruído atinge quem está na sala, e a norma trata disso. Confira de novo a quem a proteção é oferecida." },
-              { "label": "Proteção auditiva, como a do paciente", "correct": true, "feedback": "O ruído pode chegar a 100 dB ou mais, e a norma manda oferecer proteção auditiva ao paciente e a quem permanece na sala." },
-              { "label": "Luvas isolantes, por causa da RF da sala", "correct": false, "feedback": "Luvas não são o que a norma cita para quem fica na sala. O risco desta pergunta é o ruído: retome a proteção correspondente." }
+              { "label": "Um avental de chumbo, como em radiologia", "correct": false, "feedback": "Avental não é a proteção indicada para o risco desta aula. Retome o que se oferece a quem fica na sala." },
+              { "label": "Nenhuma, pois o ruído só afeta o paciente", "correct": false, "feedback": "O ruído atinge quem está na sala, e a proteção também é indicada a essa pessoa. Confira de novo a quem ela é oferecida." },
+              { "label": "Proteção auditiva, como a do paciente", "correct": true, "feedback": "O ruído é intenso, e o protetor precisa trazê-lo abaixo de 99 dB(A); a boa prática é oferecer proteção auditiva ao paciente e a quem permanece na sala." },
+              { "label": "Luvas isolantes, por causa da RF da sala", "correct": false, "feedback": "Luvas não são a proteção indicada para quem fica na sala. O risco desta pergunta é o ruído: retome a proteção correspondente." }
             ],
-            "sourceIds": ["anvisa-in-97-2021", "shah-aran-2023-seguranca-rm"]
+            "sourceIds": ["acr-manual-mr-safety-2024", "shah-aran-2023-seguranca-rm"]
           }
         }
       },
@@ -840,7 +840,7 @@
             { "label": "Leva o pedido dela à tecnóloga, sem alterar a série", "correct": true, "feedback": "A tecnóloga sabe o que o protocolo permite. A sua função é levar o pedido de Dona Iara, sem mexer no parâmetro." }
           ],
           "help": "Quem responde pelos valores da série?",
-          "sourceIds": ["radiopaedia-snr", "anvisa-in-97-2021"]
+          "sourceIds": ["radiopaedia-snr"]
         },
         {
           "id": "i5",
@@ -987,7 +987,7 @@
           "feedbackCorrect": "A segurança abre a conferência, e a integridade vem antes de usar a bobina. Almofadas e comunicação fecham o preparo.",
           "feedbackIncorrect": "Alguma etapa veio antes da hora. Retome: nada começa sem triagem vista pela equipe, nem bobina danificada entra em uso.",
           "help": "O que precisa estar garantido antes de tocar na bobina?",
-          "sourceIds": ["baker-2024-queimaduras-rf", "anvisa-in-97-2021"]
+          "sourceIds": ["baker-2024-queimaduras-rf", "acr-manual-mr-safety-2024"]
         },
         {
           "id": "i4",

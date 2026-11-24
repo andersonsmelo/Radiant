@@ -6,7 +6,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m08",
-  "materialSha256": "32120929b081fbe5d58ad40c5571928681ce3e3031c1a27882ab315fdc991100",
+  "materialSha256": "9d55d15172cd59867b00506e4e6b3776ee43a5b8f82f077bccc9f4515d987fac",
   "trackId": "track:rtg-2026:m08",
   "unitId": "unit:rtg-2026:m08",
   "contentVersion": "rtg-2026-m08-v1",
@@ -200,13 +200,13 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "licenseNote": "Publicação institucional da Comissão Europeia; consultada para os critérios de inspiração e de simetria do tórax em PA, sem reprodução de texto."
     },
     {
-      "id": "source:rtg-2026:m08:ms-protocolo-identificacao-2013",
-      "title": "Protocolo de Identificação do Paciente (Anexo 02, Programa Nacional de Segurança do Paciente)",
-      "publisher": "Ministério da Saúde, Anvisa e Fiocruz, em cópia do portal Proqualis",
-      "url": "https://proqualis.fiocruz.br/sites/proqualis.fiocruz.br/files/Protocolo%20de%20Identifica%C3%A7%C3%A3o%20do%20Paciente.pdf",
-      "accessedAt": "2026-11-06",
+      "id": "source:rtg-2026:m08:who-identificacao-paciente-2007",
+      "title": "Patient Identification (Patient Safety Solutions, volume 1, solution 2)",
+      "publisher": "WHO Collaborating Centre for Patient Safety Solutions",
+      "url": "https://cdn.who.int/media/docs/default-source/patient-safety/patient-safety-solutions/ps-solution2-patient-identification.pdf?sfvrsn=ff81d7f9_6",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Protocolo público do Programa Nacional de Segurança do Paciente; consultado para fatos de identificação, sem reprodução de texto."
+      "licenseNote": "Dois identificadores sem o número do quarto; consulta para fatos, sem reprodução de texto."
     }
   ],
   "activities": [
@@ -1782,7 +1782,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-m08-v1",
         "sourceIds": [
           "source:rtg-2026:m08:esr-efrs-seguranca-2019",
-          "source:rtg-2026:m08:ms-protocolo-identificacao-2013",
+          "source:rtg-2026:m08:who-identificacao-paciente-2007",
           "source:rtg-2026:m08:radiopaedia-torax-pa",
           "source:rtg-2026:m08:rcr-criterios-torax-pa",
           "source:rtg-2026:m08:ce-eur-16260-1996"
@@ -5215,7 +5215,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m08:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m08:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5236,7 +5236,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m08:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m08:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5251,7 +5251,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m08:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m08:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5260,7 +5260,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m08:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m08:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5405,7 +5405,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m08:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m08:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5420,7 +5420,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m08:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m08:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5441,7 +5441,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m08:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m08:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5450,7 +5450,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m08:ms-protocolo-identificacao-2013"
+        "source:rtg-2026:m08:who-identificacao-paciente-2007"
       ]
     },
     {
@@ -5521,7 +5521,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m08:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m08:who-identificacao-paciente-2007",
         "source:rtg-2026:m08:radiopaedia-torax-pa",
         "source:rtg-2026:m08:rcr-criterios-torax-pa",
         "source:rtg-2026:m08:ce-eur-16260-1996"
@@ -5533,7 +5533,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m08:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m08:who-identificacao-paciente-2007",
         "source:rtg-2026:m08:radiopaedia-torax-pa",
         "source:rtg-2026:m08:rcr-criterios-torax-pa",
         "source:rtg-2026:m08:ce-eur-16260-1996"
@@ -5545,7 +5545,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m08:esr-efrs-seguranca-2019",
-        "source:rtg-2026:m08:ms-protocolo-identificacao-2013",
+        "source:rtg-2026:m08:who-identificacao-paciente-2007",
         "source:rtg-2026:m08:radiopaedia-torax-pa",
         "source:rtg-2026:m08:rcr-criterios-torax-pa",
         "source:rtg-2026:m08:ce-eur-16260-1996"
@@ -6239,7 +6239,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "32120929b081fbe5d58ad40c5571928681ce3e3031c1a27882ab315fdc991100"
+      "materialSha256": "9d55d15172cd59867b00506e4e6b3776ee43a5b8f82f077bccc9f4515d987fac"
     },
     {
       "schemaVersion": 1,
@@ -6248,7 +6248,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "32120929b081fbe5d58ad40c5571928681ce3e3031c1a27882ab315fdc991100"
+      "materialSha256": "9d55d15172cd59867b00506e4e6b3776ee43a5b8f82f077bccc9f4515d987fac"
     },
     {
       "schemaVersion": 1,
@@ -6257,7 +6257,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "32120929b081fbe5d58ad40c5571928681ce3e3031c1a27882ab315fdc991100"
+      "materialSha256": "9d55d15172cd59867b00506e4e6b3776ee43a5b8f82f077bccc9f4515d987fac"
     },
     {
       "schemaVersion": 1,
@@ -6266,7 +6266,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "32120929b081fbe5d58ad40c5571928681ce3e3031c1a27882ab315fdc991100"
+      "materialSha256": "9d55d15172cd59867b00506e4e6b3776ee43a5b8f82f077bccc9f4515d987fac"
     },
     {
       "schemaVersion": 1,
@@ -6275,7 +6275,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "32120929b081fbe5d58ad40c5571928681ce3e3031c1a27882ab315fdc991100"
+      "materialSha256": "9d55d15172cd59867b00506e4e6b3776ee43a5b8f82f077bccc9f4515d987fac"
     },
     {
       "schemaVersion": 1,
@@ -6284,7 +6284,7 @@ export const RTG_2026_M08: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "32120929b081fbe5d58ad40c5571928681ce3e3031c1a27882ab315fdc991100"
+      "materialSha256": "9d55d15172cd59867b00506e4e6b3776ee43a5b8f82f077bccc9f4515d987fac"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

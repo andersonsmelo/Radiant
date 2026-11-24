@@ -6,7 +6,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:s-tc",
-  "materialSha256": "0eff788e68bd7a96eff79bef1fd0e9df799d4293463193bae4f4f48e9e973557",
+  "materialSha256": "e57907817c85536f31fbfcae9e4d52604a0d41a799a26c4f520e0731f907567b",
   "trackId": "track:rtg-2026:s-tc",
   "unitId": "unit:rtg-2026:s-tc",
   "contentVersion": "rtg-2026-s-tc-v1",
@@ -94,15 +94,6 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "licenseNote": "Licença CC BY-NC-SA 4.0 declarada na página; só consulta de fatos, com redação própria."
     },
     {
-      "id": "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
-      "title": "RDC nº 611, de 9 de março de 2022 (cópia hospedada pelo CBR)",
-      "publisher": "Anvisa",
-      "url": "https://cbr.org.br/wp-content/uploads/2023/08/RDC-ANVISA-de-2022-no-611_Requisitos-sanitarios-de-organizacao-e-funcionamento-de-servico-de-radiologia-diagnostica-ou-intervencionista.pdf",
-      "accessedAt": "2026-11-06",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; lidos os arts. 2º (XII), 23, 37, 38, 44, 53, 56 e 57, sem reprodução de texto."
-    },
-    {
       "id": "source:rtg-2026:s-tc:mccollough-2011-ctdi",
       "title": "CT Dose Index and Patient Dose: They Are Not the Same Thing",
       "publisher": "Radiology, via PubMed Central",
@@ -137,6 +128,24 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "accessedAt": "2026-11-06",
       "use": "factual-reference",
       "licenseNote": "Licença CC BY declarada na página; só consulta de fatos, com redação própria."
+    },
+    {
+      "id": "source:rtg-2026:s-tc:iaea-ssg46-2018",
+      "title": "Radiation Protection and Safety in Medical Uses of Ionizing Radiation (IAEA Safety Standards Series No. SSG-46)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB1775_web.pdf",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Guia de segurança para radiologia, medicina nuclear e radioterapia: papéis, acompanhantes, EPI, monitoração, sinalização, qualidade, rejeitos; consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "source:rtg-2026:s-tc:iaea-gsr-part3-2014",
+      "title": "Radiation Protection and Safety of Radiation Sources: International Basic Safety Standards (IAEA Safety Standards Series No. GSR Part 3)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1578_web-57265295.pdf",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Requisitos de proteção (justificação, otimização, limites, exposição médica, mulheres grávidas, área controlada, monitoração); consulta para fatos, sem reprodução de texto."
     }
   ],
   "activities": [
@@ -150,7 +159,8 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:s-tc:burbridge-mah-tc",
           "source:rtg-2026:s-tc:radiopaedia-hu",
-          "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+          "source:rtg-2026:s-tc:iaea-ssg46-2018",
+          "source:rtg-2026:s-tc:iaea-gsr-part3-2014",
           "source:rtg-2026:s-tc:radiologyinfo-tc-torax"
         ]
       },
@@ -187,7 +197,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Lado, plano, número e as regras da sala",
-            "body": "Três leituras voltam aqui. Lado: o observador fica ao pé da mesa, e o lado direito do paciente aparece à esquerda da tela. Plano: coronal e sagital saem dos dados axiais, sem nova exposição. Número: pulmão entre -950 e -650 HU, gordura perto de -100, tecido mole entre 25 e 50, conforme o órgão, osso, centenas de HU ou mais. A sala tem regras na RDC 611/2022: um paciente por vez; acompanhante só se imprescindível, nunca gestante ou menor de 18 anos; suspeita de gravidez informada antes do exame. Se algo não fecha, nesta ordem: parar, descrever sem interpretar, levar à equipe e seguir só com a orientação recebida.",
+            "body": "Lado: o observador fica ao pé da mesa, e o lado direito do paciente aparece à esquerda da tela. Plano: coronal e sagital saem dos dados axiais, sem nova exposição. Número: pulmão entre -950 e -650 HU, gordura perto de -100, tecido mole entre 25 e 50, conforme o órgão, osso, centenas de HU ou mais. A sala tem regras do serviço: um paciente por vez; acompanhante só se imprescindível, e então adulto que aceita ajudar, orientado, protegido, não gestante; criança é evitada se houver outro adulto; suspeita de gravidez informada antes. Se algo não fecha: parar, descrever sem interpretar, levar à equipe e seguir só com a orientação recebida.",
             "keyPoints": [
               "Lado direito do paciente à esquerda da tela.",
               "Coronal e sagital saem dos dados axiais, sem nova exposição.",
@@ -461,7 +471,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-s-tc-v1",
         "sourceIds": [
           "source:rtg-2026:s-tc:statpearls-tc-fisica",
-          "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-tc:iaea-ssg46-2018"
         ]
       },
       "steps": [
@@ -739,7 +749,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-tc:aula-02:i5:d",
                   "label": "Sigo e confiro depois se a imagem ficou boa",
-                  "explanation": "Uma imagem boa não substitui o teste. Retome o que a norma pede: informar a circunstância de imediato."
+                  "explanation": "Uma imagem boa não substitui o teste. Retome o que se espera: informar a circunstância de imediato."
                 }
               ],
               "correctOptionId": "option:rtg-2026:s-tc:aula-02:i5:b"
@@ -777,7 +787,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
           "source:rtg-2026:s-tc:radiopaedia-ctdi",
           "source:rtg-2026:s-tc:statpearls-tc-fisica",
           "source:rtg-2026:s-tc:mccollough-2011-ctdi",
-          "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-tc:iaea-ssg46-2018"
         ]
       },
       "steps": [
@@ -1087,7 +1097,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:s-tc:statpearls-tc-fisica",
           "source:rtg-2026:s-tc:tanabe-2022-kernel",
-          "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-tc:iaea-ssg46-2018"
         ]
       },
       "steps": [
@@ -1714,7 +1724,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:s-tc:statpearls-tc-fisica",
           "source:rtg-2026:s-tc:tanabe-2022-kernel",
-          "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+          "source:rtg-2026:s-tc:iaea-ssg46-2018",
           "source:rtg-2026:s-tc:radiologyinfo-tc-torax",
           "source:rtg-2026:s-tc:radiologyinfo-angio-tc",
           "source:rtg-2026:s-tc:radiopaedia-ctdi",
@@ -2030,7 +2040,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:s-tc:statpearls-tc-fisica",
           "source:rtg-2026:s-tc:radiopaedia-artefatos-tc",
-          "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+          "source:rtg-2026:s-tc:iaea-ssg46-2018",
           "source:rtg-2026:s-tc:radiologyinfo-tc-torax"
         ]
       },
@@ -2241,7 +2251,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-tc:aula-07:i4:a",
                   "label": "Sigo, porque anel não afeta a segurança do exame",
-                  "explanation": "O anel pode afetar a qualidade, e isso a norma manda informar. Pare e leve as séries à supervisão."
+                  "explanation": "O anel pode afetar a qualidade, e isso se informa. Pare e leve as séries à supervisão."
                 },
                 {
                   "id": "option:rtg-2026:s-tc:aula-07:i4:b",
@@ -2339,7 +2349,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenance": {
         "contentVersion": "rtg-2026-s-tc-v1",
         "sourceIds": [
-          "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+          "source:rtg-2026:s-tc:iaea-ssg46-2018",
           "source:rtg-2026:s-tc:statpearls-tc-fisica",
           "source:rtg-2026:s-tc:tanabe-2022-kernel",
           "source:rtg-2026:s-tc:radiopaedia-ctdi"
@@ -2653,32 +2663,32 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:s-tc:aula-01"
         ],
-        "prompt": "Seu Alceu, paciente simulado, pede que o neto de 16 anos fique na sala para acalmá-lo durante o exame. O que a RDC 611/2022 diz sobre esse papel?",
+        "prompt": "Seu Alceu, paciente simulado, pede que o neto de 8 anos fique na sala para acalmá-lo durante o exame. A filha adulta dele também está ali. O que você faz?",
         "options": [
           {
             "id": "option:rtg-2026:s-tc:aula-01:c1:a",
-            "label": "Ele pode ficar, desde que use vestimenta de proteção"
+            "label": "Deixo ficar, desde que use vestimenta de proteção"
           },
           {
             "id": "option:rtg-2026:s-tc:aula-01:c1:b",
-            "label": "Ele pode ficar, se for a primeira vez dele"
+            "label": "Aceito, por ser a primeira vez dele"
           },
           {
             "id": "option:rtg-2026:s-tc:aula-01:c1:c",
-            "label": "Ele não pode, por ser menor de 18 anos"
+            "label": "Evito o neto e levo o pedido à equipe"
           },
           {
             "id": "option:rtg-2026:s-tc:aula-01:c1:d",
-            "label": "Ele pode ficar, por ser parente do paciente"
+            "label": "Libero, por ser parente do paciente"
           }
         ],
         "correctOptionId": "option:rtg-2026:s-tc:aula-01:c1:c",
         "feedback": {
-          "correct": "Certo. A norma proíbe esse papel a gestantes e a menores de 18 anos. Leve o pedido à equipe, que vê outra forma de ajudar.",
+          "correct": "Certo. Criança é evitada nesse papel sempre que houver outra pessoa. A equipe vê se um adulto que aceita ajudar pode ficar, ou outra forma.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-tc:iaea-ssg46-2018"
         ]
       },
       {
@@ -2810,7 +2820,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+          "source:rtg-2026:s-tc:iaea-ssg46-2018",
           "source:rtg-2026:s-tc:statpearls-tc-fisica"
         ]
       },
@@ -2984,7 +2994,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:s-tc:aula-06"
         ],
-        "prompt": "Um colega diz que sabe os protocolos de cabeça e que escrever é perda de tempo. O que a RDC 611/2022 pede?",
+        "prompt": "Um colega diz que sabe os protocolos de cabeça e que escrever é perda de tempo. O que o serviço precisa ter?",
         "options": [
           {
             "id": "option:rtg-2026:s-tc:aula-06:c1:a",
@@ -2992,7 +3002,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
           },
           {
             "id": "option:rtg-2026:s-tc:aula-06:c1:b",
-            "label": "Protocolos guardados só com o responsável legal"
+            "label": "Protocolos guardados só com a direção do serviço"
           },
           {
             "id": "option:rtg-2026:s-tc:aula-06:c1:c",
@@ -3005,11 +3015,11 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
         ],
         "correctOptionId": "option:rtg-2026:s-tc:aula-06:c1:c",
         "feedback": {
-          "correct": "Certo. Eles precisam estar em linguagem acessível, atualizados e em local de fácil acesso a toda a equipe.",
+          "correct": "Certo. Os procedimentos ficam escritos, atualizados e ao alcance de toda a equipe.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+          "source:rtg-2026:s-tc:iaea-ssg46-2018"
         ]
       },
       {
@@ -3142,7 +3152,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+          "source:rtg-2026:s-tc:iaea-ssg46-2018",
           "source:rtg-2026:s-tc:statpearls-tc-fisica"
         ]
       },
@@ -3313,7 +3323,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3321,7 +3331,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3329,7 +3339,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3337,7 +3347,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3345,7 +3355,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3353,7 +3363,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3361,7 +3371,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3369,7 +3379,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3377,7 +3387,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-gsr-part3-2014",
         "source:rtg-2026:s-tc:radiologyinfo-tc-torax"
       ]
     },
@@ -3404,7 +3414,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-gsr-part3-2014",
         "source:rtg-2026:s-tc:radiologyinfo-tc-torax"
       ]
     },
@@ -3413,7 +3423,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-gsr-part3-2014",
         "source:rtg-2026:s-tc:radiologyinfo-tc-torax"
       ]
     },
@@ -3422,7 +3432,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-gsr-part3-2014",
         "source:rtg-2026:s-tc:radiologyinfo-tc-torax"
       ]
     },
@@ -3432,7 +3442,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:burbridge-mah-tc",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3441,7 +3451,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:burbridge-mah-tc",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3468,7 +3478,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:burbridge-mah-tc",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3477,7 +3487,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:burbridge-mah-tc",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3487,7 +3497,8 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-tc:burbridge-mah-tc",
         "source:rtg-2026:s-tc:radiopaedia-hu",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
+        "source:rtg-2026:s-tc:iaea-gsr-part3-2014",
         "source:rtg-2026:s-tc:radiologyinfo-tc-torax"
       ]
     },
@@ -3498,7 +3509,8 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-tc:burbridge-mah-tc",
         "source:rtg-2026:s-tc:radiopaedia-hu",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
+        "source:rtg-2026:s-tc:iaea-gsr-part3-2014",
         "source:rtg-2026:s-tc:radiologyinfo-tc-torax"
       ]
     },
@@ -3509,7 +3521,8 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-tc:burbridge-mah-tc",
         "source:rtg-2026:s-tc:radiopaedia-hu",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
+        "source:rtg-2026:s-tc:iaea-gsr-part3-2014",
         "source:rtg-2026:s-tc:radiologyinfo-tc-torax"
       ]
     },
@@ -3518,7 +3531,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3538,7 +3551,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3552,7 +3565,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3560,7 +3573,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3668,7 +3681,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3688,7 +3701,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3702,7 +3715,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3710,7 +3723,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3954,7 +3967,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3968,7 +3981,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3988,7 +4001,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -3996,7 +4009,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -4005,7 +4018,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -4014,7 +4027,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -4023,7 +4036,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -4405,7 +4418,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-tc:radiopaedia-ctdi",
         "source:rtg-2026:s-tc:mccollough-2011-ctdi",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -4415,7 +4428,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-tc:radiopaedia-ctdi",
         "source:rtg-2026:s-tc:mccollough-2011-ctdi",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -4443,7 +4456,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-tc:radiopaedia-ctdi",
         "source:rtg-2026:s-tc:mccollough-2011-ctdi",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -4453,7 +4466,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-tc:radiopaedia-ctdi",
         "source:rtg-2026:s-tc:mccollough-2011-ctdi",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -4514,7 +4527,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
         "source:rtg-2026:s-tc:radiopaedia-ctdi",
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
         "source:rtg-2026:s-tc:mccollough-2011-ctdi",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -4525,7 +4538,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
         "source:rtg-2026:s-tc:radiopaedia-ctdi",
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
         "source:rtg-2026:s-tc:mccollough-2011-ctdi",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -4536,7 +4549,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
         "source:rtg-2026:s-tc:radiopaedia-ctdi",
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
         "source:rtg-2026:s-tc:mccollough-2011-ctdi",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -4544,7 +4557,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:statpearls-tc-fisica"
       ]
     },
@@ -4559,7 +4572,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:statpearls-tc-fisica"
       ]
     },
@@ -4580,7 +4593,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:statpearls-tc-fisica"
       ]
     },
@@ -4589,7 +4602,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:statpearls-tc-fisica"
       ]
     },
@@ -4917,7 +4930,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -4926,7 +4939,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -4953,7 +4966,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -4962,7 +4975,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -5022,7 +5035,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
         "source:rtg-2026:s-tc:tanabe-2022-kernel",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -5032,7 +5045,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
         "source:rtg-2026:s-tc:tanabe-2022-kernel",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -5042,7 +5055,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
         "source:rtg-2026:s-tc:tanabe-2022-kernel",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -5833,7 +5846,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -5841,7 +5854,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -5849,7 +5862,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -5857,7 +5870,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -5865,7 +5878,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -5873,7 +5886,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -5881,7 +5894,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -5889,7 +5902,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -5977,7 +5990,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:radiopaedia-ctdi",
         "source:rtg-2026:s-tc:burbridge-mah-tc"
       ]
@@ -5999,7 +6012,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:radiopaedia-ctdi",
         "source:rtg-2026:s-tc:burbridge-mah-tc"
       ]
@@ -6015,7 +6028,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:radiopaedia-ctdi",
         "source:rtg-2026:s-tc:burbridge-mah-tc"
       ]
@@ -6025,7 +6038,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:radiopaedia-ctdi",
         "source:rtg-2026:s-tc:burbridge-mah-tc"
       ]
@@ -6036,7 +6049,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-contraste-iv",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6051,7 +6064,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-contraste-iv",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6072,7 +6085,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-contraste-iv",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6081,7 +6094,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-contraste-iv",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6091,7 +6104,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
         "source:rtg-2026:s-tc:tanabe-2022-kernel",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:radiologyinfo-tc-torax",
         "source:rtg-2026:s-tc:radiologyinfo-angio-tc",
         "source:rtg-2026:s-tc:radiopaedia-ctdi",
@@ -6106,7 +6119,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
         "source:rtg-2026:s-tc:tanabe-2022-kernel",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:radiologyinfo-tc-torax",
         "source:rtg-2026:s-tc:radiologyinfo-angio-tc",
         "source:rtg-2026:s-tc:radiopaedia-ctdi",
@@ -6121,7 +6134,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
         "source:rtg-2026:s-tc:tanabe-2022-kernel",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:radiologyinfo-tc-torax",
         "source:rtg-2026:s-tc:radiologyinfo-angio-tc",
         "source:rtg-2026:s-tc:radiopaedia-ctdi",
@@ -6134,7 +6147,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6154,7 +6167,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6168,7 +6181,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6176,7 +6189,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6238,7 +6251,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6264,7 +6277,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6272,7 +6285,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6280,7 +6293,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6288,7 +6301,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6302,7 +6315,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6322,7 +6335,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6330,7 +6343,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6515,7 +6528,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6536,7 +6549,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6551,7 +6564,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6560,7 +6573,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6628,7 +6641,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
         "source:rtg-2026:s-tc:radiopaedia-artefatos-tc",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:radiologyinfo-tc-torax"
       ]
     },
@@ -6639,7 +6652,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
         "source:rtg-2026:s-tc:radiopaedia-artefatos-tc",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:radiologyinfo-tc-torax"
       ]
     },
@@ -6650,7 +6663,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
         "source:rtg-2026:s-tc:radiopaedia-artefatos-tc",
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:radiologyinfo-tc-torax"
       ]
     },
@@ -6859,7 +6872,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6873,7 +6886,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6893,7 +6906,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6901,7 +6914,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6909,7 +6922,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6917,7 +6930,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6925,7 +6938,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6933,7 +6946,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6941,7 +6954,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6949,7 +6962,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6957,7 +6970,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -6965,7 +6978,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018"
       ]
     },
     {
@@ -7153,7 +7166,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
         "source:rtg-2026:s-tc:tanabe-2022-kernel",
         "source:rtg-2026:s-tc:radiopaedia-ctdi"
@@ -7164,7 +7177,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
         "source:rtg-2026:s-tc:tanabe-2022-kernel",
         "source:rtg-2026:s-tc:radiopaedia-ctdi"
@@ -7175,7 +7188,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:statpearls-tc-fisica",
         "source:rtg-2026:s-tc:tanabe-2022-kernel",
         "source:rtg-2026:s-tc:radiopaedia-ctdi"
@@ -7186,7 +7199,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:statpearls-tc-fisica"
       ]
     },
@@ -7201,7 +7214,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:statpearls-tc-fisica"
       ]
     },
@@ -7222,7 +7235,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:statpearls-tc-fisica"
       ]
     },
@@ -7231,7 +7244,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022",
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
         "source:rtg-2026:s-tc:statpearls-tc-fisica"
       ]
     },
@@ -7344,7 +7357,8 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
+        "source:rtg-2026:s-tc:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7352,7 +7366,8 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
+        "source:rtg-2026:s-tc:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7378,7 +7393,8 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
+        "source:rtg-2026:s-tc:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7386,7 +7402,8 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+        "source:rtg-2026:s-tc:iaea-ssg46-2018",
+        "source:rtg-2026:s-tc:iaea-gsr-part3-2014"
       ]
     }
   ],
@@ -7456,11 +7473,11 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
           ],
           "correctOptionId": "option:rtg-2026:s-tc:aula-01:rt:c",
           "feedback": {
-            "correct": "Isso. A norma manda afixar na sala que só pode permanecer um paciente de cada vez. Avise a equipe para organizar a espera.",
+            "correct": "Isso. Outro paciente é tratado como público e espera fora da sala, onde o serviço definir. Avise a equipe para organizar a espera.",
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+            "source:rtg-2026:s-tc:iaea-ssg46-2018"
           ]
         }
       },
@@ -7778,7 +7795,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+            "source:rtg-2026:s-tc:iaea-ssg46-2018"
           ]
         },
         "transfer": {
@@ -7807,11 +7824,11 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
           ],
           "correctOptionId": "option:rtg-2026:s-tc:aula-06:rt:b",
           "feedback": {
-            "correct": "Isso. A norma pede trabalho conforme os protocolos e informação do que possa afetar a qualidade. A supervisão esclarece.",
+            "correct": "Isso. O trabalho segue os protocolos escritos do serviço, e o que pode afetar a qualidade se informa. A supervisão esclarece.",
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+            "source:rtg-2026:s-tc:iaea-ssg46-2018"
           ]
         }
       },
@@ -7952,7 +7969,8 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-tc:anvisa-rdc-611-2022"
+            "source:rtg-2026:s-tc:iaea-ssg46-2018",
+            "source:rtg-2026:s-tc:iaea-gsr-part3-2014"
           ]
         }
       }
@@ -7972,7 +7990,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "0eff788e68bd7a96eff79bef1fd0e9df799d4293463193bae4f4f48e9e973557"
+      "materialSha256": "e57907817c85536f31fbfcae9e4d52604a0d41a799a26c4f520e0731f907567b"
     },
     {
       "schemaVersion": 1,
@@ -7981,7 +7999,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "0eff788e68bd7a96eff79bef1fd0e9df799d4293463193bae4f4f48e9e973557"
+      "materialSha256": "e57907817c85536f31fbfcae9e4d52604a0d41a799a26c4f520e0731f907567b"
     },
     {
       "schemaVersion": 1,
@@ -7990,7 +8008,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "0eff788e68bd7a96eff79bef1fd0e9df799d4293463193bae4f4f48e9e973557"
+      "materialSha256": "e57907817c85536f31fbfcae9e4d52604a0d41a799a26c4f520e0731f907567b"
     },
     {
       "schemaVersion": 1,
@@ -7999,7 +8017,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "0eff788e68bd7a96eff79bef1fd0e9df799d4293463193bae4f4f48e9e973557"
+      "materialSha256": "e57907817c85536f31fbfcae9e4d52604a0d41a799a26c4f520e0731f907567b"
     },
     {
       "schemaVersion": 1,
@@ -8008,7 +8026,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "0eff788e68bd7a96eff79bef1fd0e9df799d4293463193bae4f4f48e9e973557"
+      "materialSha256": "e57907817c85536f31fbfcae9e4d52604a0d41a799a26c4f520e0731f907567b"
     },
     {
       "schemaVersion": 1,
@@ -8017,7 +8035,7 @@ export const RTG_2026_S_TC: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "0eff788e68bd7a96eff79bef1fd0e9df799d4293463193bae4f4f48e9e973557"
+      "materialSha256": "e57907817c85536f31fbfcae9e4d52604a0d41a799a26c4f520e0731f907567b"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

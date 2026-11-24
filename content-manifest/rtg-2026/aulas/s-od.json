@@ -8,22 +8,31 @@
   },
   "sources": [
     {
-      "id": "anvisa-rdc-611-2022",
-      "title": "RDC nº 611, de 9 de março de 2022",
-      "publisher": "Anvisa",
-      "url": "https://cbr.org.br/wp-content/uploads/2023/08/RDC-ANVISA-de-2022-no-611_Requisitos-sanitarios-de-organizacao-e-funcionamento-de-servico-de-radiologia-diagnostica-ou-intervencionista.pdf",
-      "accessedAt": "2026-11-13",
+      "id": "iaea-gsr-part3-2014",
+      "title": "Radiation Protection and Safety of Radiation Sources: International Basic Safety Standards (IAEA Safety Standards Series No. GSR Part 3)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1578_web-57265295.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Ato normativo federal, cópia compilada no site do CBR; consultado para fatos (arts. 43, 56, 78 e 79), sem reprodução de texto."
+      "licenseNote": "Requisitos de proteção (justificação, otimização, limites, exposição médica, mulheres grávidas, área controlada, monitoração); consulta para fatos, sem reprodução de texto."
     },
     {
-      "id": "cbr-ins-anvisa-2021",
-      "title": "RDC 611 e instruções normativas de radiologia diagnóstica ou intervencionista",
-      "publisher": "Colégio Brasileiro de Radiologia",
-      "url": "https://cbr.org.br/en/comissao-de-protecao-radiologica/legislacao-e-recomendacoes-cpr-cbr/anvisa-cpr-cbr/",
-      "accessedAt": "2026-11-13",
+      "id": "iaea-ssg46-2018",
+      "title": "Radiation Protection and Safety in Medical Uses of Ionizing Radiation (IAEA Safety Standards Series No. SSG-46)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB1775_web.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Página de listagem consultada para o número e o assunto das INs 94/2021 (sistemas extraorais) e 95/2021 (sistemas intraorais); o texto das INs não foi lido."
+      "licenseNote": "Guia de segurança para radiologia, medicina nuclear e radioterapia: papéis, acompanhantes, EPI, monitoração, sinalização, qualidade, rejeitos; consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "who-identificacao-paciente-2007",
+      "title": "Patient Identification (Patient Safety Solutions, volume 1, solution 2)",
+      "publisher": "WHO Collaborating Centre for Patient Safety Solutions",
+      "url": "https://cdn.who.int/media/docs/default-source/patient-safety/patient-safety-solutions/ps-solution2-patient-identification.pdf?sfvrsn=ff81d7f9_6",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Dois identificadores sem o número do quarto; consulta para fatos, sem reprodução de texto."
     },
     {
       "id": "fda-ada-2012",
@@ -431,7 +440,7 @@
       },
       "concept": {
         "title": "Três aparelhos, três imagens",
-        "body": "O aparelho intraoral usa um receptor dentro da boca e mostra poucos dentes com detalhe. O panorâmico é extraoral: gira ao redor da cabeça e registra dentes e maxilares numa imagem plana. A tomografia de feixe cônico produz uma imagem tridimensional da mandíbula e das estruturas da face, usada em cirurgia oral, ortodontia e endodontia. A Anvisa trata sistemas intraorais e extraorais em instruções normativas separadas, as INs 95 e 94 de 2021. Qual aparelho usar para cada paciente é decisão do serviço, e não do aluno.",
+        "body": "O aparelho intraoral usa um receptor dentro da boca e mostra poucos dentes com detalhe. O panorâmico é extraoral: gira ao redor da cabeça e registra dentes e maxilares numa imagem plana. A tomografia de feixe cônico produz uma imagem tridimensional da mandíbula e das estruturas da face, usada em cirurgia oral, ortodontia e endodontia. Qual aparelho usar para cada paciente é decisão do serviço, e não do aluno.",
         "keyPoints": [
           "Intraoral: poucos dentes, com detalhe.",
           "Panorâmico: dentes e maxilares numa imagem plana.",
@@ -1194,7 +1203,7 @@
           "help": "Descrever e avisar não é o mesmo que decidir.",
           "sourceIds": [
             "rondon-2014",
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -1261,7 +1270,7 @@
           "help": "Qual erro deixa o dente estreito, e qual deixa largo?",
           "sourceIds": [
             "rondon-2014",
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ]
         }
       ],
@@ -1328,7 +1337,7 @@
           ],
           "sourceIds": [
             "rondon-2014",
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ]
         }
       ],
@@ -1558,7 +1567,7 @@
           "help": "Dúvida sobre o protocolo vai antes da exposição.",
           "sourceIds": [
             "vanacker-2019",
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -1691,7 +1700,7 @@
             ],
             "sourceIds": [
               "vanacker-2019",
-              "anvisa-rdc-611-2022"
+              "iaea-ssg46-2018"
             ]
           }
         },
@@ -1747,17 +1756,17 @@
           },
           {
             "speaker": "pixel",
-            "text": "Vamos ver o que a norma pede e onde cada coisa se aplica."
+            "text": "Vamos ver o que a justificação pede e onde cada coisa se aplica."
           }
         ]
       },
       "concept": {
         "title": "Justificar, limitar, proteger",
-        "body": "A RDC 611/2022 pede justificação, otimização e limitação de dose em todo procedimento. Exposição que não pode ser justificada é proibida, inclusive expor alguém só para treinar. Sobre avental e protetor de tireoide, as orientações mudaram e variam: siga o protocolo do serviço e, na dúvida, chame a equipe. Acompanhante só entra quando é imprescindível, e gestantes e menores de 18 anos não podem fazer esse papel. Nesta aula, a conferência segue esta ordem: pedido registrado, proteção do paciente, colimação ao tamanho do receptor, ida ao ponto de disparo definido pelo serviço e disparo com a supervisora presente.",
+        "body": "Todo procedimento pede justificação, otimização e limitação de dose. Exposição sem justificativa não deve acontecer, nem expor um colega só para treinar. Sobre avental e protetor de tireoide, as orientações variam: siga o protocolo do serviço e, na dúvida, chame a equipe. Na intraoral, o paciente segura o receptor, com posicionador quando possível; quem opera não o segura. Para conter o paciente, use imobilizador; faltando outro jeito, um adulto que aceita ajudar, orientado e protegido, nunca gestante. Criança é evitada se houver outra pessoa. Conferência desta aula: pedido registrado, proteção do paciente, colimação ao receptor, ida ao ponto de disparo definido pelo serviço e disparo com a supervisora presente.",
         "keyPoints": [
-          "Exposição sem justificativa é proibida, inclusive só para treino.",
+          "Exposição sem justificativa não deve acontecer, nem só para treino.",
           "Proteções do paciente: siga o protocolo do serviço.",
-          "Gestantes e menores de 18 anos não são acompanhantes."
+          "Acompanhante: adulto orientado e voluntário, nunca gestante."
         ]
       },
       "interactions": [
@@ -1790,7 +1799,7 @@
           ],
           "help": "Pense no que precisa existir antes de expor alguém.",
           "sourceIds": [
-            "anvisa-rdc-611-2022"
+            "iaea-gsr-part3-2014"
           ]
         },
         {
@@ -1809,7 +1818,7 @@
           "feedbackIncorrect": "Reconstrua a sequência: cada cartão depende do anterior. O disparo vem por último, com supervisão.",
           "help": "O disparo é o último passo.",
           "sourceIds": [
-            "anvisa-rdc-611-2022",
+            "iaea-gsr-part3-2014",
             "fda-ada-2012"
           ]
         },
@@ -1844,7 +1853,7 @@
           "help": "A resposta aponta para o protocolo.",
           "sourceIds": [
             "ada-raios-x-2024",
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -1858,12 +1867,12 @@
             {
               "label": "Deixo, porque ela mesma se ofereceu a ajudar.",
               "correct": false,
-              "feedback": "A oferta não muda a norma: gestantes não podem exercer essa atividade."
+              "feedback": "A oferta não muda o cuidado: gestante não faz esse papel."
             },
             {
               "label": "Deixo, desde que ela use avental de proteção.",
               "correct": false,
-              "feedback": "O avental não anula a regra. Gestantes não podem exercer o papel."
+              "feedback": "O avental não anula o cuidado. Gestante não faz esse papel."
             },
             {
               "label": "Peço que a criança segure sozinha o receptor.",
@@ -1871,14 +1880,14 @@
               "feedback": "Isso não resolve a contenção. Chame a equipe."
             },
             {
-              "label": "Não deixo que ela contenha a criança e chamo a equipe.",
+              "label": "Não deixo que ela contenha e chamo a equipe.",
               "correct": true,
-              "feedback": "Isso: gestantes não podem exercer esse papel, e a equipe resolve como seguir."
+              "feedback": "Isso: gestante não faz esse papel, e a equipe resolve como seguir."
             }
           ],
-          "help": "A norma tem uma regra sobre quem pode fazer esse papel.",
+          "help": "Pense em quem não deve ajudar a conter o paciente.",
           "sourceIds": [
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -1895,7 +1904,7 @@
             {
               "label": "Expor um colega voluntário para treinar a técnica.",
               "correct": false,
-              "feedback": "Exposição só para treino não pode ser justificada. É proibida."
+              "feedback": "Exposição só para treino não tem justificativa de exame. Não se faz."
             },
             {
               "label": "Fazer só as imagens do pedido, sem extras.",
@@ -1917,7 +1926,7 @@
           "feedbackIncorrect": "Releia o conceito: reduzir é limitar o feixe, fazer só o pedido e seguir o protocolo. Treino com pessoa e repetição solitária aumentam a exposição.",
           "help": "Qual medida limita o feixe ao receptor?",
           "sourceIds": [
-            "anvisa-rdc-611-2022",
+            "iaea-gsr-part3-2014",
             "fda-ada-2012"
           ]
         }
@@ -1932,32 +1941,33 @@
       },
       "checkpoint": [
         {
-          "prompt": "Segundo a norma, o que acontece com uma exposição que não pode ser justificada?",
+          "prompt": "Pelo princípio da justificação, o que se faz com uma exposição que não pode ser justificada?",
           "options": [
             {
-              "label": "Ela é permitida, se for rápida.",
+              "label": "Vale se o aluno estiver de avental",
               "correct": false,
-              "feedback": "Rapidez não substitui a justificativa."
+              "feedback": "O avental não torna a exposição justificada."
             },
             {
-              "label": "Ela é proibida.",
+              "label": "Ela não deve acontecer.",
               "correct": true,
-              "feedback": "Isso: exposição sem justificativa é proibida."
+              "feedback": "Isso: exposição sem justificativa não deve acontecer."
             },
             {
-              "label": "Ela é permitida, se o paciente topar.",
+              "label": "É aceita quando o paciente topar",
               "correct": false,
               "feedback": "A concordância do paciente não justifica a exposição."
             },
             {
-              "label": "Ela é permitida, para treino de alunos.",
+              "label": "Serve como treino para alunos",
               "correct": false,
-              "feedback": "Exposição só para treino é justamente proibida."
+              "feedback": "Treino de alunos não é justificativa de exame."
             }
           ],
           "sourceIds": [
-            "anvisa-rdc-611-2022"
-          ]
+            "iaea-gsr-part3-2014"
+          ],
+          "help": "Pense no que a justificação pede antes de expor alguém."
         },
         {
           "prompt": "Um paciente fictício pergunta se vai usar protetor de tireoide. Qual resposta combina com esta aula?",
@@ -1985,39 +1995,39 @@
           ],
           "sourceIds": [
             "ada-raios-x-2024",
-            "anvisa-rdc-611-2022"
+            "iaea-ssg46-2018"
           ]
         }
       ],
       "recovery": {
         "guided": {
-          "hook": "Complete: gestantes e menores de 18 anos não podem…",
+          "hook": "Complete: gestantes não podem ser…",
           "item": {
             "prompt": "Segundo a aula, quem não pode ser acompanhante para conter um paciente?",
             "options": [
               {
                 "label": "O pai adulto, que se ofereceu",
                 "correct": false,
-                "feedback": "Um adulto voluntário pode acompanhar quando for imprescindível. Procure quem a norma exclui."
+                "feedback": "Um adulto voluntário e orientado pode ajudar quando for imprescindível. Procure quem fica de fora."
               },
               {
                 "label": "Uma gestante, mesmo se oferecendo",
                 "correct": true,
-                "feedback": "Isso: gestantes e menores de 18 anos não podem exercer esse papel."
+                "feedback": "Isso: gestante não faz esse papel, mesmo se oferecendo."
               },
               {
                 "label": "A avó adulta, por vontade própria",
                 "correct": false,
-                "feedback": "Ser avó não impede. Retome as duas exclusões da norma."
+                "feedback": "Ser avó não impede. Retome quem fica de fora."
               },
               {
                 "label": "Um tio adulto, fora do trabalho",
                 "correct": false,
-                "feedback": "Um adulto voluntário pode acompanhar. A norma exclui gestantes e menores de 18 anos."
+                "feedback": "Um adulto voluntário e orientado pode ajudar. Fica de fora quem está gestante."
               }
             ],
             "sourceIds": [
-              "anvisa-rdc-611-2022"
+              "iaea-ssg46-2018"
             ]
           }
         },
@@ -2047,7 +2057,7 @@
               }
             ],
             "sourceIds": [
-              "anvisa-rdc-611-2022"
+              "iaea-gsr-part3-2014"
             ]
           }
         }
@@ -2079,7 +2089,7 @@
       },
       "concept": {
         "title": "Fazer sob supervisão, levar o resto à equipe",
-        "body": "A RDC 611/2022 diz que só opera o equipamento quem é legalmente habilitado ou está em treinamento sob supervisão direta de um profissional habilitado. Na simulação, você está nesse segundo caso. Você confere os dados do paciente com o registro, a colimação e a posição segundo o protocolo. Tudo que exige decisão vai à equipe: trocar o tipo de exame, mudar o campo, repetir uma imagem, dispensar uma proteção. E exposição só para treino não pode ser justificada.",
+        "body": "Quem opera o equipamento precisa de formação e competência para isso, e o serviço e as regras locais definem quem pode. Quem está em treinamento atua sob supervisão direta de um profissional qualificado do serviço. Na simulação, você está nesse caso. Você confere os dados do paciente com o registro, a colimação e a posição segundo o protocolo. Tudo que exige decisão vai à equipe: trocar o tipo de exame, mudar o campo, repetir uma imagem, dispensar uma proteção. E exposição só para treino não tem justificativa de exame.",
         "keyPoints": [
           "Em treinamento, você atua sob supervisão direta.",
           "Dado que não confere, imagem com erro e dúvida: leve à equipe.",
@@ -2091,32 +2101,32 @@
           "id": "i1",
           "type": "multiple-choice",
           "role": "prerequisite",
-          "prompt": "Na aula anterior você viu o que a norma diz sobre exposição sem justificativa. Qual é a regra?",
+          "prompt": "Na aula anterior você viu o que se faz com exposição sem justificativa. O que vale?",
           "options": [
             {
-              "label": "Ela é proibida.",
+              "label": "Ela não deve acontecer.",
               "correct": true,
-              "feedback": "Isso: exposição que não pode ser justificada é proibida."
+              "feedback": "Isso: exposição que não pode ser justificada não deve acontecer."
             },
             {
-              "label": "Ela é permitida, se o paciente aceitar.",
+              "label": "Vale se o paciente concordar",
               "correct": false,
               "feedback": "A aceitação não justifica. Retome a regra."
             },
             {
-              "label": "Ela é permitida em treino de aluno.",
+              "label": "Serve como treino de aluno",
               "correct": false,
-              "feedback": "Treino de aluno é um dos exemplos de exposição proibida."
+              "feedback": "Treino de aluno não é justificativa de exame."
             },
             {
-              "label": "Ela é permitida, se for rápida.",
+              "label": "É aceita quando for rápida",
               "correct": false,
               "feedback": "Rapidez não substitui a justificativa."
             }
           ],
-          "help": "Pense na palavra proibida.",
+          "help": "Pense no que a justificação pede.",
           "sourceIds": [
-            "anvisa-rdc-611-2022"
+            "iaea-gsr-part3-2014"
           ]
         },
         {
@@ -2149,7 +2159,8 @@
           ],
           "help": "Divergência é motivo para parar.",
           "sourceIds": [
-            "anvisa-rdc-611-2022"
+            "who-identificacao-paciente-2007",
+            "iaea-ssg46-2018"
           ]
         },
         {
@@ -2187,7 +2198,7 @@
           "feedbackIncorrect": "Pergunte de cada situação: ela só executa o protocolo ou exige decidir algo?",
           "help": "Quem decide sobre proteção, repetição e troca de exame?",
           "sourceIds": [
-            "anvisa-rdc-611-2022",
+            "iaea-ssg46-2018",
             "ada-raios-x-2024"
           ]
         },
@@ -2207,7 +2218,7 @@
             {
               "label": "Recuso e aviso a supervisora.",
               "correct": true,
-              "feedback": "Isso: exposição só para treino não pode ser justificada."
+              "feedback": "Isso: exposição só para treino não tem justificativa de exame."
             },
             {
               "label": "Aceito, com avental.",
@@ -2220,9 +2231,9 @@
               "feedback": "Esconder da supervisora agrava o problema."
             }
           ],
-          "help": "Qual regra proíbe exposição para treino?",
+          "help": "Treino é justificativa de exame?",
           "sourceIds": [
-            "anvisa-rdc-611-2022"
+            "iaea-gsr-part3-2014"
           ]
         },
         {
@@ -2269,7 +2280,7 @@
       },
       "checkpoint": [
         {
-          "prompt": "Segundo a norma, em que condição alguém em formação opera o equipamento?",
+          "prompt": "Segundo a aula, em que condição alguém em formação opera o equipamento?",
           "options": [
             {
               "label": "Sozinho, se já tiver bastante prática",
@@ -2279,7 +2290,7 @@
             {
               "label": "Com um colega de turma ao lado, ajudando",
               "correct": false,
-              "feedback": "O colega de turma não é profissional habilitado."
+              "feedback": "O colega de turma não é profissional qualificado do serviço."
             },
             {
               "label": "Sozinho, em horário sem movimento no serviço",
@@ -2287,13 +2298,13 @@
               "feedback": "O horário não muda a exigência de supervisão."
             },
             {
-              "label": "Sob supervisão direta de profissional habilitado",
+              "label": "Sob supervisão direta de quem é qualificado",
               "correct": true,
-              "feedback": "Isso: a norma exige supervisão direta."
+              "feedback": "Isso: a aula exige supervisão direta."
             }
           ],
           "sourceIds": [
-            "anvisa-rdc-611-2022"
+            "iaea-gsr-part3-2014"
           ]
         },
         {
@@ -2321,7 +2332,7 @@
             }
           ],
           "sourceIds": [
-            "anvisa-rdc-611-2022",
+            "iaea-ssg46-2018",
             "rondon-2014"
           ]
         }
@@ -2354,7 +2365,8 @@
               }
             ],
             "sourceIds": [
-              "anvisa-rdc-611-2022"
+              "who-identificacao-paciente-2007",
+              "iaea-ssg46-2018"
             ]
           }
         },
@@ -2384,7 +2396,7 @@
               }
             ],
             "sourceIds": [
-              "anvisa-rdc-611-2022",
+              "iaea-ssg46-2018",
               "ada-raios-x-2024"
             ]
           }

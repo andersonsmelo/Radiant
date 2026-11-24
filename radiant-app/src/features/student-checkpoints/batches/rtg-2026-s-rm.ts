@@ -6,7 +6,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:s-rm",
-  "materialSha256": "d69a774b5406a64375a38a22557285d39a42be4a74245fbfc9fc14946d471c5f",
+  "materialSha256": "b28cb7cfcaeecd931bddf07d5ce26d28ba830aef750cb08fda9106bb7ef8350c",
   "trackId": "track:rtg-2026:s-rm",
   "unitId": "unit:rtg-2026:s-rm",
   "contentVersion": "rtg-2026-s-rm-v1",
@@ -31,13 +31,13 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "licenseNote": "Artigo de acesso aberto; consultado para zonas, projéteis, triagem, ruído, quench, emergência e gestação, com redação própria."
     },
     {
-      "id": "source:rtg-2026:s-rm:anvisa-in-97-2021",
-      "title": "Instrução Normativa IN nº 97, de 27 de maio de 2021",
-      "publisher": "Anvisa",
-      "url": "https://anvisalegis.datalegis.net/action/ActionDatalegis.php?acao=abrirTextoAto&tipo=INM&numeroAto=00000097&seqAto=000&valorAno=2021&orgao=DC/ANVISA/MS&codTipo=&desItem=&desItemFim=&cod_menu=1696&cod_modulo=134&pesquisa=true",
-      "accessedAt": "2026-11-06",
+      "id": "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
+      "title": "ACR Manual on MR Safety (2024)",
+      "publisher": "American College of Radiology (ACR)",
+      "url": "https://edge.sitecorecloud.io/americancoldf5f-acrorgf92a-productioncb02-3650/media/ACR/Files/Clinical/Radiology-Safety/Manual-on-MR-Safety.pdf",
+      "accessedAt": "2026-11-18",
       "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para zonas, detecção de metais, sinalização, porta, evacuação de gases, comunicação e proteção auditiva, sem reprodução de texto."
+      "licenseNote": "Zonas de segurança em RM, porta da sala do ímã, acompanhantes, proteção auditiva e gestantes; consulta para fatos, sem reprodução de texto."
     },
     {
       "id": "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
@@ -446,7 +446,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
           "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
           "source:rtg-2026:s-rm:fda-recall-quench-2018",
           "source:rtg-2026:s-rm:mriquestions-bobinas-recepcao",
-          "source:rtg-2026:s-rm:anvisa-in-97-2021"
+          "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
         ]
       },
       "steps": [
@@ -486,11 +486,11 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Três campos, três cuidados",
-            "body": "De fora para dentro: ímã principal, bobinas de gradiente e bobina de transmissão de RF; a bobina de recepção fica junto ao paciente. O campo principal é constante e atrai objetos magnéticos. Os gradientes, ligados e desligados depressa, fazem ruído alto e podem estimular nervos. A RF pode aquecer. O ímã supercondutor usa hélio líquido. No quench, o campo é perdido e o hélio sai depressa por um tubo para fora do prédio. Se essa saída falhar, o gás entra na sala e dilui o oxigênio. Então todos saem e só voltam quando a equipe autoriza. Acionar o quench não é tarefa do estudante: ele segue o plano do serviço.",
+            "body": "De fora para dentro: ímã principal, gradientes e transmissão de RF. O campo principal atrai objetos magnéticos. Os gradientes fazem ruído alto e podem estimular nervos. A RF pode aquecer. No ímã supercondutor, o quench perde o campo e solta o hélio líquido por um tubo para fora do prédio. Se vazar para a sala, a pressão sobe e o gás dilui o oxigênio; por isso o projeto tem alívio de pressão e exaustão de emergência. Todos saem e só voltam quando a equipe autoriza. Acionar o quench não é tarefa do estudante. Se a porta precisar ficar aberta, uma barreira de aviso fica na entrada.",
             "keyPoints": [
               "Campo principal: atração. Gradientes: ruído e estímulo de nervos. RF: aquecimento.",
               "Hélio na sala: sair, seguir o plano do serviço e só voltar quando a equipe autorizar.",
-              "A IN 97/2021 da Anvisa prevê, em salas com hélio e tubo de quench, porta que abre para fora."
+              "A porta da sala do ímã fica fechada e, sem monitoramento, de preferência trancada, mas deve abrir por dentro."
             ]
           }
         },
@@ -696,35 +696,35 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
             "accessibility": {
               "label": "Caso com decisão: O que você faz com essa observação?"
             },
-            "help": "Lembre o que a norma brasileira prevê para o projeto dessa sala.",
+            "help": "Lembre como a entrada da sala do ímã deve ser controlada.",
             "type": "case-decision",
             "feedback": {
-              "correct": "A IN 97/2021 prevê porta abrindo para fora nessas salas. Descrever a divergência a quem responde é o seu papel.",
+              "correct": "Porta aberta sem vigilância nem barreira é falha no controle de acesso. Descrever o que viu a quem responde é o seu papel.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "context": "Numa visita técnica a um serviço em obra, com equipamento que usa hélio e tubo de quench, você vê no desenho que a porta da sala do equipamento abre para dentro dela. O supervisor da visita está por perto, conversando com o engenheiro da obra.",
+              "context": "Numa visita técnica a um serviço, você vê que a porta da sala do equipamento está aberta, sem ninguém vigiando a entrada e sem faixa de barreira, enquanto outras pessoas circulam no corredor. O supervisor da visita está por perto, conversando com a equipe do setor.",
               "prompt": "O que você faz com essa observação?",
               "options": [
                 {
                   "id": "option:rtg-2026:s-rm:aula-02:i5:a",
-                  "label": "Considera correta, porque protege melhor o ímã",
-                  "explanation": "A IN 97/2021 prevê o contrário para esse tipo de sala: abertura para fora. Retome o que a norma diz sobre a porta."
+                  "label": "Considera normal, porque a porta fica aberta só um instante",
+                  "explanation": "Porta aberta sem vigilância deixa passar objetos magnéticos. Retome como a entrada da sala do ímã é controlada."
                 },
                 {
                   "id": "option:rtg-2026:s-rm:aula-02:i5:b",
-                  "label": "Aponta a divergência da norma ao supervisor",
-                  "explanation": "A IN 97/2021 prevê porta abrindo para fora nessas salas. Descrever a divergência a quem responde é o seu papel."
+                  "label": "Descreve o que viu ao supervisor",
+                  "explanation": "Porta aberta sem vigilância nem barreira é falha no controle de acesso. Descrever o que viu a quem responde é o seu papel."
                 },
                 {
                   "id": "option:rtg-2026:s-rm:aula-02:i5:c",
-                  "label": "Deixa de lado, pois porta não é tema sanitário",
-                  "explanation": "A norma sanitária trata justamente do projeto dessa porta. Confira de novo o que a Anvisa prevê."
+                  "label": "Deixa de lado, pois porta não é tema de segurança",
+                  "explanation": "A entrada da sala do ímã é o ponto mais crítico do controle de acesso. Confira de novo o que se espera dessa porta."
                 },
                 {
                   "id": "option:rtg-2026:s-rm:aula-02:i5:d",
-                  "label": "Pede ao engenheiro que mude o desenho hoje",
-                  "explanation": "Dar ordem de obra não cabe ao estudante em visita. O que cabe é descrever a divergência ao supervisor."
+                  "label": "Assume a vigilância da porta por conta própria",
+                  "explanation": "Controlar o acesso à sala é tarefa da equipe do setor, não do estudante em visita. O que cabe é descrever ao supervisor."
                 }
               ],
               "correctOptionId": "option:rtg-2026:s-rm:aula-02:i5:b"
@@ -760,7 +760,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-s-rm-v1",
         "sourceIds": [
           "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
-          "source:rtg-2026:s-rm:anvisa-in-97-2021",
+          "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
           "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
           "source:rtg-2026:s-rm:baker-2024-queimaduras-rf"
         ]
@@ -806,7 +806,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
             "body": "Projétil, queimadura, ruído e falha de dispositivo vêm do mesmo ambiente, e nenhuma barreira basta sozinha. A zona II faz a anamnese e levanta as questões de segurança. A sinalização na porta avisa. A sala sem supervisão fica trancada. O sistema de detecção monitora o acesso às zonas III e IV, mas o detector ferromagnético pode não acusar prata, cobre ou fibra de carbono. Dispositivo de segurança desconhecida é tratado como MR Unsafe. Quem avalia é a equipe. Diante de dúvida, nesta ordem: parar, manter a pessoa fora, descrever o que ouviu, chamar a equipe, aguardar a resposta. Profissional grávida fica fora da zona IV durante a série.",
             "keyPoints": [
               "Silêncio do detector não prova segurança.",
-              "O ruído pode chegar a 100 dB ou mais: a IN 97/2021 manda oferecer proteção auditiva ao paciente e a quem fica na sala.",
+              "O ruído é intenso, e o protetor precisa trazê-lo abaixo de 99 dB(A): ofereça proteção auditiva ao paciente e a quem fica na sala.",
               "Esta unidade é simulação: não comprova operação real e não libera implante."
             ]
           }
@@ -1402,8 +1402,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:s-rm:cwru-rm-basico",
           "source:rtg-2026:s-rm:ridgway-2010-fisica-rm",
-          "source:rtg-2026:s-rm:radiopaedia-snr",
-          "source:rtg-2026:s-rm:anvisa-in-97-2021"
+          "source:rtg-2026:s-rm:radiopaedia-snr"
         ]
       },
       "steps": [
@@ -1717,7 +1716,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
           "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
           "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
           "source:rtg-2026:s-rm:baker-2024-queimaduras-rf",
-          "source:rtg-2026:s-rm:anvisa-in-97-2021"
+          "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
         ]
       },
       "steps": [
@@ -3966,7 +3965,8 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
+        "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm"
       ]
     },
     {
@@ -3980,7 +3980,8 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
+        "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm"
       ]
     },
     {
@@ -4000,7 +4001,8 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
+        "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm"
       ]
     },
     {
@@ -4008,7 +4010,8 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
+        "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm"
       ]
     },
     {
@@ -4021,7 +4024,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:s-rm:fda-recall-quench-2018",
         "source:rtg-2026:s-rm:mriquestions-bobinas-recepcao",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -4034,7 +4037,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:s-rm:fda-recall-quench-2018",
         "source:rtg-2026:s-rm:mriquestions-bobinas-recepcao",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -4047,7 +4050,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:s-rm:fda-recall-quench-2018",
         "source:rtg-2026:s-rm:mriquestions-bobinas-recepcao",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -4325,7 +4328,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:anvisa-in-97-2021",
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf"
       ]
@@ -4335,7 +4338,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:anvisa-in-97-2021",
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf"
       ]
@@ -4345,7 +4348,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:anvisa-in-97-2021",
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf"
       ]
@@ -4355,7 +4358,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:anvisa-in-97-2021",
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf"
       ]
@@ -4365,7 +4368,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:anvisa-in-97-2021",
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf"
       ]
@@ -4375,7 +4378,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:anvisa-in-97-2021",
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf"
       ]
@@ -4385,7 +4388,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:anvisa-in-97-2021",
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf"
       ]
@@ -4395,7 +4398,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:anvisa-in-97-2021",
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf"
       ]
@@ -4406,7 +4409,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -4415,7 +4418,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -4424,7 +4427,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -4433,7 +4436,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -4442,7 +4445,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -4451,7 +4454,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -4460,7 +4463,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -4469,7 +4472,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -4478,7 +4481,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -4595,7 +4598,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021",
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf"
       ]
@@ -4606,7 +4609,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021",
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf"
       ]
@@ -4617,7 +4620,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021",
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf"
       ]
@@ -4781,7 +4784,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:anvisa-in-97-2021",
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm"
       ]
     },
@@ -4802,7 +4805,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:anvisa-in-97-2021",
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm"
       ]
     },
@@ -4817,7 +4820,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:anvisa-in-97-2021",
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm"
       ]
     },
@@ -4826,7 +4829,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:anvisa-in-97-2021",
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm"
       ]
     },
@@ -5532,8 +5535,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:radiopaedia-snr",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:radiopaedia-snr"
       ]
     },
     {
@@ -5559,8 +5561,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:radiopaedia-snr",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:radiopaedia-snr"
       ]
     },
     {
@@ -5568,8 +5569,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:radiopaedia-snr",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:radiopaedia-snr"
       ]
     },
     {
@@ -5577,8 +5577,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-rm:radiopaedia-snr",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:radiopaedia-snr"
       ]
     },
     {
@@ -5642,8 +5641,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-rm:cwru-rm-basico",
         "source:rtg-2026:s-rm:ridgway-2010-fisica-rm",
-        "source:rtg-2026:s-rm:radiopaedia-snr",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:radiopaedia-snr"
       ]
     },
     {
@@ -5653,8 +5651,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-rm:cwru-rm-basico",
         "source:rtg-2026:s-rm:ridgway-2010-fisica-rm",
-        "source:rtg-2026:s-rm:radiopaedia-snr",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:radiopaedia-snr"
       ]
     },
     {
@@ -5664,8 +5661,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-rm:cwru-rm-basico",
         "source:rtg-2026:s-rm:ridgway-2010-fisica-rm",
-        "source:rtg-2026:s-rm:radiopaedia-snr",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:radiopaedia-snr"
       ]
     },
     {
@@ -6000,7 +5996,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -6009,7 +6005,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -6018,7 +6014,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -6027,7 +6023,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -6036,7 +6032,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -6045,7 +6041,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -6054,7 +6050,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -6063,7 +6059,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -6072,7 +6068,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -6183,7 +6179,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
         "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -6194,7 +6190,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
         "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -6205,7 +6201,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
         "source:rtg-2026:s-rm:fda-rm-beneficios-riscos",
         "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm",
         "source:rtg-2026:s-rm:baker-2024-queimaduras-rf",
-        "source:rtg-2026:s-rm:anvisa-in-97-2021"
+        "source:rtg-2026:s-rm:acr-manual-mr-safety-2024"
       ]
     },
     {
@@ -7664,7 +7660,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
           "competencyIds": [
             "competency:rtg-2026:s-rm:aula-03"
           ],
-          "prompt": "A equipe avaliou o caso e decidiu que um acompanhante fica na sala durante a série. Que proteção a IN 97/2021 manda o serviço oferecer a ele?",
+          "prompt": "A equipe avaliou o caso e decidiu que um acompanhante fica na sala durante a série. Que proteção a boa prática de segurança em RM indica que o serviço ofereça a ele?",
           "options": [
             {
               "id": "option:rtg-2026:s-rm:aula-03:rt:a",
@@ -7685,11 +7681,11 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
           ],
           "correctOptionId": "option:rtg-2026:s-rm:aula-03:rt:c",
           "feedback": {
-            "correct": "O ruído pode chegar a 100 dB ou mais, e a norma manda oferecer proteção auditiva ao paciente e a quem permanece na sala.",
+            "correct": "O ruído é intenso, e o protetor precisa trazê-lo abaixo de 99 dB(A); a boa prática é oferecer proteção auditiva ao paciente e a quem permanece na sala.",
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-rm:anvisa-in-97-2021",
+            "source:rtg-2026:s-rm:acr-manual-mr-safety-2024",
             "source:rtg-2026:s-rm:shah-aran-2023-seguranca-rm"
           ]
         }
@@ -8063,7 +8059,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "d69a774b5406a64375a38a22557285d39a42be4a74245fbfc9fc14946d471c5f"
+      "materialSha256": "b28cb7cfcaeecd931bddf07d5ce26d28ba830aef750cb08fda9106bb7ef8350c"
     },
     {
       "schemaVersion": 1,
@@ -8072,7 +8068,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "d69a774b5406a64375a38a22557285d39a42be4a74245fbfc9fc14946d471c5f"
+      "materialSha256": "b28cb7cfcaeecd931bddf07d5ce26d28ba830aef750cb08fda9106bb7ef8350c"
     },
     {
       "schemaVersion": 1,
@@ -8081,7 +8077,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "d69a774b5406a64375a38a22557285d39a42be4a74245fbfc9fc14946d471c5f"
+      "materialSha256": "b28cb7cfcaeecd931bddf07d5ce26d28ba830aef750cb08fda9106bb7ef8350c"
     },
     {
       "schemaVersion": 1,
@@ -8090,7 +8086,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "d69a774b5406a64375a38a22557285d39a42be4a74245fbfc9fc14946d471c5f"
+      "materialSha256": "b28cb7cfcaeecd931bddf07d5ce26d28ba830aef750cb08fda9106bb7ef8350c"
     },
     {
       "schemaVersion": 1,
@@ -8099,7 +8095,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "d69a774b5406a64375a38a22557285d39a42be4a74245fbfc9fc14946d471c5f"
+      "materialSha256": "b28cb7cfcaeecd931bddf07d5ce26d28ba830aef750cb08fda9106bb7ef8350c"
     },
     {
       "schemaVersion": 1,
@@ -8108,7 +8104,7 @@ export const RTG_2026_S_RM: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "d69a774b5406a64375a38a22557285d39a42be4a74245fbfc9fc14946d471c5f"
+      "materialSha256": "b28cb7cfcaeecd931bddf07d5ce26d28ba830aef750cb08fda9106bb7ef8350c"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

@@ -6,7 +6,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:s-mn",
-  "materialSha256": "97865bacd181364f845baed25eb0a7f2c246783b2faa565fac5a9f36ce4c0b1e",
+  "materialSha256": "97761d26b7fe0192d90749230a8be3c53d3c905fdb5154fa3ff2be357e5107d3",
   "trackId": "track:rtg-2026:s-mn",
   "unitId": "unit:rtg-2026:s-mn",
   "contentVersion": "rtg-2026-s-mn-v1",
@@ -21,15 +21,6 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
     "competency:rtg-2026:s-mn:aula-08"
   ],
   "sources": [
-    {
-      "id": "source:rtg-2026:s-mn:cnen-norma-3-05",
-      "title": "Norma ANSN 3.05: Requisitos de Segurança e Proteção Radiológica para Serviços de Medicina Nuclear (Resolução CNEN 159/13)",
-      "publisher": "CNEN/ANSN",
-      "url": "https://www.gov.br/cnen/pt-br/acesso-rapido/normas/grupo-3/ansn-3-05-requisitos-de-seguranca-e-protecao-radiologica-para-servicos-de-medicina-nuclear.pdf",
-      "accessedAt": "2026-11-07",
-      "use": "factual-reference",
-      "licenseNote": "Ato normativo federal; consultado para fatos, sem reprodução de texto."
-    },
     {
       "id": "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear",
       "title": "General Nuclear Medicine",
@@ -100,7 +91,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "url": "https://www.vumc.org/safety/sites/default/files/public_files/rad/vch/nuclear-medicine-emergency-procedures-vch.pdf",
       "accessedAt": "2026-11-07",
       "use": "factual-reference",
-      "licenseNote": "Procedimento de hospital dos EUA, usado só como exemplo da lógica geral; no Brasil vale o plano de proteção do serviço."
+      "licenseNote": "Procedimento de hospital dos EUA, usado só como exemplo da lógica geral; vale o plano de proteção do serviço."
     },
     {
       "id": "source:rtg-2026:s-mn:iaea-srs-40",
@@ -137,6 +128,33 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "accessedAt": "2026-11-07",
       "use": "factual-reference",
       "licenseNote": "Artigo em acervo aberto; consultado para fatos, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "source:rtg-2026:s-mn:iaea-ssg46-2018",
+      "title": "Radiation Protection and Safety in Medical Uses of Ionizing Radiation (IAEA Safety Standards Series No. SSG-46)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB1775_web.pdf",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Guia de segurança para radiologia, medicina nuclear e radioterapia: papéis, acompanhantes, EPI, monitoração, sinalização, qualidade, rejeitos; consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
+      "title": "Radiation Protection and Safety of Radiation Sources: International Basic Safety Standards (IAEA Safety Standards Series No. GSR Part 3)",
+      "publisher": "International Atomic Energy Agency (IAEA)",
+      "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1578_web-57265295.pdf",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Requisitos de proteção (justificação, otimização, limites, exposição médica, mulheres grávidas, área controlada, monitoração); consulta para fatos, sem reprodução de texto."
+    },
+    {
+      "id": "source:rtg-2026:s-mn:who-residuos-saude-modulo-18",
+      "title": "Training modules in health care waste management, Module 18: Management of chemical, cytotoxic, pharmaceutical and radioactive wastes",
+      "publisher": "World Health Organization (WHO)",
+      "url": "https://cdn.who.int/media/docs/default-source/wash-documents/wash-in-hcf/training-modules-in-health-care-waste-management/module-18---management-of-chemical-cytotoxic-pharmaceutical-and-radioactive-wastes.pdf?sfvrsn=c2ac154f_2",
+      "accessedAt": "2026-11-18",
+      "use": "factual-reference",
+      "licenseNote": "Rotulagem e armazenamento de rejeito radioativo; consulta para fatos, sem reprodução de texto."
     }
   ],
   "activities": [
@@ -459,7 +477,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-s-mn-v1",
         "sourceIds": [
           "source:rtg-2026:s-mn:wna-radioisotopos",
-          "source:rtg-2026:s-mn:cnen-norma-3-05",
+          "source:rtg-2026:s-mn:iaea-ssg46-2018",
           "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
         ]
       },
@@ -666,7 +684,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
             "help": "Pense em quem tem autorização para cada ação nesse percurso.",
             "type": "case-decision",
             "feedback": {
-              "correct": "Isso. Integridade e contaminação do embalado são conferidas por quem é autorizado, e o supervisor de proteção precisa saber.",
+              "correct": "Isso. Integridade e contaminação do embalado são conferidas por quem é autorizado, e o responsável pela proteção radiológica precisa saber.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -680,8 +698,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
                 },
                 {
                   "id": "option:rtg-2026:s-mn:aula-02:i4:b",
-                  "label": "Não toca, mantém distância e avisa Caio e o supervisor",
-                  "explanation": "Isso. Integridade e contaminação do embalado são conferidas por quem é autorizado, e o supervisor de proteção precisa saber."
+                  "label": "Não toca, mantém distância e avisa Caio e o responsável",
+                  "explanation": "Isso. Integridade e contaminação do embalado são conferidas por quem é autorizado, e o responsável pela proteção radiológica precisa saber."
                 },
                 {
                   "id": "option:rtg-2026:s-mn:aula-02:i4:c",
@@ -775,7 +793,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:s-mn:wna-radioisotopos",
           "source:rtg-2026:s-mn:peterson-detectores-spect",
-          "source:rtg-2026:s-mn:cnen-norma-3-05",
+          "source:rtg-2026:s-mn:iaea-ssg46-2018",
           "source:rtg-2026:s-mn:iaea-srs-40"
         ]
       },
@@ -982,7 +1000,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
             "help": "Há duas explicações possíveis, e nenhuma delas cabe a você decidir sozinho.",
             "type": "case-decision",
             "feedback": {
-              "correct": "Isso. Suspeita de funcionamento irregular ou de contaminação vai ao supervisor de proteção, que define o que testar.",
+              "correct": "Isso. Suspeita de funcionamento irregular ou de contaminação vai ao responsável pela proteção radiológica, e o programa do serviço define o que testar.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -1007,7 +1025,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-mn:aula-03:i4:d",
                   "label": "Não usa o monitor, descreve o que viu e chama a equipe",
-                  "explanation": "Isso. Suspeita de funcionamento irregular ou de contaminação vai ao supervisor de proteção, que define o que testar."
+                  "explanation": "Isso. Suspeita de funcionamento irregular ou de contaminação vai ao responsável pela proteção radiológica, e o programa do serviço define o que testar."
                 }
               ],
               "correctOptionId": "option:rtg-2026:s-mn:aula-03:i4:d"
@@ -1092,7 +1110,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
           "source:rtg-2026:s-mn:cdc-contaminacao-exposicao",
           "source:rtg-2026:s-mn:vumc-emergencias-mn",
           "source:rtg-2026:s-mn:iaea-srs-40",
-          "source:rtg-2026:s-mn:cnen-norma-3-05"
+          "source:rtg-2026:s-mn:iaea-ssg46-2018",
+          "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
         ]
       },
       "steps": [
@@ -1128,10 +1147,10 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Parar, afastar, chamar",
-            "body": "Quem manipula ou administra usa luvas descartáveis, jaleco de manga longa e monitores de tórax e extremidade. Corpo, roupas e superfícies são monitorados diariamente e a cada suspeita. Na suspeita de derramamento, a ordem ensinada aqui é: parar, avisar quem está perto, afastar quem não está envolvido e limitar a circulação, chamar a equipe e o supervisor de proteção. No serviço vale o plano dele; chamar não espera. Quem limpa e mede é pessoal treinado. Rejeito é segregado por meia-vida e características físicas, químicas e biológicas, identificado com conteúdo, radionuclídeo e datas de armazenamento e de liberação prevista, e guardado em local sinalizado e controlado. O estudante não decide descarte.",
+            "body": "Quem manipula ou administra usa luvas, jaleco de manga longa e monitores de tórax e extremidade. Corpo, roupas e superfícies são monitorados na rotina e a cada suspeita. Na suspeita de derramamento: parar, avisar quem está perto, afastar os não envolvidos, limitar a circulação e chamar a equipe e o responsável pela proteção. Vale o plano do serviço. Quem limpa e mede é pessoal treinado. Rejeito é segregado por meia-vida, forma física e química e risco do conteúdo, identificado com conteúdo, radionuclídeo e datas de armazenamento e liberação prevista, em local sinalizado. Guarda até decair (tecnécio-99m: cerca de 10 meias-vidas) e medida antes da liberação. O estudante não decide descarte.",
             "keyPoints": [
-              "Parar, avisar, afastar, chamar a equipe e o supervisor.",
-              "Monitoração diária e a cada suspeita.",
+              "Parar, avisar, afastar, chamar a equipe e o responsável.",
+              "Monitoração de rotina e a cada suspeita.",
               "Rejeito segue segregação, identificação e o plano do serviço."
             ]
           }
@@ -1215,7 +1234,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
                 },
                 {
                   "id": "item:rtg-2026:s-mn:aula-04:i2:4",
-                  "label": "Chamar a equipe e o supervisor de proteção"
+                  "label": "Chamar a equipe e o responsável pela proteção"
                 },
                 {
                   "id": "item:rtg-2026:s-mn:aula-04:i2:1",
@@ -1242,16 +1261,16 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada critério de segregação de rejeitos aos grupos que a norma prevê."
+              "label": "Associação: Ligue cada critério de segregação de rejeitos ao grupo que ele separa."
             },
             "help": "Pense no que cada critério observa no material.",
             "type": "matching",
             "feedback": {
               "correct": "Certo. Separar assim ajuda o serviço a controlar o armazenamento e o tempo de decaimento de cada grupo.",
-              "incorrect": "Retome os quatro critérios: tempo, forma do material, química e risco biológico. Ligue cada um à palavra que combina."
+              "incorrect": "Retome os quatro critérios: tempo, forma física, forma química e risco do conteúdo. Ligue cada um à palavra que combina."
             },
             "payload": {
-              "prompt": "Ligue cada critério de segregação de rejeitos aos grupos que a norma prevê.",
+              "prompt": "Ligue cada critério de segregação de rejeitos ao grupo que ele separa.",
               "pairs": [
                 {
                   "id": "pair:rtg-2026:s-mn:aula-04:i3:1",
@@ -1260,18 +1279,18 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
                 },
                 {
                   "id": "pair:rtg-2026:s-mn:aula-04:i3:2",
-                  "left": "Características físicas",
-                  "right": "Sólido, líquido, perfurocortante, rouparia"
+                  "left": "Forma física",
+                  "right": "Sólido, líquido, rouparia"
                 },
                 {
                   "id": "pair:rtg-2026:s-mn:aula-04:i3:3",
-                  "left": "Características químicas",
-                  "right": "Orgânico ou inorgânico"
+                  "left": "Forma química",
+                  "right": "Aquoso ou orgânico"
                 },
                 {
                   "id": "pair:rtg-2026:s-mn:aula-04:i3:4",
-                  "left": "Características biológicas",
-                  "right": "Putrescível ou patogênico"
+                  "left": "Risco do conteúdo",
+                  "right": "Infectante ou tóxico"
                 }
               ]
             }
@@ -1293,7 +1312,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
             "help": "Olhe quem está perto antes de olhar para a poça.",
             "type": "case-decision",
             "feedback": {
-              "correct": "Isso. As pessoas ficam longe do local, e a equipe e o supervisor de proteção assumem medição e limpeza.",
+              "correct": "Isso. As pessoas ficam longe do local, e a equipe e o responsável pela proteção assumem medição e limpeza.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -1313,7 +1332,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-mn:aula-04:i4:c",
                   "label": "Para, avisa, afasta as pessoas e chama a equipe",
-                  "explanation": "Isso. As pessoas ficam longe do local, e a equipe e o supervisor de proteção assumem medição e limpeza."
+                  "explanation": "Isso. As pessoas ficam longe do local, e a equipe e o responsável pela proteção assumem medição e limpeza."
                 },
                 {
                   "id": "option:rtg-2026:s-mn:aula-04:i4:d",
@@ -1341,7 +1360,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
             "help": "Pense em quem controla o que entra e o que sai como rejeito no serviço.",
             "type": "case-decision",
             "feedback": {
-              "correct": "Isso. A origem e o destino desse material são decisão da equipe e do supervisor de proteção, não sua.",
+              "correct": "Isso. A origem e o destino desse material são decisão da equipe e do responsável pela proteção, não sua.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -1350,8 +1369,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
               "options": [
                 {
                   "id": "option:rtg-2026:s-mn:aula-04:i5:a",
-                  "label": "Não mexe, afasta colegas e avisa o supervisor",
-                  "explanation": "Isso. A origem e o destino desse material são decisão da equipe e do supervisor de proteção, não sua."
+                  "label": "Não mexe, afasta colegas e avisa o responsável",
+                  "explanation": "Isso. A origem e o destino desse material são decisão da equipe e do responsável pela proteção, não sua."
                 },
                 {
                   "id": "option:rtg-2026:s-mn:aula-04:i5:b",
@@ -1361,7 +1380,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-mn:aula-04:i5:c",
                   "label": "Fecha o saco e leva para a coleta comum do setor",
-                  "explanation": "Isso faz um possível rejeito sair do controle do serviço. Confira de novo o que a norma exige."
+                  "explanation": "Isso faz um possível rejeito sair do controle do serviço. Confira de novo o que o serviço exige."
                 },
                 {
                   "id": "option:rtg-2026:s-mn:aula-04:i5:d",
@@ -1401,7 +1420,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenance": {
         "contentVersion": "rtg-2026-s-mn-v1",
         "sourceIds": [
-          "source:rtg-2026:s-mn:cnen-norma-3-05",
+          "source:rtg-2026:s-mn:iaea-ssg46-2018",
+          "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
           "source:rtg-2026:s-mn:radiologyinfo-pet-ct",
           "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
         ]
@@ -1464,7 +1484,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
             "help": "Lembre que, depois da administração, a pessoa passa a emitir radiação.",
             "type": "multiple-choice",
             "feedback": {
-              "correct": "Isso. O serviço precisa ter sala de espera exclusiva e fisicamente delimitada para quem foi injetado.",
+              "correct": "Isso. O serviço separa um espaço de espera próprio, delimitado, para quem foi injetado.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -1478,7 +1498,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-mn:aula-05:i1:b",
                   "label": "Na sala de espera exclusiva para injetados",
-                  "explanation": "Isso. O serviço precisa ter sala de espera exclusiva e fisicamente delimitada para quem foi injetado."
+                  "explanation": "Isso. O serviço separa um espaço de espera próprio, delimitado, para quem foi injetado."
                 },
                 {
                   "id": "option:rtg-2026:s-mn:aula-05:i1:c",
@@ -1488,7 +1508,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-mn:aula-05:i1:d",
                   "label": "Em qualquer corredor, sem espaço definido",
-                  "explanation": "A norma prevê espaço próprio para essa espera. Retome o que vem depois da administração."
+                  "explanation": "O serviço prevê espaço próprio para essa espera. Retome o que vem depois da administração."
                 }
               ],
               "correctOptionId": "option:rtg-2026:s-mn:aula-05:i1:b"
@@ -1714,7 +1734,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:s-mn:peterson-detectores-spect",
           "source:rtg-2026:s-mn:nibib-medicina-nuclear",
-          "source:rtg-2026:s-mn:cnen-norma-3-05"
+          "source:rtg-2026:s-mn:iaea-ssg46-2018",
+          "source:rtg-2026:s-mn:iaea-srs-40"
         ]
       },
       "steps": [
@@ -1724,7 +1745,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
           "role": "hook",
           "payload": {
             "title": "Cintilografia, SPECT e qualidade",
-            "body": "Hoje você vai conseguir dizer para que serve cada teste de qualidade, com que frequência ele aparece e o que fazer quando um resultado sai da tolerância.",
+            "body": "Hoje você vai conseguir dizer para que serve cada teste, quando o programa do serviço manda fazê-lo e o que fazer se o resultado sair da tolerância.",
             "dialogue": {
               "setting": "Sala de exames, antes do primeiro paciente",
               "lines": [
@@ -1750,10 +1771,10 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Cada teste, uma pergunta",
-            "body": "No SPECT, diferente da planar, as cabeças giram, coletam projeções em vários ângulos e o computador reconstrói em 3D. A norma prevê testes com perguntas próprias. Uniformidade em baixa densidade de contagem: a câmara responde igual em todo o campo? Janela de energia: está centrada para cada radionuclídeo em uso? Radiação de fundo: como está a contagem da sala? Esses são diários ou no dia de uso. Centro de rotação, mensal: o giro do SPECT está alinhado? O medidor de atividade tem testes diários, como repetibilidade. Resultado fora da tolerância: não ajuste, não ignore. Pare, registre e avise a equipe e o supervisor, que define o que refazer após conserto.",
+            "body": "No SPECT, diferente da planar, as cabeças giram, coletam projeções em vários ângulos e o computador reconstrói em 3D. O programa do serviço define quando fazer cada teste, e cada um tem sua pergunta. Uniformidade em baixa densidade de contagem: a câmara responde igual em todo o campo? Janela de energia: está centrada para cada radionuclídeo? Radiação de fundo: como está a contagem? Centro de rotação: o giro do SPECT está alinhado? O medidor de atividade também tem testes, como repetibilidade. Fora da tolerância, não ajuste: pare, registre e avise a equipe e o responsável pela proteção. Após conserto, o físico médico define os testes a refazer, pelo programa.",
             "keyPoints": [
               "SPECT: projeções em vários ângulos, reconstruídas em 3D.",
-              "Cada teste responde a uma pergunta e tem uma frequência.",
+              "Cada teste responde a uma pergunta; o programa do serviço diz quando fazê-lo.",
               "Fora da tolerância: pare, registre, avise."
             ]
           }
@@ -1914,7 +1935,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
             "help": "Pense em quem precisa saber do resultado antes da agenda começar.",
             "type": "case-decision",
             "feedback": {
-              "correct": "Isso. O resultado fica como apareceu, e a equipe e o supervisor de proteção decidem os próximos passos.",
+              "correct": "Isso. O resultado fica como apareceu, e a equipe e o responsável pela proteção decidem os próximos passos.",
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
@@ -1934,12 +1955,12 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
                 {
                   "id": "option:rtg-2026:s-mn:aula-06:i4:c",
                   "label": "Para, registra o que viu e avisa a equipe agora",
-                  "explanation": "Isso. O resultado fica como apareceu, e a equipe e o supervisor de proteção decidem os próximos passos."
+                  "explanation": "Isso. O resultado fica como apareceu, e a equipe e o responsável pela proteção decidem os próximos passos."
                 },
                 {
                   "id": "option:rtg-2026:s-mn:aula-06:i4:d",
                   "label": "Libera a agenda, pois o resultado de ontem vale",
-                  "explanation": "O teste é do dia em que a câmara é usada. Retome a frequência da uniformidade."
+                  "explanation": "O resultado de ontem não responde pela câmara de hoje. Retome o que fazer com uma falha."
                 }
               ],
               "correctOptionId": "option:rtg-2026:s-mn:aula-06:i4:c"
@@ -1986,7 +2007,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
                 },
                 {
                   "id": "option:rtg-2026:s-mn:aula-06:i5:d",
-                  "label": "Não usa o medidor e relata à colega e ao supervisor",
+                  "label": "Não usa o medidor e relata à colega e ao responsável",
                   "explanation": "Isso. A regra é a mesma em todo equipamento: fora da tolerância, pare, registre o que viu e avise."
                 }
               ],
@@ -2000,7 +2021,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Teste é para ser ouvido",
-            "body": "Agora você consegue dizer o que cada teste pergunta, com que frequência ele aparece e o que fazer quando a resposta vem ruim: parar, registrar e avisar.",
+            "body": "Agora você consegue dizer o que cada teste pergunta, quando o programa do serviço manda fazê-lo e o que fazer quando a resposta vem ruim: parar, registrar e avisar.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -2027,7 +2048,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
           "source:rtg-2026:s-mn:wna-radioisotopos",
           "source:rtg-2026:s-mn:pettinato-artefatos-pet-ct",
           "source:rtg-2026:s-mn:willowson-spect-ct",
-          "source:rtg-2026:s-mn:cnen-norma-3-05",
+          "source:rtg-2026:s-mn:iaea-ssg46-2018",
+          "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
           "source:rtg-2026:s-mn:radiologyinfo-pet-ct"
         ]
       },
@@ -2064,7 +2086,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Duas séries, um alinhamento",
-            "body": "No PET, cada pósitron encontra um elétron; os dois se aniquilam e geram dois fótons gama em direções opostas, registrados pelos detectores. Nos híbridos, a TC faz dois trabalhos: correção de atenuação e localização anatômica. As duas séries precisam coincidir: o co-registro é testado a cada trimestre. A respiração pode desalinhá-las; metal, como implante, marca-passo ou cateter de quimioterapia, pode gerar artefato na correção. No PET com FDG, em geral há repouso de 30 a 60 minutos, evitando movimento e fala; a TC leva menos de 2 minutos e o PET, de 20 a 30. Braços elevados reduzem o truncamento, quando o corpo sai do campo menor da TC.",
+            "body": "No PET, cada pósitron encontra um elétron; os dois se aniquilam e geram dois fótons gama em direções opostas, registrados pelos detectores. Nos híbridos, a TC faz dois trabalhos: correção de atenuação e localização anatômica. As duas séries precisam coincidir: o co-registro é testado pelo serviço. A respiração pode desalinhá-las; metal, como implante, marca-passo ou cateter de quimioterapia, pode gerar artefato na correção. No PET com FDG, em geral há repouso de 30 a 60 minutos, evitando movimento e fala; a TC leva menos de 2 minutos e o PET, de 20 a 30. Braços elevados reduzem o truncamento, quando o corpo sai do campo menor da TC.",
             "keyPoints": [
               "A TC corrige a atenuação e situa o sinal na anatomia.",
               "Respiração e metal podem atrapalhar o híbrido.",
@@ -2342,7 +2364,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenance": {
         "contentVersion": "rtg-2026-s-mn-v1",
         "sourceIds": [
-          "source:rtg-2026:s-mn:cnen-norma-3-05"
+          "source:rtg-2026:s-mn:iaea-ssg46-2018",
+          "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
         ]
       },
       "steps": [
@@ -2378,7 +2401,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Cada etapa deixa rastro",
-            "body": "Cada etapa deixa um registro. A ordem ensinada aqui é: inspeção do embalado; testes de qualidade do dia, com data, resultado e responsável; controle de qualidade do radiofármaco, antes da administração; atividade prescrita e administrada, com identificação do paciente; rejeito, com datas e visto. Para achar a falha, procure a primeira etapa sem registro, fora de ordem ou com valor divergente. Em suspeita de paciente errado, órgão errado ou atividade diferente da prescrita, você não corrige nada: descreve e avisa a equipe e o supervisor de proteção. Titular, responsável técnico e supervisor investigam, registram e informam paciente e médico.",
+            "body": "Cada etapa deixa um registro, nesta ordem: inspeção do embalado; testes de qualidade da câmara, com data, resultado e responsável; controle de qualidade do radiofármaco, antes da administração; atividade prescrita e administrada, com identificação do paciente; rejeito, com datas e visto. Para achar a falha, procure a primeira etapa sem registro, fora de ordem ou com valor divergente. Em suspeita de paciente errado, órgão errado ou atividade diferente da prescrita, você não corrige nada: descreve e avisa a equipe e o responsável pela proteção. A direção do serviço e a equipe investigam, registram e informam paciente e médico, e o evento significativo vai ao regulador pelas regras locais.",
             "keyPoints": [
               "Registro conta o que aconteceu, não o que deveria acontecer.",
               "Procure a primeira etapa sem registro, fora de ordem ou divergente.",
@@ -2425,7 +2448,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
                 },
                 {
                   "id": "option:rtg-2026:s-mn:aula-08:i1:d",
-                  "label": "Local de rejeito, datas e visto do supervisor",
+                  "label": "Local de rejeito, datas e visto do responsável",
                   "explanation": "Isso é registro de rejeito, no fim do percurso. Retome o que vem antes da administração."
                 }
               ],
@@ -2469,7 +2492,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
                 },
                 {
                   "id": "item:rtg-2026:s-mn:aula-08:i2:2",
-                  "label": "Testes de qualidade do dia"
+                  "label": "Testes de qualidade da câmara"
                 },
                 {
                   "id": "item:rtg-2026:s-mn:aula-08:i2:3",
@@ -2516,7 +2539,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
                 {
                   "id": "pair:rtg-2026:s-mn:aula-08:i3:2",
                   "left": "Uniformidade de hoje sem data nem responsável",
-                  "right": "Testes de qualidade do dia"
+                  "right": "Testes de qualidade da câmara"
                 },
                 {
                   "id": "pair:rtg-2026:s-mn:aula-08:i3:3",
@@ -2562,7 +2585,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
                 },
                 {
                   "id": "option:rtg-2026:s-mn:aula-08:i4:b",
-                  "label": "Param, descrevem e chamam a equipe e o supervisor",
+                  "label": "Param, descrevem e chamam a equipe e o responsável",
                   "explanation": "Isso. Suspeita de paciente errado é investigada por quem responde pelo serviço, e o registro fica como está."
                 },
                 {
@@ -2749,7 +2772,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-mn:cnen-norma-3-05"
+          "source:rtg-2026:s-mn:iaea-ssg46-2018"
         ]
       },
       {
@@ -2782,7 +2805,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-mn:cnen-norma-3-05"
+          "source:rtg-2026:s-mn:iaea-ssg46-2018"
         ]
       },
       {
@@ -2860,28 +2883,28 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
         "options": [
           {
             "id": "option:rtg-2026:s-mn:aula-04:c1:a",
-            "label": "Só depois de derramamento confirmado"
+            "label": "Depois que o derramamento for confirmado"
           },
           {
             "id": "option:rtg-2026:s-mn:aula-04:c1:b",
-            "label": "Só ao fim do ano, para o relatório"
+            "label": "Ao fim do ano, quando o relatório pede"
           },
           {
             "id": "option:rtg-2026:s-mn:aula-04:c1:c",
-            "label": "Só na troca mensal do monitor individual"
+            "label": "Quando o monitor individual é trocado"
           },
           {
             "id": "option:rtg-2026:s-mn:aula-04:c1:d",
-            "label": "Diariamente e a cada suspeita"
+            "label": "Na rotina do serviço e a cada suspeita"
           }
         ],
         "correctOptionId": "option:rtg-2026:s-mn:aula-04:c1:d",
         "feedback": {
-          "correct": "Isso. A monitoração é diária e também acontece sempre que há suspeita, com registro.",
+          "correct": "Isso. A monitoração é sistemática, no ritmo definido pelo serviço, e também acontece sempre que há suspeita, com registro.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-mn:cnen-norma-3-05"
+          "source:rtg-2026:s-mn:iaea-ssg46-2018"
         ]
       },
       {
@@ -2914,7 +2937,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-mn:cnen-norma-3-05"
+          "source:rtg-2026:s-mn:iaea-ssg46-2018",
+          "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
         ]
       },
       {
@@ -2988,32 +3012,33 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:s-mn:aula-06"
         ],
-        "prompt": "Com que frequência a norma prevê o teste de uniformidade para baixa densidade de contagem na câmara cintilográfica?",
+        "prompt": "Por que o teste de uniformidade de hoje não pode ser dispensado porque o de ontem passou?",
         "options": [
           {
             "id": "option:rtg-2026:s-mn:aula-06:c1:a",
-            "label": "Diariamente ou no dia em que a câmara for usada"
+            "label": "Ele mostra o estado de hoje; o programa do serviço define quando"
           },
           {
             "id": "option:rtg-2026:s-mn:aula-06:c1:b",
-            "label": "A cada semestre, junto do relatório do físico"
+            "label": "O resultado de ontem vale enquanto ninguém reclamar do exame"
           },
           {
             "id": "option:rtg-2026:s-mn:aula-06:c1:c",
-            "label": "Só quando um paciente reclamar da demora"
+            "label": "Cada técnico de plantão escolhe sozinho o que testar e quando"
           },
           {
             "id": "option:rtg-2026:s-mn:aula-06:c1:d",
-            "label": "Apenas na instalação, na fase de aceitação"
+            "label": "Repetir o teste só atrasa a agenda do dia"
           }
         ],
         "correctOptionId": "option:rtg-2026:s-mn:aula-06:c1:a",
         "feedback": {
-          "correct": "Isso. Esse teste, como o de janela de energia e o de fundo, acompanha o dia de uso.",
+          "correct": "Isso. O teste confere o estado do equipamento naquele momento, e o programa de garantia da qualidade do serviço define quando ele é feito.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-mn:cnen-norma-3-05"
+          "source:rtg-2026:s-mn:iaea-ssg46-2018",
+          "source:rtg-2026:s-mn:iaea-srs-40"
         ]
       },
       {
@@ -3029,24 +3054,25 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
           },
           {
             "id": "option:rtg-2026:s-mn:aula-06:c2:b",
-            "label": "A recepção, conforme o tamanho da agenda"
+            "label": "A recepção, conforme o tamanho da agenda do dia"
           },
           {
             "id": "option:rtg-2026:s-mn:aula-06:c2:c",
-            "label": "O supervisor de proteção radiológica"
+            "label": "O físico médico, pelo programa do serviço"
           },
           {
             "id": "option:rtg-2026:s-mn:aula-06:c2:d",
-            "label": "O fabricante, sem comunicar o serviço"
+            "label": "O fabricante, sem comunicar nada ao serviço"
           }
         ],
         "correctOptionId": "option:rtg-2026:s-mn:aula-06:c2:c",
         "feedback": {
-          "correct": "Isso. Após reparo ou suspeita de funcionamento irregular, é ele quem determina os testes pertinentes.",
+          "correct": "Isso. Após reparo ou suspeita de funcionamento irregular, o físico médico, pelo programa de qualidade do serviço, determina os testes pertinentes.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-mn:cnen-norma-3-05"
+          "source:rtg-2026:s-mn:iaea-ssg46-2018",
+          "source:rtg-2026:s-mn:iaea-srs-40"
         ]
       },
       {
@@ -3145,7 +3171,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-mn:cnen-norma-3-05"
+          "source:rtg-2026:s-mn:iaea-ssg46-2018",
+          "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
         ]
       },
       {
@@ -3165,7 +3192,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
           },
           {
             "id": "option:rtg-2026:s-mn:aula-08:c2:c",
-            "label": "Titular, responsável técnico e supervisor"
+            "label": "A direção do serviço e a equipe"
           },
           {
             "id": "option:rtg-2026:s-mn:aula-08:c2:d",
@@ -3174,11 +3201,12 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
         ],
         "correctOptionId": "option:rtg-2026:s-mn:aula-08:c2:c",
         "feedback": {
-          "correct": "Isso. Eles investigam, registram, previnem nova ocorrência e informam o paciente e o médico.",
+          "correct": "Isso. Elas investigam, registram, previnem nova ocorrência e informam o paciente e o médico.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
-          "source:rtg-2026:s-mn:cnen-norma-3-05"
+          "source:rtg-2026:s-mn:iaea-ssg46-2018",
+          "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
         ]
       }
     ]
@@ -3816,7 +3844,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -3825,7 +3853,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -3834,7 +3862,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -3843,7 +3871,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -3852,7 +3880,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -3861,7 +3889,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -3870,7 +3898,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -3879,7 +3907,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -3888,7 +3916,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -3897,7 +3925,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -3911,7 +3939,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -3931,7 +3959,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -3939,7 +3967,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -3998,7 +4026,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:wna-radioisotopos",
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -4008,7 +4036,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:wna-radioisotopos",
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -4018,7 +4046,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:wna-radioisotopos",
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -4027,7 +4055,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4035,7 +4063,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4061,7 +4089,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4069,7 +4097,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4077,7 +4105,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4103,7 +4131,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4111,7 +4139,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4119,7 +4147,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4177,7 +4205,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4191,7 +4219,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4211,7 +4239,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4219,7 +4247,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4354,7 +4382,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:peterson-detectores-spect",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4363,7 +4391,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:peterson-detectores-spect",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4372,7 +4400,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:peterson-detectores-spect",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4381,7 +4409,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:peterson-detectores-spect",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4390,7 +4418,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:peterson-detectores-spect",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4399,7 +4427,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:peterson-detectores-spect",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4408,7 +4436,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:peterson-detectores-spect",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4417,7 +4445,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:peterson-detectores-spect",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4425,7 +4453,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4451,7 +4479,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4459,7 +4487,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4467,7 +4495,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4475,7 +4503,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
@@ -4484,7 +4512,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
@@ -4511,7 +4539,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
@@ -4520,7 +4548,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
@@ -4531,7 +4559,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:wna-radioisotopos",
         "source:rtg-2026:s-mn:peterson-detectores-spect",
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
@@ -4542,7 +4570,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:wna-radioisotopos",
         "source:rtg-2026:s-mn:peterson-detectores-spect",
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
@@ -4553,7 +4581,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:wna-radioisotopos",
         "source:rtg-2026:s-mn:peterson-detectores-spect",
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
         "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
@@ -4712,7 +4740,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4726,7 +4754,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4746,7 +4774,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4754,7 +4782,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4814,7 +4842,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4824,7 +4852,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4834,7 +4862,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4844,7 +4872,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4854,7 +4882,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4864,7 +4892,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4874,7 +4902,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4884,7 +4912,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4892,7 +4920,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -4900,7 +4929,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -4908,7 +4938,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -4916,7 +4947,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -4924,7 +4956,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -4932,7 +4965,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -4940,7 +4974,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -4948,7 +4983,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -4958,7 +4994,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4980,7 +5016,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -4996,7 +5032,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -5006,7 +5042,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -5014,7 +5050,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -5022,7 +5059,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -5048,7 +5086,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -5056,7 +5095,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -5067,7 +5107,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
         "source:rtg-2026:s-mn:cdc-contaminacao-exposicao",
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -5078,7 +5119,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
         "source:rtg-2026:s-mn:cdc-contaminacao-exposicao",
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -5089,7 +5131,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
         "source:rtg-2026:s-mn:cdc-contaminacao-exposicao",
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -5097,7 +5140,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -5123,7 +5166,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -5131,7 +5174,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -5139,7 +5182,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018"
       ]
     },
     {
@@ -5147,7 +5190,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -5155,7 +5199,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -5181,7 +5226,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -5189,7 +5235,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -5197,7 +5244,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18",
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40"
       ]
@@ -5225,7 +5273,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18",
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40"
       ]
@@ -5235,7 +5284,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18",
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40"
       ]
@@ -5245,7 +5295,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18",
         "source:rtg-2026:s-mn:vumc-emergencias-mn",
         "source:rtg-2026:s-mn:iaea-srs-40"
       ]
@@ -5255,7 +5306,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -5275,7 +5327,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -5289,7 +5342,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -5297,7 +5351,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
       ]
     },
     {
@@ -5305,7 +5360,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5319,7 +5375,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5339,7 +5396,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5347,7 +5405,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5428,7 +5487,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5437,7 +5497,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5446,7 +5507,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5455,7 +5517,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5464,7 +5527,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5473,7 +5537,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5482,7 +5547,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5491,7 +5557,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -5499,7 +5566,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -5526,7 +5594,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -5535,7 +5604,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -5544,7 +5614,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -5553,7 +5624,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -5568,7 +5640,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -5589,7 +5662,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -5598,7 +5672,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -5607,7 +5682,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-pet-ct",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
@@ -5617,7 +5693,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-pet-ct",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
@@ -5627,7 +5704,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-pet-ct",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
@@ -5737,7 +5815,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -5746,7 +5825,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -5773,7 +5853,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -5782,7 +5863,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
       ]
     },
@@ -5945,7 +6027,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -5953,7 +6036,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -5961,7 +6045,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -5969,7 +6054,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -5977,7 +6063,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -5985,7 +6072,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -5993,7 +6081,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6001,7 +6090,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6009,7 +6099,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6029,7 +6120,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6043,7 +6135,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6051,7 +6144,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6059,7 +6153,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6085,7 +6180,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6093,7 +6189,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6101,7 +6198,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6111,7 +6209,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:peterson-detectores-spect",
         "source:rtg-2026:s-mn:nibib-medicina-nuclear",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6121,7 +6220,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:peterson-detectores-spect",
         "source:rtg-2026:s-mn:nibib-medicina-nuclear",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6131,7 +6231,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:peterson-detectores-spect",
         "source:rtg-2026:s-mn:nibib-medicina-nuclear",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6139,7 +6240,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6147,7 +6249,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6173,7 +6276,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6181,7 +6285,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6189,7 +6294,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6209,7 +6315,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6223,7 +6330,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6231,7 +6339,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6239,7 +6348,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6247,7 +6357,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6273,7 +6384,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6281,7 +6393,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6289,7 +6402,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6315,7 +6429,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6323,7 +6438,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6331,7 +6447,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-srs-40"
       ]
     },
     {
@@ -6472,7 +6589,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:pettinato-artefatos-pet-ct",
         "source:rtg-2026:s-mn:willowson-spect-ct",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6482,7 +6600,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:pettinato-artefatos-pet-ct",
         "source:rtg-2026:s-mn:willowson-spect-ct",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6492,7 +6611,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:pettinato-artefatos-pet-ct",
         "source:rtg-2026:s-mn:willowson-spect-ct",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6502,7 +6622,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:pettinato-artefatos-pet-ct",
         "source:rtg-2026:s-mn:willowson-spect-ct",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6512,7 +6633,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:pettinato-artefatos-pet-ct",
         "source:rtg-2026:s-mn:willowson-spect-ct",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6522,7 +6644,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:pettinato-artefatos-pet-ct",
         "source:rtg-2026:s-mn:willowson-spect-ct",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6532,7 +6655,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:pettinato-artefatos-pet-ct",
         "source:rtg-2026:s-mn:willowson-spect-ct",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6542,7 +6666,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:s-mn:pettinato-artefatos-pet-ct",
         "source:rtg-2026:s-mn:willowson-spect-ct",
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6604,7 +6729,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6618,7 +6744,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6638,7 +6765,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6646,7 +6774,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6659,7 +6788,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
         "source:rtg-2026:s-mn:wna-radioisotopos",
         "source:rtg-2026:s-mn:pettinato-artefatos-pet-ct",
         "source:rtg-2026:s-mn:willowson-spect-ct",
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-pet-ct"
       ]
     },
@@ -6673,7 +6803,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
         "source:rtg-2026:s-mn:wna-radioisotopos",
         "source:rtg-2026:s-mn:pettinato-artefatos-pet-ct",
         "source:rtg-2026:s-mn:willowson-spect-ct",
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-pet-ct"
       ]
     },
@@ -6687,7 +6818,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
         "source:rtg-2026:s-mn:wna-radioisotopos",
         "source:rtg-2026:s-mn:pettinato-artefatos-pet-ct",
         "source:rtg-2026:s-mn:willowson-spect-ct",
-        "source:rtg-2026:s-mn:cnen-norma-3-05",
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
         "source:rtg-2026:s-mn:radiologyinfo-pet-ct"
       ]
     },
@@ -6896,7 +7028,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6916,7 +7049,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6930,7 +7064,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6938,7 +7073,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6946,7 +7082,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6954,7 +7091,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6962,7 +7100,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6970,7 +7109,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6978,7 +7118,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6986,7 +7127,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -6994,7 +7136,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7002,7 +7145,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7010,7 +7154,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7018,7 +7163,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7026,7 +7172,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7034,7 +7181,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7042,7 +7190,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7050,7 +7199,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7058,7 +7208,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7066,7 +7217,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7074,7 +7226,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7082,7 +7235,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7096,7 +7250,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7116,7 +7271,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7124,7 +7280,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7132,7 +7289,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7158,7 +7316,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7166,7 +7325,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7174,7 +7334,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7182,7 +7343,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7190,7 +7352,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7198,7 +7361,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7206,7 +7370,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7214,7 +7379,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7240,7 +7406,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7248,7 +7415,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7256,7 +7424,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7276,7 +7445,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7290,7 +7460,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7298,7 +7469,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7306,7 +7478,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7332,7 +7505,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7340,7 +7514,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7348,7 +7523,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7356,7 +7532,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7370,7 +7547,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7390,7 +7568,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     },
     {
@@ -7398,7 +7577,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "claimKind": "feedback",
       "provenanceKind": "source-backed",
       "sourceIds": [
-        "source:rtg-2026:s-mn:cnen-norma-3-05"
+        "source:rtg-2026:s-mn:iaea-ssg46-2018",
+        "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
       ]
     }
   ],
@@ -7542,7 +7722,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-mn:cnen-norma-3-05"
+            "source:rtg-2026:s-mn:iaea-ssg46-2018"
           ]
         }
       },
@@ -7587,7 +7767,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
           "competencyIds": [
             "competency:rtg-2026:s-mn:aula-03"
           ],
-          "prompt": "No levantamento periódico, o supervisor quer saber quanta radiação há num ponto da sala onde há fontes guardadas. Que instrumento responde a essa pergunta?",
+          "prompt": "No levantamento periódico, o responsável pela proteção quer saber quanta radiação há num ponto da sala onde há fontes guardadas. Que instrumento responde a essa pergunta?",
           "options": [
             {
               "id": "option:rtg-2026:s-mn:aula-03:rt:a",
@@ -7612,7 +7792,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-mn:cnen-norma-3-05"
+            "source:rtg-2026:s-mn:iaea-ssg46-2018"
           ]
         }
       },
@@ -7640,7 +7820,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
             },
             {
               "id": "option:rtg-2026:s-mn:aula-04:rg:d",
-              "label": "Pessoal treinado, com o supervisor"
+              "label": "Pessoal treinado, com o responsável"
             }
           ],
           "correctOptionId": "option:rtg-2026:s-mn:aula-04:rg:d",
@@ -7649,7 +7829,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-mn:cnen-norma-3-05",
+            "source:rtg-2026:s-mn:iaea-ssg46-2018",
+            "source:rtg-2026:s-mn:who-residuos-saude-modulo-18",
             "source:rtg-2026:s-mn:vumc-emergencias-mn",
             "source:rtg-2026:s-mn:iaea-srs-40"
           ]
@@ -7684,7 +7865,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-mn:cnen-norma-3-05"
+            "source:rtg-2026:s-mn:iaea-ssg46-2018",
+            "source:rtg-2026:s-mn:who-residuos-saude-modulo-18"
           ]
         }
       },
@@ -7721,7 +7903,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-mn:cnen-norma-3-05",
+            "source:rtg-2026:s-mn:iaea-ssg46-2018",
+            "source:rtg-2026:s-mn:iaea-gsr-part3-2014",
             "source:rtg-2026:s-mn:radiologyinfo-medicina-nuclear"
           ]
         },
@@ -7771,7 +7954,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
           "options": [
             {
               "id": "option:rtg-2026:s-mn:aula-06:rg:a",
-              "label": "Avisa a equipe e o supervisor de proteção"
+              "label": "Avisa a equipe e o responsável pela proteção"
             },
             {
               "id": "option:rtg-2026:s-mn:aula-06:rg:b",
@@ -7792,7 +7975,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-mn:cnen-norma-3-05"
+            "source:rtg-2026:s-mn:iaea-ssg46-2018",
+            "source:rtg-2026:s-mn:iaea-srs-40"
           ]
         },
         "transfer": {
@@ -7821,11 +8005,12 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
           ],
           "correctOptionId": "option:rtg-2026:s-mn:aula-06:rt:d",
           "feedback": {
-            "correct": "Isso. A norma pede verificar a janela para todos os radionuclídeos usados na rotina.",
+            "correct": "Isso. A janela é verificada para todos os radionuclídeos usados na rotina.",
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-mn:cnen-norma-3-05"
+            "source:rtg-2026:s-mn:iaea-ssg46-2018",
+            "source:rtg-2026:s-mn:iaea-srs-40"
           ]
         }
       },
@@ -7932,7 +8117,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-mn:cnen-norma-3-05"
+            "source:rtg-2026:s-mn:iaea-ssg46-2018",
+            "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
           ]
         },
         "transfer": {
@@ -7965,7 +8151,8 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
             "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
           },
           "sourceIds": [
-            "source:rtg-2026:s-mn:cnen-norma-3-05"
+            "source:rtg-2026:s-mn:iaea-ssg46-2018",
+            "source:rtg-2026:s-mn:iaea-gsr-part3-2014"
           ]
         }
       }
@@ -7985,7 +8172,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "97865bacd181364f845baed25eb0a7f2c246783b2faa565fac5a9f36ce4c0b1e"
+      "materialSha256": "97761d26b7fe0192d90749230a8be3c53d3c905fdb5154fa3ff2be357e5107d3"
     },
     {
       "schemaVersion": 1,
@@ -7994,7 +8181,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "97865bacd181364f845baed25eb0a7f2c246783b2faa565fac5a9f36ce4c0b1e"
+      "materialSha256": "97761d26b7fe0192d90749230a8be3c53d3c905fdb5154fa3ff2be357e5107d3"
     },
     {
       "schemaVersion": 1,
@@ -8003,7 +8190,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "97865bacd181364f845baed25eb0a7f2c246783b2faa565fac5a9f36ce4c0b1e"
+      "materialSha256": "97761d26b7fe0192d90749230a8be3c53d3c905fdb5154fa3ff2be357e5107d3"
     },
     {
       "schemaVersion": 1,
@@ -8012,7 +8199,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "97865bacd181364f845baed25eb0a7f2c246783b2faa565fac5a9f36ce4c0b1e"
+      "materialSha256": "97761d26b7fe0192d90749230a8be3c53d3c905fdb5154fa3ff2be357e5107d3"
     },
     {
       "schemaVersion": 1,
@@ -8021,7 +8208,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "97865bacd181364f845baed25eb0a7f2c246783b2faa565fac5a9f36ce4c0b1e"
+      "materialSha256": "97761d26b7fe0192d90749230a8be3c53d3c905fdb5154fa3ff2be357e5107d3"
     },
     {
       "schemaVersion": 1,
@@ -8030,7 +8217,7 @@ export const RTG_2026_S_MN: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "97865bacd181364f845baed25eb0a7f2c246783b2faa565fac5a9f36ce4c0b1e"
+      "materialSha256": "97761d26b7fe0192d90749230a8be3c53d3c905fdb5154fa3ff2be357e5107d3"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

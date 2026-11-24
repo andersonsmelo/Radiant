@@ -7,16 +7,15 @@
     "summary": "Aprofunda a intervencionista em simulação supervisionada: vasos, imagem, sala, proteção, preparo, registro e qualidade. Não ensina execução de ato invasivo."
   },
   "sources": [
-    { "id": "anvisa-rdc-611-2022", "title": "RDC nº 611, de 9 de março de 2022 (texto compilado)", "publisher": "Anvisa, cópia no site do Colégio Brasileiro de Radiologia", "url": "https://cbr.org.br/wp-content/uploads/2023/08/RDC-ANVISA-de-2022-no-611_Requisitos-sanitarios-de-organizacao-e-funcionamento-de-servico-de-radiologia-diagnostica-ou-intervencionista.pdf", "accessedAt": "2026-11-07", "use": "factual-reference", "licenseNote": "Ato normativo federal; consultado para fatos, sem reprodução de texto." },
-    { "id": "anvisa-in-91-2021", "title": "Instrução Normativa nº 91, de 27 de maio de 2021 (republicada no DOU de 06/07/2022): fluoroscopia e radiologia intervencionista", "publisher": "Anvisa, cópia na BVS da SES-SP", "url": "https://ses.sp.bvs.br/wp-content/uploads/2022/07/U_IN-MS-ANVISA-91-REP_270521.pdf", "accessedAt": "2026-11-07", "use": "factual-reference", "licenseNote": "Ato normativo federal; consultado para fatos, sem reprodução de texto. O Anexo I é imagem e não foi usado." },
+    { "id": "iaea-ssg46-2018", "title": "Radiation Protection and Safety in Medical Uses of Ionizing Radiation (IAEA Safety Standards Series No. SSG-46)", "publisher": "International Atomic Energy Agency (IAEA)", "url": "https://www-pub.iaea.org/MTCD/Publications/PDF/PUB1775_web.pdf", "accessedAt": "2026-11-18", "use": "factual-reference", "licenseNote": "Guia de segurança para radiologia, medicina nuclear e radioterapia: papéis, acompanhantes, EPI, monitoração, sinalização, qualidade, rejeitos; consulta para fatos, sem reprodução de texto." },
     { "id": "radiologyinfo-angiografia", "title": "Catheter Angiography", "publisher": "RadiologyInfo.org (ACR e RSNA)", "url": "https://www.radiologyinfo.org/en/info/angiocath", "accessedAt": "2026-11-07", "use": "factual-reference", "licenseNote": "Página institucional estrangeira; consulta de fatos, redação própria. Papéis descritos valem para o contexto da fonte." },
     { "id": "radiologyinfo-angioplastia", "title": "Angioplasty and Vascular Stenting", "publisher": "RadiologyInfo.org (ACR e RSNA)", "url": "https://www.radiologyinfo.org/en/info/angioplasty", "accessedAt": "2026-11-07", "use": "factual-reference", "licenseNote": "Página institucional estrangeira; consulta de fatos, redação própria." },
     { "id": "radiologyinfo-contraste", "title": "Contrast Materials", "publisher": "RadiologyInfo.org (ACR e RSNA)", "url": "https://www.radiologyinfo.org/en/info/safety-contrast", "accessedAt": "2026-11-07", "use": "factual-reference", "licenseNote": "Página institucional estrangeira; consulta de fatos, redação própria." },
     { "id": "openstax-vias-circulatorias", "title": "Anatomy and Physiology 2e, 20.5 Circulatory Pathways", "publisher": "OpenStax", "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/20-5-circulatory-pathways", "accessedAt": "2026-11-07", "use": "factual-reference", "licenseNote": "Livro aberto com licença não comercial; só consulta de fatos, sem aproveitar frase nem figura." },
     { "id": "pmc-acesso-femoral-radial", "title": "Contemporary Techniques for Femoral and Radial Arterial Access in the Cardiac Catheterization Laboratory (Gladden, Gulati e Sandoval, Rev Cardiovasc Med 2022;23(9):316)", "publisher": "Reviews in Cardiovascular Medicine, via PubMed Central", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11262397", "accessedAt": "2026-11-07", "use": "factual-reference", "licenseNote": "Artigo em acesso aberto; consulta de fatos anatômicos, redação própria. A técnica descrita não é ensinada aqui." },
-    { "id": "kjp-seguranca-radiacao", "title": "Radiation safety for pain physicians: principles and recommendations (Park, Kim e Kim, Korean J Pain 2022;35(2):129-139)", "publisher": "Korean Journal of Pain, via PubMed Central", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8977205", "accessedAt": "2026-11-07", "use": "factual-reference", "licenseNote": "Artigo em acesso aberto; consulta de fatos, redação própria. Fonte estrangeira: não é norma brasileira." },
+    { "id": "kjp-seguranca-radiacao", "title": "Radiation safety for pain physicians: principles and recommendations (Park, Kim e Kim, Korean J Pain 2022;35(2):129-139)", "publisher": "Korean Journal of Pain, via PubMed Central", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8977205", "accessedAt": "2026-11-07", "use": "factual-reference", "licenseNote": "Artigo em acesso aberto; consulta de fatos, redação própria." },
     { "id": "pmc-kerma-pka", "title": "Reference air kerma and kerma-area product as estimators of peak skin dose for fluoroscopically guided interventions", "publisher": "PubMed Central, NCBI", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3145218/", "accessedAt": "2026-11-07", "use": "factual-reference", "licenseNote": "Artigo em acesso aberto; consulta de definições, redação própria. Usado só como vocabulário." },
-    { "id": "rcr-lista-verificacao", "title": "Standards for the NPSA and RCR safety checklist for radiological interventions (2010)", "publisher": "The Royal College of Radiologists, cópia no site da BSIR", "url": "https://www.bsir.org/media/resources/NPSA_RCR_checklist_RCR_2010.pdf", "accessedAt": "2026-11-07", "use": "factual-reference", "licenseNote": "Documento britânico; consulta de fatos, redação própria. Não é regra brasileira: cada serviço define a sua lista." },
+    { "id": "rcr-lista-verificacao", "title": "Standards for the NPSA and RCR safety checklist for radiological interventions (2010)", "publisher": "The Royal College of Radiologists, cópia no site da BSIR", "url": "https://www.bsir.org/media/resources/NPSA_RCR_checklist_RCR_2010.pdf", "accessedAt": "2026-11-07", "use": "factual-reference", "licenseNote": "Documento de colégio profissional; consulta de fatos, redação própria. Cada serviço define a sua lista." },
     { "id": "rpt-patchdsa-2025", "title": "PatchDSA: improving digital subtraction angiography with patch-based phase-matching in natural breathing scenarios (Sekiguchi et al., Radiol Phys Technol 2025;18(3):698-706)", "publisher": "Radiological Physics and Technology, via Europe PMC", "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12339635/fullTextXML", "accessedAt": "2026-11-07", "use": "factual-reference", "licenseNote": "Artigo em acesso aberto, CC BY 4.0; consulta de fatos, redação própria. Só o princípio, os artefatos por desalinhamento, a repetição e a respiração no abdome vêm daqui: o método do estudo não é ensinado." }
   ],
   "lessons": [
@@ -128,7 +127,7 @@
     },
     {
       "id": "s-ir-02", "code": "S-IR.02", "title": "Imagem e equipamento",
-      "objective": "Hoje você vai conseguir diferenciar fluoroscopia e modo cine e dizer o que sinais, alarme e painel precisam indicar.",
+      "objective": "Hoje você vai conseguir diferenciar fluoroscopia e modo de aquisição de imagens e dizer o que sinais, alarme e painel precisam indicar.",
       "competency": "Reconhecer os modos de imagem da sala e as indicações do equipamento numa simulação supervisionada.",
       "minutes": 6,
       "scene": { "setting": "Sala intervencionista de simulação, sem paciente", "lines": [
@@ -138,8 +137,8 @@
       ] },
       "concept": {
         "title": "O que a sala mostra e avisa",
-        "body": "Fluoroscopia converte raios X em vídeo para guiar o procedimento. O modo cine registra imagens, e a IN 91 pede sinal sonoro e luminoso na sala quando acionado. Angiografia por subtração digital subtrai a imagem sem contraste das imagens com contraste, destacando vasos. Imagens desalinhadas geram artefatos; refazê-las pede mais contraste e radiação. Na emissão de raios X, há sinal luminoso no painel e na sala; em equipamento fixo, também fora da porta. O dispositivo de tempo soma a fluoroscopia: ao fim do tempo pré-selecionado, um alarme sonoro toca, durante a emissão, até o reajuste ou reinício. O equipamento deve indicar claramente parâmetros como tensão, corrente e tempo acumulado.",
-        "keyPoints": ["Fluoroscopia guia; cine registra; subtração destaca vasos.", "Sinal e alarme informam: você descreve e leva à supervisão.", "Na formação, operar só sob supervisão direta de profissional habilitado."]
+        "body": "Fluoroscopia converte raios X em vídeo para guiar o procedimento. O modo de aquisição de imagens grava a sequência, com taxa de dose maior que a da fluoroscopia. Angiografia por subtração digital subtrai a imagem sem contraste das imagens com contraste, destacando vasos. Imagens desalinhadas geram artefatos; refazê-las pede mais contraste e radiação. Enquanto há radiação sendo produzida, uma luz de aviso fica acesa na entrada da área controlada. O dispositivo de tempo soma a fluoroscopia: ao fim de um intervalo pré-definido, tipicamente 5 minutos, um alarme sonoro toca. O equipamento mostra tensão, corrente e tempo; na fluoroscopia, também o produto kerma-área e o kerma de referência acumulado.",
+        "keyPoints": ["Fluoroscopia guia; aquisição grava; subtração destaca vasos.", "Sinal e alarme informam: você descreve e leva à supervisão.", "Na formação, operar só sob supervisão direta de profissional habilitado."]
       },
       "interactions": [
         { "id": "i1", "type": "multiple-choice", "role": "prerequisite",
@@ -153,15 +152,15 @@
           "help": "O que aparece na tela depois da injeção que antes não aparecia?",
           "sourceIds": ["radiologyinfo-angiografia"] },
         { "id": "i2", "type": "multiple-choice", "role": "prediction",
-          "prompt": "Num roteiro de estudo, um equipamento fixo está emitindo raios X. Segundo a IN 91, onde você espera ver sinal luminoso indicando a emissão?",
+          "prompt": "Num roteiro de estudo, a sala está produzindo raios X. Segundo a fonte da aula, onde você espera ver uma luz de aviso acesa?",
           "options": [
-              { "label": "Só no painel de controle da sala", "correct": false, "feedback": "O painel é um dos lugares, mas quem está na sala e quem chega também precisa saber. Retome o que a norma pede." },
-              { "label": "No painel, na sala e fora da porta", "correct": true, "feedback": "Isso. Em equipamento fixo, a emissão é indicada no painel, dentro da sala e do lado de fora da porta." },
-              { "label": "Só do lado de fora da porta", "correct": false, "feedback": "O sinal externo avisa quem chega, e quem está dentro também precisa saber. Confira de novo a norma." },
-              { "label": "Só no monitor de imagem da sala", "correct": false, "feedback": "O monitor mostra a imagem, e a norma fala de sinal luminoso em outros lugares. Retome o conceito." }
+              { "label": "No carrinho de materiais da sala", "correct": false, "feedback": "O carrinho guarda materiais e não avisa quem chega. Retome o que a fonte diz sobre a entrada." },
+              { "label": "Na entrada da área controlada", "correct": true, "feedback": "Isso. A luz de aviso na entrada da área controlada fica acesa enquanto há radiação sendo produzida, para evitar entrada sem querer." },
+              { "label": "Na mesa de exame do paciente", "correct": false, "feedback": "A mesa não avisa quem chega à porta. Confira de novo o conceito." },
+              { "label": "No monitor de imagem da sala", "correct": false, "feedback": "O monitor mostra a imagem e não avisa quem está chegando. Retome o conceito." }
           ],
-          "help": "Pense em quem precisa saber que há emissão, não só em quem opera.",
-          "sourceIds": ["anvisa-in-91-2021"] },
+          "help": "Pense em quem precisa saber que há emissão antes de abrir a porta.",
+          "sourceIds": ["iaea-ssg46-2018"] },
         { "id": "i3", "type": "case-decision", "role": "practice",
           "context": "Numa simulação supervisionada de angiografia por subtração digital do abdome, a imagem sem contraste já foi feita, e a equipe se prepara para as imagens com contraste. A pedido da equipe, Dona Marta, paciente simulada, prende a respiração, mas diz baixinho que não está conseguindo segurar. A equipe olha para a tela.",
           "prompt": "O que você faz neste instante?",
@@ -177,55 +176,55 @@
           "prompt": "Ligue cada termo da sala ao que ele faz ou indica.",
           "pairs": [
             { "left": "Fluoroscopia", "right": "Converte raios X em vídeo para guiar" },
-            { "left": "Modo cine", "right": "Registra imagens, com sinal sonoro e luminoso na sala" },
-            { "left": "Dispositivo de tempo", "right": "Alarma ao fim do tempo pré-selecionado" },
-            { "left": "Painel do equipamento", "right": "Indica tensão, corrente e tempo" }
+            { "left": "Modo de aquisição", "right": "Grava a sequência, com mais dose" },
+            { "left": "Dispositivo de tempo", "right": "Alarma ao fim do intervalo pré-definido" },
+            { "left": "Painel do equipamento", "right": "Indica tensão, corrente, tempo, produto kerma-área e kerma acumulado" }
           ],
-          "feedbackCorrect": "Isso. Guiar, registrar, avisar do tempo e informar: quatro papéis diferentes.",
-          "feedbackIncorrect": "Retome o conceito. Um termo é vídeo ao vivo, outro é registro, outro avisa do tempo e outro informa valores.",
-          "help": "Procure primeiro o termo que guarda imagens.",
-          "sourceIds": ["radiologyinfo-angiografia", "anvisa-in-91-2021"] },
+          "feedbackCorrect": "Isso. Guiar, gravar, avisar do tempo e informar: quatro papéis diferentes.",
+          "feedbackIncorrect": "Retome o conceito. Um termo é vídeo ao vivo, outro é gravação, outro avisa do tempo e outro informa valores.",
+          "help": "Procure primeiro o termo que grava imagens.",
+          "sourceIds": ["radiologyinfo-angiografia", "iaea-ssg46-2018"] },
         { "id": "i5", "type": "case-decision", "role": "transfer",
-          "context": "Em visita técnica a outro serviço, você acompanha a preparação de uma sala de simulação com um aparelho de marca diferente. Olhando o painel, você não encontra indicação de tensão, corrente nem tempo. A supervisora está conversando do outro lado da sala.",
+          "context": "Em visita técnica a outro serviço, você acompanha a preparação de uma sala de simulação com um aparelho de marca diferente. Olhando o painel, você não encontra indicação de tensão, corrente, tempo de fluoroscopia nem do produto kerma-área. A supervisora está conversando do outro lado da sala.",
           "prompt": "Qual é a sua atitude?",
           "options": [
             { "label": "Procura o menu e altera a exibição sozinho", "correct": false, "feedback": "Mexer no painel por conta própria foge da sua função. Retome quem opera na formação." },
-            { "label": "Conclui que nessa marca é normal e segue", "correct": false, "feedback": "A IN 91 pede essas indicações, e a marca não dispensa isso. Confira de novo o que o equipamento deve indicar." },
+            { "label": "Conclui que nessa marca é normal e segue", "correct": false, "feedback": "A fonte espera essas indicações num equipamento de fluoroscopia, e a marca não dispensa isso. Confira de novo o que o equipamento deve mostrar." },
             { "label": "Anota para comentar na próxima aula", "correct": false, "feedback": "Assim o aparelho segue em uso sem que a supervisora saiba. Retome quando informar um problema." },
-            { "label": "Descreve à supervisora o que não aparece", "correct": true, "feedback": "Isso. A IN 91 pede essas indicações, e em equipamento vendido depois dela a falta no painel inabilita o uso. Quem avalia é o serviço." }
+            { "label": "Descreve à supervisora o que não aparece", "correct": true, "feedback": "Isso. Essas indicações fazem parte do que se espera de um equipamento de fluoroscopia. Quem avalia a falta, e se o equipamento segue em uso, é o serviço." }
           ],
           "help": "Quem precisa saber disso agora, e o que essa pessoa precisa ouvir?",
-          "sourceIds": ["anvisa-in-91-2021", "anvisa-rdc-611-2022"] }
+          "sourceIds": ["iaea-ssg46-2018"] }
       ],
-      "closing": { "title": "Modos com função própria", "body": "Agora você consegue dizer para que servem fluoroscopia e cine, reconhecer os sinais e o alarme da sala e o que o equipamento deve indicar. Se faltar uma indicação, você descreve e leva à supervisão.", "line": { "speaker": "lia", "text": "Ao entrar numa sala nova, olhe o painel antes de olhar a tela. Depois me conte o que encontrou." } },
+      "closing": { "title": "Modos com função própria", "body": "Agora você consegue dizer para que servem fluoroscopia e modo de aquisição, reconhecer os sinais e o alarme da sala e o que o equipamento deve indicar. Se faltar uma indicação, você descreve e leva à supervisão.", "line": { "speaker": "lia", "text": "Ao entrar numa sala nova, olhe o painel antes de olhar a tela. Depois me conte o que encontrou." } },
       "checkpoint": [
-        { "prompt": "A IN 91 pede sinais sonoro e luminoso perceptíveis dentro da sala para indicar o acionamento de qual modo?",
+        { "prompt": "Durante a angiografia, a equipe quer gravar a sequência com taxa de dose maior que a da fluoroscopia. Segundo a aula, qual modo faz isso?",
           "options": [
-            { "label": "Modo de ajuste da mesa", "correct": false, "feedback": "A norma não trata disso nesse ponto. Retome o modo que registra imagens." },
-            { "label": "Modo de espera do monitor", "correct": false, "feedback": "O monitor em espera não exige esse aviso. Confira de novo o conceito." },
-            { "label": "Modo de transporte do aparelho", "correct": false, "feedback": "Esse aviso se liga às imagens, não ao transporte. Retome o que o sinal indica." },
-            { "label": "Modo cine, de registro", "correct": true, "feedback": "Isso. Quando o cine está acionado, quem está na sala precisa perceber o sinal." }
+            { "label": "Modo de ajuste de altura da mesa", "correct": false, "feedback": "Esse modo não grava imagens. Retome o modo que guarda a sequência." },
+            { "label": "Modo de espera do monitor de vídeo", "correct": false, "feedback": "O monitor em espera não grava nada. Confira de novo o conceito." },
+            { "label": "Modo de transporte do aparelho pela sala", "correct": false, "feedback": "O transporte do aparelho não grava imagens. Retome o conceito." },
+            { "label": "Modo de aquisição de imagens", "correct": true, "feedback": "Isso. O modo de aquisição de imagens grava a sequência, com taxa de dose maior que a da fluoroscopia." }
           ],
-          "sourceIds": ["anvisa-in-91-2021"] },
-        { "prompt": "Durante uma demonstração de fluoroscopia, um alarme sonoro toca na sala. Segundo a IN 91, o que esse alarme indica?",
+          "sourceIds": ["iaea-ssg46-2018"] },
+        { "prompt": "Durante uma demonstração de fluoroscopia, um alarme sonoro toca na sala. Segundo a fonte da aula, o que esse alarme indica?",
           "options": [
-              { "label": "Falha no sistema de imagem", "correct": false, "feedback": "A IN 91 liga esse alarme ao tempo, não a uma falha de imagem. Retome o dispositivo de tempo." },
-              { "label": "Fim do tempo pré-selecionado", "correct": true, "feedback": "Isso. O dispositivo soma o tempo de fluoroscopia e avisa quando o tempo pré-selecionado termina." },
+              { "label": "Falha no sistema de imagem", "correct": false, "feedback": "A fonte liga esse alarme ao tempo, não a uma falha de imagem. Retome o dispositivo de tempo." },
+              { "label": "Fim do intervalo", "correct": true, "feedback": "Isso. O dispositivo soma o tempo de fluoroscopia e avisa quando o intervalo pré-definido termina." },
               { "label": "Pessoa entrando na sala", "correct": false, "feedback": "O alarme não controla a porta. Confira de novo o que o dispositivo soma." },
               { "label": "Contraste perto do fim", "correct": false, "feedback": "O dispositivo não acompanha o contraste. Retome o que ele soma." }
           ],
-          "sourceIds": ["anvisa-in-91-2021"] }
+          "sourceIds": ["iaea-ssg46-2018"] }
       ],
       "recovery": {
-        "guided": { "hook": "Complete a frase: o equipamento deve indicar claramente parâmetros como tensão, corrente e…",
-          "item": { "prompt": "Além de tensão e corrente, que parâmetro o equipamento deve indicar claramente?",
+        "guided": { "hook": "Complete a frase: o equipamento de fluoroscopia mostra o produto kerma-área, o kerma de referência acumulado e…",
+          "item": { "prompt": "Além do produto kerma-área e do kerma de referência acumulado, que indicações o equipamento de fluoroscopia mostra?",
             "options": [
-              { "label": "O peso do paciente", "correct": false, "feedback": "Esse dado fica em outro registro, fora dessa lista da norma. Retome o que o equipamento indica." },
-              { "label": "A validade do contraste", "correct": false, "feedback": "A validade aparece no material, não nessa lista. Confira de novo o conceito." },
-              { "label": "O tempo acumulado", "correct": true, "feedback": "Isso. Tensão, corrente e tempo acumulado estão entre os parâmetros que devem estar indicados." },
-              { "label": "A temperatura da sala", "correct": false, "feedback": "A lista fala do funcionamento do equipamento, não do ambiente. Retome o conceito." }
+              { "label": "O peso e a altura do paciente", "correct": false, "feedback": "Esse dado fica em outro registro, fora do que o equipamento mostra. Retome o que ele indica." },
+              { "label": "A validade do contraste usado", "correct": false, "feedback": "A validade aparece no material, não no painel. Confira de novo o conceito." },
+              { "label": "Tensão, corrente e tempo", "correct": true, "feedback": "Isso. Tensão, corrente e tempo, além do produto kerma-área e do kerma acumulado, são as indicações que o equipamento mostra." },
+              { "label": "A temperatura e a umidade da sala", "correct": false, "feedback": "O painel fala do funcionamento do equipamento, não do ambiente. Retome o conceito." }
             ],
-            "sourceIds": ["anvisa-in-91-2021"] } },
+            "sourceIds": ["iaea-ssg46-2018"] } },
         "transfer": { "item": { "prompt": "Numa reunião de equipe, a enfermeira explica à turma qual recurso permite acompanhar ao vivo o avanço do cateter. Que recurso é esse?",
             "options": [
               { "label": "A fluoroscopia, em vídeo", "correct": true, "feedback": "Isso. A fluoroscopia converte raios X em vídeo, e é esse vídeo que guia o procedimento." },
@@ -235,7 +234,7 @@
             ],
             "sourceIds": ["radiologyinfo-angiografia"] } }
       },
-      "diagramIdeas": ["Painel fictício com tensão, corrente e tempo, ao lado de uma sala com os sinais luminosos marcados, para nomear"]
+      "diagramIdeas": ["Painel fictício com tensão, corrente, tempo, produto kerma-área e kerma acumulado, ao lado de uma porta com a luz de aviso marcada, para nomear"]
     },
     {
       "id": "s-ir-03", "code": "S-IR.03", "title": "Acessórios e sala",
@@ -249,20 +248,20 @@
       ] },
       "concept": {
         "title": "Conhecer pelo nome, conferir pela lista",
-        "body": "O cateter é um tubo plástico longo e fino. A bainha é um tubo colocado na artéria de acesso. O fio-guia tem sua posição conferida na fluoroscopia. O cateter-balão tem um pequeno balão na ponta. O stent é uma malha que entra recolhida num cateter e se expande contra a parede do vaso. Um dispositivo de fechamento pode selar o orifício na artéria. Você reconhece esses itens e não os manuseia em paciente. A sala é área controlada: acesso só para os necessários, só o indispensável, luz vermelha na porta. A IN 91 inabilita o uso sem anteparos ou visores e cortinas plumbíferas, ou com dois equipamentos na sala.",
-        "keyPoints": ["A lista britânica pede equipamento disponível e dentro da validade.", "Luz vermelha acesa: entrada proibida.", "Reconhecer e conferir é a sua parte; manusear em paciente, não."]
+        "body": "O cateter é um tubo plástico longo e fino. A bainha é um tubo colocado na artéria de acesso. O fio-guia tem sua posição conferida na fluoroscopia. O cateter-balão tem um pequeno balão na ponta. O stent é uma malha que entra recolhida num cateter e se expande contra a parede do vaso. Um dispositivo de fechamento sela o orifício. Você reconhece esses itens; não os manuseia em paciente. A sala é área controlada: acesso restrito a quem o procedimento precisa, com símbolo de radiação e luz de aviso. Cortinas plumbíferas e protetores móveis protegem a equipe. O anteparo suspenso protege olhos e tireoide sem tirar a visão do paciente.",
+        "keyPoints": ["A lista da fonte pede equipamento disponível e dentro da validade.", "Luz de aviso acesa: há radiação, não entre sem necessidade.", "Reconhecer e conferir é a sua parte; manusear em paciente, não."]
       },
       "interactions": [
         { "id": "i1", "type": "multiple-choice", "role": "prerequisite",
           "prompt": "No panorama, você viu que a sala intervencionista é área controlada. Quem pode ter acesso a ela?",
           "options": [
             { "label": "Quem trabalha em qualquer setor do hospital", "correct": false, "feedback": "Trabalhar no hospital não basta. Retome quem é necessário ao procedimento." },
-            { "label": "Qualquer acompanhante que queira ficar junto", "correct": false, "feedback": "Acompanhante só entra quando estritamente necessário. Confira de novo a regra." },
+            { "label": "Qualquer acompanhante que queira ficar junto", "correct": false, "feedback": "Visitante só entra em exceção, acompanhado por alguém da equipe. Confira de novo a regra." },
             { "label": "Visitantes, se vestirem o avental plumbífero", "correct": false, "feedback": "O avental não autoriza a entrada. Retome o que define o acesso à sala." },
-            { "label": "Os profissionais necessários e o paciente", "correct": true, "feedback": "Isso. A RDC 611 reserva o acesso a eles e ao acompanhante, só quando estritamente necessário." }
+            { "label": "Os profissionais necessários e o paciente", "correct": true, "feedback": "Isso. O acesso é restrito a eles; visitante só entra em exceção, acompanhado por quem conhece as medidas de proteção." }
           ],
           "help": "Pense em quem o procedimento realmente precisa ter dentro da sala.",
-          "sourceIds": ["anvisa-rdc-611-2022"] },
+          "sourceIds": ["iaea-ssg46-2018"] },
         { "id": "i2", "type": "matching", "role": "practice",
           "prompt": "Ligue cada acessório à descrição ensinada nesta aula.",
           "pairs": [
@@ -276,15 +275,15 @@
           "help": "Comece pelo item que não é tubo.",
           "sourceIds": ["radiologyinfo-angioplastia"] },
         { "id": "i3", "type": "multiple-choice", "role": "practice",
-          "prompt": "Você chega à sala de simulação para buscar a lista e vê a luz vermelha acima da porta acesa. O que esse sinal significa?",
+          "prompt": "Você chega à sala de simulação para buscar a lista e vê a luz de aviso acima da porta acesa. O que esse sinal significa?",
           "options": [
             { "label": "A sala está pronta para limpeza", "correct": false, "feedback": "Esse sinal não fala de limpeza. Retome o aviso que acompanha a luz na porta." },
-            { "label": "Entrada proibida: pode haver exposição", "correct": true, "feedback": "Isso. A RDC 611 liga a luz vermelha à possibilidade de exposição, e a entrada fica proibida enquanto ela estiver acesa." },
+            { "label": "Há radiação: não entre agora", "correct": true, "feedback": "Isso. A luz de aviso fica acesa enquanto há radiação sendo produzida, e a entrada é só de quem o procedimento precisa." },
             { "label": "O procedimento acabou de terminar agora", "correct": false, "feedback": "É o contrário: ela é acionada durante o procedimento. Confira de novo o conceito." },
             { "label": "A equipe está pedindo reforço", "correct": false, "feedback": "A luz não é chamada de ajuda. Retome o que ela indica a quem está do lado de fora." }
           ],
           "help": "Pense em quem esse sinal protege, e de quê.",
-          "sourceIds": ["anvisa-rdc-611-2022"] },
+          "sourceIds": ["iaea-ssg46-2018"] },
         { "id": "i4", "type": "case-decision", "role": "safety", "criticalSafety": true,
           "context": "Na bancada simulada, você confere a lista de materiais do cenário. Tudo bate, menos uma embalagem de fio-guia com a validade vencida. O Caio está na outra ponta da sala, ajudando outro grupo, e o cenário começa em poucos minutos.",
           "prompt": "O que você faz com essa embalagem?",
@@ -295,20 +294,20 @@
             { "label": "Corrige a data na lista e segue a conferência", "correct": false, "feedback": "Mudar o registro esconde a divergência. O registro não se corrige sozinho: descreva o achado." }
           ],
           "help": "Quem decide o que fazer com um material fora do padrão?",
-          "sourceIds": ["rcr-lista-verificacao", "anvisa-rdc-611-2022"] },
+          "sourceIds": ["rcr-lista-verificacao"] },
         { "id": "i5", "type": "case-decision", "role": "transfer",
-          "context": "Num estágio de observação, a representante de um fornecedor aparece no corredor com um catálogo. A luz vermelha da sala está acesa, e ela pergunta se pode entrar rapidinho para falar com o médico, já que trouxe avental.",
+          "context": "Num estágio de observação, a representante de um fornecedor aparece no corredor com um catálogo. A luz de aviso da sala está acesa, e ela pergunta se pode entrar rapidinho para falar com o médico, já que trouxe avental.",
           "prompt": "Qual resposta segue o que você estudou?",
           "options": [
-            { "label": "Não a leva para dentro e avisa a equipe", "correct": true, "feedback": "Isso. Com a luz acesa, a entrada é proibida, e o acesso é só de quem o procedimento precisa. A equipe decide o restante." },
+            { "label": "Não a leva para dentro e avisa a equipe", "correct": true, "feedback": "Isso. Com a luz acesa, há radiação na sala, e o acesso é só de quem o procedimento precisa. A equipe decide o restante." },
             { "label": "Abre a porta e entra com ela rapidamente", "correct": false, "feedback": "Abrir a porta com a luz acesa contraria o aviso. Retome o que o sinal determina." },
             { "label": "Libera, pois ela já está de avental", "correct": false, "feedback": "O avental protege, mas não dá direito de acesso. Confira de novo quem pode entrar." },
             { "label": "Entra sozinho e chama o médico na hora", "correct": false, "feedback": "A luz acesa vale também para você, e o pedido não é do procedimento. Retome o aviso da porta." }
           ],
           "help": "Dois critérios valem aqui: o sinal da porta e quem é necessário.",
-          "sourceIds": ["anvisa-rdc-611-2022"] }
+          "sourceIds": ["iaea-ssg46-2018"] }
       ],
-      "closing": { "title": "A lista e a sala conferidas", "body": "Agora você consegue reconhecer bainha, cateter-balão, stent e dispositivo de fechamento, conferir validade e checar sinais e barreiras da sala. O que não bate, você mantém como está e leva à equipe.", "line": { "speaker": "duda", "text": "Pronto, o catálogo de pesca virou lista de conferência. Só falta eu parar de chamar balão de bexiga." } },
+      "closing": { "title": "A lista e a sala conferidas", "body": "Agora você consegue reconhecer bainha, cateter-balão, stent e dispositivo de fechamento, conferir validade e checar sinais e dispositivos de proteção da sala. O que não bate, você mantém como está e leva à equipe.", "line": { "speaker": "duda", "text": "Pronto, o catálogo de pesca virou lista de conferência. Só falta eu parar de chamar balão de bexiga." } },
       "checkpoint": [
         { "prompt": "A lista do cenário cita um item que entra recolhido num cateter e depois se expande contra a parede do vaso. Que item é esse?",
           "options": [
@@ -318,14 +317,14 @@
             { "label": "O anteparo", "correct": false, "feedback": "O anteparo é barreira contra radiação, fora do vaso. Retome os acessórios." }
           ],
           "sourceIds": ["radiologyinfo-angioplastia"] },
-        { "prompt": "Segundo a IN 91, qual destas condições inabilita o uso do equipamento de intervencionista?",
+        { "prompt": "Segundo a aula, qual destes dispositivos da sala protege olhos e tireoide da equipe sem tirar o contato visual com o paciente?",
           "options": [
-            { "label": "Monitor de sinais vitais ligado", "correct": false, "feedback": "Acompanhar os sinais do paciente não é impedimento. Retome a lista da norma." },
-            { "label": "Dois monitores de imagem na sala", "correct": false, "feedback": "A norma fala em equipamento instalado, não em monitores. Confira de novo o conceito." },
-            { "label": "Dois equipamentos na mesma sala", "correct": true, "feedback": "Isso. Mais de um equipamento instalado na mesma sala está entre as condições que inabilitam o uso." },
-            { "label": "Mesa com o paciente deitado", "correct": false, "feedback": "Essa é a situação comum do procedimento. Retome o que a norma lista." }
+            { "label": "Monitor de sinais vitais", "correct": false, "feedback": "O monitor acompanha o paciente e não barra radiação. Retome os dispositivos de proteção da sala." },
+            { "label": "Cortina de tecido comum", "correct": false, "feedback": "Tecido comum não atenua radiação. Confira de novo o conceito." },
+            { "label": "Anteparo suspenso no teto", "correct": true, "feedback": "Isso. O anteparo suspenso protege olhos e tireoide e mantém a equipe vendo o paciente." },
+            { "label": "Mesa com o paciente deitado", "correct": false, "feedback": "A mesa sustenta o paciente e não protege a equipe. Retome o que a aula lista." }
           ],
-          "sourceIds": ["anvisa-in-91-2021"] }
+          "sourceIds": ["iaea-ssg46-2018"] }
       ],
       "recovery": {
         "guided": { "hook": "Complete a frase: o tubo colocado na artéria de acesso, por exemplo na femoral, se chama…",
@@ -337,16 +336,16 @@
               { "label": "A bainha vascular", "correct": true, "feedback": "Isso. A bainha é o tubo posto na artéria de acesso." }
             ],
             "sourceIds": ["radiologyinfo-angioplastia"] } },
-        "transfer": { "item": { "prompt": "Na vistoria simulada, você nota um aparelho sem uso guardado num canto da sala de procedimentos. Qual regra da aula se aplica ao que você vai descrever à equipe?",
+        "transfer": { "item": { "prompt": "Na vistoria simulada, você nota que a entrada da sala não tem nenhuma sinalização de área controlada. Qual regra da aula se aplica ao que você vai descrever à equipe?",
             "options": [
-              { "label": "A sala aceita qualquer material guardado", "correct": false, "feedback": "A RDC 611 restringe o que a sala deve dispor. Retome o conceito." },
-              { "label": "A sala dispõe só do que é indispensável", "correct": true, "feedback": "Isso. Você descreve o que viu, e a equipe resolve. A remoção não é uma decisão sua." },
-              { "label": "Aparelho desligado nunca é problema", "correct": false, "feedback": "A regra não se limita a aparelhos ligados. Confira de novo o que a sala pode ter." },
-              { "label": "Basta cobrir o aparelho com um lençol", "correct": false, "feedback": "Cobrir não muda o que está na sala e esconde o achado. Retome a regra." }
+              { "label": "Sala sem aviso na porta é aceitável", "correct": false, "feedback": "A fonte pede sinalização clara na entrada, para evitar entrada sem querer. Retome o conceito." },
+              { "label": "A entrada deve ter sinalização clara", "correct": true, "feedback": "Isso. Você descreve o que viu, e a equipe resolve. Providenciar o aviso não é uma decisão sua." },
+              { "label": "Basta fechar a porta e não comentar", "correct": false, "feedback": "Fechar a porta não avisa quem chega e esconde o achado. Retome a regra." },
+              { "label": "Cabe a você colocar um aviso por conta própria", "correct": false, "feedback": "Providenciar o aviso é decisão do serviço, não sua. Confira de novo o seu papel." }
             ],
-            "sourceIds": ["anvisa-rdc-611-2022"] } }
+            "sourceIds": ["iaea-ssg46-2018"] } }
       },
-      "diagramIdeas": ["Bandeja desenhada com cateter, bainha, fio-guia, cateter-balão e stent, sem rótulos, para nomear", "Porta da sala com luz vermelha, símbolo de radiação e aviso de entrada restrita"]
+      "diagramIdeas": ["Bandeja desenhada com cateter, bainha, fio-guia, cateter-balão e stent, sem rótulos, para nomear", "Porta da sala com luz de aviso, símbolo de radiação e aviso de entrada restrita"]
     },
     {
       "id": "s-ir-04", "code": "S-IR.04", "title": "Biossegurança e proteção",
@@ -360,7 +359,7 @@
       ] },
       "concept": {
         "title": "Duas proteções andam juntas",
-        "body": "Contra infecção, a equipe usa os métodos do protocolo do serviço. Nesta simulação, você não toca no campo estéril: se duvidar, para e avisa. Contra radiação, a RDC 611 pede proteção contra o espalhado de ao menos 0,25 mm equivalente de chumbo, e a IN 91, teste semestral dos equipamentos de proteção individual, com laudo. Avental só frontal não protege quem fica de costas. O protetor de tireoide fica ajustado; os óculos, com pouca folga; o anteparo suspenso, perto do paciente. Num modelo simples, dobrar a distância reduz sua dose a um quarto. O dosímetro é pessoal, trocado por mês; com suspeita de exposição acidental, vai à leitura urgente.",
+        "body": "Contra infecção, siga o protocolo do serviço. Na simulação, você não toca no campo estéril: se duvidar, para e avisa. Contra radiação, o serviço escolhe a vestimenta: a equivalência em chumbo vem na etiqueta, e a integridade é checada por imagem periodicamente. Avental só frontal não protege quem fica de costas. O protetor de tireoide fica ajustado; os óculos, com pouca folga; o anteparo, perto do paciente. Num modelo simples, dobrar a distância reduz sua dose a um quarto. O dosímetro é pessoal, de um único usuário; o serviço define a troca, em geral de 1 a 3 meses. Com suspeita de exposição acidental, avise o responsável de proteção.",
         "keyPoints": ["Dúvida sobre campo estéril ou contaminação: pare, não mexa e avise.", "Barreira não é só vestir: ajuste e integridade contam.", "Cada dosímetro tem um único usuário."]
       },
       "interactions": [
@@ -406,37 +405,37 @@
             { "label": "Segue em silêncio, pois não há certeza do toque", "correct": false, "feedback": "A incerteza é justamente o motivo de falar. Retome o que fazer quando há dúvida." }
           ],
           "help": "Quem pode avaliar o campo, e o que essa pessoa precisa saber?",
-          "sourceIds": ["rcr-lista-verificacao", "anvisa-rdc-611-2022"] },
+          "sourceIds": ["rcr-lista-verificacao"] },
         { "id": "i5", "type": "case-decision", "role": "transfer",
           "context": "No plantão de um estágio supervisionado, você percebe na porta da área controlada que esqueceu seu dosímetro em casa. Um colega de outro turno diz que o dele está no armário e que você pode pegar emprestado só hoje.",
           "prompt": "Qual atitude segue o que você estudou?",
           "options": [
             { "label": "Usa o do colega e anota no caderno", "correct": false, "feedback": "A leitura ficaria misturada com a do colega. Retome quantos usuários cada dosímetro tem." },
-            { "label": "Entra sem dosímetro, só para observar", "correct": false, "feedback": "A RDC 611 liga o dosímetro à permanência em área controlada de quem trabalha ali. Confira de novo a regra." },
+            { "label": "Entra sem dosímetro, só para observar", "correct": false, "feedback": "A monitoração individual vale para quem trabalha em área controlada, e o serviço define como você segue. Confira de novo a regra." },
             { "label": "Entra com o dosímetro padrão do armário", "correct": false, "feedback": "O padrão fica guardado em área livre e não é para uso pessoal. Retome a regra do uso." },
-            { "label": "Não entra e conta à supervisora o que houve", "correct": true, "feedback": "Isso. Cada dosímetro tem um único usuário. A supervisora define como você segue no estágio." }
+            { "label": "Não entra e avisa a supervisora", "correct": true, "feedback": "Isso. Cada dosímetro tem um único usuário. A supervisora define como você segue no estágio." }
           ],
           "help": "De quem seria a dose registrada naquele dosímetro?",
-          "sourceIds": ["anvisa-rdc-611-2022"] }
+          "sourceIds": ["iaea-ssg46-2018"] }
       ],
-      "closing": { "title": "Proteger e avisar", "body": "Agora você consegue separar proteção contra infecção de proteção radiológica, citar o cuidado de cada barreira e usar o dosímetro como a norma pede. Na dúvida sobre campo ou contaminação, você para, não mexe e avisa.", "line": { "speaker": "pixel", "text": "Boa pergunta para antes de entrar: minha barreira está inteira, ajustada e virada para o lado certo?" } },
+      "closing": { "title": "Proteger e avisar", "body": "Agora você consegue separar proteção contra infecção de proteção radiológica, citar o cuidado de cada barreira e usar o dosímetro como o serviço pede. Na dúvida sobre campo ou contaminação, você para, não mexe e avisa.", "line": { "speaker": "pixel", "text": "Boa pergunta para antes de entrar: minha barreira está inteira, ajustada e virada para o lado certo?" } },
       "checkpoint": [
-        { "prompt": "Segundo a IN 91, com que periodicidade os equipamentos de proteção individual do serviço de intervencionista devem ser testados?",
+        { "prompt": "Segundo a fonte da aula, como o serviço confirma, de tempos em tempos, que um avental de proteção ainda protege?",
           "options": [
-            { "label": "A cada dez anos", "correct": false, "feedback": "A norma pede algo bem mais frequente. Retome o conceito." },
-            { "label": "A cada semestre", "correct": true, "feedback": "Isso. O teste é semestral e gera laudo técnico de integridade." },
-            { "label": "Só se rasgarem", "correct": false, "feedback": "Esperar um dano visível não atende à norma. Confira de novo a periodicidade." },
-            { "label": "A cada plantão", "correct": false, "feedback": "A norma não fala em plantão, e sim em periodicidade fixa com laudo. Retome o conceito." }
+            { "label": "Pela cor e pela idade do tecido", "correct": false, "feedback": "Cor e idade não mostram uma falha na blindagem. Retome o conceito." },
+            { "label": "Por exame de imagem periódico", "correct": true, "feedback": "Isso. O exame periódico, por fluoroscopia ou radiografia, confirma a integridade da blindagem." },
+            { "label": "Só quando aparece um rasgo à vista", "correct": false, "feedback": "Esperar um dano visível não confirma a integridade. Confira de novo a rotina." },
+            { "label": "Perguntando a quem usou no plantão", "correct": false, "feedback": "A opinião de quem usa não mede a blindagem. Retome o conceito." }
           ],
-          "sourceIds": ["anvisa-in-91-2021"] },
-        { "prompt": "Num cenário simulado, há suspeita de exposição acidental de um colega. Segundo a RDC 611, o que acontece com o dosímetro dele?",
+          "sourceIds": ["iaea-ssg46-2018"] },
+        { "prompt": "Num cenário simulado, um colega relata suspeita de exposição acidental. Qual é a atitude certa?",
           "options": [
-            { "label": "Espera a troca do fim do mês", "correct": false, "feedback": "A suspeita não espera a rotina mensal. Retome o que a norma pede." },
-            { "label": "Passa a ser usado por uma outra pessoa", "correct": false, "feedback": "Cada dosímetro tem um único usuário. Confira de novo o caminho dele." },
-            { "label": "É zerado na própria sala de exames", "correct": false, "feedback": "Isso apagaria a informação que se quer obter. Retome o que a norma pede." },
-            { "label": "Vai à leitura em caráter de urgência", "correct": true, "feedback": "Isso. Com a suspeita, o dosímetro segue ao serviço de monitoração para leitura urgente." }
+            { "label": "Espera a troca de rotina do dosímetro dele", "correct": false, "feedback": "A suspeita não espera a rotina de troca. Retome o que a aula pede." },
+            { "label": "Passa o dosímetro dele a outra pessoa da equipe", "correct": false, "feedback": "Cada dosímetro tem um único usuário, e a leitura dele precisa ficar com o dono. Confira de novo." },
+            { "label": "Zera o dosímetro na própria sala", "correct": false, "feedback": "Isso apagaria a informação que se quer obter. Retome o que a aula pede." },
+            { "label": "Avisa o responsável pela proteção radiológica", "correct": true, "feedback": "Isso. A suspeita é avisada logo, para que o responsável pela proteção radiológica investigue e decida os passos, inclusive a leitura do dosímetro." }
           ],
-          "sourceIds": ["anvisa-rdc-611-2022"] }
+          "sourceIds": ["iaea-ssg46-2018"] }
       ],
       "recovery": {
         "guided": { "hook": "Complete a frase: se houver dúvida sobre o campo estéril, a ação da aula é…",
@@ -447,15 +446,15 @@
               { "label": "Parar e avisar a equipe", "correct": true, "feedback": "Isso. Você para e informa, e a equipe resolve o que fazer com o campo." },
               { "label": "Lavar as mãos e prosseguir", "correct": false, "feedback": "Isso não resolve a dúvida sobre o campo, e a equipe segue sem saber. Retome a ação." }
             ],
-            "sourceIds": ["rcr-lista-verificacao", "anvisa-rdc-611-2022"] } },
+            "sourceIds": ["rcr-lista-verificacao"] } },
         "transfer": { "item": { "prompt": "Ao organizar o kit de um treino, um líquido não identificado espirra no seu antebraço. O rótulo está ilegível, e ninguém do grupo sabe o que é. O que você faz?",
             "options": [
-              { "label": "Para e leva o caso à equipe", "correct": true, "feedback": "Isso. Em dúvida sobre contaminação, você interrompe e descreve o que houve para a equipe orientar." },
+              { "label": "Para e leva o caso à equipe", "correct": true, "feedback": "Isso. Em dúvida sobre contaminação, você para, não toca e avisa a equipe; o protocolo do serviço define a limpeza." },
               { "label": "Termina o kit e depois olha", "correct": false, "feedback": "Continuar adia a orientação de que você precisa. Retome o que fazer na dúvida." },
               { "label": "Joga o frasco fora sem falar", "correct": false, "feedback": "Assim se perde a informação sobre o que era. Mantenha o que há e avise." },
               { "label": "Decide sozinho que é só água", "correct": false, "feedback": "Sem rótulo, essa é uma suposição. Confira de novo a regra de parar e avisar." }
             ],
-            "sourceIds": ["anvisa-rdc-611-2022"] } }
+            "sourceIds": ["rcr-lista-verificacao"] } }
       },
       "diagramIdeas": ["Figura da equipe com avental, protetor de tireoide, óculos e dosímetro, marcando pontos de folga", "Duas colunas: proteção contra infecção e proteção radiológica, com itens para separar"]
     },
@@ -471,7 +470,7 @@
       ] },
       "concept": {
         "title": "Ouvir, anotar e levar à equipe",
-        "body": "No preparo, RadiologyInfo lista o que o paciente informa: medicamentos, alergias, em especial a contraste iodado, doenças e possível gravidez. Ele retira joias, próteses dentárias removíveis, óculos e objetos metálicos. Com contraste iodado, a fonte cita calor e gosto metálico por alguns minutos. Reações graves são muito incomuns, mas podem surgir coceira, urticária, náusea, falta de ar ou inchaço; erupção pode vir horas ou dias depois. Na fonte americana, o médico faz a incisão, o tecnólogo obtém as imagens e o radiologista analisa e assina o laudo. No Brasil, o serviço define as funções por protocolo. Você não escolhe nem administra contraste ou medicamento. Sinal novo: chame a equipe.",
+        "body": "No preparo, RadiologyInfo lista o que o paciente informa: medicamentos, alergias, em especial a contraste iodado, doenças e possível gravidez. Ele retira joias, próteses dentárias removíveis, óculos e objetos metálicos. Com contraste iodado, a fonte cita calor e gosto metálico por alguns minutos. Reações graves são muito incomuns, mas podem surgir coceira, urticária, náusea, falta de ar ou inchaço; erupção pode vir horas ou dias depois. Na fonte, o médico faz a incisão, o tecnólogo obtém as imagens e o radiologista analisa e assina o laudo. No seu serviço, o protocolo local define as funções. Você não escolhe nem administra contraste ou medicamento. Sinal novo: chame a equipe.",
         "keyPoints": ["Informação do paciente vai para a ficha e para a equipe.", "Você não decide se um sinal é simples: chame a equipe.", "Prescrever, escolher e administrar não são tarefas do estudante."]
       },
       "interactions": [
@@ -486,7 +485,7 @@
           "help": "Retome a última frase do conceito da primeira aula.",
           "sourceIds": ["radiologyinfo-angiografia"] },
         { "id": "i2", "type": "matching", "role": "practice",
-          "prompt": "Ligue cada pessoa ao que a fonte americana e esta aula atribuem a ela.",
+          "prompt": "Ligue cada pessoa ao que a fonte e esta aula atribuem a ela.",
           "pairs": [
             { "left": "Médico do procedimento", "right": "Faz a incisão para o acesso" },
             { "left": "Radiologista", "right": "Analisa as imagens e assina o laudo" },
@@ -518,18 +517,18 @@
             { "label": "Anota na ficha e avisa no fim do cenário", "correct": false, "feedback": "Anotar é importante, mas não antes de avisar. Confira de novo quando a equipe precisa saber." }
           ],
           "help": "Quem precisa saber disso primeiro?",
-          "sourceIds": ["radiologyinfo-contraste", "anvisa-rdc-611-2022"] },
+          "sourceIds": ["radiologyinfo-contraste"] },
         { "id": "i5", "type": "case-decision", "role": "transfer",
           "context": "Num estágio supervisionado, a sala está corrida. Um colega diz: \"prepara a seringa e injeta para mim, é o mesmo contraste de ontem, eu confirmo depois com a supervisora\". Você nunca recebeu essa função no serviço.",
           "prompt": "Qual resposta segue o que você estudou?",
           "options": [
             { "label": "Prepara, já que o contraste é o mesmo", "correct": false, "feedback": "Repetir o contraste de ontem não dá a você essa função. Retome o limite do estudante." },
-            { "label": "Não faz e leva o pedido à supervisora", "correct": true, "feedback": "Isso. Cada ato cabe a quem é legalmente habilitado, conforme o protocolo. Levar o pedido à supervisão mantém a segurança." },
+            { "label": "Não faz e leva o pedido à supervisora", "correct": true, "feedback": "Isso. Cada ato cabe a quem o serviço habilita para ele, conforme o protocolo. Levar o pedido à supervisão mantém a segurança." },
             { "label": "Injeta devagar para reduzir o risco", "correct": false, "feedback": "Fazer devagar não muda de quem é a função. Confira de novo o limite da aula." },
             { "label": "Muda a dose para a metade e injeta", "correct": false, "feedback": "Alterar a dose é escolha que não é sua. Retome o que o estudante não faz." }
           ],
           "help": "A pressa muda de quem é a função?",
-          "sourceIds": ["anvisa-rdc-611-2022"] }
+          "sourceIds": ["iaea-ssg46-2018"] }
       ],
       "closing": { "title": "A informação chega a quem decide", "body": "Agora você consegue reunir o que o paciente informa no preparo, contar o que a fonte descreve sobre o contraste e chamar a equipe diante de um sinal novo. Escolher, administrar e conduzir uma reação não fazem parte da sua função.", "line": { "speaker": "caio", "text": "Em sala corrida, a melhor frase de estudante é: isso não é comigo, vou chamar quem é." } },
       "checkpoint": [
@@ -559,7 +558,7 @@
               { "label": "Para o familiar que aguarda na recepção", "correct": false, "feedback": "O familiar não pode conduzir a situação. Retome quem assume." },
               { "label": "Para a equipe, naquele mesmo instante", "correct": true, "feedback": "Isso. A informação segue imediatamente para quem conduz a situação." }
             ],
-            "sourceIds": ["radiologyinfo-contraste", "anvisa-rdc-611-2022"] } },
+            "sourceIds": ["radiologyinfo-contraste"] } },
         "transfer": { "item": { "prompt": "Numa ligação simulada, uma paciente fictícia conta à recepção que surgiu uma vermelhidão na pele um dia depois do exame com contraste. A recepcionista pergunta a você o que dizer. O que você faz?",
             "options": [
               { "label": "Diz que é normal e que ela pode esperar", "correct": false, "feedback": "Avaliar a erupção não é sua tarefa. Retome o que a fonte diz sobre o tempo e quem orienta." },
@@ -583,7 +582,7 @@
       ] },
       "concept": {
         "title": "A pausa que protege",
-        "body": "A lista britânica do Royal College of Radiologists tem três fases: entrada, pausa e saída. Cada passo foi pensado para durar menos de um minuto; alguém que participa lê, e a equipe não avança sem resolver. Antes da lista do dia há reunião da equipe; no fim, nova conversa. Cada serviço adapta a sua lista. A RDC 611 pede protocolos escritos, atualizados e de fácil acesso, conhecidos por toda a equipe, e registros dos procedimentos. Posição na mesa e lado do paciente vêm do pedido e do protocolo: você confere, não decide. Divergência: pare, descreva e leve à equipe. Fotografar a tela para usar como registro é proibido.",
+        "body": "A lista do Royal College of Radiologists tem três fases: entrada, pausa e saída. Cada passo dura menos de um minuto; alguém que participa lê, e a equipe não avança sem resolver. Antes da lista do dia há reunião da equipe; no fim, nova conversa. Cada serviço adapta a sua lista. O serviço mantém protocolos documentados, revisados e conhecidos por toda a equipe, e registra os procedimentos. Posição na mesa e lado do paciente vêm do pedido e do protocolo: você confere, não decide. Divergência: pare, descreva e leve à equipe. Não fotografe a tela: a foto expõe dados do paciente, e o registro é o do sistema do serviço.",
         "keyPoints": ["Entrada, pausa e saída: não se avança com item aberto.", "Lado é sempre o do paciente, conforme o pedido.", "Você não corrige registro sozinho."]
       },
       "interactions": [
@@ -598,7 +597,7 @@
           "help": "Qual é a única referência que não muda de lugar na sala?",
           "sourceIds": ["openstax-vias-circulatorias"] },
         { "id": "i2", "type": "ordering", "role": "practice",
-          "prompt": "Na ordem ensinada nesta aula, coloque os momentos da lista britânica de verificação.",
+          "prompt": "Na ordem ensinada nesta aula, coloque os momentos da lista de verificação da fonte.",
           "items": ["Reunião da equipe antes da lista do dia", "Entrada", "Pausa", "Saída", "Conversa da equipe no fim da lista"],
           "feedbackCorrect": "Isso. A reunião abre o dia, as três fases acompanham cada paciente, e a conversa final fecha o aprendizado.",
           "feedbackIncorrect": "Retome o conceito. As três fases são de cada paciente; os outros dois momentos são do dia todo.",
@@ -624,18 +623,18 @@
             { "label": "Segue o pedido, que é o documento médico", "correct": false, "feedback": "Escolher entre os documentos é uma decisão que não é sua. Retome a regra de parar." }
           ],
           "help": "Qual dos dois está certo? Você tem como saber sozinho?",
-          "sourceIds": ["rcr-lista-verificacao", "anvisa-rdc-611-2022"] },
+          "sourceIds": ["rcr-lista-verificacao", "iaea-ssg46-2018"] },
         { "id": "i5", "type": "case-decision", "role": "transfer",
           "context": "Depois de um treino com manequim, o sistema de arquivamento da simulação sai do ar. Um colega sugere tirar uma foto da tela com o celular e anexar à ficha, para o registro não ficar faltando, e diz que depois ninguém vai lembrar disso.",
           "prompt": "Qual atitude segue o que você estudou?",
           "options": [
-            { "label": "Tira a foto e apaga depois de anexar", "correct": false, "feedback": "Apagar depois não muda o que foi feito. Retome o que a RDC 611 proíbe sobre fotografar imagens." },
+            { "label": "Tira a foto e apaga depois de anexar", "correct": false, "feedback": "Apagar depois não muda o que foi feito, e a foto já expôs dados do paciente. Retome o que a aula diz sobre foto de tela." },
             { "label": "Copia os dados da tela de memória", "correct": false, "feedback": "Escrever de memória introduz erro no registro. Confira de novo a quem levar o problema." },
             { "label": "Descarta o treino e não registra nada no sistema", "correct": false, "feedback": "Assim a falha fica escondida. Retome o que se comunica à equipe." },
-            { "label": "Não fotografa e relata a falha à equipe", "correct": true, "feedback": "Isso. A RDC 611 proíbe usar foto como registro, e a falha do sistema vai para quem responde por ele." }
+            { "label": "Não fotografa e relata a falha à equipe", "correct": true, "feedback": "Isso. Não fotografe a tela: a foto expõe dados do paciente, e o registro é o do sistema do serviço. A falha do sistema vai para quem responde por ele." }
           ],
           "help": "Um problema do sistema se resolve com um atalho seu?",
-          "sourceIds": ["anvisa-rdc-611-2022"] }
+          "sourceIds": ["iaea-ssg46-2018"] }
       ],
       "closing": { "title": "Conferir sem corrigir", "body": "Agora você consegue ordenar os momentos da lista de verificação, explicar por que a equipe não avança com item aberto e levar à equipe qualquer divergência de lado. O registro só muda pelas mãos de quem responde por ele.", "line": { "speaker": "lia", "text": "Note que você não precisa ter certeza para falar. Basta dizer o que viu: é isso que sustenta a pausa." } },
       "checkpoint": [
@@ -646,19 +645,19 @@
             { "label": "Risca os dois nomes e deixa em branco", "correct": false, "feedback": "Riscar altera o registro e não ajuda a equipe. Retome o conceito." },
             { "label": "Para e descreve a diferença à equipe", "correct": true, "feedback": "Isso. Identidade divergente vai para a equipe, e o registro fica como está até alguém responsável resolver." }
           ],
-          "sourceIds": ["rcr-lista-verificacao", "anvisa-rdc-611-2022"] },
-        { "prompt": "Segundo a RDC 611, como devem estar os protocolos e procedimentos do serviço?",
+          "sourceIds": ["rcr-lista-verificacao", "iaea-ssg46-2018"] },
+        { "prompt": "Segundo a fonte da aula, como o serviço mantém os seus protocolos e procedimentos?",
           "options": [
-            { "label": "Guardados com o responsável, em total sigilo", "correct": false, "feedback": "A norma pede o contrário do sigilo para a equipe. Retome o conceito." },
-            { "label": "Escritos, atualizados e de fácil acesso", "correct": true, "feedback": "Isso. Por escrito, em linguagem acessível e ao alcance de toda a equipe." },
-            { "label": "Só combinados de boca entre os colegas", "correct": false, "feedback": "Combinação verbal não atende à norma. Confira de novo a forma exigida." },
-            { "label": "Escritos só na língua do fabricante", "correct": false, "feedback": "A norma pede linguagem acessível à equipe. Retome o conceito." }
+            { "label": "Guardados com o responsável, em total sigilo", "correct": false, "feedback": "Protocolo em sigilo não chega à equipe, que precisa conhecê-lo para segui-lo. Retome o conceito." },
+            { "label": "Documentados e revisados periodicamente", "correct": true, "feedback": "Isso. Documentar e revisar mantém o protocolo atual, e a equipe precisa conhecê-lo para segui-lo." },
+            { "label": "Só combinados de boca entre os colegas", "correct": false, "feedback": "Combinação verbal não documenta nada. Confira de novo a forma esperada." },
+            { "label": "Escritos só na língua do fabricante", "correct": false, "feedback": "Um protocolo que a equipe não entende não é seguido. Retome o conceito." }
           ],
-          "sourceIds": ["anvisa-rdc-611-2022"] }
+          "sourceIds": ["iaea-ssg46-2018"] }
       ],
       "recovery": {
-        "guided": { "hook": "Complete a frase: as três fases da lista britânica para cada paciente são entrada, pausa e…",
-          "item": { "prompt": "Qual é a terceira fase da lista britânica ensinada nesta aula?",
+        "guided": { "hook": "Complete a frase: as três fases da lista da fonte para cada paciente são entrada, pausa e…",
+          "item": { "prompt": "Qual é a terceira fase da lista da fonte ensinada nesta aula?",
             "options": [
               { "label": "Saída", "correct": true, "feedback": "Isso. Entrada, pausa e saída são as três fases para cada paciente." },
               { "label": "Laudo", "correct": false, "feedback": "O laudo é outra etapa do cuidado, fora dessas fases. Retome a sequência." },
@@ -689,7 +688,7 @@
       ] },
       "concept": {
         "title": "Ler, reconhecer e relatar",
-        "body": "A RDC 611 pede a exposição mínima necessária. Quem opera usa os recursos; você reconhece. Na fonte: colimar reduz a área irradiada e o espalhamento; ampliar aumenta a exposição e o espalhamento; o modo pulsado usa menos quadros e menos tempo irradiando; o de baixa dose, menos radiação. No painel: kerma no ar de referência, acumulado num ponto fixo em relação ao arco em C, e produto kerma-área, somado em todo o feixe, em Gy·cm². Nenhum mede diretamente o pico na pele. Você lê e registra como o serviço pede, sem julgar. A IN 91 pede imagem semestral de teste comparada à de referência. Teste reprovado: pare e relate.",
+        "body": "A otimização busca a menor exposição compatível com uma imagem adequada. Quem opera usa os recursos; você reconhece. Colimar reduz a área irradiada e o espalhamento; ampliar aumenta a exposição e o espalhamento; o modo pulsado usa menos quadros e menos tempo irradiando; o de baixa dose, menos radiação. No painel: kerma no ar de referência, acumulado num ponto fixo em relação ao arco em C, e produto kerma-área, somado em todo o feixe, em Gy·cm². Nenhum mede diretamente o pico na pele. Você lê e registra como o serviço pede. O serviço define testes de constância: imagem comparada à de referência, dentro da tolerância. Teste reprovado: pare e relate.",
         "keyPoints": ["Indicadores são vocabulário e registro; a avaliação é de quem responde por ela.", "Alarme de tempo acumulado de fluoroscopia: avise quem conduz, sem reiniciar.", "Colimar reduz a área e o espalhamento; ampliar aumenta o espalhamento."]
       },
       "interactions": [
@@ -699,10 +698,10 @@
               { "label": "O tempo de limpeza da sala", "correct": false, "feedback": "A limpeza não passa por esse dispositivo. Retome quando o alarme toca." },
               { "label": "O tempo de fluoroscopia", "correct": true, "feedback": "Isso. Ele soma o tempo de fluoroscopia. Nesta aula, você vai nomear outros valores do equipamento." },
               { "label": "O tempo de espera do paciente", "correct": false, "feedback": "A espera não é medida pelo equipamento. Confira de novo o que o alarme indica." },
-              { "label": "O tempo de troca do dosímetro", "correct": false, "feedback": "A troca do dosímetro segue outra rotina, a mensal. Retome o dispositivo da aula." }
+              { "label": "O tempo de troca do dosímetro", "correct": false, "feedback": "A troca do dosímetro segue outra rotina, definida pelo serviço. Retome o dispositivo da aula." }
           ],
           "help": "Pense no que o tubo está fazendo enquanto o tempo corre.",
-          "sourceIds": ["anvisa-in-91-2021"] },
+          "sourceIds": ["iaea-ssg46-2018"] },
         { "id": "i2", "type": "matching", "role": "practice",
           "prompt": "Ligue cada recurso, usado por quem opera, ao efeito descrito na fonte da aula.",
           "pairs": [
@@ -726,27 +725,27 @@
           "help": "A unidade tem gray e área. Que grandeza junta as duas coisas?",
           "sourceIds": ["pmc-kerma-pka"] },
         { "id": "i4", "type": "case-decision", "role": "safety", "criticalSafety": true,
-          "context": "Numa aula de controle de qualidade, a imagem semestral da ferramenta de teste, feita com a técnica da imagem de referência, fica visivelmente pior que a referência. O colega diz que é a tela, que o equipamento vem funcionando bem e que amanhã há procedimentos marcados.",
+          "context": "Numa aula de controle de qualidade, a imagem periódica da ferramenta de teste, feita com a técnica da imagem de referência, fica visivelmente pior que a referência. O colega diz que é a tela, que o equipamento vem funcionando bem e que amanhã há procedimentos marcados.",
           "prompt": "Qual é a ação certa para você?",
           "options": [
             { "label": "Repete com outra técnica até a imagem melhorar", "correct": false, "feedback": "Mudar a técnica destrói a comparação com a referência. Retome como o teste é feito." },
             { "label": "Guarda a imagem antiga no lugar da nova", "correct": false, "feedback": "Trocar a imagem falseia o registro do teste. O registro fica como saiu; retome a quem relatar." },
             { "label": "Considera aprovado, pois a sala funciona", "correct": false, "feedback": "Quem decide sobre o uso não é você nem o colega. Confira de novo o que fazer com a diferença." },
-            { "label": "Para o teste e relata o que viu à supervisão", "correct": true, "feedback": "Isso. Falha de teste é para relatar. Se houver nível de restrição, o responsável legal decide sobre a suspensão do uso." }
+            { "label": "Para o teste e relata o que viu à supervisão", "correct": true, "feedback": "Isso. Falha de teste é para relatar. Se a medida sair da tolerância, quem responde pelo serviço decide se o uso segue ou é suspenso." }
           ],
           "help": "De quem é a decisão sobre usar o equipamento amanhã?",
-          "sourceIds": ["anvisa-in-91-2021", "anvisa-rdc-611-2022"] },
+          "sourceIds": ["iaea-ssg46-2018"] },
         { "id": "i5", "type": "case-decision", "role": "transfer",
           "context": "Durante a demonstração supervisionada com simulador, um alarme sonoro começa a tocar na sala. Você lembra que o aparelho tem um dispositivo de tempo acumulado de fluoroscopia. A supervisora está de costas, falando com um grupo, e há um botão de reinício perto de você.",
           "prompt": "O que você faz neste momento?",
           "options": [
             { "label": "Aperta o botão para o alarme parar", "correct": false, "feedback": "Reiniciar o dispositivo é uma ação de operação. Retome de quem é esse controle." },
-            { "label": "Espera o alarme parar sozinho", "correct": false, "feedback": "Ele continua enquanto houver emissão e até ser reiniciado. Confira de novo o que a norma descreve." },
+            { "label": "Espera o alarme parar sozinho", "correct": false, "feedback": "Esperar não avisa quem conduz o procedimento. Retome o que o alarme pede de você." },
             { "label": "Avisa a supervisora sobre o alarme", "correct": true, "feedback": "Isso. O alarme indica o fim do tempo pré-selecionado, e quem conduz o procedimento é quem responde por ele." },
             { "label": "Sai da sala sem falar com ninguém", "correct": false, "feedback": "Sair não informa quem conduz. Retome o que o alarme pede de você." }
           ],
           "help": "A quem esse alarme está tentando chamar a atenção?",
-          "sourceIds": ["anvisa-in-91-2021", "anvisa-rdc-611-2022"] }
+          "sourceIds": ["iaea-ssg46-2018"] }
       ],
       "closing": { "title": "Reconhecer e relatar", "body": "Agora você consegue explicar os dois indicadores de dose do painel, reconhecer os recursos de otimização e relatar um teste que não confere. Julgar a dose do paciente e decidir sobre o equipamento cabe a quem responde por isso.", "line": { "speaker": "caio", "text": "Número no painel não é um susto: é um dado para registrar direito. E teste ruim se relata, mesmo com agenda cheia." } },
       "checkpoint": [
@@ -765,7 +764,7 @@
             { "label": "Registrar como o serviço pede", "correct": true, "feedback": "Isso. Você lê e registra como pedido, e a avaliação fica com quem responde por ela." },
             { "label": "Arredondar para valores menores", "correct": false, "feedback": "Alterar um valor falseia o registro. Retome o que fazer com o que você leu." }
           ],
-          "sourceIds": ["pmc-kerma-pka", "anvisa-rdc-611-2022"] }
+          "sourceIds": ["pmc-kerma-pka"] }
       ],
       "recovery": {
         "guided": { "hook": "Complete a frase: quando quem opera colima o feixe, a área irradiada e o espalhamento…",
@@ -805,7 +804,7 @@
       },
       "interactions": [
         { "id": "i1", "type": "multiple-choice", "role": "prerequisite",
-          "prompt": "Na aula de protocolos, você viu as fases da lista britânica para cada paciente. Qual opção traz as três na ordem?",
+          "prompt": "Na aula de protocolos, você viu as fases da lista de verificação para cada paciente. Qual opção traz as três na ordem?",
           "options": [
             { "label": "Saída, entrada e pausa", "correct": false, "feedback": "A saída não abre a sequência. Retome a ordem da aula de protocolos." },
             { "label": "Pausa, saída e entrada", "correct": false, "feedback": "A entrada não vem por último. Confira de novo a sequência." },
@@ -820,19 +819,19 @@
           "feedbackCorrect": "Isso. Do pedido ao registro, com um freio em qualquer passo em que algo não bater.",
           "feedbackIncorrect": "Retome o conceito. O papel vem primeiro, depois o ambiente, depois você, a equipe e, por último, o registro.",
           "help": "Sem saber quem é o paciente, faz sentido preparar a sala?",
-          "sourceIds": ["rcr-lista-verificacao", "anvisa-rdc-611-2022"] },
+          "sourceIds": ["rcr-lista-verificacao"] },
         { "id": "i3", "type": "matching", "role": "practice",
           "prompt": "Ligue cada item do cenário ao lugar onde você o confere.",
           "pairs": [
             { "left": "Paciente, local e lado", "right": "Pedido e ficha do cenário" },
-            { "left": "Acesso à sala", "right": "Luz vermelha e avisos na porta" },
-            { "left": "Avental e protetor de tireoide", "right": "Laudo técnico de integridade" },
+            { "left": "Acesso à sala", "right": "Luz de aviso e sinalização na porta" },
+            { "left": "Avental e protetor de tireoide", "right": "Registro da inspeção de integridade" },
             { "left": "Tempo e indicadores de dose", "right": "Painel do equipamento" }
           ],
           "feedbackCorrect": "Isso. Cada conferência tem um lugar certo, e isso evita que você confie só na memória.",
           "feedbackIncorrect": "Retome as aulas anteriores. Cada item tem um documento ou um sinal próprio.",
           "help": "Comece pelo que está escrito num documento médico.",
-          "sourceIds": ["anvisa-rdc-611-2022", "anvisa-in-91-2021", "rcr-lista-verificacao"] },
+          "sourceIds": ["iaea-ssg46-2018", "rcr-lista-verificacao"] },
         { "id": "i4", "type": "case-decision", "role": "safety", "criticalSafety": true,
           "context": "No cenário final, na leitura da pausa, ninguém confirma o lado do paciente. O Caio, atuando como colega, comenta: \"vamos, já fizemos esse caso dez vezes e está todo mundo com pressa\". Você reparou que o item segue aberto, mas é o estudante mais novo do grupo.",
           "prompt": "O que você faz neste momento?",
@@ -854,7 +853,7 @@
             { "label": "Ignora as listas, porque são todas distintas", "correct": false, "feedback": "A diferença entre as listas não reduz o valor delas. Retome para que serve a verificação." }
           ],
           "help": "Quem define o protocolo de um serviço?",
-          "sourceIds": ["rcr-lista-verificacao", "anvisa-rdc-611-2022"] }
+          "sourceIds": ["rcr-lista-verificacao"] }
       ],
       "closing": { "title": "Preparar, verificar, escalar", "body": "Agora você consegue preparar e verificar um cenário simulado em cinco passos, reconhecer divergências e levá-las à equipe. A prática treina olhar e comunicação, sem comprovar que você pode executar ato invasivo ou operar sozinho.", "line": { "speaker": "lia", "text": "Foi um bom cenário. Na dúvida, vocês pararam e falaram, e é isso que eu venho observar." } },
       "checkpoint": [
@@ -865,7 +864,7 @@
             { "label": "A lista traz mais de cinco itens", "correct": false, "feedback": "O número de itens não é um problema em si. Confira de novo o primeiro passo." },
             { "label": "O avental está no cabide do setor", "correct": false, "feedback": "Avental no cabide não é uma divergência. Retome o que interrompe a sequência." }
           ],
-          "sourceIds": ["rcr-lista-verificacao", "anvisa-rdc-611-2022"] },
+          "sourceIds": ["rcr-lista-verificacao", "iaea-ssg46-2018"] },
         { "prompt": "Ao fim da unidade, um colega diz que, depois deste cenário, poderá fazer punção sozinho no estágio. Como você responde com base na aula?",
           "options": [
             { "label": "Sim, se o manequim tiver dado certo", "correct": false, "feedback": "O resultado no manequim não muda o limite. Retome a última frase do conceito." },
@@ -873,7 +872,7 @@
             { "label": "Sim, desde que anote tudo na ficha", "correct": false, "feedback": "Anotar não autoriza o ato. Retome de quem ele é." },
             { "label": "Não: simular não autoriza esse ato", "correct": true, "feedback": "Isso. A simulação treina o olhar e a comunicação; o ato invasivo é de quem é habilitado para ele." }
           ],
-          "sourceIds": ["anvisa-rdc-611-2022", "radiologyinfo-angioplastia"] }
+          "sourceIds": ["radiologyinfo-angioplastia"] }
       ],
       "recovery": {
         "guided": { "hook": "Complete a frase: o primeiro passo do cenário é conferir pedido e ficha, olhando paciente, local e…",
@@ -885,14 +884,14 @@
               { "label": "Agenda", "correct": false, "feedback": "A agenda não é o foco dessa conferência. Retome o conceito." }
             ],
             "sourceIds": ["rcr-lista-verificacao"] } },
-        "transfer": { "item": { "prompt": "Num treino com outro grupo, o avental separado para você está com um laudo de integridade fora do semestre e um rasgo perto da gola. O que você faz?",
+        "transfer": { "item": { "prompt": "Num treino com outro grupo, o avental separado para você está sem registro de inspeção de integridade em dia e com um rasgo perto da gola. O que você faz?",
             "options": [
               { "label": "Não usa e descreve os achados à equipe", "correct": true, "feedback": "Isso. Você preserva o achado e leva à equipe. Decidir o destino do avental e o que fazer em seguida não é com você." },
               { "label": "Usa assim mesmo, porque é só um treino", "correct": false, "feedback": "O treino existe para formar o hábito certo. Retome o que se faz com um achado." },
               { "label": "Fecha o rasgo com fita e usa normalmente", "correct": false, "feedback": "Fita não devolve a integridade da barreira. Confira de novo a quem levar." },
-              { "label": "Atualiza a data do laudo com a sua caneta", "correct": false, "feedback": "Alterar o registro esconde o problema. Registro não se corrige sozinho." }
+              { "label": "Atualiza a data do registro com a sua caneta", "correct": false, "feedback": "Alterar o registro esconde o problema. Registro não se corrige sozinho." }
             ],
-            "sourceIds": ["anvisa-in-91-2021", "anvisa-rdc-611-2022"] } }
+            "sourceIds": ["iaea-ssg46-2018"] } }
       },
       "diagramIdeas": ["Lista de cinco passos com um sinal de pare ao lado de cada um, indicando onde a sequência pode ser interrompida"]
     }
