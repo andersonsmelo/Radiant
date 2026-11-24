@@ -6,7 +6,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m29",
-  "materialSha256": "964369d155d31a8ac1328fe83f618299b13b106a72f79376e37ccd9701267a6d",
+  "materialSha256": "d7b9638552e991913ad75568cee00dee4b6c29e18b90abf49aa8a2a7797c0bbd",
   "trackId": "track:rtg-2026:m29",
   "unitId": "unit:rtg-2026:m29",
   "contentVersion": "rtg-2026-m29-v1",
@@ -1612,7 +1612,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
                   "label": "Imagem C",
                   "explanation": "Na imagem C, partes da esfera se projetam sobre a borda oposta quando o campo é reduzido. É um exemplo de dobramento.",
                   "imageRef": "image:rtg-2026:m29:rm-artefato-dobramento-esfera-01",
-                  "imageAlt": "Duas imagens em tons de cinza de uma esfera de teste. Na primeira, o quadro mostra todo o círculo. Na segunda, partes claras da esfera aparecem em bordas opostas."
+                  "imageAlt": "Duas imagens em tons de cinza de uma esfera de teste. Na primeira, há um contorno arredondado isolado. Na segunda, partes claras da esfera aparecem em bordas opostas."
                 }
               ],
               "correctOptionId": "option:rtg-2026:m29:aula-05:i2:b"
@@ -1958,14 +1958,14 @@ export const RTG_2026_M29: ProductionBatchV1 = {
                   "label": "Imagem A",
                   "explanation": "Observe o contorno do cérebro nas duas imagens. Na imagem B ele está mais borrado.",
                   "imageRef": "image:rtg-2026:m29:rm-movimento-sagital-referencia-01",
-                  "imageAlt": "Corte sagital do encéfalo em tons de cinza, com contornos e sulcos bem definidos."
+                  "imageAlt": "Corte sagital do encéfalo em tons de cinza. Linhas escuras de vários sulcos se distinguem do tecido cinza ao redor."
                 },
                 {
                   "id": "option:rtg-2026:m29:aula-06:i2:b",
                   "label": "Imagem B",
                   "explanation": "Isso. Na imagem B, o movimento deixou os contornos menos definidos.",
                   "imageRef": "image:rtg-2026:m29:rm-movimento-sagital-artefato-01",
-                  "imageAlt": "Corte sagital do encéfalo em tons de cinza, com contornos e sulcos borrados."
+                  "imageAlt": "Corte sagital do encéfalo em tons de cinza. Vários sulcos se confundem com as regiões cinzas vizinhas."
                 }
               ],
               "correctOptionId": "option:rtg-2026:m29:aula-06:i2:b"
@@ -6526,7 +6526,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
         "sha256Original": "349f935a6c9cde71c390b35e550e67d2252ad7e88c3e062d79601007e1bf0916",
         "sha256Asset": "97cf448fc327a87169e4d3b0d42401ebd998535645efdfac9525c2c08b47acbb",
         "modification": "Recorte das duas aquisições para excluir a legenda impressa; codificação JPEG em tons de cinza, sem redimensionamento.",
-        "alt": "Duas imagens em tons de cinza de uma esfera de teste. Na primeira, o quadro mostra todo o círculo. Na segunda, partes claras da esfera aparecem em bordas opostas.",
+        "alt": "Duas imagens em tons de cinza de uma esfera de teste. Na primeira, há um contorno arredondado isolado. Na segunda, partes claras da esfera aparecem em bordas opostas.",
         "width": 256,
         "height": 123
       },
@@ -6541,7 +6541,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
         "sha256Original": "88d3272122e6fc4fea3abfde378daf45c6b35f9bcc6037b9c40b9d3b83b245f0",
         "sha256Asset": "68c439f723bed716d12a441ea2974ba4cc324307973a009f02c0a15840f20e71",
         "modification": "Recorte para separar o painel, sem redimensionamento; codificação JPEG em tons de cinza.",
-        "alt": "Corte sagital do encéfalo em tons de cinza, com contornos e sulcos bem definidos.",
+        "alt": "Corte sagital do encéfalo em tons de cinza. Linhas escuras de vários sulcos se distinguem do tecido cinza ao redor.",
         "width": 218,
         "height": 207
       },
@@ -6556,7 +6556,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
         "sha256Original": "88d3272122e6fc4fea3abfde378daf45c6b35f9bcc6037b9c40b9d3b83b245f0",
         "sha256Asset": "8899e246162c7408540833b90711d3255efb0bc5cfefdc36957799c68e24f635",
         "modification": "Recorte para separar o painel, sem redimensionamento; codificação JPEG em tons de cinza.",
-        "alt": "Corte sagital do encéfalo em tons de cinza, com contornos e sulcos borrados.",
+        "alt": "Corte sagital do encéfalo em tons de cinza. Vários sulcos se confundem com as regiões cinzas vizinhas.",
         "width": 218,
         "height": 207
       }
@@ -6576,7 +6576,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "964369d155d31a8ac1328fe83f618299b13b106a72f79376e37ccd9701267a6d"
+      "materialSha256": "d7b9638552e991913ad75568cee00dee4b6c29e18b90abf49aa8a2a7797c0bbd"
     },
     {
       "schemaVersion": 1,
@@ -6585,7 +6585,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "964369d155d31a8ac1328fe83f618299b13b106a72f79376e37ccd9701267a6d"
+      "materialSha256": "d7b9638552e991913ad75568cee00dee4b6c29e18b90abf49aa8a2a7797c0bbd"
     },
     {
       "schemaVersion": 1,
@@ -6594,7 +6594,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "964369d155d31a8ac1328fe83f618299b13b106a72f79376e37ccd9701267a6d"
+      "materialSha256": "d7b9638552e991913ad75568cee00dee4b6c29e18b90abf49aa8a2a7797c0bbd"
     },
     {
       "schemaVersion": 1,
@@ -6603,7 +6603,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "964369d155d31a8ac1328fe83f618299b13b106a72f79376e37ccd9701267a6d"
+      "materialSha256": "d7b9638552e991913ad75568cee00dee4b6c29e18b90abf49aa8a2a7797c0bbd"
     },
     {
       "schemaVersion": 1,
@@ -6612,7 +6612,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "964369d155d31a8ac1328fe83f618299b13b106a72f79376e37ccd9701267a6d"
+      "materialSha256": "d7b9638552e991913ad75568cee00dee4b6c29e18b90abf49aa8a2a7797c0bbd"
     },
     {
       "schemaVersion": 1,
@@ -6621,7 +6621,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "964369d155d31a8ac1328fe83f618299b13b106a72f79376e37ccd9701267a6d"
+      "materialSha256": "d7b9638552e991913ad75568cee00dee4b6c29e18b90abf49aa8a2a7797c0bbd"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",
