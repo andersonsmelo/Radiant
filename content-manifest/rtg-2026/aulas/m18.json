@@ -1,0 +1,2250 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m18",
+    "code": "M18",
+    "title": "Esqueleto, articulações e marcos de superfície",
+    "summary": "Os nomes do esqueleto que o posicionamento pressupõe: grupos axial e apendicular, osso longo, regiões da coluna, articulações e marcos de superfície do tronco e da pelve, sempre avisando o paciente antes de tocar."
+  },
+  "sources": [
+    {
+      "id": "openstax-ap-1-6",
+      "title": "Anatomy and Physiology 2e, seção 1.6 Anatomical Terminology",
+      "publisher": "OpenStax, Rice University",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/1-6-anatomical-terminology",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto da OpenStax; consultado para fatos (termos direcionais), com redação própria, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "openstax-ap-7-1",
+      "title": "Anatomy and Physiology 2e, seção 7.1 Divisions of the Skeletal System",
+      "publisher": "OpenStax, Rice University",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-1-divisions-of-the-skeletal-system",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto da OpenStax; consultado para fatos (esqueleto axial e apendicular, funções e contagens), com redação própria, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "openstax-ap-7-3",
+      "title": "Anatomy and Physiology 2e, seção 7.3 The Vertebral Column",
+      "publisher": "OpenStax, Rice University",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-3-the-vertebral-column",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto da OpenStax; consultado para fatos (regiões da coluna, número de vértebras e curvaturas), com redação própria, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "openstax-ap-7-4",
+      "title": "Anatomy and Physiology 2e, seção 7.4 The Thoracic Cage",
+      "publisher": "OpenStax, Rice University",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-4-the-thoracic-cage",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto da OpenStax; consultado para fatos (esterno, incisura jugular e processo xifoide), com redação própria, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "openstax-ap-6-2",
+      "title": "Anatomy and Physiology 2e, seção 6.2 Bone Classification",
+      "publisher": "OpenStax, Rice University",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/6-2-bone-classification",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto da OpenStax; consultado para fatos (classificação dos ossos pela forma), com redação própria, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "openstax-ap-6-3",
+      "title": "Anatomy and Physiology 2e, seção 6.3 Bone Structure",
+      "publisher": "OpenStax, Rice University",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/6-3-bone-structure",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto da OpenStax; consultado para fatos (partes do osso longo), com redação própria, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "openstax-ap-8-3",
+      "title": "Anatomy and Physiology 2e, seção 8.3 The Pelvic Girdle and Pelvis",
+      "publisher": "OpenStax, Rice University",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-3-the-pelvic-girdle-and-pelvis",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto da OpenStax; consultado para fatos (osso do quadril, crista ilíaca, espinha ilíaca ântero-superior e sínfise púbica), com redação própria, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "openstax-ap-8-4",
+      "title": "Anatomy and Physiology 2e, seção 8.4 Bones of the Lower Limb",
+      "publisher": "OpenStax, Rice University",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto da OpenStax; consultado para fatos (trocânter maior do fêmur), com redação própria, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "openstax-ap-9-1",
+      "title": "Anatomy and Physiology 2e, seção 9.1 Classification of Joints",
+      "publisher": "OpenStax, Rice University",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/9-1-classification-of-joints",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto da OpenStax; consultado para fatos (tipos de articulação), com redação própria, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "openstax-ap-9-4",
+      "title": "Anatomy and Physiology 2e, seção 9.4 Synovial Joints",
+      "publisher": "OpenStax, Rice University",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/9-4-synovial-joints",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto da OpenStax; consultado para fatos (partes da articulação sinovial), com redação própria, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "openstax-ap-9-5",
+      "title": "Anatomy and Physiology 2e, seção 9.5 Types of Body Movements",
+      "publisher": "OpenStax, Rice University",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/9-5-types-of-body-movements",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Livro aberto da OpenStax; consultado para fatos (flexão, extensão, abdução, adução e rotação), com redação própria, sem aproveitar frase nem figura."
+    },
+    {
+      "id": "wikipedia-costal-margin",
+      "title": "Costal margin",
+      "publisher": "Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Costal_margin",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página aberta (CC BY-SA); consultada só para a definição da margem costal, sem reprodução de texto. Fato anatômico, não de segurança."
+    },
+    {
+      "id": "intechopen-shakwane-2024",
+      "title": "Safeguarding Professional Intimate Care and Touch in Nursing Education: Humanistic Care in a Technological Era",
+      "publisher": "IntechOpen (Shakwane, 2024)",
+      "url": "https://www.intechopen.com/chapters/1173549",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Capítulo em acesso aberto (CC BY 3.0); consultado para o princípio de explicar e pedir licença antes de tocar e para o cuidado com áreas sensíveis, com redação própria."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m18-01",
+      "code": "M18.01",
+      "title": "Esqueleto axial e apendicular",
+      "objective": "Hoje você vai conseguir separar os ossos nos esqueletos axial e apendicular e dizer o que cada grupo faz.",
+      "competency": "Classificar ossos nos esqueletos axial e apendicular e relacionar cada grupo à sua função.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Laboratório didático",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Caio trouxe um esqueleto de modelo. Eu sei muitos nomes de ossos, mas não sei como organizar tudo isso."
+          },
+          {
+            "speaker": "caio",
+            "text": "Hoje o esqueleto vem em duas caixas, e todo osso cabe em uma delas."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Qual será o critério para escolher a caixa de cada osso? Vamos descobrir juntos."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Eixo e membros",
+        "body": "O esqueleto se divide em dois grupos. O axial forma o eixo do corpo: crânio, coluna vertebral, com o sacro e o cóccix, e caixa torácica, com costelas e esterno. Ele protege encéfalo, medula espinal, coração e pulmões. O apendicular reúne os ossos dos membros e os das cinturas, que prendem cada membro ao esqueleto axial. Na figura, o eixo aparece numa cor e os membros em outra.",
+        "keyPoints": [
+          "Axial: crânio, coluna e caixa torácica.",
+          "Apendicular: membros e cinturas.",
+          "O sacro é da coluna, então fica no eixo."
+        ],
+        "visual": "esqueleto-axial-apendicular"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a M02. Qual termo descreve o que fica mais perto da linha média do corpo?",
+          "options": [
+            {
+              "label": "Lateral",
+              "correct": false,
+              "feedback": "Lateral é o contrário: o que fica mais afastado da linha média, para o lado do corpo."
+            },
+            {
+              "label": "Medial",
+              "correct": true,
+              "feedback": "Medial é o que fica mais perto do meio do corpo, e lateral é o que fica mais perto do lado."
+            },
+            {
+              "label": "Distal",
+              "correct": false,
+              "feedback": "Distal fala da distância ao tronco num membro, e não da distância à linha média do corpo."
+            },
+            {
+              "label": "Posterior",
+              "correct": false,
+              "feedback": "Posterior fala do dorso, e não da proximidade com a linha média do corpo."
+            }
+          ],
+          "help": "Pense no par de termos que opõe o meio do corpo ao lado do corpo.",
+          "sourceIds": [
+            "openstax-ap-1-6"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada osso no grupo do esqueleto a que ele pertence.",
+          "categories": [
+            "Esqueleto axial",
+            "Esqueleto apendicular"
+          ],
+          "items": [
+            {
+              "label": "Crânio",
+              "category": "Esqueleto axial"
+            },
+            {
+              "label": "Escápula",
+              "category": "Esqueleto apendicular"
+            },
+            {
+              "label": "Esterno",
+              "category": "Esqueleto axial"
+            },
+            {
+              "label": "Fêmur",
+              "category": "Esqueleto apendicular"
+            },
+            {
+              "label": "Sacro",
+              "category": "Esqueleto axial"
+            },
+            {
+              "label": "Úmero",
+              "category": "Esqueleto apendicular"
+            }
+          ],
+          "feedbackCorrect": "Isso: crânio, esterno e sacro ficam no eixo do corpo; escápula, úmero e fêmur, nos membros e nas cinturas.",
+          "feedbackIncorrect": "Pergunte de cada osso: ele forma o eixo, com crânio, coluna e caixa torácica, ou pertence a um membro ou a uma cintura?",
+          "help": "Veja onde cada osso fica: no eixo do corpo ou num membro?",
+          "sourceIds": [
+            "openstax-ap-7-1"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Toque no osso que prende o membro inferior ao esqueleto axial, do lado esquerdo do paciente.",
+          "diagramId": "esqueleto-axial-apendicular",
+          "regions": [
+            {
+              "label": "Crânio",
+              "x": 0.4437,
+              "y": 0.0334,
+              "width": 0.1125,
+              "height": 0.1667
+            },
+            {
+              "label": "Caixa torácica",
+              "x": 0.4063,
+              "y": 0.2708,
+              "width": 0.1875,
+              "height": 0.125
+            },
+            {
+              "label": "Coluna lombar",
+              "x": 0.46,
+              "y": 0.4917,
+              "width": 0.08,
+              "height": 0.125
+            },
+            {
+              "label": "Osso do quadril",
+              "x": 0.51,
+              "y": 0.75,
+              "width": 0.08,
+              "height": 0.0833,
+              "correct": true
+            }
+          ],
+          "feedbackCorrect": "Isso: o osso do quadril faz parte da cintura pélvica e prende o membro inferior ao esqueleto axial.",
+          "feedbackIncorrect": "Essa região é do eixo do corpo e não prende o membro. Procure o osso que fica entre a coluna e a coxa, do lado esquerdo do paciente.",
+          "help": "Pense no que fica entre a coluna e o fêmur.",
+          "sourceIds": [
+            "openstax-ap-7-1",
+            "openstax-ap-8-3"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre os dois grupos do esqueleto.",
+          "statements": [
+            {
+              "text": "A escápula e a clavícula prendem o membro superior ao esqueleto axial.",
+              "correct": true,
+              "feedback": "Certo: elas formam a cintura escapular, que liga o membro superior ao eixo do corpo."
+            },
+            {
+              "text": "As costelas são do esqueleto apendicular, porque saem da coluna vertebral.",
+              "correct": false,
+              "feedback": "Errado: as costelas formam a caixa torácica com o esterno, e a caixa torácica é do esqueleto axial."
+            },
+            {
+              "text": "O esqueleto axial protege encéfalo, medula espinal, coração e pulmões.",
+              "correct": true,
+              "feedback": "Certo: crânio, coluna e caixa torácica envolvem esses órgãos e os protegem."
+            },
+            {
+              "text": "O crânio é do esqueleto apendicular, porque fica na ponta do corpo.",
+              "correct": false,
+              "feedback": "Errado: o crânio faz parte do eixo. O apendicular é o grupo dos membros e das cinturas."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que prende os membros do que forma o eixo e conferiu o que o eixo protege.",
+          "feedbackIncorrect": "Releia o conceito: o eixo é crânio, coluna e caixa torácica; membros e cinturas formam o outro grupo.",
+          "help": "Para cada afirmação, pergunte se ela fala do eixo ou dos membros.",
+          "sourceIds": [
+            "openstax-ap-7-1"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Na bancada, Caio mostra uma imagem simulada em que aparecem só a escápula, a clavícula e o úmero de um modelo. Duda pergunta a que grupo do esqueleto esse conjunto pertence.",
+          "prompt": "O que você responde a Duda?",
+          "options": [
+            {
+              "label": "Ao esqueleto apendicular: são a cintura escapular e o osso do braço.",
+              "correct": true,
+              "feedback": "Cintura escapular e osso do braço são da parte que liga e forma o membro superior: esqueleto apendicular."
+            },
+            {
+              "label": "Ao esqueleto axial, porque a escápula fica junto da coluna.",
+              "correct": false,
+              "feedback": "Ficar perto da coluna não basta: a escápula é uma cintura e prende o membro ao eixo, sem fazer parte dele."
+            },
+            {
+              "label": "Metade a cada grupo: a clavícula é axial e o resto, apendicular.",
+              "correct": false,
+              "feedback": "A clavícula também é da cintura escapular. Nenhum dos três ossos forma crânio, coluna ou caixa torácica."
+            },
+            {
+              "label": "Ao esqueleto axial, porque esses ossos ficam no tronco.",
+              "correct": false,
+              "feedback": "Ficar na região do tronco não define o grupo: o eixo é crânio, coluna e caixa torácica."
+            }
+          ],
+          "help": "Pergunte se algum desses ossos forma crânio, coluna ou caixa torácica.",
+          "sourceIds": [
+            "openstax-ap-7-1"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você separa o esqueleto em dois grupos",
+        "body": "Agora você consegue dizer se um osso é do esqueleto axial ou do apendicular e relacionar cada grupo ao que ele faz: o eixo protege órgãos importantes, e as cinturas prendem os membros ao eixo.",
+        "line": {
+          "speaker": "lia",
+          "text": "Na próxima aula, olhamos por dentro de um osso longo."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Uma vértebra lombar de um modelo é separada para estudo. Em que esqueleto ela entra?",
+          "options": [
+            {
+              "label": "No apendicular, porque a lombar sustenta o peso.",
+              "correct": false,
+              "feedback": "Sustentar peso não define o grupo: a coluna toda pertence ao eixo."
+            },
+            {
+              "label": "No apendicular, porque fica perto do osso do quadril.",
+              "correct": false,
+              "feedback": "A proximidade com a pelve não muda nada: vértebra é da coluna e fica no eixo."
+            },
+            {
+              "label": "No axial, como parte da coluna vertebral.",
+              "correct": true,
+              "feedback": "A vértebra faz parte da coluna, e a coluna forma o esqueleto axial."
+            },
+            {
+              "label": "Metade em cada um, com o corpo axial e as pontas não.",
+              "correct": false,
+              "feedback": "A vértebra não se divide entre os grupos: ela inteira é parte da coluna."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-7-1"
+          ]
+        },
+        {
+          "prompt": "Qual par de ossos pertence ao esqueleto apendicular?",
+          "options": [
+            {
+              "label": "Úmero e osso do quadril.",
+              "correct": true,
+              "feedback": "O úmero é osso de membro, e o osso do quadril é da cintura pélvica: os dois são apendiculares."
+            },
+            {
+              "label": "Esterno e costelas.",
+              "correct": false,
+              "feedback": "Esterno e costelas formam a caixa torácica, que é do esqueleto axial."
+            },
+            {
+              "label": "Crânio e sacro.",
+              "correct": false,
+              "feedback": "O crânio e o sacro são do eixo: o sacro faz parte da coluna."
+            },
+            {
+              "label": "Coluna lombar e esterno.",
+              "correct": false,
+              "feedback": "Os dois ficam no eixo do corpo, e não nos membros nem nas cinturas."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-7-1",
+            "openstax-ap-8-3"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: crânio, coluna e caixa torácica formam o esqueleto...",
+          "item": {
+            "prompt": "Crânio, coluna e caixa torácica formam qual grupo do esqueleto?",
+            "options": [
+              {
+                "label": "O apendicular, dos membros.",
+                "correct": false,
+                "feedback": "O apendicular reúne membros e cinturas, e não crânio, coluna e caixa torácica."
+              },
+              {
+                "label": "O axial, que é o eixo do corpo.",
+                "correct": true,
+                "feedback": "Esses três conjuntos formam o eixo do corpo."
+              },
+              {
+                "label": "As cinturas, que prendem os membros.",
+                "correct": false,
+                "feedback": "As cinturas são parte do apendicular e se ligam ao eixo, sem formá-lo."
+              },
+              {
+                "label": "Um grupo à parte, sem nome definido.",
+                "correct": false,
+                "feedback": "O esqueleto se divide em dois grupos, e este é o axial."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-7-1"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Numa imagem fictícia aparecem só o fêmur e a tíbia de um modelo. A que grupo eles pertencem?",
+            "options": [
+              {
+                "label": "Ao axial, por sustentarem o corpo.",
+                "correct": false,
+                "feedback": "Sustentar o corpo não define o grupo: o axial é crânio, coluna e caixa torácica."
+              },
+              {
+                "label": "Ao axial, por ficarem perto da coluna.",
+                "correct": false,
+                "feedback": "O fêmur e a tíbia ficam longe da coluna e fazem parte do membro."
+              },
+              {
+                "label": "Ao apendicular, ossos de membro.",
+                "correct": true,
+                "feedback": "Fêmur e tíbia são ossos do membro inferior: esqueleto apendicular."
+              },
+              {
+                "label": "Metade em cada grupo, conforme o osso.",
+                "correct": false,
+                "feedback": "Os dois ossos são de membro, e todo osso de membro é apendicular."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-7-1"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m18-02",
+      "code": "M18.02",
+      "title": "Tipos de osso e o osso longo",
+      "objective": "Hoje você vai conseguir classificar ossos pela forma e nomear as partes de um osso longo.",
+      "competency": "Classificar ossos pela forma e nomear as partes de um osso longo.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Laboratório didático",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Cortei este fêmur de modelo ao meio para a turma ver por dentro."
+          },
+          {
+            "speaker": "duda",
+            "text": "Eu achava que osso era sólido e igual em tudo. Aqui tem pontas largas e um tubo no meio."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que nomes você já daria a cada trecho? Vamos organizar."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Forma por fora, partes por dentro",
+        "body": "Os ossos se agrupam pela forma. Os longos são mais compridos do que largos, como fêmur, úmero e os ossos dos dedos: o nome vale para a forma, e não para o tamanho. Os curtos parecem cubos, como os do punho. Os planos são finos, como costelas, esterno e escápula. Os irregulares, como as vértebras, não cabem nos outros. No osso longo, a diáfise é o tubo do meio, com a cavidade medular dentro. As epífises são as pontas largas, de osso esponjoso, cobertas por cartilagem articular. Na criança, a placa de crescimento é cartilagem entre a epífise e a diáfise; no adulto, vira osso e deixa a linha epifisial.",
+        "keyPoints": [
+          "Longo, curto, plano, irregular: a forma decide.",
+          "Diáfise é o tubo; epífise é a ponta larga.",
+          "Cartilagem articular cobre as epífises nas articulações."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. A que esqueleto pertence o fêmur?",
+          "options": [
+            {
+              "label": "Ao axial, porque sustenta o peso do corpo.",
+              "correct": false,
+              "feedback": "Sustentar peso não define o grupo: o axial é crânio, coluna e caixa torácica."
+            },
+            {
+              "label": "Ao axial, porque faz parte da pelve.",
+              "correct": false,
+              "feedback": "A pelve é formada pelos ossos do quadril, e o fêmur é osso do membro."
+            },
+            {
+              "label": "A nenhum, porque osso longo é um grupo à parte.",
+              "correct": false,
+              "feedback": "Forma e grupo do esqueleto são classificações diferentes: o fêmur é longo e apendicular."
+            },
+            {
+              "label": "Ao apendicular, por ser osso de membro.",
+              "correct": true,
+              "feedback": "O fêmur é osso do membro inferior, e os ossos de membro formam o esqueleto apendicular."
+            }
+          ],
+          "help": "Lembre onde cada grupo começa: o eixo do corpo ou os membros.",
+          "sourceIds": [
+            "openstax-ap-7-1"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada osso pela forma.",
+          "categories": [
+            "Osso longo",
+            "Osso plano",
+            "Osso irregular"
+          ],
+          "items": [
+            {
+              "label": "Úmero",
+              "category": "Osso longo"
+            },
+            {
+              "label": "Esterno",
+              "category": "Osso plano"
+            },
+            {
+              "label": "Vértebra",
+              "category": "Osso irregular"
+            },
+            {
+              "label": "Osso do dedo",
+              "category": "Osso longo"
+            },
+            {
+              "label": "Escápula",
+              "category": "Osso plano"
+            }
+          ],
+          "feedbackCorrect": "Isso: úmero e osso do dedo são longos; esterno e escápula, planos; a vértebra, irregular.",
+          "feedbackIncorrect": "Compare a forma: comprido e estreito é longo, fino e largo é plano, e o que não cabe nesses grupos é irregular.",
+          "help": "Ignore o tamanho e olhe só a forma de cada osso.",
+          "sourceIds": [
+            "openstax-ap-6-2"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule quatro partes do osso longo, tocando na ficha e no ponto. A figura mostra o osso deitado, em corte.",
+          "diagramId": "osso-longo",
+          "points": [
+            {
+              "label": "Epífise",
+              "x": 0.119,
+              "y": 0.4,
+              "where": "à esquerda, a ponta larga e arredondada"
+            },
+            {
+              "label": "Placa de crescimento",
+              "x": 0.2188,
+              "y": 0.6333,
+              "where": "faixa fina e vertical perto da ponta esquerda"
+            },
+            {
+              "label": "Diáfise",
+              "x": 0.3906,
+              "y": 0.425,
+              "where": "no meio, a parede do trecho estreito e reto"
+            },
+            {
+              "label": "Cartilagem articular",
+              "x": 0.9188,
+              "y": 0.3667,
+              "where": "à direita, no alto, a capa clara sobre a ponta"
+            }
+          ],
+          "distractors": [
+            "Ligamento"
+          ],
+          "feedbackCorrect": "Isso: cada ficha está sobre a parte certa do osso longo.",
+          "feedbackIncorrect": "Alguma ficha está no ponto errado: a diáfise é o trecho do meio, e a epífise, a ponta larga.",
+          "help": "Comece pelas pontas largas e vá em direção ao meio do osso.",
+          "sourceIds": [
+            "openstax-ap-6-3"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada parte do osso longo à sua descrição.",
+          "pairs": [
+            {
+              "left": "Diáfise",
+              "right": "Tubo do meio do osso longo"
+            },
+            {
+              "left": "Epífise",
+              "right": "Ponta larga, de osso esponjoso"
+            },
+            {
+              "left": "Cartilagem articular",
+              "right": "Capa que cobre a epífise numa articulação"
+            },
+            {
+              "left": "Cavidade medular",
+              "right": "Espaço oco dentro da diáfise"
+            }
+          ],
+          "feedbackCorrect": "Isso: o tubo do meio tem a cavidade dentro, e as pontas largas levam a cartilagem onde há articulação.",
+          "feedbackIncorrect": "Releia o conceito: a diáfise é o tubo e guarda a cavidade; a epífise é a ponta larga e leva a cartilagem articular.",
+          "help": "Separe o que fica no meio do osso do que fica nas pontas.",
+          "sourceIds": [
+            "openstax-ap-6-3"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multi-select",
+          "role": "transfer",
+          "prompt": "Marque todos os ossos que a regra da forma classifica como longos.",
+          "options": [
+            {
+              "label": "Osso do punho, em forma de cubo",
+              "correct": false,
+              "feedback": "O osso do punho é curto, parecido com um cubo, e não mais comprido do que largo."
+            },
+            {
+              "label": "Falange, o osso do dedo",
+              "correct": true,
+              "feedback": "A falange é mais comprida do que larga: é longa, apesar de pequena."
+            },
+            {
+              "label": "Costela, fina e curva",
+              "correct": false,
+              "feedback": "A costela é fina e curva: é um osso plano, e não longo."
+            },
+            {
+              "label": "Rádio, no antebraço",
+              "correct": true,
+              "feedback": "O rádio é comprido e estreito: é um osso longo."
+            },
+            {
+              "label": "Vértebra, de forma complexa",
+              "correct": false,
+              "feedback": "A vértebra tem forma complexa: é um osso irregular."
+            },
+            {
+              "label": "Tíbia, na perna",
+              "correct": true,
+              "feedback": "A tíbia é comprida e estreita: é um osso longo."
+            }
+          ],
+          "feedbackCorrect": "Você marcou os ossos compridos e deixou de fora os cúbicos, finos e irregulares.",
+          "feedbackIncorrect": "Releia o conceito: longo é mais comprido do que largo, e isso vale mesmo para um osso pequeno, como o do dedo.",
+          "help": "Olhe a forma do osso, e não o tamanho.",
+          "sourceIds": [
+            "openstax-ap-6-2"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você nomeia as partes de um osso longo",
+        "body": "Agora você consegue classificar um osso pela forma e apontar, num osso longo, a diáfise, as epífises, a cartilagem articular e a placa de crescimento.",
+        "line": {
+          "speaker": "lia",
+          "text": "Agora vamos a um conjunto de ossos de forma bem diferente: a coluna."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "A costela é fina e curva. Em que grupo de forma ela entra?",
+          "options": [
+            {
+              "label": "Nos ossos longos, por ser comprida.",
+              "correct": false,
+              "feedback": "O osso longo é comprido e estreito, e a costela é fina e curva."
+            },
+            {
+              "label": "Nos ossos planos, finos e muitas vezes curvos.",
+              "correct": true,
+              "feedback": "Costela é um osso fino e curvo: entra no grupo dos planos."
+            },
+            {
+              "label": "Nos ossos curtos, parecidos com cubos.",
+              "correct": false,
+              "feedback": "A costela não tem comprimento, largura e espessura parecidos, como um cubo."
+            },
+            {
+              "label": "Nos ossos irregulares, de forma complexa.",
+              "correct": false,
+              "feedback": "Irregular é o que não cabe nos outros grupos, e a costela cabe nos planos."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-6-2"
+          ]
+        },
+        {
+          "prompt": "Num osso longo em crescimento, qual estrutura é a faixa de cartilagem entre a epífise e a diáfise?",
+          "options": [
+            {
+              "label": "A cartilagem articular.",
+              "correct": false,
+              "feedback": "Ela cobre a ponta da epífise na articulação, e não fica entre a epífise e a diáfise."
+            },
+            {
+              "label": "A cavidade medular.",
+              "correct": false,
+              "feedback": "A cavidade é o espaço oco dentro da diáfise, e não uma faixa de cartilagem."
+            },
+            {
+              "label": "A própria diáfise.",
+              "correct": false,
+              "feedback": "A diáfise é o tubo do meio do osso, e não a faixa de cartilagem entre as partes."
+            },
+            {
+              "label": "A placa de crescimento.",
+              "correct": true,
+              "feedback": "Na criança, essa faixa de cartilagem fica entre a epífise e a diáfise."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-6-3"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: a diáfise é o... do meio e as epífises são as... largas.",
+          "item": {
+            "prompt": "Qual parte do osso longo é o tubo do meio, com a cavidade medular dentro?",
+            "options": [
+              {
+                "label": "A diáfise.",
+                "correct": true,
+                "feedback": "A diáfise é o tubo do meio e guarda a cavidade medular."
+              },
+              {
+                "label": "A epífise.",
+                "correct": false,
+                "feedback": "A epífise é a ponta larga, de osso esponjoso, e não o tubo do meio."
+              },
+              {
+                "label": "A cartilagem articular.",
+                "correct": false,
+                "feedback": "A cartilagem articular é a capa que cobre a epífise, e não o tubo."
+              },
+              {
+                "label": "A placa de crescimento.",
+                "correct": false,
+                "feedback": "A placa de crescimento é uma faixa de cartilagem entre a epífise e a diáfise."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-6-3"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um osso pequeno e cúbico forma o punho. Em que grupo de forma ele entra?",
+            "options": [
+              {
+                "label": "Nos ossos longos.",
+                "correct": false,
+                "feedback": "O osso longo é mais comprido do que largo, e o do punho é cúbico."
+              },
+              {
+                "label": "Nos ossos planos.",
+                "correct": false,
+                "feedback": "O osso plano é fino, e o do punho tem espessura parecida com o comprimento."
+              },
+              {
+                "label": "Nos ossos curtos.",
+                "correct": true,
+                "feedback": "Osso parecido com um cubo é curto, como os do punho."
+              },
+              {
+                "label": "Nos ossos irregulares.",
+                "correct": false,
+                "feedback": "Irregular é o que não cabe em nenhum grupo, e o cúbico cabe nos curtos."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-6-2"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m18-03",
+      "code": "M18.03",
+      "title": "A coluna por regiões",
+      "objective": "Hoje você vai conseguir nomear as regiões da coluna, o número de vértebras de cada uma e o sentido das curvaturas.",
+      "competency": "Nomear as regiões da coluna vertebral, o número de vértebras de cada uma e o sentido das curvaturas.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de estudo",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Numa radiografia de modelo, a coluna parece uma fila de blocos iguais."
+          },
+          {
+            "speaker": "lia",
+            "text": "De lado, essa fila faz curvas, e cada região tem o seu jeito."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Quantas regiões você já saberia nomear de cabeça?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Quatro curvas, cinco regiões",
+        "body": "A coluna tem sete vértebras cervicais, doze torácicas e cinco lombares, depois o sacro e o cóccix, de vértebras fundidas. De lado, faz quatro curvas. Na cervical e na lombar, a concavidade fica para trás; na torácica e na sacrococcígea, para a frente. As duas últimas vêm do feto. A cervical surge quando a criança sustenta a cabeça, e a lombar, quando fica em pé. Na figura, a frente do corpo fica à esquerda.",
+        "keyPoints": [
+          "Cervical 7, torácica 12, lombar 5.",
+          "Cervical e lombar: concavidade para trás.",
+          "Torácica e sacrococcígea: concavidade para a frente."
+        ],
+        "visual": "coluna-regioes"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. A vértebra é um osso de qual grupo de forma?",
+          "options": [
+            {
+              "label": "Irregular, de forma complexa.",
+              "correct": true,
+              "feedback": "A vértebra tem forma complexa e não cabe nos outros grupos: é irregular."
+            },
+            {
+              "label": "Longo, por ser comprido e estreito.",
+              "correct": false,
+              "feedback": "A vértebra não é mais comprida do que larga, como o fêmur ou o úmero."
+            },
+            {
+              "label": "Plano, por ser fino e curvo.",
+              "correct": false,
+              "feedback": "O osso plano é fino, como o esterno e a escápula, e a vértebra tem forma complexa."
+            },
+            {
+              "label": "Curto, por parecer um cubo.",
+              "correct": false,
+              "feedback": "O osso curto parece um cubo, como os do punho, e a vértebra não tem essa forma."
+            }
+          ],
+          "help": "Lembre onde entram os ossos que não cabem em nenhum outro grupo.",
+          "sourceIds": [
+            "openstax-ap-6-2"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule as quatro partes da coluna, tocando na ficha e no ponto. A figura mostra a coluna de perfil, com a frente do corpo à esquerda.",
+          "diagramId": "coluna-regioes",
+          "points": [
+            {
+              "label": "Região cervical",
+              "x": 0.4531,
+              "y": 0.1292,
+              "where": "no alto, o trecho mais curto e delgado"
+            },
+            {
+              "label": "Região torácica",
+              "x": 0.5369,
+              "y": 0.3834,
+              "where": "o trecho longo, que se abaula para trás"
+            },
+            {
+              "label": "Região lombar",
+              "x": 0.455,
+              "y": 0.6709,
+              "where": "o trecho de blocos maiores, que se abaula para a frente"
+            },
+            {
+              "label": "Sacro e cóccix",
+              "x": 0.525,
+              "y": 0.8833,
+              "where": "na base, o bloco único em forma de cunha"
+            }
+          ],
+          "feedbackCorrect": "Isso: cada região ocupa o seu trecho, do alto até a base da coluna.",
+          "feedbackIncorrect": "Alguma ficha está fora do lugar: siga a coluna de cima para baixo, na ordem das regiões.",
+          "help": "Comece pelo trecho mais alto e vá descendo.",
+          "sourceIds": [
+            "openstax-ap-7-3"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase sobre o sentido das curvas, usando o banco de palavras.",
+          "text": "A curva cervical e a lombar têm a concavidade voltada para {{1}}; a torácica, voltada para {{2}}.",
+          "answers": [
+            "trás",
+            "a frente"
+          ],
+          "distractors": [
+            "a direita",
+            "a esquerda",
+            "cima"
+          ],
+          "feedbackCorrect": "Isso: cervical e lombar abrem a concavidade para trás, e a torácica abre para a frente.",
+          "feedbackIncorrect": "Retome o conceito: cervical e lombar têm concavidade para trás; torácica e sacrococcígea, para a frente. De perfil, só há frente e trás.",
+          "help": "Vista de lado, só existem dois sentidos: frente ou trás.",
+          "sourceIds": [
+            "openstax-ap-7-3"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada curva pelo momento em que ela aparece.",
+          "categories": [
+            "Vem do feto",
+            "Surge depois do nascimento"
+          ],
+          "items": [
+            {
+              "label": "Curva torácica",
+              "category": "Vem do feto"
+            },
+            {
+              "label": "Curva cervical",
+              "category": "Surge depois do nascimento"
+            },
+            {
+              "label": "Curva sacrococcígea",
+              "category": "Vem do feto"
+            },
+            {
+              "label": "Curva lombar",
+              "category": "Surge depois do nascimento"
+            }
+          ],
+          "feedbackCorrect": "Isso: torácica e sacrococcígea vêm do feto; cervical e lombar surgem com a cabeça erguida e com o ficar em pé.",
+          "feedbackIncorrect": "Lembre: as duas curvas com concavidade para a frente vêm do feto, e as outras surgem com a cabeça erguida e o ficar em pé.",
+          "help": "Pense no que o bebê aprende a fazer: sustentar a cabeça e ficar em pé.",
+          "sourceIds": [
+            "openstax-ap-7-3"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Na bancada, Lia pede que você conte as vértebras da coluna que ficam acima do sacro. Quantas são?",
+          "options": [
+            {
+              "label": "22",
+              "correct": false,
+              "feedback": "Faltam duas vértebras na conta: some sete cervicais, doze torácicas e cinco lombares."
+            },
+            {
+              "label": "29",
+              "correct": false,
+              "feedback": "Esse total inclui as cinco vértebras fundidas do sacro, que ficam abaixo da região lombar."
+            },
+            {
+              "label": "24",
+              "correct": true,
+              "feedback": "Sete cervicais, doze torácicas e cinco lombares somam 24 vértebras acima do sacro."
+            },
+            {
+              "label": "33",
+              "correct": false,
+              "feedback": "Esse total inclui as vértebras do sacro e do cóccix, que ficam abaixo da região lombar."
+            }
+          ],
+          "help": "Some só as três regiões que ficam acima do sacro.",
+          "sourceIds": [
+            "openstax-ap-7-1",
+            "openstax-ap-7-3"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você lê a coluna por regiões",
+        "body": "Agora você consegue nomear as regiões da coluna, dizer quantas vértebras há acima do sacro e indicar para onde cada curva abre a concavidade, vista de lado.",
+        "line": {
+          "speaker": "lia",
+          "text": "Na próxima aula, vamos ver onde os ossos se encontram."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "A criança passa a ficar em pé e a andar. Qual curva da coluna surge com isso?",
+          "options": [
+            {
+              "label": "A curva lombar.",
+              "correct": true,
+              "feedback": "A curva lombar surge quando a criança fica em pé e passa a andar."
+            },
+            {
+              "label": "A curva torácica.",
+              "correct": false,
+              "feedback": "A torácica já existe no feto, e não surge com o ficar em pé."
+            },
+            {
+              "label": "A curva sacrococcígea.",
+              "correct": false,
+              "feedback": "A sacrococcígea também vem do feto, antes de a criança ficar em pé."
+            },
+            {
+              "label": "A curva cervical.",
+              "correct": false,
+              "feedback": "A cervical surge antes, quando a criança passa a sustentar a cabeça."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-7-3"
+          ]
+        },
+        {
+          "prompt": "Vista de perfil, com a frente do corpo à esquerda, qual curva tem a concavidade voltada para a frente?",
+          "options": [
+            {
+              "label": "A curva cervical.",
+              "correct": false,
+              "feedback": "A cervical abre a concavidade para trás."
+            },
+            {
+              "label": "A curva lombar.",
+              "correct": false,
+              "feedback": "A lombar abre a concavidade para trás."
+            },
+            {
+              "label": "A curva torácica.",
+              "correct": true,
+              "feedback": "A torácica abre a concavidade para a frente."
+            },
+            {
+              "label": "Nenhuma, porque a coluna é reta de perfil.",
+              "correct": false,
+              "feedback": "De perfil a coluna faz curvas: quatro, de sentidos alternados."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-7-3"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: na curva lombar, a concavidade fica para...",
+          "item": {
+            "prompt": "Para onde fica a concavidade da curva lombar?",
+            "options": [
+              {
+                "label": "Para a frente, como na torácica.",
+                "correct": false,
+                "feedback": "A concavidade para a frente é da torácica e da sacrococcígea, e não da lombar."
+              },
+              {
+                "label": "Para a direita do paciente.",
+                "correct": false,
+                "feedback": "A coluna de perfil tem curvas para a frente ou para trás, e não para a direita."
+              },
+              {
+                "label": "Para a esquerda do paciente.",
+                "correct": false,
+                "feedback": "Curvas para o lado esquerdo não fazem parte das quatro curvas normais vistas de perfil."
+              },
+              {
+                "label": "Para trás.",
+                "correct": true,
+                "feedback": "Na lombar, assim como na cervical, a concavidade fica para trás."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-7-3"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Um bebê começa a sustentar a cabeça. Qual curva da coluna começa a se formar?",
+            "options": [
+              {
+                "label": "A curva lombar.",
+                "correct": false,
+                "feedback": "A lombar surge mais tarde, quando a criança fica em pé."
+              },
+              {
+                "label": "A curva cervical.",
+                "correct": true,
+                "feedback": "A cervical surge quando a criança passa a sustentar a cabeça."
+              },
+              {
+                "label": "A curva torácica.",
+                "correct": false,
+                "feedback": "A torácica já existe desde o feto."
+              },
+              {
+                "label": "A curva sacrococcígea.",
+                "correct": false,
+                "feedback": "A sacrococcígea também já existe desde o feto."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-7-3"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m18-04",
+      "code": "M18.04",
+      "title": "Articulações e movimentos",
+      "objective": "Hoje você vai conseguir distinguir os tipos de articulação e nomear os principais movimentos.",
+      "competency": "Distinguir articulações fibrosas, cartilagíneas e sinoviais, nomear as partes da sinovial e os movimentos de flexão, extensão, abdução, adução e rotação.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Laboratório didático",
+        "lines": [
+          {
+            "speaker": "caio",
+            "text": "Separei um crânio e um quadril de modelo. Um quase não mexe, e o outro gira em várias direções."
+          },
+          {
+            "speaker": "duda",
+            "text": "Os dois têm articulações, mas parecem de mundos diferentes."
+          },
+          {
+            "speaker": "pixel",
+            "text": "O que um tipo de articulação tem que o outro não tem? Vamos olhar."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Onde os ossos se encontram",
+        "body": "Na articulação fibrosa, tecido fibroso une os ossos, como nas suturas do crânio. Na cartilagínea, cartilagem os une, como na sínfise púbica e nos discos entre as vértebras. Na sinovial, como o ombro e o cotovelo, o movimento é livre: uma cápsula fecha a cavidade com líquido, a membrana sinovial forra a cápsula e produz o líquido, e a cartilagem cobre as pontas dos ossos. Ligamentos ligam osso a osso; tendões ligam músculo a osso. Flexão diminui o ângulo, e extensão o aumenta. Abdução afasta da linha média; adução aproxima. Rotação gira em torno do próprio eixo.",
+        "keyPoints": [
+          "Fibrosa e cartilagínea mexem pouco ou nada; a sinovial mexe livremente.",
+          "Ligamento liga osso a osso; tendão liga músculo a osso.",
+          "Flexão e extensão mudam o ângulo; abdução e adução, a distância da linha média."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. O que há de diferente nas vértebras do sacro e do cóccix?",
+          "options": [
+            {
+              "label": "Há o dobro de vértebras da região lombar.",
+              "correct": false,
+              "feedback": "O sacro tem cinco vértebras fundidas, o mesmo número da região lombar."
+            },
+            {
+              "label": "São vértebras soltas, sem fusão entre elas.",
+              "correct": false,
+              "feedback": "No sacro e no cóccix as vértebras se fundem, e por isso formam blocos únicos."
+            },
+            {
+              "label": "Estão fundidas, formando blocos únicos.",
+              "correct": true,
+              "feedback": "Cinco vértebras se fundem no sacro, e as do cóccix também se fundem em um bloco."
+            },
+            {
+              "label": "Elas pertencem ao esqueleto apendicular.",
+              "correct": false,
+              "feedback": "Sacro e cóccix fazem parte da coluna vertebral, que é do esqueleto axial."
+            }
+          ],
+          "help": "Pense no formato do sacro e do cóccix na figura da coluna.",
+          "sourceIds": [
+            "openstax-ap-7-3"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule cinco partes da articulação sinovial, tocando na ficha e no ponto. A figura mostra a articulação em corte.",
+          "diagramId": "articulacao-sinovial",
+          "points": [
+            {
+              "label": "Osso",
+              "x": 0.5,
+              "y": 0.15,
+              "where": "no alto, o bloco que desce e se alarga"
+            },
+            {
+              "label": "Cápsula articular",
+              "x": 0.2656,
+              "y": 0.4583,
+              "where": "à esquerda, a faixa branca que envolve o espaço"
+            },
+            {
+              "label": "Cartilagem articular",
+              "x": 0.4313,
+              "y": 0.5292,
+              "where": "faixa clara que cobre a ponta de baixo"
+            },
+            {
+              "label": "Cavidade articular",
+              "x": 0.6,
+              "y": 0.4917,
+              "where": "o espaço escuro entre as pontas, à direita"
+            },
+            {
+              "label": "Ligamento",
+              "x": 0.7719,
+              "y": 0.4792,
+              "where": "à direita, por fora de tudo, a faixa cinza curva"
+            }
+          ],
+          "distractors": [
+            "Tendão"
+          ],
+          "feedbackCorrect": "Isso: cada ficha está sobre a parte certa da articulação sinovial.",
+          "feedbackIncorrect": "Alguma ficha está no ponto errado: o ligamento fica por fora, e a cavidade, entre as pontas dos ossos.",
+          "help": "Comece pelo osso, no alto, e desça até as pontas.",
+          "sourceIds": [
+            "openstax-ap-9-4"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada articulação no tipo a que ela pertence.",
+          "categories": [
+            "Fibrosa",
+            "Cartilagínea",
+            "Sinovial"
+          ],
+          "items": [
+            {
+              "label": "Suturas do crânio",
+              "category": "Fibrosa"
+            },
+            {
+              "label": "Ombro",
+              "category": "Sinovial"
+            },
+            {
+              "label": "Sínfise púbica",
+              "category": "Cartilagínea"
+            },
+            {
+              "label": "Cotovelo",
+              "category": "Sinovial"
+            },
+            {
+              "label": "Disco entre as vértebras",
+              "category": "Cartilagínea"
+            }
+          ],
+          "feedbackCorrect": "Isso: o crânio tem articulação fibrosa; púbis e discos, cartilagínea; ombro e cotovelo, sinovial.",
+          "feedbackIncorrect": "Pergunte o que une os ossos: tecido fibroso, cartilagem ou uma cavidade com líquido, que dá movimento livre.",
+          "help": "Veja o que une os ossos em cada articulação.",
+          "sourceIds": [
+            "openstax-ap-9-1"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada movimento ao que ele faz.",
+          "pairs": [
+            {
+              "left": "Flexão",
+              "right": "Diminui o ângulo entre os ossos"
+            },
+            {
+              "left": "Extensão",
+              "right": "Aumenta o ângulo entre os ossos"
+            },
+            {
+              "left": "Abdução",
+              "right": "Afasta o membro da linha média"
+            },
+            {
+              "left": "Adução",
+              "right": "Aproxima o membro da linha média"
+            }
+          ],
+          "feedbackCorrect": "Isso: flexão e extensão mudam o ângulo, e abdução e adução mudam a distância da linha média.",
+          "feedbackIncorrect": "Separe os pares: flexão e extensão mexem no ângulo; abdução e adução, na distância até a linha média.",
+          "help": "Dois movimentos falam de ângulo, e os outros dois falam da linha média.",
+          "sourceIds": [
+            "openstax-ap-9-5"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "blitz",
+          "role": "transfer",
+          "prompt": "Responda verdadeiro ou falso a cada afirmação sobre articulações e movimentos.",
+          "statements": [
+            {
+              "text": "Levantar o braço de lado, afastando-o do corpo, é abdução.",
+              "correct": true,
+              "feedback": "Abdução afasta o membro da linha média, como ao levantar o braço de lado."
+            },
+            {
+              "text": "Dobrar o joelho, diminuindo o ângulo entre coxa e perna, é extensão.",
+              "correct": false,
+              "feedback": "Dobrar diminui o ângulo, e isso é flexão; extensão é endireitar e aumentar o ângulo."
+            },
+            {
+              "text": "Uma sutura do crânio tem movimento livre, como o ombro.",
+              "correct": false,
+              "feedback": "As suturas são fibrosas e quase não se movem; o movimento livre é da articulação sinovial."
+            },
+            {
+              "text": "Girar a cabeça de um lado para o outro é um movimento de rotação.",
+              "correct": true,
+              "feedback": "Rotação é girar em torno do próprio eixo, como ao virar a cabeça de um lado para o outro."
+            },
+            {
+              "text": "Baixar o braço até encostá-lo no tronco é adução.",
+              "correct": true,
+              "feedback": "Adução aproxima o membro da linha média, como ao baixar o braço até o tronco."
+            },
+            {
+              "text": "O tendão liga um osso a outro e limita o movimento excessivo.",
+              "correct": false,
+              "feedback": "Quem liga osso a osso é o ligamento; o tendão liga músculo a osso."
+            }
+          ],
+          "feedbackCorrect": "Você separou os movimentos e os tipos de articulação no ritmo da rodada.",
+          "feedbackIncorrect": "Reveja as afirmações: cada uma tem a própria explicação no retorno.",
+          "help": "Leia cada afirmação com calma antes de responder.",
+          "sourceIds": [
+            "openstax-ap-9-1",
+            "openstax-ap-9-4",
+            "openstax-ap-9-5"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você distingue articulações e movimentos",
+        "body": "Agora você consegue dizer se uma articulação é fibrosa, cartilagínea ou sinovial, nomear as partes da sinovial e usar flexão, extensão, abdução, adução e rotação para descrever um movimento.",
+        "line": {
+          "speaker": "caio",
+          "text": "Com os nomes na mão, a turma já pode ir procurar os relevos do corpo."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Qual estrutura liga um osso a outro e limita o movimento excessivo da articulação?",
+          "options": [
+            {
+              "label": "O tendão.",
+              "correct": false,
+              "feedback": "O tendão liga músculo a osso, e não um osso a outro."
+            },
+            {
+              "label": "A cartilagem articular.",
+              "correct": false,
+              "feedback": "A cartilagem cobre as pontas dos ossos e reduz o atrito, mas não liga um osso ao outro."
+            },
+            {
+              "label": "O líquido sinovial.",
+              "correct": false,
+              "feedback": "O líquido lubrifica a articulação, e não liga os ossos."
+            },
+            {
+              "label": "O ligamento.",
+              "correct": true,
+              "feedback": "O ligamento liga osso a osso e limita o movimento excessivo."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-9-4"
+          ]
+        },
+        {
+          "prompt": "Qual estrutura da articulação sinovial forra a cápsula por dentro e produz o líquido lubrificante?",
+          "options": [
+            {
+              "label": "A cartilagem articular.",
+              "correct": false,
+              "feedback": "A cartilagem cobre as pontas dos ossos, e não forra a cápsula nem produz o líquido."
+            },
+            {
+              "label": "A membrana sinovial.",
+              "correct": true,
+              "feedback": "A membrana sinovial forra a cápsula por dentro e produz o líquido."
+            },
+            {
+              "label": "O ligamento.",
+              "correct": false,
+              "feedback": "O ligamento liga os ossos, e não produz líquido."
+            },
+            {
+              "label": "O tendão.",
+              "correct": false,
+              "feedback": "O tendão liga o músculo ao osso, e não forra a cápsula."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-9-4"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o tendão liga... a osso, e o ligamento liga osso a...",
+          "item": {
+            "prompt": "O que o tendão liga?",
+            "options": [
+              {
+                "label": "Músculo a osso.",
+                "correct": true,
+                "feedback": "O tendão prende o músculo ao osso."
+              },
+              {
+                "label": "Osso a osso.",
+                "correct": false,
+                "feedback": "Quem liga osso a osso é o ligamento."
+              },
+              {
+                "label": "Cartilagem a cartilagem.",
+                "correct": false,
+                "feedback": "O tendão não liga cartilagens: ele prende o músculo ao osso."
+              },
+              {
+                "label": "Osso a pele.",
+                "correct": false,
+                "feedback": "O tendão não chega à pele: ele prende o músculo ao osso."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-9-4"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Esticar um joelho dobrado aumenta o ângulo entre coxa e perna. Que movimento é esse?",
+            "options": [
+              {
+                "label": "Flexão.",
+                "correct": false,
+                "feedback": "A flexão dobra a articulação e diminui o ângulo."
+              },
+              {
+                "label": "Abdução.",
+                "correct": false,
+                "feedback": "Abdução afasta o membro da linha média, e não muda o ângulo do joelho."
+              },
+              {
+                "label": "Extensão.",
+                "correct": true,
+                "feedback": "Extensão endireita a articulação e aumenta o ângulo."
+              },
+              {
+                "label": "Adução.",
+                "correct": false,
+                "feedback": "Adução aproxima o membro da linha média, e não endireita o joelho."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-9-5"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m18-05",
+      "code": "M18.05",
+      "title": "Marcos de superfície",
+      "objective": "Hoje você vai conseguir nomear e localizar os marcos de superfície do tronco e da pelve.",
+      "competency": "Nomear e localizar os marcos de superfície do tronco e da pelve numa figura de frente.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Laboratório didático",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Nessa figura há pontos amarelos, mas eu só enxergo o contorno do corpo e uns ossos fracos."
+          },
+          {
+            "speaker": "caio",
+            "text": "Marco de superfície é um relevo que a gente localiza pela pele e usa de referência."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Quais desses pontos você já saberia apontar? Vamos conferir."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Relevos que se localizam pela pele",
+        "body": "Marco de superfície é um relevo do osso que se localiza pela pele. No tronco: a incisura jugular, topo do esterno na base do pescoço; o processo xifoide, ponta de baixo do esterno; e a margem costal, borda de baixo do tórax. Na pelve: a crista ilíaca, borda de cima do osso do quadril; a espinha ilíaca ântero-superior, ponta da frente da crista; a sínfise púbica, encontro dos dois púbis; e o trocânter maior do fêmur, na lateral da coxa.",
+        "keyPoints": [
+          "Marco: relevo usado como referência.",
+          "Crista, espinha e trocânter existem dos dois lados do corpo.",
+          "Avise e peça licença antes de tocar."
+        ],
+        "visual": "marcos-de-superficie"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. Uma articulação com cavidade, líquido e cápsula, de movimento livre, é de que tipo?",
+          "options": [
+            {
+              "label": "Fibrosa.",
+              "correct": false,
+              "feedback": "A fibrosa une os ossos com tecido fibroso e quase não se move, como as suturas do crânio."
+            },
+            {
+              "label": "Sinovial.",
+              "correct": true,
+              "feedback": "A articulação sinovial tem cavidade com líquido e cápsula, e permite movimento livre."
+            },
+            {
+              "label": "Cartilagínea.",
+              "correct": false,
+              "feedback": "A cartilagínea une os ossos com cartilagem e se move pouco, como a sínfise púbica."
+            },
+            {
+              "label": "Nenhuma: a cavidade com líquido não existe em articulação.",
+              "correct": false,
+              "feedback": "A cavidade com líquido existe, e é justamente o que caracteriza a articulação sinovial."
+            }
+          ],
+          "help": "Pense no tipo em que o líquido lubrifica as pontas dos ossos.",
+          "sourceIds": [
+            "openstax-ap-9-1",
+            "openstax-ap-9-4"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule seis marcos de superfície, tocando na ficha e no ponto. A figura mostra o paciente de frente.",
+          "diagramId": "marcos-de-superficie",
+          "points": [
+            {
+              "label": "Incisura jugular",
+              "x": 0.5,
+              "y": 0.12,
+              "where": "no alto, o afundamento na base do pescoço"
+            },
+            {
+              "label": "Processo xifoide",
+              "x": 0.5,
+              "y": 0.404,
+              "where": "no centro do peito, a ponta de baixo do osso reto"
+            },
+            {
+              "label": "Crista ilíaca",
+              "x": 0.65,
+              "y": 0.65,
+              "where": "lado esquerdo do paciente, a borda curva da cintura"
+            },
+            {
+              "label": "Espinha ilíaca ântero-superior",
+              "x": 0.331,
+              "y": 0.762,
+              "where": "lado direito do paciente, a ponta arredondada do quadril"
+            },
+            {
+              "label": "Sínfise púbica",
+              "x": 0.5,
+              "y": 0.875,
+              "where": "embaixo no centro, onde os dois ossos se encontram"
+            },
+            {
+              "label": "Trocânter maior",
+              "x": 0.719,
+              "y": 0.867,
+              "where": "lado esquerdo do paciente, a saliência lateral da coxa"
+            }
+          ],
+          "feedbackCorrect": "Isso: cada marco está sobre o relevo certo, do pescoço até a coxa.",
+          "feedbackIncorrect": "Algum marco ficou no lugar errado: lembre que crista, espinha e trocânter aparecem de um lado só nesta tarefa.",
+          "help": "Comece pelo alto, na base do pescoço, e desça pelo corpo.",
+          "sourceIds": [
+            "openstax-ap-7-4",
+            "openstax-ap-8-3",
+            "openstax-ap-8-4"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Toque no marco que forma a borda inferior do tórax, acima do abdome, do lado direito do paciente.",
+          "diagramId": "marcos-de-superficie",
+          "regions": [
+            {
+              "label": "Incisura jugular",
+              "x": 0.46,
+              "y": 0.08,
+              "width": 0.08,
+              "height": 0.08
+            },
+            {
+              "label": "Margem costal inferior",
+              "x": 0.2975,
+              "y": 0.506,
+              "width": 0.08,
+              "height": 0.08,
+              "correct": true
+            },
+            {
+              "label": "Crista ilíaca",
+              "x": 0.61,
+              "y": 0.61,
+              "width": 0.08,
+              "height": 0.08
+            },
+            {
+              "label": "Sínfise púbica",
+              "x": 0.46,
+              "y": 0.835,
+              "width": 0.08,
+              "height": 0.08
+            },
+            {
+              "label": "Trocânter maior",
+              "x": 0.679,
+              "y": 0.827,
+              "width": 0.08,
+              "height": 0.08
+            }
+          ],
+          "feedbackCorrect": "Isso: a margem costal inferior é a borda de baixo do tórax, acima do abdome.",
+          "feedbackIncorrect": "Esse marco não é a borda do tórax. Suba da pelve até onde as costelas terminam, do lado direito do paciente.",
+          "help": "Suba da pelve até onde a caixa torácica termina.",
+          "sourceIds": [
+            "wikipedia-costal-margin"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada marco ao lugar onde ele fica.",
+          "pairs": [
+            {
+              "left": "Incisura jugular",
+              "right": "Topo do esterno, na base do pescoço"
+            },
+            {
+              "left": "Sínfise púbica",
+              "right": "Encontro dos púbis dos dois ossos do quadril"
+            },
+            {
+              "left": "Trocânter maior",
+              "right": "Saliência do fêmur, na lateral da coxa"
+            },
+            {
+              "left": "Espinha ilíaca ântero-superior",
+              "right": "Ponta da frente da crista ilíaca"
+            }
+          ],
+          "feedbackCorrect": "Isso: cada marco está ligado ao osso e à posição em que se localiza.",
+          "feedbackIncorrect": "Releia o conceito: pense em qual osso cada relevo pertence e em que parte do corpo ele fica.",
+          "help": "Pense no osso a que cada relevo pertence.",
+          "sourceIds": [
+            "openstax-ap-7-4",
+            "openstax-ap-8-3",
+            "openstax-ap-8-4"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "ordering",
+          "role": "transfer",
+          "prompt": "Com o paciente em pé, de frente para você, ordene os marcos do mais alto ao mais baixo.",
+          "items": [
+            "Incisura jugular",
+            "Processo xifoide",
+            "Crista ilíaca",
+            "Sínfise púbica"
+          ],
+          "feedbackCorrect": "Isso: o esterno vem primeiro, da incisura ao xifoide; na pelve, a crista é a borda de cima e a sínfise fica embaixo.",
+          "feedbackIncorrect": "Desça do pescoço até a pelve: a incisura é o topo do esterno, o xifoide a ponta de baixo, e a crista fica acima da sínfise.",
+          "help": "Desça pelo corpo, do pescoço até a pelve.",
+          "sourceIds": [
+            "openstax-ap-7-4",
+            "openstax-ap-8-3"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você nomeia os marcos do tronco e da pelve",
+        "body": "Agora você consegue nomear e localizar, numa figura de frente, a incisura jugular, o processo xifoide, a margem costal, a crista ilíaca, a espinha ilíaca ântero-superior, a sínfise púbica e o trocânter maior.",
+        "line": {
+          "speaker": "lia",
+          "text": "Na próxima aula, você usa dois marcos para achar uma região inteira."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "A espinha ilíaca ântero-superior pertence a qual osso?",
+          "options": [
+            {
+              "label": "Ao fêmur, na coxa.",
+              "correct": false,
+              "feedback": "O fêmur é osso do membro, e o relevo dele na lateral da coxa é o trocânter maior."
+            },
+            {
+              "label": "Ao esterno, no peito.",
+              "correct": false,
+              "feedback": "O esterno é um osso do peito, e o relevo dele no topo é a incisura jugular."
+            },
+            {
+              "label": "Ao osso do quadril.",
+              "correct": true,
+              "feedback": "A espinha é a ponta da frente da crista ilíaca, que é a borda de cima do osso do quadril."
+            },
+            {
+              "label": "Ao sacro, na coluna.",
+              "correct": false,
+              "feedback": "O sacro faz parte da coluna, e a espinha ilíaca é um relevo do osso do quadril."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-8-3"
+          ]
+        },
+        {
+          "prompt": "A incisura jugular fica no topo de qual osso?",
+          "options": [
+            {
+              "label": "Do esterno.",
+              "correct": true,
+              "feedback": "A incisura jugular é o afundamento no topo do esterno, na base do pescoço."
+            },
+            {
+              "label": "Do fêmur.",
+              "correct": false,
+              "feedback": "O fêmur é um osso da coxa, bem longe da base do pescoço."
+            },
+            {
+              "label": "Da escápula.",
+              "correct": false,
+              "feedback": "A escápula fica nas costas e não forma o afundamento da base do pescoço."
+            },
+            {
+              "label": "Do osso do quadril.",
+              "correct": false,
+              "feedback": "O osso do quadril fica na pelve, longe da base do pescoço."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-7-4"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: a incisura jugular fica na base do pescoço, no topo do...",
+          "item": {
+            "prompt": "Qual marco é o afundamento na base do pescoço, no topo do esterno?",
+            "options": [
+              {
+                "label": "O processo xifoide.",
+                "correct": false,
+                "feedback": "O processo xifoide é a ponta de baixo do esterno."
+              },
+              {
+                "label": "A sínfise púbica.",
+                "correct": false,
+                "feedback": "A sínfise púbica fica na pelve, onde os dois púbis se encontram."
+              },
+              {
+                "label": "O trocânter maior.",
+                "correct": false,
+                "feedback": "O trocânter maior é uma saliência do fêmur, na lateral da coxa."
+              },
+              {
+                "label": "A incisura jugular.",
+                "correct": true,
+                "feedback": "A incisura jugular é o afundamento no topo do esterno."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-7-4"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num modelo de pelve, Duda aponta a ponta arredondada da frente da crista ilíaca. Que marco é esse?",
+            "options": [
+              {
+                "label": "O trocânter maior do fêmur.",
+                "correct": false,
+                "feedback": "O trocânter maior é uma saliência do fêmur, na lateral da coxa, e não da crista ilíaca."
+              },
+              {
+                "label": "A espinha ilíaca ântero-superior.",
+                "correct": true,
+                "feedback": "A espinha ilíaca ântero-superior é a ponta da frente da crista ilíaca."
+              },
+              {
+                "label": "A sínfise púbica, na pelve.",
+                "correct": false,
+                "feedback": "A sínfise púbica fica embaixo, onde os dois púbis se encontram."
+              },
+              {
+                "label": "O processo xifoide do esterno.",
+                "correct": false,
+                "feedback": "O processo xifoide é a ponta de baixo do esterno, no tórax."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-8-3"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m18-06",
+      "code": "M18.06",
+      "title": "Do marco à região",
+      "objective": "Hoje você vai conseguir usar marcos para achar uma região do tronco ou da pelve, avisando o paciente antes de tocar.",
+      "competency": "Usar marcos de superfície para delimitar regiões do tronco e da pelve, avisando o paciente e pedindo licença antes de tocar.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Sala de prática",
+        "lines": [
+          {
+            "speaker": "lia",
+            "text": "Hoje a Dona Marta será a paciente simulada. A tarefa é achar a região do esterno e a do osso do quadril."
+          },
+          {
+            "speaker": "duda",
+            "text": "Eu ia começar pelo quadril: é só pôr a mão e procurar a crista."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Além de saber o marco, o que mais entra nessa tarefa?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Do marco à região",
+        "body": "Dois marcos delimitam uma região. O esterno vai da incisura jugular, em cima, ao processo xifoide, embaixo. O osso do quadril tem a crista ilíaca, na linha da cintura, como borda de cima e se junta ao do outro lado na sínfise púbica. Antes de tocar para achar um marco, avise o paciente, explique o motivo e peça licença; só toque se ele concordar. Em áreas sensíveis, exponha só o necessário e respeite as preferências dele. Se recusar, não insista: chame a supervisão.",
+        "keyPoints": [
+          "Dois marcos delimitam uma região.",
+          "Avise, explique e peça licença antes de tocar.",
+          "Sem licença, não toque: chame a supervisão."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Retome a aula anterior. Qual marco fica na ponta de baixo do esterno?",
+          "options": [
+            {
+              "label": "A incisura jugular.",
+              "correct": false,
+              "feedback": "A incisura jugular fica no topo do esterno, na base do pescoço."
+            },
+            {
+              "label": "A sínfise púbica.",
+              "correct": false,
+              "feedback": "A sínfise púbica fica na pelve, onde os dois púbis se encontram."
+            },
+            {
+              "label": "O trocânter maior.",
+              "correct": false,
+              "feedback": "O trocânter maior é uma saliência do fêmur, na lateral da coxa."
+            },
+            {
+              "label": "O processo xifoide.",
+              "correct": true,
+              "feedback": "O processo xifoide é a ponta de baixo do esterno."
+            }
+          ],
+          "help": "Pense no marco oposto ao que fica na base do pescoço.",
+          "sourceIds": [
+            "openstax-ap-7-4"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Toque nos dois marcos que delimitam o esterno, o de cima e o de baixo.",
+          "diagramId": "marcos-de-superficie",
+          "regions": [
+            {
+              "label": "Incisura jugular",
+              "x": 0.46,
+              "y": 0.08,
+              "width": 0.08,
+              "height": 0.08,
+              "correct": true
+            },
+            {
+              "label": "Margem costal inferior",
+              "x": 0.2975,
+              "y": 0.506,
+              "width": 0.08,
+              "height": 0.08
+            },
+            {
+              "label": "Processo xifoide",
+              "x": 0.46,
+              "y": 0.364,
+              "width": 0.08,
+              "height": 0.08,
+              "correct": true
+            },
+            {
+              "label": "Crista ilíaca",
+              "x": 0.61,
+              "y": 0.61,
+              "width": 0.08,
+              "height": 0.08
+            },
+            {
+              "label": "Sínfise púbica",
+              "x": 0.46,
+              "y": 0.835,
+              "width": 0.08,
+              "height": 0.08
+            },
+            {
+              "label": "Trocânter maior",
+              "x": 0.679,
+              "y": 0.827,
+              "width": 0.08,
+              "height": 0.08
+            }
+          ],
+          "feedbackCorrect": "Isso: o esterno vai da incisura jugular, no alto, ao processo xifoide, na ponta de baixo.",
+          "feedbackIncorrect": "Esses marcos não limitam o esterno: procure o começo dele, na base do pescoço, e a ponta de baixo do mesmo osso.",
+          "help": "O esterno é o osso reto no meio do peito: onde ele começa e onde termina?",
+          "sourceIds": [
+            "openstax-ap-7-4"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "conversation",
+          "role": "practice",
+          "speaker": "paciente",
+          "name": "Dona Marta",
+          "prompt": "Dona Marta, paciente simulada, está ansiosa antes de você localizar a crista ilíaca. Conduza a conversa.",
+          "turns": [
+            {
+              "line": "Vai encostar em mim? Eu queria saber o que é isso antes.",
+              "options": [
+                {
+                  "label": "É rápido e não dói, a senhora nem vai sentir. Relaxe que eu só encosto.",
+                  "correct": false,
+                  "reply": "Tá, mas eu continuo sem saber o que você procura. Fico meio perdida."
+                },
+                {
+                  "label": "Vou achar um relevo do osso do quadril. Posso tocar na cintura?",
+                  "correct": true,
+                  "reply": "Ah, é um osso da cintura que se acha pela pele. Entendi, mais ou menos."
+                },
+                {
+                  "label": "É procedimento padrão do setor, então eu começo e explico no caminho, tudo bem?",
+                  "correct": false,
+                  "reply": "Explicar no caminho... não sei. Eu preferia saber antes de começar."
+                }
+              ]
+            },
+            {
+              "line": "Pode. Só que na pelve eu fico sem graça, é uma região delicada.",
+              "options": [
+                {
+                  "label": "Obrigado por avisar. Fica coberta, e só sigo se estiver à vontade.",
+                  "correct": true,
+                  "reply": "Assim fico mais tranquila. Pode seguir, mas devagar."
+                },
+                {
+                  "label": "Não precisa ter vergonha, é só um osso, e já estou quase terminando.",
+                  "correct": false,
+                  "reply": "Mesmo assim eu fico sem graça. Mas vá falando, estou ouvindo."
+                },
+                {
+                  "label": "Então o seu acompanhante toca no meu lugar, sem perguntar nada.",
+                  "correct": false,
+                  "reply": "O acompanhante? Ele nem sabe o que está procurando, né?"
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso: você explicou o motivo, pediu licença e respeitou o desconforto dela antes de qualquer toque.",
+          "feedbackIncorrect": "Reveja a conversa: explicar o motivo, pedir licença e respeitar o desconforto vêm antes de qualquer toque.",
+          "help": "O que a paciente precisa saber e poder decidir antes de ser tocada?",
+          "sourceIds": [
+            "intechopen-shakwane-2024"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "ordering",
+          "role": "safety",
+          "criticalSafety": true,
+          "prompt": "Coloque em ordem, na ordem ensinada nesta aula, os passos para localizar um marco no paciente simulado.",
+          "items": [
+            "Avisar o paciente do que vai fazer e explicar o motivo",
+            "Pedir licença e esperar a resposta",
+            "Localizar o marco só se ele concordar",
+            "Chamar a supervisão se ele recusar ou ficar desconfortável"
+          ],
+          "feedbackCorrect": "Isso: avisar, pedir licença, localizar só com a concordância e chamar a supervisão diante de recusa ou desconforto.",
+          "feedbackIncorrect": "Releia o conceito: o aviso e a licença vêm antes do toque, e a supervisão entra quando o paciente recusa ou se incomoda.",
+          "help": "O que precisa acontecer antes de qualquer toque?",
+          "sourceIds": [
+            "intechopen-shakwane-2024"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multi-select",
+          "role": "transfer",
+          "prompt": "Seu Jorge, paciente simulado, diz que prefere não ser tocado na pelve. Marque todas as atitudes adequadas.",
+          "options": [
+            {
+              "label": "Tocar de leve mesmo assim, para ser rápido",
+              "correct": false,
+              "feedback": "Tocar sem licença desrespeita a recusa, mesmo que seja leve e rápido."
+            },
+            {
+              "label": "Respeitar a recusa e não insistir",
+              "correct": true,
+              "feedback": "Sem a concordância do paciente, o toque não acontece."
+            },
+            {
+              "label": "Insistir até ele concordar, para cumprir a tarefa",
+              "correct": false,
+              "feedback": "Insistir pressiona o paciente: a recusa se respeita."
+            },
+            {
+              "label": "Localizar o marco por cima da roupa, sem avisar",
+              "correct": false,
+              "feedback": "Tocar por cima da roupa ainda é tocar: sem aviso e sem licença, o toque não acontece."
+            },
+            {
+              "label": "Pedir ao colega que o segure enquanto você localiza o marco",
+              "correct": false,
+              "feedback": "Segurar o paciente contra a vontade dele não resolve a recusa."
+            },
+            {
+              "label": "Avisar a supervisão sobre a recusa",
+              "correct": true,
+              "feedback": "A supervisão decide como seguir, e o estudante não resolve a recusa sozinho."
+            }
+          ],
+          "feedbackCorrect": "Você respeitou a recusa, não pressionou e levou a situação à supervisão.",
+          "feedbackIncorrect": "Releia o conceito: sem licença não se toca, e a recusa vai para a supervisão, sem insistência nem pressão.",
+          "help": "Pense no que protege a vontade do paciente e no que cabe ao estudante decidir.",
+          "sourceIds": [
+            "intechopen-shakwane-2024"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você parte do marco para a região",
+        "body": "Agora você consegue usar dois marcos para delimitar o esterno ou o osso do quadril e sabe que, antes de qualquer toque, vêm o aviso, a explicação e a licença do paciente.",
+        "line": {
+          "speaker": "lia",
+          "text": "O marco mostra o caminho, mas a licença do paciente vem sempre antes da mão."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Dona Marta pergunta por que você vai tocar na cintura dela. Qual é a melhor resposta?",
+          "options": [
+            {
+              "label": "Digo que é rotina e começo, sem outra explicação.",
+              "correct": false,
+              "feedback": "Chamar de rotina não explica o motivo nem pede licença."
+            },
+            {
+              "label": "Explico que vou localizar um osso e peço licença.",
+              "correct": true,
+              "feedback": "Explicar o motivo e pedir licença respeita a paciente antes do toque."
+            },
+            {
+              "label": "Digo que não dói e peço que ela relaxe.",
+              "correct": false,
+              "feedback": "Dizer que não dói não explica o motivo e não pede licença."
+            },
+            {
+              "label": "Peço que confie e deixo a explicação para depois.",
+              "correct": false,
+              "feedback": "A explicação vem antes do toque, e não depois."
+            }
+          ],
+          "sourceIds": [
+            "intechopen-shakwane-2024"
+          ]
+        },
+        {
+          "prompt": "Que par de marcos mostra a borda de cima do osso do quadril e onde ele se junta ao do outro lado?",
+          "options": [
+            {
+              "label": "Incisura jugular e sínfise púbica.",
+              "correct": false,
+              "feedback": "A incisura jugular fica no topo do esterno, longe do osso do quadril."
+            },
+            {
+              "label": "Crista ilíaca e trocânter maior.",
+              "correct": false,
+              "feedback": "O trocânter maior é do fêmur, e não do osso do quadril."
+            },
+            {
+              "label": "Processo xifoide e crista ilíaca.",
+              "correct": false,
+              "feedback": "O processo xifoide é do esterno, e não do osso do quadril."
+            },
+            {
+              "label": "Crista ilíaca e sínfise púbica.",
+              "correct": true,
+              "feedback": "A crista é a borda de cima do osso do quadril, e a sínfise é onde ele encontra o do outro lado."
+            }
+          ],
+          "sourceIds": [
+            "openstax-ap-8-3"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: antes de tocar, eu explico o motivo e peço...",
+          "item": {
+            "prompt": "Qual é o primeiro passo antes de tocar o paciente para achar um marco?",
+            "options": [
+              {
+                "label": "Explicar o que vai fazer e pedir licença.",
+                "correct": true,
+                "feedback": "Explicar e pedir licença vêm antes de qualquer toque."
+              },
+              {
+                "label": "Localizar o marco depressa, para incomodar menos.",
+                "correct": false,
+                "feedback": "A pressa não substitui o aviso e a licença do paciente."
+              },
+              {
+                "label": "Esperar que o paciente peça para ser tocado.",
+                "correct": false,
+                "feedback": "O estudante explica e pede licença; não espera que o paciente peça."
+              },
+              {
+                "label": "Tocar de leve, para ele nem perceber.",
+                "correct": false,
+                "feedback": "Tocar sem avisar desrespeita o paciente, ainda que de leve."
+              }
+            ],
+            "sourceIds": [
+              "intechopen-shakwane-2024"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Na bancada, Caio aponta num modelo de pelve a borda curva de cima de um dos ossos do quadril. Que marco é esse?",
+            "options": [
+              {
+                "label": "A sínfise púbica.",
+                "correct": false,
+                "feedback": "A sínfise fica embaixo, onde os dois ossos do quadril se encontram, e não na borda de cima."
+              },
+              {
+                "label": "O trocânter maior.",
+                "correct": false,
+                "feedback": "O trocânter maior é do fêmur, e não do osso do quadril."
+              },
+              {
+                "label": "O processo xifoide.",
+                "correct": false,
+                "feedback": "O processo xifoide é a ponta de baixo do esterno, longe da pelve."
+              },
+              {
+                "label": "A crista ilíaca.",
+                "correct": true,
+                "feedback": "A crista ilíaca é a borda curva de cima do osso do quadril."
+              }
+            ],
+            "sourceIds": [
+              "openstax-ap-8-3"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

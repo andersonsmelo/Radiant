@@ -31,6 +31,8 @@ export function InteractionFigure({ imageRef, alt, resolveImage, children }: Int
     const resolved = diagramId === null ? resolveImage?.(imageRef) : undefined;
     if (!isFigureAvailable(imageRef, resolveImage)) return <Text style={styles.unavailable}>Imagem indisponível</Text>;
 
+    // Figura tocável fica parada no quadro de pôster: os alvos não acompanham o laço.
+    const poster = diagram?.posterAt ?? 0;
     const label = alt ?? resolved?.alt;
     const aspectRatio = diagram ? diagram.width / diagram.height : resolved ? resolved.width / resolved.height : 4 / 3;
     return (
@@ -41,8 +43,8 @@ export function InteractionFigure({ imageRef, alt, resolveImage, children }: Int
         >
             {diagram ? (alt ? (
                 // O DiagramView só sabe a descrição dele; uma alt de quem chama a substitui por fora.
-                <View accessible accessibilityRole="image" accessibilityLabel={alt}><DiagramView id={diagram.id} decorative /></View>
-            ) : <DiagramView id={diagram.id} />) : (
+                <View accessible accessibilityRole="image" accessibilityLabel={alt}><DiagramView id={diagram.id} progress={poster} decorative /></View>
+            ) : <DiagramView id={diagram.id} progress={poster} />) : (
                 <Image
                     source={resolved?.source ?? { uri: imageRef }}
                     resizeMode="contain"

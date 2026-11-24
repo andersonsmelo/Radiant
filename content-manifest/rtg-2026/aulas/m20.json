@@ -1,0 +1,2192 @@
+{
+  "schemaVersion": 1,
+  "unit": {
+    "id": "m20",
+    "code": "M20",
+    "title": "Sistemas do corpo em funcionamento",
+    "summary": "Como respiração, circulação, digestão, eliminação e comando do corpo funcionam, no que importa para quem adquire a imagem, sem ensinar doença nem escolher conduta."
+  },
+  "sources": [
+    {
+      "id": "osx-respiracao",
+      "title": "Anatomy and Physiology 2e, 22.3 The process of breathing",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/22-3-the-process-of-breathing",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, redação própria; o livro declara licença CC BY-NC-SA 4.0 e nada foi reproduzido."
+    },
+    {
+      "id": "osx-coracao",
+      "title": "Anatomy and Physiology 2e, 19.1 Heart anatomy",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/19-1-heart-anatomy",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, redação própria; o livro declara licença CC BY-NC-SA 4.0 e nada foi reproduzido."
+    },
+    {
+      "id": "osx-digestorio-visao",
+      "title": "Anatomy and Physiology 2e, 23.1 Overview of the digestive system",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-1-overview-of-the-digestive-system",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, redação própria; o livro declara licença CC BY-NC-SA 4.0 e nada foi reproduzido."
+    },
+    {
+      "id": "osx-digestorio-processos",
+      "title": "Anatomy and Physiology 2e, 23.2 Digestive system processes and regulation",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-2-digestive-system-processes-and-regulation",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, redação própria; o livro declara licença CC BY-NC-SA 4.0 e nada foi reproduzido."
+    },
+    {
+      "id": "osx-esofago",
+      "title": "Anatomy and Physiology 2e, 23.3 The mouth, pharynx, and esophagus",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-3-the-mouth-pharynx-and-esophagus",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, redação própria; o livro declara licença CC BY-NC-SA 4.0 e nada foi reproduzido."
+    },
+    {
+      "id": "osx-estomago",
+      "title": "Anatomy and Physiology 2e, 23.4 The stomach",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-4-the-stomach",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, redação própria; o livro declara licença CC BY-NC-SA 4.0 e nada foi reproduzido."
+    },
+    {
+      "id": "osx-intestinos",
+      "title": "Anatomy and Physiology 2e, 23.5 The small and large intestines",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-5-the-small-and-large-intestines",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, redação própria; o livro declara licença CC BY-NC-SA 4.0 e nada foi reproduzido."
+    },
+    {
+      "id": "osx-acessorios",
+      "title": "Anatomy and Physiology 2e, 23.6 Accessory organs in digestion: the liver, pancreas, and gallbladder",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/23-6-accessory-organs-in-digestion-the-liver-pancreas-and-gallbladder",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, redação própria; o livro declara licença CC BY-NC-SA 4.0 e nada foi reproduzido."
+    },
+    {
+      "id": "osx-urina",
+      "title": "Anatomy and Physiology 2e, 25.2 Gross anatomy of urine transport",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-2-gross-anatomy-of-urine-transport",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, redação própria; o livro declara licença CC BY-NC-SA 4.0 e nada foi reproduzido."
+    },
+    {
+      "id": "osx-nervoso",
+      "title": "Anatomy and Physiology 2e, 12.1 Basic structure and function of the nervous system",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/12-1-basic-structure-and-function-of-the-nervous-system",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, redação própria; o livro declara licença CC BY-NC-SA 4.0 e nada foi reproduzido."
+    },
+    {
+      "id": "osx-endocrino",
+      "title": "Anatomy and Physiology 2e, 17.1 An overview of the endocrine system",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/17-1-an-overview-of-the-endocrine-system",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, redação própria; o livro declara licença CC BY-NC-SA 4.0 e nada foi reproduzido."
+    },
+    {
+      "id": "radiologyinfo-contraste",
+      "title": "Safety in X-ray, interventional radiology and nuclear medicine procedures: contrast materials",
+      "publisher": "RadiologyInfo.org",
+      "url": "https://www.radiologyinfo.org/en/info/safety-contrast",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Página institucional aberta, consultada para fatos; sem reprodução de texto."
+    },
+    {
+      "id": "pmc-peristalse",
+      "title": "Variations of MRI-assessed peristaltic motions during radiation therapy (2018)",
+      "publisher": "PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6201905",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto, consultado para fatos (resumo e introdução); sem reprodução de texto."
+    },
+    {
+      "id": "osx-rim",
+      "title": "Anatomy and Physiology 2e, 25.3 Gross anatomy of the kidney",
+      "publisher": "OpenStax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/25-3-gross-anatomy-of-the-kidney",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Consultado para fatos, redação própria; o livro declara licença CC BY-NC-SA 4.0 e nada foi reproduzido."
+    },
+    {
+      "id": "pmc-diafragma-us",
+      "title": "Ultrasound assessment of diaphragm function (Boussuges et al., World Journal of Clinical Cases, 2020)",
+      "publisher": "PubMed Central",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7322428",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto, consultado para fatos; sem reprodução de texto."
+    },
+    {
+      "id": "dovepress-contraste-renal",
+      "title": "Update on the renal toxicity of iodinated contrast drugs used in clinical medicine (Andreucci et al., 2017)",
+      "publisher": "Drug, Healthcare and Patient Safety (Dove Medical Press)",
+      "url": "https://www.dovepress.com/update-on-the-renal-toxicity-of-iodinated-contrast-drugs-used-in-clini-peer-reviewed-article-DHPS",
+      "accessedAt": "2026-11-19",
+      "use": "factual-reference",
+      "licenseNote": "Artigo de acesso aberto (CC BY-NC 3.0), consultado para fatos; sem reprodução de texto."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "m20-01",
+      "code": "M20.01",
+      "title": "Respirar",
+      "objective": "Hoje você vai conseguir descrever o que o diafragma e as costelas fazem na inspiração e na expiração tranquila.",
+      "competency": "Descrever o que o diafragma e as costelas fazem na inspiração e na expiração tranquila e por que o ar entra e sai.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Laboratório de anatomia",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Puxei o ar fundo e senti as costelas subirem. Quem puxa o ar: o pulmão ou o peito?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Boa pergunta. O pulmão não tem músculo próprio para isso. Olhe o que mexe em volta dele."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos ver o que se move no tórax quando o ar entra e quando ele sai?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Espaço que aumenta, ar que entra",
+        "body": "Na inspiração, o diafragma se contrai e desce, e os músculos entre as costelas as levam para cima e para fora. O tórax aumenta, os pulmões o acompanham e a pressão dentro deles cai abaixo da do ar de fora: o ar entra. Na expiração tranquila, os músculos relaxam, os pulmões voltam ao tamanho anterior e o ar sai. O desenho é simplificado: o diafragma desce em bloco.",
+        "keyPoints": [
+          "Inspirar: o diafragma desce e as costelas sobem.",
+          "Expirar tranquilo: os músculos relaxam e o ar sai."
+        ],
+        "visual": "respiracao-diafragma"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na trilha de organização do corpo, você viu o que cada sistema faz. Qual deles leva oxigênio ao sangue e retira dele o dióxido de carbono?",
+          "options": [
+            {
+              "label": "O sistema respiratório",
+              "correct": true,
+              "feedback": "Isso: nos pulmões o oxigênio passa para o sangue e o dióxido de carbono sai."
+            },
+            {
+              "label": "O sistema digestório",
+              "correct": false,
+              "feedback": "O digestório processa o alimento; as trocas de gases não são dele."
+            },
+            {
+              "label": "O sistema urinário",
+              "correct": false,
+              "feedback": "O urinário elimina resíduos do sangue pela urina, e não pelo ar."
+            },
+            {
+              "label": "O sistema esquelético",
+              "correct": false,
+              "feedback": "O esquelético sustenta o corpo e não faz troca de gases."
+            }
+          ],
+          "help": "Pense no sistema que recebe o ar que você inspira.",
+          "sourceIds": [
+            "osx-respiracao"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque na ordem ensinada nesta aula o que acontece numa inspiração.",
+          "items": [
+            "Os músculos da respiração se contraem",
+            "O diafragma desce e as costelas sobem e saem",
+            "O tórax aumenta e os pulmões o acompanham",
+            "A pressão nos pulmões fica menor que a do ar de fora",
+            "O ar entra nos pulmões"
+          ],
+          "feedbackCorrect": "Isso: os músculos agem, o tórax aumenta, a pressão cai e só então o ar entra.",
+          "feedbackIncorrect": "Releia o conceito: o ar entra por último, como consequência da queda de pressão.",
+          "help": "Comece pela causa: o que precisa agir antes de o tórax mudar de tamanho?",
+          "sourceIds": [
+            "osx-respiracao"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre os movimentos da respiração.",
+          "statements": [
+            {
+              "text": "Na inspiração, o diafragma se contrai e desce.",
+              "correct": true,
+              "feedback": "Certo: ao descer, o diafragma aumenta o espaço do tórax."
+            },
+            {
+              "text": "Na inspiração, o tórax aumenta e os pulmões o acompanham.",
+              "correct": true,
+              "feedback": "Certo: os pulmões acompanham o tórax que aumenta, e o ar entra."
+            },
+            {
+              "text": "Na inspiração, os músculos entre as costelas as levam para cima e para fora.",
+              "correct": true,
+              "feedback": "Certo: essa elevação alarga a caixa torácica."
+            },
+            {
+              "text": "Na expiração tranquila, o diafragma se contrai com força para empurrar o ar.",
+              "correct": false,
+              "feedback": "Errado: na expiração tranquila os músculos relaxam e o ar sai sem esforço."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que age na inspiração do que só relaxa na expiração tranquila.",
+          "feedbackIncorrect": "Releia o conceito: a inspiração é feita por contração muscular, e a expiração tranquila, por relaxamento.",
+          "help": "Lembre o que cada músculo faz na inspiração e se a expiração tranquila pede esforço.",
+          "sourceIds": [
+            "osx-respiracao"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Toque numa estrutura que se move por ação de músculo para aumentar o tórax na inspiração.",
+          "diagramId": "respiracao-diafragma",
+          "regions": [
+            {
+              "label": "Traqueia",
+              "x": 0.45,
+              "y": 0.04,
+              "width": 0.1,
+              "height": 0.22
+            },
+            {
+              "label": "Diafragma",
+              "x": 0.3,
+              "y": 0.715,
+              "width": 0.4,
+              "height": 0.12,
+              "correct": true
+            },
+            {
+              "label": "Pulmão do lado direito do paciente",
+              "x": 0.215,
+              "y": 0.282,
+              "width": 0.22,
+              "height": 0.38
+            },
+            {
+              "label": "Costelas do lado direito do paciente",
+              "x": 0.085,
+              "y": 0.267,
+              "width": 0.1,
+              "height": 0.4,
+              "correct": true
+            },
+            {
+              "label": "Pulmão do lado esquerdo do paciente",
+              "x": 0.565,
+              "y": 0.282,
+              "width": 0.22,
+              "height": 0.38
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: o diafragma desce e as costelas sobem por ação de músculos, e o tórax aumenta.",
+          "feedbackIncorrect": "Essa estrutura não se move por músculo próprio: os pulmões só acompanham o tórax, e a traqueia conduz o ar.",
+          "help": "Lembre o que Caio disse sobre o pulmão e procure o que se move em volta dele.",
+          "sourceIds": [
+            "osx-respiracao"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Dona Marta, paciente simulada, pergunta por que o ar sai sozinho quando ela relaxa depois de inspirar. O que você explica?",
+          "options": [
+            {
+              "label": "O diafragma sobe com força e espreme os pulmões para tirar o ar.",
+              "correct": false,
+              "feedback": "Na expiração tranquila o diafragma relaxa; ele não espreme nada com força."
+            },
+            {
+              "label": "As costelas sobem e empurram o ar para fora do tórax.",
+              "correct": false,
+              "feedback": "As costelas sobem na inspiração; na expiração tranquila elas voltam ao lugar."
+            },
+            {
+              "label": "A pressão dos pulmões cai e o ar de dentro é puxado para fora.",
+              "correct": false,
+              "feedback": "É o contrário: a pressão dos pulmões sobe acima da do ar de fora e o ar sai."
+            },
+            {
+              "label": "Os músculos relaxam e os pulmões voltam ao tamanho de antes.",
+              "correct": true,
+              "feedback": "Isso: na expiração tranquila não há esforço, só relaxamento e retorno dos pulmões."
+            }
+          ],
+          "help": "Pense no que acontece com os músculos quando o esforço termina.",
+          "sourceIds": [
+            "osx-respiracao"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você explica a respiração",
+        "body": "Agora você consegue dizer o que o diafragma e as costelas fazem na inspiração, por que o ar entra e como ele sai na expiração tranquila.",
+        "line": {
+          "speaker": "lia",
+          "text": "Quando um paciente perguntar como se respira, você já tem a explicação em ordem."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Quando os músculos entre as costelas se contraem na inspiração, o que acontece com as costelas?",
+          "options": [
+            {
+              "label": "Sobem e saem, alargando a caixa torácica.",
+              "correct": true,
+              "feedback": "Isso: a elevação das costelas aumenta o espaço do tórax."
+            },
+            {
+              "label": "Descem e se juntam, estreitando a caixa torácica.",
+              "correct": false,
+              "feedback": "Descer e se juntar diminuiria o tórax; na inspiração ele aumenta."
+            },
+            {
+              "label": "Ficam paradas, e só o diafragma muda o tórax.",
+              "correct": false,
+              "feedback": "As costelas também se movem; o diafragma não age sozinho."
+            },
+            {
+              "label": "Giram para trás sem mudar o tamanho do tórax.",
+              "correct": false,
+              "feedback": "O movimento das costelas muda, sim, o tamanho do tórax."
+            }
+          ],
+          "sourceIds": [
+            "osx-respiracao"
+          ]
+        },
+        {
+          "prompt": "Por que o ar entra nos pulmões durante a inspiração?",
+          "options": [
+            {
+              "label": "Os pulmões se contraem e sugam o ar da traqueia.",
+              "correct": false,
+              "feedback": "Os pulmões acompanham o tórax que aumenta; eles não se contraem para sugar."
+            },
+            {
+              "label": "O diafragma sobe e empurra o ar para dentro dos pulmões.",
+              "correct": false,
+              "feedback": "Na inspiração o diafragma desce, não sobe."
+            },
+            {
+              "label": "O tórax aumenta e a pressão dentro dos pulmões cai.",
+              "correct": true,
+              "feedback": "Isso: o ar vai de onde a pressão é maior, fora, para onde ela é menor, dentro."
+            },
+            {
+              "label": "As costelas descem e comprimem o ar para dentro.",
+              "correct": false,
+              "feedback": "As costelas sobem na inspiração, e não descem."
+            }
+          ],
+          "sourceIds": [
+            "osx-respiracao"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: quando o diafragma desce, o espaço dentro do tórax ...",
+          "item": {
+            "prompt": "Quando o diafragma se contrai e desce, o espaço dentro do tórax:",
+            "options": [
+              {
+                "label": "Diminui.",
+                "correct": false,
+                "feedback": "Diminuir é o que acontece quando os músculos relaxam na expiração."
+              },
+              {
+                "label": "Aumenta.",
+                "correct": true,
+                "feedback": "Isso: ao descer, o diafragma aumenta o espaço do tórax."
+              },
+              {
+                "label": "Não muda.",
+                "correct": false,
+                "feedback": "Ele muda: é por isso que o ar entra."
+              },
+              {
+                "label": "Muda só nas costelas.",
+                "correct": false,
+                "feedback": "As costelas também ajudam, mas o diafragma muda o espaço sozinho."
+              }
+            ],
+            "sourceIds": [
+              "osx-respiracao"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Seu Jorge, paciente simulado, respira com calma e depois solta o ar sem esforço. Qual descrição combina com essa expiração?",
+            "options": [
+              {
+                "label": "Músculos relaxados, pulmões voltando ao tamanho anterior.",
+                "correct": true,
+                "feedback": "Isso: na expiração tranquila o ar sai pelo retorno dos pulmões, sem esforço."
+              },
+              {
+                "label": "Diafragma se contraindo com força, pulmões espremidos.",
+                "correct": false,
+                "feedback": "Contração forte não é necessária na expiração tranquila."
+              },
+              {
+                "label": "Costelas subindo, tórax aumentando.",
+                "correct": false,
+                "feedback": "Costelas subindo e tórax aumentando descrevem a inspiração."
+              },
+              {
+                "label": "Diafragma descendo, pressão dos pulmões baixa.",
+                "correct": false,
+                "feedback": "Diafragma descendo e pressão baixa descrevem a inspiração."
+              }
+            ],
+            "sourceIds": [
+              "osx-respiracao"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m20-02",
+      "code": "M20.02",
+      "title": "Coração e circulação",
+      "objective": "Hoje você vai conseguir seguir o sangue pelas duas voltas da circulação, passando pelas câmaras do coração.",
+      "competency": "Seguir o sangue pelas circulações pulmonar e sistêmica, dizendo que câmara envia ou recebe cada trecho e que sangue cada trecho leva.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de aula com esquema do coração",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "O coração é uma bomba só ou são duas? Esse esquema tem um desenho com duas voltas."
+          },
+          {
+            "speaker": "caio",
+            "text": "São duas voltas, e o coração tem um lado para cada uma. Siga as cores com calma."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Quem manda o sangue aos pulmões, e quem o manda ao corpo? Vamos descobrir."
+          }
+        ]
+      },
+      "concept": {
+        "title": "Duas voltas, um coração",
+        "body": "O coração tem quatro câmaras: os átrios recebem o sangue e os ventrículos o bombeiam. O lado direito envia sangue pobre em oxigênio aos pulmões pela artéria pulmonar: a volta pequena. O sangue volta rico ao lado esquerdo, que o envia ao corpo pela aorta: a volta grande. Do corpo, ele retorna ao átrio direito. No desenho, azul é o sangue pobre em oxigênio e amarelo, o rico.",
+        "keyPoints": [
+          "Lado direito: pulmões. Lado esquerdo: corpo.",
+          "No desenho, azul é pobre e amarelo é rico em oxigênio."
+        ],
+        "visual": "circulacao-dupla"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na aula anterior, o ar chegou aos pulmões. O que o sangue recebe do ar nos pulmões?",
+          "options": [
+            {
+              "label": "Dióxido de carbono",
+              "correct": false,
+              "feedback": "O dióxido de carbono faz o caminho contrário: sai do sangue para o ar."
+            },
+            {
+              "label": "Nutrientes",
+              "correct": false,
+              "feedback": "Os nutrientes chegam ao sangue pelo sistema digestório."
+            },
+            {
+              "label": "Oxigênio",
+              "correct": true,
+              "feedback": "Isso: nos pulmões o oxigênio passa do ar para o sangue."
+            },
+            {
+              "label": "Bile",
+              "correct": false,
+              "feedback": "A bile é produzida no fígado e não vem do ar."
+            }
+          ],
+          "help": "Pense no gás que o corpo precisa receber do ar.",
+          "sourceIds": [
+            "osx-respiracao",
+            "osx-coracao"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Siga o sangue na ordem ensinada nesta aula, a partir do ventrículo direito.",
+          "items": [
+            "Ventrículo direito",
+            "Pulmões",
+            "Átrio esquerdo",
+            "Ventrículo esquerdo",
+            "Corpo"
+          ],
+          "feedbackCorrect": "Isso: ventrículo direito, pulmões, átrio esquerdo, ventrículo esquerdo e corpo.",
+          "feedbackIncorrect": "Releia o conceito: o sangue passa pelos pulmões antes de entrar no lado esquerdo.",
+          "help": "Depois dos pulmões, o sangue volta ao lado oposto do coração.",
+          "sourceIds": [
+            "osx-coracao"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "cloze",
+          "role": "practice",
+          "prompt": "Complete a frase com as palavras do banco.",
+          "text": "A artéria {{1}} leva o sangue aos pulmões, e a {{2}} leva o sangue ao corpo.",
+          "answers": [
+            "pulmonar",
+            "aorta"
+          ],
+          "distractors": [
+            "cava",
+            "femoral",
+            "renal"
+          ],
+          "feedbackCorrect": "Isso: a artéria pulmonar leva o sangue aos pulmões, e a aorta o leva ao corpo.",
+          "feedbackIncorrect": "Releia o conceito: a volta pequena vai pelos pulmões, e a grande vai ao corpo pela aorta.",
+          "help": "Uma leva o sangue aos pulmões, a outra leva o sangue ao corpo.",
+          "sourceIds": [
+            "osx-coracao"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Toque no lado do coração que recebe o sangue rico em oxigênio vindo dos pulmões e o envia ao corpo.",
+          "diagramId": "circulacao-dupla",
+          "regions": [
+            {
+              "label": "Pulmões",
+              "x": 0.29,
+              "y": 0.043,
+              "width": 0.42,
+              "height": 0.18
+            },
+            {
+              "label": "Coração, lado direito do paciente",
+              "x": 0.327,
+              "y": 0.383,
+              "width": 0.17,
+              "height": 0.25
+            },
+            {
+              "label": "Coração, lado esquerdo do paciente",
+              "x": 0.503,
+              "y": 0.383,
+              "width": 0.17,
+              "height": 0.25,
+              "correct": true
+            },
+            {
+              "label": "Corpo",
+              "x": 0.125,
+              "y": 0.814,
+              "width": 0.75,
+              "height": 0.13
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: o lado esquerdo do coração recebe o sangue dos pulmões e o envia ao corpo.",
+          "feedbackIncorrect": "Esse não é o lado que envia sangue rico ao corpo: confira onde as voltas começam e terminam.",
+          "help": "Lembre para qual lado do coração volta o sangue que sai dos pulmões.",
+          "sourceIds": [
+            "osx-coracao"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "multiple-choice",
+          "role": "transfer",
+          "prompt": "Duda segue uma gota de sangue que sai do corpo e volta ao coração. Que sangue ela leva e em que câmara chega?",
+          "options": [
+            {
+              "label": "Rico em oxigênio, no átrio esquerdo.",
+              "correct": false,
+              "feedback": "O sangue rico no átrio esquerdo vem dos pulmões, e não do corpo."
+            },
+            {
+              "label": "Pobre em oxigênio, no átrio direito.",
+              "correct": true,
+              "feedback": "Isso: o sangue que volta do corpo é pobre em oxigênio e entra no átrio direito."
+            },
+            {
+              "label": "Pobre em oxigênio, no ventrículo esquerdo.",
+              "correct": false,
+              "feedback": "O ventrículo esquerdo envia sangue ao corpo; ele não recebe o que volta dele."
+            },
+            {
+              "label": "Rico em oxigênio, no átrio direito.",
+              "correct": false,
+              "feedback": "Depois de passar pelo corpo, o sangue já entregou oxigênio: não é rico."
+            }
+          ],
+          "help": "Lembre qual átrio recebe o que vem do corpo.",
+          "sourceIds": [
+            "osx-coracao"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você segue o sangue",
+        "body": "Agora você consegue seguir o sangue pelas duas voltas, dizer que câmara envia e que câmara recebe cada trecho e ler as cores do esquema.",
+        "line": {
+          "speaker": "lia",
+          "text": "Num esquema, comece pela cor e pelo lado do coração. O resto se encaixa."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Que sangue a artéria pulmonar leva, e para onde?",
+          "options": [
+            {
+              "label": "Rico em oxigênio, para o corpo.",
+              "correct": false,
+              "feedback": "O sangue rico vai ao corpo pela aorta, que sai do lado esquerdo."
+            },
+            {
+              "label": "Pobre em oxigênio, para os pulmões.",
+              "correct": true,
+              "feedback": "Isso: a artéria pulmonar leva o sangue pobre do lado direito aos pulmões."
+            },
+            {
+              "label": "Rico em oxigênio, para os pulmões.",
+              "correct": false,
+              "feedback": "O sangue só fica rico depois de passar pelos pulmões, e não antes."
+            },
+            {
+              "label": "Pobre em oxigênio, para o corpo.",
+              "correct": false,
+              "feedback": "Ao corpo vai o sangue rico, pela aorta; o pobre segue aos pulmões."
+            }
+          ],
+          "sourceIds": [
+            "osx-coracao"
+          ]
+        },
+        {
+          "prompt": "Que câmara do coração bombeia o sangue para o corpo pela aorta?",
+          "options": [
+            {
+              "label": "O ventrículo direito",
+              "correct": false,
+              "feedback": "O ventrículo direito envia o sangue aos pulmões."
+            },
+            {
+              "label": "O átrio esquerdo",
+              "correct": false,
+              "feedback": "O átrio esquerdo recebe o sangue dos pulmões, e não bombeia ao corpo."
+            },
+            {
+              "label": "O átrio direito",
+              "correct": false,
+              "feedback": "O átrio direito recebe o sangue que volta do corpo."
+            },
+            {
+              "label": "O ventrículo esquerdo",
+              "correct": true,
+              "feedback": "Isso: o ventrículo esquerdo envia o sangue ao corpo pela aorta."
+            }
+          ],
+          "sourceIds": [
+            "osx-coracao"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o sangue passa pelos pulmões para receber ...",
+          "item": {
+            "prompt": "Para que o sangue passa pelos pulmões?",
+            "options": [
+              {
+                "label": "Receber oxigênio e entregar dióxido de carbono.",
+                "correct": true,
+                "feedback": "Isso: nos pulmões o sangue ganha oxigênio e perde dióxido de carbono."
+              },
+              {
+                "label": "Receber nutrientes e entregar oxigênio.",
+                "correct": false,
+                "feedback": "Os nutrientes vêm do sistema digestório, e não dos pulmões."
+              },
+              {
+                "label": "Receber dióxido de carbono e entregar oxigênio.",
+                "correct": false,
+                "feedback": "O sentido está invertido: o sangue recebe oxigênio e entrega dióxido de carbono."
+              },
+              {
+                "label": "Receber bile e entregar nutrientes.",
+                "correct": false,
+                "feedback": "A bile é feita no fígado e não tem papel nas trocas dos pulmões."
+              }
+            ],
+            "sourceIds": [
+              "osx-coracao",
+              "osx-respiracao"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Duda aponta para a volta pequena de outro esquema do mesmo tipo. Ela liga o coração a quê?",
+            "options": [
+              {
+                "label": "Ao corpo todo.",
+                "correct": false,
+                "feedback": "Ao corpo todo vai a volta grande, pela aorta."
+              },
+              {
+                "label": "Ao estômago.",
+                "correct": false,
+                "feedback": "O estômago não faz parte de nenhuma das duas voltas do esquema."
+              },
+              {
+                "label": "Aos pulmões.",
+                "correct": true,
+                "feedback": "Isso: a volta pequena liga o lado direito do coração aos pulmões."
+              },
+              {
+                "label": "Aos rins.",
+                "correct": false,
+                "feedback": "Os rins recebem sangue pela volta grande."
+              }
+            ],
+            "sourceIds": [
+              "osx-coracao"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m20-03",
+      "code": "M20.03",
+      "title": "O caminho do alimento",
+      "objective": "Hoje você vai conseguir ordenar os órgãos do tubo digestório e dizer o papel de cada um.",
+      "competency": "Ordenar os órgãos do tubo digestório, dizer o papel de cada um e separar quem o alimento atravessa de quem só envia secreções.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de aula de anatomia",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "O alimento passa pelo fígado? Eu sempre achei que sim, porque ele é enorme."
+          },
+          {
+            "speaker": "caio",
+            "text": "Ele é grande, mas tem outra tarefa. Vale separar quem é o tubo de quem ajuda o tubo."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos montar o caminho e dar a tarefa de cada órgão?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Um tubo e seus ajudantes",
+        "body": "O alimento passa por um tubo contínuo: esôfago, estômago, intestino delgado, intestino grosso e ânus. Ondas musculares, o peristaltismo, o empurram. O estômago guarda e mistura o alimento. No intestino delgado acontece a maior parte da absorção dos nutrientes. O intestino grosso absorve a água que sobra e forma as fezes. O fígado e o pâncreas ficam fora do tubo: o fígado faz a bile, que ajuda a digerir gorduras, e o pâncreas faz enzimas digestivas. Os dois as enviam ao intestino delgado.",
+        "keyPoints": [
+          "O alimento atravessa o tubo, e não o fígado nem o pâncreas.",
+          "Absorção de nutrientes: sobretudo no intestino delgado."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Depois da digestão, os nutrientes passam para o sangue. Qual sistema, visto na aula anterior, os leva até os tecidos?",
+          "options": [
+            {
+              "label": "O respiratório",
+              "correct": false,
+              "feedback": "O respiratório leva o oxigênio ao sangue, e não distribui nutrientes."
+            },
+            {
+              "label": "O urinário",
+              "correct": false,
+              "feedback": "O urinário retira resíduos do sangue; ele não distribui nutrientes."
+            },
+            {
+              "label": "O cardiovascular",
+              "correct": true,
+              "feedback": "Isso: o sangue e o coração levam os nutrientes e o oxigênio aos tecidos."
+            },
+            {
+              "label": "O nervoso",
+              "correct": false,
+              "feedback": "O nervoso conduz sinais, e não substâncias."
+            }
+          ],
+          "help": "Pense no sistema que tem o sangue e o coração.",
+          "sourceIds": [
+            "osx-coracao",
+            "osx-digestorio-processos"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule as seis partes do sistema digestório, tocando na ficha e no ponto.",
+          "diagramId": "trato-digestivo",
+          "points": [
+            {
+              "label": "Esôfago",
+              "x": 0.5,
+              "y": 0.12,
+              "where": "tubo fino que desce pelo alto, no meio do tronco"
+            },
+            {
+              "label": "Fígado",
+              "x": 0.3,
+              "y": 0.3,
+              "where": "massa grande no alto, do lado direito do paciente"
+            },
+            {
+              "label": "Estômago",
+              "x": 0.68,
+              "y": 0.38,
+              "where": "bolsa curva no alto, do lado esquerdo do paciente"
+            },
+            {
+              "label": "Pâncreas",
+              "x": 0.5,
+              "y": 0.58,
+              "where": "faixa azul sob a bolsa curva"
+            },
+            {
+              "label": "Intestino delgado",
+              "x": 0.53,
+              "y": 0.8,
+              "where": "tubo enovelado no centro da barriga"
+            },
+            {
+              "label": "Intestino grosso",
+              "x": 0.25,
+              "y": 0.78,
+              "where": "tubo largo em moldura, subindo do lado direito do paciente"
+            }
+          ],
+          "distractors": [
+            "Bexiga"
+          ],
+          "feedbackCorrect": "Isso mesmo: você nomeou o tubo, o órgão que o alimento atravessa e os que só enviam secreções.",
+          "feedbackIncorrect": "Alguma ficha está no ponto errado: releia o conceito e confira a posição de cada órgão no esquema.",
+          "help": "Comece pelo tubo fino do alto e siga o caminho do alimento para baixo.",
+          "sourceIds": [
+            "osx-digestorio-visao",
+            "osx-acessorios"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque os órgãos na ordem ensinada nesta aula, na ordem em que o alimento passa.",
+          "items": [
+            "Esôfago",
+            "Estômago",
+            "Intestino delgado",
+            "Intestino grosso",
+            "Ânus"
+          ],
+          "feedbackCorrect": "Isso: esôfago, estômago, intestino delgado, intestino grosso e ânus.",
+          "feedbackIncorrect": "Releia o conceito: o alimento passa pelo tubo fino, pela bolsa e pelos dois intestinos, nessa ordem.",
+          "help": "O alimento chega do alto, pelo tubo mais fino.",
+          "sourceIds": [
+            "osx-digestorio-visao",
+            "osx-esofago"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada órgão do tubo ao seu papel.",
+          "pairs": [
+            {
+              "left": "Esôfago",
+              "right": "Leva o alimento ao estômago por ondas musculares"
+            },
+            {
+              "left": "Estômago",
+              "right": "Guarda e mistura o alimento"
+            },
+            {
+              "left": "Intestino delgado",
+              "right": "Absorve a maior parte dos nutrientes"
+            },
+            {
+              "left": "Intestino grosso",
+              "right": "Absorve a água que sobra e forma as fezes"
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada órgão do tubo ao que ele faz.",
+          "feedbackIncorrect": "Releia o conceito: o esôfago leva, o estômago mistura, o delgado absorve e o grosso fica com a água que sobra.",
+          "help": "Pense no que acontece no começo, no meio e no fim do tubo.",
+          "sourceIds": [
+            "osx-esofago",
+            "osx-estomago",
+            "osx-intestinos"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "categorize",
+          "role": "transfer",
+          "prompt": "Num esquema novo, Duda pergunta: o alimento passa por este órgão ou ele só envia secreções ao tubo? Classifique cada órgão.",
+          "categories": [
+            "O alimento passa por ele",
+            "Só envia secreções"
+          ],
+          "items": [
+            {
+              "label": "Esôfago",
+              "category": "O alimento passa por ele"
+            },
+            {
+              "label": "Fígado",
+              "category": "Só envia secreções"
+            },
+            {
+              "label": "Estômago",
+              "category": "O alimento passa por ele"
+            },
+            {
+              "label": "Pâncreas",
+              "category": "Só envia secreções"
+            },
+            {
+              "label": "Intestino grosso",
+              "category": "O alimento passa por ele"
+            }
+          ],
+          "feedbackCorrect": "Você separou o tubo, que o alimento atravessa, dos órgãos que só enviam secreções.",
+          "feedbackIncorrect": "Pergunte de cada órgão: ele faz parte do tubo por onde o alimento segue, ou fica ao lado dele?",
+          "help": "Lembre quais órgãos ficam fora do tubo contínuo.",
+          "sourceIds": [
+            "osx-digestorio-visao",
+            "osx-acessorios"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você conhece o caminho",
+        "body": "Agora você consegue ordenar os órgãos do tubo digestório, dizer o papel de cada um e separar o tubo dos órgãos que só enviam secreções.",
+        "line": {
+          "speaker": "lia",
+          "text": "Saber quem é tubo e quem é ajudante evita muita confusão ao olhar uma imagem do abdome."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "O que empurra o alimento ao longo do tubo digestório?",
+          "options": [
+            {
+              "label": "A gravidade, que faz o alimento cair até o fim do tubo.",
+              "correct": false,
+              "feedback": "A gravidade não explica o trajeto: o alimento é empurrado por ondas musculares."
+            },
+            {
+              "label": "A bile, que leva o alimento pelo tubo até o ânus.",
+              "correct": false,
+              "feedback": "A bile ajuda a digerir gorduras; ela não empurra o alimento."
+            },
+            {
+              "label": "Ondas de contração da parede muscular do tubo.",
+              "correct": true,
+              "feedback": "Isso: o peristaltismo empurra o alimento mesmo sem ajuda da gravidade."
+            },
+            {
+              "label": "A pressão do ar engolido, que o empurra para frente.",
+              "correct": false,
+              "feedback": "O ar engolido não é o que move o alimento."
+            }
+          ],
+          "sourceIds": [
+            "osx-digestorio-processos",
+            "osx-esofago"
+          ]
+        },
+        {
+          "prompt": "Qual órgão fica fora do tubo e envia enzimas digestivas ao intestino delgado?",
+          "options": [
+            {
+              "label": "O pâncreas",
+              "correct": true,
+              "feedback": "Isso: o pâncreas faz enzimas e as envia ao intestino delgado."
+            },
+            {
+              "label": "O estômago",
+              "correct": false,
+              "feedback": "O estômago faz parte do tubo; o alimento passa por ele."
+            },
+            {
+              "label": "O esôfago",
+              "correct": false,
+              "feedback": "O esôfago faz parte do tubo e leva o alimento ao estômago."
+            },
+            {
+              "label": "O intestino grosso",
+              "correct": false,
+              "feedback": "O intestino grosso faz parte do tubo e absorve a água que sobra."
+            }
+          ],
+          "sourceIds": [
+            "osx-acessorios"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o alimento chega ao estômago vindo do ...",
+          "item": {
+            "prompt": "Qual órgão leva o alimento da garganta ao estômago?",
+            "options": [
+              {
+                "label": "O intestino delgado",
+                "correct": false,
+                "feedback": "O intestino delgado vem depois do estômago."
+              },
+              {
+                "label": "O esôfago",
+                "correct": true,
+                "feedback": "Isso: o esôfago é o tubo que liga a garganta ao estômago."
+              },
+              {
+                "label": "O fígado",
+                "correct": false,
+                "feedback": "O fígado fica fora do tubo e o alimento não passa por ele."
+              },
+              {
+                "label": "O pâncreas",
+                "correct": false,
+                "feedback": "O pâncreas fica fora do tubo e só envia enzimas."
+              }
+            ],
+            "sourceIds": [
+              "osx-esofago"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Seu Jorge, paciente simulado, pergunta se o alimento passa pelo fígado. O que você explica?",
+            "options": [
+              {
+                "label": "Sim: o fígado vem logo depois do estômago no caminho.",
+                "correct": false,
+                "feedback": "O estômago é seguido do intestino delgado, e não do fígado."
+              },
+              {
+                "label": "Sim: é no fígado que se absorve a maior parte dos nutrientes.",
+                "correct": false,
+                "feedback": "A maior parte dos nutrientes é absorvida no intestino delgado."
+              },
+              {
+                "label": "Não: o fígado só guarda o alimento para o estômago.",
+                "correct": false,
+                "feedback": "Quem guarda e mistura o alimento é o estômago, e não o fígado."
+              },
+              {
+                "label": "Não: o fígado fica fora do tubo e só envia bile ao intestino delgado.",
+                "correct": true,
+                "feedback": "Isso: o fígado produz a bile e a envia ao intestino delgado, sem receber o alimento."
+              }
+            ],
+            "sourceIds": [
+              "osx-acessorios",
+              "osx-digestorio-visao"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m20-04",
+      "code": "M20.04",
+      "title": "Filtrar e eliminar",
+      "objective": "Hoje você vai conseguir nomear rins, ureteres, bexiga e uretra e seguir o caminho da urina.",
+      "competency": "Nomear as estruturas do sistema urinário, dizer o que cada uma faz e seguir o caminho da urina até fora do corpo.",
+      "minutes": 5,
+      "scene": {
+        "setting": "Laboratório de anatomia",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Esse esquema tem dois tubinhos azuis saindo dos rins. Eles chegam em algum lugar?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Chegam, e cada parte do caminho tem nome e tarefa. Comece pelo que filtra."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Que tal seguir a urina do começo ao fim e dar nome a cada trecho?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Do rim ao lado de fora",
+        "body": "Os rins filtram o sangue e produzem a urina. De cada rim, a urina desce por um ureter, um tubo que a empurra por ondas musculares. A bexiga guarda a urina até ela sair pela uretra. O caminho é: rim, ureter, bexiga, uretra. Uma parte do contraste injetado na veia sai pela urina: é função normal dos rins, e dúvidas sobre cada paciente são da equipe. No esquema, o rim do lado direito do paciente aparece um pouco mais baixo.",
+        "keyPoints": [
+          "Rim, ureter, bexiga, uretra: o caminho da urina.",
+          "Rim filtra, ureter leva, bexiga guarda, uretra elimina."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "O sangue da volta grande passa por todos os órgãos. Qual sistema recebe parte desse sangue para retirar resíduos e controlar a água?",
+          "options": [
+            {
+              "label": "O digestório",
+              "correct": false,
+              "feedback": "O digestório processa o alimento; ele não filtra o sangue."
+            },
+            {
+              "label": "O urinário",
+              "correct": true,
+              "feedback": "Isso: o sistema urinário filtra o sangue e elimina resíduos na urina."
+            },
+            {
+              "label": "O respiratório",
+              "correct": false,
+              "feedback": "O respiratório faz a troca de gases, e não filtra resíduos da água do corpo."
+            },
+            {
+              "label": "O nervoso",
+              "correct": false,
+              "feedback": "O nervoso conduz sinais; ele não filtra o sangue."
+            }
+          ],
+          "help": "Pense no sistema que produz a urina.",
+          "sourceIds": [
+            "osx-urina"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "label",
+          "role": "practice",
+          "prompt": "Rotule as quatro partes do sistema urinário, tocando na ficha e no ponto.",
+          "diagramId": "sistema-urinario",
+          "points": [
+            {
+              "label": "Rim do lado direito do paciente",
+              "x": 0.34,
+              "y": 0.225,
+              "where": "lado esquerdo de quem vê, órgão em feijão, mais baixo"
+            },
+            {
+              "label": "Ureter do lado esquerdo do paciente",
+              "x": 0.59,
+              "y": 0.43,
+              "where": "tubo azul fino descendo do feijão à direita de quem vê"
+            },
+            {
+              "label": "Bexiga",
+              "x": 0.5,
+              "y": 0.65,
+              "where": "bolsa azul larga na parte baixa, no meio da pelve"
+            },
+            {
+              "label": "Uretra",
+              "x": 0.5,
+              "y": 0.87,
+              "where": "traço azul fino que sai da bolsa e desce pelo meio"
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você nomeou o que filtra, o que leva, o que guarda e o que elimina.",
+          "feedbackIncorrect": "Alguma ficha está no ponto errado: releia o conceito e siga o caminho da urina no esquema.",
+          "help": "Siga o tubo azul: ele sai de um órgão em feijão e termina numa bolsa.",
+          "sourceIds": [
+            "osx-urina",
+            "osx-rim"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "matching",
+          "role": "practice",
+          "prompt": "Ligue cada estrutura ao que ela faz.",
+          "pairs": [
+            {
+              "left": "Rim",
+              "right": "Filtra o sangue e produz a urina"
+            },
+            {
+              "left": "Ureter",
+              "right": "Leva a urina do rim até a bexiga"
+            },
+            {
+              "left": "Bexiga",
+              "right": "Guarda a urina até ela sair"
+            },
+            {
+              "left": "Uretra",
+              "right": "Leva a urina para fora do corpo"
+            }
+          ],
+          "feedbackCorrect": "Você ligou cada estrutura à sua tarefa no caminho da urina.",
+          "feedbackIncorrect": "Releia o conceito: o rim filtra, o ureter leva até a bexiga, a bexiga guarda e a uretra elimina.",
+          "help": "Quatro tarefas diferentes: filtrar, levar, guardar e eliminar.",
+          "sourceIds": [
+            "osx-urina"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "ordering",
+          "role": "practice",
+          "prompt": "Coloque o caminho da urina na ordem ensinada nesta aula.",
+          "items": [
+            "Rim",
+            "Ureter",
+            "Bexiga",
+            "Uretra",
+            "Fora do corpo"
+          ],
+          "feedbackCorrect": "Isso: rim, ureter, bexiga, uretra e, por fim, fora do corpo.",
+          "feedbackIncorrect": "Releia o conceito: a urina só passa para a uretra depois de ficar na bexiga.",
+          "help": "Ela começa onde o sangue é filtrado e termina fora do corpo.",
+          "sourceIds": [
+            "osx-urina"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "true-false",
+          "role": "transfer",
+          "prompt": "Duda explica o sistema urinário a um paciente fictício. Julgue cada frase que ela diz.",
+          "statements": [
+            {
+              "text": "Os rins filtram o sangue, e parte do contraste injetado sai pela urina.",
+              "correct": true,
+              "feedback": "Certo: a filtração e a eliminação pela urina são função normal dos rins."
+            },
+            {
+              "text": "A urina sai do rim direto para a uretra, sem passar pela bexiga.",
+              "correct": false,
+              "feedback": "Errado: a urina desce pelo ureter e fica guardada na bexiga antes da uretra."
+            },
+            {
+              "text": "Dois ureteres levam a urina, um de cada rim, até a bexiga.",
+              "correct": true,
+              "feedback": "Certo: cada rim tem o seu ureter, e os dois chegam à bexiga."
+            },
+            {
+              "text": "Os ureteres filtram o sangue e produzem a urina.",
+              "correct": false,
+              "feedback": "Errado: quem filtra o sangue e produz a urina é o rim, e o ureter só a leva."
+            }
+          ],
+          "feedbackCorrect": "Você separou quem filtra de quem leva a urina, e entendeu o papel dos rins no contraste.",
+          "feedbackIncorrect": "Releia o conceito: o rim filtra o sangue, e os ureteres levam a urina até a bexiga.",
+          "help": "Separe o que filtra o sangue do que apenas leva a urina.",
+          "sourceIds": [
+            "osx-urina",
+            "radiologyinfo-contraste",
+            "dovepress-contraste-renal"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você segue a urina",
+        "body": "Agora você consegue nomear rins, ureteres, bexiga e uretra, dizer o que cada um faz e explicar, como função normal, por que parte do contraste sai pela urina.",
+        "line": {
+          "speaker": "lia",
+          "text": "Explique o caminho com calma; o que for sobre o caso de um paciente, a equipe responde."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Qual estrutura guarda a urina até ela ser eliminada?",
+          "options": [
+            {
+              "label": "O rim",
+              "correct": false,
+              "feedback": "O rim filtra o sangue e produz a urina; quem a guarda é outra estrutura."
+            },
+            {
+              "label": "O ureter",
+              "correct": false,
+              "feedback": "O ureter leva a urina do rim até a bexiga, sem guardá-la."
+            },
+            {
+              "label": "A uretra",
+              "correct": false,
+              "feedback": "A uretra leva a urina para fora, sem guardá-la."
+            },
+            {
+              "label": "A bexiga",
+              "correct": true,
+              "feedback": "Isso: a bexiga guarda a urina até ela sair pela uretra."
+            }
+          ],
+          "sourceIds": [
+            "osx-urina"
+          ]
+        },
+        {
+          "prompt": "O rim filtra o sangue. O que sai dele em direção à bexiga, e por qual tubo?",
+          "options": [
+            {
+              "label": "O sangue filtrado, pela uretra.",
+              "correct": false,
+              "feedback": "A uretra fica depois da bexiga, e o que desce do rim é a urina, e não o sangue."
+            },
+            {
+              "label": "A urina, pelo ureter.",
+              "correct": true,
+              "feedback": "Isso: a urina desce de cada rim pelo ureter até a bexiga."
+            },
+            {
+              "label": "A urina, pela uretra.",
+              "correct": false,
+              "feedback": "A uretra só leva a urina da bexiga para fora; do rim ela desce pelo ureter."
+            },
+            {
+              "label": "O sangue filtrado, pelo ureter.",
+              "correct": false,
+              "feedback": "O sangue filtrado continua na circulação; o que desce pelo ureter é a urina."
+            }
+          ],
+          "sourceIds": [
+            "osx-urina"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: o rim filtra o ... e produz a urina.",
+          "item": {
+            "prompt": "O que o rim filtra para produzir a urina?",
+            "options": [
+              {
+                "label": "O sangue",
+                "correct": true,
+                "feedback": "Isso: o rim filtra o sangue e produz a urina."
+              },
+              {
+                "label": "O ar",
+                "correct": false,
+                "feedback": "O ar passa pelos pulmões, e não pelos rins."
+              },
+              {
+                "label": "O alimento",
+                "correct": false,
+                "feedback": "O alimento segue pelo tubo digestório, e não pelos rins."
+              },
+              {
+                "label": "A bile",
+                "correct": false,
+                "feedback": "A bile é feita no fígado e não é filtrada pelos rins."
+              }
+            ],
+            "sourceIds": [
+              "osx-urina"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Duda diz que o ureter liga a bexiga ao lado de fora do corpo. Qual é a correção?",
+            "options": [
+              {
+                "label": "O ureter liga a bexiga ao lado de fora, e a uretra liga o rim à bexiga.",
+                "correct": false,
+                "feedback": "É o contrário: o ureter desce do rim, e a uretra sai da bexiga."
+              },
+              {
+                "label": "O ureter liga os dois rins entre si, e a uretra liga a bexiga ao ânus.",
+                "correct": false,
+                "feedback": "O ureter não liga os rins entre si, e a uretra não leva ao ânus."
+              },
+              {
+                "label": "É a uretra que leva a urina para fora; o ureter liga o rim à bexiga.",
+                "correct": true,
+                "feedback": "Isso: o ureter leva a urina do rim à bexiga, e a uretra a leva da bexiga para fora."
+              },
+              {
+                "label": "Não há correção: ureter e uretra são dois nomes da mesma estrutura.",
+                "correct": false,
+                "feedback": "São duas estruturas diferentes, com tarefas diferentes."
+              }
+            ],
+            "sourceIds": [
+              "osx-urina"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m20-05",
+      "code": "M20.05",
+      "title": "Comando e regulação",
+      "objective": "Hoje você vai conseguir separar o sistema nervoso central do periférico e distinguir sinal nervoso de hormônio.",
+      "competency": "Separar sistema nervoso central e periférico, dizer o que fazem nervos sensoriais e motores e distinguir sinal nervoso de hormônio.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Sala de aula com o esquema do corpo",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "Se o encéfalo comanda tudo, como a ordem chega no meu braço? E o hormônio, é a mesma coisa?"
+          },
+          {
+            "speaker": "caio",
+            "text": "São dois jeitos de mandar mensagem, um rápido e outro mais lento. Vale ver quem faz o quê."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos separar o que é central do que é periférico, e depois comparar as mensagens?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "Central, periférico e mensageiros",
+        "body": "O sistema nervoso central é o encéfalo e a medula espinal. O periférico é o resto: os nervos, que ligam o central ao corpo. Nervos sensoriais levam a informação ao central; nervos motores levam a resposta, como a contração de um músculo. Numa resposta, a pele capta o estímulo, o nervo sensorial leva a informação ao central, o central a processa e o nervo motor leva a ordem ao músculo. O sinal nervoso age em milissegundos e cessa logo. O hormônio é um mensageiro químico que viaja pelo sangue, vem de glândulas e pode levar de segundos a horas para agir.",
+        "keyPoints": [
+          "Central: encéfalo e medula espinal. Periférico: nervos.",
+          "Sinal nervoso é rápido; hormônio viaja pelo sangue."
+        ]
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Nesta aula, um dos mensageiros viaja pelo sangue. Na aula do coração, que lado envia o sangue ao corpo inteiro, e por qual vaso?",
+          "options": [
+            {
+              "label": "O lado esquerdo, pela aorta",
+              "correct": true,
+              "feedback": "Isso: o lado esquerdo envia o sangue ao corpo pela aorta, e o hormônio viaja nele."
+            },
+            {
+              "label": "O lado direito, pela artéria pulmonar",
+              "correct": false,
+              "feedback": "O lado direito envia o sangue aos pulmões, e não ao corpo inteiro."
+            },
+            {
+              "label": "O lado direito, pela aorta",
+              "correct": false,
+              "feedback": "A aorta sai do lado esquerdo; o lado direito manda o sangue aos pulmões."
+            },
+            {
+              "label": "O lado esquerdo, pela artéria pulmonar",
+              "correct": false,
+              "feedback": "A artéria pulmonar sai do lado direito e vai aos pulmões."
+            }
+          ],
+          "help": "Lembre qual volta vai dos pulmões ao corpo.",
+          "sourceIds": [
+            "osx-coracao"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Toque numa estrutura que faz parte do sistema nervoso central.",
+          "diagramId": "sistema-nervoso",
+          "regions": [
+            {
+              "label": "Encéfalo",
+              "x": 0.435,
+              "y": 0.042,
+              "width": 0.13,
+              "height": 0.15,
+              "correct": true
+            },
+            {
+              "label": "Nervos do braço direito do paciente",
+              "x": 0.226,
+              "y": 0.425,
+              "width": 0.08,
+              "height": 0.4
+            },
+            {
+              "label": "Medula espinal",
+              "x": 0.46,
+              "y": 0.238,
+              "width": 0.08,
+              "height": 0.44,
+              "correct": true
+            },
+            {
+              "label": "Nervos da perna direita do paciente",
+              "x": 0.381,
+              "y": 0.773,
+              "width": 0.1,
+              "height": 0.22
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: o encéfalo e a medula espinal formam o sistema nervoso central.",
+          "feedbackIncorrect": "Os nervos que saem para o braço e a perna são do sistema periférico: procure o encéfalo ou a medula.",
+          "help": "Pense no que fica no eixo do corpo e no que sai dele para os membros.",
+          "sourceIds": [
+            "osx-nervoso"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "categorize",
+          "role": "practice",
+          "prompt": "Classifique cada característica: é da mensagem nervosa ou da mensagem hormonal?",
+          "categories": [
+            "Mensagem nervosa",
+            "Mensagem hormonal"
+          ],
+          "items": [
+            {
+              "label": "Chega em milissegundos",
+              "category": "Mensagem nervosa"
+            },
+            {
+              "label": "Percorre o sangue até as células-alvo",
+              "category": "Mensagem hormonal"
+            },
+            {
+              "label": "Cessa logo que o sinal termina",
+              "category": "Mensagem nervosa"
+            },
+            {
+              "label": "Vem de glândulas",
+              "category": "Mensagem hormonal"
+            },
+            {
+              "label": "Usa nervos para chegar ao destino",
+              "category": "Mensagem nervosa"
+            },
+            {
+              "label": "Pode levar horas para fazer efeito",
+              "category": "Mensagem hormonal"
+            }
+          ],
+          "feedbackCorrect": "Você separou a mensagem rápida, que usa nervos, da que viaja pelo sangue.",
+          "feedbackIncorrect": "Pergunte de cada característica: ela fala de nervo e de rapidez, ou de sangue e de glândula?",
+          "help": "Pense em quem leva a mensagem e em quanto ela demora para agir.",
+          "sourceIds": [
+            "osx-nervoso",
+            "osx-endocrino"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "blitz",
+          "role": "practice",
+          "prompt": "Responda verdadeiro ou falso a cada afirmação sobre o sistema nervoso e os hormônios.",
+          "statements": [
+            {
+              "text": "O encéfalo e a medula espinal formam o sistema nervoso central.",
+              "correct": true,
+              "feedback": "O central reúne o encéfalo e a medula espinal."
+            },
+            {
+              "text": "Os nervos do braço fazem parte do sistema nervoso central.",
+              "correct": false,
+              "feedback": "Os nervos fazem parte do periférico, que liga o central ao corpo."
+            },
+            {
+              "text": "Nervos motores levam ao músculo a ordem para se contrair.",
+              "correct": true,
+              "feedback": "Os nervos motores levam a resposta, como a contração de um músculo."
+            },
+            {
+              "text": "Nervos sensoriais levam ao sistema central a informação captada.",
+              "correct": true,
+              "feedback": "Os nervos sensoriais levam a informação ao sistema central."
+            },
+            {
+              "text": "Os hormônios viajam pelos nervos até as células-alvo.",
+              "correct": false,
+              "feedback": "Os hormônios viajam pelo sangue, e não pelos nervos."
+            },
+            {
+              "text": "O sinal nervoso costuma levar horas para fazer efeito.",
+              "correct": false,
+              "feedback": "O sinal nervoso age em milissegundos; as horas são mais próprias dos hormônios."
+            },
+            {
+              "text": "Hormônios são mensageiros químicos que viajam pelo sangue.",
+              "correct": true,
+              "feedback": "Os hormônios são mensageiros químicos que o sangue leva pelo corpo."
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você separou central de periférico e nervo de hormônio.",
+          "feedbackIncorrect": "Reveja as afirmações: cada uma tem o próprio retorno com a explicação.",
+          "help": "Leia cada afirmação com calma antes de responder.",
+          "sourceIds": [
+            "osx-nervoso",
+            "osx-endocrino"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "ordering",
+          "role": "transfer",
+          "prompt": "Seu Jorge, paciente simulado, sente a maca fria sob a mão e a afasta. Ordene o caminho do sinal, na ordem ensinada nesta aula.",
+          "items": [
+            "A pele capta o estímulo",
+            "Um nervo sensorial leva a informação ao sistema central",
+            "O sistema central processa a informação",
+            "Um nervo motor leva a resposta ao músculo",
+            "O músculo se contrai"
+          ],
+          "feedbackCorrect": "Isso: a informação sobe pelo nervo sensorial, o central processa e o nervo motor leva a resposta.",
+          "feedbackIncorrect": "Releia o conceito: o sensorial leva a informação ao central, e o motor leva a resposta ao músculo.",
+          "help": "Primeiro a informação chega ao central; só depois sai a resposta.",
+          "sourceIds": [
+            "osx-nervoso"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você separa os mensageiros",
+        "body": "Agora você consegue separar o sistema nervoso central do periférico, dizer o que fazem nervos sensoriais e motores e distinguir o sinal nervoso do hormônio.",
+        "line": {
+          "speaker": "lia",
+          "text": "Num esquema, ache primeiro o central. Tudo o que sai dele é periférico."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Que par de estruturas forma o sistema nervoso central?",
+          "options": [
+            {
+              "label": "A medula espinal e os nervos do braço",
+              "correct": false,
+              "feedback": "Os nervos do braço são periféricos; só a medula é central nesse par."
+            },
+            {
+              "label": "O encéfalo e os nervos da perna",
+              "correct": false,
+              "feedback": "Os nervos da perna são periféricos; só o encéfalo é central nesse par."
+            },
+            {
+              "label": "Os nervos sensoriais e os nervos motores",
+              "correct": false,
+              "feedback": "Os nervos sensoriais e motores são o periférico, e não o central."
+            },
+            {
+              "label": "O encéfalo e a medula espinal",
+              "correct": true,
+              "feedback": "Isso: o encéfalo e a medula espinal formam o sistema nervoso central."
+            }
+          ],
+          "sourceIds": [
+            "osx-nervoso"
+          ]
+        },
+        {
+          "prompt": "Qual mensageiro chega às células-alvo pelo sangue?",
+          "options": [
+            {
+              "label": "Um sinal nervoso",
+              "correct": false,
+              "feedback": "O sinal nervoso viaja pelos nervos, e não pelo sangue."
+            },
+            {
+              "label": "Um hormônio",
+              "correct": true,
+              "feedback": "Isso: o hormônio é um mensageiro químico levado pelo sangue."
+            },
+            {
+              "label": "Um nervo motor",
+              "correct": false,
+              "feedback": "O nervo motor leva a resposta ao músculo, e não usa o sangue."
+            },
+            {
+              "label": "Um nervo sensorial",
+              "correct": false,
+              "feedback": "O nervo sensorial leva informação ao central, e não usa o sangue."
+            }
+          ],
+          "sourceIds": [
+            "osx-endocrino"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: os nervos que levam a ordem ao músculo são os ...",
+          "item": {
+            "prompt": "Que nervos levam ao músculo a ordem para se contrair?",
+            "options": [
+              {
+                "label": "Os nervos sensoriais",
+                "correct": false,
+                "feedback": "Os sensoriais levam a informação ao central, no sentido contrário."
+              },
+              {
+                "label": "Os hormônios",
+                "correct": false,
+                "feedback": "Hormônios viajam pelo sangue, e não pelos nervos."
+              },
+              {
+                "label": "Os nervos motores",
+                "correct": true,
+                "feedback": "Isso: os nervos motores levam a resposta ao músculo."
+              },
+              {
+                "label": "A medula espinal",
+                "correct": false,
+                "feedback": "A medula é parte do sistema central; quem leva a ordem ao músculo é o nervo."
+              }
+            ],
+            "sourceIds": [
+              "osx-nervoso"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Duda diz que hormônio e sinal nervoso são a mesma coisa. Qual diferença principal você aponta?",
+            "options": [
+              {
+                "label": "O hormônio viaja pelo sangue e é mais lento que o sinal nervoso.",
+                "correct": true,
+                "feedback": "Isso: o hormônio é levado pelo sangue e é mais lento; o sinal nervoso é muito rápido."
+              },
+              {
+                "label": "O hormônio viaja pelos nervos e age mais rápido que o sinal nervoso.",
+                "correct": false,
+                "feedback": "É o contrário: o hormônio viaja pelo sangue e é mais lento."
+              },
+              {
+                "label": "Os dois viajam pelo sangue, mas o hormônio é mais forte.",
+                "correct": false,
+                "feedback": "O sinal nervoso viaja por nervos, e não pelo sangue."
+              },
+              {
+                "label": "O sinal nervoso vem de glândulas, e o hormônio vem do encéfalo.",
+                "correct": false,
+                "feedback": "Os hormônios vêm de glândulas, e o sinal nervoso, do sistema nervoso."
+              }
+            ],
+            "sourceIds": [
+              "osx-nervoso",
+              "osx-endocrino"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "m20-06",
+      "code": "M20.06",
+      "title": "Sistemas juntos no exame",
+      "objective": "Hoje você vai conseguir ligar respiração, movimento do tubo digestório e preparo ao que muda numa aquisição, sem escolher conduta.",
+      "competency": "Ligar respiração, movimento do tubo digestório e preparo ao que muda numa aquisição, dizendo o que o estudante explica e o que o serviço define.",
+      "minutes": 6,
+      "scene": {
+        "setting": "Serviço-escola, antes da simulação",
+        "lines": [
+          {
+            "speaker": "duda",
+            "text": "O paciente fica deitado e quieto, e mesmo assim a imagem do abdome pode sair borrada?"
+          },
+          {
+            "speaker": "caio",
+            "text": "Quieto por fora, em movimento por dentro. O corpo não para: respira e o tubo digestório trabalha."
+          },
+          {
+            "speaker": "pixel",
+            "text": "Vamos juntar o que você viu nas aulas e ver o que cabe a você explicar e o que o serviço define?"
+          }
+        ]
+      },
+      "concept": {
+        "title": "O corpo não para durante a aquisição",
+        "body": "Mesmo deitado e quieto, o paciente respira: o diafragma sobe e desce, e órgãos logo abaixo dele se movem junto. O tubo digestório também se move, por ondas da própria parede. Por isso o serviço define o comando de respiração: você diz ao paciente o que fazer e observa. O preparo, como o jejum, também é o serviço que define: você confere a ficha. Se algo não bate, descreva o que viu e peça apoio.",
+        "keyPoints": [
+          "Respiração e ondas do tubo movem órgãos do abdome.",
+          "Comando de respiração e jejum: o serviço define."
+        ],
+        "visual": "trato-digestivo"
+      },
+      "interactions": [
+        {
+          "id": "i1",
+          "type": "multiple-choice",
+          "role": "prerequisite",
+          "prompt": "Na primeira aula, o ar entra quando o tórax aumenta. Qual movimento do diafragma aumenta o tórax?",
+          "options": [
+            {
+              "label": "Ele relaxa e sobe.",
+              "correct": false,
+              "feedback": "Relaxar e subir é o que acontece na expiração tranquila."
+            },
+            {
+              "label": "Ele se contrai e desce.",
+              "correct": true,
+              "feedback": "Isso: ao se contrair e descer, o diafragma aumenta o espaço do tórax."
+            },
+            {
+              "label": "Ele fica parado e as costelas descem.",
+              "correct": false,
+              "feedback": "Com as costelas descendo, o tórax diminuiria."
+            },
+            {
+              "label": "Ele se contrai e sobe.",
+              "correct": false,
+              "feedback": "Ao se contrair, o diafragma desce, e não sobe."
+            }
+          ],
+          "help": "Lembre o que o diafragma faz na inspiração.",
+          "sourceIds": [
+            "osx-respiracao"
+          ]
+        },
+        {
+          "id": "i2",
+          "type": "hotspot",
+          "role": "practice",
+          "prompt": "Toque no órgão que fica fora do tubo digestório e se move sobretudo com a respiração, sem ondas próprias.",
+          "diagramId": "trato-digestivo",
+          "regions": [
+            {
+              "label": "Estômago",
+              "x": 0.542,
+              "y": 0.203,
+              "width": 0.24,
+              "height": 0.36
+            },
+            {
+              "label": "Fígado",
+              "x": 0.141,
+              "y": 0.175,
+              "width": 0.38,
+              "height": 0.3,
+              "correct": true
+            },
+            {
+              "label": "Intestino delgado",
+              "x": 0.305,
+              "y": 0.698,
+              "width": 0.44,
+              "height": 0.22
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: o fígado fica fora do tubo, não tem as ondas da parede e se move sobretudo com a respiração.",
+          "feedbackIncorrect": "Esse órgão faz parte do tubo e tem ondas na própria parede: procure o que fica fora do tubo.",
+          "help": "Retome a aula do caminho do alimento: quem é tubo e quem fica ao lado dele?",
+          "sourceIds": [
+            "pmc-peristalse",
+            "osx-acessorios"
+          ]
+        },
+        {
+          "id": "i3",
+          "type": "conversation",
+          "role": "practice",
+          "prompt": "Dona Marta é uma paciente simulada e se prepara para uma aquisição do abdome. Converse com ela.",
+          "speaker": "paciente",
+          "name": "Dona Marta",
+          "turns": [
+            {
+              "line": "Me disseram que vou ter que prender a respiração. Eu me atrapalho. O que eu faço?",
+              "options": [
+                {
+                  "label": "Respire do jeito que achar melhor, a imagem sai igual de qualquer forma, sem se preocupar.",
+                  "correct": false,
+                  "reply": "Então eu respiro como eu quiser?"
+                },
+                {
+                  "label": "Eu aviso quando começar e parar, como o serviço definiu, e fico observando.",
+                  "correct": true,
+                  "reply": "Tá bom, então eu espero o seu aviso."
+                },
+                {
+                  "label": "Segure o ar o máximo que aguentar, quanto mais tempo, melhor para a imagem sair bem.",
+                  "correct": false,
+                  "reply": "Hum, eu vou tentar segurar bastante, então."
+                }
+              ]
+            },
+            {
+              "line": "Na outra vez eu fiquei paradinha, e mesmo assim disseram que a imagem tremeu. Como pode?",
+              "options": [
+                {
+                  "label": "Por dentro o corpo continua se mexendo: a respiração e o intestino movem os órgãos.",
+                  "correct": true,
+                  "reply": "Ah, então mesmo parada tem coisa mexendo. Não sabia."
+                },
+                {
+                  "label": "Deve ter sido defeito do aparelho, porque quem fica bem parado não mexe nada por dentro.",
+                  "correct": false,
+                  "reply": "Então o problema era a máquina, e não eu?"
+                },
+                {
+                  "label": "A senhora deve ter se mexido sem perceber; desta vez fique bem dura e sem respirar.",
+                  "correct": false,
+                  "reply": "Sem respirar nenhum pouco? Não sei se consigo."
+                }
+              ]
+            }
+          ],
+          "feedbackCorrect": "Isso mesmo: você explicou o comando definido pelo serviço e por que o abdome se move por dentro.",
+          "feedbackIncorrect": "Reveja a conversa: o comando de respiração é do serviço, você o explica e observa, e o corpo se move mesmo parado.",
+          "help": "Pense no que você explica e no que o corpo faz mesmo com a pessoa parada.",
+          "sourceIds": [
+            "pmc-peristalse",
+            "pmc-diafragma-us"
+          ]
+        },
+        {
+          "id": "i4",
+          "type": "true-false",
+          "role": "practice",
+          "prompt": "Julgue cada afirmação sobre respiração, movimento e preparo numa aquisição do abdome.",
+          "statements": [
+            {
+              "text": "O serviço define o comando de respiração, e o estudante o explica e observa.",
+              "correct": true,
+              "feedback": "Certo: o estudante diz ao paciente o que fazer e observa como ele responde."
+            },
+            {
+              "text": "Se o paciente comeu antes do exame, o estudante decide se o exame continua.",
+              "correct": false,
+              "feedback": "Errado: o estudante descreve o que ouviu e a equipe decide o que fazer."
+            },
+            {
+              "text": "A respiração e as ondas do tubo digestório movem órgãos do abdome.",
+              "correct": true,
+              "feedback": "Certo: os dois movimentos deslocam órgãos mesmo com o paciente deitado."
+            },
+            {
+              "text": "Com o paciente quieto, nenhum órgão do abdome se mexe.",
+              "correct": false,
+              "feedback": "Errado: respiração e ondas do tubo digestório continuam durante a aquisição."
+            }
+          ],
+          "feedbackCorrect": "Você separou o que o estudante explica do que o serviço define.",
+          "feedbackIncorrect": "Releia o conceito: o comando de respiração e o preparo são do serviço, e você explica e observa.",
+          "help": "Separe o que o estudante explica e observa do que o serviço define.",
+          "sourceIds": [
+            "pmc-peristalse",
+            "pmc-diafragma-us"
+          ]
+        },
+        {
+          "id": "i5",
+          "type": "case-decision",
+          "role": "transfer",
+          "context": "Na simulação, Seu Jorge se atrapalha com o comando de respiração e solta o ar antes da hora. A imagem sairia borrada.",
+          "prompt": "O que você faz agora?",
+          "options": [
+            {
+              "label": "Pedir que ele segure o ar por mais tempo na próxima tentativa, até a imagem sair.",
+              "correct": false,
+              "feedback": "Mudar o tempo de ar preso é decisão do serviço, e não do estudante."
+            },
+            {
+              "label": "Trocar o tipo de respiração do protocolo por um mais fácil para ele.",
+              "correct": false,
+              "feedback": "O tipo de respiração vem do protocolo; trocá-lo foge do papel do estudante."
+            },
+            {
+              "label": "Parar, descrever ao supervisor o que houve e pedir orientação.",
+              "correct": true,
+              "feedback": "Isso: diante do imprevisto, você para, descreve o que houve e pede orientação."
+            },
+            {
+              "label": "Seguir com a imagem e avisar a equipe só no fim do turno.",
+              "correct": false,
+              "feedback": "Avisar só no fim deixa a dúvida sem resposta quando ela importa."
+            }
+          ],
+          "help": "Quando algo não sai como o serviço definiu, qual é o primeiro passo?",
+          "sourceIds": [
+            "pmc-peristalse",
+            "pmc-diafragma-us"
+          ]
+        }
+      ],
+      "closing": {
+        "title": "Você liga os sistemas",
+        "body": "Agora você consegue dizer por que o abdome se mexe numa aquisição, explicar o comando de respiração e deixar com o serviço o preparo e a decisão.",
+        "line": {
+          "speaker": "lia",
+          "text": "Explicar e observar é o seu papel. Decidir o preparo e a conduta é da equipe."
+        }
+      },
+      "checkpoint": [
+        {
+          "prompt": "Quem define o comando de respiração de um exame e o preparo, como o jejum?",
+          "options": [
+            {
+              "label": "O estudante, conforme a experiência.",
+              "correct": false,
+              "feedback": "O estudante explica e observa; ele não define o comando nem o preparo."
+            },
+            {
+              "label": "O serviço, por meio do protocolo.",
+              "correct": true,
+              "feedback": "Isso: o serviço define o comando e o preparo, e o estudante explica e confere."
+            },
+            {
+              "label": "O paciente, conforme o que prefere.",
+              "correct": false,
+              "feedback": "O paciente é orientado, mas não define o comando nem o preparo."
+            },
+            {
+              "label": "Qualquer colega que estiver na sala.",
+              "correct": false,
+              "feedback": "Um colega não define o protocolo do serviço."
+            }
+          ],
+          "sourceIds": [
+            "pmc-peristalse",
+            "pmc-diafragma-us"
+          ]
+        },
+        {
+          "prompt": "Por que o abdome pode se mover durante a aquisição, mesmo com o paciente deitado e quieto?",
+          "options": [
+            {
+              "label": "Só o diafragma se move, e o resto fica parado.",
+              "correct": false,
+              "feedback": "O diafragma se move, mas desloca órgãos, e o tubo digestório também se move."
+            },
+            {
+              "label": "Só o tubo digestório se move, e a respiração não conta.",
+              "correct": false,
+              "feedback": "A respiração também desloca órgãos do abdome."
+            },
+            {
+              "label": "Nada se move: o borrão vem sempre do equipamento.",
+              "correct": false,
+              "feedback": "O corpo se move durante a aquisição, e isso pode borrar a imagem."
+            },
+            {
+              "label": "A respiração e as ondas do tubo digestório movem órgãos.",
+              "correct": true,
+              "feedback": "Isso: a respiração e as ondas do tubo digestório movem órgãos do abdome."
+            }
+          ],
+          "sourceIds": [
+            "pmc-peristalse",
+            "pmc-diafragma-us"
+          ]
+        }
+      ],
+      "recovery": {
+        "guided": {
+          "hook": "Complete a frase: a respiração desloca ... do abdome.",
+          "item": {
+            "prompt": "O que a respiração move no abdome durante a aquisição?",
+            "options": [
+              {
+                "label": "Órgãos logo abaixo do diafragma.",
+                "correct": true,
+                "feedback": "Isso: quando o diafragma sobe e desce, os órgãos logo abaixo dele se movem junto."
+              },
+              {
+                "label": "Apenas o alimento dentro do estômago.",
+                "correct": false,
+                "feedback": "A respiração move os órgãos, e não só o alimento do estômago."
+              },
+              {
+                "label": "Apenas a urina na bexiga.",
+                "correct": false,
+                "feedback": "A urina na bexiga não é o que a respiração move."
+              },
+              {
+                "label": "Nada, porque o abdome é fixo.",
+                "correct": false,
+                "feedback": "O abdome não é fixo: ele acompanha o movimento do diafragma."
+              }
+            ],
+            "sourceIds": [
+              "pmc-peristalse",
+              "pmc-diafragma-us"
+            ]
+          }
+        },
+        "transfer": {
+          "item": {
+            "prompt": "Num exame simulado, Duda vê que as alças do intestino mudaram de forma entre duas imagens, e o paciente não se mexeu. Além da respiração, o que explica?",
+            "options": [
+              {
+                "label": "A bile, que empurra as alças de dentro para fora.",
+                "correct": false,
+                "feedback": "A bile ajuda a digerir gorduras; ela não move as alças."
+              },
+              {
+                "label": "As ondas da parede do tubo digestório.",
+                "correct": true,
+                "feedback": "Isso: a parede do tubo tem ondas próprias, que seguem mesmo com o paciente parado."
+              },
+              {
+                "label": "O pâncreas, que se contrai e aperta as alças.",
+                "correct": false,
+                "feedback": "O pâncreas fica fora do tubo e envia enzimas; ele não move as alças."
+              },
+              {
+                "label": "Um defeito do aparelho, porque o corpo parado não se move.",
+                "correct": false,
+                "feedback": "O corpo se move por dentro mesmo parado: respiração e ondas do tubo seguem."
+              }
+            ],
+            "sourceIds": [
+              "pmc-peristalse",
+              "osx-digestorio-processos"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

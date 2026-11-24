@@ -15,6 +15,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Entrar na profissão e cuidar."
     }
   },
+  "batch:rtg-2026:m17": {
+    "slug": "rtg-2026-m17",
+    "title": "Segurança do paciente na sala",
+    "description": "Você leva a segurança para dentro da sala de exame: identificação quando a conferência falha, quedas e transferências, limpeza entre pacientes e sinais de alerta, sempre reconhecendo, parando e chamando a equipe.",
+    "unitTitle": "Segurança do paciente na sala",
+    "reward": {
+      "id": "node:reward:rtg-2026:m17",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Segurança do paciente na sala."
+    }
+  },
   "batch:rtg-2026:m02": {
     "slug": "rtg-2026-m02",
     "title": "Corpo, orientação e linguagem",
@@ -24,6 +35,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "id": "node:reward:rtg-2026:m02",
       "title": "Unidade concluída",
       "description": "Você concluiu a unidade Corpo, orientação e linguagem."
+    }
+  },
+  "batch:rtg-2026:m18": {
+    "slug": "rtg-2026-m18",
+    "title": "Esqueleto, articulações e marcos de superfície",
+    "description": "Os nomes do esqueleto que o posicionamento pressupõe: grupos axial e apendicular, osso longo, regiões da coluna, articulações e marcos de superfície do tronco e da pelve, sempre avisando o paciente antes de tocar.",
+    "unitTitle": "Esqueleto, articulações e marcos de superfície",
+    "reward": {
+      "id": "node:reward:rtg-2026:m18",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Esqueleto, articulações e marcos de superfície."
     }
   },
   "batch:rtg-2026:m03": {
@@ -37,6 +59,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "description": "Você concluiu a unidade Bases quantitativas e físicas."
     }
   },
+  "batch:rtg-2026:m19": {
+    "slug": "rtg-2026-m19",
+    "title": "Eletricidade, tubo e gerador",
+    "description": "Abre o equipamento: de onde vem a alta tensão, o que o filamento e o ânodo fazem dentro do tubo, o que o espectro mostra e como cuidar do tubo.",
+    "unitTitle": "Eletricidade, tubo e gerador",
+    "reward": {
+      "id": "node:reward:rtg-2026:m19",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Eletricidade, tubo e gerador."
+    }
+  },
   "batch:rtg-2026:m15": {
     "slug": "rtg-2026-m15",
     "title": "Células, tecidos e funções",
@@ -46,6 +79,17 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
       "id": "node:reward:rtg-2026:m15",
       "title": "Unidade concluída",
       "description": "Você concluiu a unidade Células, tecidos e funções."
+    }
+  },
+  "batch:rtg-2026:m20": {
+    "slug": "rtg-2026-m20",
+    "title": "Sistemas do corpo em funcionamento",
+    "description": "Como respiração, circulação, digestão, eliminação e comando do corpo funcionam, no que importa para quem adquire a imagem, sem ensinar doença nem escolher conduta.",
+    "unitTitle": "Sistemas do corpo em funcionamento",
+    "reward": {
+      "id": "node:reward:rtg-2026:m20",
+      "title": "Unidade concluída",
+      "description": "Você concluiu a unidade Sistemas do corpo em funcionamento."
     }
   },
   "batch:rtg-2026:m04": {
