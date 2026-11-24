@@ -6,6 +6,56 @@
 
 **Regra de ouro:** nesta frente, todo defeito sério foi achado por **medida de um revisor independente**, nunca pelo verificador automático. Um lote só está pronto depois de integração, revisão independente, correções, gate completo e captura no simulador. Não pule etapa para ganhar tempo.
 
+## Plano de fechamento por criticidade (2026-11-24)
+
+**Objetivo.** Deixar a frente de figuras da RTG-2026 revisada, com evidência de funcionamento no iOS e no Android, pronta para a decisão de merge. Escopo de acessibilidade deste plano: manter as alternativas textuais e a semântica dos controles. VoiceOver está fora desta rodada, a pedido de Anderson. Merge, build de loja, envio e gastos dependem do dono.
+
+**Ponto de partida verificado em 2026-11-24.** O piloto M23.02 está no commit `120587fc` e tem prova no Radiant F7 e Loop 15/15. A PR #97 está em rascunho, com 10 conflitos preexistentes com `claude/figuras-base` (`fc298957`) e zero checks no commit do piloto. A ordem de dependências medida no GitHub é `#89 → #90 → #91 → #93 → #94 → #95 → #96 → #97`, da base ao topo. As sete PRs abaixo da #97 aparecem sem conflito com suas bases imediatas. A #92 é uma frente separada de contas de loja. A ordem abaixo orienta a próxima execução; as seções seguintes preservam o histórico e o método. [Estado vivo](../../STATUS.md) · [Piloto e captura](../../evidence/2026-11-19-figuras/imagens-reais.md#piloto-de-artefato-de-objeto-2026-11-23) · [PR #97](https://github.com/andersonsmelo/Radiant/pull/97).
+
+### P0 — Destravar a PR #97
+
+- [x] **Simular a integração com a base atual em worktree isolada.** Conferir os SHAs no GitHub e usar `git merge-tree --write-tree` para reproduzir os conflitos. Agrupar os conflitos por comportamento: toques e selos, registro e regeneração de figuras, e a cena `raio-x-movel-no-leito`. Para cada grupo, ler o que cada branch mudou e preservar os comportamentos aprovados, incluindo a M23.02 e os créditos do exame.
+- [ ] **Validar a árvore candidata.** Regerar os derivados afetados, conferir a fonte dos alvos e executar os testes focados de `hotspotTouch`, registro e geradores. Depois, executar `loop validate` e revisar o diff da PR contra a base atual. Atualizar somente a branch em rascunho quando autorizado pelo fluxo vigente.
+- **Aceite.** GitHub indica que a #97 está sem conflitos, `loop validate` passa, os checks aplicáveis de Radiant App Quality e Content Scripts passam no SHA publicado e os demais elos da pilha permanecem íntegros. Se alguma linha de conflito exigir escolha entre dois comportamentos aprovados, apresentar os dois resultados ao dono antes da integração.
+
+**Prova da reconciliação (2026-11-24).** As árvores de `2a09b6d4` e `d1b1057b` são iguais. As árvores de `fc298957` e `a433f4a2` também são iguais, e `a433f4a2` já é ancestral do piloto. O commit de reconciliação incorpora a base atual e preserva a árvore de código de `120587fc`, inclusive a cena do leito do lote 2B, o toque e os créditos da M23.02.
+
+### P1 — Recuperar a prova de ponta a ponta
+
+- [ ] **Corrigir o roteiro e comprovar o comportamento no app.** Reproduzir separadamente a conexão do dev client no Android, a rolagem de classificação e o toque em controles junto ao cabeçalho ou rodapé. Corrigir a origem em `scripts/qa/` ou no subfluxo compartilhado e regerar os YAMLs afetados. Conferir no iPhone os fluxos de rotular que falhavam e a transição da última fala na M23.02, que exigiu um toque extra no roteiro temporário.
+- [ ] **Rodar um primeiro lote no RadiantPlay.** Executar M23.02, uma questão com rotulagem, uma com classificação e uma cena do kit que usava o roteiro corrigido. Abrir as capturas e confirmar toque na área certa, retorno correto e avanço para o passo seguinte.
+- **Dependência e aceite.** Pode reproduzir problemas enquanto o P0 está em andamento. A prova final usa a árvore reconciliada. O contrato Maestro e os geradores em modo `--check` passam, e o lote prova o fluxo no iOS e no Android. Se um roteiro falhar, capturar o estado antes de classificar a falha como automação ou defeito do app.
+
+### P1 — Concluir as quatro figuras que ainda têm esquema
+
+- [ ] **Artefatos de objeto, M23.06.** Procurar uma radiografia com colar e botão ou exemplos independentes que permitam preservar a distinção entre adorno, roupa, aparelho e anatomia. Manter a M23.02 como referência de integração. Se o acervo cobrir só o colar, apresentar ao dono a amostra e a proposta para manter o botão no exercício textual.
+- [ ] **Artefatos do detector, M23.03 e M32.04.** Separar o que as amostras confirmam: linhas de grade e imagem residual. Procurar imagens de linha morta e corte de grade. Conferir que a atividade de M32.04 ainda permite distinguir anatomia e marca do equipamento.
+- [ ] **Artefatos de RM, M29.05 e M29.06.** Usar a amostra de movimento para avaliar a adaptação da M29.06. Para a comparação da M29.05, buscar também suscetibilidade e dobramento. Se a imagem escolhida mostrar desfoque sem fantasmas reconhecíveis, alinhar a pergunta ao sinal visível após revisão editorial.
+- [ ] **Monitor e padrão de teste, M22.03.** Buscar foto ou captura de padrão de controle de qualidade com licença aceita, degraus de cinza legíveis e alvo de baixo contraste na faixa escura. Se a busca ficar sem candidata, registrar as fontes consultadas e levar ao dono a decisão sobre o esquema atual.
+- **Dependência e aceite.** A busca pode começar junto com P0. Antes de integrar cada candidata, mostrar a amostra no tamanho do app, verificar autoria e licença na página de origem, conferir a revisão da fonte e obter aceite. Aceitar CC0, domínio público declarado ou CC BY. Na integração, registrar via `imageId`, revisar de modo independente a fidelidade, a geometria e o gabarito, e validar no app. Sem imagem adequada, a entrega do item é uma decisão explícita sobre o esquema e a cobertura didática.
+
+### P1 — Ampliar os painéis de RM no iPhone
+
+- [ ] **Provar a M29.03 primeiro, depois a M29.04.** Mostrar uma amostra em tela estreita com os painéis empilhados e ampliados na mesma escala, numeração neutra e alternativa textual. Manter uma pergunta por exercício. Remapear os alvos para que o gabarito continue nos ventrículos do FLAIR em M29.03 e na gordura subcutânea do painel com supressão em M29.04.
+- **Dependência e aceite.** Integrar após o aceite visual e o P0. No iPhone, o aluno consegue comparar os painéis, rolar até cada alvo e confirmar sem sobreposição de selos, alvos ou rodapé. Registrar antes e depois e verificar o retorno do toque correto e de um distrator. Repetir o fluxo no RadiantPlay.
+
+### P2 — Completar a bateria visual e medir desempenho
+
+- [ ] **Fechar o inventário Android.** Partir das 45 figuras dos lotes iniciais e acrescentar os itens com exame real afetados pela frente. Marcar as capturas por aula e por formato, incluir M23.02 e os itens de RM revisados, abrir as prévias e registrar falhas e correções por roteiro. Fazer a bateria final depois das correções P1 e das decisões sobre o kit e os selos.
+- [ ] **Remedir a respiração com diafragma e o bundle.** No RadiantPlay, registrar o tempo entre abrir o passo e a figura aparecer. Usar o mesmo aparelho e condição de execução e informar os tempos medidos e sua variação. Reexportar o bundle JS de iOS e Android para uma pasta temporária, medir em bytes e atualizar a [seção de orçamento](../../evidence/2026-11-19-figuras/orcamento.md) com os SHAs, o comando e a comparação com a medição anterior. Se a medição descumprir o limite vigente ou revelar uma regressão que impede o uso, promover a correção para P1.
+- **Aceite.** Inventário com evidência por item, tempos e tamanhos reproduzíveis, comparação com a régua do repositório e gate completo da árvore candidata.
+
+### P3 — Completar a evidência do abdome
+
+- [ ] Gerar dois PNGs a partir da TC já aprovada, um com os alvos de **M28.01 i2** e outro com os alvos de **M28.06 i4**. Declarar ambos no run, abrir os arquivos, conferir os selos de cada exercício e atualizar os links do parecer. **Aceite:** cada arquivo mostra apenas os alvos do seu item, cabe no orçamento da pasta de evidências e está ligado no [parecer](../../evidence/2026-11-19-figuras/revisoes/imagens-vps.md#9-prévias-da-evidência-pouco-legíveis).
+
+### Decisões do dono e sequência de entrega
+
+- [ ] **Em paralelo com P0.** Mostrar a figura humana do kit e o comportamento dos selos e marcadores em casos representativos. Anderson decide sobre os dois antes da bateria final. Trocar a pessoa pode exigir regerar as 22 cenas. A posição dos selos afeta todas as figuras e exige repetir as provas de toque atingidas. [Decisões registradas](../../adr/ADR-2026-11-19-figuras-por-tipo.md#o-que-o-dono-precisa-confirmar).
+- [ ] **No fechamento.** Levar ao dono o pacote com diffs, checks, capturas e lacunas editoriais. Com cada elo apto, o dono decide o merge na ordem da pilha. Conferir o estado no GitHub após cada etapa e medir a base do elo seguinte. A retomada dos lotes 5 e 6 da fase C é uma decisão posterior ao fechamento das figuras.
+
+Usar **Loop** para escopo e validação, **Git e GitHub** para reconciliar a pilha, **Maestro** para o fluxo nos emuladores e **Serena** para localizar os componentes e contratos de toque. O Radar de Skills serviu como referência de ferramentas. O conjunto já disponível cobre as etapas do plano.
+
 ## 1. Onde estamos (medido em 2026-11-21)
 
 - Branch `claude/figuras-fase-1`, worktree `.claude/worktrees/trilha-dobrada`, ponta `3d1ebfad` (mais os commits de documentação da fase 6). PR #97, em rascunho, empilhada sobre #96 → #95 → … → #89. **Nada foi mesclado.**

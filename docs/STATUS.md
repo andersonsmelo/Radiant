@@ -225,6 +225,8 @@ sob o cabeçalho fixo), e as figuras saíram certas antes disso. **Fase 2, feita
 
 **Piloto de artefato de objeto (2026-11-23, branch `claude/figuras-fase-1`).** A M23.02 usa uma radiografia real de tórax para localizar a marca do colar; botão, trança e eletrodo continuam nos exercícios textuais e no conceito. A M23.06 ainda usa o esquema de artefato de objeto. No simulador Radiant F7, o toque no colar produziu o retorno correto. Android e VoiceOver seguem pendentes. As figuras de artefato do detector, artefato de RM e monitor continuam pendentes. [Evidência e crédito](evidence/2026-11-19-figuras/imagens-reais.md#piloto-de-artefato-de-objeto-2026-11-23).
 
+**Reconciliação da frente de figuras (2026-11-24).** A base `fc298957` e o commit `a433f4a2`, que já é ancestral do piloto, têm a mesma árvore. A reconciliação da PR #97 preserva o código e os conteúdos validados em `120587fc`. [Plano e prova](superpowers/plans/2026-11-20-figuras-continuidade.md#p0--destravar-a-pr-97).
+
 **Decisão aberta para o dono, medida em 2026-11-19:** com 310 aulas concluídas, o
 armazenamento da revisão espaçada fica em 1,64 MiB no caso comum, abaixo do teto de
 1,9 MiB medido no emulador Android, mas passa do teto se todas as conferências forem
