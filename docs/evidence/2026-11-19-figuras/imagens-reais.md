@@ -149,3 +149,34 @@ Ao fim, o Metro estava parado, o simulador desligado e a porta 8081 livre, e `ra
 - **Revisão independente.** Foram corrigidas as referências ao esquema na M23.02 e os rótulos dos dois distratores. A figura e a prévia com a geometria do app foram abertas em tamanho próximo ao da tela.
 - **Checagens focadas.** Verificador editorial da M23, registro e derivados, dois roteiros Maestro versionados da unidade e contrato de texto (65/65). As suítes focadas de alvos e créditos passaram 36/36. A contagem foi vista falhando com o valor anterior: a troca mantém 90 itens de figura e eleva de 14 para 15 os itens com imagem real.
 - **Prova no simulador.** Em 2026-11-23, o roteiro Maestro no Radiant F7 (iOS 26.5, dev client, Node 20) abriu a M23.02 e capturou o passo 4 de 8. O toque na região do colar e o botão de conferir mostraram o retorno correto. A captura foi aberta e conferida. O roteiro temporário precisou de um toque a mais após a última fala da cena. [Captura da M23.02](capturas/ios-reais-m23-aula02.jpg). Android e VoiceOver seguem pendentes.
+
+
+## Colar na ficha de rejeição da M23.06 (2026-11-24)
+
+Anderson aprovou o reúso do mesmo JPEG da M23.02 na M23.06 i2. O item pede a marca que se registra como objeto externo. O gabarito fica no vértice do colar e a decisão de repetir continua com a equipe. A M23.06 i5 conserva o botão de roupa na classificação de preparo do paciente. O resumo do catálogo passou a distinguir os objetos em radiografias das marcas do equipamento em esquema.
+
+A guarda de geometria marcou 15 imagens reais antes da alteração, abaixo das 16 esperadas, e a integração passou nos 52 testes focados de `hotspotTouch` e `rtgBatchFactory`. A revisão independente no commit `6df3ea12` mediu três áreas de toque com pelo menos 44 pt por eixo e sem sobreposição. O vértice ficou visível abaixo do selo. O único achado, no resumo do catálogo, foi corrigido em `bd3d72dc`.
+
+O roteiro Maestro concluiu a M23.06 no RadiantPlay e no Radiant F7. Nos dois simuladores, selecionou a região sobre o colar, conferiu o retorno correto e colocou o botão no grupo `Preparo do paciente`. [Android](capturas/android-m23-aula06-colar.jpg) · [iOS](capturas/ios-m23-aula06-colar.jpg).
+
+## Comparações de artefatos de RM na M29.05 e na M29.06 (2026-11-24)
+
+Anderson aprovou as duas propostas após abrir as prévias. Cada exercício tem uma pergunta e opções com imagens separadas, com a resposta B nas duas aulas. A M29.05 pede a perda e o acúmulo de sinal junto a um implante e conserva a classificação textual de movimento, metal e dobramento. A M29.06 compara os contornos de duas aquisições sagitais do mesmo participante, com a mesma área de recorte. O fenômeno cobrado é a perda de nitidez.
+
+| Aula e opção | Origem | Recorte em pixels no original (esquerda, alto, direita, baixo) |
+| --- | --- | --- |
+| M29.05 A | Nárai et al., Fig. 1, axial HM2 | 448, 24, 666, 196 |
+| M29.05 B | Feuerriegel e Sutter, Fig. 1B, ombro | 661, 1, 1297, 603 |
+| M29.05 C | Santini, duas aquisições da mesma esfera de teste com campos de visão diferentes | 0, 0, 256, 123 |
+| M29.06 A | Nárai et al., Fig. 1, sagital STAND | 0, 213, 218, 420 |
+| M29.06 B | Nárai et al., Fig. 1, sagital HM2 | 454, 213, 672, 420 |
+
+Os recortes retiram os rótulos da figura publicada e preservam a escala e os elementos do exame. As dimensões, a atribuição e os hashes dos originais e dos arquivos entregues constam do [cadastro de imagens](../../../content-manifest/rtg-2026/imagens.json). Os cinco JPEGs somam 90.838 bytes. [Nárai et al., CC BY 4.0](https://doi.org/10.1038/s41597-022-01694-8) · [Feuerriegel e Sutter, CC BY 4.0](https://link.springer.com/article/10.1007/s00256-024-04624-4#Fig1) · [Santini, revisão e declaração de domínio público](https://commons.wikimedia.org/w/index.php?title=File:MRI_Aliasing.jpg&oldid=1268911842) · [Descrição das duas aquisições feita pelo autor](https://it.wikipedia.org/wiki/Utente:IngFrancesco/Mio_MRI/Artefatti#Aliasing).
+
+A validação de imagens raster passou a aplicar a mesma permissão para domínio público declarado que o plano aplica às figuras. O teste reproduziu a reprova anterior e confirmou a aceitação com atribuição completa. As recusas de SA, NC, ND e de créditos incompletos foram preservadas. A guarda de geometria capturou a retirada de dois exercícios com coordenadas, com 90 recebidos contra 88 esperados antes da conversão. Depois, passaram 160 testes focados, 65 testes de estilo de texto, o lint da M29 e as verificações dos três geradores no commit `98ca1d2a`.
+
+A revisão independente reproduziu os cinco arquivos byte a byte a partir das fontes e mediu o erro absoluto médio da codificação JPEG entre 0,203 e 1,072 numa escala de 0 a 255. Ela confirmou a correspondência entre autores, licenças, opções exibidas e gabaritos. Os dois ajustes menores de descrição do contorno da esfera e dos sulcos nos cortes sagitais entraram em `2a45f960`. Passaram 130 testes focados na correção.
+
+No Radiant F7, os quatro roteiros passaram no conteúdo de `2a45f960`. Cada comparação avançou com a opção B e mostrou o retorno da alternativa incorreta testada (C na M29.05, A na M29.06). [Implante no iOS](capturas/ios-m29-aula05-implante.jpg) · [Movimento no iOS](capturas/ios-m29-aula06-movimento.jpg).
+
+No RadiantPlay, as duas perguntas passaram com a opção B, com avanço ao passo 5, e com as mesmas alternativas incorretas testadas no iOS. O reteste da M29.06 e dos distratores foi executado no RadiantPlay com SwiftShader depois da interrupção do emulador. [Implante no Android](capturas/android-m29-aula05-implante.jpg) · [Movimento no Android](capturas/android-m29-aula06-movimento.jpg) · [Registro de execução](capturas/radiantplay-maestro-fechamento-2026-11-24.txt).

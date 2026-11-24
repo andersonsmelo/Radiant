@@ -149,6 +149,21 @@ No **RadiantPlay**, o seletor antigo do launcher reprovou porque o Metro aparece
 
 No **Radiant F7**, a mesma classificação confirmou a resposta correta. Na ordenação seguinte, o alvo “Selecionar esta ordem” foi encontrado perto do rodapé e o toque caiu em sua área. A captura da falha já mostrava o passo 6 quando o roteiro ainda procurava o segundo “Continuar”. Centralizar o botão levou ao passo 6 com os dois toques esperados. A M23.02 chegou ao retorno correto com as três ações previstas de “Continuar”. A M24.04 avançou após rotular ílio, sacro e articulação sacroilíaca, no F7 e no RadiantPlay. As duas regiões corretas da M25.05 foram selecionadas na própria figura nos dois simuladores e confirmadas antes do passo 7.
 
-As provas acima usam o cliente de desenvolvimento já instalado, com entrada por link de lição. Foram regenerados os 31 YAMLs afetados. A bateria em Android de todos os lotes segue depois das decisões visuais do plano.
+As provas acima usam o cliente de desenvolvimento já instalado, com entrada por link de lição. Foram regenerados os 31 YAMLs afetados. A bateria de todos os lotes foi fechada depois das decisões visuais do plano e está na seção 11.
 
 [Resultados do Maestro](capturas/radiantplay-maestro-2026-11-24.txt) · [Colar](capturas/android-m23-aula02-artefato-colar.jpg) · [Rotulagem](capturas/android-m24-aula04-rotulagem.jpg) · [Cena do leito, dois riscos selecionados](capturas/android-m25-aula05-cena-leito.jpg).
+
+## 11. Bateria final de figuras e bundle (2026-11-24)
+
+O RadiantPlay confirmou **70 figuras em 108 usos, em 77 aulas**. Nesta rodada ficaram 102 usos capturados e conferidos em 94 etapas. Outros seis já tinham provas abertas e conferidas. O inventário vincula cada uso à aula, etapa, formato, árvore do app e captura. As figuras vistas em árvores anteriores conservaram os mesmos recursos e alvos. Os quatro usos dos esquemas mantidos de detector e monitor também foram conferidos em capturas separadas. [Inventário Android](capturas/radiantplay-inventario-2026-11-24.csv) · [Roteiros e retestes](capturas/radiantplay-maestro-fechamento-2026-11-24.txt).
+
+A M23.06 foi concluída no RadiantPlay e no Radiant F7 com o toque no colar e o botão classificado como preparo do paciente. Nas aulas M29.05 e M29.06, os dois simuladores mostraram o retorno correto de B, avançaram ao passo seguinte e mostraram o retorno da alternativa incorreta testada. [Capturas do colar e da RM](imagens-reais.md#colar-na-ficha-de-rejeição-da-m2306-2026-11-24).
+
+O bundle Hermes foi reexportado do conteúdo de `2a45f960` no Node 20.20.2 depois de encerrar os simuladores. Foi usado `EXPO_NO_DOTENV=1 EXPO_NO_TYPESCRIPT_SETUP=1 CI=1 npx expo export --platform <plataforma> --output-dir <pasta-temporária>`. A medição usa o único `.hbc` por plataforma e `gzip -9 -c` para o valor comprimido. Os deltas são contra `52e9c468`, seção 9.
+
+| Plataforma | Hermes cru | gzip -9 | Delta cru | Delta gzip |
+| --- | ---: | ---: | ---: | ---: |
+| iOS | 18.179.854 bytes | 5.879.074 bytes | +4.899 bytes | +4.175 bytes |
+| Android | 18.176.050 bytes | 5.874.186 bytes | +5.125 bytes | +1.871 bytes |
+
+Os cinco JPEGs das comparações somam 90.838 bytes como assets. A soma da régua de SVG continua em 4.142.438 unidades contra o teto de 8.116.109, pois nenhum spec SVG mudou desde a medição da seção 9. A medida do diafragma continua a da seção 9. A validação nativa desta rodada foi em simuladores.

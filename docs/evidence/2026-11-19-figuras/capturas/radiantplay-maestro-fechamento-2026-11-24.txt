@@ -1,0 +1,42 @@
+RTG-2026 · RadiantPlay e Radiant F7 · 2026-11-24
+Maestro 2.7.0 · Android Emulator 37.2.12 · cliente de desenvolvimento local
+
+Inventário Android
+70 figuras em 108 usos de 77 aulas. 102 usos fotografados nesta bateria lógica, em
+94 etapas, com 6 usos já validados na rodada anterior. Cada uma das 102 linhas
+novas traz a identificação da captura original e seu SHA-256 no CSV. Os roteiros
+abrem links reais de lição, respondem as etapas anteriores como aluno e capturam
+na etapa catalogada. Nas comparações, há uma captura por opção.
+
+As árvores anteriores são identificadas no CSV. A árvore final de execução é
+2a45f960. A partir de 45b75443, apenas M23.06, M29.05 e M29.06 ganharam figuras
+ou novos usos. As provas anteriores dos outros usos continuam aplicáveis aos
+mesmos arquivos, renderizadores e alvos. M22.03 (passos 4 e 7), M23.03 (passo 4)
+e M32.04 (passo 4) tiveram também capturas dos esquemas mantidos.
+
+Reprovas e retestes
+- M28.05: o roteiro chegou às três opções e procurou a primeira para baixo
+  quando ela estava acima. Reposicionar o cartão antes de avançar levou às
+  duas opções da etapa seguinte. Passou no reteste.
+- M26.01: o atalho sintético de Continuar correu com a transição e passou
+  direto à etapa 3. Na primeira tentativa após reiniciar o emulador, o link
+  da aula chegou enquanto o cliente abria a trilha. Com o cliente pronto e o
+  roteiro esperando a transição, o reteste isolado abriu e fotografou a
+  etapa 2 com êxito. A figura foi conferida com duas posições de rolagem.
+- RadiantPlay: duas saídas 139 do processo do emulador. O log registrou
+  threads do QEMU2 sem resposta e o Maestro perdeu o serial emulator-5554.
+  No primeiro corte, o lote parou na M31.01. No segundo corte, a M29.06 já
+  tinha mostrado o retorno correto, e o roteiro perdeu o emulador ao avançar.
+  Com iOS desligado e RadiantPlay em -gpu swiftshader, M31.01 a M31.06,
+  M32.02 e os três retestes finais de RM passaram. O inventário termina
+  com zero falhas pendentes no roteiro.
+
+Respostas em simulador
+- M23.06: lição concluída em Android e iOS, com acerto no colar e classificação
+  do botão em Preparo do paciente.
+- M29.05: opção B correta, retorno mostrado e avanço ao passo 5 em Android e
+  iOS. Opção C produziu retorno incorreto explicando a esfera e o dobramento.
+- M29.06: opção B correta, retorno mostrado e avanço ao passo 5 em Android e
+  iOS. Opção A produziu retorno incorreto orientando a comparar os contornos.
+- Radiant F7: quatro fluxos finais de RM passaram. O Android confirmou as
+  quatro situações nos fluxos executados antes e depois do reinício.

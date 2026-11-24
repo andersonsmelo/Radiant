@@ -106,3 +106,8 @@ Anderson aprovou o prosseguimento após ver a amostra. O primeiro piloto usa o p
 ## Adendo de 2026-11-24
 
 Após ver os exemplos em separado, Anderson aprovou a figura humana atual do kit e os selos e marcadores atuais. Para as duas aulas de RM, escolheu manter os três cortes lado a lado na M29.03 e empilhar os dois cortes na M29.04. A M29.04 usa a mesma fatia em cada sequência, com numeração neutra, uma única pergunta e gabarito na faixa de gordura da imagem inferior. [Amostra anterior e prova de integração](../evidence/2026-11-19-figuras/imagens-vps.md#m2904-painéis-empilhados-2026-11-24).
+
+
+Na M23.06, Anderson aprovou reutilizar a radiografia do colar da M23.02 e cobrar o botão no exercício de texto. O toque mostra a marca a registrar na ficha de rejeição. A classificação mantém o botão como causa tratada no preparo do paciente. Anderson também aprovou manter os esquemas do detector (M23.03 e M32.04) e do monitor (M22.03), para conservar os mecanismos e alvos dos exercícios.
+
+Após ver as duas prévias, Anderson aprovou a comparação com três exemplos e uma pergunta sobre o implante na M29.05, e a comparação de duas aquisições com uma pergunta sobre perda de nitidez na M29.06. O dobramento da M29.05 usa uma esfera de teste com dois campos de visão. A classificação textual da M29.05 continua cobrando os três mecanismos.
