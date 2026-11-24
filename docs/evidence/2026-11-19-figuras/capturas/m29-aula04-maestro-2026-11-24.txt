@@ -1,0 +1,39 @@
+M29.04 i3, RadiantPlay e Radiant F7, 2026-11-24
+Bundle da árvore local baseada em 8d82ed3c, com a troca do JPEG e das coordenadas.
+Roteiros locais abrem a aula real por link e selecionam a região na imagem.
+O primeiro ensaio de acerto no F7 ficou no passo 1 com todo o diálogo visível.
+A repetição adicionou um Continuar somente enquanto o passo 1 ainda estava visível.
+
+RadiantPlay, alvo inferior
+  COMPLETED assertConditionCommand Passo 5 de 8
+  COMPLETED scrollUntilVisible Selecionar Gordura sob a pele, imagem 2 na imagem
+  COMPLETED tapOnElement Selecionar Gordura sob a pele, imagem 2 na imagem
+  COMPLETED assertConditionCommand Isso mesmo: com a supressão, o sinal da gordura sob a pele é apagado e ela escurece\.
+  COMPLETED assertConditionCommand Passo 6 de 8
+
+RadiantPlay, distrator superior
+  COMPLETED assertConditionCommand Passo 5 de 8
+  COMPLETED tapOnElement Selecionar Gordura sob a pele, imagem 1 na imagem
+  COMPLETED assertConditionCommand Compare a gordura sob a pele nas duas imagens: onde ela continua clara, a supressão não foi usada\.
+
+Radiant F7, distrator superior
+  COMPLETED assertConditionCommand Passo 5 de 8
+  COMPLETED tapOnElement Selecionar Gordura sob a pele, imagem 1 na imagem
+  COMPLETED assertConditionCommand Compare a gordura sob a pele nas duas imagens: onde ela continua clara, a supressão não foi usada\.
+
+Radiant F7, alvo inferior
+  COMPLETED assertConditionCommand Passo 5 de 8
+  COMPLETED scrollUntilVisible Selecionar Gordura sob a pele, imagem 2 na imagem
+  COMPLETED tapOnElement Selecionar Gordura sob a pele, imagem 2 na imagem
+  COMPLETED assertConditionCommand Isso mesmo: com a supressão, o sinal da gordura sob a pele é apagado e ela escurece\.
+  COMPLETED assertConditionCommand Passo 6 de 8
+
+Regressão dirigida antes da mudança
+  Expected: > 280
+  Received: 101.26666666666667
+Depois da mudança: hotspotTouch e ImageCreditsScreen, 37 testes passaram.
+
+M29.03, RadiantPlay
+  COMPLETED lado a lado no passo 4
+  COMPLETED toque nos ventrículos da terceira imagem
+  COMPLETED retorno: Isso mesmo: líquido escuro com a branca mais escura que a cinzenta.*

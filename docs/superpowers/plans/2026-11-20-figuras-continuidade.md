@@ -41,10 +41,13 @@
 - [Objetos, figura 1A](https://www.mdpi.com/2227-9032/11/3/308) · [Linhas de grade](https://pmc.ncbi.nlm.nih.gov/articles/PMC6123149/#acm212425-fig-0002) · [Imagem residual](https://pmc.ncbi.nlm.nih.gov/articles/PMC5874089/#acm20001b-fig-0013).
 - [Movimento em RM](https://www.nature.com/articles/s41597-022-01694-8#Fig1) · [Suscetibilidade, figura 4B](https://link.springer.com/article/10.1007/s00261-026-05800-x) · [Dobramento e perda de sinal](https://www.frontiersin.org/journals/neuroimaging/articles/10.3389/fnimg.2022.1073734/full) · [Aplicação do TG270](https://doi.org/10.1002/mp.14227).
 
-### P1 — Ampliar os painéis de RM no iPhone
+Ferreira et al. têm um conjunto adicional sob CC BY 2.0, com recortes candidatos de movimento respiratório, dobramento e suscetibilidade junto a dispositivo. O exemplo de dobramento traz setas que apontam outro efeito. A M29.06 exige conferir se a repetição fica legível antes de reaproveitar o enunciado. [Movimento, figura 17](https://link.springer.com/article/10.1186/1532-429X-15-41/figures/17) · [Dobramento, figura 30B](https://link.springer.com/article/10.1186/1532-429X-15-41/figures/30) · [Suscetibilidade, figura 34A](https://link.springer.com/article/10.1186/1532-429X-15-41/figures/34) · [Licença do artigo](https://link.springer.com/article/10.1186/1532-429X-15-41#rightslink).
 
-- [ ] **Provar a M29.03 primeiro, depois a M29.04.** Mostrar uma amostra em tela estreita com os painéis empilhados e ampliados na mesma escala, numeração neutra e alternativa textual. Manter uma pergunta por exercício. Remapear os alvos para que o gabarito continue nos ventrículos do FLAIR em M29.03 e na gordura subcutânea do painel com supressão em M29.04.
-- **Dependência e aceite.** Integrar após o aceite visual e o P0. No iPhone, o aluno consegue comparar os painéis, rolar até cada alvo e confirmar sem sobreposição de selos, alvos ou rodapé. Registrar antes e depois e verificar o retorno do toque correto e de um distrator. Repetir o fluxo no RadiantPlay.
+### P1 — Disposição dos painéis de RM
+
+- [x] **M29.03, ponderações no encéfalo.** Anderson escolheu manter os três painéis lado a lado em 2026-11-24.
+- [x] **M29.04, supressão de gordura.** Anderson aprovou o arranjo empilhado em 2026-11-24. O acerto, o distrator e a rolagem passaram no Radiant F7 e no RadiantPlay. Os painéis ficam na mesma escala, com numeração neutra e alternativa textual. O gabarito continua na gordura sob a pele da imagem com supressão.
+- **Aceite.** No Radiant F7 e no RadiantPlay, conferir a rolagem, o retorno da gordura correta, o retorno da gordura distratora e as marcas do exercício. [Antes, depois e crédito](../../evidence/2026-11-19-figuras/imagens-vps.md#m2904-painéis-empilhados-2026-11-24).
 
 ### P2 — Completar a bateria visual e medir desempenho
 
@@ -61,7 +64,7 @@
 ### Decisões do dono e sequência de entrega
 
 - [x] **Selos e marcadores.** Anderson aprovou os atuais em 2026-11-24 após ver a amostra da M24.04. A bateria final usa essa configuração.
-- [ ] **Figura humana do kit.** A versão atual foi mostrada separadamente em 2026-11-24, ao lado do exemplo da cena do leito. Anderson ainda precisa aceitar a versão atual ou indicar os ajustes. Trocar a pessoa pode exigir regerar as 22 cenas. [Decisões registradas](../../adr/ADR-2026-11-19-figuras-por-tipo.md#o-que-o-dono-precisa-confirmar).
+- [x] **Figura humana do kit.** Anderson aprovou a versão atual em 2026-11-24 após ver o modelo isolado e a cena do leito. [Decisões registradas](../../adr/ADR-2026-11-19-figuras-por-tipo.md#o-que-o-dono-precisa-confirmar).
 - [ ] **No fechamento.** Levar ao dono o pacote com diffs, checks, capturas e lacunas editoriais. Com cada elo apto, o dono decide o merge na ordem da pilha. Conferir o estado no GitHub após cada etapa e medir a base do elo seguinte. A retomada dos lotes 5 e 6 da fase C é uma decisão posterior ao fechamento das figuras.
 
 Usar **Loop** para escopo e validação, **Git e GitHub** para reconciliar a pilha, **Maestro** para o fluxo nos emuladores e **Serena** para localizar os componentes e contratos de toque. O Radar de Skills serviu como referência de ferramentas. O conjunto já disponível cobre as etapas do plano.

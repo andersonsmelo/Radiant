@@ -267,7 +267,7 @@ describe('selos fora da área de toque dos outros alvos (E12)', () => {
 // Guarda de conteúdo: os itens reais das 40 unidades, de desenho (diagramId) e de imagem real (imageId), na régua de 280 pt (achado 1 da revisão do 2A; achado 13 da revisão das imagens reais).
 describe('selos nos itens reais das 40 unidades (E12)', () => {
     type Box = { left: number; top: number; width: number; height: number };
-    type Item = { unit: string; id: string; diagramId?: string; imageId?: string; points?: { x: number; y: number }[]; regions?: { x: number; y: number; width: number; height: number }[] };
+    type Item = { unit: string; id: string; diagramId?: string; imageId?: string; points?: { x: number; y: number }[]; regions?: { x: number; y: number; width: number; height: number; correct?: boolean }[] };
     const dir = path.resolve(__dirname, '../../../../../content-manifest/rtg-2026/aulas');
     const imagens = JSON.parse(fs.readFileSync(path.resolve(dir, '../imagens.json'), 'utf8')) as { id: string; width: number; height: number }[];
     const items: Item[] = [];
@@ -314,6 +314,21 @@ describe('selos nos itens reais das 40 unidades (E12)', () => {
         const frame = frameOf(item);
         const seals = labelBadgeBoxes(item.points!, frame);
         expect(touchRectsOverlap(seals[4], touchRect(item.points![3], frame))).toBe(false);
+    });
+
+    it('M29.04 empilha a mesma fatia e mantém a gordura do painel inferior como resposta', () => {
+        const imageId = 'image:rtg-2026:m29:rm-supressao-gordura-01';
+        const item = items.find(entry => entry.imageId === imageId && entry.id === 'i3')!;
+        const frame = frameOf(item);
+        const [gorduraAcima, gorduraAbaixo, colunaAcima, colunaAbaixo] = item.regions!;
+        expect(frame.height).toBeGreaterThan(frame.width);
+        expect(item.regions!.map(region => Boolean(region.correct))).toEqual([false, true, false, false]);
+        expect(gorduraAcima.y + gorduraAcima.height).toBeLessThan(colunaAcima.y);
+        expect(colunaAcima.y + colunaAcima.height).toBeLessThan(0.5);
+        expect(gorduraAbaixo.y).toBeGreaterThan(0.5);
+        expect(gorduraAbaixo.y + gorduraAbaixo.height).toBeLessThan(colunaAbaixo.y);
+        expect(gorduraAcima.x).toBeCloseTo(gorduraAbaixo.x, 4);
+        expect(colunaAcima.x).toBeCloseTo(colunaAbaixo.x, 4);
     });
 
     it('tocar e caça ao risco: nenhum selo encosta (menos de 3 pt) em outra região', () => {

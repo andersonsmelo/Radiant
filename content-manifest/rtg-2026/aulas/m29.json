@@ -1167,33 +1167,33 @@
           "imageId": "image:rtg-2026:m29:rm-supressao-gordura-01",
           "regions": [
             {
-              "label": "Gordura sob a pele, imagem da esquerda",
-              "x": 0.125,
-              "y": 0.1774,
-              "width": 0.2417,
-              "height": 0.0806
+              "label": "Gordura sob a pele, imagem 1",
+              "x": 0.25,
+              "y": 0.09571,
+              "width": 0.4834,
+              "height": 0.08
             },
             {
-              "label": "Gordura sob a pele, imagem da direita",
-              "x": 0.625,
-              "y": 0.1774,
-              "width": 0.2417,
-              "height": 0.0806,
+              "label": "Gordura sob a pele, imagem 2",
+              "x": 0.25,
+              "y": 0.59571,
+              "width": 0.4834,
+              "height": 0.08,
               "correct": true
             },
             {
-              "label": "Coluna, imagem da esquerda",
-              "x": 0.2125,
-              "y": 0.576,
-              "width": 0.0833,
-              "height": 0.1728
+              "label": "Coluna, imagem 1",
+              "x": 0.425,
+              "y": 0.302558,
+              "width": 0.1666,
+              "height": 0.080467
             },
             {
-              "label": "Coluna, imagem da direita",
-              "x": 0.7125,
-              "y": 0.576,
-              "width": 0.0833,
-              "height": 0.1728
+              "label": "Coluna, imagem 2",
+              "x": 0.425,
+              "y": 0.802558,
+              "width": 0.1666,
+              "height": 0.080467
             }
           ],
           "feedbackCorrect": "Isso mesmo: com a supressão, o sinal da gordura sob a pele é apagado e ela escurece.",

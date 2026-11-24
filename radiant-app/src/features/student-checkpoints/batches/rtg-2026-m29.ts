@@ -6,7 +6,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m29",
-  "materialSha256": "420a17ee802e4b1cbd65fc38a6e1a957114942653b17b71486c951875247bea3",
+  "materialSha256": "3f4d81cf404c2a61abc26208f9ffb40fddbaf0d55cd74d0dbd6e782fcc80663f",
   "trackId": "track:rtg-2026:m29",
   "unitId": "unit:rtg-2026:m29",
   "contentVersion": "rtg-2026-m29-v1",
@@ -1289,35 +1289,35 @@ export const RTG_2026_M29: ProductionBatchV1 = {
               "regions": [
                 {
                   "id": "region:rtg-2026:m29:aula-04:i3:1",
-                  "label": "Gordura sob a pele, imagem da esquerda",
-                  "x": 0.125,
-                  "y": 0.1774,
-                  "width": 0.2417,
-                  "height": 0.0806
+                  "label": "Gordura sob a pele, imagem 1",
+                  "x": 0.25,
+                  "y": 0.09571,
+                  "width": 0.4834,
+                  "height": 0.08
                 },
                 {
                   "id": "region:rtg-2026:m29:aula-04:i3:2",
-                  "label": "Gordura sob a pele, imagem da direita",
-                  "x": 0.625,
-                  "y": 0.1774,
-                  "width": 0.2417,
-                  "height": 0.0806
+                  "label": "Gordura sob a pele, imagem 2",
+                  "x": 0.25,
+                  "y": 0.59571,
+                  "width": 0.4834,
+                  "height": 0.08
                 },
                 {
                   "id": "region:rtg-2026:m29:aula-04:i3:3",
-                  "label": "Coluna, imagem da esquerda",
-                  "x": 0.2125,
-                  "y": 0.576,
-                  "width": 0.0833,
-                  "height": 0.1728
+                  "label": "Coluna, imagem 1",
+                  "x": 0.425,
+                  "y": 0.302558,
+                  "width": 0.1666,
+                  "height": 0.080467
                 },
                 {
                   "id": "region:rtg-2026:m29:aula-04:i3:4",
-                  "label": "Coluna, imagem da direita",
-                  "x": 0.7125,
-                  "y": 0.576,
-                  "width": 0.0833,
-                  "height": 0.1728
+                  "label": "Coluna, imagem 2",
+                  "x": 0.425,
+                  "y": 0.802558,
+                  "width": 0.1666,
+                  "height": 0.080467
                 }
               ],
               "correctRegionIds": [
@@ -6610,11 +6610,11 @@ export const RTG_2026_M29: ProductionBatchV1 = {
         "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
         "retrievedAt": "2026-11-22",
         "sha256Original": "1556193fd930bee412cec4bb7cbf6ddcdb04e8ceac41a87035e638092dca0728",
-        "sha256Asset": "1556193fd930bee412cec4bb7cbf6ddcdb04e8ceac41a87035e638092dca0728",
-        "modification": "imagens nativas, sem reformatação; mesmo recorte nas duas, janela de 0 ao percentil 99,5 em cada painel, redução para 1200 x 434 e conversão para JPEG em tons de cinza; sem retoque",
-        "alt": "Duas imagens de ressonância magnética de um mesmo corte axial do abdome superior, lado a lado, em tons de cinza sobre fundo preto, com brilhos diferentes em alguns tecidos.",
-        "width": 1200,
-        "height": 434
+        "sha256Asset": "fd7dff7a5df27ca3f4857697143f8da73b3c15e4d3dcbde3cc9ac3ee826bbedd",
+        "modification": "imagens nativas, sem reformatação; mesmo recorte e janela de 0 ao percentil 99,5 em cada painel; painéis originais de 600 x 434 empilhados com faixas numeradas; recompostos em JPEG de tons de cinza",
+        "alt": "Dois cortes axiais de ressonância magnética do abdome superior, empilhados em tons de cinza, com brilhos diferentes em alguns tecidos.",
+        "width": 600,
+        "height": 932
       }
     ]
   },
@@ -6632,7 +6632,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "420a17ee802e4b1cbd65fc38a6e1a957114942653b17b71486c951875247bea3"
+      "materialSha256": "3f4d81cf404c2a61abc26208f9ffb40fddbaf0d55cd74d0dbd6e782fcc80663f"
     },
     {
       "schemaVersion": 1,
@@ -6641,7 +6641,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "420a17ee802e4b1cbd65fc38a6e1a957114942653b17b71486c951875247bea3"
+      "materialSha256": "3f4d81cf404c2a61abc26208f9ffb40fddbaf0d55cd74d0dbd6e782fcc80663f"
     },
     {
       "schemaVersion": 1,
@@ -6650,7 +6650,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "420a17ee802e4b1cbd65fc38a6e1a957114942653b17b71486c951875247bea3"
+      "materialSha256": "3f4d81cf404c2a61abc26208f9ffb40fddbaf0d55cd74d0dbd6e782fcc80663f"
     },
     {
       "schemaVersion": 1,
@@ -6659,7 +6659,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "420a17ee802e4b1cbd65fc38a6e1a957114942653b17b71486c951875247bea3"
+      "materialSha256": "3f4d81cf404c2a61abc26208f9ffb40fddbaf0d55cd74d0dbd6e782fcc80663f"
     },
     {
       "schemaVersion": 1,
@@ -6668,7 +6668,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "420a17ee802e4b1cbd65fc38a6e1a957114942653b17b71486c951875247bea3"
+      "materialSha256": "3f4d81cf404c2a61abc26208f9ffb40fddbaf0d55cd74d0dbd6e782fcc80663f"
     },
     {
       "schemaVersion": 1,
@@ -6677,7 +6677,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "420a17ee802e4b1cbd65fc38a6e1a957114942653b17b71486c951875247bea3"
+      "materialSha256": "3f4d81cf404c2a61abc26208f9ffb40fddbaf0d55cd74d0dbd6e782fcc80663f"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

@@ -64,8 +64,8 @@ Decisões que mudaram produto ou método, uma por linha (as demais, R4 a R7, R9,
 
 ### O que o dono precisa confirmar
 
-- A **pessoa do kit** (R1): ver a prancha e as cenas no simulador e aceitar ou pedir outra.
-- A **mudança do selo e do marcador** no app, que vale para todas as figuras (R14 e R15).
+- ~~A **pessoa do kit** (R1).~~ Aprovação de Anderson em 2026-11-24.
+- ~~A **mudança do selo e do marcador** no app (R14 e R15).~~ Anderson aprovou os selos atuais em 2026-11-24, com a correção de 2026-11-21.
 - **Fase 5 sem trocas** (R23 em especial: a radiografia-roteiro fica com o esquema) e **a ordem das fases** (R8).
 - ~~**Fase 3:** ver a amostra e decidir se os 14 gráficos vão a volume.~~ Decidido pelo dono em 2026-11-21 (adendo de 2026-11-22).
 - ~~**Fase 4:** aceitar licença ISC para ícones, trocar de conjunto, ou manter os fluxos atuais.~~ Decidido pelo dono em 2026-11-21 (adendo de 2026-11-22).
@@ -101,3 +101,8 @@ Decisor: o dono do projeto, na conversa de 2026-11-22. Registro: Claude.
 ## Adendo de 2026-11-23 (piloto de artefato de objeto)
 
 Anderson aprovou o prosseguimento após ver a amostra. O primeiro piloto usa o painel C da figura 2 de Liu, Carrion e Badawy, com crédito CC BY 4.0. A M23.02 concentra o toque no colar e mantém os demais exemplos no conteúdo textual da aula. A M23.06 conserva o exercício de distinguir adorno e roupa no esquema. [Evidência](../evidence/2026-11-19-figuras/imagens-reais.md#piloto-de-artefato-de-objeto-2026-11-23).
+
+
+## Adendo de 2026-11-24
+
+Após ver os exemplos em separado, Anderson aprovou a figura humana atual do kit e os selos e marcadores atuais. Para as duas aulas de RM, escolheu manter os três cortes lado a lado na M29.03 e empilhar os dois cortes na M29.04. A M29.04 usa a mesma fatia em cada sequência, com numeração neutra, uma única pergunta e gabarito na faixa de gordura da imagem inferior. [Amostra anterior e prova de integração](../evidence/2026-11-19-figuras/imagens-vps.md#m2904-painéis-empilhados-2026-11-24).

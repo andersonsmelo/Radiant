@@ -17,7 +17,7 @@ anonimizado", e declara ter o direito e o consentimento para uso educacional. Ne
   real: sem texto gravado nos pixels. Cada arquivo tem até 150 KiB.
 - Não há original público: `sha256Original` é o do próprio JPEG da amostra, que entrou como está.
 
-## Imagens, processamento e onde entram
+## Imagens, processamento e onde entraram em 2026-11-22
 
 | Id (`image:rtg-2026:...`) | Arquivo | Processamento | Entra em |
 | --- | --- | --- | --- |
@@ -49,7 +49,7 @@ Lista completa, antes e depois, em `itens-alterados-vps.md` (pasta de trabalho).
 - m28-06: o conceito diz que as manchas pretas do corte são gás dentro do intestino, e não pulmão.
 - Resposta certa dos outros itens: nenhuma mudou.
 
-## Medidas
+## Medidas do arranjo de 2026-11-22
 
 Todas as regiões e pontos foram medidos sobre o JPEG final (pixels) e abertos na prévia com os marcadores do app
 (`imagens-vps/<id>.png`). Os selos do número ficam fora da região.
@@ -97,3 +97,17 @@ Este documento não prova o seguinte:
 
 Ao fim, o Metro estava parado, o simulador desligado e `radiant-app/expo-env.d.ts` não existia.
 
+
+
+## M29.04, painéis empilhados (2026-11-24)
+
+Anderson escolheu manter a M29.03 lado a lado e empilhar apenas a M29.04. O JPEG da M29.04 preserva os dois cortes de 600 × 434 px, a ordem e a escala. A montagem mede 600 × 932 px e acrescenta faixas de 32 px com “Imagem 1” e “Imagem 2”. O arquivo em tons de cinza tem 80.554 bytes, sem EXIF ou comentário. O registro mantém autor, licença CC BY 4.0 e hash da prancha original e informa a recomposição. A diferença absoluta média decorrente do novo JPEG foi de 0,188 e 0,268 em 255 níveis de cinza.
+
+Os quatro centros do recorte original foram preservados com diferença inferior a 0,01 px. A caixa da gordura foi ampliada verticalmente, ao redor do mesmo centro, ao mínimo normalizado de 0,08 exigido pelo verificador (cerca de 75 px, antes 35). A largura segue em 290 px. As caixas correspondentes na gordura superior e inferior ficaram com médias de cinza de 82,54 e 22,63 em 255. A imagem 2 segue como a única resposta correta, e a lista textual usa o mesmo número de painel. Na régua de 280 pt, o menor vão entre áreas de toque foi 46,07 pt e o menor vão de um selo à área de toque de outro alvo foi 26,57 pt. A revisão independente conferiu o JPEG, o hash, o gabarito e as posições de toque entre 240 e 430 pt.
+
+[Antes, no Radiant F7](capturas/ios-vps-m29-aula04.jpg).
+
+
+No RadiantPlay e no Radiant F7, a imagem de cima ficou inteira ao abrir o passo 5. A rolagem expôs o alvo da imagem 2 e a seleção na própria imagem acendeu a faixa escura e a mesma opção na lista. Os dois simuladores confirmaram o acerto e o avanço ao passo 6, além do retorno de erro ao selecionar a faixa clara da imagem 1. A abertura do primeiro ensaio de acerto no F7 ficou no passo 1 com todas as falas visíveis. O roteiro temporário repetiu “Continuar” somente enquanto aquele passo ainda estava visível. A M29.03 também passou no RadiantPlay após tocar nos ventrículos do terceiro painel.
+
+[Depois no Radiant F7](capturas/ios-m29-aula04-empilhada.jpg) · [Depois no RadiantPlay](capturas/android-m29-aula04-empilhada.jpg) · [Prova do acerto, do distrator e da regressão](capturas/m29-aula04-maestro-2026-11-24.txt).
