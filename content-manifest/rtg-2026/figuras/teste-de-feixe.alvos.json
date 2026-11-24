@@ -1,0 +1,7 @@
+[
+  { "nome": "Tubo de raios X", "x": 0.4063, "y": 0.1125, "width": 0.1656, "height": 0.2354 },
+  { "nome": "Colimador", "x": 0.4375, "y": 0.2729, "width": 0.1031, "height": 0.1771 },
+  { "nome": "Lâminas de filtro", "x": 0.3875, "y": 0.4354, "width": 0.2172, "height": 0.3583 },
+  { "nome": "Medidor", "x": 0.4016, "y": 0.6813, "width": 0.175, "height": 0.1521 },
+  { "nome": "Mostrador", "x": 0.6203, "y": 0.6042, "width": 0.2203, "height": 0.3958 }
+]

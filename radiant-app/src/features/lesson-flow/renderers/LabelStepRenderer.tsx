@@ -4,11 +4,11 @@ import type { LabelPayload } from '../../../types/learningActivity';
 import { semanticColors } from '../../../ui/semantic-colors';
 import { VerdictIcon } from '../../../ui/components/VerdictIcons';
 import { galaxyColors } from '../../../ui/theme';
-import { radius, space, typography } from '../../../ui/styles';
+import { radius, typography } from '../../../ui/styles';
 import { InteractionFigure, isFigureAvailable } from './InteractionFigure';
 import type { InteractionImageResolver } from './InteractionImageSource';
 import { decodeCategorizeValue } from './InteractionAnswerValue';
-import { touchRect } from './hotspotTouch';
+import { LABEL_DOT, badgeStyle, labelBadgeBoxes, touchRect } from './hotspotTouch';
 import { EnterView, TapChip, f2Styles } from './TapChip';
 
 type Props = {
@@ -23,8 +23,6 @@ type Props = {
 
 /** O que o aluno tem na mão: uma ficha ou um ponto, à espera do outro toque. É foco, não resposta. */
 type Focus = { kind: 'label' | 'point'; id: string } | null;
-
-const MARKER = 28;
 
 /**
  * Rotular sem arrastar: toca na ficha e depois no ponto, ou no ponto e depois na
@@ -81,7 +79,10 @@ export function LabelStepRenderer({ payload, accessibilityLabel, value, onChange
                 alt={accessibilityLabel}
                 resolveImage={resolveImageSource}
             >
-                {frame => payload.points.map((point, index) => {
+                {frame => {
+                    const seals = labelBadgeBoxes(payload.points, frame);
+                    return <>
+                        {payload.points.map((point, index) => {
                     const verdict = verdictOf(point.id, point.correctLabelId);
                     const current = assigned[point.id];
                     const selected = focus?.kind === 'point' && focus.id === point.id;
@@ -100,13 +101,32 @@ export function LabelStepRenderer({ payload, accessibilityLabel, value, onChange
                             // Alvo de 44 pt centrado no ponto: a mesma conta da régua do verificador.
                             style={[styles.target, touchRectStyle(point, frame)]}
                         >
-                            <View style={[styles.marker, (selected || current) && styles.markerOn, selected && styles.markerFocus]}>
-                                <Text style={styles.markerNumber}>{index + 1}</Text>
-                                {verdict ? <VerdictIcon verdict={verdict} size={16} testID={`label-point-verdict-${verdict}`} /> : null}
-                            </View>
+                            <View testID={`label-point-marker-${index + 1}`} style={[styles.marker, (selected || current) && styles.markerOn, selected && styles.markerFocus]} />
                         </Pressable>
                     );
-                })}
+                        })}
+                        {/* O número vai num selo fora do ponto, irmão dele: o ponto fica exatamente sobre o alvo, e o selo não recebe toque. */}
+                        {payload.points.map((point, index) => {
+                            const verdict = verdictOf(point.id, point.correctLabelId);
+                            const selected = focus?.kind === 'point' && focus.id === point.id;
+                            const marked = selected || assigned[point.id];
+                            return (
+                                <View
+                                    key={`selo-${point.id}`}
+                                    testID={`label-point-badge-${index + 1}`}
+                                    pointerEvents="none"
+                                    accessible={false}
+                                    accessibilityElementsHidden
+                                    importantForAccessibility="no-hide-descendants"
+                                    style={[styles.badge, marked && styles.markerOn, selected && styles.markerFocus, badgeStyle(seals[index])]}
+                                >
+                                    <Text style={styles.markerNumber}>{index + 1}</Text>
+                                    {verdict ? <VerdictIcon verdict={verdict} size={VERDICT_ICON} testID={`label-point-verdict-${verdict}`} /> : null}
+                                </View>
+                            );
+                        })}
+                    </>;
+                }}
             </InteractionFigure>
 
             {/* O que cada ponto leva, em texto; o leitor de tela já ouve isso no próprio ponto. */}
@@ -138,14 +158,27 @@ function touchRectStyle(point: { x: number; y: number }, frame: { width: number;
     return { left, top, width, height };
 }
 
+/**
+ * Depois da conferência o selo leva o número e o ícone do veredito. Largura de 36 pt, borda de 2 de cada lado:
+ * sobram 32 pt para um dígito (até ~12 pt em Sora Bold 16), o vão e o ícone.
+ */
+export const VERDICT_ICON = 14;
+export const VERDICT_GAP = 2;
+
 const galaxy = semanticColors.galaxy;
 
 const styles = StyleSheet.create({
     target: { position: 'absolute', alignItems: 'center', justifyContent: 'center' },
     marker: {
-        minWidth: MARKER,
-        height: MARKER,
-        paddingHorizontal: space.s1,
+        width: LABEL_DOT,
+        height: LABEL_DOT,
+        borderRadius: LABEL_DOT / 2,
+        borderWidth: 2,
+        borderColor: galaxy.statusInformation,
+        backgroundColor: galaxyColors.background,
+    },
+    // Mesmo selo opaco do `hotspot`: a figura atrás pode ser clara.
+    badge: {
         borderRadius: radius.rMd,
         borderWidth: 2,
         borderColor: galaxy.statusInformation,
@@ -153,7 +186,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: space.s1,
+        gap: VERDICT_GAP,
     },
     markerOn: { borderColor: galaxy.statusSuccess },
     markerFocus: { borderWidth: 3, borderColor: galaxy.reward },

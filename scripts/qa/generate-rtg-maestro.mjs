@@ -28,8 +28,14 @@ const text = label => `- tapOn: ${quote(escapeMaestro(label))}`;
 const id = value => `- tapOn:\n    id: ${quote(escapeMaestro(value))}`;
 // Sem `visibilityPercentage`: o contrato só admite uma régua por seletor e esta não mede nenhuma.
 const scrollTo = (kind, value, direction) => `- scrollUntilVisible:\n    element:\n      ${kind}: ${quote(escapeMaestro(value))}${direction ? `\n    direction: ${direction}` : ''}`;
+// Botão de bancada e de laboratório: centrado, porque o rodapé fixo (Conferir resposta) cobre o fim da rolagem e engole o toque.
+const scrollToCentred = value => `${scrollTo('text', value)}\n    centerElement: true`;
 const tapText = label => [scrollTo('text', label), text(label)];
 const tapId = value => [scrollTo('id', value), id(value)];
+const tapCentered = (kind, value, direction) => [
+  `${scrollTo(kind, value, direction)}\n    centerElement: true`,
+  kind === 'id' ? id(value) : text(value),
+];
 
 /** Os toques que respondem certo a uma interação, na ordem em que o aluno os faz. */
 function answerCommands(interaction) {
@@ -55,7 +61,8 @@ function answerCommands(interaction) {
           [current[at - 1], current[at]] = [current[at], current[at - 1]];
         }
       });
-      return [...commands, ...tapText('Selecionar esta ordem')];
+      // Centralize a ordem para o toque não cair no botão fixo de conferir.
+      return [...commands, ...tapCentered('text', 'Selecionar esta ordem', 'DOWN')];
     }
     case 'matching':
       // O último par se completa sozinho (MatchingStepRenderer.choose): n - 1 toques.
@@ -71,8 +78,11 @@ function answerCommands(interaction) {
       ]);
     case 'categorize': {
       const group = new Map(payload.categories.map(category => [category.id, category.label]));
-      // O item ativo é o primeiro pendente (ordem de exibição); tocar nele e no grupo basta.
-      return payload.items.flatMap(item => [...tapId(`categorize-item-${item.label}`), ...tapId(`categorize-group-${group.get(item.categoryId)}`)]);
+      // Os grupos ficam acima das fichas. Centralize o alvo antes do toque por causa do rodapé fixo.
+      return payload.items.flatMap(item => [
+        ...tapCentered('id', `categorize-item-${item.label}`, 'DOWN'),
+        ...tapCentered('id', `categorize-group-${group.get(item.categoryId)}`, 'UP'),
+      ]);
     }
     case 'multi-select':
       return payload.options.filter(option => payload.correctOptionIds.includes(option.id)).flatMap(option => tapId(`multi-select-${option.label}`));
@@ -105,7 +115,7 @@ function answerCommands(interaction) {
       const up = goal.atLeast !== undefined && control.initial < goal.atLeast;
       const gap = up ? goal.atLeast - control.initial : control.initial - goal.atMost;
       const label = `${up ? 'Aumentar' : 'Diminuir'} ${control.label}`;
-      return [scrollTo('text', label), ...Array.from({ length: Math.ceil(gap / control.step - 1e-9) }, () => text(label))];
+      return [scrollToCentred(label), ...Array.from({ length: Math.ceil(gap / control.step - 1e-9) }, () => text(label))];
     }
     case 'parameter-lab': {
       // Como na bancada: um passo por toque nos botões Aumentar ou Diminuir. Partida e limites caem na grade do modelo
@@ -115,7 +125,7 @@ function answerCommands(interaction) {
       const up = goal.atLeast !== undefined && start < goal.atLeast;
       const gap = up ? goal.atLeast - start : start - goal.atMost;
       const button = `${up ? 'Aumentar' : 'Diminuir'} ${label}`;
-      return [scrollTo('text', button), ...Array.from({ length: Math.ceil(gap / step - 1e-9) }, () => text(button))];
+      return [scrollToCentred(button), ...Array.from({ length: Math.ceil(gap / step - 1e-9) }, () => text(button))];
     }
     case 'label': {
       // Ponto e ficha, na ordem dos pontos. Os pontos ficam acima das fichas: depois de rolar até uma ficha,

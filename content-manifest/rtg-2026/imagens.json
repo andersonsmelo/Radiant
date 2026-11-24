@@ -147,5 +147,324 @@
     "usedIn": [
       "m28-05"
     ]
+  },
+  {
+    "id": "image:rtg-2026:m23:torax-pa-roteiro-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m23/torax-pa-roteiro-01.jpg",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Chest_Xray_PA_3-8-2010.png",
+    "author": "Stillwaterising",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "a43431b089a6dfab031c10eceef6c821e4f326913bf9015f73f4a1f0446d2be1",
+    "sha256Asset": "b0275074a99a63e4d30db529f078cf8a17ad904e18edae3d6d19c0847f20e144",
+    "modification": "redução e conversão para tons de cinza e para JPEG, sem recorte",
+    "alt": "Radiografia do tórax em tons de cinza, em formato horizontal, com as clavículas no alto. No canto superior direito há uma tira com a letra L, as letras ETB e um círculo.",
+    "width": 1200,
+    "height": 973,
+    "projection": "posteroanterior (PA)",
+    "region": "tórax",
+    "descriptionFromSource": "Chest X-ray PA",
+    "usedIn": [
+      "m23-01",
+      "m23-05"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m23:torax-artefato-colar-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m23/torax-artefato-colar-01.jpg",
+    "sourcePage": "https://onlinelibrary.wiley.com/doi/10.1002/jmrs.70006#jmrs70006-fig-0002",
+    "author": "Emily Huanke Liu, Daniel Carrion e Mohamed Khaldoun Badawy, Journal of Medical Radiation Sciences",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-23",
+    "sha256Original": "2f1f4f02f6e69004e4acd6164f3874cbeace8fedba9905bb40b63393dc269f70",
+    "sha256Asset": "e3db18cbe85af9a4121d08defd1b885d4908071fabaedeffa99cb89a50479ffd",
+    "modification": "isolamento do painel C da figura 2, conversão para tons de cinza e JPEG",
+    "alt": "Radiografia frontal do tórax em tons de cinza, com clavículas no alto, contorno do coração na metade inferior e uma linha clara em V sobre o centro da imagem.",
+    "width": 337,
+    "height": 333,
+    "projection": "frontal",
+    "region": "tórax",
+    "descriptionFromSource": "Figura 2, painel C: radiografia de tórax com artefato por colar.",
+    "usedIn": [
+      "m23-02",
+      "m23-06"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m30:dxa-quadril-coluna-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m30/dxa-quadril-coluna-01.jpg",
+    "sourcePage": "https://ojrd.biomedcentral.com/articles/10.1186/1750-1172-5-30",
+    "author": "Dominique P. Germain, figura de Caroline Lebreton, Orphanet Journal of Rare Diseases, 2010",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "6905a26eb63672b8a0d71ac89655b5a326f4c729a5f1e3670aec82a42caa57da",
+    "sha256Asset": "9213b16b0cd3c5a05fd38c05275b218157c221f2664e1d62d09745d1dbd330fc",
+    "modification": "recompressão em JPEG, sem recorte; cópia obtida no Wikimedia Commons (File:Morbus_Fabry_DXA_01.jpg), conferida contra o artigo de origem",
+    "alt": "Duas imagens lado a lado de um exame de densitometria, marcadas A e B. A, à esquerda, mostra a parte de cima de um osso da coxa, com contornos, retângulos e linhas amarelas desenhados por cima. B, à direita, mostra uma coluna de vértebras, com quatro faixas amarelas empilhadas marcadas L1, L2, L3 e L4.",
+    "width": 1200,
+    "height": 763,
+    "projection": "anteroposterior",
+    "region": "fêmur proximal e coluna lombar",
+    "descriptionFromSource": "Dual-energy X-ray absorptiometry (DEXA) assessment of bone mineral density of the femoral neck (A) and the lumbar spine (B). Courtesy: Dr Caroline LEBRETON, CHU Raymond Poincaré, Garches, France.",
+    "usedIn": [
+      "m30-02",
+      "m30-06"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m30:dxa-coluna-cimento-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m30/dxa-coluna-cimento-01.jpg",
+    "sourcePage": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0285898",
+    "author": "Lin YH, Chou CS, Teng MMH, PLoS One, 2023",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "685d84cf7a0de5c1af19ea2c41356cb643bb2c158bf008d93de074133eb34651",
+    "sha256Asset": "6bde2bb116a0c8c7affdd4e8f8ca8a26cfe1342aa4b0fbc670f6fc2a2b1b5393",
+    "modification": "recorte do painel da esquerda (a figura tem três painéis) e conversão para tons de cinza e para JPEG",
+    "alt": "Imagem de densitometria da coluna lombar, em tons de cinza e em formato vertical, com quatro faixas brancas empilhadas, marcadas L1, L2, L3 e L4, sobre uma fileira de vértebras.",
+    "width": 660,
+    "height": 890,
+    "projection": "anteroposterior",
+    "region": "coluna lombar",
+    "descriptionFromSource": "Fig 1. Representation of spine bone mineral density (BMD) data from a patient who underwent spinal vertebroplasty. (a) The inclusion of vertebrae affected by bone cement in the region of interest (ROI) for the computer analysis of BMD data, and the exclusion of affected vertebrae from the analysis of lumbar spine BMD; in this example, the affected vertebra was L2.",
+    "usedIn": [
+      "m30-04"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m30:dxa-corpo-inteiro-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m30/dxa-corpo-inteiro-01.jpg",
+    "sourcePage": "https://www.scielo.br/j/rb/a/xCP7kTVvddp4Qr9FG9PD8CN/?lang=en",
+    "author": "Chaves LGCM, Gonçalves TJM, Bitencourt AGV, Rstom RA, Pereira TR, Velludo SF, Radiologia Brasileira, 2022",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "6a4f7ce5084de25654ad8a14af0e462827a338250fe1c3d005c3dd58e720f9bf",
+    "sha256Asset": "cb202b06f12f8f1122573c8db4ef8dc8da45785b10306befd4dfd84560bde889",
+    "modification": "redução e conversão para JPEG, sem recorte",
+    "alt": "Duas imagens lado a lado de um exame de corpo inteiro, em formato vertical. À esquerda, o esqueleto em tons de cinza sobre fundo preto. À direita, o corpo em um mapa de cores verde, amarelo e vermelho. Linhas finas de corte cruzam as duas imagens.",
+    "width": 868,
+    "height": 1200,
+    "projection": "anteroposterior",
+    "region": "corpo inteiro",
+    "descriptionFromSource": "Example of DEXA performed to assess body composition, with proper positioning of the reference lines separating the regions of the body: head, trunk, pelvis, arms, and legs.",
+    "usedIn": [
+      "m30-05"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m28:tc-axial-abdome-superior-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m28/tc-axial-abdome-superior-01.jpg",
+    "sourcePage": "https://github.com/andersonsmelo/Radiant/blob/main/docs/evidence/2026-11-19-figuras/imagens-vps.md",
+    "author": "Anderson Melo, acervo próprio, anonimizado",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "1eceb4f783388d4ea1e2e896a12b2e750a46b948fd1447b5095b219d01aa3627",
+    "sha256Asset": "1eceb4f783388d4ea1e2e896a12b2e750a46b948fd1447b5095b219d01aa3627",
+    "modification": "recorte do corte axial, janela de partes moles (centro 40, largura 350 HU), ampliação de 2,5 vezes e conversão para JPEG em tons de cinza; sem retoque",
+    "alt": "Tomografia computadorizada de um corte axial do abdome superior, em tons de cinza sobre fundo preto, em formato horizontal. A frente do corpo fica no alto, e a coluna aparece embaixo, no meio, entre costelas muito claras.",
+    "width": 1100,
+    "height": 950,
+    "projection": "axial",
+    "region": "abdome superior",
+    "descriptionFromSource": "Tomografia computadorizada do abdome com contraste, fase portal, corte axial de 2 mm de espessura.",
+    "usedIn": [
+      "m28-01",
+      "m28-06"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m28:tc-axial-pelve-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m28/tc-axial-pelve-01.jpg",
+    "sourcePage": "https://github.com/andersonsmelo/Radiant/blob/main/docs/evidence/2026-11-19-figuras/imagens-vps.md",
+    "author": "Anderson Melo, acervo próprio, anonimizado",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "7a5730f4fdefe0ba8b9d2c8d0a9bca1f0011a67775beb8813e8e081e738b9758",
+    "sha256Asset": "7a5730f4fdefe0ba8b9d2c8d0a9bca1f0011a67775beb8813e8e081e738b9758",
+    "modification": "recorte do corte axial, janela de partes moles (centro 40, largura 350 HU), ampliação de 2,5 vezes e conversão para JPEG em tons de cinza; sem retoque",
+    "alt": "Tomografia computadorizada de um corte axial da pelve, em tons de cinza sobre fundo preto, em formato horizontal. Os ossos aparecem muito claros e as partes moles, em tons de cinza.",
+    "width": 1100,
+    "height": 850,
+    "projection": "axial",
+    "region": "pelve",
+    "descriptionFromSource": "Tomografia computadorizada com contraste, fase portal, corte axial de 2 mm de espessura, de um volume que cobre o abdome e a pelve, na altura da sínfise púbica e das cabeças do fêmur.",
+    "usedIn": [
+      "m28-02"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m28:tc-axial-pescoco-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m28/tc-axial-pescoco-01.jpg",
+    "sourcePage": "https://github.com/andersonsmelo/Radiant/blob/main/docs/evidence/2026-11-19-figuras/imagens-vps.md",
+    "author": "Anderson Melo, acervo próprio, anonimizado",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "e203d39e96b0c00b207ea5a5012b7f0f19011b7bb968262d9a2a8f784ea84353",
+    "sha256Asset": "e203d39e96b0c00b207ea5a5012b7f0f19011b7bb968262d9a2a8f784ea84353",
+    "modification": "recorte do corte axial, janela de partes moles (centro 40, largura 350 HU), ampliação de 4 vezes e conversão para JPEG em tons de cinza; sem retoque",
+    "alt": "Tomografia computadorizada de um corte axial do pescoço, em tons de cinza sobre fundo preto, em formato horizontal. Há uma forma redonda preta no meio, perto do alto, e ossos muito claros embaixo.",
+    "width": 1080,
+    "height": 800,
+    "projection": "axial",
+    "region": "pescoço",
+    "descriptionFromSource": "Tomografia computadorizada do pescoço com contraste, corte axial de 2 mm de espessura.",
+    "usedIn": [
+      "m28-03"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m29:rm-ponderacoes-encefalo-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-ponderacoes-encefalo-01.jpg",
+    "sourcePage": "https://github.com/andersonsmelo/Radiant/blob/main/docs/evidence/2026-11-19-figuras/imagens-vps.md",
+    "author": "Anderson Melo, acervo próprio, anonimizado",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "c1460a3ab86633836c0365e5e76587ec6aba4383c79cf660b88bacabf00c7079",
+    "sha256Asset": "c1460a3ab86633836c0365e5e76587ec6aba4383c79cf660b88bacabf00c7079",
+    "modification": "o T2 axial é a imagem nativa; o T1 e o FLAIR, adquiridos em volume no plano sagital, foram reformatados (MPR, interpolação linear) no plano exato do corte do T2; recorte centrado na cabeça em cada painel, janela por percentis (0,5 a 99,7) em cada painel, redução para 1200 x 424 e conversão para JPEG em tons de cinza; sem retoque",
+    "alt": "Três imagens de ressonância magnética de um mesmo corte axial da cabeça, lado a lado, em tons de cinza sobre fundo preto, com brilhos diferentes entre as três.",
+    "width": 1200,
+    "height": 424,
+    "projection": "axial",
+    "region": "encéfalo",
+    "descriptionFromSource": "Ressonância magnética do encéfalo, corte axial, em três sequências, da esquerda para a direita: T1 3D (sagital reformatado), T2 axial 2D e FLAIR 3D com saturação de gordura (sagital reformatado).",
+    "usedIn": [
+      "m29-03"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m29:rm-supressao-gordura-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-supressao-gordura-01.jpg",
+    "sourcePage": "https://github.com/andersonsmelo/Radiant/blob/main/docs/evidence/2026-11-19-figuras/imagens-vps.md",
+    "author": "Anderson Melo, acervo próprio, anonimizado",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-22",
+    "sha256Original": "1556193fd930bee412cec4bb7cbf6ddcdb04e8ceac41a87035e638092dca0728",
+    "sha256Asset": "fd7dff7a5df27ca3f4857697143f8da73b3c15e4d3dcbde3cc9ac3ee826bbedd",
+    "modification": "imagens nativas, sem reformatação; mesmo recorte e janela de 0 ao percentil 99,5 em cada painel; painéis originais de 600 x 434 empilhados com faixas numeradas; recompostos em JPEG de tons de cinza",
+    "alt": "Dois cortes axiais de ressonância magnética do abdome superior, empilhados em tons de cinza, com brilhos diferentes em alguns tecidos.",
+    "width": 600,
+    "height": 932,
+    "projection": "axial",
+    "region": "abdome superior",
+    "descriptionFromSource": "Ressonância magnética do abdome superior em apneia, na ponderação T2, com a mesma fatia em dois painéis. Imagem 1 acima, sem supressão de gordura. Imagem 2 abaixo, com supressão de gordura.",
+    "usedIn": [
+      "m29-04"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m29:rm-artefato-movimento-axial-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-artefato-movimento-axial-01.jpg",
+    "sourcePage": "https://www.nature.com/articles/s41597-022-01694-8#Fig1",
+    "author": "Ádám Nárai, Petra Hermann, Tibor Auer, Péter Kemenczky, János Szalma, István Homolya, Eszter Somogyi, Pál Vakli, Béla Weiss e Zoltán Vidnyánszky, Scientific Data",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-24",
+    "sha256Original": "88d3272122e6fc4fea3abfde378daf45c6b35f9bcc6037b9c40b9d3b83b245f0",
+    "sha256Asset": "77844829b481b2e1d8921d81b84aee5966493ab2f31644bb835905ebfa448f96",
+    "modification": "Recorte para separar o painel, sem redimensionamento; codificação JPEG em tons de cinza.",
+    "alt": "Corte axial do encéfalo em tons de cinza, com contornos internos pouco definidos e faixas difusas.",
+    "width": 218,
+    "height": 172,
+    "projection": "axial",
+    "region": "encéfalo",
+    "descriptionFromSource": "Figura 1, aquisição HM2, corte axial com movimento de cabeça.",
+    "usedIn": [
+      "m29-05"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m29:rm-artefato-metal-ombro-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-artefato-metal-ombro-01.jpg",
+    "sourcePage": "https://link.springer.com/article/10.1007/s00256-024-04624-4#Fig1",
+    "author": "Georg C. Feuerriegel e Reto Sutter, Skeletal Radiology",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-24",
+    "sha256Original": "d3b678b02420c0f408f41325af93ea0343e85da85b2a1fa68f5beedc3c1feb18",
+    "sha256Asset": "66cf78506e4af7ab3c7ac8c732730862b07234d34f983a8195ae677fa77b7614",
+    "modification": "Recorte para separar o painel, sem redimensionamento; codificação JPEG em tons de cinza.",
+    "alt": "Corte sagital de um ombro em tons de cinza, com áreas muito claras agrupadas ao redor de pontos escuros.",
+    "width": 636,
+    "height": 602,
+    "projection": "sagital",
+    "region": "ombro",
+    "descriptionFromSource": "Figura 1B, corte sagital do ombro com alteração do sinal ao redor de âncoras metálicas.",
+    "usedIn": [
+      "m29-05"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m29:rm-artefato-dobramento-esfera-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-artefato-dobramento-esfera-01.jpg",
+    "sourcePage": "https://commons.wikimedia.org/w/index.php?title=File:MRI_Aliasing.jpg&oldid=1268911842",
+    "author": "Francesco Santini",
+    "license": "Domínio público",
+    "licenseUrl": "https://commons.wikimedia.org/w/index.php?title=File:MRI_Aliasing.jpg&oldid=1268911842#Licensing",
+    "retrievedAt": "2026-11-24",
+    "sha256Original": "349f935a6c9cde71c390b35e550e67d2252ad7e88c3e062d79601007e1bf0916",
+    "sha256Asset": "97cf448fc327a87169e4d3b0d42401ebd998535645efdfac9525c2c08b47acbb",
+    "modification": "Recorte das duas aquisições para excluir a legenda impressa; codificação JPEG em tons de cinza, sem redimensionamento.",
+    "alt": "Duas imagens em tons de cinza de uma esfera de teste. Na primeira, há um contorno arredondado isolado. Na segunda, partes claras da esfera aparecem em bordas opostas.",
+    "width": 256,
+    "height": 123,
+    "projection": "comparativo",
+    "region": "objeto de teste",
+    "descriptionFromSource": "Duas aquisições de uma esfera de teste, com campo adequado à esquerda e campo reduzido à direita.",
+    "usedIn": [
+      "m29-05"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m29:rm-movimento-sagital-referencia-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-movimento-sagital-referencia-01.jpg",
+    "sourcePage": "https://www.nature.com/articles/s41597-022-01694-8#Fig1",
+    "author": "Ádám Nárai, Petra Hermann, Tibor Auer, Péter Kemenczky, János Szalma, István Homolya, Eszter Somogyi, Pál Vakli, Béla Weiss e Zoltán Vidnyánszky, Scientific Data",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-24",
+    "sha256Original": "88d3272122e6fc4fea3abfde378daf45c6b35f9bcc6037b9c40b9d3b83b245f0",
+    "sha256Asset": "68c439f723bed716d12a441ea2974ba4cc324307973a009f02c0a15840f20e71",
+    "modification": "Recorte para separar o painel, sem redimensionamento; codificação JPEG em tons de cinza.",
+    "alt": "Corte sagital do encéfalo em tons de cinza. Linhas escuras de vários sulcos se distinguem do tecido cinza ao redor.",
+    "width": 218,
+    "height": 207,
+    "projection": "sagital",
+    "region": "encéfalo",
+    "descriptionFromSource": "Figura 1, aquisição de referência STAND, corte sagital do voluntário.",
+    "usedIn": [
+      "m29-06"
+    ]
+  },
+  {
+    "id": "image:rtg-2026:m29:rm-movimento-sagital-artefato-01",
+    "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-movimento-sagital-artefato-01.jpg",
+    "sourcePage": "https://www.nature.com/articles/s41597-022-01694-8#Fig1",
+    "author": "Ádám Nárai, Petra Hermann, Tibor Auer, Péter Kemenczky, János Szalma, István Homolya, Eszter Somogyi, Pál Vakli, Béla Weiss e Zoltán Vidnyánszky, Scientific Data",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-24",
+    "sha256Original": "88d3272122e6fc4fea3abfde378daf45c6b35f9bcc6037b9c40b9d3b83b245f0",
+    "sha256Asset": "8899e246162c7408540833b90711d3255efb0bc5cfefdc36957799c68e24f635",
+    "modification": "Recorte para separar o painel, sem redimensionamento; codificação JPEG em tons de cinza.",
+    "alt": "Corte sagital do encéfalo em tons de cinza. Vários sulcos se confundem com as regiões cinzas vizinhas.",
+    "width": 218,
+    "height": 207,
+    "projection": "sagital",
+    "region": "encéfalo",
+    "descriptionFromSource": "Figura 1, aquisição HM2, corte sagital do mesmo voluntário com movimento de cabeça.",
+    "usedIn": [
+      "m29-06"
+    ]
   }
 ]

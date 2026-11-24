@@ -1,0 +1,9 @@
+[
+  { "nome": "Encéfalo", "x": 0.461, "y": 0.026, "width": 0.08, "height": 0.0825 },
+  { "nome": "Medula espinal", "x": 0.459, "y": 0.108, "width": 0.08, "height": 0.36 },
+  { "nome": "Nervos do braço direito do paciente", "x": 0.361, "y": 0.275, "width": 0.08, "height": 0.31 },
+  { "nome": "Nervos do braço esquerdo do paciente", "x": 0.557, "y": 0.275, "width": 0.08, "height": 0.31 },
+  { "nome": "Nervos da perna direita do paciente", "x": 0.428, "y": 0.63, "width": 0.08, "height": 0.35 },
+  { "nome": "Nervos da perna esquerda do paciente", "x": 0.492, "y": 0.63, "width": 0.08, "height": 0.35 },
+  { "nome": "Nervos entre as costelas", "x": 0.428, "y": 0.2, "width": 0.08, "height": 0.195 }
+]

@@ -522,27 +522,31 @@
           "points": [
             {
               "label": "Tubo",
-              "x": 0.369,
-              "y": 0.683,
-              "where": "sob o tampo, a caixa de onde o cone amarelo se abre"
+              "x": 0.3922,
+              "y": 0.7375,
+              "where": "sob o tampo, a caixa de onde o cone amarelo se abre",
+              "alvo": "Tubo de raios X (sob a mesa)"
             },
             {
               "label": "Receptor",
-              "x": 0.369,
-              "y": 0.204,
-              "where": "no alto, a caixa larga acima do paciente deitado"
+              "x": 0.3906,
+              "y": 0.4125,
+              "where": "no alto, a caixa larga acima do paciente deitado",
+              "alvo": "Receptor de imagem (acima do paciente)"
             },
             {
               "label": "Monitor",
-              "x": 0.9,
-              "y": 0.288,
-              "where": "à direita, a tela num suporte alto"
+              "x": 0.7688,
+              "y": 0.2104,
+              "where": "à direita, a tela num suporte alto",
+              "alvo": "Monitor (num suporte)"
             },
             {
               "label": "Pedal",
-              "x": 0.669,
-              "y": 0.842,
-              "where": "no chão, o pequeno bloco perto dos pés da silhueta"
+              "x": 0.7781,
+              "y": 0.8396,
+              "where": "no chão, o pequeno bloco perto dos pés de quem opera",
+              "alvo": "Pedal (no chão)"
             }
           ],
           "distractors": [],
@@ -828,7 +832,7 @@
       },
       "concept": {
         "title": "Pulsos, imagem retida e tempo",
-        "body": "Na fluoroscopia contínua, o feixe fica ligado sem pausa enquanto dura a aquisição. Na pulsada, ele sai em pulsos curtos, com pausas sem feixe: menos pulsos por segundo, menos exposição. A última imagem pode ficar retida na tela e ser olhada sem nova exposição. Menos tempo de feixe ligado, menos exposição: o pé vai ao pedal só quando se olha o monitor. Alguns estudos, como o de deglutição, pedem mais pulsos.",
+        "body": "Na fluoroscopia contínua, o feixe fica ligado sem pausa. Tempo na horizontal; feixe ligado na vertical. Na pulsada, ele sai em pulsos curtos, com pausas sem feixe: menos pulsos por segundo, menos exposição. A última imagem pode ficar retida na tela e ser olhada sem nova exposição. Menos tempo de feixe ligado, menos exposição: o pé vai ao pedal só quando se olha o monitor. Alguns estudos, como o de deglutição, pedem mais pulsos.",
         "keyPoints": [
           "Pulsada: pausas sem feixe entre os pulsos.",
           "Imagem retida: olha-se sem nova exposição.",
@@ -1249,39 +1253,43 @@
           "regions": [
             {
               "label": "Pernas do operador, atrás do saiote",
-              "x": 0.615,
-              "y": 0.6,
-              "width": 0.085,
-              "height": 0.25,
+              "x": 0.5953,
+              "y": 0.6813,
+              "width": 0.0844,
+              "height": 0.2333,
               "risk": false,
-              "feedback": "No esquema, os raios fortes param no saiote, entre a mesa e o operador, e não chegam às pernas dele."
+              "feedback": "No esquema, os raios fortes param no saiote, entre a mesa e o operador, e não chegam às pernas dele.",
+              "alvo": "Pernas do operador, atrás do saiote"
             },
             {
               "label": "Abaixo da mesa, do lado do tubo",
-              "x": 0.36,
-              "y": 0.55,
-              "width": 0.17,
-              "height": 0.3,
+              "x": 0.3781,
+              "y": 0.6542,
+              "width": 0.1688,
+              "height": 0.1625,
               "risk": true,
-              "feedback": "Ali passam os raios grossos: com o tubo sob a mesa, o espalhamento é mais forte nessa altura, a das pernas."
+              "feedback": "Ali passam os raios grossos: com o tubo sob a mesa, o espalhamento é mais forte nessa altura, a das pernas.",
+              "alvo": "Abaixo da mesa, do lado do tubo"
             },
             {
               "label": "Pessoa afastada, atrás do biombo",
-              "x": 0.87,
-              "y": 0.5,
-              "width": 0.09,
-              "height": 0.35,
+              "x": 0.7531,
+              "y": 0.1021,
+              "width": 0.1266,
+              "height": 0.5188,
               "risk": false,
-              "feedback": "No esquema nenhum raio chega a ela: a distância e o biombo reduzem muito o que alcança quem fica ali."
+              "feedback": "No esquema nenhum raio chega a ela: a distância e o biombo reduzem muito o que alcança quem fica ali.",
+              "alvo": "Pessoa afastada, atrás do biombo"
             },
             {
               "label": "Pescoço do operador",
-              "x": 0.605,
-              "y": 0.21,
-              "width": 0.09,
-              "height": 0.09,
+              "x": 0.5999,
+              "y": 0.4528,
+              "width": 0.08,
+              "height": 0.08,
               "risk": true,
-              "feedback": "Os raios finos de cima chegam ao pescoço: mais fraco não é zero, e é por isso que existe o protetor de tireoide."
+              "feedback": "Os raios finos de cima chegam ao pescoço: mais fraco não é zero, e é por isso que existe o protetor de tireoide.",
+              "alvo": "Pescoço do operador"
             }
           ],
           "feedbackCorrect": "Você marcou onde o espalhamento chega e deixou de fora o que distância e barreira protegem.",
@@ -1603,32 +1611,36 @@
           "regions": [
             {
               "label": "Fígado",
-              "x": 0.17,
-              "y": 0.22,
-              "width": 0.33,
-              "height": 0.26
+              "x": 0.346,
+              "y": 0.245,
+              "width": 0.154,
+              "height": 0.21,
+              "alvo": "Fígado"
             },
             {
               "label": "Estômago",
-              "x": 0.56,
-              "y": 0.23,
-              "width": 0.19,
-              "height": 0.29,
-              "correct": true
+              "x": 0.542,
+              "y": 0.36,
+              "width": 0.08,
+              "height": 0.14,
+              "correct": true,
+              "alvo": "Estômago"
             },
             {
               "label": "Intestino delgado",
-              "x": 0.35,
-              "y": 0.7,
-              "width": 0.36,
-              "height": 0.21
+              "x": 0.471,
+              "y": 0.649,
+              "width": 0.138,
+              "height": 0.228,
+              "alvo": "Intestino delgado"
             },
             {
               "label": "Intestino grosso",
-              "x": 0.21,
-              "y": 0.58,
-              "width": 0.09,
-              "height": 0.38
+              "x": 0.335,
+              "y": 0.526,
+              "width": 0.08,
+              "height": 0.369,
+              "alvo": "Intestino grosso"
             }
           ],
           "feedbackCorrect": "Isso: depois do esôfago o bário chega ao estômago e segue até o duodeno.",
@@ -1956,35 +1968,39 @@
           "type": "hotspot",
           "role": "practice",
           "prompt": "Na cistouretrografia, na fase da micção, o contraste sai da bexiga. Toque na estrutura por onde ele passa.",
-          "diagramId": "sistema-urinario",
+          "diagramId": "bexiga-e-uretra",
           "regions": [
             {
-              "label": "Rim do lado direito do paciente",
-              "x": 0.27,
-              "y": 0.1,
-              "width": 0.15,
-              "height": 0.21
+              "label": "Ureter do lado direito do paciente",
+              "x": 0.306,
+              "y": 0.058,
+              "width": 0.08,
+              "height": 0.133,
+              "alvo": "Ureter do lado direito do paciente"
             },
             {
-              "label": "Rim do lado esquerdo do paciente",
-              "x": 0.57,
-              "y": 0.07,
-              "width": 0.15,
-              "height": 0.21
+              "label": "Ureter do lado esquerdo do paciente",
+              "x": 0.645,
+              "y": 0.058,
+              "width": 0.08,
+              "height": 0.133,
+              "alvo": "Ureter do lado esquerdo do paciente"
             },
             {
               "label": "Bexiga",
-              "x": 0.41,
-              "y": 0.56,
-              "width": 0.18,
-              "height": 0.2
+              "x": 0.256,
+              "y": 0.233,
+              "width": 0.488,
+              "height": 0.498,
+              "alvo": "Bexiga"
             },
             {
               "label": "Uretra",
-              "x": 0.46,
-              "y": 0.77,
-              "width": 0.08,
-              "height": 0.2,
+              "x": 0.45,
+              "y": 0.7333,
+              "width": 0.1,
+              "height": 0.26,
+              "alvo": "Uretra",
               "correct": true
             }
           ],

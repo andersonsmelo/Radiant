@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { InteractionFigure, isFigureAvailable } from './InteractionFigure';
 import type { InteractionImageResolver } from './InteractionImageSource';
-import { badgeStyle, touchSlop } from './hotspotTouch';
+import { badgeBoxes, badgeStyle, touchSlop } from './hotspotTouch';
 import type { HotspotPayload, NormalizedRegion } from '../../../types/learningActivity';
 import { galaxyColors } from '../../../ui/theme';
 import { semanticColors } from '../../../ui/semantic-colors';
@@ -48,7 +48,10 @@ export function HotspotStepRenderer({
                 alt={accessibilityLabel}
                 resolveImage={resolveImageSource}
             >
-                {frame => payload.regions.map((region, index) => {
+                {frame => {
+                    const seals = badgeBoxes(payload.regions, frame);
+                    return <>
+                        {payload.regions.map(region => {
                     const selected = selectedRegionId === region.id;
                     return (
                         <Pressable
@@ -66,15 +69,29 @@ export function HotspotStepRenderer({
                                 regionPosition(region),
                                 selected && styles.selected,
                             ]}
-                        >
-                            {selected ? (
-                                <View testID="hotspot-selected-mark" style={[styles.hotspotBadge, badgeStyle(region, frame)]}>
-                                    <CheckIcon size={20} color={galaxy.textPrimary} />
-                                </View>
-                            ) : <Text style={[styles.hotspotIndex, badgeStyle(region, frame)]}>{index + 1}</Text>}
-                        </Pressable>
+                        />
                     );
-                })}
+                        })}
+                        {/* Os selos vêm depois das regiões, como irmãos delas: ficam fora da caixa da região, e o selo não recebe toque (o toque atravessa para o que estiver embaixo). */}
+                        {payload.regions.map((region, index) => {
+                            const selected = selectedRegionId === region.id;
+                            return (
+                                <View
+                                    key={`selo-${region.id}`}
+                                    testID={selected ? 'hotspot-selected-mark' : `hotspot-index-${index + 1}`}
+                                    pointerEvents="none"
+                                    // O leitor de tela usa a região e a lista: o selo só repete o número.
+                                    accessible={false}
+                                    accessibilityElementsHidden
+                                    importantForAccessibility="no-hide-descendants"
+                                    style={[styles.hotspotBadge, badgeStyle(seals[index])]}
+                                >
+                                    {selected ? <CheckIcon size={20} color={galaxy.textPrimary} /> : <Text style={styles.hotspotIndex}>{index + 1}</Text>}
+                                </View>
+                            );
+                        })}
+                    </>;
+                }}
             </InteractionFigure>
 
             <View style={styles.textAlternatives}>
@@ -124,9 +141,6 @@ const styles = StyleSheet.create({
     hotspotIndex: {
         ...typography.bodyStrong,
         color: galaxy.textPrimary,
-        backgroundColor: galaxyColors.background,
-        borderRadius: radius.rMd,
-        overflow: 'hidden',
         textAlign: 'center',
     },
     // Mesmo selo do número, com a marca desenhada no lugar dele.

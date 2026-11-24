@@ -41,6 +41,13 @@ test('gradiente fica na camada que o usa, e só nela', { skip }, () => {
   assert.match(b.body, /url\(#gx\)/);
 });
 
+test('degradê que nenhuma forma usa sai inteiro, não só o id (iOS aborta com degradê sem id)', { skip }, () => {
+  const r = convertSvg(svg('<defs><linearGradient id="base"><stop offset="0" stop-color="#ff0000"/></linearGradient><linearGradient id="g"><stop offset="0" stop-color="#00ff00"/></linearGradient></defs><rect width="10" height="10" fill="url(#g)"/>'));
+  const all = r.defs + body(r);
+  assert.equal(all.match(/<linearGradient/g)?.length, 1);
+  assert.match(all, /<linearGradient id="g"/);
+});
+
 test('filter sai e o relatório lista a perda', { skip }, () => {
   const r = convertSvg(svg('<style>.s{filter:blur(9px)}</style><ellipse class="s" cx="5" cy="5" rx="4" ry="2" fill="#000000"/>'));
   assert.doesNotMatch(body(r), /filter/);

@@ -69,6 +69,24 @@
       "accessedAt": "2026-11-19",
       "use": "factual-reference",
       "licenseNote": "Página para o público; consultada para ruído e protetor auricular, campainha de chamada, intercomunicador, ficar parado e sensação de lugar fechado, sem reprodução de texto."
+    },
+    {
+      "id": "narai-2022-movimento-rm",
+      "title": "Movement-related artefacts (MR-ART) dataset of matched motion-corrupted and clean structural MRI brain scans",
+      "publisher": "Scientific Data",
+      "url": "https://doi.org/10.1038/s41597-022-01694-8",
+      "accessedAt": "2026-11-24",
+      "use": "factual-reference",
+      "licenseNote": "Artigo em CC BY 4.0. A figura 1 compara aquisições sem movimento e com movimento de cabeça, com os créditos dos recortes no registro de imagens."
+    },
+    {
+      "id": "santini-2007-dobramento-rm",
+      "title": "MRI Aliasing.jpg: duas aquisições de uma esfera de teste",
+      "publisher": "Francesco Santini, Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/w/index.php?title=File:MRI_Aliasing.jpg&oldid=1268911842",
+      "accessedAt": "2026-11-24",
+      "use": "factual-reference",
+      "licenseNote": "Exemplo de dobramento com campo reduzido. O autor dedicou a imagem ao domínio público e o crédito está no registro de imagens."
     }
   ],
   "lessons": [
@@ -98,7 +116,7 @@
       },
       "concept": {
         "title": "Subir e cair, rápido e devagar",
-        "body": "Depois do pulso, dois relógios correm. No gráfico da esquerda, a magnetização longitudinal se recupera: é o T1, e a curva sobe. No da direita, o sinal transversal se desfaz: é o T2, e a curva cai. Nos dois, a curva amarela é de um tecido de tempos curtos e a azul, de um de tempos longos, como o líquido. O esquema simplifica: as duas sobem ao mesmo patamar, e isso vale só para este desenho.",
+        "body": "Depois do pulso, dois relógios correm. Tempo na horizontal. No gráfico da esquerda, a magnetização longitudinal se recupera: é o T1, e a curva sobe. No da direita, o sinal transversal se desfaz: é o T2, e a curva cai. Nos dois, a curva amarela é de um tecido de tempos curtos e a azul, de um de tempos longos, como o líquido. O esquema simplifica: as duas sobem ao mesmo patamar, e isso vale só para este desenho.",
         "keyPoints": [
           "Curva que sobe: recuperação, T1. Curva que cai: perda de sinal, T2.",
           "Tempo curto: a curva chega depressa. Tempo longo: ela demora.",
@@ -148,14 +166,14 @@
           "points": [
             {
               "label": "T1 curto",
-              "x": 0.1157,
-              "y": 0.5417,
+              "x": 0.0938,
+              "y": 0.6074,
               "where": "à esquerda, a curva que sobe depressa até o topo"
             },
             {
               "label": "T1 longo",
-              "x": 0.4094,
-              "y": 0.3625,
+              "x": 0.3344,
+              "y": 0.4065,
               "where": "à esquerda, a curva que sobe devagar e fica abaixo do topo"
             },
             {
@@ -166,14 +184,14 @@
             },
             {
               "label": "T2 curto",
-              "x": 0.6031,
-              "y": 0.5208,
+              "x": 0.5813,
+              "y": 0.4629,
               "where": "à direita, a curva que cai depressa até perto de zero"
             },
             {
               "label": "T2 longo",
-              "x": 0.8969,
-              "y": 0.6625,
+              "x": 0.7438,
+              "y": 0.5411,
               "where": "à direita, a curva que cai devagar e termina mais alta"
             }
           ],
@@ -437,7 +455,7 @@
       },
       "concept": {
         "title": "Dois intervalos contados a partir do pulso",
-        "body": "Cada repetição começa com um pulso de excitação, a barra amarela. O TE é o intervalo do pulso ao centro do eco: a chave curta. O TR é o intervalo de um pulso até o pulso seguinte: a chave longa. Na ordem: pulso de excitação, sinal que começa a se desfazer, centro do eco, que fecha o TE, e pulso seguinte, que fecha o TR. Os dois intervalos contam a partir do pulso.",
+        "body": "Cada repetição começa com um pulso de excitação, a barra amarela. O TE é o intervalo do pulso ao centro do eco: a chave curta. O TR é o intervalo de um pulso até o pulso seguinte: a chave longa. Na ordem: pulso de excitação, sinal que começa a se desfazer, centro do eco, que fecha o TE, e pulso seguinte, que fecha o TR. Os dois intervalos contam a partir do pulso. Tempo na horizontal; intensidade na vertical.",
         "keyPoints": [
           "TE: do pulso ao centro do eco. É a chave curta.",
           "TR: de um pulso ao pulso seguinte. É a chave longa."
@@ -739,13 +757,12 @@
       },
       "concept": {
         "title": "O brilho conta a ponderação",
-        "body": "O mesmo corte da cabeça aparece em três imagens. Na ponderada em T1, o líquido dos ventrículos é escuro, a gordura é clara e a substância branca é mais clara que a cinzenta. Na ponderada em T2, o líquido é claro e a branca é mais escura que a cinzenta. A terceira é de base T2 com o líquido suprimido: líquido escuro, branca mais escura que a cinzenta. Você reconhece a imagem; a equipe decide o que ela significa.",
+        "body": "Na atividade, o mesmo corte da cabeça aparece em três imagens de ressonância. Na ponderada em T1, o líquido dos ventrículos é escuro, a gordura é clara e a substância branca é mais clara que a cinzenta. Na ponderada em T2, o líquido é claro e a branca é mais escura que a cinzenta. A terceira é de base T2 com o líquido suprimido: líquido escuro, branca mais escura que a cinzenta. Nesta imagem, a gordura do couro cabeludo também está escura, por uma técnica extra, a supressão de gordura, assunto da próxima aula. Você reconhece a imagem; a equipe decide o que ela significa.",
         "keyPoints": [
           "T1: líquido escuro, gordura clara, substância branca mais clara que a cinzenta.",
           "T2: líquido claro, substância branca mais escura que a cinzenta.",
           "Base T2 com líquido suprimido: líquido escuro e branca mais escura que a cinzenta."
-        ],
-        "visual": "ponderacoes-no-encefalo"
+        ]
       },
       "interactions": [
         {
@@ -785,42 +802,28 @@
           "type": "hotspot",
           "role": "practice",
           "prompt": "Toque nos ventrículos da imagem em que o líquido está escuro e a substância branca é mais escura que a cinzenta.",
-          "diagramId": "ponderacoes-no-encefalo",
+          "imageId": "image:rtg-2026:m29:rm-ponderacoes-encefalo-01",
           "regions": [
             {
               "label": "Ventrículos da primeira imagem",
-              "x": 0.1187,
-              "y": 0.3833,
-              "width": 0.1,
-              "height": 0.1417
-            },
-            {
-              "label": "Gordura da primeira imagem",
-              "x": 0.1187,
-              "y": 0.1917,
-              "width": 0.1,
-              "height": 0.0833
+              "x": 0.1233,
+              "y": 0.3137,
+              "width": 0.0867,
+              "height": 0.3467
             },
             {
               "label": "Ventrículos da segunda imagem",
-              "x": 0.45,
-              "y": 0.3833,
-              "width": 0.1,
-              "height": 0.1417
-            },
-            {
-              "label": "Substância branca da segunda imagem",
-              "x": 0.4594,
-              "y": 0.6292,
-              "width": 0.0813,
-              "height": 0.0833
+              "x": 0.4708,
+              "y": 0.3066,
+              "width": 0.0892,
+              "height": 0.3538
             },
             {
               "label": "Ventrículos da terceira imagem",
-              "x": 0.7813,
-              "y": 0.3833,
-              "width": 0.1,
-              "height": 0.1417,
+              "x": 0.79,
+              "y": 0.3184,
+              "width": 0.0867,
+              "height": 0.342,
               "correct": true
             }
           ],
@@ -1103,13 +1106,13 @@
           },
           {
             "speaker": "lia",
-            "text": "Compare as duas imagens do esquema e descreva o que mudou. Depois, o que sobrou claro."
+            "text": "Compare as duas imagens do abdome e descreva o que mudou. Depois, pense no que pode atrapalhar essa mudança."
           }
         ]
       },
       "concept": {
         "title": "Gordura clara, gordura apagada",
-        "body": "No esquema, a imagem da esquerda não tem supressão: a gordura sob a pele e a medula do osso são claras. Na da direita, com supressão de gordura, o sinal da gordura é apagado e esses tecidos escurecem. A supressão que separa a gordura pela frequência depende de um campo bem regular. Metal perto da região desnivela o campo, e ali a gordura pode escapar da supressão: sobra uma faixa clara junto ao objeto. Você descreve a faixa e o objeto à equipe; não refaz nem ajusta a série.",
+        "body": "Na atividade, duas imagens do mesmo corte do abdome diferem só pela supressão de gordura. Sem supressão, a gordura sob a pele é clara. Com supressão de gordura, o sinal da gordura é apagado e ela escurece. A supressão que separa a gordura pela frequência depende de um campo bem regular. Metal perto da região desnivela o campo, e ali a gordura pode escapar da supressão: sobra uma faixa clara junto ao objeto. Você descreve a faixa e o objeto à equipe; não refaz nem ajusta a série.",
         "keyPoints": [
           "Supressão de gordura: o sinal da gordura é apagado e ela escurece.",
           "Metal perto desnivela o campo, e a supressão pode falhar ali.",
@@ -1178,49 +1181,42 @@
           "id": "i3",
           "type": "hotspot",
           "role": "practice",
-          "prompt": "Toque no lugar da imagem da direita em que a supressão de gordura não funcionou.",
-          "diagramId": "supressao-de-gordura",
+          "prompt": "Toque na gordura sob a pele da imagem em que a supressão de gordura foi usada.",
+          "imageId": "image:rtg-2026:m29:rm-supressao-gordura-01",
           "regions": [
             {
-              "label": "Gordura sob a pele, imagem da esquerda",
-              "x": 0.1875,
-              "y": 0.1708,
-              "width": 0.1,
-              "height": 0.0833
+              "label": "Gordura sob a pele, imagem 1",
+              "x": 0.25,
+              "y": 0.09571,
+              "width": 0.4834,
+              "height": 0.08
             },
             {
-              "label": "Medula, imagem da esquerda",
-              "x": 0.1969,
-              "y": 0.425,
-              "width": 0.0813,
-              "height": 0.0833
-            },
-            {
-              "label": "Gordura sob a pele, imagem da direita",
-              "x": 0.6875,
-              "y": 0.1708,
-              "width": 0.1,
-              "height": 0.0833
-            },
-            {
-              "label": "Faixa clara da lateral, à direita",
-              "x": 0.8688,
-              "y": 0.4,
-              "width": 0.0813,
-              "height": 0.1,
+              "label": "Gordura sob a pele, imagem 2",
+              "x": 0.25,
+              "y": 0.59571,
+              "width": 0.4834,
+              "height": 0.08,
               "correct": true
             },
             {
-              "label": "Pequeno objeto na borda, à direita",
-              "x": 0.7312,
-              "y": 0.7167,
-              "width": 0.0813,
-              "height": 0.0917
+              "label": "Coluna, imagem 1",
+              "x": 0.425,
+              "y": 0.302558,
+              "width": 0.1666,
+              "height": 0.080467
+            },
+            {
+              "label": "Coluna, imagem 2",
+              "x": 0.425,
+              "y": 0.802558,
+              "width": 0.1666,
+              "height": 0.080467
             }
           ],
-          "feedbackCorrect": "Isso mesmo: a faixa que ficou clara é gordura que a supressão não apagou, perto do objeto.",
-          "feedbackIncorrect": "O objeto é a possível causa, e não o lugar da falha. Procure onde a gordura continua clara na imagem da direita.",
-          "help": "Na imagem da direita, onde ainda sobrou gordura com sinal?",
+          "feedbackCorrect": "Isso mesmo: com a supressão, o sinal da gordura sob a pele é apagado e ela escurece.",
+          "feedbackIncorrect": "Compare a gordura sob a pele nas duas imagens: onde ela continua clara, a supressão não foi usada.",
+          "help": "Procure a imagem em que a faixa de gordura sob a pele ficou escura.",
           "sourceIds": [
             "pmc-artefatos-de-metal-2024",
             "krupa-2015-artefatos-rm"
@@ -1231,7 +1227,7 @@
           "type": "true-false",
           "role": "safety",
           "criticalSafety": true,
-          "prompt": "Julgue o que você faz diante da faixa clara junto do objeto, na imagem da direita.",
+          "prompt": "Julgue o que você faz diante de uma faixa clara de gordura junto de um objeto, numa série com supressão.",
           "statements": [
             {
               "text": "Você descreve à equipe a faixa clara e o objeto que está ao lado dela.",
@@ -1305,7 +1301,7 @@
       ],
       "closing": {
         "title": "Você lê a supressão de gordura",
-        "body": "Agora você diz o que a supressão de gordura muda, a gordura sob a pele e a medula ficam escuras, e reconhece a faixa clara perto de metal como possível falha. E leva isso à equipe, sem ajustar nada.",
+        "body": "Agora você diz o que a supressão de gordura muda, a gordura sob a pele fica escura, e reconhece, numa série descrita, a faixa clara perto de metal como possível falha. E leva isso à equipe, sem ajustar nada.",
         "line": {
           "speaker": "caio",
           "text": "Faixa clara perto de metal: descreva onde, e chame a tecnóloga."
@@ -1461,9 +1457,9 @@
       },
       "concept": {
         "title": "Três marcas, três causas",
-        "body": "Movimento deixa cópias fracas da estrutura, os fantasmas, repetidas pelo corte; ficar parado ajuda a reduzi-los. Metal deixa um vazio de sinal, preto, com borda clara e torta ao redor. Dobra é a anatomia que ficou fora do campo de visão e aparece no lado oposto da imagem. Metal que ninguém esperava na imagem pede parar e avisar a equipe. Você descreve a marca e o lugar dela; a equipe avalia a causa e decide o que fazer. Você não repete a série por conta própria.",
+        "body": "O movimento pode borrar os contornos e deixar cópias fracas da estrutura repetidas pelo corte, os fantasmas. Ficar parado ajuda a reduzir esses artefatos. Metal deixa um vazio de sinal, preto, com borda clara e torta ao redor. Dobra é a anatomia que ficou fora do campo de visão e aparece no lado oposto da imagem. Metal que ninguém esperava na imagem pede parar e avisar a equipe. Você descreve a marca e o lugar dela; a equipe avalia a causa e decide o que fazer. Você não repete a série por conta própria.",
         "keyPoints": [
-          "Movimento: cópias fracas, os fantasmas.",
+          "Movimento: contornos borrados ou cópias fracas, os fantasmas.",
           "Metal: vazio de sinal com borda clara e torta. Pare e avise a equipe.",
           "Dobra: anatomia de fora do campo aparece no lado oposto."
         ]
@@ -1496,7 +1492,7 @@
               "feedback": "Metal interfere: distorce o campo, e a supressão pode falhar perto dele."
             }
           ],
-          "help": "Lembre onde sobrou a faixa clara no esquema da aula anterior.",
+          "help": "Lembre o que a aula anterior disse da gordura clara junto ao metal.",
           "sourceIds": [
             "pmc-artefatos-de-metal-2024",
             "krupa-2015-artefatos-rm"
@@ -1504,48 +1500,35 @@
         },
         {
           "id": "i2",
-          "type": "label",
+          "type": "comparison",
           "role": "practice",
-          "prompt": "Rotule as marcas do esquema, tocando na ficha e no ponto.",
-          "diagramId": "artefatos-de-rm",
-          "points": [
+          "prompt": "Em qual imagem há uma área escura com perda de sinal e áreas muito claras ao redor, junto a um implante?",
+          "options": [
             {
-              "label": "Fantasmas",
-              "x": 0.1625,
-              "y": 0.1875,
-              "where": "à esquerda, cópias fracas empilhadas acima do corte oval"
+              "label": "Imagem A",
+              "imageId": "image:rtg-2026:m29:rm-artefato-movimento-axial-01",
+              "correct": false,
+              "feedback": "Na imagem A, o movimento borrou os contornos. Procure a perda de sinal com brilho concentrado ao redor."
             },
             {
-              "label": "Vazio de sinal",
-              "x": 0.4875,
-              "y": 0.3667,
-              "where": "no corte do meio, a grande mancha preta"
+              "label": "Imagem B",
+              "imageId": "image:rtg-2026:m29:rm-artefato-metal-ombro-01",
+              "correct": true,
+              "feedback": "Isso. Na imagem B, o metal do implante distorce a imagem, com perda de sinal nas áreas escuras e acúmulo de sinal nas áreas claras."
             },
             {
-              "label": "Borda distorcida",
-              "x": 0.4875,
-              "y": 0.5834,
-              "where": "no corte do meio, a borda clara e torta abaixo da mancha"
-            },
-            {
-              "label": "Parte dobrada",
-              "x": 0.6938,
-              "y": 0.5,
-              "where": "no corte da direita, o oval claro na borda esquerda da caixa"
-            },
-            {
-              "label": "Anatomia de fora",
-              "x": 0.9063,
-              "y": 0.5,
-              "where": "no corte da direita, o contorno tracejado além da caixa"
+              "label": "Imagem C",
+              "imageId": "image:rtg-2026:m29:rm-artefato-dobramento-esfera-01",
+              "correct": false,
+              "feedback": "Na imagem C, partes da esfera se projetam sobre a borda oposta quando o campo é reduzido. É um exemplo de dobramento."
             }
           ],
-          "feedbackCorrect": "Isso mesmo: cada marca ficou ligada ao ponto certo do esquema.",
-          "feedbackIncorrect": "Alguma ficha está fora do lugar: procure cópias fracas, a mancha preta com a borda, a forma dentro da caixa e o que ficou fora dela.",
-          "help": "Comece pelo corte da esquerda, depois o do meio e por último o da direita.",
+          "help": "Compare a distribuição das áreas claras e escuras e observe o que aparece ao redor de cada uma.",
           "sourceIds": [
             "krupa-2015-artefatos-rm",
-            "pmc-artefatos-de-metal-2024"
+            "pmc-artefatos-de-metal-2024",
+            "narai-2022-movimento-rm",
+            "santini-2007-dobramento-rm"
           ]
         },
         {
@@ -1880,54 +1863,28 @@
         },
         {
           "id": "i2",
-          "type": "hotspot",
+          "type": "comparison",
           "role": "practice",
-          "prompt": "Dona Zuleica pergunta por que precisa ficar parada. Toque na marca que o movimento do paciente pode deixar na imagem.",
-          "diagramId": "artefatos-de-rm",
-          "regions": [
+          "prompt": "Dona Zuleica pergunta por que precisa ficar parada. Em qual imagem o movimento deixou os contornos menos nítidos?",
+          "options": [
             {
-              "label": "Cópias fracas acima do corte",
-              "x": 0.1125,
-              "y": 0.1417,
-              "width": 0.1,
-              "height": 0.0917,
-              "correct": true
+              "label": "Imagem A",
+              "imageId": "image:rtg-2026:m29:rm-movimento-sagital-referencia-01",
+              "correct": false,
+              "feedback": "Observe o contorno do cérebro nas duas imagens. Na imagem B ele está mais borrado."
             },
             {
-              "label": "Mancha preta do corte do meio",
-              "x": 0.4375,
-              "y": 0.3167,
-              "width": 0.1,
-              "height": 0.1
-            },
-            {
-              "label": "Borda clara abaixo da mancha",
-              "x": 0.4375,
-              "y": 0.5417,
-              "width": 0.1,
-              "height": 0.0833
-            },
-            {
-              "label": "Forma clara dentro do campo",
-              "x": 0.6531,
-              "y": 0.3917,
-              "width": 0.0813,
-              "height": 0.2167
-            },
-            {
-              "label": "Contorno tracejado fora do campo",
-              "x": 0.8656,
-              "y": 0.3917,
-              "width": 0.0813,
-              "height": 0.2167
+              "label": "Imagem B",
+              "imageId": "image:rtg-2026:m29:rm-movimento-sagital-artefato-01",
+              "correct": true,
+              "feedback": "Isso. Na imagem B, o movimento deixou os contornos menos definidos."
             }
           ],
-          "feedbackCorrect": "Isso mesmo: o movimento deixa cópias fracas da estrutura, e é por isso que ficar parado importa.",
-          "feedbackIncorrect": "Essa marca vem de outra causa. Procure as cópias fracas repetidas, que o movimento do paciente produz.",
-          "help": "Qual das marcas aparece como cópias da mesma estrutura?",
+          "help": "Compare a nitidez das bordas e dos sulcos nas duas imagens.",
           "sourceIds": [
             "krupa-2015-artefatos-rm",
-            "radiologyinfo-preparo-rm"
+            "radiologyinfo-preparo-rm",
+            "narai-2022-movimento-rm"
           ]
         },
         {

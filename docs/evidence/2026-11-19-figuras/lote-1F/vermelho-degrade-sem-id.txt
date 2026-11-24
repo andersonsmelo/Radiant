@@ -1,0 +1,60 @@
+FAIL src/ui/diagrams/diagramRegistry.test.ts
+  paleta dos diagramas
+  registro de diagramas
+  servidores de pintura
+    ✓ tubo-raios-x: todo degradê tem id (1 ms)
+    ✓ colimador-abrindo: todo degradê tem id
+    ✓ tubo-emitindo: todo degradê tem id
+    ✓ feixe-atenuando: todo degradê tem id (1 ms)
+    ✓ radiacao-espalhada: todo degradê tem id
+    ✓ grade-antidifusora: todo degradê tem id
+    ✓ foco-e-penumbra: todo degradê tem id (1 ms)
+    ✓ corte-tomografico-girando: todo degradê tem id
+    ✓ precessao-rm: todo degradê tem id
+    ✓ eco-ultrassom: todo degradê tem id
+    ✓ detector-convertendo: todo degradê tem id
+    ✓ compressao-mama: todo degradê tem id
+    ✓ sala-com-riscos: todo degradê tem id
+    ✓ inverso-do-quadrado: todo degradê tem id
+    ✓ blindagem-camadas: todo degradê tem id
+    ✓ decaimento-radioativo: todo degradê tem id (1 ms)
+    ✓ conferencia-de-identidade: todo degradê tem id
+    ✓ transferencia-maca-mesa: todo degradê tem id
+    ✓ pontos-de-contato-da-sala: todo degradê tem id
+    ✓ itens-de-emergencia-da-sala: todo degradê tem id
+    ✓ circuito-do-gerador: todo degradê tem id
+    ✓ retificacao-de-onda: todo degradê tem id
+    ✓ anodo-giratorio: todo degradê tem id
+    ✓ espectro-de-raios-x: todo degradê tem id
+    ✓ esqueleto-axial-apendicular: todo degradê tem id
+    ✕ osso-longo: todo degradê tem id (1 ms)
+    ✓ coluna-regioes: todo degradê tem id
+    ✓ articulacao-sinovial: todo degradê tem id
+    ✓ marcos-de-superficie: todo degradê tem id
+    ✓ respiracao-diafragma: todo degradê tem id
+    ✓ circulacao-dupla: todo degradê tem id
+    ✓ trato-digestivo: todo degradê tem id
+    ✓ sistema-urinario: todo degradê tem id
+    ✓ bexiga-e-uretra: todo degradê tem id
+    ✓ sistema-nervoso: todo degradê tem id
+    ✓ dano-ao-dna: todo degradê tem id
+    ✓ grandezas-de-dose: todo degradê tem id
+    ✓ dosimetro-no-corpo: todo degradê tem id
+    ✓ produto-dose-area: todo degradê tem id
+    ✓ histograma-e-lut: todo degradê tem id
+    ✓ realce-e-suavizacao: todo degradê tem id (1 ms)
+    ✓ monitor-e-padrao-de-teste: todo degradê tem id
+    ✓ fluxo-ris-pacs: todo degradê tem id
+    ✓ compressao-de-imagem: todo degradê tem id
+    ✓ radiografia-roteiro: todo degradê tem id
+    ✓ artefatos-de-objeto: todo degradê tem id
+    ✓ artefatos-do-detector: todo degradê tem id
+    ✓ ossos-do-pe: todo degradê tem id
+    ✓ joelho-frente-e-perfil: todo degradê tem id
+    ✓ femur-proximal-e-quadril: todo degradê tem id
+    ✓ pelve-de-frente: todo degradê tem id
+    ✓ pelve-de-frente-recorte: todo degradê tem id
+    ✓ vertebra-tipica: todo degradê tem id
+    ✓ corte-abdome-superior: todo degradê tem id
+    ✓ corte-pelve: todo degradê tem id
+    ✓ corte-pescoco: todo degradê tem id

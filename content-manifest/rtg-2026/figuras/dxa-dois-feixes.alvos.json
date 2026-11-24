@@ -1,0 +1,8 @@
+[
+  { "nome": "Fonte de raios X (peça sob o tampo)", "x": 0.4875, "y": 0.7021, "width": 0.1094, "height": 0.1104, "rotulos": ["Fonte de raios X","Peça sob o tampo"] },
+  { "nome": "Detector (peça no alto do braço)", "x": 0.4734, "y": 0.2271, "width": 0.15, "height": 0.1708, "rotulos": ["Braço do detector","Peça no alto do braço"] },
+  { "nome": "Feixe de duas energias", "x": 0.5092, "y": 0.3875, "width": 0.08, "height": 0.2354, "rotulos": ["Feixe"] },
+  { "nome": "Paciente deitada de costas", "x": 0.2813, "y": 0.3646, "width": 0.4797, "height": 0.3937, "rotulos": ["Paciente"] },
+  { "nome": "Tronco da paciente", "x": 0.3141, "y": 0.3586, "width": 0.1402, "height": 0.1959, "rotulos": ["Tronco da pessoa"] },
+  { "nome": "Ponta da mesa", "x": 0.6672, "y": 0.6829, "width": 0.1631, "height": 0.1814, "rotulos": ["Mesa"] }
+]

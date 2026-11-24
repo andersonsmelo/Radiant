@@ -85,7 +85,32 @@ describe('contrato amplo (wide)', () => {
             expect(comparisonIssuesAfter(candidate => { candidate.wide.images![0].license = 'CC BY 4.0'; })).toEqual([]);
         });
 
-        it.each(['CC BY-SA 4.0', 'CC BY-NC 4.0', 'CC BY-ND 4.0', 'GFDL', ''])('recusa a licença "%s"', license => {
+        it('aceita imagem em Domínio público com autoria e declaração HTTPS registradas', () => {
+            expect(comparisonIssuesAfter(candidate => {
+                const image = candidate.wide.images![0];
+                image.license = 'Domínio público';
+                image.licenseUrl = 'https://commons.wikimedia.org/wiki/File:A.jpg#Licensing';
+            })).toEqual([]);
+        });
+
+        it.each(['author', 'sourcePage', 'licenseUrl'] as const)('recusa imagem em Domínio público sem %s', field => {
+            expect(comparisonIssuesAfter(candidate => {
+                const image = candidate.wide.images![0];
+                image.license = 'Domínio público';
+                image.licenseUrl = 'https://commons.wikimedia.org/wiki/File:A.jpg#Licensing';
+                image[field] = '';
+            })).toEqual([`invalid-licensed-image:${IMAGE_A}`]);
+        });
+
+        it('recusa imagem em Domínio público com declaração por HTTP', () => {
+            expect(comparisonIssuesAfter(candidate => {
+                const image = candidate.wide.images![0];
+                image.license = 'Domínio público';
+                image.licenseUrl = 'http://commons.wikimedia.org/wiki/File:A.jpg#Licensing';
+            })).toEqual([`invalid-licensed-image:${IMAGE_A}`]);
+        });
+
+        it.each(['CC BY-SA 4.0', 'CC BY-NC 4.0', 'CC BY-ND 4.0', 'GFDL', 'Domínio Público', 'Public Domain', ''])('recusa a licença "%s"', license => {
             expect(comparisonIssuesAfter(candidate => { candidate.wide.images![0].license = license; }))
                 .toEqual([`invalid-licensed-image:${IMAGE_A}`]);
         });

@@ -201,31 +201,31 @@
           "points": [
             {
               "label": "Impacto direto",
-              "x": 0.139,
+              "x": 0.2,
               "y": 0.667,
               "where": "à esquerda, o ponto circulado na fita de cima"
             },
             {
               "label": "Água atingida",
-              "x": 0.673,
-              "y": 0.275,
+              "x": 0.669,
+              "y": 0.292,
               "where": "no alto à direita, o círculo grande com dois pequenos"
             },
             {
               "label": "Radical",
-              "x": 0.745,
-              "y": 0.496,
-              "where": "à direita, o ponto ciano descendo rumo à fita de cima"
+              "x": 0.7063,
+              "y": 0.5292,
+              "where": "à direita, o halo no trilho tracejado"
             },
             {
               "label": "Quebra simples",
-              "x": 0.376,
+              "x": 0.425,
               "y": 0.817,
               "where": "embaixo, um corte só na fita de baixo"
             },
             {
               "label": "Quebra dupla",
-              "x": 0.845,
+              "x": 0.8,
               "y": 0.742,
               "where": "à direita, as duas fitas cortadas na mesma altura"
             }
@@ -866,27 +866,31 @@
           "points": [
             {
               "label": "Dosímetro de tronco",
-              "x": 0.395,
-              "y": 0.342,
-              "where": "no peito, à frente da peça azul"
+              "x": 0.264,
+              "y": 0.6021,
+              "where": "no peito, à frente da peça azul",
+              "alvo": "Peito (tronco, sobre o avental)"
             },
             {
               "label": "Dosímetro de anel",
-              "x": 0.653,
-              "y": 0.408,
-              "where": "na ponta do braço estendido, em volta de um dedo"
+              "x": 0.4844,
+              "y": 0.5979,
+              "where": "na mão do braço estendido",
+              "alvo": "Mão estendida (anel)"
             },
             {
               "label": "Dosímetro junto ao olho",
-              "x": 0.463,
-              "y": 0.121,
-              "where": "na cabeça, preso à haste ao lado do rosto"
+              "x": 0.2953,
+              "y": 0.3083,
+              "where": "na cabeça, preso à haste ao lado do rosto",
+              "alvo": "Olho (haste dos óculos)"
             },
             {
               "label": "Dosímetro de referência",
-              "x": 0.875,
-              "y": 0.267,
-              "where": "à direita, pendurado num quadro na parede"
+              "x": 0.712,
+              "y": 0.1711,
+              "where": "à direita, pendurado num quadro na parede",
+              "alvo": "Quadro de parede (referência)"
             }
           ],
           "distractors": [
@@ -1878,37 +1882,41 @@
           "regions": [
             {
               "label": "Peito",
-              "x": 0.316,
-              "y": 0.237,
-              "width": 0.157,
-              "height": 0.21
+              "x": 0.1952,
+              "y": 0.4909,
+              "width": 0.1317,
+              "height": 0.1757,
+              "alvo": "Peito (tronco, sobre o avental)"
             },
             {
               "label": "Mão estendida",
-              "x": 0.575,
-              "y": 0.303,
-              "width": 0.157,
-              "height": 0.21,
-              "correct": true
+              "x": 0.394,
+              "y": 0.454,
+              "width": 0.1786,
+              "height": 0.1746,
+              "correct": true,
+              "alvo": "Mão estendida (anel)"
             },
             {
               "label": "Olho",
-              "x": 0.385,
-              "y": 0.016,
-              "width": 0.157,
-              "height": 0.21
+              "x": 0.2147,
+              "y": 0.2772,
+              "width": 0.0937,
+              "height": 0.135,
+              "alvo": "Olho (haste dos óculos)"
             },
             {
               "label": "Quadro de parede",
-              "x": 0.797,
-              "y": 0.162,
-              "width": 0.157,
-              "height": 0.21
+              "x": 0.6052,
+              "y": 0.0208,
+              "width": 0.2256,
+              "height": 0.4573,
+              "alvo": "Quadro de parede (referência)"
             }
           ],
           "feedbackCorrect": "Isso: o anel fala da mão, e é isso que você descreve ao responsável.",
           "feedbackIncorrect": "Esse ponto não é o do anel: ache no relatório a leitura que destoa e lembre que parte do corpo ela representa.",
-          "help": "O anel está em volta de um dedo.",
+          "help": "O anel está na mão do braço estendido.",
           "sourceIds": [
             "pmc-protecao-ir",
             "pmc-dosimetro-controle"

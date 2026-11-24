@@ -24,7 +24,7 @@ name: Dispensa o launcher, a apresentação e o menu do dev client
     when:
       visible: 'DEVELOPMENT SERVERS'
     commands:
-      - tapOn: 'http://localhost:8081'
+      - tapOn: 'http://(localhost|10\.0\.2\.2):8081'
       - extendedWaitUntil:
           visible: 'This is the developer menu\. .*'
           timeout: 60000
@@ -34,9 +34,16 @@ name: Dispensa o launcher, a apresentação e o menu do dev client
       visible: 'This is the developer menu\. .*'
     commands:
       - tapOn: Continue
-# Depois do Continue o menu fica aberto, mostrando o servidor conectado.
+# Depois do Continue, o menu pode mostrar o servidor conectado.
 - runFlow:
     when:
+      platform: iOS
       visible: '(?i:connected to:?)'
     commands:
       - tapOn: Close
+- runFlow:
+    when:
+      platform: Android
+      visible: '(?i:connected to:?)'
+    commands:
+      - back

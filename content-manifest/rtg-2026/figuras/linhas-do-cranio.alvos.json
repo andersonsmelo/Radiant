@@ -1,0 +1,37 @@
+[
+  {
+    "nome": "Linha orbitomeatal",
+    "x": 0.1375,
+    "y": 0.4167,
+    "width": 0.0813,
+    "height": 0.1
+  },
+  {
+    "nome": "Linha infraorbitomeatal",
+    "x": 0.2375,
+    "y": 0.55,
+    "width": 0.0813,
+    "height": 0.1
+  },
+  {
+    "nome": "Meato acústico externo",
+    "x": 0.3219,
+    "y": 0.5333,
+    "width": 0.0813,
+    "height": 0.1042
+  },
+  {
+    "nome": "Linha interpupilar",
+    "x": 0.7063,
+    "y": 0.4208,
+    "width": 0.2,
+    "height": 0.1208
+  },
+  {
+    "nome": "Plano sagital mediano",
+    "x": 0.7625,
+    "y": 0.15,
+    "width": 0.0813,
+    "height": 0.25
+  }
+]

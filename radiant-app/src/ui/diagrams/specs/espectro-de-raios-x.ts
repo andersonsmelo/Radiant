@@ -1,13 +1,14 @@
 import { P } from '../diagramPalette';
 import type { DiagramSpec } from '../diagramTypes';
 
-// Quadro 320x240. Eixos sem texto: energia do fóton para a direita (origem
-// x=40, energia máxima x=260), quantidade de fótons para cima (zero em y=200).
-// Curva de freamento: Kramers, N(u) = (1-u)/u com u = E/Emax, multiplicada pela
-// transmissão da filtração exp(-(0,18/u)^3); toca o eixo em Emax. A versão sem
-// filtração (tracejada) sobe sem limite à esquerda; o que a filtração tira fica
-// sombreado. Picos característicos em energias fixas (59 e 68 keV, para Emax de
-// 100 keV: u = 0,59 e 0,68), abaixo de Emax.
+// Gramática de gráficos (fase 3). Quadro 320x240, sem texto. Painel opaco inset 8, eixos de 2,5 com ponta
+// cheia, curva principal de 3,5 com área a 20%, secundária tracejada de 2,5, marcas com anel da cor da superfície.
+// Eixos: energia do fóton para a direita (origem x=40, energia máxima x=260), quantidade de fótons para cima
+// (zero em y=200). Curva de freamento: Kramers, N(u) = (1-u)/u com u = E/Emax, multiplicada pela transmissão da
+// filtração exp(-(0,18/u)^3); toca o eixo em Emax. A versão sem filtração (tracejada) sobe sem limite à esquerda;
+// o que a filtração tira fica sombreado. Picos característicos em energias fixas (59 e 68 keV, para Emax de
+// 100 keV: u = 0,59 e 0,68), abaixo de Emax; a marca âmbar no eixo diz que a energia deles não muda.
+// Geometria dos alvos da aula (m19) preservada: curva, picos, ponto de Emax e faixa filtrada nos mesmos lugares.
 const X0 = 40;
 const EMAX_X = 260;
 const BASE = 200;
@@ -24,15 +25,15 @@ const us = (from: number, to: number) => {
   return out;
 };
 const solid = us(0.06, 1).map((u) => `${r1(px(u))},${yF(u)}`);
-const dashed = us(0.21, 0.55).map((u) => `${r1(px(u))},${yU(u)}`);
-const cut = us(0.08, 0.55);
+// A tracejada e a faixa removida terminam em u = 0,36: mais adiante a filtração quase não tira nada, e o ponto da curva
+// (u = 0,41) fica sobre a curva real, e não sobre a tracejada.
+const dashed = us(0.21, 0.36).map((u) => `${r1(px(u))},${yU(u)}`);
+const cut = us(0.08, 0.36);
 const lost = [...cut.map((u) => `${r1(px(u))},${yU(u)}`), ...[...cut].reverse().map((u) => `${r1(px(u))},${yF(u)}`)];
 
-/** Pico estreito sobre a curva em u, com altura h acima dela. */
-const spike = (u: number, h: number) => {
-  const [x, y] = [px(u), yF(u)];
-  return `<polygon points="${r1(x - 2.5)},${y + 2} ${r1(x)},${r1(y - h)} ${r1(x + 2.5)},${y + 2}" fill="${P.beam}" stroke="${P.beam}" stroke-width="1.5" stroke-linejoin="round"/>`;
-};
+/** Linha característica: haste de 4,5 com ponta redonda, da curva até h acima dela. */
+const spike = (u: number, h: number) => `M${r1(px(u))} ${yF(u) + 1} V${r1(yF(u) - h)}`;
+const tick = (u: number) => `M${r1(px(u))} ${BASE} v9`;
 
 export const espectroDeRaiosX: DiagramSpec = {
   id: 'espectro-de-raios-x',
@@ -41,29 +42,32 @@ export const espectroDeRaiosX: DiagramSpec = {
   height: 240,
   layers: [
     {
-      // Eixos com ponta de seta.
-      svg: `<g fill="none" stroke="${P.muted}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-<path d="M${X0} ${BASE} H300 M292 ${BASE - 6} L300 ${BASE} L292 ${BASE + 6}"/>
-<path d="M${X0} ${BASE} V24 M${X0 - 6} 32 L${X0} 24 L${X0 + 6} 32"/>
-</g>`,
+      // Painel e eixos com ponta cheia.
+      svg: `<rect x="8" y="8" width="304" height="224" rx="16" fill="${P.fill}"/>
+<g fill="none" stroke="${P.muted}" stroke-width="2.5" stroke-linecap="round">
+<path d="M${X0} ${BASE} H292"/><path d="M${X0} ${BASE} V32"/>
+</g>
+<polygon points="304,${BASE} 291,${BASE - 5.5} 291,${BASE + 5.5}" fill="${P.muted}"/>
+<polygon points="${X0},24 ${X0 - 5.5},37 ${X0 + 5.5},37" fill="${P.muted}"/>`,
     },
     {
       // O que a filtração remove: entre a curva sem filtro (tracejada) e a real.
-      svg: `<polygon points="${lost.join(' ')}" fill="${P.muted}" fill-opacity="0.22" stroke="none"/>
-<polyline points="${dashed.join(' ')}" fill="none" stroke="${P.muted}" stroke-width="2" stroke-dasharray="5 5" stroke-linecap="round"/>`,
+      svg: `<polygon points="${lost.join(' ')}" fill="${P.muted}" fill-opacity="0.3" stroke="none"/>
+<polyline points="${dashed.join(' ')}" fill="none" stroke="${P.muted}" stroke-width="2.5" stroke-dasharray="6 6" stroke-linecap="round"/>`,
     },
     {
       // Radiação de freamento, filtrada: toca o eixo em Emax.
-      svg: `<polygon points="${solid.join(' ')} ${r1(px(1))},${BASE}" fill="${P.accent}" fill-opacity="0.22" stroke="none"/>
-<polyline points="${solid.join(' ')}" fill="none" stroke="${P.accent}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`,
+      svg: `<polygon points="${solid.join(' ')} ${r1(px(1))},${BASE}" fill="${P.accent}" fill-opacity="0.2" stroke="none"/>
+<polyline points="${solid.join(' ')}" fill="none" stroke="${P.accent}" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>`,
     },
     {
-      // Radiação característica: dois picos em energias fixas.
-      svg: `${spike(0.59, 44)}${spike(0.68, 30)}`,
+      // Radiação característica: duas linhas em energias fixas, com a marca no eixo.
+      svg: `<path d="${spike(0.59, 44)} ${spike(0.68, 30)}" fill="none" stroke="${P.beam}" stroke-width="4.5" stroke-linecap="round"/>
+<path d="${tick(0.59)} ${tick(0.68)}" fill="none" stroke="${P.beam}" stroke-width="3.5" stroke-linecap="round"/>`,
     },
     {
       // Energia máxima, no eixo.
-      svg: `<circle cx="${EMAX_X}" cy="${BASE}" r="5" fill="${P.line}"/>`,
+      svg: `<circle cx="${EMAX_X}" cy="${BASE}" r="6" fill="${P.line}" stroke="${P.fill}" stroke-width="2.5"/>`,
     },
   ],
 };

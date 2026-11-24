@@ -232,12 +232,35 @@ alvos e pelo `where`, então escreva-os para serem entendidos sem ver a figura. 
 nenhuma interação da aula. Em `hotspot`, `label` e `risk-hunt` um diagrama em laço aparece parado, no
 quadro de pôster (desde 2026-11-19): escreva o item para esse quadro.
 
+**Origem das figuras hoje (medido em 2026-11-21).** O catálogo abaixo mistura três
+origens, e o `figuras.json` registra a de cada uma. **Acervo aberto** (anatomia, 23 figuras como crânio,
+esqueleto, coluna, pelve, fêmur e trato digestivo, de Servier, LadyofHats,
+DBCLS/Togopic e outros, em CC BY ou domínio público): arte do autor, recolorida sem redesenhar,
+com crédito no app. **Kit `anatomy`** (equipamento e cena de sala, 22 figuras das
+unidades m17, m19, m21, m25, m26, m27, m30, m31 e m32): cena isométrica desenhada em
+código pelo kit do repositório, arte própria do projeto. **Código antigo** (gráficos,
+fluxos e esquemas de radiografia, e as figuras das outras unidades): desenhos do primeiro
+catálogo, ainda não trocados; as fases 3 a 5 do
+[plano de troca](../superpowers/plans/2026-11-19-troca-das-figuras.md) decidem o destino.
+Se você escreve item para uma figura do acervo ou do kit, a figura é a que está no app:
+confira a prévia em `docs/evidence/2026-11-19-figuras/` antes de escrever o `where`.
+
+**Região é a caixa justa do objeto, e o selo do app fica fora dele.** Declare a região
+do tamanho do objeto no desenho, nunca do tamanho da área de toque de 44 pt nem esticada
+até o fundo vazio: o verificador passa e a pergunta deixa de medir o que diz. O app
+(desde 2026-11-20) põe o selo do número fora da região e fora da área de toque dos
+outros alvos, e o ponto de rotular tem 12 pt, com o número num selo ao lado; por isso o
+objeto pequeno não precisa ser inflado no item. Se o objeto ainda ficar escondido, o
+item muda (adaptar o item), a região não cresce.
+
 ### Catálogo de diagramas
 
 Texto do `alt` resumido. **Parado** não tem movimento. **Laço** repete sozinho; com
 "reduzir movimento" o aluno vê um quadro só. **Dirigido** só se move por um controle
 (`parameter-lab`); fora dele aparece parado, no quadro inicial. Nenhum diagrama tem
 texto dentro: o rótulo vem do conteúdo.
+
+**Gráficos e esquemas físicos** (curva, histograma, linha do tempo, circuito) seguem a gramática de [`2026-11-19-gramatica-de-graficos.md`](2026-11-19-gramatica-de-graficos.md): painel, eixos com seta cheia, cor por papel e movimento só no `visual` do conceito. Como o desenho não tem texto, **a aula diz o que cada eixo mede** (no corpo do conceito, se couber nas 80 palavras, ou no `where` dos alvos); o `alt` e a cor nunca carregam essa informação sozinhos.
 
 | id | Tipo | O que mostra |
 | --- | --- | --- |
@@ -262,7 +285,7 @@ texto dentro: o rótulo vem do conteúdo.
 | `pontos-de-contato-da-sala` | parado | Sala de exame de frente: porta com maçaneta, receptor vertical com barra de apoio, mesa de exame, tubo de raios X no teto e a mesa do comando com teclado. |
 | `itens-de-emergencia-da-sala` | parado | Parede de uma sala de exame: porta de saída com placa, carrinho de emergência com gavetas, saída de oxigênio, botão de chamada com cordão e telefone. |
 | `circuito-do-gerador` | parado | Circuito do gerador: fonte alternada, transformador com secundário de mais espiras, ponte de diodos e tubo; abaixo, um transformador menor liga o filamento. |
-| `retificacao-de-onda` | parado | Três traçados de tensão empilhados: onda alternada, onda retificada que cai a zero a cada meio ciclo e tensão quase constante com ondulação pequena. |
+| `retificacao-de-onda` | laço | Três traçados de tensão empilhados: onda alternada, onda retificada que cai a zero a cada meio ciclo e tensão quase constante com ondulação pequena. |
 | `anodo-giratorio` | laço | Disco do ânodo girando visto de frente; o feixe de elétrons bate sempre no mesmo ponto da pista em anel, e dali sai o feixe de raios X. |
 | `espectro-de-raios-x` | parado | Gráfico sem números: curva larga que sobe e cai até zero na energia máxima, dois picos estreitos sobre ela e, à esquerda, a parte baixa cortada. |
 | `esqueleto-axial-apendicular` | parado | Esqueleto de frente, da cabeça ao meio das coxas: crânio, coluna, costelas e esterno numa cor; cinturas e membros em outra cor. |
@@ -276,15 +299,15 @@ texto dentro: o rótulo vem do conteúdo.
 | `sistema-urinario` | parado | Tronco de frente com os dois rins ao lado da coluna, os dois ureteres descendo até a bexiga na pelve e a uretra saindo da bexiga. |
 | `sistema-nervoso` | parado | Corpo de frente até as coxas: o encéfalo e a medula espinal numa cor, e nervos de outra cor saindo da medula para os braços, o tronco e as pernas. |
 | `dano-ao-dna` | parado | Trecho de DNA em escada: um fóton atinge a fita; outro atinge uma molécula de água, que lança um radical até a fita. A fita tem uma quebra simples e uma dupla. |
-| `grandezas-de-dose` | parado | Três painéis: bloco de tecido sob um feixe; o bloco com um fóton fino e uma partícula grossa de dano maior; um corpo com órgãos de intensidades diferentes. |
+| `grandezas-de-dose` | laço | Três painéis: bloco de tecido sob um feixe; o bloco com um fóton fino e uma partícula grossa de dano maior; um corpo com órgãos de intensidades diferentes. |
 | `dosimetro-no-corpo` | parado | Profissional de avental, de frente: crachá no tórax, anel no dedo da mão estendida, dosímetro junto ao olho; num canto, quadro de parede com um dosímetro. |
 | `produto-dose-area` | parado | Tubo com colimador e uma placa fina na saída; dois feixes do mesmo foco, um estreito e um largo, chegam ao paciente deitado; o largo cobre mais da placa. |
 | `histograma-e-lut` | parado | Histograma com um pico estreito em cada ponta e um grupo largo no meio, coberto por uma faixa azul; ao lado, uma curva em S de conversão. |
-| `realce-e-suavizacao` | parado | Três perfis empilhados de uma mesma borda: degrau com rampa curta, degrau com ultrapassagem antes e depois da borda, e degrau com rampa larga e suave. |
+| `realce-e-suavizacao` | laço | Três perfis empilhados de uma mesma borda: degrau com rampa curta, degrau com ultrapassagem antes e depois da borda, e degrau com rampa larga e suave. |
 | `monitor-e-padrao-de-teste` | parado | Monitor com padrão de teste: degraus de cinza, dois quadrados com quadradinhos, pares de linhas; janela ao lado e seu reflexo no canto da tela. |
 | `fluxo-ris-pacs` | parado | Cinco blocos ligados por setas em serpentina: prancheta, lista, tubo de raios X com mesa, cilindro de armazenamento e monitor com imagem. |
 | `compressao-de-imagem` | parado | Imagem de 8 por 8 pixels, um disco, três vezes: original, igual sem perda e em blocos grosseiros com perda; acima, barras longa, média e curta. |
-| `radiografia-roteiro` | parado | Esquema de radiografia de tórax em PA: pulmões escuros, coluna, coração, costelas e diafragma, com etiqueta, marcador de lado e margens claras no filme. |
+| `radiografia-roteiro` | parado | Esquema de radiografia de tórax em PA: pulmões escuros, coluna, coração, costelas e diafragma, com etiqueta, marcador de lado e margens claras no filme. Desde 2026-11-22, sem uso em aula: as aulas passaram à imagem real (`imageId`), ver `docs/evidence/2026-11-19-figuras/imagens-reais.md`. |
 | `artefatos-de-objeto` | parado | Esquema de radiografia de tórax em PA com quatro objetos densos sobrepostos ao corpo, além de pulmões, coração, costelas e clavículas. |
 | `artefatos-do-detector` | parado | Esquema de radiografia de tórax em PA com três marcas estranhas à anatomia sobre a imagem, além de pulmões, coração, costelas e diafragma. |
 | `ossos-do-pe` | parado | Pé direito visto de cima e deitado: calcanhar à esquerda, dedos à direita, lado do hálux em cima. Tarso, metatarsos e falanges em três cores. |
@@ -305,20 +328,20 @@ texto dentro: o rótulo vem do conteúdo.
 | `colimacao-pediatrica` | parado | Duas vezes a mesma criança deitada, vista de cima, cada uma com um retângulo de luz do colimador: um cobre o corpo todo e o outro só o tórax. |
 | `idoso-apoios-e-riscos` | parado | Pessoa idosa em pé junto ao receptor vertical na parede, com a mão numa barra; há um banco ao lado, um degrau e um tapete solto no chão e o andador longe. |
 | `gestante-campo-e-feixe` | parado | Gestante de perfil em pé diante do receptor vertical; o tubo, longe, emite um campo cheio só sobre o tórax e um campo tracejado maior que alcançaria o abdome. |
-| `corte-abdome-superior` | parado | Corte axial do abdome superior visto de baixo, frente do corpo no alto e lado direito do paciente à esquerda de quem vê: vísceras, vasos e vértebra. |
-| `corte-pelve` | parado | Corte axial da pelve na altura dos quadris, visto de baixo, frente do corpo no alto e lado direito do paciente à esquerda de quem vê: ossos e órgãos. |
-| `corte-pescoco` | parado | Corte axial do pescoço na altura da tireoide, visto de baixo, frente do corpo no alto e lado direito do paciente à esquerda de quem vê: vias, vasos e vértebra. |
+| `corte-abdome-superior` | parado | Corte axial do abdome superior visto de baixo, frente do corpo no alto e lado direito do paciente à esquerda de quem vê: vísceras, vasos e vértebra. Desde 2026-11-22, sem uso em aula: as aulas passaram à imagem real do acervo do dono (`imageId`), ver `docs/evidence/2026-11-19-figuras/imagens-vps.md`. |
+| `corte-pelve` | parado | Corte axial da pelve na altura dos quadris, visto de baixo, frente do corpo no alto e lado direito do paciente à esquerda de quem vê: ossos e órgãos. Desde 2026-11-22, sem uso em aula: as aulas passaram à imagem real do acervo do dono (`imageId`), ver `docs/evidence/2026-11-19-figuras/imagens-vps.md`. |
+| `corte-pescoco` | parado | Corte axial do pescoço na altura da tireoide, visto de baixo, frente do corpo no alto e lado direito do paciente à esquerda de quem vê: vias, vasos e vértebra. Desde 2026-11-22, sem uso em aula: as aulas passaram à imagem real do acervo do dono (`imageId`), ver `docs/evidence/2026-11-19-figuras/imagens-vps.md`. |
 | `coluna-sagital-e-axial` | parado | Coluna lombar em duas vistas: corte sagital com a frente do corpo à esquerda e, ao lado, corte axial com a frente no alto, na altura da linha tracejada. |
-| `relaxacao-t1-t2` | parado | Dois gráficos de sinal no tempo: num, duas curvas sobem até o mesmo patamar, uma rápida e uma lenta; no outro, duas curvas caem rumo a zero, rápida e lenta. |
+| `relaxacao-t1-t2` | laço | Dois gráficos no tempo: a magnetização longitudinal sobe (esquerda) e o sinal transversal cai (direita), cada um com uma curva rápida e outra lenta. |
 | `linha-do-tempo-tr-te` | laço | Linha do tempo com um pulso, um eco pouco depois e o pulso seguinte bem adiante; uma chave curta e uma longa marcam os intervalos, e um cursor corre por ela. |
-| `ponderacoes-no-encefalo` | parado | Três vezes o mesmo corte axial da cabeça, com ventrículos em borboleta; o brilho do líquido, da gordura e das substâncias branca e cinzenta muda em cada um. |
-| `supressao-de-gordura` | parado | O mesmo corte da coxa duas vezes: num, a gordura sob a pele e a medula brilham; no outro, estão apagadas, menos um trecho junto de um pequeno objeto metálico. |
+| `ponderacoes-no-encefalo` | parado | Três vezes o mesmo corte axial da cabeça, com ventrículos em borboleta; o brilho do líquido, da gordura e das substâncias branca e cinzenta muda em cada um. Desde 2026-11-22, sem uso em aula: as aulas passaram à imagem real do acervo do dono (`imageId`), ver `docs/evidence/2026-11-19-figuras/imagens-vps.md`. |
+| `supressao-de-gordura` | parado | O mesmo corte da coxa duas vezes: num, a gordura sob a pele e a medula brilham; no outro, estão apagadas, menos um trecho junto de um pequeno objeto metálico. Desde 2026-11-22, sem uso em aula: as aulas passaram à imagem real do acervo do dono (`imageId`), ver `docs/evidence/2026-11-19-figuras/imagens-vps.md`. |
 | `artefatos-de-rm` | parado | Três cortes ovais: um com cópias fracas da estrutura central, um com buraco preto de borda clara e torta, um com uma parte de fora repetida dentro. |
 | `dxa-dois-feixes` | parado | Densitômetro de lado: paciente deitado de costas na mesa, fonte sob o tampo, detector acima e um feixe estreito de duas cores subindo entre eles. |
-| `dxa-regioes-de-interesse` | parado | Coluna lombar de frente com quatro caixas, uma por vértebra, e fêmur proximal com caixa no colo, região no trocanter e contorno do quadril total. |
+| `dxa-regioes-de-interesse` | parado | Coluna lombar de frente com quatro caixas, uma por vértebra, e fêmur proximal com caixa no colo, região no trocanter e contorno do quadril total. Desde 2026-11-22, sem uso em aula: as aulas passaram à imagem real (`imageId`), ver `docs/evidence/2026-11-19-figuras/imagens-reais.md`. |
 | `dxa-posicionamento` | parado | Duas cenas: de lado, paciente com as pernas dobradas sobre um bloco; de cima, pernas estendidas, posicionador entre os pés e um pé girado preso por faixa. |
-| `dxa-interferencias` | parado | Imagem de coluna lombar de frente, inclinada, com um ponto metálico muito claro, um zíper ao lado e caixas de vértebra, uma delas fora do lugar. |
-| `corpo-inteiro-composicao` | parado | Corpo inteiro deitado visto de cima, com o esqueleto por dentro e linhas que o dividem em regiões; ao lado, três faixas de cores diferentes empilhadas. |
+| `dxa-interferencias` | parado | Imagem de coluna lombar de frente, inclinada, com um ponto metálico muito claro, um zíper ao lado e caixas de vértebra, uma delas fora do lugar. Desde 2026-11-22, sem uso em aula: as aulas passaram à imagem real (`imageId`), ver `docs/evidence/2026-11-19-figuras/imagens-reais.md`. |
+| `corpo-inteiro-composicao` | parado | Corpo inteiro deitado visto de cima, com o esqueleto por dentro e linhas que o dividem em regiões; ao lado, três faixas de cores diferentes empilhadas. Desde 2026-11-22, sem uso em aula: as aulas passaram à imagem real (`imageId`), ver `docs/evidence/2026-11-19-figuras/imagens-reais.md`. |
 | `radiografia-veterinaria` | parado | Cão deitado de lado sobre a mesa, com sacos de areia nas patas e calha de espuma; tubo acima com campo de luz no tórax; três pessoas em posições diferentes. |
 | `cadeia-de-custodia` | parado | Cinco blocos em serpentina ligados por setas: invólucro lacrado, prancheta entre mãos, aparelho de imagem, livro de registro e armário com cadeado. |
 | `fluxo-de-pesquisa` | parado | Cinco blocos em serpentina ligados por setas: documento com selo, folha com caneta, aparelho de imagem, ficha com tarja e cilindro com cadeado. |
@@ -752,6 +775,8 @@ distância de 2 m para cima vale; se o enunciado pede "um quarto", use `atLeast`
 ```
 
 ### `visual` do conceito
+
+Para gráfico ou esquema físico, o desenho segue a [gramática dos gráficos](2026-11-19-gramatica-de-graficos.md); com alvo de toque, a figura aparece parada no quadro de pôster.
 
 `concept.visual` aceita o id de um diagrama do catálogo. O diagrama aparece no
 conceito, e o verificador confere só que o id existe. **Use** quando o movimento ou a

@@ -125,38 +125,43 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule as partes do densitômetro vistas de lado, tocando na ficha e no ponto.",
+          "prompt": "Rotule as partes do densitômetro, tocando na ficha e no ponto.",
           "diagramId": "dxa-dois-feixes",
           "points": [
             {
               "label": "Fonte de raios X",
-              "x": 0.5313,
-              "y": 0.7333,
-              "where": "embaixo, o bloco azul sob o tampo, no meio do desenho"
+              "x": 0.5217,
+              "y": 0.776,
+              "where": "embaixo, o bloco azul sob o tampo, no meio do desenho",
+              "alvo": "Fonte de raios X (peça sob o tampo)"
             },
             {
               "label": "Braço do detector",
-              "x": 0.5313,
-              "y": 0.1292,
-              "where": "no alto, o bloco azul que fica acima do corpo"
+              "x": 0.5563,
+              "y": 0.2958,
+              "where": "no alto, o bloco azul que fica acima do corpo",
+              "alvo": "Detector (peça no alto do braço)"
             },
             {
               "label": "Feixe",
-              "x": 0.5313,
-              "y": 0.3542,
-              "where": "as duas linhas finas de cores diferentes, subindo retas"
+              "x": 0.5422,
+              "y": 0.5125,
+              "where": "as duas linhas finas de cores diferentes, subindo retas",
+              "alvo": "Feixe de duas energias"
             },
             {
               "label": "Paciente",
-              "x": 0.3,
-              "y": 0.5208,
-              "where": "a figura deitada de costas, na altura do peito"
+              "x": 0.3792,
+              "y": 0.413,
+              "where": "a figura deitada de costas, na altura do peito",
+              "alvo": "Paciente deitada de costas"
             },
             {
               "label": "Mesa",
-              "x": 0.8938,
-              "y": 0.6125,
-              "where": "a faixa onde o corpo se apoia, na ponta direita do desenho"
+              "x": 0.7537,
+              "y": 0.7622,
+              "where": "a faixa onde o corpo se apoia, na ponta direita do desenho",
+              "alvo": "Ponta da mesa"
             }
           ],
           "distractors": [
@@ -213,32 +218,36 @@
           "regions": [
             {
               "label": "Peça sob o tampo",
-              "x": 0.4625,
-              "y": 0.675,
-              "width": 0.1375,
-              "height": 0.1167
+              "x": 0.4875,
+              "y": 0.7021,
+              "width": 0.1094,
+              "height": 0.1104,
+              "alvo": "Fonte de raios X (peça sob o tampo)"
             },
             {
               "label": "Peça no alto do braço",
-              "x": 0.4375,
-              "y": 0.075,
-              "width": 0.1875,
-              "height": 0.1083,
-              "correct": true
+              "x": 0.4734,
+              "y": 0.2271,
+              "width": 0.15,
+              "height": 0.1708,
+              "correct": true,
+              "alvo": "Detector (peça no alto do braço)"
             },
             {
               "label": "Tronco da pessoa",
-              "x": 0.225,
-              "y": 0.4583,
-              "width": 0.15,
-              "height": 0.125
+              "x": 0.3141,
+              "y": 0.3586,
+              "width": 0.1402,
+              "height": 0.1959,
+              "alvo": "Tronco da paciente"
             },
             {
               "label": "Ponta da mesa",
-              "x": 0.8375,
-              "y": 0.5667,
-              "width": 0.1125,
-              "height": 0.0917
+              "x": 0.6672,
+              "y": 0.6829,
+              "width": 0.1631,
+              "height": 0.1814,
+              "alvo": "Ponta da mesa"
             }
           ],
           "feedbackCorrect": "Isso mesmo: o feixe sobe pela pessoa e chega ao detector, no alto do braço.",
@@ -443,14 +452,14 @@
       "code": "M30.02",
       "title": "Onde se mede",
       "objective": "Hoje você vai conseguir localizar as regiões medidas na coluna lombar e no fêmur proximal.",
-      "competency": "Localizar, num esquema, as regiões de interesse da coluna lombar (L1 a L4) e do fêmur proximal (colo, trocânter e quadril total).",
+      "competency": "Reconhecer, numa imagem de exame, as caixas de L1 a L4 e localizar as regiões do fêmur proximal.",
       "minutes": 5,
       "scene": {
         "setting": "Sala de análise",
         "lines": [
           {
             "speaker": "duda",
-            "text": "No esquema há umas caixas desenhadas sobre a coluna e sobre o fêmur. O aparelho mede o osso inteiro?"
+            "text": "Na imagem há umas caixas desenhadas sobre a coluna e sobre o fêmur. O aparelho mede o osso inteiro?"
           },
           {
             "speaker": "caio",
@@ -464,7 +473,7 @@
       },
       "concept": {
         "title": "Medir dentro de regiões",
-        "body": "A medida acontece dentro de regiões de interesse. Na coluna lombar, de frente, entram as vértebras L1 a L4, uma caixa em cada. As vértebras se contam de baixo para cima, e a crista ilíaca costuma ficar na altura do espaço entre L4 e L5. No fêmur proximal há a região do colo, a do trocânter e o quadril total, que reúne colo, trocânter e parte do fêmur. A caixa do colo não inclui a região do trocânter. Neste esquema os limites são aproximados; o protocolo do serviço define os reais.",
+        "body": "A medida acontece dentro de regiões de interesse. Na coluna lombar, de frente, entram as vértebras L1 a L4, uma caixa em cada. As vértebras se contam de baixo para cima, e a crista ilíaca costuma ficar na altura do espaço entre L4 e L5. No fêmur proximal há a região do colo, a do trocânter e o quadril total, que reúne colo, trocânter e parte do fêmur. A caixa do colo não inclui a região do trocânter. Na imagem desta aula, as caixas são as do programa do aparelho; o protocolo do serviço define os limites de cada região.",
         "keyPoints": [
           "Coluna: L1 a L4, uma caixa por vértebra.",
           "Fêmur: colo, trocânter e quadril total.",
@@ -508,46 +517,34 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule cinco regiões do esquema, tocando na ficha e no ponto. A coluna está à esquerda do desenho e o fêmur, à direita.",
-          "diagramId": "dxa-regioes-de-interesse",
+          "prompt": "Rotule três regiões do fêmur no painel A, tocando na ficha e no ponto.",
+          "imageId": "image:rtg-2026:m30:dxa-quadril-coluna-01",
           "points": [
             {
-              "label": "Vértebra L1",
-              "x": 0.2188,
-              "y": 0.1625,
-              "where": "a caixa mais alta da coluna"
-            },
-            {
-              "label": "Vértebra L4",
-              "x": 0.2188,
-              "y": 0.5875,
-              "where": "a caixa mais baixa da coluna"
-            },
-            {
               "label": "Colo do fêmur",
-              "x": 0.7625,
-              "y": 0.3333,
-              "where": "a caixa estreita e inclinada, junto da parte redonda"
+              "x": 0.288,
+              "y": 0.592,
+              "where": "caixa longa e inclinada que cruza o osso, no painel A"
             },
             {
               "label": "Trocânter maior",
-              "x": 0.55,
-              "y": 0.4208,
-              "where": "a região sombreada na saliência de fora do osso"
+              "x": 0.085,
+              "y": 0.472,
+              "where": "no painel A, na saliência do lado de fora do osso"
             },
             {
               "label": "Quadril total",
-              "x": 0.6281,
-              "y": 0.7792,
-              "where": "dentro do contorno tracejado, na haste do osso"
+              "x": 0.167,
+              "y": 0.86,
+              "where": "no painel A, dentro do contorno, na haste do osso"
             }
           ],
           "distractors": [
             "Cabeça do fêmur"
           ],
-          "feedbackCorrect": "Isso mesmo: as caixas da coluna vão de L1, no alto, até L4, e o fêmur tem colo, trocânter e o contorno do quadril total.",
-          "feedbackIncorrect": "Alguma ficha está fora do lugar: na coluna conte de L1 até L4, e no fêmur separe a caixa do colo, a região do trocânter e o contorno tracejado.",
-          "help": "Na coluna, a primeira caixa de cima é a primeira vértebra medida.",
+          "feedbackCorrect": "Isso mesmo: no fêmur há a caixa do colo, a região do trocânter e o contorno que envolve o osso, o quadril total.",
+          "feedbackIncorrect": "Alguma ficha está fora do lugar: no fêmur, separe a caixa do colo, a região do trocânter e o contorno que envolve o osso.",
+          "help": "No painel A, procure primeiro a caixa longa que cruza o colo do osso.",
           "sourceIds": [
             "iscd-adult-positions",
             "dxa-practice-guideline-2025"
@@ -557,7 +554,7 @@
           "id": "i3",
           "type": "matching",
           "role": "practice",
-          "prompt": "Ligue cada região à descrição, como no esquema desta aula.",
+          "prompt": "Ligue cada região à descrição, como na imagem desta aula.",
           "pairs": [
             {
               "left": "Coluna lombar",
@@ -576,7 +573,7 @@
               "right": "Reúne colo, trocânter e parte do fêmur"
             }
           ],
-          "feedbackCorrect": "Você ligou cada região ao que ela cobre neste esquema.",
+          "feedbackCorrect": "Você ligou cada região ao que ela cobre nesta imagem.",
           "feedbackIncorrect": "Reveja o conceito: o quadril total reúne as outras regiões do fêmur, e a caixa do colo deixa o trocânter de fora.",
           "help": "Uma das regiões do fêmur é a soma das outras.",
           "sourceIds": [
@@ -589,47 +586,40 @@
           "type": "hotspot",
           "role": "practice",
           "prompt": "A caixa do colo do fêmur nunca pode invadir uma região vizinha do próprio fêmur, que tem região própria. Toque nessa região.",
-          "diagramId": "dxa-regioes-de-interesse",
+          "imageId": "image:rtg-2026:m30:dxa-quadril-coluna-01",
           "regions": [
             {
               "label": "Vértebra L1",
-              "x": 0.1563,
-              "y": 0.1167,
-              "width": 0.125,
-              "height": 0.0917
+              "x": 0.71,
+              "y": 0.13,
+              "width": 0.145,
+              "height": 0.155
             },
             {
               "label": "Colo do fêmur",
-              "x": 0.7219,
-              "y": 0.2792,
-              "width": 0.0813,
-              "height": 0.1083
+              "x": 0.25,
+              "y": 0.53,
+              "width": 0.08,
+              "height": 0.125
             },
             {
               "label": "Trocânter maior",
-              "x": 0.5062,
-              "y": 0.3417,
-              "width": 0.0875,
-              "height": 0.1583,
+              "x": 0.045,
+              "y": 0.35,
+              "width": 0.11,
+              "height": 0.21,
               "correct": true
             },
             {
-              "label": "Vértebra L4",
-              "x": 0.1563,
-              "y": 0.5417,
-              "width": 0.125,
-              "height": 0.0917
-            },
-            {
-              "label": "Asa do osso do quadril",
-              "x": 0.325,
-              "y": 0.8,
-              "width": 0.0875,
-              "height": 0.1
+              "label": "Cabeça do fêmur",
+              "x": 0.3,
+              "y": 0.24,
+              "width": 0.1,
+              "height": 0.16
             }
           ],
           "feedbackCorrect": "Isso mesmo: a caixa do colo não inclui o trocânter, que tem região própria.",
-          "feedbackIncorrect": "Essa não é a região vizinha do colo: as vértebras e a asa do quadril nem são do fêmur, e o colo é a própria caixa.",
+          "feedbackIncorrect": "Essa não é a região vizinha do colo: a vértebra nem é do fêmur, o colo é a própria caixa, e a cabeça do fêmur não tem região própria.",
           "help": "Pense na saliência do lado de fora do osso, perto do colo.",
           "sourceIds": [
             "dxa-practice-guideline-2025"
@@ -673,7 +663,7 @@
       ],
       "closing": {
         "title": "Você sabe onde o aparelho mede",
-        "body": "Agora você consegue localizar as caixas da coluna lombar, de L1 a L4, e as regiões do fêmur proximal, sabendo que neste esquema os limites são aproximados.",
+        "body": "Agora você consegue localizar as caixas da coluna lombar, de L1 a L4, e as regiões do fêmur proximal, sabendo que o protocolo do serviço define os limites reais.",
         "line": {
           "speaker": "lia",
           "text": "Quando você sabe onde se mede, fica fácil notar quando algo está fora do lugar."
@@ -681,7 +671,7 @@
       },
       "checkpoint": [
         {
-          "prompt": "Na coluna lombar do esquema, quais vértebras recebem uma caixa cada?",
+          "prompt": "Na coluna lombar da imagem, quais vértebras recebem uma caixa cada?",
           "options": [
             {
               "label": "De L1 a L4",
@@ -691,7 +681,7 @@
             {
               "label": "De L2 a L5",
               "correct": false,
-              "feedback": "A contagem começa em L1, e a quinta lombar fica sem caixa no esquema."
+              "feedback": "A contagem começa em L1, e a quinta lombar fica sem caixa na imagem."
             },
             {
               "label": "Só a primeira e a última lombar",
@@ -873,44 +863,49 @@
           "id": "i2",
           "type": "hotspot",
           "role": "practice",
-          "prompt": "Na vista de cima, toque no pé que está na posição ensinada para a medida do fêmur.",
+          "prompt": "Na cena da direita, toque no pé que está na posição ensinada para a medida do fêmur.",
           "diagramId": "dxa-posicionamento",
           "regions": [
             {
               "label": "Coluna reta sobre a mesa",
-              "x": 0.1062,
-              "y": 0.5417,
-              "width": 0.1938,
-              "height": 0.0917
+              "x": 0.12,
+              "y": 0,
+              "width": 0.22,
+              "height": 0.28,
+              "alvo": "Coluna reta sobre a mesa"
             },
             {
               "label": "Bloco sob as pernas",
-              "x": 0.3813,
-              "y": 0.4667,
-              "width": 0.0938,
-              "height": 0.1417
+              "x": 0.1719,
+              "y": 0.3604,
+              "width": 0.2141,
+              "height": 0.4292,
+              "alvo": "Bloco sob as pernas"
             },
             {
               "label": "Posicionador entre os pés",
-              "x": 0.7312,
-              "y": 0.5333,
-              "width": 0.0875,
-              "height": 0.1
+              "x": 0.6484,
+              "y": 0.7104,
+              "width": 0.1,
+              "height": 0.2,
+              "alvo": "Posicionador entre os pés"
             },
             {
               "label": "Pé à esquerda do desenho",
-              "x": 0.6062,
-              "y": 0.75,
-              "width": 0.0813,
-              "height": 0.1,
-              "correct": true
+              "x": 0.5296,
+              "y": 0.5208,
+              "width": 0.08,
+              "height": 0.125,
+              "correct": true,
+              "alvo": "Pé à esquerda do desenho (girado, preso)"
             },
             {
               "label": "Pé à direita do desenho",
-              "x": 0.87,
-              "y": 0.77,
+              "x": 0.7522,
+              "y": 0.4813,
               "width": 0.08,
-              "height": 0.16
+              "height": 0.1396,
+              "alvo": "Pé à direita do desenho"
             }
           ],
           "feedbackCorrect": "Isso mesmo: este pé está girado para dentro e preso ao posicionador, como pede a medida do fêmur.",
@@ -1169,7 +1164,7 @@
       "code": "M30.04",
       "title": "O que estraga a medida",
       "objective": "Hoje você vai conseguir achar na imagem o que não deveria estar lá e dizer a quem avisar.",
-      "competency": "Reconhecer metal, zíper, coluna inclinada e caixa de região fora da vértebra num esquema de imagem e avisar a equipe, sem decidir repetir nem excluir.",
+      "competency": "Achar material denso sobre a vértebra numa imagem de exame e reconhecer zíper, coluna torta e caixa fora do lugar, avisando a equipe sem decidir.",
       "minutes": 5,
       "scene": {
         "setting": "Sala de análise",
@@ -1233,60 +1228,44 @@
         },
         {
           "id": "i2",
-          "type": "risk-hunt",
+          "type": "hotspot",
           "role": "practice",
-          "prompt": "Na imagem esquemática da coluna, toque em tudo que pode estragar a medida.",
-          "diagramId": "dxa-interferencias",
+          "prompt": "Esta imagem da coluna lombar é de um exame real. Toque no que pode estragar a medida.",
+          "imageId": "image:rtg-2026:m30:dxa-coluna-cimento-01",
           "regions": [
             {
-              "label": "Asa do quadril, à esquerda do desenho",
-              "x": 0.2062,
-              "y": 0.6667,
-              "width": 0.0875,
-              "height": 0.1,
-              "risk": false,
-              "feedback": "A asa do osso do quadril é anatomia, e não interferência: ela serve de referência para contar as vértebras."
-            },
-            {
               "label": "Ponto muito claro sobre uma vértebra",
-              "x": 0.4156,
-              "y": 0.3625,
-              "width": 0.0813,
-              "height": 0.1,
-              "risk": true,
-              "feedback": "Um ponto muito claro sobre a vértebra pode ser metal e alterar a medida: você descreve onde está e avisa a equipe."
+              "x": 0.295,
+              "y": 0.287,
+              "width": 0.28,
+              "height": 0.123,
+              "correct": true
             },
             {
-              "label": "Caixa sobre meia vértebra e o disco",
-              "x": 0.375,
-              "y": 0.625,
-              "width": 0.1437,
-              "height": 0.1,
-              "risk": true,
-              "feedback": "Neste esquema a caixa cobre meia vértebra e o disco: a região medida não é a vértebra. Você descreve, e a equipe corrige."
+              "label": "Caixa mais alta da coluna",
+              "x": 0.33,
+              "y": 0.09,
+              "width": 0.33,
+              "height": 0.15
             },
             {
-              "label": "Caixa sobre uma vértebra, no alto",
-              "x": 0.325,
-              "y": 0.0583,
-              "width": 0.1437,
-              "height": 0.125,
-              "risk": false,
-              "feedback": "Esta caixa cobre a vértebra, de disco a disco: está no lugar e não é problema."
+              "label": "Caixa do meio da coluna",
+              "x": 0.31,
+              "y": 0.455,
+              "width": 0.36,
+              "height": 0.15
             },
             {
-              "label": "Linha de dentes ao lado da coluna",
-              "x": 0.7781,
-              "y": 0.4167,
-              "width": 0.0813,
-              "height": 0.1667,
-              "risk": true,
-              "feedback": "O zíper é metal que não deveria estar na imagem: zíperes estão entre os objetos que interferem. Você descreve e avisa; a equipe avalia."
+              "label": "Caixa mais baixa da coluna",
+              "x": 0.29,
+              "y": 0.64,
+              "width": 0.4,
+              "height": 0.14
             }
           ],
-          "feedbackCorrect": "Isso mesmo: o metal, o zíper e a caixa fora do lugar podem estragar a medida, e a asa do osso e a caixa certa, não.",
-          "feedbackIncorrect": "Reveja a imagem: falta marcar algo que interfere, ou foi marcada uma parte que está certa.",
-          "help": "Procure o que não é osso e o que não está sobre a vértebra.",
+          "feedbackCorrect": "Isso mesmo: um ponto muito claro sobre a vértebra é material denso, como metal ou o cimento deste exame, e pode alterar a medida. Você descreve onde está e avisa a equipe.",
+          "feedbackIncorrect": "Essa parte da coluna está no lugar e sem nada que não seja osso: procure o que não é osso e está sobre uma vértebra.",
+          "help": "Procure o que não é osso e está sobre uma vértebra.",
           "sourceIds": [
             "dxa-pitfalls-2013",
             "dxa-practice-guideline-2025"
@@ -1414,7 +1393,7 @@
       ],
       "closing": {
         "title": "Você acha o que não deveria estar lá",
-        "body": "Agora você consegue achar metal, zíper, coluna torta e caixa fora do lugar num esquema de imagem e dizer o que fazer: descrever e avisar a equipe.",
+        "body": "Agora você consegue achar, numa imagem de exame, material denso sobre a vértebra e reconhecer, nos casos descritos, zíper, coluna torta e caixa fora do lugar, e dizer o que fazer: descrever e avisar a equipe.",
         "line": {
           "speaker": "lia",
           "text": "Quem descreve com clareza poupa tempo da equipe e protege a medida."
@@ -1572,8 +1551,7 @@
       },
       "concept": {
         "title": "Três componentes, quatro regiões",
-        "visual": "corpo-inteiro-composicao",
-        "body": "O exame de corpo inteiro abrange o corpo todo e separa três componentes: osso, massa magra e gordura. Linhas de corte dividem o corpo em cabeça, braços, tronco e pernas, e cada região recebe os três valores. Na figura, as três faixas são só legenda de cor, sem proporção. O laudo traz a massa magra total e a massa de gordura total. A posição de braços e pernas segue o que o serviço define.",
+        "body": "O exame de corpo inteiro abrange o corpo todo e separa três componentes: osso, massa magra e gordura. Linhas de corte dividem o corpo em cabeça, braços, tronco e pernas, e cada região recebe os três valores. Na imagem da próxima atividade, as linhas de corte também isolam a pelve, que fica dentro do tronco. O laudo traz a massa magra total e a massa de gordura total. A posição de braços e pernas segue o que o serviço define.",
         "keyPoints": [
           "Três componentes: osso, massa magra e gordura.",
           "Regiões: cabeça, braços, tronco e pernas."
@@ -1616,40 +1594,40 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule as quatro regiões em que o exame divide o corpo, tocando na ficha e no ponto.",
-          "diagramId": "corpo-inteiro-composicao",
+          "prompt": "Rotule quatro regiões do corpo no painel da esquerda, tocando na ficha e no ponto.",
+          "imageId": "image:rtg-2026:m30:dxa-corpo-inteiro-01",
           "points": [
             {
               "label": "Cabeça",
-              "x": 0.3438,
-              "y": 0.1167,
-              "where": "no alto, a forma redonda acima da linha do queixo"
+              "x": 0.236,
+              "y": 0.075,
+              "where": "no painel da esquerda, a forma redonda no alto"
             },
             {
               "label": "Tronco",
-              "x": 0.3438,
-              "y": 0.3458,
-              "where": "no meio do desenho, entre as duas linhas dos ombros"
+              "x": 0.3,
+              "y": 0.26,
+              "where": "no painel da esquerda, sobre as costelas, ao lado da coluna"
             },
             {
               "label": "Braço",
-              "x": 0.2219,
-              "y": 0.5708,
-              "where": "à esquerda do desenho, a forma comprida solta do corpo"
+              "x": 0.088,
+              "y": 0.235,
+              "where": "no painel da esquerda, a haste comprida, à esquerda do peito"
             },
             {
               "label": "Perna",
-              "x": 0.3062,
-              "y": 0.829,
-              "where": "embaixo, a forma comprida abaixo do V"
+              "x": 0.15,
+              "y": 0.68,
+              "where": "no painel da esquerda, embaixo, a haste comprida abaixo do V"
             }
           ],
           "distractors": [
             "Pescoço"
           ],
           "feedbackCorrect": "Isso mesmo: as linhas de corte separam cabeça, tronco, braços e pernas.",
-          "feedbackIncorrect": "Alguma ficha está fora do lugar: siga as linhas de corte, da linha do queixo até o V entre as pernas.",
-          "help": "Comece pelo alto do desenho e desça seguindo as linhas.",
+          "feedbackIncorrect": "Alguma ficha está fora do lugar: siga as linhas de corte, da linha do pescoço até o V entre as pernas.",
+          "help": "Comece pelo alto do painel da esquerda e desça seguindo as linhas.",
           "sourceIds": [
             "body-composition-dxa-2017"
           ]
@@ -1700,7 +1678,7 @@
           "id": "i4",
           "type": "true-false",
           "role": "practice",
-          "prompt": "Julgue cada afirmação sobre a figura e o exame.",
+          "prompt": "Julgue cada afirmação sobre a imagem e o exame.",
           "statements": [
             {
               "text": "O exame separa o corpo em osso, massa magra e gordura.",
@@ -1708,9 +1686,9 @@
               "feedback": "Certo: são os três componentes que o exame separa."
             },
             {
-              "text": "As três faixas mostram quanto de cada componente a pessoa tem.",
+              "text": "As linhas de corte mostram quanto de cada componente a pessoa tem.",
               "correct": false,
-              "feedback": "Errado: as faixas têm a mesma altura; são legenda de cor, e não proporção medida."
+              "feedback": "Errado: as linhas de corte só dividem o corpo em regiões; elas não medem componente nenhum."
             },
             {
               "text": "Cada região, como as pernas, recebe os três valores.",
@@ -1723,9 +1701,9 @@
               "feedback": "Errado: o exame abrange o corpo todo, e não só os locais da coluna e do fêmur."
             }
           ],
-          "feedbackCorrect": "Você separou o que a figura mostra do que ela só ilustra.",
-          "feedbackIncorrect": "Releia o conceito: as faixas são só legenda de cor, e o exame abrange o corpo todo.",
-          "help": "As faixas da figura medem alguma coisa ou só dão cor aos componentes?",
+          "feedbackCorrect": "Você separou o que a imagem mostra do que ela não mostra.",
+          "feedbackIncorrect": "Releia o conceito: as linhas dividem o corpo em regiões, e o exame abrange o corpo todo.",
+          "help": "As linhas de corte medem alguma coisa ou só dividem o corpo em regiões?",
           "sourceIds": [
             "body-composition-dxa-2017"
           ]
@@ -1766,7 +1744,7 @@
       ],
       "closing": {
         "title": "Você separa o corpo em componentes e regiões",
-        "body": "Agora você consegue dizer que o exame de corpo inteiro separa osso, massa magra e gordura, por cabeça, braços, tronco e pernas, e que as faixas da figura são só legenda de cor.",
+        "body": "Agora você consegue dizer que o exame de corpo inteiro separa osso, massa magra e gordura, por cabeça, braços, tronco e pernas, e que as linhas de corte só dividem o corpo em regiões.",
         "line": {
           "speaker": "caio",
           "text": "Quando alguém perguntar o que o exame faz, você já tem as três palavras e as quatro regiões."
@@ -1787,7 +1765,7 @@
               "feedback": "Isso: são os três componentes que o exame separa."
             },
             {
-              "label": "Em cinco, um para cada região do corpo",
+              "label": "Em quatro, um para cada região do corpo",
               "correct": false,
               "feedback": "As regiões são cabeça, braços, tronco e pernas; os componentes são outros."
             },
@@ -1802,27 +1780,27 @@
           ]
         },
         {
-          "prompt": "Na figura, o que as três faixas de cor empilhadas representam?",
+          "prompt": "Segundo a aula, o que cada região do corpo recebe no exame de corpo inteiro?",
           "options": [
             {
-              "label": "Três regiões do corpo, todas com a mesma massa total",
+              "label": "Só o valor do osso, porque a massa magra e a gordura ficam para o corpo todo",
               "correct": false,
-              "feedback": "As regiões são mostradas pelas linhas de corte, e não pelas faixas."
+              "feedback": "Cada região recebe os três valores: osso, massa magra e gordura."
             },
             {
-              "label": "A parte do corpo que recebe mais radiação no exame",
+              "label": "Um valor único de massa, sem separar os componentes",
               "correct": false,
-              "feedback": "As faixas não indicam radiação: elas dão cor aos componentes."
+              "feedback": "O exame separa os componentes, e cada região recebe os três valores."
             },
             {
-              "label": "Os três componentes, como legenda de cor sem proporção",
+              "label": "Os três valores: osso, massa magra e gordura",
               "correct": true,
-              "feedback": "Isso: as faixas são só legenda dos componentes, sem proporção medida."
+              "feedback": "Isso: cada região, como as pernas, recebe os três valores."
             },
             {
-              "label": "Três exames feitos em dias diferentes, em sequência",
+              "label": "Valores só do tronco, e as outras regiões ficam sem medida",
               "correct": false,
-              "feedback": "As faixas não representam datas: elas representam os componentes."
+              "feedback": "Todas as regiões são avaliadas: cabeça, braços, tronco e pernas."
             }
           ],
           "sourceIds": [
@@ -1882,9 +1860,9 @@
                 "feedback": "O relatório é o resultado, e não o lugar onde se mede."
               },
               {
-                "label": "A faixa de cor da figura",
+                "label": "O osso, visto no painel da esquerda",
                 "correct": false,
-                "feedback": "A faixa é só legenda de cor dos componentes."
+                "feedback": "O osso é um componente, o tipo de produto, e não a prateleira."
               }
             ],
             "sourceIds": [
@@ -1968,46 +1946,46 @@
           "type": "hotspot",
           "role": "practice",
           "prompt": "O exame anterior mediu o quadril total. Toque no contorno que marca a região que o exame novo precisa medir de novo.",
-          "diagramId": "dxa-regioes-de-interesse",
+          "imageId": "image:rtg-2026:m30:dxa-quadril-coluna-01",
           "regions": [
             {
-              "label": "Área sombreada na saliência",
-              "x": 0.5062,
-              "y": 0.3417,
-              "width": 0.0875,
-              "height": 0.1583
+              "label": "Saliência de fora do osso",
+              "x": 0.045,
+              "y": 0.35,
+              "width": 0.11,
+              "height": 0.21
             },
             {
-              "label": "Caixa estreita e inclinada",
-              "x": 0.7219,
-              "y": 0.2792,
-              "width": 0.0813,
-              "height": 0.1083
+              "label": "Caixa longa e inclinada",
+              "x": 0.25,
+              "y": 0.53,
+              "width": 0.08,
+              "height": 0.125
             },
             {
-              "label": "Contorno tracejado, na haste",
-              "x": 0.5625,
-              "y": 0.7333,
-              "width": 0.1313,
-              "height": 0.0917,
+              "label": "Contorno amarelo do osso, na haste",
+              "x": 0.065,
+              "y": 0.78,
+              "width": 0.09,
+              "height": 0.12,
               "correct": true
             },
             {
               "label": "Caixa mais alta da coluna",
-              "x": 0.1563,
-              "y": 0.1167,
-              "width": 0.125,
-              "height": 0.0917
+              "x": 0.71,
+              "y": 0.13,
+              "width": 0.145,
+              "height": 0.155
             },
             {
               "label": "Caixa mais baixa da coluna",
-              "x": 0.1563,
-              "y": 0.5417,
-              "width": 0.125,
-              "height": 0.0917
+              "x": 0.71,
+              "y": 0.66,
+              "width": 0.17,
+              "height": 0.17
             }
           ],
-          "feedbackCorrect": "Isso mesmo: o contorno tracejado é o quadril total, e o exame novo mede de novo essa mesma região.",
+          "feedbackCorrect": "Isso mesmo: o contorno amarelo é o quadril total, e o exame novo mede de novo essa mesma região.",
           "feedbackIncorrect": "Essa é outra região: o quadril total é o contorno que reúne colo, trocânter e a parte logo abaixo.",
           "help": "Qual região do fêmur reúne as outras duas?",
           "sourceIds": [

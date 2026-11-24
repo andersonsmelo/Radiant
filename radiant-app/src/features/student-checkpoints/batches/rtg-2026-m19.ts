@@ -6,7 +6,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m19",
-  "materialSha256": "e437a344ff56a5de235bb52354c8f129b1e5e860f46531486f7884b5cd1470a0",
+  "materialSha256": "ceeef3d1e6fb1086ab81ce671773c83ea2332a5903d9caa470c9ac1ca4a56ceb",
   "trackId": "track:rtg-2026:m19",
   "unitId": "unit:rtg-2026:m19",
   "contentVersion": "rtg-2026-m19-v1",
@@ -264,8 +264,8 @@ export const RTG_2026_M19: ProductionBatchV1 = {
                 },
                 {
                   "id": "point:rtg-2026:m19:aula-01:i3:2",
-                  "x": 0.313,
-                  "y": 0.334,
+                  "x": 0.3,
+                  "y": 0.45,
                   "where": "no alto, duas bobinas, a da direita com mais voltas",
                   "correctLabelId": "label:rtg-2026:m19:aula-01:i3:2"
                 },
@@ -482,7 +482,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Elevar, retificar e alisar",
-            "body": "O transformador só trabalha com tensão alternada, que inverte o sentido a cada meio ciclo, e eleva a tensão pelo número de espiras. A ponte de diodos retifica: vira o meio ciclo invertido e deixa a tensão num sentido só, mas ela ainda cai a zero a cada meio ciclo. A ondulação diz quanto a tensão oscila entre picos e vales. Geradores mais elaborados, como os de alta frequência, reduzem a ondulação e deixam a tensão quase constante.",
+            "body": "O transformador só trabalha com tensão alternada, que inverte o sentido a cada meio ciclo, e eleva a tensão pelo número de espiras. A ponte de diodos retifica: vira o meio ciclo invertido e deixa a tensão num sentido só, mas ela ainda cai a zero a cada meio ciclo. A ondulação diz quanto a tensão oscila entre picos e vales. Geradores de alta frequência reduzem a ondulação e deixam a tensão quase constante. Tempo na horizontal; tensão na vertical.",
             "keyPoints": [
               "Retificar é manter a tensão num só sentido.",
               "A ondulação é o quanto a tensão oscila.",
@@ -890,29 +890,29 @@ export const RTG_2026_M19: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m19:aula-03:i2:1",
-                  "x": 0.28,
-                  "y": 0.44,
+                  "x": 0.339,
+                  "y": 0.372,
                   "where": "à esquerda, a espiral dentro da capa",
                   "correctLabelId": "label:rtg-2026:m19:aula-03:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m19:aula-03:i2:2",
-                  "x": 0.72,
-                  "y": 0.44,
-                  "where": "à direita, o bloco inclinado de borda branca",
+                  "x": 0.58,
+                  "y": 0.2,
+                  "where": "à direita, o disco com a face inclinada, ligado a uma haste",
                   "correctLabelId": "label:rtg-2026:m19:aula-03:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m19:aula-03:i2:3",
-                  "x": 0.68,
-                  "y": 0.71,
-                  "where": "embaixo à direita, a abertura no vidro",
+                  "x": 0.537,
+                  "y": 0.508,
+                  "where": "embaixo, a abertura redonda no vidro, de onde sai o feixe",
                   "correctLabelId": "label:rtg-2026:m19:aula-03:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m19:aula-03:i2:4",
-                  "x": 0.375,
-                  "y": 0.71,
+                  "x": 0.35,
+                  "y": 0.16,
                   "where": "a parede curva que envolve todo o conjunto",
                   "correctLabelId": "label:rtg-2026:m19:aula-03:i2:4"
                 }
@@ -1500,7 +1500,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Ler a forma do espectro",
-            "body": "O feixe de raios X mistura energias. A curva larga é a radiação de freamento, dos elétrons freados no alvo. Ela termina na energia máxima, que acompanha o kV. Os picos estreitos são a radiação característica: a posição deles depende do material do alvo. A filtração tira fótons de baixa energia: a quantidade cai e a energia média sobe. O mAs muda a quantidade, e não a energia. O kV muda a energia máxima e também a quantidade. Aqui só importa o sentido: sobe, desce, não muda.",
+            "body": "O feixe de raios X mistura energias. No gráfico, a energia fica na horizontal e a quantidade de fótons, na vertical. A curva larga é a radiação de freamento, dos elétrons freados no alvo. Ela termina na energia máxima, que acompanha o kV. Os picos estreitos são a radiação característica: a posição deles depende do material do alvo. A filtração tira fótons de baixa energia: a quantidade cai e a energia média sobe. O mAs muda a quantidade, e não a energia. O kV muda a energia máxima e também a quantidade. Aqui só importa o sentido: sobe, desce, não muda.",
             "keyPoints": [
               "kV: a energia máxima e a quantidade sobem.",
               "mAs: só a quantidade muda.",
@@ -1580,8 +1580,8 @@ export const RTG_2026_M19: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m19:aula-05:i2:1",
-                  "x": 0.39,
-                  "y": 0.54,
+                  "x": 0.3966,
+                  "y": 0.5838,
                   "where": "a curva larga que sobe depressa e desce devagar",
                   "correctLabelId": "label:rtg-2026:m19:aula-05:i2:1"
                 },
@@ -1596,14 +1596,14 @@ export const RTG_2026_M19: ProductionBatchV1 = {
                   "id": "point:rtg-2026:m19:aula-05:i2:3",
                   "x": 0.813,
                   "y": 0.834,
-                  "where": "o ponto branco no fim do eixo horizontal",
+                  "where": "onde a curva larga toca o eixo horizontal",
                   "correctLabelId": "label:rtg-2026:m19:aula-05:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m19:aula-05:i2:4",
                   "x": 0.223,
                   "y": 0.459,
-                  "where": "à esquerda, a faixa sombreada sob a linha tracejada",
+                  "where": "à esquerda, a faixa sombreada acima da curva",
                   "correctLabelId": "label:rtg-2026:m19:aula-05:i2:4"
                 }
               ],
@@ -1932,34 +1932,34 @@ export const RTG_2026_M19: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m19:aula-06:i2:1",
                   "label": "Cátodo com filamento",
-                  "x": 0.24,
-                  "y": 0.32,
-                  "width": 0.15,
-                  "height": 0.23
+                  "x": 0.2188,
+                  "y": 0.3083,
+                  "width": 0.1437,
+                  "height": 0.2417
                 },
                 {
                   "id": "region:rtg-2026:m19:aula-06:i2:2",
                   "label": "Ânodo",
-                  "x": 0.66,
-                  "y": 0.32,
-                  "width": 0.13,
-                  "height": 0.24
+                  "x": 0.5094,
+                  "y": 0.0854,
+                  "width": 0.4578,
+                  "height": 0.2646
                 },
                 {
                   "id": "region:rtg-2026:m19:aula-06:i2:3",
                   "label": "Janela de saída",
-                  "x": 0.61,
-                  "y": 0.66,
-                  "width": 0.15,
-                  "height": 0.09
+                  "x": 0.475,
+                  "y": 0.4,
+                  "width": 0.1453,
+                  "height": 0.1167
                 },
                 {
                   "id": "region:rtg-2026:m19:aula-06:i2:4",
                   "label": "Ampola de vidro",
-                  "x": 0.09,
-                  "y": 0.25,
-                  "width": 0.09,
-                  "height": 0.38
+                  "x": 0.2578,
+                  "y": 0.0625,
+                  "width": 0.1875,
+                  "height": 0.1979
                 }
               ],
               "correctRegionIds": [
@@ -6585,7 +6585,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e437a344ff56a5de235bb52354c8f129b1e5e860f46531486f7884b5cd1470a0"
+      "materialSha256": "ceeef3d1e6fb1086ab81ce671773c83ea2332a5903d9caa470c9ac1ca4a56ceb"
     },
     {
       "schemaVersion": 1,
@@ -6594,7 +6594,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e437a344ff56a5de235bb52354c8f129b1e5e860f46531486f7884b5cd1470a0"
+      "materialSha256": "ceeef3d1e6fb1086ab81ce671773c83ea2332a5903d9caa470c9ac1ca4a56ceb"
     },
     {
       "schemaVersion": 1,
@@ -6603,7 +6603,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e437a344ff56a5de235bb52354c8f129b1e5e860f46531486f7884b5cd1470a0"
+      "materialSha256": "ceeef3d1e6fb1086ab81ce671773c83ea2332a5903d9caa470c9ac1ca4a56ceb"
     },
     {
       "schemaVersion": 1,
@@ -6612,7 +6612,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e437a344ff56a5de235bb52354c8f129b1e5e860f46531486f7884b5cd1470a0"
+      "materialSha256": "ceeef3d1e6fb1086ab81ce671773c83ea2332a5903d9caa470c9ac1ca4a56ceb"
     },
     {
       "schemaVersion": 1,
@@ -6621,7 +6621,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e437a344ff56a5de235bb52354c8f129b1e5e860f46531486f7884b5cd1470a0"
+      "materialSha256": "ceeef3d1e6fb1086ab81ce671773c83ea2332a5903d9caa470c9ac1ca4a56ceb"
     },
     {
       "schemaVersion": 1,
@@ -6630,7 +6630,7 @@ export const RTG_2026_M19: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "e437a344ff56a5de235bb52354c8f129b1e5e860f46531486f7884b5cd1470a0"
+      "materialSha256": "ceeef3d1e6fb1086ab81ce671773c83ea2332a5903d9caa470c9ac1ca4a56ceb"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

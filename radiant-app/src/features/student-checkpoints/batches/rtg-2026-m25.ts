@@ -6,7 +6,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m25",
-  "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e",
+  "materialSha256": "c31d7f60104d431591b00781c9ea1ae2f007bc28b35e484fdc326b5cf4ecaaf7",
   "trackId": "track:rtg-2026:m25",
   "unitId": "unit:rtg-2026:m25",
   "contentVersion": "rtg-2026-m25-v1",
@@ -540,12 +540,13 @@ export const RTG_2026_M25: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Quatro referências para alinhar a cabeça",
-            "body": "A linha orbitomeatal vai do canto externo do olho ao centro do meato acústico externo. A infraorbitomeatal parte da margem inferior da órbita e chega ao mesmo meato. A linha interpupilar liga as duas pupilas. O plano sagital mediano divide a cabeça em direita e esquerda. Segundo a referência, no perfil o plano sagital fica paralelo ao receptor e a interpupilar, perpendicular, o que confere que a cabeça não está inclinada; no PA, a orbitomeatal fica perpendicular. No perfil, a infraorbitomeatal se ajusta flexionando ou estendendo a cabeça.",
+            "body": "A linha orbitomeatal vai do canto externo do olho ao centro do meato acústico externo. A infraorbitomeatal parte da margem inferior da órbita e chega ao mesmo meato. A linha interpupilar liga as pupilas. O plano sagital mediano divide a cabeça em direita e esquerda. No perfil, o plano sagital fica paralelo ao receptor e a interpupilar, perpendicular, o que confere a inclinação; no PA, a orbitomeatal fica perpendicular. No perfil, a infraorbitomeatal ajusta a flexão ou extensão da cabeça.",
             "keyPoints": [
               "Orbitomeatal: do canto externo do olho ao meato.",
               "Infraorbitomeatal: da margem inferior da órbita ao meato.",
               "Interpupilar liga as pupilas; o plano sagital mediano separa direita e esquerda."
-            ]
+            ],
+            "visual": "linhas-do-cranio"
           }
         },
         {
@@ -606,78 +607,56 @@ export const RTG_2026_M25: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule cinco referências da cabeça, tocando na ficha e no ponto. À esquerda está a vista de perfil e à direita, a de frente."
+              "label": "Rotular a imagem: Rotule três referências da cabeça, tocando na ficha e no ponto. À esquerda está a vista de perfil e à direita, a de frente."
             },
-            "help": "As duas linhas do perfil terminam no mesmo ponto; veja de onde cada uma parte.",
+            "help": "As duas linhas do perfil terminam no mesmo ponto, perto do ouvido.",
             "type": "label",
             "feedback": {
               "correct": "Isso mesmo: duas linhas partem do mesmo meato, uma une as pupilas e um plano divide a cabeça ao meio.",
-              "incorrect": "Alguma referência ficou fora do lugar: lembre de onde cada linha parte e o que ela une."
+              "incorrect": "Alguma referência ficou fora do lugar: lembre onde as duas linhas do perfil terminam e o que cada uma das outras une."
             },
             "payload": {
-              "prompt": "Rotule cinco referências da cabeça, tocando na ficha e no ponto. À esquerda está a vista de perfil e à direita, a de frente.",
+              "prompt": "Rotule três referências da cabeça, tocando na ficha e no ponto. À esquerda está a vista de perfil e à direita, a de frente.",
               "imageRef": "diagram:linhas-do-cranio",
               "points": [
                 {
                   "id": "point:rtg-2026:m25:aula-02:i2:1",
-                  "x": 0.0875,
-                  "y": 0.392,
-                  "where": "no perfil, a mais alta das duas linhas, na ponta da frente",
+                  "x": 0.333,
+                  "y": 0.583,
+                  "where": "no perfil, o pequeno anel onde as duas linhas terminam",
                   "correctLabelId": "label:rtg-2026:m25:aula-02:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m25:aula-02:i2:2",
-                  "x": 0.25,
-                  "y": 0.454,
-                  "where": "no perfil, a mais baixa das duas linhas, junto à bochecha",
+                  "x": 0.8803,
+                  "y": 0.4813,
+                  "where": "na vista de frente, a linha horizontal pelas duas órbitas",
                   "correctLabelId": "label:rtg-2026:m25:aula-02:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m25:aula-02:i2:3",
-                  "x": 0.4125,
-                  "y": 0.458,
-                  "where": "no perfil, o pequeno anel onde as duas linhas terminam",
-                  "correctLabelId": "label:rtg-2026:m25:aula-02:i2:3"
-                },
-                {
-                  "id": "point:rtg-2026:m25:aula-02:i2:4",
-                  "x": 0.906,
-                  "y": 0.408,
-                  "where": "na vista de frente, a linha horizontal pelos dois olhos",
-                  "correctLabelId": "label:rtg-2026:m25:aula-02:i2:4"
-                },
-                {
-                  "id": "point:rtg-2026:m25:aula-02:i2:5",
-                  "x": 0.7875,
-                  "y": 0.125,
+                  "x": 0.8038,
+                  "y": 0.2083,
                   "where": "na vista de frente, a linha tracejada vertical no alto",
-                  "correctLabelId": "label:rtg-2026:m25:aula-02:i2:5"
+                  "correctLabelId": "label:rtg-2026:m25:aula-02:i2:3"
                 }
               ],
               "labels": [
                 {
                   "id": "label:rtg-2026:m25:aula-02:i2:1",
-                  "label": "Linha orbitomeatal"
-                },
-                {
-                  "id": "label:rtg-2026:m25:aula-02:i2:6",
-                  "label": "Plano coronal"
-                },
-                {
-                  "id": "label:rtg-2026:m25:aula-02:i2:2",
-                  "label": "Linha infraorbitomeatal"
-                },
-                {
-                  "id": "label:rtg-2026:m25:aula-02:i2:5",
-                  "label": "Plano sagital mediano"
+                  "label": "Meato acústico externo"
                 },
                 {
                   "id": "label:rtg-2026:m25:aula-02:i2:4",
-                  "label": "Linha interpupilar"
+                  "label": "Plano coronal"
                 },
                 {
                   "id": "label:rtg-2026:m25:aula-02:i2:3",
-                  "label": "Meato acústico externo"
+                  "label": "Plano sagital mediano"
+                },
+                {
+                  "id": "label:rtg-2026:m25:aula-02:i2:2",
+                  "label": "Linha interpupilar"
                 }
               ]
             }
@@ -753,9 +732,9 @@ export const RTG_2026_M25: ProductionBatchV1 = {
               "statements": [
                 {
                   "id": "statement:rtg-2026:m25:aula-02:i4:1",
-                  "text": "As linhas orbitomeatal e infraorbitomeatal terminam no mesmo ponto, o meato.",
+                  "text": "A infraorbitomeatal parte de um ponto mais baixo do que a orbitomeatal.",
                   "isTrue": true,
-                  "explanation": "Certo: as duas partem de pontos diferentes perto do olho e chegam ao mesmo meato."
+                  "explanation": "Certo: a infraorbitomeatal parte da margem inferior da órbita, mais baixa que o canto externo do olho, de onde parte a orbitomeatal."
                 },
                 {
                   "id": "statement:rtg-2026:m25:aula-02:i4:2",
@@ -1246,12 +1225,13 @@ export const RTG_2026_M25: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Quatro grupos de seios",
-            "body": "Os seios da face são espaços dentro dos ossos. O seio frontal fica no osso frontal, acima dos olhos e das sobrancelhas. Os etmoidais são várias câmaras pequenas de cada lado do osso etmoide, entre o nariz e a parede de dentro de cada órbita: de frente, ficam entre os olhos. Os maxilares ficam abaixo das órbitas e são os maiores. O esfenoidal fica na linha média, dentro do corpo do esfenoide, atrás dos olhos, e é o mais posterior. A órbita é o encaixe ósseo do olho.",
+            "body": "Os seios da face são espaços dentro dos ossos. O seio frontal fica no osso frontal, acima dos olhos e das sobrancelhas. Os etmoidais são várias câmaras pequenas de cada lado do etmoide, ao lado do nariz. Os maxilares ficam abaixo das órbitas e são os maiores. O esfenoidal fica na linha média, dentro do corpo do esfenoide, atrás dos olhos. A órbita é o encaixe ósseo do olho. No corte lateral, o frontal é azul e o esfenoidal, âmbar.",
             "keyPoints": [
               "Frontal, etmoidal, maxilar e esfenoidal.",
               "Frontal acima dos olhos; esfenoidal atrás deles, o mais posterior.",
               "Maxilares: abaixo das órbitas, os maiores."
-            ]
+            ],
+            "visual": "seios-da-face"
           }
         },
         {
@@ -1312,52 +1292,38 @@ export const RTG_2026_M25: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule cinco partes do esquema da face, tocando na ficha e no ponto. À esquerda está a vista de frente e à direita, a de perfil."
+              "label": "Rotular a imagem: Rotule três partes do esquema do rosto de frente, tocando na ficha e no ponto."
             },
             "help": "Comece pelo que fica no alto e acima dos olhos.",
             "type": "label",
             "feedback": {
-              "correct": "Isso mesmo: você achou os quatro grupos de seios e o encaixe do olho.",
+              "correct": "Isso mesmo: você achou os três grupos de seios vistos de frente.",
               "incorrect": "Algum ponto ficou fora do lugar: releia onde cada grupo fica, da frente para trás."
             },
             "payload": {
-              "prompt": "Rotule cinco partes do esquema da face, tocando na ficha e no ponto. À esquerda está a vista de frente e à direita, a de perfil.",
-              "imageRef": "diagram:seios-da-face",
+              "prompt": "Rotule três partes do esquema do rosto de frente, tocando na ficha e no ponto.",
+              "imageRef": "diagram:seios-da-face-frente",
               "points": [
                 {
                   "id": "point:rtg-2026:m25:aula-04:i2:1",
-                  "x": 0.25,
-                  "y": 0.25,
-                  "where": "de frente, o par de lóbulos no alto, acima dos olhos",
+                  "x": 0.383,
+                  "y": 0.281,
+                  "where": "de frente, o lóbulo azul do alto, acima do olho",
                   "correctLabelId": "label:rtg-2026:m25:aula-04:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m25:aula-04:i2:2",
-                  "x": 0.25,
-                  "y": 0.466,
-                  "where": "de frente, as câmaras em fileira entre os círculos grandes",
+                  "x": 0.365,
+                  "y": 0.565,
+                  "where": "de frente, as câmaras ciano ao lado do nariz, junto ao olho",
                   "correctLabelId": "label:rtg-2026:m25:aula-04:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m25:aula-04:i2:3",
-                  "x": 0.131,
-                  "y": 0.683,
-                  "where": "na vista de frente, a massa à esquerda, sob o círculo grande",
+                  "x": 0.344,
+                  "y": 0.785,
+                  "where": "de frente, a massa azul de baixo, abaixo do olho",
                   "correctLabelId": "label:rtg-2026:m25:aula-04:i2:3"
-                },
-                {
-                  "id": "point:rtg-2026:m25:aula-04:i2:4",
-                  "x": 0.8313,
-                  "y": 0.479,
-                  "where": "no perfil, o bloco cinza sob a curva em U, atrás da fileira",
-                  "correctLabelId": "label:rtg-2026:m25:aula-04:i2:4"
-                },
-                {
-                  "id": "point:rtg-2026:m25:aula-04:i2:5",
-                  "x": 0.6625,
-                  "y": 0.433,
-                  "where": "no perfil, o círculo cinza na frente do rosto",
-                  "correctLabelId": "label:rtg-2026:m25:aula-04:i2:5"
                 }
               ],
               "labels": [
@@ -1366,20 +1332,12 @@ export const RTG_2026_M25: ProductionBatchV1 = {
                   "label": "Seio etmoidal"
                 },
                 {
-                  "id": "label:rtg-2026:m25:aula-04:i2:4",
-                  "label": "Seio esfenoidal"
-                },
-                {
-                  "id": "label:rtg-2026:m25:aula-04:i2:3",
-                  "label": "Seio maxilar"
-                },
-                {
                   "id": "label:rtg-2026:m25:aula-04:i2:1",
                   "label": "Seio frontal"
                 },
                 {
-                  "id": "label:rtg-2026:m25:aula-04:i2:5",
-                  "label": "Órbita"
+                  "id": "label:rtg-2026:m25:aula-04:i2:3",
+                  "label": "Seio maxilar"
                 }
               ]
             }
@@ -1513,39 +1471,31 @@ export const RTG_2026_M25: ProductionBatchV1 = {
             },
             "payload": {
               "prompt": "Um pedido de seios da face fala no maior dos quatro grupos de seios. Duda quer ver onde ele fica: toque num deles na vista de frente.",
-              "imageRef": "diagram:seios-da-face",
+              "imageRef": "diagram:seios-da-face-frente",
               "regions": [
                 {
                   "id": "region:rtg-2026:m25:aula-04:i5:1",
                   "label": "Seio frontal",
-                  "x": 0.1938,
-                  "y": 0.1667,
-                  "width": 0.1125,
-                  "height": 0.1667
+                  "x": 0.2,
+                  "y": 0.12,
+                  "width": 0.22,
+                  "height": 0.21
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-04:i5:2",
                   "label": "Seio etmoidal",
-                  "x": 0.2062,
-                  "y": 0.3917,
-                  "width": 0.0875,
-                  "height": 0.15
+                  "x": 0.27,
+                  "y": 0.335,
+                  "width": 0.12,
+                  "height": 0.2
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-04:i5:3",
                   "label": "Seio maxilar",
-                  "x": 0.0813,
-                  "y": 0.6083,
-                  "width": 0.1,
-                  "height": 0.15
-                },
-                {
-                  "id": "region:rtg-2026:m25:aula-04:i5:4",
-                  "label": "Seio esfenoidal",
-                  "x": 0.7813,
-                  "y": 0.425,
-                  "width": 0.1,
-                  "height": 0.1083
+                  "x": 0.2,
+                  "y": 0.56,
+                  "width": 0.27,
+                  "height": 0.29
                 }
               ],
               "correctRegionIds": [
@@ -1811,46 +1761,46 @@ export const RTG_2026_M25: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m25:aula-05:i4:1",
                   "label": "Tubo alinhado com o detector",
-                  "x": 0.2825,
-                  "y": 0.475,
-                  "width": 0.085,
-                  "height": 0.1,
+                  "x": 0.5969,
+                  "y": 0.425,
+                  "width": 0.0953,
+                  "height": 0.0854,
                   "explanation": "O tubo aponta para a região pedida e para o detector atrás do paciente: esse é o arranjo esperado, e não um risco."
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-05:i4:2",
                   "label": "Pessoa sem avental junto à cabeceira",
-                  "x": 0.7063,
-                  "y": 0.45,
-                  "width": 0.0875,
-                  "height": 0.4833,
+                  "x": 0.2625,
+                  "y": 0.3958,
+                  "width": 0.0969,
+                  "height": 0.3812,
                   "explanation": "Ela está perto do paciente, sem proteção, e o tracejado mostra a radiação espalhada chegando até ela. Sem função no exame, ela se afasta antes da exposição."
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-05:i4:3",
                   "label": "Operador de avental atrás do aparelho",
-                  "x": 0.0437,
-                  "y": 0.45,
-                  "width": 0.0875,
-                  "height": 0.4833,
+                  "x": 0.8641,
+                  "y": 0.3167,
+                  "width": 0.1094,
+                  "height": 0.3833,
                   "explanation": "Longe do aparelho e do feixe, com a proteção que o serviço define, é onde o operador fica; cerca de 2 m é comum, e a regra é do serviço."
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-05:i4:4",
                   "label": "Leito vizinho, no sentido do feixe",
-                  "x": 0.8438,
-                  "y": 0.6583,
-                  "width": 0.15,
-                  "height": 0.1667,
+                  "x": 0,
+                  "y": 0.3063,
+                  "width": 0.2172,
+                  "height": 0.3083,
                   "explanation": "Quem está no leito vizinho não pode sair: pede-se apoio da equipe, com distância, feixe para outro lado e barreira se o serviço definir."
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-05:i4:5",
                   "label": "Detector atrás do paciente",
-                  "x": 0.5412,
-                  "y": 0.5667,
+                  "x": 0.4319,
+                  "y": 0.425,
                   "width": 0.08,
-                  "height": 0.1667,
+                  "height": 0.1521,
                   "explanation": "O detector atrás do paciente, alinhado com o tubo, faz parte do arranjo e não é um risco."
                 }
               ],
@@ -1998,7 +1948,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Mover o equipamento, e não o paciente",
-            "body": "Em trauma, a equipe médica coordena o cuidado e libera quando o paciente pode ser movido. O colar cervical e a prancha ficam no lugar: você não os retira, e a imagem se faz através deles. Em vez de virar o paciente, move-se o equipamento: o tubo fica de um lado, com o feixe na horizontal, e o detector fica em pé do outro, encostado ao ombro. A figura mostra a cena vista pela cabeceira, em corte na altura do pescoço: o anel em volta dele é o colar, sobre a prancha. Antes de expor, avise em voz alta, para quem não precisa ficar se afastar.",
+            "body": "Em trauma, a equipe médica coordena o cuidado e libera quando o paciente pode ser movido. O colar cervical e a prancha ficam no lugar: você não os retira, e a imagem se faz através deles. Em vez de virar o paciente, move-se o equipamento: o tubo fica de um lado, com o feixe na horizontal, e o detector fica em pé do outro, junto ao ombro. A figura mostra o paciente deitado de costas, em perspectiva: o colar é o anel claro em volta do pescoço, e a prancha está sob o corpo. Antes de expor, avise em voz alta, para quem não precisa ficar se afastar.",
             "keyPoints": [
               "A equipe decide quando mexer no paciente.",
               "Colar e prancha ficam no lugar.",
@@ -2064,7 +2014,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Toque na imagem: Na figura, a cena é vista pela cabeceira, em corte no pescoço. Toque na parte que recebe o feixe horizontal depois que ele atravessa o pescoço."
+              "label": "Toque na imagem: Na figura, o paciente está deitado de costas na prancha, com o colar no pescoço. Toque na parte que recebe o feixe horizontal depois que ele atravessa o pescoço."
             },
             "help": "O feixe sai do tubo; veja o que o espera do outro lado.",
             "type": "hotspot",
@@ -2073,40 +2023,40 @@ export const RTG_2026_M25: ProductionBatchV1 = {
               "incorrect": "Essa parte não recebe o feixe depois do pescoço: procure o que fica em pé, do outro lado do paciente."
             },
             "payload": {
-              "prompt": "Na figura, a cena é vista pela cabeceira, em corte no pescoço. Toque na parte que recebe o feixe horizontal depois que ele atravessa o pescoço.",
+              "prompt": "Na figura, o paciente está deitado de costas na prancha, com o colar no pescoço. Toque na parte que recebe o feixe horizontal depois que ele atravessa o pescoço.",
               "imageRef": "diagram:trauma-raio-horizontal",
               "regions": [
                 {
                   "id": "region:rtg-2026:m25:aula-06:i2:1",
                   "label": "Colar cervical",
-                  "x": 0.425,
-                  "y": 0.3917,
-                  "width": 0.15,
-                  "height": 0.2
+                  "x": 0.2281,
+                  "y": 0.4479,
+                  "width": 0.0828,
+                  "height": 0.1125
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-06:i2:2",
                   "label": "Tubo",
-                  "x": 0.075,
-                  "y": 0.4417,
-                  "width": 0.125,
-                  "height": 0.1
+                  "x": 0.5469,
+                  "y": 0.5625,
+                  "width": 0.2141,
+                  "height": 0.2
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-06:i2:3",
                   "label": "Feixe horizontal",
-                  "x": 0.2562,
-                  "y": 0.45,
-                  "width": 0.125,
-                  "height": 0.0833
+                  "x": 0.3972,
+                  "y": 0.5104,
+                  "width": 0.1351,
+                  "height": 0.1518
                 },
                 {
                   "id": "region:rtg-2026:m25:aula-06:i2:4",
                   "label": "Detector em pé",
-                  "x": 0.6563,
-                  "y": 0.2917,
-                  "width": 0.0813,
-                  "height": 0.3333
+                  "x": 0.0437,
+                  "y": 0.2292,
+                  "width": 0.1266,
+                  "height": 0.3812
                 }
               ],
               "correctRegionIds": [
@@ -3461,24 +3411,6 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m25:aula-02:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m25:r101-cranio",
-        "source:rtg-2026:m25:wiki-orbitomeatal"
-      ]
-    },
-    {
-      "claimId": "point:rtg-2026:m25:aula-02:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m25:r101-cranio",
-        "source:rtg-2026:m25:wiki-orbitomeatal"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m25:aula-02:i2:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -3488,40 +3420,22 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "label:rtg-2026:m25:aula-02:i2:6",
+      "claimId": "label:rtg-2026:m25:aula-02:i2:4",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
     },
     {
-      "claimId": "label:rtg-2026:m25:aula-02:i2:2",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m25:r101-cranio",
-        "source:rtg-2026:m25:wiki-orbitomeatal"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m25:aula-02:i2:5",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m25:r101-cranio",
-        "source:rtg-2026:m25:wiki-orbitomeatal"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m25:aula-02:i2:4",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m25:r101-cranio",
-        "source:rtg-2026:m25:wiki-orbitomeatal"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m25:aula-02:i2:3",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m25:r101-cranio",
+        "source:rtg-2026:m25:wiki-orbitomeatal"
+      ]
+    },
+    {
+      "claimId": "label:rtg-2026:m25:aula-02:i2:2",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4612,43 +4526,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m25:aula-04:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m25:openstax-ap-cranio",
-        "source:rtg-2026:m25:wiki-seios"
-      ]
-    },
-    {
-      "claimId": "point:rtg-2026:m25:aula-04:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m25:openstax-ap-cranio",
-        "source:rtg-2026:m25:wiki-seios"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m25:aula-04:i2:2",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m25:openstax-ap-cranio",
-        "source:rtg-2026:m25:wiki-seios"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m25:aula-04:i2:4",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m25:openstax-ap-cranio",
-        "source:rtg-2026:m25:wiki-seios"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m25:aula-04:i2:3",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4666,7 +4544,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "label:rtg-2026:m25:aula-04:i2:5",
+      "claimId": "label:rtg-2026:m25:aula-04:i2:3",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4853,14 +4731,6 @@ export const RTG_2026_M25: ProductionBatchV1 = {
     },
     {
       "claimId": "region:rtg-2026:m25:aula-04:i5:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m25:openstax-ap-cranio"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m25:aula-04:i5:4",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -6803,7 +6673,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
+      "materialSha256": "c31d7f60104d431591b00781c9ea1ae2f007bc28b35e484fdc326b5cf4ecaaf7"
     },
     {
       "schemaVersion": 1,
@@ -6812,7 +6682,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
+      "materialSha256": "c31d7f60104d431591b00781c9ea1ae2f007bc28b35e484fdc326b5cf4ecaaf7"
     },
     {
       "schemaVersion": 1,
@@ -6821,7 +6691,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
+      "materialSha256": "c31d7f60104d431591b00781c9ea1ae2f007bc28b35e484fdc326b5cf4ecaaf7"
     },
     {
       "schemaVersion": 1,
@@ -6830,7 +6700,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
+      "materialSha256": "c31d7f60104d431591b00781c9ea1ae2f007bc28b35e484fdc326b5cf4ecaaf7"
     },
     {
       "schemaVersion": 1,
@@ -6839,7 +6709,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
+      "materialSha256": "c31d7f60104d431591b00781c9ea1ae2f007bc28b35e484fdc326b5cf4ecaaf7"
     },
     {
       "schemaVersion": 1,
@@ -6848,7 +6718,7 @@ export const RTG_2026_M25: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9e55d09a6a725818d28b736d14ab3cf5a6acd5d0fe0ae90cfaf87e1a4770705e"
+      "materialSha256": "c31d7f60104d431591b00781c9ea1ae2f007bc28b35e484fdc326b5cf4ecaaf7"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

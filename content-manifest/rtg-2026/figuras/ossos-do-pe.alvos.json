@@ -1,0 +1,11 @@
+[
+  { "nome": "Calcâneo", "x": 0.041, "y": 0.467, "width": 0.094, "height": 0.142 },
+  { "nome": "Tálus", "x": 0.1875, "y": 0.375, "width": 0.119, "height": 0.175 },
+  { "nome": "Cuboide", "x": 0.35, "y": 0.492, "width": 0.119, "height": 0.133 },
+  { "nome": "Navicular", "x": 0.3375, "y": 0.317, "width": 0.1, "height": 0.158 },
+  { "nome": "Cuneiforme medial", "x": 0.4125, "y": 0.317, "width": 0.1125, "height": 0.092 },
+  { "nome": "Cuneiforme intermediário", "x": 0.428, "y": 0.383, "width": 0.084, "height": 0.085 },
+  { "nome": "Cuneiforme lateral", "x": 0.406, "y": 0.458, "width": 0.094, "height": 0.085 },
+  { "nome": "Metatarsais", "x": 0.53, "y": 0.38, "width": 0.19, "height": 0.25 },
+  { "nome": "Falanges", "x": 0.78, "y": 0.42, "width": 0.175, "height": 0.2 }
+]

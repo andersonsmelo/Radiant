@@ -6,7 +6,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m21",
-  "materialSha256": "6e6f42a9df129ed8226dc67afd1e8393bf392a3bd528a2256c40a2dcb8ce908c",
+  "materialSha256": "bd6e84842082230a65dae0788365485b6e95fba08246903c41844dbffd61efbb",
   "trackId": "track:rtg-2026:m21",
   "unitId": "unit:rtg-2026:m21",
   "contentVersion": "rtg-2026-m21-v1",
@@ -264,35 +264,35 @@ export const RTG_2026_M21: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m21:aula-01:i2:1",
-                  "x": 0.139,
+                  "x": 0.2,
                   "y": 0.667,
                   "where": "à esquerda, o ponto circulado na fita de cima",
                   "correctLabelId": "label:rtg-2026:m21:aula-01:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m21:aula-01:i2:2",
-                  "x": 0.673,
-                  "y": 0.275,
+                  "x": 0.669,
+                  "y": 0.292,
                   "where": "no alto à direita, o círculo grande com dois pequenos",
                   "correctLabelId": "label:rtg-2026:m21:aula-01:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m21:aula-01:i2:3",
-                  "x": 0.745,
-                  "y": 0.496,
-                  "where": "à direita, o ponto ciano descendo rumo à fita de cima",
+                  "x": 0.7063,
+                  "y": 0.5292,
+                  "where": "à direita, o halo no trilho tracejado",
                   "correctLabelId": "label:rtg-2026:m21:aula-01:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m21:aula-01:i2:4",
-                  "x": 0.376,
+                  "x": 0.425,
                   "y": 0.817,
                   "where": "embaixo, um corte só na fita de baixo",
                   "correctLabelId": "label:rtg-2026:m21:aula-01:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m21:aula-01:i2:5",
-                  "x": 0.845,
+                  "x": 0.8,
                   "y": 0.742,
                   "where": "à direita, as duas fitas cortadas na mesma altura",
                   "correctLabelId": "label:rtg-2026:m21:aula-01:i2:5"
@@ -954,29 +954,29 @@ export const RTG_2026_M21: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m21:aula-03:i2:1",
-                  "x": 0.395,
-                  "y": 0.342,
+                  "x": 0.264,
+                  "y": 0.6021,
                   "where": "no peito, à frente da peça azul",
                   "correctLabelId": "label:rtg-2026:m21:aula-03:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m21:aula-03:i2:2",
-                  "x": 0.653,
-                  "y": 0.408,
-                  "where": "na ponta do braço estendido, em volta de um dedo",
+                  "x": 0.4844,
+                  "y": 0.5979,
+                  "where": "na mão do braço estendido",
                   "correctLabelId": "label:rtg-2026:m21:aula-03:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m21:aula-03:i2:3",
-                  "x": 0.463,
-                  "y": 0.121,
+                  "x": 0.2953,
+                  "y": 0.3083,
                   "where": "na cabeça, preso à haste ao lado do rosto",
                   "correctLabelId": "label:rtg-2026:m21:aula-03:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m21:aula-03:i2:4",
-                  "x": 0.875,
-                  "y": 0.267,
+                  "x": 0.712,
+                  "y": 0.1711,
                   "where": "à direita, pendurado num quadro na parede",
                   "correctLabelId": "label:rtg-2026:m21:aula-03:i2:4"
                 }
@@ -1950,7 +1950,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
             "accessibility": {
               "label": "Toque na imagem: No relatório do mês, tronco, olho e referência vieram como de costume; o anel veio bem acima. Toque no ponto do corpo cuja leitura você vai descrever ao responsável."
             },
-            "help": "O anel está em volta de um dedo.",
+            "help": "O anel está na mão do braço estendido.",
             "type": "hotspot",
             "feedback": {
               "correct": "Isso: o anel fala da mão, e é isso que você descreve ao responsável.",
@@ -1963,34 +1963,34 @@ export const RTG_2026_M21: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m21:aula-06:i2:1",
                   "label": "Peito",
-                  "x": 0.316,
-                  "y": 0.237,
-                  "width": 0.157,
-                  "height": 0.21
+                  "x": 0.1952,
+                  "y": 0.4909,
+                  "width": 0.1317,
+                  "height": 0.1757
                 },
                 {
                   "id": "region:rtg-2026:m21:aula-06:i2:2",
                   "label": "Mão estendida",
-                  "x": 0.575,
-                  "y": 0.303,
-                  "width": 0.157,
-                  "height": 0.21
+                  "x": 0.394,
+                  "y": 0.454,
+                  "width": 0.1786,
+                  "height": 0.1746
                 },
                 {
                   "id": "region:rtg-2026:m21:aula-06:i2:3",
                   "label": "Olho",
-                  "x": 0.385,
-                  "y": 0.016,
-                  "width": 0.157,
-                  "height": 0.21
+                  "x": 0.2147,
+                  "y": 0.2772,
+                  "width": 0.0937,
+                  "height": 0.135
                 },
                 {
                   "id": "region:rtg-2026:m21:aula-06:i2:4",
                   "label": "Quadro de parede",
-                  "x": 0.797,
-                  "y": 0.162,
-                  "width": 0.157,
-                  "height": 0.21
+                  "x": 0.6052,
+                  "y": 0.0208,
+                  "width": 0.2256,
+                  "height": 0.4573
                 }
               ],
               "correctRegionIds": [
@@ -6742,7 +6742,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6e6f42a9df129ed8226dc67afd1e8393bf392a3bd528a2256c40a2dcb8ce908c"
+      "materialSha256": "bd6e84842082230a65dae0788365485b6e95fba08246903c41844dbffd61efbb"
     },
     {
       "schemaVersion": 1,
@@ -6751,7 +6751,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6e6f42a9df129ed8226dc67afd1e8393bf392a3bd528a2256c40a2dcb8ce908c"
+      "materialSha256": "bd6e84842082230a65dae0788365485b6e95fba08246903c41844dbffd61efbb"
     },
     {
       "schemaVersion": 1,
@@ -6760,7 +6760,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6e6f42a9df129ed8226dc67afd1e8393bf392a3bd528a2256c40a2dcb8ce908c"
+      "materialSha256": "bd6e84842082230a65dae0788365485b6e95fba08246903c41844dbffd61efbb"
     },
     {
       "schemaVersion": 1,
@@ -6769,7 +6769,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6e6f42a9df129ed8226dc67afd1e8393bf392a3bd528a2256c40a2dcb8ce908c"
+      "materialSha256": "bd6e84842082230a65dae0788365485b6e95fba08246903c41844dbffd61efbb"
     },
     {
       "schemaVersion": 1,
@@ -6778,7 +6778,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6e6f42a9df129ed8226dc67afd1e8393bf392a3bd528a2256c40a2dcb8ce908c"
+      "materialSha256": "bd6e84842082230a65dae0788365485b6e95fba08246903c41844dbffd61efbb"
     },
     {
       "schemaVersion": 1,
@@ -6787,7 +6787,7 @@ export const RTG_2026_M21: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "6e6f42a9df129ed8226dc67afd1e8393bf392a3bd528a2256c40a2dcb8ce908c"
+      "materialSha256": "bd6e84842082230a65dae0788365485b6e95fba08246903c41844dbffd61efbb"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

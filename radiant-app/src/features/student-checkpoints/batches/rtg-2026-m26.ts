@@ -6,7 +6,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m26",
-  "materialSha256": "a09453aa12351b6265ab940ab93f3e9f9caf5c36d78dcea90736424d36996743",
+  "materialSha256": "b1c3c3af475eb3849df0c007b1c63e146849a0145d3f1ea1b63b28ee9db9f03e",
   "trackId": "track:rtg-2026:m26",
   "unitId": "unit:rtg-2026:m26",
   "contentVersion": "rtg-2026-m26-v1",
@@ -574,30 +574,30 @@ export const RTG_2026_M26: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m26:aula-02:i2:1",
-                  "x": 0.369,
-                  "y": 0.683,
+                  "x": 0.3922,
+                  "y": 0.7375,
                   "where": "sob o tampo, a caixa de onde o cone amarelo se abre",
                   "correctLabelId": "label:rtg-2026:m26:aula-02:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m26:aula-02:i2:2",
-                  "x": 0.369,
-                  "y": 0.204,
+                  "x": 0.3906,
+                  "y": 0.4125,
                   "where": "no alto, a caixa larga acima do paciente deitado",
                   "correctLabelId": "label:rtg-2026:m26:aula-02:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m26:aula-02:i2:3",
-                  "x": 0.9,
-                  "y": 0.288,
+                  "x": 0.7688,
+                  "y": 0.2104,
                   "where": "à direita, a tela num suporte alto",
                   "correctLabelId": "label:rtg-2026:m26:aula-02:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m26:aula-02:i2:4",
-                  "x": 0.669,
-                  "y": 0.842,
-                  "where": "no chão, o pequeno bloco perto dos pés da silhueta",
+                  "x": 0.7781,
+                  "y": 0.8396,
+                  "where": "no chão, o pequeno bloco perto dos pés de quem opera",
                   "correctLabelId": "label:rtg-2026:m26:aula-02:i2:4"
                 }
               ],
@@ -870,7 +870,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Pulsos, imagem retida e tempo",
-            "body": "Na fluoroscopia contínua, o feixe fica ligado sem pausa enquanto dura a aquisição. Na pulsada, ele sai em pulsos curtos, com pausas sem feixe: menos pulsos por segundo, menos exposição. A última imagem pode ficar retida na tela e ser olhada sem nova exposição. Menos tempo de feixe ligado, menos exposição: o pé vai ao pedal só quando se olha o monitor. Alguns estudos, como o de deglutição, pedem mais pulsos.",
+            "body": "Na fluoroscopia contínua, o feixe fica ligado sem pausa. Tempo na horizontal; feixe ligado na vertical. Na pulsada, ele sai em pulsos curtos, com pausas sem feixe: menos pulsos por segundo, menos exposição. A última imagem pode ficar retida na tela e ser olhada sem nova exposição. Menos tempo de feixe ligado, menos exposição: o pé vai ao pedal só quando se olha o monitor. Alguns estudos, como o de deglutição, pedem mais pulsos.",
             "keyPoints": [
               "Pulsada: pausas sem feixe entre os pulsos.",
               "Imagem retida: olha-se sem nova exposição.",
@@ -1323,37 +1323,37 @@ export const RTG_2026_M26: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m26:aula-04:i3:1",
                   "label": "Pernas do operador, atrás do saiote",
-                  "x": 0.615,
-                  "y": 0.6,
-                  "width": 0.085,
-                  "height": 0.25,
+                  "x": 0.5953,
+                  "y": 0.6813,
+                  "width": 0.0844,
+                  "height": 0.2333,
                   "explanation": "No esquema, os raios fortes param no saiote, entre a mesa e o operador, e não chegam às pernas dele."
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-04:i3:2",
                   "label": "Abaixo da mesa, do lado do tubo",
-                  "x": 0.36,
-                  "y": 0.55,
-                  "width": 0.17,
-                  "height": 0.3,
+                  "x": 0.3781,
+                  "y": 0.6542,
+                  "width": 0.1688,
+                  "height": 0.1625,
                   "explanation": "Ali passam os raios grossos: com o tubo sob a mesa, o espalhamento é mais forte nessa altura, a das pernas."
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-04:i3:3",
                   "label": "Pessoa afastada, atrás do biombo",
-                  "x": 0.87,
-                  "y": 0.5,
-                  "width": 0.09,
-                  "height": 0.35,
+                  "x": 0.7531,
+                  "y": 0.1021,
+                  "width": 0.1266,
+                  "height": 0.5188,
                   "explanation": "No esquema nenhum raio chega a ela: a distância e o biombo reduzem muito o que alcança quem fica ali."
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-04:i3:4",
                   "label": "Pescoço do operador",
-                  "x": 0.605,
-                  "y": 0.21,
-                  "width": 0.09,
-                  "height": 0.09,
+                  "x": 0.5999,
+                  "y": 0.4528,
+                  "width": 0.08,
+                  "height": 0.08,
                   "explanation": "Os raios finos de cima chegam ao pescoço: mais fraco não é zero, e é por isso que existe o protetor de tireoide."
                 }
               ],
@@ -1644,34 +1644,34 @@ export const RTG_2026_M26: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m26:aula-05:i2:1",
                   "label": "Fígado",
-                  "x": 0.17,
-                  "y": 0.22,
-                  "width": 0.33,
-                  "height": 0.26
+                  "x": 0.346,
+                  "y": 0.245,
+                  "width": 0.154,
+                  "height": 0.21
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-05:i2:2",
                   "label": "Estômago",
-                  "x": 0.56,
-                  "y": 0.23,
-                  "width": 0.19,
-                  "height": 0.29
+                  "x": 0.542,
+                  "y": 0.36,
+                  "width": 0.08,
+                  "height": 0.14
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-05:i2:3",
                   "label": "Intestino delgado",
-                  "x": 0.35,
-                  "y": 0.7,
-                  "width": 0.36,
-                  "height": 0.21
+                  "x": 0.471,
+                  "y": 0.649,
+                  "width": 0.138,
+                  "height": 0.228
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-05:i2:4",
                   "label": "Intestino grosso",
-                  "x": 0.21,
-                  "y": 0.58,
-                  "width": 0.09,
-                  "height": 0.38
+                  "x": 0.335,
+                  "y": 0.526,
+                  "width": 0.08,
+                  "height": 0.369
                 }
               ],
               "correctRegionIds": [
@@ -2036,39 +2036,39 @@ export const RTG_2026_M26: ProductionBatchV1 = {
             },
             "payload": {
               "prompt": "Na cistouretrografia, na fase da micção, o contraste sai da bexiga. Toque na estrutura por onde ele passa.",
-              "imageRef": "diagram:sistema-urinario",
+              "imageRef": "diagram:bexiga-e-uretra",
               "regions": [
                 {
                   "id": "region:rtg-2026:m26:aula-06:i3:1",
-                  "label": "Rim do lado direito do paciente",
-                  "x": 0.27,
-                  "y": 0.1,
-                  "width": 0.15,
-                  "height": 0.21
+                  "label": "Ureter do lado direito do paciente",
+                  "x": 0.306,
+                  "y": 0.058,
+                  "width": 0.08,
+                  "height": 0.133
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-06:i3:2",
-                  "label": "Rim do lado esquerdo do paciente",
-                  "x": 0.57,
-                  "y": 0.07,
-                  "width": 0.15,
-                  "height": 0.21
+                  "label": "Ureter do lado esquerdo do paciente",
+                  "x": 0.645,
+                  "y": 0.058,
+                  "width": 0.08,
+                  "height": 0.133
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-06:i3:3",
                   "label": "Bexiga",
-                  "x": 0.41,
-                  "y": 0.56,
-                  "width": 0.18,
-                  "height": 0.2
+                  "x": 0.256,
+                  "y": 0.233,
+                  "width": 0.488,
+                  "height": 0.498
                 },
                 {
                   "id": "region:rtg-2026:m26:aula-06:i3:4",
                   "label": "Uretra",
-                  "x": 0.46,
-                  "y": 0.77,
-                  "width": 0.08,
-                  "height": 0.2
+                  "x": 0.45,
+                  "y": 0.7333,
+                  "width": 0.1,
+                  "height": 0.26
                 }
               ],
               "correctRegionIds": [
@@ -6620,7 +6620,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a09453aa12351b6265ab940ab93f3e9f9caf5c36d78dcea90736424d36996743"
+      "materialSha256": "b1c3c3af475eb3849df0c007b1c63e146849a0145d3f1ea1b63b28ee9db9f03e"
     },
     {
       "schemaVersion": 1,
@@ -6629,7 +6629,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a09453aa12351b6265ab940ab93f3e9f9caf5c36d78dcea90736424d36996743"
+      "materialSha256": "b1c3c3af475eb3849df0c007b1c63e146849a0145d3f1ea1b63b28ee9db9f03e"
     },
     {
       "schemaVersion": 1,
@@ -6638,7 +6638,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a09453aa12351b6265ab940ab93f3e9f9caf5c36d78dcea90736424d36996743"
+      "materialSha256": "b1c3c3af475eb3849df0c007b1c63e146849a0145d3f1ea1b63b28ee9db9f03e"
     },
     {
       "schemaVersion": 1,
@@ -6647,7 +6647,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a09453aa12351b6265ab940ab93f3e9f9caf5c36d78dcea90736424d36996743"
+      "materialSha256": "b1c3c3af475eb3849df0c007b1c63e146849a0145d3f1ea1b63b28ee9db9f03e"
     },
     {
       "schemaVersion": 1,
@@ -6656,7 +6656,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a09453aa12351b6265ab940ab93f3e9f9caf5c36d78dcea90736424d36996743"
+      "materialSha256": "b1c3c3af475eb3849df0c007b1c63e146849a0145d3f1ea1b63b28ee9db9f03e"
     },
     {
       "schemaVersion": 1,
@@ -6665,7 +6665,7 @@ export const RTG_2026_M26: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "a09453aa12351b6265ab940ab93f3e9f9caf5c36d78dcea90736424d36996743"
+      "materialSha256": "b1c3c3af475eb3849df0c007b1c63e146849a0145d3f1ea1b63b28ee9db9f03e"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

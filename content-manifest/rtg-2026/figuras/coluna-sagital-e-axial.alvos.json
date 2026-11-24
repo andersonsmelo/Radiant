@@ -1,0 +1,6 @@
+[
+  { "nome": "Corpo vertebral", "x": 0.04, "y": 0.215, "width": 0.445, "height": 0.505 },
+  { "nome": "Disco intervertebral", "x": 0.078, "y": 0.611, "width": 0.424, "height": 0.292 },
+  { "nome": "Canal vertebral", "x": 0.47, "y": 0.03, "width": 0.21, "height": 0.94 },
+  { "nome": "Processo espinhoso", "x": 0.63, "y": 0.236, "width": 0.286, "height": 0.305 }
+]

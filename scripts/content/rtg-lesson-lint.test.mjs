@@ -278,7 +278,7 @@ function hotspot(mutate = () => {}) {
   const old = doc.lessons[0].interactions[1];
   doc.lessons[0].interactions[1] = {
     id: old.id, type: 'hotspot', role: 'practice', help: old.help, sourceIds: old.sourceIds,
-    prompt: 'Toque na parte que produz o feixe de raios X.', diagramId: 'tubo-raios-x', regions: hotspotRegions(),
+    prompt: 'Toque na parte que produz o feixe de raios X.', diagramId: 'sala-com-riscos', regions: hotspotRegions(),
     feedbackCorrect: 'Isso mesmo: o tubo é a fonte que produz o feixe.',
     feedbackIncorrect: 'Não é essa parte: procure onde o feixe nasce, no tubo.',
   };
@@ -382,7 +382,7 @@ function labelItem(mutate = () => {}) {
   const old = doc.lessons[0].interactions[1];
   doc.lessons[0].interactions[1] = {
     id: old.id, type: 'label', role: 'practice', help: old.help, sourceIds: old.sourceIds,
-    prompt: 'Rotule as quatro partes do tubo de raios X.', diagramId: 'tubo-raios-x', points: labelPoints(), distractors: ['Fio de aterramento'],
+    prompt: 'Rotule as quatro partes do tubo de raios X.', diagramId: 'sala-com-riscos', points: labelPoints(), distractors: ['Fio de aterramento'],
     feedbackCorrect: 'Isso mesmo: cada parte do tubo tem a sua função.',
     feedbackIncorrect: 'Alguma parte está no lugar errado: releia o que cada uma faz no tubo.',
   };
@@ -896,7 +896,7 @@ test('conversation: reação com palavra de veredito reprova, por palavra inteir
 });
 
 // Alvos presos à figura: o `alvo` da aula nomeia uma região declarada em figuras/<id>.alvos.json.
-const FIGURE_TARGETS = { 'tubo-raios-x': [
+const FIGURE_TARGETS = { 'sala-com-riscos': [
   { nome: 'Fonte de raios X', x: 0.05, y: 0.05, width: 0.3, height: 0.3 },
   { nome: 'Detector plano', x: 0.55, y: 0.05, width: 0.3, height: 0.3 },
   { nome: 'Paciente', x: 0.05, y: 0.55, width: 0.3, height: 0.3 },
@@ -907,7 +907,7 @@ function linked(mutate = () => {}, figureTargets = FIGURE_TARGETS) {
   const old = doc.lessons[0].interactions[1];
   doc.lessons[0].interactions[1] = {
     id: old.id, type: 'hotspot', role: 'practice', help: old.help, sourceIds: old.sourceIds,
-    prompt: 'Toque na parte que produz o feixe de raios X.', diagramId: 'tubo-raios-x',
+    prompt: 'Toque na parte que produz o feixe de raios X.', diagramId: 'sala-com-riscos',
     regions: hotspotRegions().map(region => ({ ...region, alvo: region.label })),
     feedbackCorrect: 'Isso mesmo: o tubo é a fonte que produz o feixe.',
     feedbackIncorrect: 'Não é essa parte: procure onde o feixe nasce, no tubo.',
@@ -926,7 +926,7 @@ test('alvos: label com ponto fora da região declarada reprova, dentro passa', (
     const doc = fixture();
     const old = doc.lessons[0].interactions[1];
     doc.lessons[0].interactions[1] = { id: old.id, type: 'label', role: 'practice', help: old.help, sourceIds: old.sourceIds,
-      prompt: 'Rotule as partes do tubo de raios X.', diagramId: 'tubo-raios-x',
+      prompt: 'Rotule as partes do tubo de raios X.', diagramId: 'sala-com-riscos',
       points: [['Fonte de raios X', 0.2, 0.2, 'no canto de cima, à esquerda'], ['Detector plano', x, y, 'no canto de cima, à direita'], ['Paciente', 0.2, 0.7, 'no canto de baixo, à esquerda']]
         .map(([name, px, py, where]) => ({ label: name, alvo: name, x: px, y: py, where })),
       feedbackCorrect: 'Isso mesmo: cada parte no seu lugar.', feedbackIncorrect: 'Alguma parte ficou fora do lugar: releia a posição.' };
@@ -942,7 +942,7 @@ test('alvos: figure-target-unlinked quando a figura tem alvos e o ponto não tem
   expectOnly(linked(item => { delete item.regions[2].alvo; }), /figure-target-unlinked/);
 });
 test('alvos: a região declarada precisa estar dentro do quadro, mesmo com o centro da aula dentro dela', () => {
-  const fora = { 'tubo-raios-x': FIGURE_TARGETS['tubo-raios-x'].map((r, i) => (i === 1 ? { ...r, x: 0.9 } : r)) };
+  const fora = { 'sala-com-riscos': FIGURE_TARGETS['sala-com-riscos'].map((r, i) => (i === 1 ? { ...r, x: 0.9 } : r)) };
   expectOnly(linked(() => {}, fora), /figure-target-frame.*Detector plano/);
 });
 test('alvos: figura sem arquivo de alvos não é cobrada, e o campo alvo continua aceito', () => {
@@ -950,6 +950,13 @@ test('alvos: figura sem arquivo de alvos não é cobrada, e o campo alvo continu
   assert.deepEqual(hotspot(), []);
 });
 
+test('alvos: figure-target-missing-file quando a figura é arte importada e não tem arquivo de alvos', () => {
+  const importada = (figureTargets) => linked(item => { item.diagramId = 'cranio-de-perfil-ossos'; }, figureTargets);
+  expectOnly(importada({}), /figure-target-missing-file.*cranio-de-perfil-ossos/);
+  // Com o arquivo declarado, o defeito some; a região de outra figura não vale.
+  assert.ok(!importada({ 'cranio-de-perfil-ossos': FIGURE_TARGETS['sala-com-riscos'] }).some(error => /missing-file/.test(error)));
+  assert.ok(importada({ 'sala-com-riscos': FIGURE_TARGETS['sala-com-riscos'] }).some(error => /missing-file/.test(error)));
+});
 test('alvos: o mesmo alvo ligado a dois pontos da mesma interação reprova', () => {
   assert.ok(linked(item => { item.regions[1].alvo = 'Fonte de raios X'; }).some(error => /figure-target-duplicate.*Fonte de raios X/.test(error)));
 });
@@ -989,7 +996,7 @@ test('alvos: figure-target-label-mismatch quando duas regiões trocam de alvo e 
   assert.match(errors.join('\n'), /"Paciente".*"Detector plano"/);
 });
 test('alvos: `rotulos` aceita um rótulo descritivo, e só ele', () => {
-  const comRotulos = { 'tubo-raios-x': FIGURE_TARGETS['tubo-raios-x'].map(r => (r.nome === 'Detector plano' ? { ...r, rotulos: ['Placa atrás do paciente'] } : r)) };
+  const comRotulos = { 'sala-com-riscos': FIGURE_TARGETS['sala-com-riscos'].map(r => (r.nome === 'Detector plano' ? { ...r, rotulos: ['Placa atrás do paciente'] } : r)) };
   assert.deepEqual(linked(item => { item.regions[1].label = 'Placa atrás do paciente'; }, comRotulos), []);
   expectOnly(linked(item => { item.regions[1].label = 'Placa atrás do paciente'; }), /figure-target-label-mismatch/);
   expectOnly(linked(item => { item.regions[1].label = 'Placa na frente'; }, comRotulos), /figure-target-label-mismatch/);

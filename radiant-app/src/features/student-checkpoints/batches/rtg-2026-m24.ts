@@ -6,7 +6,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m24",
-  "materialSha256": "b4d40391d6332b4efc3748e456e53df79b318561bab2b8267a37d40c4530c5a0",
+  "materialSha256": "ceb6dc9af5d81f859b16c0536c32c4baba09ac23882cd24be946ea64438cfde8",
   "trackId": "track:rtg-2026:m24",
   "unitId": "unit:rtg-2026:m24",
   "contentVersion": "rtg-2026-m24-v1",
@@ -190,37 +190,37 @@ export const RTG_2026_M24: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m24:aula-01:i2:1",
-                  "x": 0.085,
-                  "y": 0.537,
+                  "x": 0.0875,
+                  "y": 0.533,
                   "where": "no extremo esquerdo, o maior osso branco",
                   "correctLabelId": "label:rtg-2026:m24:aula-01:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-01:i2:2",
-                  "x": 0.244,
-                  "y": 0.423,
+                  "x": 0.25,
+                  "y": 0.458,
                   "where": "acima e à frente do maior osso, peça arredondada",
                   "correctLabelId": "label:rtg-2026:m24:aula-01:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-01:i2:3",
-                  "x": 0.404,
-                  "y": 0.607,
-                  "where": "embaixo no meio, peça quase quadrada em branco",
+                  "x": 0.4156,
+                  "y": 0.55,
+                  "where": "embaixo no meio, peça quase quadrada, em cinza claro",
                   "correctLabelId": "label:rtg-2026:m24:aula-01:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-01:i2:4",
-                  "x": 0.61,
-                  "y": 0.467,
+                  "x": 0.6406,
+                  "y": 0.525,
                   "where": "as cinco hastes azuis compridas, no meio do pé",
                   "correctLabelId": "label:rtg-2026:m24:aula-01:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-01:i2:5",
-                  "x": 0.788,
-                  "y": 0.555,
-                  "where": "as peças amarelas em fila, na ponta do quarto dedo",
+                  "x": 0.828,
+                  "y": 0.533,
+                  "where": "as peças amarelas em fila, nas pontas dos dedos",
                   "correctLabelId": "label:rtg-2026:m24:aula-01:i2:5"
                 }
               ],
@@ -580,30 +580,30 @@ export const RTG_2026_M24: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m24:aula-02:i2:1",
-                  "x": 0.154,
-                  "y": 0.446,
+                  "x": 0.137,
+                  "y": 0.317,
                   "where": "de frente, a saliência redonda à esquerda, embaixo do fêmur",
                   "correctLabelId": "label:rtg-2026:m24:aula-02:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-02:i2:2",
-                  "x": 0.326,
-                  "y": 0.559,
+                  "x": 0.298,
+                  "y": 0.539,
                   "where": "de frente, a superfície larga e plana no alto da tíbia",
                   "correctLabelId": "label:rtg-2026:m24:aula-02:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-02:i2:3",
-                  "x": 0.116,
-                  "y": 0.663,
+                  "x": 0.085,
+                  "y": 0.57,
                   "where": "de frente, a ponta de cima do osso fino, à esquerda da tíbia",
                   "correctLabelId": "label:rtg-2026:m24:aula-02:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-02:i2:4",
-                  "x": 0.888,
-                  "y": 0.392,
-                  "where": "de perfil, o oval azul na frente do fêmur",
+                  "x": 0.904,
+                  "y": 0.198,
+                  "where": "de perfil, a peça azul, estreita, na frente do fêmur",
                   "correctLabelId": "label:rtg-2026:m24:aula-02:i2:4"
                 }
               ],
@@ -920,89 +920,78 @@ export const RTG_2026_M24: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule seis partes do quadril direito visto de frente, tocando na ficha e no ponto. O lado de fora fica à esquerda."
+              "label": "Rotular a imagem: Rotule cinco partes do quadril direito visto de frente, tocando na ficha e no ponto. O lado de fora fica à esquerda."
             },
-            "help": "Comece pelo que encaixa no arco azul, no alto.",
+            "help": "Comece pela bola ciano, no alto.",
             "type": "label",
             "feedback": {
-              "correct": "Isso mesmo: a cabeça no acetábulo, o colo estreito e as duas saliências no lugar.",
+              "correct": "Isso mesmo: a cabeça no alto, o colo estreito e as duas saliências no lugar.",
               "incorrect": "Alguma ficha está fora do lugar: siga o osso de cima para baixo e separe lado de fora e lado de dentro."
             },
             "payload": {
-              "prompt": "Rotule seis partes do quadril direito visto de frente, tocando na ficha e no ponto. O lado de fora fica à esquerda.",
+              "prompt": "Rotule cinco partes do quadril direito visto de frente, tocando na ficha e no ponto. O lado de fora fica à esquerda.",
               "imageRef": "diagram:femur-proximal-e-quadril",
               "points": [
                 {
                   "id": "point:rtg-2026:m24:aula-03:i2:1",
-                  "x": 0.632,
-                  "y": 0.138,
-                  "where": "no alto, o arco azul que cobre a parte redonda do fêmur",
+                  "x": 0.47,
+                  "y": 0.16,
+                  "where": "a bola ciano, no alto, junto ao osso azul",
                   "correctLabelId": "label:rtg-2026:m24:aula-03:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-03:i2:2",
-                  "x": 0.672,
-                  "y": 0.359,
-                  "where": "a parte redonda de cima, encaixada sob o arco azul",
+                  "x": 0.3,
+                  "y": 0.36,
+                  "where": "a parte estreita e inclinada, entre a bola e a haste",
                   "correctLabelId": "label:rtg-2026:m24:aula-03:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-03:i2:3",
-                  "x": 0.506,
-                  "y": 0.446,
-                  "where": "a parte estreita e inclinada, entre a parte redonda e o tubo",
+                  "x": 0.14,
+                  "y": 0.37,
+                  "where": "a saliência larga à esquerda, do lado de fora do osso",
                   "correctLabelId": "label:rtg-2026:m24:aula-03:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-03:i2:4",
-                  "x": 0.325,
-                  "y": 0.433,
-                  "where": "a saliência larga à esquerda, do lado de fora do osso",
+                  "x": 0.35,
+                  "y": 0.665,
+                  "where": "a saliência pequena à direita, abaixo do estreitamento",
                   "correctLabelId": "label:rtg-2026:m24:aula-03:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-03:i2:5",
-                  "x": 0.538,
-                  "y": 0.675,
-                  "where": "a saliência pequena à direita, abaixo do estreitamento",
+                  "x": 0.28,
+                  "y": 0.89,
+                  "where": "a haste longa que desce, na parte de baixo da figura",
                   "correctLabelId": "label:rtg-2026:m24:aula-03:i2:5"
-                },
-                {
-                  "id": "point:rtg-2026:m24:aula-03:i2:6",
-                  "x": 0.472,
-                  "y": 0.888,
-                  "where": "o tubo longo que desce, na parte de baixo da figura",
-                  "correctLabelId": "label:rtg-2026:m24:aula-03:i2:6"
                 }
               ],
               "labels": [
                 {
                   "id": "label:rtg-2026:m24:aula-03:i2:1",
-                  "label": "Acetábulo"
+                  "label": "Cabeça do fêmur"
                 },
                 {
                   "id": "label:rtg-2026:m24:aula-03:i2:4",
-                  "label": "Trocânter maior"
-                },
-                {
-                  "id": "label:rtg-2026:m24:aula-03:i2:5",
                   "label": "Trocânter menor"
                 },
                 {
-                  "id": "label:rtg-2026:m24:aula-03:i2:6",
+                  "id": "label:rtg-2026:m24:aula-03:i2:5",
                   "label": "Diáfise do fêmur"
                 },
                 {
-                  "id": "label:rtg-2026:m24:aula-03:i2:7",
+                  "id": "label:rtg-2026:m24:aula-03:i2:6",
                   "label": "Eminência intercondilar"
                 },
                 {
                   "id": "label:rtg-2026:m24:aula-03:i2:3",
-                  "label": "Colo do fêmur"
+                  "label": "Trocânter maior"
                 },
                 {
                   "id": "label:rtg-2026:m24:aula-03:i2:2",
-                  "label": "Cabeça do fêmur"
+                  "label": "Colo do fêmur"
                 }
               ]
             }
@@ -1300,74 +1289,52 @@ export const RTG_2026_M24: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule cinco partes da pelve vista de frente, tocando na ficha e no ponto. O lado direito do paciente fica à esquerda da figura."
+              "label": "Rotular a imagem: Rotule três partes da pelve vista de frente, tocando na ficha e no ponto. O lado direito do paciente fica à esquerda da figura."
             },
             "help": "Comece pelo osso do meio, com os furinhos em pares.",
             "type": "label",
             "feedback": {
-              "correct": "Isso mesmo: você achou o ílio, o sacro, as duas uniões e o encaixe do fêmur.",
-              "incorrect": "Alguma ficha está fora do lugar: separe o que é osso, o que é união entre ossos e o que é encaixe."
+              "correct": "Isso mesmo: você achou o ílio, o sacro e a articulação sacroilíaca.",
+              "incorrect": "Alguma ficha está fora do lugar: separe o que é osso e o que é união entre ossos."
             },
             "payload": {
-              "prompt": "Rotule cinco partes da pelve vista de frente, tocando na ficha e no ponto. O lado direito do paciente fica à esquerda da figura.",
+              "prompt": "Rotule três partes da pelve vista de frente, tocando na ficha e no ponto. O lado direito do paciente fica à esquerda da figura.",
               "imageRef": "diagram:pelve-de-frente",
               "points": [
                 {
                   "id": "point:rtg-2026:m24:aula-04:i2:1",
-                  "x": 0.219,
-                  "y": 0.254,
-                  "where": "à esquerda da figura, a asa larga e azul, no alto",
+                  "x": 0.22,
+                  "y": 0.3,
+                  "where": "à esquerda da figura, a asa larga, no alto",
                   "correctLabelId": "label:rtg-2026:m24:aula-04:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-04:i2:2",
-                  "x": 0.475,
-                  "y": 0.375,
+                  "x": 0.5,
+                  "y": 0.555,
                   "where": "no centro, o osso triangular com quatro pares de furos",
                   "correctLabelId": "label:rtg-2026:m24:aula-04:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-04:i2:3",
-                  "x": 0.644,
-                  "y": 0.384,
-                  "where": "à direita, a linha entre o osso central e a asa azul",
+                  "x": 0.645,
+                  "y": 0.3,
+                  "where": "à direita, a linha entre o osso central e a asa larga",
                   "correctLabelId": "label:rtg-2026:m24:aula-04:i2:3"
-                },
-                {
-                  "id": "point:rtg-2026:m24:aula-04:i2:4",
-                  "x": 0.5,
-                  "y": 0.779,
-                  "where": "embaixo, na linha média, a linha entre as peças amarelas",
-                  "correctLabelId": "label:rtg-2026:m24:aula-04:i2:4"
-                },
-                {
-                  "id": "point:rtg-2026:m24:aula-04:i2:5",
-                  "x": 0.231,
-                  "y": 0.618,
-                  "where": "à esquerda, o arco branco aberto embaixo, como um copo",
-                  "correctLabelId": "label:rtg-2026:m24:aula-04:i2:5"
                 }
               ],
               "labels": [
                 {
                   "id": "label:rtg-2026:m24:aula-04:i2:4",
-                  "label": "Sínfise púbica"
-                },
-                {
-                  "id": "label:rtg-2026:m24:aula-04:i2:2",
-                  "label": "Sacro"
-                },
-                {
-                  "id": "label:rtg-2026:m24:aula-04:i2:6",
                   "label": "Cabeça do fêmur"
-                },
-                {
-                  "id": "label:rtg-2026:m24:aula-04:i2:5",
-                  "label": "Acetábulo"
                 },
                 {
                   "id": "label:rtg-2026:m24:aula-04:i2:3",
                   "label": "Articulação sacroilíaca"
+                },
+                {
+                  "id": "label:rtg-2026:m24:aula-04:i2:2",
+                  "label": "Sacro"
                 },
                 {
                   "id": "label:rtg-2026:m24:aula-04:i2:1",
@@ -1398,43 +1365,35 @@ export const RTG_2026_M24: ProductionBatchV1 = {
             },
             "payload": {
               "prompt": "Toque na abertura entre o ísquio e o púbis, do lado esquerdo do paciente.",
-              "imageRef": "diagram:pelve-de-frente",
+              "imageRef": "diagram:pelve-de-frente-recorte",
               "regions": [
                 {
                   "id": "region:rtg-2026:m24:aula-04:i3:1",
-                  "label": "Sacro",
-                  "x": 0.4,
-                  "y": 0.258,
-                  "width": 0.15,
-                  "height": 0.233
+                  "label": "Forame obturado, à direita da figura",
+                  "x": 0.651,
+                  "y": 0.436,
+                  "width": 0.211,
+                  "height": 0.267
                 },
                 {
                   "id": "region:rtg-2026:m24:aula-04:i3:2",
-                  "label": "Sacroilíaca, à direita da figura",
-                  "x": 0.581,
-                  "y": 0.25,
-                  "width": 0.125,
+                  "label": "Forame obturado, à esquerda da figura",
+                  "x": 0.139,
+                  "y": 0.436,
+                  "width": 0.21,
                   "height": 0.267
                 },
                 {
                   "id": "region:rtg-2026:m24:aula-04:i3:3",
-                  "label": "Forame obturado, à direita da figura",
-                  "x": 0.619,
-                  "y": 0.692,
-                  "width": 0.088,
-                  "height": 0.167
-                },
-                {
-                  "id": "region:rtg-2026:m24:aula-04:i3:4",
-                  "label": "Forame obturado, à esquerda da figura",
-                  "x": 0.293,
-                  "y": 0.692,
-                  "width": 0.088,
-                  "height": 0.167
+                  "label": "Sínfise púbica",
+                  "x": 0.46,
+                  "y": 0.415,
+                  "width": 0.08,
+                  "height": 0.294
                 }
               ],
               "correctRegionIds": [
-                "region:rtg-2026:m24:aula-04:i3:3"
+                "region:rtg-2026:m24:aula-04:i3:1"
               ]
             }
           }
@@ -1665,74 +1624,63 @@ export const RTG_2026_M24: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule cinco partes de uma vértebra lombar vista de cima, tocando na ficha e no ponto. A frente do corpo fica no alto da figura."
+              "label": "Rotular a imagem: Rotule quatro partes de uma vértebra lombar vista de cima, tocando na ficha e no ponto. A frente do corpo fica no alto da figura."
             },
             "help": "Comece pelo bloco grande do alto, que suporta o peso.",
             "type": "label",
             "feedback": {
-              "correct": "Isso mesmo: o corpo na frente, o forame no centro e as hastes para os lados e para trás.",
+              "correct": "Isso mesmo: o corpo na frente, o pedículo junto a ele e as hastes para os lados e para trás.",
               "incorrect": "Alguma ficha está fora do lugar: o corpo é a parte da frente, e o resto forma o anel atrás dele."
             },
             "payload": {
-              "prompt": "Rotule cinco partes de uma vértebra lombar vista de cima, tocando na ficha e no ponto. A frente do corpo fica no alto da figura.",
+              "prompt": "Rotule quatro partes de uma vértebra lombar vista de cima, tocando na ficha e no ponto. A frente do corpo fica no alto da figura.",
               "imageRef": "diagram:vertebra-tipica",
               "points": [
                 {
                   "id": "point:rtg-2026:m24:aula-05:i2:1",
                   "x": 0.5,
-                  "y": 0.234,
+                  "y": 0.2,
                   "where": "no alto da figura, o bloco grande e arredondado",
                   "correctLabelId": "label:rtg-2026:m24:aula-05:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-05:i2:2",
-                  "x": 0.5,
-                  "y": 0.517,
-                  "where": "o espaço escuro no centro, cercado pelo anel de osso",
+                  "x": 0.37,
+                  "y": 0.45,
+                  "where": "à esquerda do furo, o osso curto que liga o bloco ao anel",
                   "correctLabelId": "label:rtg-2026:m24:aula-05:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-05:i2:3",
-                  "x": 0.341,
-                  "y": 0.484,
-                  "where": "à esquerda do furo, o bloco curto ligado ao bloco grande",
+                  "x": 0.79,
+                  "y": 0.6,
+                  "where": "a haste comprida que sai para o lado direito da figura",
                   "correctLabelId": "label:rtg-2026:m24:aula-05:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m24:aula-05:i2:4",
-                  "x": 0.785,
-                  "y": 0.5,
-                  "where": "a haste comprida que sai para o lado direito da figura",
-                  "correctLabelId": "label:rtg-2026:m24:aula-05:i2:4"
-                },
-                {
-                  "id": "point:rtg-2026:m24:aula-05:i2:5",
                   "x": 0.5,
-                  "y": 0.884,
+                  "y": 0.8,
                   "where": "a haste que desce na parte de baixo, para trás",
-                  "correctLabelId": "label:rtg-2026:m24:aula-05:i2:5"
+                  "correctLabelId": "label:rtg-2026:m24:aula-05:i2:4"
                 }
               ],
               "labels": [
                 {
                   "id": "label:rtg-2026:m24:aula-05:i2:5",
-                  "label": "Processo espinhoso"
-                },
-                {
-                  "id": "label:rtg-2026:m24:aula-05:i2:6",
                   "label": "Disco intervertebral"
                 },
                 {
                   "id": "label:rtg-2026:m24:aula-05:i2:4",
-                  "label": "Processo transverso"
+                  "label": "Processo espinhoso"
                 },
                 {
                   "id": "label:rtg-2026:m24:aula-05:i2:3",
-                  "label": "Pedículo"
+                  "label": "Processo transverso"
                 },
                 {
                   "id": "label:rtg-2026:m24:aula-05:i2:2",
-                  "label": "Forame vertebral"
+                  "label": "Pedículo"
                 },
                 {
                   "id": "label:rtg-2026:m24:aula-05:i2:1",
@@ -1958,7 +1906,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Você lê uma vértebra de perto",
-            "body": "Agora você sabe nomear corpo, forame, pedículo e processos transversos e espinhoso, e relacionar forame transverso, facetas de costela e corpo grande às regiões cervical, torácica e lombar.",
+            "body": "Agora você sabe nomear corpo, pedículo e processos transversos e espinhoso, reconhecer o forame e relacionar forame transverso, facetas de costela e corpo grande às regiões cervical, torácica e lombar.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -2105,42 +2053,42 @@ export const RTG_2026_M24: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m24:aula-06:i2:1",
                   "label": "Côndilo lateral do fêmur, de frente",
-                  "x": 0.088,
-                  "y": 0.367,
-                  "width": 0.131,
-                  "height": 0.158
+                  "x": 0.083,
+                  "y": 0.181,
+                  "width": 0.108,
+                  "height": 0.24
                 },
                 {
                   "id": "region:rtg-2026:m24:aula-06:i2:2",
                   "label": "Cabeça da fíbula, de frente",
-                  "x": 0.075,
-                  "y": 0.6,
-                  "width": 0.081,
-                  "height": 0.125
+                  "x": 0.046,
+                  "y": 0.52,
+                  "width": 0.084,
+                  "height": 0.2
                 },
                 {
                   "id": "region:rtg-2026:m24:aula-06:i2:3",
                   "label": "Côndilos da tíbia, de frente",
-                  "x": 0.244,
-                  "y": 0.5,
-                  "width": 0.163,
-                  "height": 0.117
+                  "x": 0.184,
+                  "y": 0.464,
+                  "width": 0.228,
+                  "height": 0.15
                 },
                 {
                   "id": "region:rtg-2026:m24:aula-06:i2:4",
                   "label": "Patela, de perfil",
-                  "x": 0.846,
-                  "y": 0.283,
-                  "width": 0.08,
-                  "height": 0.217
+                  "x": 0.856,
+                  "y": 0.064,
+                  "width": 0.096,
+                  "height": 0.267
                 },
                 {
                   "id": "region:rtg-2026:m24:aula-06:i2:5",
                   "label": "Tíbia, de perfil",
-                  "x": 0.694,
-                  "y": 0.708,
-                  "width": 0.125,
-                  "height": 0.233
+                  "x": 0.681,
+                  "y": 0.542,
+                  "width": 0.158,
+                  "height": 0.417
                 }
               ],
               "correctRegionIds": [
@@ -4045,15 +3993,6 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m24:aula-03:i2:6",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m24:openstax-ap2e-membro-inferior",
-        "source:rtg-2026:m24:openstax-ap2e-pelve"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m24:aula-03:i2:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -4082,15 +4021,6 @@ export const RTG_2026_M24: ProductionBatchV1 = {
     },
     {
       "claimId": "label:rtg-2026:m24:aula-03:i2:6",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m24:openstax-ap2e-membro-inferior",
-        "source:rtg-2026:m24:openstax-ap2e-pelve"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m24:aula-03:i2:7",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
@@ -4658,23 +4588,13 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m24:aula-04:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m24:openstax-ap2e-pelve"
-      ]
-    },
-    {
-      "claimId": "point:rtg-2026:m24:aula-04:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m24:openstax-ap2e-pelve"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m24:aula-04:i2:4",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
+    },
+    {
+      "claimId": "label:rtg-2026:m24:aula-04:i2:3",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4683,28 +4603,6 @@ export const RTG_2026_M24: ProductionBatchV1 = {
     },
     {
       "claimId": "label:rtg-2026:m24:aula-04:i2:2",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m24:openstax-ap2e-pelve"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m24:aula-04:i2:6",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "label:rtg-2026:m24:aula-04:i2:5",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m24:openstax-ap2e-pelve"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m24:aula-04:i2:3",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4761,14 +4659,6 @@ export const RTG_2026_M24: ProductionBatchV1 = {
     },
     {
       "claimId": "region:rtg-2026:m24:aula-04:i3:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m24:openstax-ap2e-pelve"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m24:aula-04:i3:4",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5240,23 +5130,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m24:aula-05:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m24:openstax-ap2e-coluna"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m24:aula-05:i2:5",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m24:openstax-ap2e-coluna"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m24:aula-05:i2:6",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
@@ -6854,7 +6728,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b4d40391d6332b4efc3748e456e53df79b318561bab2b8267a37d40c4530c5a0"
+      "materialSha256": "ceb6dc9af5d81f859b16c0536c32c4baba09ac23882cd24be946ea64438cfde8"
     },
     {
       "schemaVersion": 1,
@@ -6863,7 +6737,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b4d40391d6332b4efc3748e456e53df79b318561bab2b8267a37d40c4530c5a0"
+      "materialSha256": "ceb6dc9af5d81f859b16c0536c32c4baba09ac23882cd24be946ea64438cfde8"
     },
     {
       "schemaVersion": 1,
@@ -6872,7 +6746,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b4d40391d6332b4efc3748e456e53df79b318561bab2b8267a37d40c4530c5a0"
+      "materialSha256": "ceb6dc9af5d81f859b16c0536c32c4baba09ac23882cd24be946ea64438cfde8"
     },
     {
       "schemaVersion": 1,
@@ -6881,7 +6755,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b4d40391d6332b4efc3748e456e53df79b318561bab2b8267a37d40c4530c5a0"
+      "materialSha256": "ceb6dc9af5d81f859b16c0536c32c4baba09ac23882cd24be946ea64438cfde8"
     },
     {
       "schemaVersion": 1,
@@ -6890,7 +6764,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b4d40391d6332b4efc3748e456e53df79b318561bab2b8267a37d40c4530c5a0"
+      "materialSha256": "ceb6dc9af5d81f859b16c0536c32c4baba09ac23882cd24be946ea64438cfde8"
     },
     {
       "schemaVersion": 1,
@@ -6899,7 +6773,7 @@ export const RTG_2026_M24: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "b4d40391d6332b4efc3748e456e53df79b318561bab2b8267a37d40c4530c5a0"
+      "materialSha256": "ceb6dc9af5d81f859b16c0536c32c4baba09ac23882cd24be946ea64438cfde8"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

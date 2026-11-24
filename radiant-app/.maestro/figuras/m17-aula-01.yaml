@@ -1,0 +1,41 @@
+appId: com.ascendcreative.radiant
+name: 'Figuras M17 aula-01'
+tags:
+  - figuras
+  - generated
+---
+# Gerado por scripts/qa/figuras-no-simulador.mjs a partir das aulas-fonte. Não edite à mão.
+# Entrada pelo link da rota /learn, como os roteiros da trilha, respondendo certo até o passo da figura. Não medido em aparelho.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
+    clearState: true
+    permissions:
+      all: deny
+- runFlow: ../subflows/dismiss-dev-client.yaml
+- runFlow: ../subflows/dismiss-first-run.yaml
+- assertVisible:
+    id: journey-trail
+- openLink: 'radiantapp://learn?blockId=activity%3Artg-2026%3Am17%3Aaula-01&nodeId=node%3Aactivity%3Artg-2026%3Am17%3Aaula-01'
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+- assertVisible: 'Passo 1 de 8'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 2 de 8'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 3 de 8'
+# interaction i1 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m17:aula-01:i1:b'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m17:aula-01:i1:b'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 4 de 8'
+- takeScreenshot: 'figura-conferencia-de-identidade-m17-aula-01'

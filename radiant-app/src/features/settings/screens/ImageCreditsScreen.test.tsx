@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react-native';
+import { Linking } from 'react-native';
+import { fireEvent, render, screen } from '@testing-library/react-native';
 import ImageCreditsScreen from './ImageCreditsScreen';
 import { RTG_FIGURE_CREDITS, RTG_IMAGES } from '../../student-checkpoints/batches/rtgImages';
 
@@ -18,7 +19,7 @@ describe('ImageCreditsScreen', () => {
             expect(screen.getAllByText(new RegExp(`Autoria: ${image.author}`)).length).toBeGreaterThan(0);
             expect(screen.getAllByText(new RegExp(`Licença: ${image.license.replace(/\./g, '\\.')}`)).length).toBeGreaterThan(0);
         }
-        expect(screen.getAllByRole('link')).toHaveLength(RTG_IMAGES.length + RTG_FIGURE_CREDITS.length);
+        expect(screen.getAllByRole('link')).toHaveLength(2 * (RTG_IMAGES.length + RTG_FIGURE_CREDITS.length));
     });
 
     it('credita a arte de terceiros das figuras desenhadas', () => {
@@ -28,5 +29,15 @@ describe('ImageCreditsScreen', () => {
             expect(screen.getAllByText(new RegExp(`Autoria: ${figure.author.replace(/[()]/g, '\\$&')}`)).length).toBeGreaterThan(0);
             expect(screen.getAllByText(`Licença: ${figure.license}`).length).toBeGreaterThan(0);
         }
+    });
+
+    it('liga cada ilustração ao texto da licença dela', () => {
+        const open = jest.spyOn(Linking, 'openURL').mockResolvedValue(true);
+        render(<ImageCreditsScreen />);
+        RTG_FIGURE_CREDITS.forEach((figure, index) => {
+            fireEvent.press(screen.getByRole('link', { name: `Abrir a licença da ilustração ${index + 1}` }));
+            expect(open).toHaveBeenLastCalledWith(figure.licenseUrl);
+        });
+        open.mockRestore();
     });
 });

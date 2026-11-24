@@ -1,0 +1,7 @@
+[
+  { "nome": "Tubo alinhado com o detector", "x": 0.5969, "y": 0.425, "width": 0.0953, "height": 0.0854 },
+  { "nome": "Pessoa sem avental junto à cabeceira", "x": 0.2625, "y": 0.3958, "width": 0.0969, "height": 0.3812 },
+  { "nome": "Operador de avental atrás do aparelho", "x": 0.8641, "y": 0.3167, "width": 0.1094, "height": 0.3833 },
+  { "nome": "Leito vizinho, no sentido do feixe", "x": 0, "y": 0.3063, "width": 0.2172, "height": 0.3083 },
+  { "nome": "Detector atrás do paciente", "x": 0.4319, "y": 0.425, "width": 0.08, "height": 0.1521 }
+]

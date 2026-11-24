@@ -6,7 +6,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m20",
-  "materialSha256": "517aeda4a8d9bf7e7b1a9eedcf1f8af6da480cc9b30ed01f3552ae0b7db4b6cb",
+  "materialSha256": "d3abfba8c7cb12ccea98a5201fac7d3d5d4999331324d2a3263fd0fa024c679d",
   "trackId": "track:rtg-2026:m20",
   "unitId": "unit:rtg-2026:m20",
   "contentVersion": "rtg-2026-m20-v1",
@@ -197,7 +197,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
                 },
                 {
                   "speaker": "pixel",
-                  "text": "Vamos ver o que se move no tórax quando o ar entra e quando ele sai?"
+                  "text": "Vamos comparar o tórax com o ar entrando e com o ar saindo? Veja o que muda de um desenho para o outro."
                 }
               ]
             }
@@ -209,7 +209,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Espaço que aumenta, ar que entra",
-            "body": "Na inspiração, o diafragma se contrai e desce, e os músculos entre as costelas as levam para cima e para fora. O tórax aumenta, os pulmões o acompanham e a pressão dentro deles cai abaixo da do ar de fora: o ar entra. Na expiração tranquila, os músculos relaxam, os pulmões voltam ao tamanho anterior e o ar sai. O desenho é simplificado: o diafragma desce em bloco.",
+            "body": "Na inspiração, o diafragma se contrai e desce, e os músculos entre as costelas as levam para cima e para fora. O tórax aumenta, os pulmões o acompanham e a pressão dentro deles cai abaixo da do ar de fora: o ar entra. Na expiração tranquila, os músculos relaxam, os pulmões voltam ao tamanho anterior e o ar sai. Compare os dois desenhos: a linha âmbar do diafragma fica mais baixa e achatada na inspiração.",
             "keyPoints": [
               "Inspirar: o diafragma desce e as costelas sobem.",
               "Expirar tranquilo: os músculos relaxam e o ar sai."
@@ -378,61 +378,53 @@ export const RTG_2026_M20: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Toque na imagem: Toque numa estrutura que se move por ação de músculo para aumentar o tórax na inspiração."
+              "label": "Toque na imagem: Compare os dois desenhos e toque numa estrutura que muda de posição por ação de músculo para aumentar o tórax."
             },
             "help": "Lembre o que Caio disse sobre o pulmão e procure o que se move em volta dele.",
             "type": "hotspot",
             "feedback": {
               "correct": "Isso mesmo: o diafragma desce e as costelas sobem por ação de músculos, e o tórax aumenta.",
-              "incorrect": "Essa estrutura não se move por músculo próprio: os pulmões só acompanham o tórax, e a traqueia conduz o ar."
+              "incorrect": "Essa estrutura não se move por músculo próprio: os pulmões só acompanham o tórax."
             },
             "payload": {
-              "prompt": "Toque numa estrutura que se move por ação de músculo para aumentar o tórax na inspiração.",
+              "prompt": "Compare os dois desenhos e toque numa estrutura que muda de posição por ação de músculo para aumentar o tórax.",
               "imageRef": "diagram:respiracao-diafragma",
               "regions": [
                 {
                   "id": "region:rtg-2026:m20:aula-01:i4:1",
-                  "label": "Traqueia",
-                  "x": 0.45,
-                  "y": 0.04,
-                  "width": 0.1,
-                  "height": 0.22
+                  "label": "Diafragma",
+                  "x": 0.1,
+                  "y": 0.53,
+                  "width": 0.24,
+                  "height": 0.21
                 },
                 {
                   "id": "region:rtg-2026:m20:aula-01:i4:2",
-                  "label": "Diafragma",
-                  "x": 0.3,
-                  "y": 0.715,
-                  "width": 0.4,
-                  "height": 0.12
+                  "label": "Pulmão do lado direito do paciente",
+                  "x": 0.572,
+                  "y": 0.19,
+                  "width": 0.13,
+                  "height": 0.25
                 },
                 {
                   "id": "region:rtg-2026:m20:aula-01:i4:3",
-                  "label": "Pulmão do lado direito do paciente",
-                  "x": 0.215,
-                  "y": 0.282,
-                  "width": 0.22,
-                  "height": 0.38
+                  "label": "Pulmão do lado esquerdo do paciente",
+                  "x": 0.77,
+                  "y": 0.19,
+                  "width": 0.14,
+                  "height": 0.25
                 },
                 {
                   "id": "region:rtg-2026:m20:aula-01:i4:4",
                   "label": "Costelas do lado direito do paciente",
-                  "x": 0.085,
-                  "y": 0.267,
-                  "width": 0.1,
-                  "height": 0.4
-                },
-                {
-                  "id": "region:rtg-2026:m20:aula-01:i4:5",
-                  "label": "Pulmão do lado esquerdo do paciente",
-                  "x": 0.565,
-                  "y": 0.282,
-                  "width": 0.22,
-                  "height": 0.38
+                  "x": 0.495,
+                  "y": 0.64,
+                  "width": 0.085,
+                  "height": 0.2
                 }
               ],
               "correctRegionIds": [
-                "region:rtg-2026:m20:aula-01:i4:2",
+                "region:rtg-2026:m20:aula-01:i4:1",
                 "region:rtg-2026:m20:aula-01:i4:4"
               ]
             }
@@ -730,53 +722,45 @@ export const RTG_2026_M20: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Toque na imagem: Toque no lado do coração que recebe o sangue rico em oxigênio vindo dos pulmões e o envia ao corpo."
+              "label": "Toque na imagem: Toque no órgão que bombeia o sangue pelas duas voltas."
             },
-            "help": "Lembre para qual lado do coração volta o sangue que sai dos pulmões.",
+            "help": "Lembre qual órgão tem átrios e ventrículos.",
             "type": "hotspot",
             "feedback": {
-              "correct": "Isso mesmo: o lado esquerdo do coração recebe o sangue dos pulmões e o envia ao corpo.",
-              "incorrect": "Esse não é o lado que envia sangue rico ao corpo: confira onde as voltas começam e terminam."
+              "correct": "Isso mesmo: o coração bombeia o sangue pelas duas voltas, cada lado dele para uma volta.",
+              "incorrect": "Esse não é o órgão que bombeia o sangue: ele tem quatro câmaras e fica entre as duas voltas."
             },
             "payload": {
-              "prompt": "Toque no lado do coração que recebe o sangue rico em oxigênio vindo dos pulmões e o envia ao corpo.",
+              "prompt": "Toque no órgão que bombeia o sangue pelas duas voltas.",
               "imageRef": "diagram:circulacao-dupla",
               "regions": [
                 {
                   "id": "region:rtg-2026:m20:aula-02:i4:1",
                   "label": "Pulmões",
-                  "x": 0.29,
-                  "y": 0.043,
-                  "width": 0.42,
-                  "height": 0.18
+                  "x": 0.39,
+                  "y": 0.02,
+                  "width": 0.19,
+                  "height": 0.22
                 },
                 {
                   "id": "region:rtg-2026:m20:aula-02:i4:2",
-                  "label": "Coração, lado direito do paciente",
-                  "x": 0.327,
-                  "y": 0.383,
-                  "width": 0.17,
+                  "label": "Coração",
+                  "x": 0.4,
+                  "y": 0.34,
+                  "width": 0.2,
                   "height": 0.25
                 },
                 {
                   "id": "region:rtg-2026:m20:aula-02:i4:3",
-                  "label": "Coração, lado esquerdo do paciente",
-                  "x": 0.503,
-                  "y": 0.383,
-                  "width": 0.17,
-                  "height": 0.25
-                },
-                {
-                  "id": "region:rtg-2026:m20:aula-02:i4:4",
                   "label": "Corpo",
-                  "x": 0.125,
-                  "y": 0.814,
-                  "width": 0.75,
-                  "height": 0.13
+                  "x": 0.41,
+                  "y": 0.78,
+                  "width": 0.17,
+                  "height": 0.19
                 }
               ],
               "correctRegionIds": [
-                "region:rtg-2026:m20:aula-02:i4:3"
+                "region:rtg-2026:m20:aula-02:i4:2"
               ]
             }
           }
@@ -977,43 +961,43 @@ export const RTG_2026_M20: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m20:aula-03:i2:1",
-                  "x": 0.5,
-                  "y": 0.12,
+                  "x": 0.513,
+                  "y": 0.122,
                   "where": "tubo fino que desce pelo alto, no meio do tronco",
                   "correctLabelId": "label:rtg-2026:m20:aula-03:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m20:aula-03:i2:2",
-                  "x": 0.3,
-                  "y": 0.3,
+                  "x": 0.405,
+                  "y": 0.333,
                   "where": "massa grande no alto, do lado direito do paciente",
                   "correctLabelId": "label:rtg-2026:m20:aula-03:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m20:aula-03:i2:3",
-                  "x": 0.68,
-                  "y": 0.38,
+                  "x": 0.585,
+                  "y": 0.34,
                   "where": "bolsa curva no alto, do lado esquerdo do paciente",
                   "correctLabelId": "label:rtg-2026:m20:aula-03:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m20:aula-03:i2:4",
-                  "x": 0.5,
-                  "y": 0.58,
-                  "where": "faixa azul sob a bolsa curva",
+                  "x": 0.464,
+                  "y": 0.552,
+                  "where": "massa ciano sob a bolsa curva",
                   "correctLabelId": "label:rtg-2026:m20:aula-03:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m20:aula-03:i2:5",
-                  "x": 0.53,
-                  "y": 0.8,
+                  "x": 0.537,
+                  "y": 0.781,
                   "where": "tubo enovelado no centro da barriga",
                   "correctLabelId": "label:rtg-2026:m20:aula-03:i2:5"
                 },
                 {
                   "id": "point:rtg-2026:m20:aula-03:i2:6",
-                  "x": 0.25,
-                  "y": 0.78,
+                  "x": 0.376,
+                  "y": 0.781,
                   "where": "tubo largo em moldura, subindo do lado direito do paciente",
                   "correctLabelId": "label:rtg-2026:m20:aula-03:i2:6"
                 }
@@ -1278,7 +1262,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Do rim ao lado de fora",
-            "body": "Os rins filtram o sangue e produzem a urina. De cada rim, a urina desce por um ureter, um tubo que a empurra por ondas musculares. A bexiga guarda a urina até ela sair pela uretra. O caminho é: rim, ureter, bexiga, uretra. Uma parte do contraste injetado na veia sai pela urina: é função normal dos rins, e dúvidas sobre cada paciente são da equipe. No esquema, o rim do lado direito do paciente aparece um pouco mais baixo.",
+            "body": "Os rins filtram o sangue e produzem a urina. De cada rim, a urina desce por um ureter, um tubo que a empurra por ondas musculares. A bexiga guarda a urina até ela sair pela uretra. O caminho é: rim, ureter, bexiga, uretra. Uma parte do contraste injetado na veia sai pela urina: é função normal dos rins, e dúvidas sobre cada paciente são da equipe. Na maioria das pessoas, o rim do lado direito fica um pouco mais baixo que o esquerdo; neste esquema os dois estão quase na mesma altura.",
             "keyPoints": [
               "Rim, ureter, bexiga, uretra: o caminho da urina.",
               "Rim filtra, ureter leva, bexiga guarda, uretra elimina."
@@ -1343,45 +1327,38 @@ export const RTG_2026_M20: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule as quatro partes do sistema urinário, tocando na ficha e no ponto."
+              "label": "Rotular a imagem: Rotule três partes do sistema urinário, tocando na ficha e no ponto."
             },
-            "help": "Siga o tubo azul: ele sai de um órgão em feijão e termina numa bolsa.",
+            "help": "Siga o tubo azul-claro: ele sai de um órgão em feijão e termina numa bolsa.",
             "type": "label",
             "feedback": {
-              "correct": "Isso mesmo: você nomeou o que filtra, o que leva, o que guarda e o que elimina.",
+              "correct": "Isso mesmo: você nomeou o que filtra, o que leva e o que guarda.",
               "incorrect": "Alguma ficha está no ponto errado: releia o conceito e siga o caminho da urina no esquema."
             },
             "payload": {
-              "prompt": "Rotule as quatro partes do sistema urinário, tocando na ficha e no ponto.",
+              "prompt": "Rotule três partes do sistema urinário, tocando na ficha e no ponto.",
               "imageRef": "diagram:sistema-urinario",
               "points": [
                 {
                   "id": "point:rtg-2026:m20:aula-04:i2:1",
-                  "x": 0.34,
-                  "y": 0.225,
-                  "where": "lado esquerdo de quem vê, órgão em feijão, mais baixo",
+                  "x": 0.36,
+                  "y": 0.18,
+                  "where": "à esquerda de quem vê, órgão em feijão, inteiro (por fora)",
                   "correctLabelId": "label:rtg-2026:m20:aula-04:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m20:aula-04:i2:2",
-                  "x": 0.59,
-                  "y": 0.43,
-                  "where": "tubo azul fino descendo do feijão à direita de quem vê",
+                  "x": 0.572,
+                  "y": 0.5,
+                  "where": "tubo azul-claro descendo do rim aberto, à direita de quem vê",
                   "correctLabelId": "label:rtg-2026:m20:aula-04:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m20:aula-04:i2:3",
                   "x": 0.5,
-                  "y": 0.65,
-                  "where": "bolsa azul larga na parte baixa, no meio da pelve",
+                  "y": 0.77,
+                  "where": "bolsa azul larga, aberta, na parte baixa, no meio da pelve",
                   "correctLabelId": "label:rtg-2026:m20:aula-04:i2:3"
-                },
-                {
-                  "id": "point:rtg-2026:m20:aula-04:i2:4",
-                  "x": 0.5,
-                  "y": 0.87,
-                  "where": "traço azul fino que sai da bolsa e desce pelo meio",
-                  "correctLabelId": "label:rtg-2026:m20:aula-04:i2:4"
                 }
               ],
               "labels": [
@@ -1390,16 +1367,12 @@ export const RTG_2026_M20: ProductionBatchV1 = {
                   "label": "Ureter do lado esquerdo do paciente"
                 },
                 {
-                  "id": "label:rtg-2026:m20:aula-04:i2:1",
-                  "label": "Rim do lado direito do paciente"
-                },
-                {
                   "id": "label:rtg-2026:m20:aula-04:i2:3",
                   "label": "Bexiga"
                 },
                 {
-                  "id": "label:rtg-2026:m20:aula-04:i2:4",
-                  "label": "Uretra"
+                  "id": "label:rtg-2026:m20:aula-04:i2:1",
+                  "label": "Rim do lado direito do paciente"
                 }
               ]
             }
@@ -1691,7 +1664,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
             "type": "hotspot",
             "feedback": {
               "correct": "Isso mesmo: o encéfalo e a medula espinal formam o sistema nervoso central.",
-              "incorrect": "Os nervos que saem para o braço e a perna são do sistema periférico: procure o encéfalo ou a medula."
+              "incorrect": "Os nervos que saem para o braço e a perna são do sistema periférico: procure o encéfalo."
             },
             "payload": {
               "prompt": "Toque numa estrutura que faz parte do sistema nervoso central.",
@@ -1700,39 +1673,30 @@ export const RTG_2026_M20: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m20:aula-05:i2:1",
                   "label": "Encéfalo",
-                  "x": 0.435,
-                  "y": 0.042,
-                  "width": 0.13,
-                  "height": 0.15
+                  "x": 0.461,
+                  "y": 0.0658,
+                  "width": 0.08,
+                  "height": 0.08
                 },
                 {
                   "id": "region:rtg-2026:m20:aula-05:i2:2",
                   "label": "Nervos do braço direito do paciente",
-                  "x": 0.226,
-                  "y": 0.425,
+                  "x": 0.361,
+                  "y": 0.4885,
                   "width": 0.08,
-                  "height": 0.4
+                  "height": 0.08
                 },
                 {
                   "id": "region:rtg-2026:m20:aula-05:i2:3",
-                  "label": "Medula espinal",
-                  "x": 0.46,
-                  "y": 0.238,
-                  "width": 0.08,
-                  "height": 0.44
-                },
-                {
-                  "id": "region:rtg-2026:m20:aula-05:i2:4",
                   "label": "Nervos da perna direita do paciente",
-                  "x": 0.381,
-                  "y": 0.773,
-                  "width": 0.1,
-                  "height": 0.22
+                  "x": 0.428,
+                  "y": 0.6995,
+                  "width": 0.08,
+                  "height": 0.08
                 }
               ],
               "correctRegionIds": [
-                "region:rtg-2026:m20:aula-05:i2:1",
-                "region:rtg-2026:m20:aula-05:i2:3"
+                "region:rtg-2026:m20:aula-05:i2:1"
               ]
             }
           }
@@ -2074,25 +2038,25 @@ export const RTG_2026_M20: ProductionBatchV1 = {
                   "id": "region:rtg-2026:m20:aula-06:i2:1",
                   "label": "Estômago",
                   "x": 0.542,
-                  "y": 0.203,
-                  "width": 0.24,
-                  "height": 0.36
+                  "y": 0.36,
+                  "width": 0.08,
+                  "height": 0.14
                 },
                 {
                   "id": "region:rtg-2026:m20:aula-06:i2:2",
                   "label": "Fígado",
-                  "x": 0.141,
-                  "y": 0.175,
-                  "width": 0.38,
-                  "height": 0.3
+                  "x": 0.346,
+                  "y": 0.245,
+                  "width": 0.154,
+                  "height": 0.21
                 },
                 {
                   "id": "region:rtg-2026:m20:aula-06:i2:3",
                   "label": "Intestino delgado",
-                  "x": 0.305,
-                  "y": 0.698,
-                  "width": 0.44,
-                  "height": 0.22
+                  "x": 0.471,
+                  "y": 0.649,
+                  "width": 0.138,
+                  "height": 0.228
                 }
               ],
               "correctRegionIds": [
@@ -2935,14 +2899,6 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "region:rtg-2026:m20:aula-01:i4:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m20:osx-respiracao"
-      ]
-    },
-    {
       "claimId": "interaction:rtg-2026:m20:aula-01:i4:answer",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -3466,14 +3422,6 @@ export const RTG_2026_M20: ProductionBatchV1 = {
     },
     {
       "claimId": "region:rtg-2026:m20:aula-02:i4:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m20:osx-coracao"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m20:aula-02:i4:4",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4577,25 +4525,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m20:aula-04:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m20:osx-urina",
-        "source:rtg-2026:m20:osx-rim"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m20:aula-04:i2:2",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m20:osx-urina",
-        "source:rtg-2026:m20:osx-rim"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m20:aula-04:i2:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4613,7 +4543,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "label:rtg-2026:m20:aula-04:i2:4",
+      "claimId": "label:rtg-2026:m20:aula-04:i2:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5156,14 +5086,6 @@ export const RTG_2026_M20: ProductionBatchV1 = {
     },
     {
       "claimId": "region:rtg-2026:m20:aula-05:i2:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m20:osx-nervoso"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m20:aula-05:i2:4",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -6713,7 +6635,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "517aeda4a8d9bf7e7b1a9eedcf1f8af6da480cc9b30ed01f3552ae0b7db4b6cb"
+      "materialSha256": "d3abfba8c7cb12ccea98a5201fac7d3d5d4999331324d2a3263fd0fa024c679d"
     },
     {
       "schemaVersion": 1,
@@ -6722,7 +6644,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "517aeda4a8d9bf7e7b1a9eedcf1f8af6da480cc9b30ed01f3552ae0b7db4b6cb"
+      "materialSha256": "d3abfba8c7cb12ccea98a5201fac7d3d5d4999331324d2a3263fd0fa024c679d"
     },
     {
       "schemaVersion": 1,
@@ -6731,7 +6653,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "517aeda4a8d9bf7e7b1a9eedcf1f8af6da480cc9b30ed01f3552ae0b7db4b6cb"
+      "materialSha256": "d3abfba8c7cb12ccea98a5201fac7d3d5d4999331324d2a3263fd0fa024c679d"
     },
     {
       "schemaVersion": 1,
@@ -6740,7 +6662,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "517aeda4a8d9bf7e7b1a9eedcf1f8af6da480cc9b30ed01f3552ae0b7db4b6cb"
+      "materialSha256": "d3abfba8c7cb12ccea98a5201fac7d3d5d4999331324d2a3263fd0fa024c679d"
     },
     {
       "schemaVersion": 1,
@@ -6749,7 +6671,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "517aeda4a8d9bf7e7b1a9eedcf1f8af6da480cc9b30ed01f3552ae0b7db4b6cb"
+      "materialSha256": "d3abfba8c7cb12ccea98a5201fac7d3d5d4999331324d2a3263fd0fa024c679d"
     },
     {
       "schemaVersion": 1,
@@ -6758,7 +6680,7 @@ export const RTG_2026_M20: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "517aeda4a8d9bf7e7b1a9eedcf1f8af6da480cc9b30ed01f3552ae0b7db4b6cb"
+      "materialSha256": "d3abfba8c7cb12ccea98a5201fac7d3d5d4999331324d2a3263fd0fa024c679d"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

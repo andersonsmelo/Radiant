@@ -6,7 +6,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m30",
-  "materialSha256": "bf8f95de321cef48b00e33e5a89ad3f1ad23edd041e5cb287b00a4b0ec70fb68",
+  "materialSha256": "72bc56089be700254371f2247acf8ddc5484e419ef391a9e5a8bd3c1eefa1dca",
   "trackId": "track:rtg-2026:m30",
   "unitId": "unit:rtg-2026:m30",
   "contentVersion": "rtg-2026-m30-v1",
@@ -178,7 +178,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule as partes do densitômetro vistas de lado, tocando na ficha e no ponto."
+              "label": "Rotular a imagem: Rotule as partes do densitômetro, tocando na ficha e no ponto."
             },
             "help": "Comece pelo que está embaixo da mesa e suba até o alto do desenho.",
             "type": "label",
@@ -187,41 +187,41 @@ export const RTG_2026_M30: ProductionBatchV1 = {
               "incorrect": "Alguma ficha está fora do lugar: siga o caminho de baixo para cima, da fonte, pela pessoa, até o detector."
             },
             "payload": {
-              "prompt": "Rotule as partes do densitômetro vistas de lado, tocando na ficha e no ponto.",
+              "prompt": "Rotule as partes do densitômetro, tocando na ficha e no ponto.",
               "imageRef": "diagram:dxa-dois-feixes",
               "points": [
                 {
                   "id": "point:rtg-2026:m30:aula-01:i2:1",
-                  "x": 0.5313,
-                  "y": 0.7333,
+                  "x": 0.5217,
+                  "y": 0.776,
                   "where": "embaixo, o bloco azul sob o tampo, no meio do desenho",
                   "correctLabelId": "label:rtg-2026:m30:aula-01:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m30:aula-01:i2:2",
-                  "x": 0.5313,
-                  "y": 0.1292,
+                  "x": 0.5563,
+                  "y": 0.2958,
                   "where": "no alto, o bloco azul que fica acima do corpo",
                   "correctLabelId": "label:rtg-2026:m30:aula-01:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m30:aula-01:i2:3",
-                  "x": 0.5313,
-                  "y": 0.3542,
+                  "x": 0.5422,
+                  "y": 0.5125,
                   "where": "as duas linhas finas de cores diferentes, subindo retas",
                   "correctLabelId": "label:rtg-2026:m30:aula-01:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m30:aula-01:i2:4",
-                  "x": 0.3,
-                  "y": 0.5208,
+                  "x": 0.3792,
+                  "y": 0.413,
                   "where": "a figura deitada de costas, na altura do peito",
                   "correctLabelId": "label:rtg-2026:m30:aula-01:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m30:aula-01:i2:5",
-                  "x": 0.8938,
-                  "y": 0.6125,
+                  "x": 0.7537,
+                  "y": 0.7622,
                   "where": "a faixa onde o corpo se apoia, na ponta direita do desenho",
                   "correctLabelId": "label:rtg-2026:m30:aula-01:i2:5"
                 }
@@ -331,34 +331,34 @@ export const RTG_2026_M30: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m30:aula-01:i4:1",
                   "label": "Peça sob o tampo",
-                  "x": 0.4625,
-                  "y": 0.675,
-                  "width": 0.1375,
-                  "height": 0.1167
+                  "x": 0.4875,
+                  "y": 0.7021,
+                  "width": 0.1094,
+                  "height": 0.1104
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-01:i4:2",
                   "label": "Peça no alto do braço",
-                  "x": 0.4375,
-                  "y": 0.075,
-                  "width": 0.1875,
-                  "height": 0.1083
+                  "x": 0.4734,
+                  "y": 0.2271,
+                  "width": 0.15,
+                  "height": 0.1708
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-01:i4:3",
                   "label": "Tronco da pessoa",
-                  "x": 0.225,
-                  "y": 0.4583,
-                  "width": 0.15,
-                  "height": 0.125
+                  "x": 0.3141,
+                  "y": 0.3586,
+                  "width": 0.1402,
+                  "height": 0.1959
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-01:i4:4",
                   "label": "Ponta da mesa",
-                  "x": 0.8375,
-                  "y": 0.5667,
-                  "width": 0.1125,
-                  "height": 0.0917
+                  "x": 0.6672,
+                  "y": 0.6829,
+                  "width": 0.1631,
+                  "height": 0.1814
                 }
               ],
               "correctRegionIds": [
@@ -485,7 +485,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
               "lines": [
                 {
                   "speaker": "duda",
-                  "text": "No esquema há umas caixas desenhadas sobre a coluna e sobre o fêmur. O aparelho mede o osso inteiro?"
+                  "text": "Na imagem há umas caixas desenhadas sobre a coluna e sobre o fêmur. O aparelho mede o osso inteiro?"
                 },
                 {
                   "speaker": "caio",
@@ -505,7 +505,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Medir dentro de regiões",
-            "body": "A medida acontece dentro de regiões de interesse. Na coluna lombar, de frente, entram as vértebras L1 a L4, uma caixa em cada. As vértebras se contam de baixo para cima, e a crista ilíaca costuma ficar na altura do espaço entre L4 e L5. No fêmur proximal há a região do colo, a do trocânter e o quadril total, que reúne colo, trocânter e parte do fêmur. A caixa do colo não inclui a região do trocânter. Neste esquema os limites são aproximados; o protocolo do serviço define os reais.",
+            "body": "A medida acontece dentro de regiões de interesse. Na coluna lombar, de frente, entram as vértebras L1 a L4, uma caixa em cada. As vértebras se contam de baixo para cima, e a crista ilíaca costuma ficar na altura do espaço entre L4 e L5. No fêmur proximal há a região do colo, a do trocânter e o quadril total, que reúne colo, trocânter e parte do fêmur. A caixa do colo não inclui a região do trocânter. Na imagem desta aula, as caixas são as do programa do aparelho; o protocolo do serviço define os limites de cada região.",
             "keyPoints": [
               "Coluna: L1 a L4, uma caixa por vértebra.",
               "Fêmur: colo, trocânter e quadril total.",
@@ -571,77 +571,55 @@ export const RTG_2026_M30: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule cinco regiões do esquema, tocando na ficha e no ponto. A coluna está à esquerda do desenho e o fêmur, à direita."
+              "label": "Rotular a imagem: Rotule três regiões do fêmur no painel A, tocando na ficha e no ponto."
             },
-            "help": "Na coluna, a primeira caixa de cima é a primeira vértebra medida.",
+            "help": "No painel A, procure primeiro a caixa longa que cruza o colo do osso.",
             "type": "label",
             "feedback": {
-              "correct": "Isso mesmo: as caixas da coluna vão de L1, no alto, até L4, e o fêmur tem colo, trocânter e o contorno do quadril total.",
-              "incorrect": "Alguma ficha está fora do lugar: na coluna conte de L1 até L4, e no fêmur separe a caixa do colo, a região do trocânter e o contorno tracejado."
+              "correct": "Isso mesmo: no fêmur há a caixa do colo, a região do trocânter e o contorno que envolve o osso, o quadril total.",
+              "incorrect": "Alguma ficha está fora do lugar: no fêmur, separe a caixa do colo, a região do trocânter e o contorno que envolve o osso."
             },
             "payload": {
-              "prompt": "Rotule cinco regiões do esquema, tocando na ficha e no ponto. A coluna está à esquerda do desenho e o fêmur, à direita.",
-              "imageRef": "diagram:dxa-regioes-de-interesse",
+              "prompt": "Rotule três regiões do fêmur no painel A, tocando na ficha e no ponto.",
+              "imageRef": "image:rtg-2026:m30:dxa-quadril-coluna-01",
               "points": [
                 {
                   "id": "point:rtg-2026:m30:aula-02:i2:1",
-                  "x": 0.2188,
-                  "y": 0.1625,
-                  "where": "a caixa mais alta da coluna",
+                  "x": 0.288,
+                  "y": 0.592,
+                  "where": "caixa longa e inclinada que cruza o osso, no painel A",
                   "correctLabelId": "label:rtg-2026:m30:aula-02:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m30:aula-02:i2:2",
-                  "x": 0.2188,
-                  "y": 0.5875,
-                  "where": "a caixa mais baixa da coluna",
+                  "x": 0.085,
+                  "y": 0.472,
+                  "where": "no painel A, na saliência do lado de fora do osso",
                   "correctLabelId": "label:rtg-2026:m30:aula-02:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m30:aula-02:i2:3",
-                  "x": 0.7625,
-                  "y": 0.3333,
-                  "where": "a caixa estreita e inclinada, junto da parte redonda",
+                  "x": 0.167,
+                  "y": 0.86,
+                  "where": "no painel A, dentro do contorno, na haste do osso",
                   "correctLabelId": "label:rtg-2026:m30:aula-02:i2:3"
-                },
-                {
-                  "id": "point:rtg-2026:m30:aula-02:i2:4",
-                  "x": 0.55,
-                  "y": 0.4208,
-                  "where": "a região sombreada na saliência de fora do osso",
-                  "correctLabelId": "label:rtg-2026:m30:aula-02:i2:4"
-                },
-                {
-                  "id": "point:rtg-2026:m30:aula-02:i2:5",
-                  "x": 0.6281,
-                  "y": 0.7792,
-                  "where": "dentro do contorno tracejado, na haste do osso",
-                  "correctLabelId": "label:rtg-2026:m30:aula-02:i2:5"
                 }
               ],
               "labels": [
                 {
-                  "id": "label:rtg-2026:m30:aula-02:i2:2",
-                  "label": "Vértebra L4"
+                  "id": "label:rtg-2026:m30:aula-02:i2:4",
+                  "label": "Cabeça do fêmur"
                 },
                 {
-                  "id": "label:rtg-2026:m30:aula-02:i2:4",
+                  "id": "label:rtg-2026:m30:aula-02:i2:2",
                   "label": "Trocânter maior"
                 },
                 {
                   "id": "label:rtg-2026:m30:aula-02:i2:1",
-                  "label": "Vértebra L1"
-                },
-                {
-                  "id": "label:rtg-2026:m30:aula-02:i2:3",
                   "label": "Colo do fêmur"
                 },
                 {
-                  "id": "label:rtg-2026:m30:aula-02:i2:6",
-                  "label": "Cabeça do fêmur"
-                },
-                {
-                  "id": "label:rtg-2026:m30:aula-02:i2:5",
+                  "id": "label:rtg-2026:m30:aula-02:i2:3",
                   "label": "Quadril total"
                 }
               ]
@@ -659,16 +637,16 @@ export const RTG_2026_M30: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada região à descrição, como no esquema desta aula."
+              "label": "Associação: Ligue cada região à descrição, como na imagem desta aula."
             },
             "help": "Uma das regiões do fêmur é a soma das outras.",
             "type": "matching",
             "feedback": {
-              "correct": "Você ligou cada região ao que ela cobre neste esquema.",
+              "correct": "Você ligou cada região ao que ela cobre nesta imagem.",
               "incorrect": "Reveja o conceito: o quadril total reúne as outras regiões do fêmur, e a caixa do colo deixa o trocânter de fora."
             },
             "payload": {
-              "prompt": "Ligue cada região à descrição, como no esquema desta aula.",
+              "prompt": "Ligue cada região à descrição, como na imagem desta aula.",
               "pairs": [
                 {
                   "id": "pair:rtg-2026:m30:aula-02:i3:1",
@@ -711,51 +689,43 @@ export const RTG_2026_M30: ProductionBatchV1 = {
             "type": "hotspot",
             "feedback": {
               "correct": "Isso mesmo: a caixa do colo não inclui o trocânter, que tem região própria.",
-              "incorrect": "Essa não é a região vizinha do colo: as vértebras e a asa do quadril nem são do fêmur, e o colo é a própria caixa."
+              "incorrect": "Essa não é a região vizinha do colo: a vértebra nem é do fêmur, o colo é a própria caixa, e a cabeça do fêmur não tem região própria."
             },
             "payload": {
               "prompt": "A caixa do colo do fêmur nunca pode invadir uma região vizinha do próprio fêmur, que tem região própria. Toque nessa região.",
-              "imageRef": "diagram:dxa-regioes-de-interesse",
+              "imageRef": "image:rtg-2026:m30:dxa-quadril-coluna-01",
               "regions": [
                 {
                   "id": "region:rtg-2026:m30:aula-02:i4:1",
                   "label": "Vértebra L1",
-                  "x": 0.1563,
-                  "y": 0.1167,
-                  "width": 0.125,
-                  "height": 0.0917
+                  "x": 0.71,
+                  "y": 0.13,
+                  "width": 0.145,
+                  "height": 0.155
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-02:i4:2",
                   "label": "Colo do fêmur",
-                  "x": 0.7219,
-                  "y": 0.2792,
-                  "width": 0.0813,
-                  "height": 0.1083
+                  "x": 0.25,
+                  "y": 0.53,
+                  "width": 0.08,
+                  "height": 0.125
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-02:i4:3",
                   "label": "Trocânter maior",
-                  "x": 0.5062,
-                  "y": 0.3417,
-                  "width": 0.0875,
-                  "height": 0.1583
+                  "x": 0.045,
+                  "y": 0.35,
+                  "width": 0.11,
+                  "height": 0.21
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-02:i4:4",
-                  "label": "Vértebra L4",
-                  "x": 0.1563,
-                  "y": 0.5417,
-                  "width": 0.125,
-                  "height": 0.0917
-                },
-                {
-                  "id": "region:rtg-2026:m30:aula-02:i4:5",
-                  "label": "Asa do osso do quadril",
-                  "x": 0.325,
-                  "y": 0.8,
-                  "width": 0.0875,
-                  "height": 0.1
+                  "label": "Cabeça do fêmur",
+                  "x": 0.3,
+                  "y": 0.24,
+                  "width": 0.1,
+                  "height": 0.16
                 }
               ],
               "correctRegionIds": [
@@ -826,7 +796,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Você sabe onde o aparelho mede",
-            "body": "Agora você consegue localizar as caixas da coluna lombar, de L1 a L4, e as regiões do fêmur proximal, sabendo que neste esquema os limites são aproximados.",
+            "body": "Agora você consegue localizar as caixas da coluna lombar, de L1 a L4, e as regiões do fêmur proximal, sabendo que o protocolo do serviço define os limites reais.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -953,7 +923,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Toque na imagem: Na vista de cima, toque no pé que está na posição ensinada para a medida do fêmur."
+              "label": "Toque na imagem: Na cena da direita, toque no pé que está na posição ensinada para a medida do fêmur."
             },
             "help": "Lembre o que o suporte faz com o pé e, com ele, com o quadril.",
             "type": "hotspot",
@@ -962,48 +932,48 @@ export const RTG_2026_M30: ProductionBatchV1 = {
               "incorrect": "Essa região não é o pé posicionado para o fêmur: procure o pé girado para dentro, preso junto ao posicionador."
             },
             "payload": {
-              "prompt": "Na vista de cima, toque no pé que está na posição ensinada para a medida do fêmur.",
+              "prompt": "Na cena da direita, toque no pé que está na posição ensinada para a medida do fêmur.",
               "imageRef": "diagram:dxa-posicionamento",
               "regions": [
                 {
                   "id": "region:rtg-2026:m30:aula-03:i2:1",
                   "label": "Coluna reta sobre a mesa",
-                  "x": 0.1062,
-                  "y": 0.5417,
-                  "width": 0.1938,
-                  "height": 0.0917
+                  "x": 0.12,
+                  "y": 0,
+                  "width": 0.22,
+                  "height": 0.28
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-03:i2:2",
                   "label": "Bloco sob as pernas",
-                  "x": 0.3813,
-                  "y": 0.4667,
-                  "width": 0.0938,
-                  "height": 0.1417
+                  "x": 0.1719,
+                  "y": 0.3604,
+                  "width": 0.2141,
+                  "height": 0.4292
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-03:i2:3",
                   "label": "Posicionador entre os pés",
-                  "x": 0.7312,
-                  "y": 0.5333,
-                  "width": 0.0875,
-                  "height": 0.1
+                  "x": 0.6484,
+                  "y": 0.7104,
+                  "width": 0.1,
+                  "height": 0.2
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-03:i2:4",
                   "label": "Pé à esquerda do desenho",
-                  "x": 0.6062,
-                  "y": 0.75,
-                  "width": 0.0813,
-                  "height": 0.1
+                  "x": 0.5296,
+                  "y": 0.5208,
+                  "width": 0.08,
+                  "height": 0.125
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-03:i2:5",
                   "label": "Pé à direita do desenho",
-                  "x": 0.87,
-                  "y": 0.77,
+                  "x": 0.7522,
+                  "y": 0.4813,
                   "width": 0.08,
-                  "height": 0.16
+                  "height": 0.1396
                 }
               ],
               "correctRegionIds": [
@@ -1315,68 +1285,53 @@ export const RTG_2026_M30: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Encontre os riscos: Na imagem esquemática da coluna, toque em tudo que pode estragar a medida."
+              "label": "Toque na imagem: Esta imagem da coluna lombar é de um exame real. Toque no que pode estragar a medida."
             },
-            "help": "Procure o que não é osso e o que não está sobre a vértebra.",
-            "type": "risk-hunt",
+            "help": "Procure o que não é osso e está sobre uma vértebra.",
+            "type": "hotspot",
             "feedback": {
-              "correct": "Isso mesmo: o metal, o zíper e a caixa fora do lugar podem estragar a medida, e a asa do osso e a caixa certa, não.",
-              "incorrect": "Reveja a imagem: falta marcar algo que interfere, ou foi marcada uma parte que está certa."
+              "correct": "Isso mesmo: um ponto muito claro sobre a vértebra é material denso, como metal ou o cimento deste exame, e pode alterar a medida. Você descreve onde está e avisa a equipe.",
+              "incorrect": "Essa parte da coluna está no lugar e sem nada que não seja osso: procure o que não é osso e está sobre uma vértebra."
             },
             "payload": {
-              "prompt": "Na imagem esquemática da coluna, toque em tudo que pode estragar a medida.",
-              "imageRef": "diagram:dxa-interferencias",
+              "prompt": "Esta imagem da coluna lombar é de um exame real. Toque no que pode estragar a medida.",
+              "imageRef": "image:rtg-2026:m30:dxa-coluna-cimento-01",
               "regions": [
                 {
                   "id": "region:rtg-2026:m30:aula-04:i2:1",
-                  "label": "Asa do quadril, à esquerda do desenho",
-                  "x": 0.2062,
-                  "y": 0.6667,
-                  "width": 0.0875,
-                  "height": 0.1,
-                  "explanation": "A asa do osso do quadril é anatomia, e não interferência: ela serve de referência para contar as vértebras."
+                  "label": "Ponto muito claro sobre uma vértebra",
+                  "x": 0.295,
+                  "y": 0.287,
+                  "width": 0.28,
+                  "height": 0.123
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-04:i2:2",
-                  "label": "Ponto muito claro sobre uma vértebra",
-                  "x": 0.4156,
-                  "y": 0.3625,
-                  "width": 0.0813,
-                  "height": 0.1,
-                  "explanation": "Um ponto muito claro sobre a vértebra pode ser metal e alterar a medida: você descreve onde está e avisa a equipe."
+                  "label": "Caixa mais alta da coluna",
+                  "x": 0.33,
+                  "y": 0.09,
+                  "width": 0.33,
+                  "height": 0.15
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-04:i2:3",
-                  "label": "Caixa sobre meia vértebra e o disco",
-                  "x": 0.375,
-                  "y": 0.625,
-                  "width": 0.1437,
-                  "height": 0.1,
-                  "explanation": "Neste esquema a caixa cobre meia vértebra e o disco: a região medida não é a vértebra. Você descreve, e a equipe corrige."
+                  "label": "Caixa do meio da coluna",
+                  "x": 0.31,
+                  "y": 0.455,
+                  "width": 0.36,
+                  "height": 0.15
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-04:i2:4",
-                  "label": "Caixa sobre uma vértebra, no alto",
-                  "x": 0.325,
-                  "y": 0.0583,
-                  "width": 0.1437,
-                  "height": 0.125,
-                  "explanation": "Esta caixa cobre a vértebra, de disco a disco: está no lugar e não é problema."
-                },
-                {
-                  "id": "region:rtg-2026:m30:aula-04:i2:5",
-                  "label": "Linha de dentes ao lado da coluna",
-                  "x": 0.7781,
-                  "y": 0.4167,
-                  "width": 0.0813,
-                  "height": 0.1667,
-                  "explanation": "O zíper é metal que não deveria estar na imagem: zíperes estão entre os objetos que interferem. Você descreve e avisa; a equipe avalia."
+                  "label": "Caixa mais baixa da coluna",
+                  "x": 0.29,
+                  "y": 0.64,
+                  "width": 0.4,
+                  "height": 0.14
                 }
               ],
-              "riskRegionIds": [
-                "region:rtg-2026:m30:aula-04:i2:2",
-                "region:rtg-2026:m30:aula-04:i2:3",
-                "region:rtg-2026:m30:aula-04:i2:5"
+              "correctRegionIds": [
+                "region:rtg-2026:m30:aula-04:i2:1"
               ]
             }
           }
@@ -1559,7 +1514,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Você acha o que não deveria estar lá",
-            "body": "Agora você consegue achar metal, zíper, coluna torta e caixa fora do lugar num esquema de imagem e dizer o que fazer: descrever e avisar a equipe.",
+            "body": "Agora você consegue achar, numa imagem de exame, material denso sobre a vértebra e reconhecer, nos casos descritos, zíper, coluna torta e caixa fora do lugar, e dizer o que fazer: descrever e avisar a equipe.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -1620,12 +1575,11 @@ export const RTG_2026_M30: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Três componentes, quatro regiões",
-            "body": "O exame de corpo inteiro abrange o corpo todo e separa três componentes: osso, massa magra e gordura. Linhas de corte dividem o corpo em cabeça, braços, tronco e pernas, e cada região recebe os três valores. Na figura, as três faixas são só legenda de cor, sem proporção. O laudo traz a massa magra total e a massa de gordura total. A posição de braços e pernas segue o que o serviço define.",
+            "body": "O exame de corpo inteiro abrange o corpo todo e separa três componentes: osso, massa magra e gordura. Linhas de corte dividem o corpo em cabeça, braços, tronco e pernas, e cada região recebe os três valores. Na imagem da próxima atividade, as linhas de corte também isolam a pelve, que fica dentro do tronco. O laudo traz a massa magra total e a massa de gordura total. A posição de braços e pernas segue o que o serviço define.",
             "keyPoints": [
               "Três componentes: osso, massa magra e gordura.",
               "Regiões: cabeça, braços, tronco e pernas."
-            ],
-            "visual": "corpo-inteiro-composicao"
+            ]
           }
         },
         {
@@ -1686,44 +1640,44 @@ export const RTG_2026_M30: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule as quatro regiões em que o exame divide o corpo, tocando na ficha e no ponto."
+              "label": "Rotular a imagem: Rotule quatro regiões do corpo no painel da esquerda, tocando na ficha e no ponto."
             },
-            "help": "Comece pelo alto do desenho e desça seguindo as linhas.",
+            "help": "Comece pelo alto do painel da esquerda e desça seguindo as linhas.",
             "type": "label",
             "feedback": {
               "correct": "Isso mesmo: as linhas de corte separam cabeça, tronco, braços e pernas.",
-              "incorrect": "Alguma ficha está fora do lugar: siga as linhas de corte, da linha do queixo até o V entre as pernas."
+              "incorrect": "Alguma ficha está fora do lugar: siga as linhas de corte, da linha do pescoço até o V entre as pernas."
             },
             "payload": {
-              "prompt": "Rotule as quatro regiões em que o exame divide o corpo, tocando na ficha e no ponto.",
-              "imageRef": "diagram:corpo-inteiro-composicao",
+              "prompt": "Rotule quatro regiões do corpo no painel da esquerda, tocando na ficha e no ponto.",
+              "imageRef": "image:rtg-2026:m30:dxa-corpo-inteiro-01",
               "points": [
                 {
                   "id": "point:rtg-2026:m30:aula-05:i2:1",
-                  "x": 0.3438,
-                  "y": 0.1167,
-                  "where": "no alto, a forma redonda acima da linha do queixo",
+                  "x": 0.236,
+                  "y": 0.075,
+                  "where": "no painel da esquerda, a forma redonda no alto",
                   "correctLabelId": "label:rtg-2026:m30:aula-05:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m30:aula-05:i2:2",
-                  "x": 0.3438,
-                  "y": 0.3458,
-                  "where": "no meio do desenho, entre as duas linhas dos ombros",
+                  "x": 0.3,
+                  "y": 0.26,
+                  "where": "no painel da esquerda, sobre as costelas, ao lado da coluna",
                   "correctLabelId": "label:rtg-2026:m30:aula-05:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m30:aula-05:i2:3",
-                  "x": 0.2219,
-                  "y": 0.5708,
-                  "where": "à esquerda do desenho, a forma comprida solta do corpo",
+                  "x": 0.088,
+                  "y": 0.235,
+                  "where": "no painel da esquerda, a haste comprida, à esquerda do peito",
                   "correctLabelId": "label:rtg-2026:m30:aula-05:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m30:aula-05:i2:4",
-                  "x": 0.3062,
-                  "y": 0.829,
-                  "where": "embaixo, a forma comprida abaixo do V",
+                  "x": 0.15,
+                  "y": 0.68,
+                  "where": "no painel da esquerda, embaixo, a haste comprida abaixo do V",
                   "correctLabelId": "label:rtg-2026:m30:aula-05:i2:4"
                 }
               ],
@@ -1829,16 +1783,16 @@ export const RTG_2026_M30: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Certo ou errado: Julgue cada afirmação sobre a figura e o exame."
+              "label": "Certo ou errado: Julgue cada afirmação sobre a imagem e o exame."
             },
-            "help": "As faixas da figura medem alguma coisa ou só dão cor aos componentes?",
+            "help": "As linhas de corte medem alguma coisa ou só dividem o corpo em regiões?",
             "type": "true-false",
             "feedback": {
-              "correct": "Você separou o que a figura mostra do que ela só ilustra.",
-              "incorrect": "Releia o conceito: as faixas são só legenda de cor, e o exame abrange o corpo todo."
+              "correct": "Você separou o que a imagem mostra do que ela não mostra.",
+              "incorrect": "Releia o conceito: as linhas dividem o corpo em regiões, e o exame abrange o corpo todo."
             },
             "payload": {
-              "prompt": "Julgue cada afirmação sobre a figura e o exame.",
+              "prompt": "Julgue cada afirmação sobre a imagem e o exame.",
               "statements": [
                 {
                   "id": "statement:rtg-2026:m30:aula-05:i4:1",
@@ -1848,9 +1802,9 @@ export const RTG_2026_M30: ProductionBatchV1 = {
                 },
                 {
                   "id": "statement:rtg-2026:m30:aula-05:i4:2",
-                  "text": "As três faixas mostram quanto de cada componente a pessoa tem.",
+                  "text": "As linhas de corte mostram quanto de cada componente a pessoa tem.",
                   "isTrue": false,
-                  "explanation": "Errado: as faixas têm a mesma altura; são legenda de cor, e não proporção medida."
+                  "explanation": "Errado: as linhas de corte só dividem o corpo em regiões; elas não medem componente nenhum."
                 },
                 {
                   "id": "statement:rtg-2026:m30:aula-05:i4:3",
@@ -1922,7 +1876,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Você separa o corpo em componentes e regiões",
-            "body": "Agora você consegue dizer que o exame de corpo inteiro separa osso, massa magra e gordura, por cabeça, braços, tronco e pernas, e que as faixas da figura são só legenda de cor.",
+            "body": "Agora você consegue dizer que o exame de corpo inteiro separa osso, massa magra e gordura, por cabeça, braços, tronco e pernas, e que as linhas de corte só dividem o corpo em regiões.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -2055,52 +2009,52 @@ export const RTG_2026_M30: ProductionBatchV1 = {
             "help": "Qual região do fêmur reúne as outras duas?",
             "type": "hotspot",
             "feedback": {
-              "correct": "Isso mesmo: o contorno tracejado é o quadril total, e o exame novo mede de novo essa mesma região.",
+              "correct": "Isso mesmo: o contorno amarelo é o quadril total, e o exame novo mede de novo essa mesma região.",
               "incorrect": "Essa é outra região: o quadril total é o contorno que reúne colo, trocânter e a parte logo abaixo."
             },
             "payload": {
               "prompt": "O exame anterior mediu o quadril total. Toque no contorno que marca a região que o exame novo precisa medir de novo.",
-              "imageRef": "diagram:dxa-regioes-de-interesse",
+              "imageRef": "image:rtg-2026:m30:dxa-quadril-coluna-01",
               "regions": [
                 {
                   "id": "region:rtg-2026:m30:aula-06:i2:1",
-                  "label": "Área sombreada na saliência",
-                  "x": 0.5062,
-                  "y": 0.3417,
-                  "width": 0.0875,
-                  "height": 0.1583
+                  "label": "Saliência de fora do osso",
+                  "x": 0.045,
+                  "y": 0.35,
+                  "width": 0.11,
+                  "height": 0.21
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-06:i2:2",
-                  "label": "Caixa estreita e inclinada",
-                  "x": 0.7219,
-                  "y": 0.2792,
-                  "width": 0.0813,
-                  "height": 0.1083
+                  "label": "Caixa longa e inclinada",
+                  "x": 0.25,
+                  "y": 0.53,
+                  "width": 0.08,
+                  "height": 0.125
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-06:i2:3",
-                  "label": "Contorno tracejado, na haste",
-                  "x": 0.5625,
-                  "y": 0.7333,
-                  "width": 0.1313,
-                  "height": 0.0917
+                  "label": "Contorno amarelo do osso, na haste",
+                  "x": 0.065,
+                  "y": 0.78,
+                  "width": 0.09,
+                  "height": 0.12
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-06:i2:4",
                   "label": "Caixa mais alta da coluna",
-                  "x": 0.1563,
-                  "y": 0.1167,
-                  "width": 0.125,
-                  "height": 0.0917
+                  "x": 0.71,
+                  "y": 0.13,
+                  "width": 0.145,
+                  "height": 0.155
                 },
                 {
                   "id": "region:rtg-2026:m30:aula-06:i2:5",
                   "label": "Caixa mais baixa da coluna",
-                  "x": 0.1563,
-                  "y": 0.5417,
-                  "width": 0.125,
-                  "height": 0.0917
+                  "x": 0.71,
+                  "y": 0.66,
+                  "width": 0.17,
+                  "height": 0.17
                 }
               ],
               "correctRegionIds": [
@@ -2376,7 +2330,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:m30:aula-02"
         ],
-        "prompt": "Na coluna lombar do esquema, quais vértebras recebem uma caixa cada?",
+        "prompt": "Na coluna lombar da imagem, quais vértebras recebem uma caixa cada?",
         "options": [
           {
             "id": "option:rtg-2026:m30:aula-02:c1:a",
@@ -2589,7 +2543,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
           },
           {
             "id": "option:rtg-2026:m30:aula-05:c1:c",
-            "label": "Em cinco, um para cada região do corpo"
+            "label": "Em quatro, um para cada região do corpo"
           },
           {
             "id": "option:rtg-2026:m30:aula-05:c1:d",
@@ -2610,28 +2564,28 @@ export const RTG_2026_M30: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:m30:aula-05"
         ],
-        "prompt": "Na figura, o que as três faixas de cor empilhadas representam?",
+        "prompt": "Segundo a aula, o que cada região do corpo recebe no exame de corpo inteiro?",
         "options": [
           {
             "id": "option:rtg-2026:m30:aula-05:c2:a",
-            "label": "Três regiões do corpo, todas com a mesma massa total"
+            "label": "Só o valor do osso, porque a massa magra e a gordura ficam para o corpo todo"
           },
           {
             "id": "option:rtg-2026:m30:aula-05:c2:b",
-            "label": "A parte do corpo que recebe mais radiação no exame"
+            "label": "Um valor único de massa, sem separar os componentes"
           },
           {
             "id": "option:rtg-2026:m30:aula-05:c2:c",
-            "label": "Os três componentes, como legenda de cor sem proporção"
+            "label": "Os três valores: osso, massa magra e gordura"
           },
           {
             "id": "option:rtg-2026:m30:aula-05:c2:d",
-            "label": "Três exames feitos em dias diferentes, em sequência"
+            "label": "Valores só do tronco, e as outras regiões ficam sem medida"
           }
         ],
         "correctOptionId": "option:rtg-2026:m30:aula-05:c2:c",
         "feedback": {
-          "correct": "Isso: as faixas são só legenda dos componentes, sem proporção medida.",
+          "correct": "Isso: cada região, como as pernas, recebe os três valores.",
           "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
         },
         "sourceIds": [
@@ -3419,34 +3373,13 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m30:aula-02:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m30:iscd-adult-positions",
-        "source:rtg-2026:m30:dxa-practice-guideline-2025"
-      ]
-    },
-    {
-      "claimId": "point:rtg-2026:m30:aula-02:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m30:iscd-adult-positions",
-        "source:rtg-2026:m30:dxa-practice-guideline-2025"
-      ]
+      "claimId": "label:rtg-2026:m30:aula-02:i2:4",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "label:rtg-2026:m30:aula-02:i2:2",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m30:iscd-adult-positions",
-        "source:rtg-2026:m30:dxa-practice-guideline-2025"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m30:aula-02:i2:4",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3465,21 +3398,6 @@ export const RTG_2026_M30: ProductionBatchV1 = {
     },
     {
       "claimId": "label:rtg-2026:m30:aula-02:i2:3",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m30:iscd-adult-positions",
-        "source:rtg-2026:m30:dxa-practice-guideline-2025"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m30:aula-02:i2:6",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
-    },
-    {
-      "claimId": "label:rtg-2026:m30:aula-02:i2:5",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3611,14 +3529,6 @@ export const RTG_2026_M30: ProductionBatchV1 = {
     },
     {
       "claimId": "region:rtg-2026:m30:aula-02:i4:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m30:dxa-practice-guideline-2025"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m30:aula-02:i4:5",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4666,13 +4576,16 @@ export const RTG_2026_M30: ProductionBatchV1 = {
     },
     {
       "claimId": "region:rtg-2026:m30:aula-04:i2:1",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m30:dxa-pitfalls-2013",
+        "source:rtg-2026:m30:dxa-practice-guideline-2025"
+      ]
     },
     {
       "claimId": "region:rtg-2026:m30:aula-04:i2:2",
-      "claimKind": "correct-answer",
+      "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m30:dxa-pitfalls-2013",
@@ -4681,7 +4594,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
     },
     {
       "claimId": "region:rtg-2026:m30:aula-04:i2:3",
-      "claimKind": "correct-answer",
+      "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m30:dxa-pitfalls-2013",
@@ -4690,12 +4603,15 @@ export const RTG_2026_M30: ProductionBatchV1 = {
     },
     {
       "claimId": "region:rtg-2026:m30:aula-04:i2:4",
-      "claimKind": "distractor",
-      "provenanceKind": "authorial-distractor",
-      "sourceIds": []
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m30:dxa-pitfalls-2013",
+        "source:rtg-2026:m30:dxa-practice-guideline-2025"
+      ]
     },
     {
-      "claimId": "region:rtg-2026:m30:aula-04:i2:5",
+      "claimId": "interaction:rtg-2026:m30:aula-04:i2:answer",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -6710,7 +6626,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
             },
             {
               "id": "option:rtg-2026:m30:aula-05:rt:d",
-              "label": "A faixa de cor da figura"
+              "label": "O osso, visto no painel da esquerda"
             }
           ],
           "correctOptionId": "option:rtg-2026:m30:aula-05:rt:a",
@@ -6794,6 +6710,53 @@ export const RTG_2026_M30: ProductionBatchV1 = {
           ]
         }
       }
+    ],
+    "images": [
+      {
+        "id": "image:rtg-2026:m30:dxa-quadril-coluna-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m30/dxa-quadril-coluna-01.jpg",
+        "sourcePage": "https://ojrd.biomedcentral.com/articles/10.1186/1750-1172-5-30",
+        "author": "Dominique P. Germain, figura de Caroline Lebreton, Orphanet Journal of Rare Diseases, 2010",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "retrievedAt": "2026-11-22",
+        "sha256Original": "6905a26eb63672b8a0d71ac89655b5a326f4c729a5f1e3670aec82a42caa57da",
+        "sha256Asset": "9213b16b0cd3c5a05fd38c05275b218157c221f2664e1d62d09745d1dbd330fc",
+        "modification": "recompressão em JPEG, sem recorte; cópia obtida no Wikimedia Commons (File:Morbus_Fabry_DXA_01.jpg), conferida contra o artigo de origem",
+        "alt": "Duas imagens lado a lado de um exame de densitometria, marcadas A e B. A, à esquerda, mostra a parte de cima de um osso da coxa, com contornos, retângulos e linhas amarelas desenhados por cima. B, à direita, mostra uma coluna de vértebras, com quatro faixas amarelas empilhadas marcadas L1, L2, L3 e L4.",
+        "width": 1200,
+        "height": 763
+      },
+      {
+        "id": "image:rtg-2026:m30:dxa-coluna-cimento-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m30/dxa-coluna-cimento-01.jpg",
+        "sourcePage": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0285898",
+        "author": "Lin YH, Chou CS, Teng MMH, PLoS One, 2023",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "retrievedAt": "2026-11-22",
+        "sha256Original": "685d84cf7a0de5c1af19ea2c41356cb643bb2c158bf008d93de074133eb34651",
+        "sha256Asset": "6bde2bb116a0c8c7affdd4e8f8ca8a26cfe1342aa4b0fbc670f6fc2a2b1b5393",
+        "modification": "recorte do painel da esquerda (a figura tem três painéis) e conversão para tons de cinza e para JPEG",
+        "alt": "Imagem de densitometria da coluna lombar, em tons de cinza e em formato vertical, com quatro faixas brancas empilhadas, marcadas L1, L2, L3 e L4, sobre uma fileira de vértebras.",
+        "width": 660,
+        "height": 890
+      },
+      {
+        "id": "image:rtg-2026:m30:dxa-corpo-inteiro-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m30/dxa-corpo-inteiro-01.jpg",
+        "sourcePage": "https://www.scielo.br/j/rb/a/xCP7kTVvddp4Qr9FG9PD8CN/?lang=en",
+        "author": "Chaves LGCM, Gonçalves TJM, Bitencourt AGV, Rstom RA, Pereira TR, Velludo SF, Radiologia Brasileira, 2022",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "retrievedAt": "2026-11-22",
+        "sha256Original": "6a4f7ce5084de25654ad8a14af0e462827a338250fe1c3d005c3dd58e720f9bf",
+        "sha256Asset": "cb202b06f12f8f1122573c8db4ef8dc8da45785b10306befd4dfd84560bde889",
+        "modification": "redução e conversão para JPEG, sem recorte",
+        "alt": "Duas imagens lado a lado de um exame de corpo inteiro, em formato vertical. À esquerda, o esqueleto em tons de cinza sobre fundo preto. À direita, o corpo em um mapa de cores verde, amarelo e vermelho. Linhas finas de corte cruzam as duas imagens.",
+        "width": 868,
+        "height": 1200
+      }
     ]
   },
   "schemaRefs": {
@@ -6810,7 +6773,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bf8f95de321cef48b00e33e5a89ad3f1ad23edd041e5cb287b00a4b0ec70fb68"
+      "materialSha256": "72bc56089be700254371f2247acf8ddc5484e419ef391a9e5a8bd3c1eefa1dca"
     },
     {
       "schemaVersion": 1,
@@ -6819,7 +6782,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bf8f95de321cef48b00e33e5a89ad3f1ad23edd041e5cb287b00a4b0ec70fb68"
+      "materialSha256": "72bc56089be700254371f2247acf8ddc5484e419ef391a9e5a8bd3c1eefa1dca"
     },
     {
       "schemaVersion": 1,
@@ -6828,7 +6791,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bf8f95de321cef48b00e33e5a89ad3f1ad23edd041e5cb287b00a4b0ec70fb68"
+      "materialSha256": "72bc56089be700254371f2247acf8ddc5484e419ef391a9e5a8bd3c1eefa1dca"
     },
     {
       "schemaVersion": 1,
@@ -6837,7 +6800,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bf8f95de321cef48b00e33e5a89ad3f1ad23edd041e5cb287b00a4b0ec70fb68"
+      "materialSha256": "72bc56089be700254371f2247acf8ddc5484e419ef391a9e5a8bd3c1eefa1dca"
     },
     {
       "schemaVersion": 1,
@@ -6846,7 +6809,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bf8f95de321cef48b00e33e5a89ad3f1ad23edd041e5cb287b00a4b0ec70fb68"
+      "materialSha256": "72bc56089be700254371f2247acf8ddc5484e419ef391a9e5a8bd3c1eefa1dca"
     },
     {
       "schemaVersion": 1,
@@ -6855,7 +6818,7 @@ export const RTG_2026_M30: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "bf8f95de321cef48b00e33e5a89ad3f1ad23edd041e5cb287b00a4b0ec70fb68"
+      "materialSha256": "72bc56089be700254371f2247acf8ddc5484e419ef391a9e5a8bd3c1eefa1dca"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

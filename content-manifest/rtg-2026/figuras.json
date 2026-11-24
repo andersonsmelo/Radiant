@@ -9,5 +9,478 @@
     "retrievedAt": "2026-11-19",
     "sha256Original": "05ad89627de45b71c7a759b6275bc23e8fcf93635602ff6813298c57cd736da6",
     "modification": "Removidos rótulos e linhas de chamada; recolorido para a paleta do app; fundo escuro; recorte do quadro."
+  },
+  {
+    "id": "esqueleto-axial-apendicular",
+    "origem": "acervo",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Human_skeleton_front_-_no_labels.svg",
+    "author": "Mikael Häggström (derivada de Human skeleton front, de LadyofHats / Mariana Ruiz Villarreal)",
+    "license": "Domínio público",
+    "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Licensing#Public_domain",
+    "retrievedAt": "2026-11-19",
+    "sha256Original": "c8d5c3f208deac302ab3f7d70c0f499719c53de865f47df264d21f9e298cbc72",
+    "modification": "Removidos fundo, camada de rótulos (vazia), pés e sombras em gradiente das órbitas (viraram sombra chapada); 78 detalhes menores que 2,5 unidades descartados (nenhum osso inteiro; esterno e todos os caminhos do original incluídos) e coordenadas arredondadas a 0,1 para caber no teto de 240 KiB; recolorido para a paleta do app (axial em azul, apendicular em âmbar); fundo transparente; corte do crânio ao joelho no quadro 4:3."
+  },
+  {
+    "id": "articulacao-sinovial",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/normal-joint/",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-19",
+    "sha256Original": "48f389211210de0a4383ab588ee04b9a30e57e990909475bdbfb15fa0fc566ee",
+    "modification": "Vetores de uma única figura, \"Normal joint\" (slide 29 do pptx SMART-Bones, https://smart.servier.com/smart_image/normal-joint/), convertidos para SVG; removidos textos; recolorido para a paleta do app; fundo transparente; escala 0,62 e corte do quadro 320x240 (ossos saem do quadro). Sem ligamento: a faixa do ligamento colateral da figura Knee (2), frontal view, do mesmo kit, foi testada e descartada."
+  },
+  {
+    "id": "linhas-do-cranio",
+    "origem": "acervo",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Human_skull_front_bones.svg",
+    "author": "LadyofHats (Mariana Ruiz Villarreal)",
+    "license": "Domínio público",
+    "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Licensing#Public_domain",
+    "retrievedAt": "2026-11-19",
+    "sha256Original": "a0e4799ef4fbd913f9ce2805910871481758991b94d5e05efcab4ec11d776c85",
+    "modification": "Vista de frente: removidos fundo branco, rótulos e linhas de chamada de \"Human skull front bones\" (https://commons.wikimedia.org/wiki/File:Human_skull_front_bones.svg, sha256 acima); vista de perfil: \"Human skull side bones\" (https://commons.wikimedia.org/wiki/File:Human_skull_side_bones.svg, mesma autora, domínio público; original com sha256 05ad89627de45b71c7a759b6275bc23e8fcf93635602ff6813298c57cd736da6, já limpo em fontes/cranio-de-perfil-ossos.svg). Os dois crânios foram recoloridos em tons neutros (sem as cores dos ossos), compostos lado a lado no quadro 320x240 e achatados para atributos de apresentação. As linhas orbitomeatal, infraorbitomeatal, interpupilar e o plano sagital mediano são código do projeto, numa camada própria por cima da arte."
+  },
+  {
+    "id": "coluna-regioes",
+    "origem": "acervo",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:202410_Vertebral_column_spine.svg e https://togotv.dbcls.jp/togopic.2024.239.html",
+    "author": "erico (design); JSHG e DBCLS (edição), Togopic",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "31762f8dad26216da1ad08b235242cfeaae12d4e2eed5deece37c29832f4a40d",
+    "modification": "Mantida só a vista de perfil (a vista de frente foi removida); espelhada na horizontal, para a frente do corpo ficar à esquerda; recoloridas as cinco regiões (cervical ciano, torácica azul, lombar âmbar, sacro cinza claro, cóccix cinza) e os discos e contornos para tons escuros; sem fundo; enquadrada em 320x240 e achatada para atributos de apresentação. Sem rótulos na arte original."
+  },
+  {
+    "id": "vertebra-tipica",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/vertebra-bone-view/",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "48f389211210de0a4383ab588ee04b9a30e57e990909475bdbfb15fa0fc566ee",
+    "modification": "Vetores do grupo \"Group 139\" do slide \"Vertebra\" de SMART-Bones.pptx (original.pptx, sha256 acima; kit https://smart.servier.com/wp-content/uploads/2016/10/SMART-Bones.pptx), renderizados em SVG sem alterar as formas; recolorido para a paleta do app (corpo âmbar, arco azul, facetas dos processos articulares ciano, contornos quase pretos); fundo transparente; enquadrado em 320x240; nenhum rótulo existia na arte."
+  },
+  {
+    "id": "joelho-frente-e-perfil",
+    "origem": "acervo",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Knee_skeleton_lateral_anterior_views.svg",
+    "author": "Patrick J. Lynch, medical illustrator (crédito pedido pelo autor: Patrick J. Lynch, medical illustrator; C. Carl Jaffe, MD, cardiologist), Yale University Center for Advanced Instructional Media",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "aea4da9207f631ba0a4d47b5627b00b7b3e4b04309331f7bf5df1abd1161833c",
+    "modification": "A página do Commons declara CC BY 2.5 e os metadados do próprio SVG declaram CC BY 3.0; vale a licença da página. Original original.svg (Wikimedia Commons, 'Knee skeleton lateral anterior views.svg', sha256 acima; sem texto algum). As silhuetas foram divididas em ossos (fêmur, tíbia, fíbula e, no perfil, patela) só ao longo de traços que o próprio autor desenhou, sem alterar os contornos (de frente, o traço que contorna a tíbia e a separa da cabeça da fíbula; de perfil, as bordas inferiores do fêmur e o contorno da fíbula); recolorido para a paleta do app (fêmur cinza claro, tíbia âmbar, fíbula ciano, patela azul, traços internos quase pretos); fundo transparente; recortado em altura (y 110 a 440 do original, cortes planos nas diáfises); a vista de perfil deslocada 85 unidades para a esquerda para aproximar as duas vistas; enquadrado em 320x240; caminhos achatados em polígonos simplificados (tolerância 0,12). Nenhum rótulo existia na arte. Nenhuma divisa de cor é linha digitada pelo projeto. Os traços de frente entre tíbia e fíbula existem no original, mas ficam sob a silhueta e não aparecem na figura publicada; aqui aparecem, junto com cerca de 20 outros traços do autor da tíbia e da fíbula de frente, desenhados por cima da silhueta."
+  },
+  {
+    "id": "ossos-do-pe",
+    "origem": "acervo",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:202110_Dorsal_view_of_bones_of_right_foot.svg e https://togotv.dbcls.jp/togopic.2021.124.html",
+    "author": "erico (design); Hiromasa Ono e DBCLS (edição), Togopic",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "bea59d292c8b6eded0295d219ffbad10eb788d8df0edaea193ef2b409022319e",
+    "modification": "Pé direito em vista dorsal, sem alterar as formas: removidos o fundo e a folha de estilo do original; recolorido por osso para a paleta do app (tarso em tons de branco e cinza claro que alternam entre ossos vizinhos, metatarsos e sesamoide em azul, falanges em âmbar, capas articulares em tom mais claro); girado 90 graus no sentido horário, para o calcanhar ficar à esquerda, os dedos à direita e o hálux em cima; enquadrado em 320x240 e achatado para atributos de apresentação. Sem rótulos na arte original."
+  },
+  {
+    "id": "trato-digestivo",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/complete-overview-digestive-apparatus/",
+    "author": "Servier Medical Art (Servier)",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "6acab3f2cb530644c75997db1c3e169f396050b34767b0780c6841fdc1627e53",
+    "modification": "Vetores copiados do pptx do kit SMART-Digestive-system (https://smart.servier.com/wp-content/uploads/2016/10/SMART-Digestive-system.pptx, slide 3, grupo \"Group 5\", sha256 acima; páginas do kit: smart_image/complete-digestive-apparatus e smart_image/complete-overview-digestive-apparatus, ambas CC BY 4.0). O grupo tem 972 formas; 7 delas, pontos de 1 x 1 (prstGeom line, cerca de 0,6 pt no quadro), não foram extraídas do pptx, e das 965 extraídas 215 foram removidas (cabeça, boca, nariz, faringe e a ponta do reto, todas fora do quadro); as 750 restantes (esôfago, fígado, estômago, pâncreas, intestinos delgado e grosso, vesícula, vasos, baço e os traços de apoio que ficam dentro do quadro) foram mantidas inteiras, sem alterar nenhum traçado. Recoloridas por estrutura, pela ordem de pintura da arte, para a paleta do app (fígado âmbar, esôfago cinza claro, pâncreas ciano, estômago e delgado em azuis, grosso cinza médio, vesícula em verde-petróleo, vasos e baço em cinza escuro), com os realces em tons mais claros do mesmo matiz; gradientes e sombreados achatados em atributos de apresentação; sem fundo; corte do esôfago ao reto e enquadramento em 320x240. O autor desenha estômago, duodeno e intestino delgado sobre um único contorno de base, então os dois órgãos compartilham o azul de base e se distinguem só pelo tom das camadas de sombra."
+  },
+  {
+    "id": "marcos-de-superficie",
+    "origem": "acervo",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Human_skeleton_front_no-text_no-color.svg",
+    "author": "LadyofHats (Mariana Ruiz Villarreal)",
+    "license": "Domínio público",
+    "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Licensing#Public_domain",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "f1528562040533dacc0a4326e82f5369a21f531f29e8183d3e3eafd67e561521",
+    "modification": "Recorte do tronco e da pelve (sem cabeça e pernas; antebraços e mãos só até onde entram no quadro); removidos o fundo branco e os caminhos fora do recorte (520 dos 915 caminhos ficam); recolorido por região para a paleta do app (esterno âmbar, costelas azuis, coluna ciano, pelve branca, fêmures âmbar claro, clavículas, escápulas e braços cinza); contorno do corpo em cinza; coordenadas dos caminhos a uma casa decimal, para caber no teto de peso. Nenhuma forma foi alterada além desse arredondamento; sem rótulos na arte original."
+  },
+  {
+    "id": "sistema-nervoso",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/nervous-system/",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Nervous-system",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "b6f10318613415bdcfed5503d7a082435f3641f87f66b39587c4b522664a7ebc",
+    "modification": "Vetores copiados do pptx do kit SMART-Nervous-system (https://smart.servier.com/wp-content/uploads/2016/10/SMART-Nervous-system.pptx, sha256 acima; arquivo slide29.xml do pacote, grupo \"Group 3\", ilustração \"Nervous system\" da página de origem, CC BY 4.0). Mantidas todas as 360 formas do grupo (corpo, encéfalo, medula e nervos), sem alterar nenhum traçado; as duas circunferências dos mamilos, que o extrator ignorava, foram incluídas. Sem rótulos (a arte original não tem). Recoloridas por classe de cor para a paleta do app: encéfalo e medula espinal em âmbar (cerebelo em âmbar mais escuro), nervos periféricos em ciano, corpo em cinza-azulado escuro com contorno cinza; sem fundo; gradientes achatados em atributos de apresentação; enquadrada em 320x240. Licença: vale a CC BY 4.0 declarada pelo Servier na página de origem (consultada em 2026-11-20); a Commons marca cópias PNG do mesmo kit como CC BY-SA 3.0, divergência registrada, e a arte veio do pptx do site, não da Commons."
+  },
+  {
+    "id": "femur-proximal-e-quadril",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/male-pelvis/ e https://smart.servier.com/smart_image/femur/",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "48f389211210de0a4383ab588ee04b9a30e57e990909475bdbfb15fa0fc566ee",
+    "modification": "Composição de duas peças do mesmo kit (SMART-Bones.pptx, original.pptx, sha256 acima; https://smart.servier.com/wp-content/uploads/2016/10/SMART-Bones.pptx): pelve de frente (slide \"Bones of pelvis\", \"Group 308\", masculina) e fêmur (slide \"Femur\", \"Group 50\"), formas renderizadas em SVG sem alteração. O kit nunca põe as duas peças juntas; a posição do fêmur segue critério anatômico MEDIDO na fonte, só por translação (o espelhamento horizontal e a escala de 1,05 do fêmur, que a arte original exige, ficam): (a) a cabeça fica fora do forame obturado, com a borda medial da cabeça 37 unidades da fonte (0,09 do diâmetro) à esquerda da borda lateral do forame; (b) a linha de Shenton é contínua: a borda inferomedial do colo e o teto do forame (margem inferior do ramo superior do púbis) caem num mesmo arco, com desvio máximo de 6 unidades no colo e 13 no teto. Translação final do fêmur: translate(3415 2610) em unidades da fonte; proporção e ângulo colo-diáfise são os do desenho do autor. O acetábulo não é desenhado pela arte. Recolorido para a paleta do app (pelve azul, cabeça do fêmur ciano, fêmur âmbar, sínfise cinza, contornos quase pretos); fundo transparente; nenhum rótulo existia na arte. Recorte do quadril direito no quadro 320x240. Licença: vale a oferta do Servier (CC BY 4.0, na página do próprio autor); as cópias do mesmo kit no Wikimedia Commons marcadas CC BY-SA 3.0 não foram usadas. Receita: scripts/content/figuras/receitas/femur-proximal-e-quadril.mjs (sem variáveis de ambiente reproduz a fonte)."
+  },
+  {
+    "id": "respiracao-diafragma",
+    "origem": "acervo",
+    "sourcePage": "https://github.com/duerrsimon/bioicons/tree/main/static/icons/cc-by-3.0/Human_physiology/Servier",
+    "author": "Servier Medical Art (Les Laboratoires Servier)",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "breathing-inspiration.svg d64f5898bd33b04ea5d17ebcdd4baab71314a9af1ec3287c94145060d2d4140f; breathing-expiration.svg 76abf8b333853b50abfde193d00aba873ec7abf88cce76bf0c7077f12c2e1e62",
+    "modification": "Os dois desenhos do autor (expiração à esquerda, inspiração à direita), inteiros e parados, lado a lado na mesma escala e alinhados pelo topo e pelo eixo do esterno. Removidos só a seta, o texto \"Inspiration\"/\"Expiry\" e o retângulo de recorte; todos os demais caminhos mantidos (texturas, brilhos, contornos). Recolorido para a paleta do app (pulmões azul, ossos cinza claro, diafragma âmbar), coordenadas na grade de 0,1 da unidade do autor (desvio máximo 0,05 unidade = 0,023 pt do quadro), sem fundo, enquadrado em 320x240 e achatado para atributos de apresentação. Sem traqueia. Nenhuma forma redesenhada. Arquivos obtidos do catálogo Bioicons (https://github.com/duerrsimon/bioicons/tree/main/static/icons/cc-by-3.0/Human_physiology/Servier, breathing-inspiration.svg e breathing-expiration.svg, que o catálogo marca CC BY 3.0); autoria e licença vigente na página do Servier (CC BY 4.0, que vale); as cópias do Commons marcadas CC BY-SA 3.0 não foram usadas. Nenhum caminho foi unido: 545 caminhos do autor viram 541 na fonte (menos a seta e o retângulo de recorte de cada desenho); os 1503 subcaminhos, todos os traços, ficam, e o render da fonte confere com o dos dois desenhos do autor sem diferença de contorno. Receita: scripts/content/figuras/receitas/respiracao-diafragma.compor.mjs (sem variáveis de ambiente reproduz a fonte)."
+  },
+  {
+    "id": "circulacao-dupla",
+    "origem": "acervo",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:202410_Systemic_and_pulmonary_circulation.svg",
+    "author": "erico (design); JSHG e DBCLS (edição), Togopic / DataBase Center for Life Science (DBCLS)",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "36b54e6580544cad045c295f3bea111f8f9ac92f4f456bea1177e95400aaca84",
+    "modification": "Removidos os dados privados do Illustrator (metadata); recolorido para a paleta do app (vermelho do autor virou âmbar, azul e cinzas da paleta, pulmões em ciano escuro); os cinco recortes (clipPath) do original foram resolvidos em caminhos por interseção do recorte com a forma (skia-pathops), com o mesmo preenchimento (dois degradês girados levaram a rotação para o gradientTransform), sem apagar nenhuma forma; os cinco clipPath saem do arquivo; recorte do quadro 4:3 pelo viewBox (-30 -3 460 345): pulmões, coração e corpo com a rede capilar, pernas fora; fundo transparente; parado (sem movimento)."
+  },
+  {
+    "id": "seios-da-face",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/nasal-cavity/",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-ENT",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "609d45c8ad7fe56bf186895791cbd953b7de245c36764762b5d14c437cc6f1f0",
+    "modification": "Original: kit SMART-ENT.pptx (slide 4). Formas livres convertidas em SVG sem alterar traçado; nenhum caminho do autor removido (347 de 347); o que passa do quadro sai pelo enquadramento; recolorido para a paleta do app (frontal e maxilar azul, etmoidal ciano, esfenoidal âmbar, tecidos em cinzas); fundo transparente; quadro 320 x 240. Licença: vale a oferta do Servier (CC BY 4.0, na página do próprio autor); as cópias do mesmo kit no Wikimedia Commons marcadas CC BY-SA 3.0 não foram usadas."
+  },
+  {
+    "id": "seios-da-face-frente",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/paranasal-sinuses/",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-ENT",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "609d45c8ad7fe56bf186895791cbd953b7de245c36764762b5d14c437cc6f1f0",
+    "modification": "Original: kit SMART-ENT.pptx (slide 7). Formas livres convertidas em SVG sem alterar traçado; nenhum caminho do autor removido (114 de 114); o que passa do quadro sai pelo enquadramento; recolorido para a paleta do app (frontal e maxilar azul, etmoidal ciano, esfenoidal âmbar, tecidos em cinzas); fundo transparente; quadro 320 x 240. Licença: vale a oferta do Servier (CC BY 4.0, na página do próprio autor); as cópias do mesmo kit no Wikimedia Commons marcadas CC BY-SA 3.0 não foram usadas."
+  },
+  {
+    "id": "sistema-urinario",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/urinary-tract/",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Urinary-system",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "49a500bd2e70c173fae5e556414ea7f3d23051a62f881b4ae2a531727f78c397",
+    "modification": "Figura inteira (sistema urinário feminino de frente) enquadrada em 320x240, 222 de altura, centrada. Servier Medical Art, kit SMART-Urinary-system (https://smart.servier.com/wp-content/uploads/2016/10/SMART-Urinary-system.pptx), slide 3 \"Urinary tract\", grupo \"Group 3\" (494 formas: dois rins, um inteiro e outro em corte, dois ureteres e a bexiga aberta com a uretra), conferido na página do próprio Servier (CC BY 4.0). Divergência registrada: as cópias do Commons dessa arte dizem CC BY-SA 3.0; usa-se só a licença da página do autor, e nenhuma cópia do Commons. Sem rótulos (a arte não tem). As duas elipses de 10x5 e 7x5 unidades do grupo, menores que meio ponto no quadro, não foram convertidas (o conversor do pptx lê só formas livres). Recolorida por estrutura, mantendo a luminosidade original de cada forma (rins âmbar, ureteres ciano, bexiga e uretra azuis); gradientes achatados em atributos de apresentação; sem fundo; todas as formas do autor mantidas, coordenadas originais sem arredondamento."
+  },
+  {
+    "id": "bexiga-e-uretra",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/urinary-tract/",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Urinary-system",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "49a500bd2e70c173fae5e556414ea7f3d23051a62f881b4ae2a531727f78c397",
+    "modification": "Recorte ampliado (escala 0,25) da mesma arte de sistema-urinario, sem redesenho: as formas que cruzam a borda ficam inteiras e o quadro corta; as que ficam todas fora do quadro não foram copiadas. Servier Medical Art, kit SMART-Urinary-system (https://smart.servier.com/wp-content/uploads/2016/10/SMART-Urinary-system.pptx), slide 3 \"Urinary tract\", grupo \"Group 3\" (494 formas: dois rins, um inteiro e outro em corte, dois ureteres e a bexiga aberta com a uretra), conferido na página do próprio Servier (CC BY 4.0). Divergência registrada: as cópias do Commons dessa arte dizem CC BY-SA 3.0; usa-se só a licença da página do autor, e nenhuma cópia do Commons. Sem rótulos (a arte não tem). As duas elipses de 10x5 e 7x5 unidades do grupo, menores que meio ponto no quadro, não foram convertidas (o conversor do pptx lê só formas livres). Recolorida por estrutura, mantendo a luminosidade original de cada forma (rins âmbar, ureteres ciano, bexiga e uretra azuis); gradientes achatados em atributos de apresentação; sem fundo; todas as formas do autor mantidas, coordenadas originais sem arredondamento."
+  },
+  {
+    "id": "contraste-no-corpo",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/urinary-tract/",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kits SMART-Digestive-system e SMART-Urinary-system",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "49a500bd2e70c173fae5e556414ea7f3d23051a62f881b4ae2a531727f78c397",
+    "modification": "Duas peças do mesmo autor (Servier Medical Art, CC BY 4.0, ambas conferidas na página do próprio Servier; as cópias do Commons, CC BY-SA 3.0, não foram usadas) postas lado a lado no quadro 320x240, sem sobreposição e com a mesma linha de base: à esquerda o trato digestivo (kit SMART-Digestive-system, slide 3, grupo \"Group 5\", página https://smart.servier.com/smart_image/complete-overview-digestive-apparatus/, sha256 do pptx 6acab3f2cb530644c75997db1c3e169f396050b34767b0780c6841fdc1627e53, as mesmas 750 formas da figura trato-digestivo, sem a cabeça e a boca, que ficam fora de qualquer quadro), à direita o sistema urinário feminino (kit SMART-Urinary-system, https://smart.servier.com/wp-content/uploads/2016/10/SMART-Urinary-system.pptx, slide 3, grupo \"Group 3\", sha256 acima, 494 formas: dois rins, dois ureteres e a bexiga como o autor os desenhou numa só peça; as duas elipses de 10x5 e 7x5 unidades do grupo, menores que meio ponto no quadro, não foram convertidas). Cada sistema foi posto inteiro, como o autor desenhou, sem posição relativa inventada entre eles. Sem rótulos (o grupo não os tem). Recolorido por sistema: o trato digestivo todo em âmbar e o urinário todo em azul, cada um com tons pela luminosidade original de cada forma; gradientes achatados em atributos de apresentação; sem fundo; coordenadas dos caminhos arredondadas por igual a unidades inteiras e reescritas em relativo para caber no teto de 240 KiB."
+  },
+  {
+    "id": "pelve-de-frente",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/male-pelvis/",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "48f389211210de0a4383ab588ee04b9a30e57e990909475bdbfb15fa0fc566ee",
+    "modification": "Uma peça do kit SMART-Bones (SMART-Bones.pptx, original.pptx, sha256 acima; https://smart.servier.com/wp-content/uploads/2016/10/SMART-Bones.pptx): slide \"Bones of pelvis\", \"Group 308\" (pelve masculina de frente, com a base da quinta lombar), formas renderizadas em SVG sem alteração (129 caminhos do autor, todos mantidos, nenhum unido, apagado ou recortado). Só recolorido para a paleta do app (osso azul #4A9EFF com os tons derivados do sombreado do autor, sínfise púbica cinza claro, contornos quase pretos), fundo transparente e enquadrado em 320x240 (viewBox 2713 1137 2807 2105 na unidade da fonte, 3% de margem em cima e embaixo). O autor desenha o osso do quadril como uma peça só: ílio, ísquio e púbis não têm cor nem divisa próprias, e nada foi acrescentado. O acetábulo não é desenhado pela arte. Nenhum rótulo existia na arte. Licença: vale a oferta do Servier (CC BY 4.0, na página de termos do próprio autor, https://smart.servier.com/); as cópias do mesmo kit no Wikimedia Commons marcadas CC BY-SA 3.0 não foram usadas. Receita: scripts/content/figuras/receitas/pelve-de-frente.mjs (entrada: scripts/content/figuras/receitas/s11_Group_308.svg, versionada, saída de femur-proximal-e-quadril.pptx2svg.py sobre o original.pptx)."
+  },
+  {
+    "id": "pelve-de-frente-recorte",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/male-pelvis/",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "48f389211210de0a4383ab588ee04b9a30e57e990909475bdbfb15fa0fc566ee",
+    "modification": "Mesmo desenho de pelve-de-frente (slide \"Bones of pelvis\", \"Group 308\", kit SMART-Bones; os mesmos 129 caminhos do autor, nenhum apagado, unido, recortado ou acrescentado), só com outro enquadramento: viewBox 3444 2257 1345 1009 na unidade da fonte (recorte ampliado da parte de baixo da pelve, com os dois forames obturados, a sínfise púbica, os púbis e a ponta do cóccix; o resto sai do quadro pelo viewBox). Recolorido como pelve-de-frente (osso azul, sínfise cinza claro, contornos quase pretos), fundo transparente, 320x240. Fonte: scripts/content/figuras/fontes/pelve-de-frente-recorte.svg (cópia da fonte de pelve-de-frente com outro viewBox; o conversor lê o viewBox do próprio arquivo). Licença: oferta do Servier (CC BY 4.0, página de termos); as cópias do Commons CC BY-SA 3.0 não foram usadas. Receita: scripts/content/figuras/receitas/pelve-de-frente-recorte.mjs (depois de pelve-de-frente.mjs)."
+  },
+  {
+    "id": "osso-longo",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/femur/",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "48f389211210de0a4383ab588ee04b9a30e57e990909475bdbfb15fa0fc566ee",
+    "modification": "O fêmur inteiro do kit SMART-Bones (https://smart.servier.com/wp-content/uploads/2016/10/SMART-Bones.pptx, sha256 48f389211210de0a4383ab588ee04b9a30e57e990909475bdbfb15fa0fc566ee; slide \"Femur\", \"Group 50\", 45 caminhos), formas renderizadas em SVG sem alteração pelo conversor do repositório (scripts/content/figuras/receitas/femur-proximal-e-quadril.pptx2svg.py; saída s14_Group_50.svg, sha256 d599565d9ba086dfbe088c04245e66c6cda5de067e210612995c3cd6048e84fe). Único passo novo: giro de 90 graus (cabeça do fêmur à esquerda, côndilos à direita) e enquadramento 4:3 (viewBox 43 -4452.5 4200 3150) no quadro 320x240. Recolorido para a paleta do app (osso âmbar em três tons, capas de cartilagem articular do autor em ciano, contornos quase pretos); fundo transparente; nenhum rótulo existia na arte. Todos os 45 caminhos mantidos, sem corte, união, divisão nem forma nova. Sem placa de crescimento, cavidade medular nem osso esponjoso (a arte é externa). Licença: vale a oferta do Servier (CC BY 4.0, na página do próprio autor); as cópias do mesmo kit no Wikimedia Commons marcadas CC BY-SA 3.0 não foram usadas. Receita: scripts/content/figuras/receitas/osso-longo.mjs (entrada: scripts/content/figuras/receitas/s14_Group_50.svg, versionada, sha256 d599565d9ba086dfbe088c04245e66c6cda5de067e210612995c3cd6048e84fe); o spec sai de fontes/osso-longo.svg pelo build-spec.mjs. Troca por decisão do dono de 2026-11-20 da versão anterior desta figura (Pbroks13, extremidade em corte)."
+  },
+  {
+    "id": "coluna-sagital-e-axial",
+    "origem": "acervo",
+    "sourcePage": "https://smart.servier.com/smart_image/vertebral-column-9/",
+    "author": "Servier Medical Art (Les Laboratoires Servier), kit SMART-Bones",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "48f389211210de0a4383ab588ee04b9a30e57e990909475bdbfb15fa0fc566ee",
+    "modification": "Vetores do grupo \"Group 3\" do slide 9 (\"Vertebral Column (2)\") de SMART-Bones.pptx (original.pptx, sha256 acima; kit https://smart.servier.com/wp-content/uploads/2016/10/SMART-Bones.pptx), renderizados em SVG sem alterar as formas; recolorido para a paleta do app (osso âmbar, discos azuis, medula e raízes ciano, tecidos moles em cinza, contornos quase pretos); fundo transparente; recortado em 4:3 pelo viewBox (mantidos os 869 de 2158 caminhos que tocam o recorte; os 1289 inteiramente fora do quadro não foram copiados); coordenadas intactas (render da fonte idêntico, 0 pixels diferentes, ao do original recolorido com o mesmo viewBox); nenhum rótulo existia na arte. Licença conferida na página do Servier (CC BY 4.0); as cópias do mesmo kit no Wikimedia Commons marcadas CC BY-SA 3.0 não foram usadas. A página exata do slide no site do Servier não foi confirmada: o kit e o slide acima são a fonte exata. Receita: scripts/content/figuras/receitas/coluna-sagital-e-axial.mjs (entrada: scripts/content/figuras/receitas/coluna-sagital-e-axial.original.svg, versionada, sha256 150285d6283c7ce12222821541c14884f33354a056262fe04cf84d35e5f4efc1, saída de vertebra-tipica.pptx2svg.py sobre o pptx do kit)."
+  },
+  {
+    "id": "tubo-raios-x",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/tubo-raios-x.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/tubo-raios-x.mjs",
+    "modification": "Ampola de raios X com o vidro transparente: cátodo com filamento à esquerda, disco do ânodo à direita, janela embaixo e feixe para baixo. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parado, sem texto no desenho. Ângulo do alvo do ânodo exagerado para 22 graus (o real vai de 7 a 17) e dimensões esquemáticas, para o bisel e as peças lerem no tamanho do app."
+  },
+  {
+    "id": "tubo-emitindo",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/tubo-emitindo.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/tubo-emitindo.mjs",
+    "modification": "A mesma ampola de tubo-raios-x (mesma geometria) em funcionamento e parada: filamento aceso, cinco filas de elétrons, ponto focal brilhando e feixe pela janela. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parado, sem texto no desenho. Ângulo do alvo exagerado para 22 graus; elétrons em linha reta, simplificação."
+  },
+  {
+    "id": "anodo-giratorio",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/anodo-giratorio.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/anodo-giratorio.mjs",
+    "modification": "Disco do ânodo visto de frente e parado, com a pista em anel, o ponto de impacto fixo, o trecho aquecido logo depois do impacto, a seta do sentido do giro e o feixe para baixo. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parado, sem texto no desenho. O giro se lê pela seta, pelas marcas radiais e pelo rastro aquecido; ângulo do alvo exagerado para 22 graus."
+  },
+  {
+    "id": "conferencia-de-identidade",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/conferencia-de-identidade.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/conferencia-de-identidade.mjs",
+    "modification": "Paciente deitado numa maca com pulseira no punho, profissional de pé com a folha do pedido e tela de computador num pedestal. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parado, sem texto no desenho. Pulseira, folha e tela são maiores que o real, de propósito, para o marcador do app esconder menos."
+  },
+  {
+    "id": "pontos-de-contato-da-sala",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/pontos-de-contato-da-sala.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/pontos-de-contato-da-sala.mjs",
+    "modification": "Sala de exame com porta e maçaneta, receptor vertical com barra de apoio, mesa de exame, tubo de teto com manopla e mesa do comando com teclado. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parado, sem texto no desenho. Maçaneta, barra, manopla e teclado são maiores que o real, de propósito, para o marcador do app esconder menos."
+  },
+  {
+    "id": "itens-de-emergencia-da-sala",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/itens-de-emergencia-da-sala.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/itens-de-emergencia-da-sala.mjs",
+    "modification": "Parede de uma sala de exame com porta de saída, carrinho de emergência, saída de oxigênio, botão de chamada e telefone, e a mesa de exame no chão. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parado, sem texto no desenho. Oxigênio, botão e telefone são placas bem maiores que o real, de propósito, para o marcador do app esconder menos."
+  },
+  {
+    "id": "transferencia-maca-mesa",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/transferencia-maca-mesa.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/transferencia-maca-mesa.mjs",
+    "modification": "Maca paralela à mesa de exame, do lado do espectador, com um vão lateral entre as duas, paciente deitada na maca, suporte de soro com a linha esticada até o braço e prancha de transferência encostada no pedestal; as rodas da maca estão com o bloco do freio pousado, menos a da frente do lado dos pés, com o bloco erguido. Rodas (26 cm de diâmetro contra 15 a 20 reais) e bloco do freio (22 cm) maiores que o real, de propósito, para o selo do app esconder menos. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "raio-x-movel-no-leito",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/raio-x-movel-no-leito.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/raio-x-movel-no-leito.mjs",
+    "modification": "Raio X móvel no leito: paciente recostado, aparelho móvel com o tubo apontado para o tórax, detector atrás das costas, operador de avental a cerca de 2,5 m, pessoa sem avental junto à cabeceira e leito vizinho com paciente no sentido do feixe. Distância tubo-detector de 120 cm. Cabeçote e colimador 1,3 vez e detector 1,27 vez maiores que o real, de propósito. Entra parada. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "trauma-raio-horizontal",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/trauma-raio-horizontal.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/trauma-raio-horizontal.mjs",
+    "modification": "Paciente deitado de costas na prancha sobre a maca, com colar cervical, tubo do aparelho móvel de um lado e feixe horizontal (paralelo ao piso, perpendicular ao eixo do corpo, 150 cm do tubo ao detector) até o detector em pé do outro lado, a 11 cm do ombro. Cabeçote e colimador 1,3 vez e detector maiores que o real, de propósito. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "dosimetro-no-corpo",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/dosimetro-no-corpo.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/dosimetro-no-corpo.mjs",
+    "modification": "Profissional de avental, de frente, com crachá de dosimetria no peito, anel em volta da mão do braço estendido, dosímetro na haste dos óculos e, à direita, quadro de parede com o dosímetro de referência. Dosímetros bem maiores que o real, de propósito (tronco 24 x 16 contra 3 x 4 cm, olho 13 x 11 contra 1,5 x 2, anel de 9 de raio externo e 5 de altura, referência 34 x 24 contra 5 x 3). Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "produto-dose-area",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/produto-dose-area.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/produto-dose-area.mjs",
+    "modification": "Tubo de raios X de teto com colimador e câmara de produto dose-área presa à saída por duas hastes; dois campos do mesmo foco, um estreito e um largo (tracejado), atravessam a câmara e chegam ao paciente deitado na mesa. Câmara de 36 x 36 cm, maior que o real, de propósito; o campo largo passa dos limites do corpo para se ler. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "fluoroscopia-cadeia",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/fluoroscopia-cadeia.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/fluoroscopia-cadeia.mjs",
+    "modification": "Fluoroscopia em perspectiva: paciente deitado de costas na mesa, tubo sob o tampo com o cone subindo até o receptor de imagem 46 cm acima do tampo (foco a cerca de 94 cm do receptor, esquemático), monitor num suporte atrás da mesa, operador de avental e protetor de tireoide ao lado da mesa (de costas para a câmera) e o pedal no chão aos pés dele. Cabeçote 1,45 vez no raio e 1,35 no comprimento, pedal (52 x 38 x 15 cm), monitor (86 x 64 cm) e receptor (66 cm de lado) maiores que o real, de propósito, para o marcador do app esconder menos. Ponto de vista de azimute 112, o mesmo da sala-de-fluoroscopia-espalhada. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "sala-de-fluoroscopia-espalhada",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/sala-de-fluoroscopia-espalhada.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/sala-de-fluoroscopia-espalhada.mjs",
+    "modification": "Sala de fluoroscopia com a mesma mesa, tubo sob o tampo, receptor e paciente da fluoroscopia-cadeia; do paciente sai radiação espalhada em leque, seis raios grossos sob a mesa, do lado do tubo, até a face do saiote preso à lateral do tampo, do lado de quem opera (esquemático), com a origem sob o ponto onde o feixe entra no paciente, e três raios finos tracejados acima, até o operador, que fica ao lado da mesa, de costas para a câmera, de avental, protetor de tireoide (anel azul) e óculos plumbíferos; o biombo e a segunda pessoa de avental ficam mais longe, do outro lado da mesa. Cabeçote 1,45 vez no raio e 1,35 no comprimento maiores que o real, de propósito. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "contencao-pediatrica",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/contencao-pediatrica.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/contencao-pediatrica.mjs",
+    "modification": "Criança pequena (kit, escala 0,62, cerca de 1,1 m) deitada de costas na mesa pediátrica sob o tubo de teto (foco a 168 cm, DFF de cerca de 90 cm), campo de luz de 28 x 28 cm sobre o tórax, faixa sobre as pernas e apoio de espuma encostado nas solas dos pés; acompanhante de avental sentado num banco à cabeceira, com as mãos nos punhos da criança a cerca de 25 cm da borda do campo; outra pessoa, sem avental, junto aos pés da mesa, com duas linhas tracejadas de espalhamento (esquemático) chegando a ela. A cabeça da criança deitada usa a proporção corrigida no kit. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "colimacao-pediatrica",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/colimacao-pediatrica.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/colimacao-pediatrica.mjs",
+    "modification": "A mesma criança (kit, escala 0,62) duas vezes, deitada de costas em duas mesas pediátricas, uma atrás da outra (a da frente à esquerda, a de trás à direita); retângulo de luz de 124 x 38 cm cobrindo o corpo todo da criança da frente e de 25 x 38 cm só sobre o tórax da de trás, com abdome e pelve fora. Sem tubo no quadro: a luz do colimador aparece como o retângulo aceso. Cabeça da criança deitada com a proporção corrigida no kit. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "idoso-apoios-e-riscos",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/idoso-apoios-e-riscos.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/idoso-apoios-e-riscos.mjs",
+    "modification": "Pessoa adulta do kit, de cabelo branco e com o tronco inclinado 14 graus para a frente, em pé de frente para a parede junto ao receptor vertical, com a mão esquerda numa barra de apoio (tubo de 50 cm, raio 4,2 cm contra 1,5 a 2,5 reais, a 108 cm do chão); banco (36 x 24 x 44 cm) encostado à parede, atrás dela e fora do caminho; degrau (46 x 30 x 14 cm) e tapete (50 x 34 cm, canto levantado 17 cm) no caminho até o andador (44 x 38 x 82 cm, tubos de raio 2,4 contra 1,2), longe, no outro lado da sala. A pessoa é vista de costas (opção `costas` do kit, que inverte a ordem de pintura do quadril). A pessoa não é desenhada como idosa além do cabelo e da postura: o kit só tem adulto e criança. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "gestante-campo-e-feixe",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/gestante-campo-e-feixe.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/gestante-campo-e-feixe.mjs",
+    "modification": "Gestante (adulto do kit em camisola, com uma barriga de revolução de 24 cm de comprimento e 16 cm de raio) de perfil, em pé diante do receptor vertical; tubo de teto longe, à esquerda, com o colimador a 135 cm de altura emitindo na horizontal: campo ajustado cheio (32 x 34 cm, sobre o tórax) e campo aberto demais tracejado (40 x 68 cm, que passa do abdome), os dois do mesmo ponto; o campo é desenhado no plano médio do corpo (esquemático). Sem proteção desenhada, de propósito: a aula diz que é o serviço que define. Aparece só como visual do conceito. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "dxa-dois-feixes",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/dxa-dois-feixes.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/dxa-dois-feixes.mjs",
+    "modification": "Densitômetro (DXA): paciente adulta deitada de costas na mesa de tampo fino a 80 cm do piso, fonte de raios X (bloco azul) sob o tampo, detector (bloco azul) no alto do braço em C a 84 cm acima do tampo (muito mais que o real, para fonte, feixe e detector ficarem separados na tela) e dois feixes finos paralelos, amarelo e ciano, subindo retos da fonte pelo quadril até o detector. O feixe real é um só, estreito; as duas linhas são recurso didático para as duas energias. Ponto de vista de azimute 50 e elevação 40. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "dxa-posicionamento",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/dxa-posicionamento.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/dxa-posicionamento.mjs",
+    "modification": "Duas mesas de densitômetro lado a lado, vistas dos pés (azimute 6, elevação 50, quadro recortado na pelve e nos pés), a mesma pessoa adulta deitada de costas em cada uma: à esquerda, a posição da coluna (coxas a 50 graus da mesa, canelas sobre um bloco de 54 x 36 x 28 cm, lombar rente ao colchão); à direita, a posição do fêmur (pernas estendidas e quase paralelas, abertas 9 graus cada uma, posicionador de 16 x 18 x 24 cm entre os pés, 30 cm adiante dos calcanhares, o pé da esquerda do desenho girado 20 graus para dentro e preso ao posicionador por uma faixa). O posicionador fica adiante dos dedos e a câmera mais alta e mais perto da pelve e dos pés, para as áreas de toque do pé e do posicionador não se sobreporem; o ponto de vista difere do da dxa-dois-feixes pelo mesmo motivo. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "radiografia-veterinaria",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/radiografia-veterinaria.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/radiografia-veterinaria.mjs",
+    "modification": "Cão em decúbito lateral sobre a mesa, numa calha de espuma, com um saco de areia sobre as patas da frente e outro sobre as de trás, em escala 1,3 sobre um cão médio; feixe vertical no tórax (foco a cerca de 105 cm do detector, campo de 30 cm, exagerado para ler no tamanho do app); quem segura, de avental e luvas azuis, atrás da mesa, com as mãos na cabeça do cão a cerca de 40 cm do campo; o tutor, sem avental, a cerca de 1 m do cão, com três linhas tracejadas de espalhamento (esquemático) chegando a ele, e outra pessoa, sem avental, longe, junto à porta. Mãos 1,3 vez maiores que o corpo humano do kit, de propósito. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "radiografia-de-objeto",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/radiografia-de-objeto.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/radiografia-de-objeto.mjs",
+    "modification": "Aparelho móvel à direita com cabeçote e colimador (1,3 vez maiores, como no trauma-raio-horizontal) emitindo um feixe horizontal para a esquerda, a cerca de 1,5 m do detector, campo de 60 cm no detector; quadro de 88 x 66 cm numa moldura, de pé num cavalete, no feixe; detector plano azul num pedestal atrás do quadro (cerca de 60 cm dele, para as áreas de toque não se sobreporem; na prática fica colado); área isolada por dois postes com um cordão amarelo entre eles, do lado do operador, e um triângulo de aviso num pé próprio; pessoa de scrub, sem avental, fora do cordão, ao lado do painel de comando. Parada. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "teste-de-feixe",
+    "origem": "anatomy",
+    "fonte": "scripts/content/figuras/fontes/teste-de-feixe.svg",
+    "author": "Radiant",
+    "license": "Arte própria do projeto, sem licença de terceiro",
+    "receita": "scripts/content/figuras/cenas/teste-de-feixe.mjs",
+    "modification": "Esquema do teste de feixe: caixa do tubo de raios X no alto, com janela e ponto focal amarelo, colimador logo abaixo, feixe vertical descendo por três lâminas finas de filtro num suporte (espessuras de 0,9, 1,8 e 2,7 cm, exageradas) até o medidor baixo sobre a mesa, ligado por um cabo a um mostrador com três barras de alturas diferentes; cerca de 100 cm do cabeçote ao medidor, esquemático. Medidor (38 x 24 x 12 cm contra cerca de 10 cm), lâminas (48 cm), janela do tubo, colimador e mostrador (56 cm de largura) maiores que o real, de propósito. Cena isométrica desenhada em código com o kit da skill anatomy (scripts/content/figuras/kit/), sem arte de terceiros e sem imagem gerada por modelo; a fonte é gerada pela receita e o spec sai dela por build-spec.mjs. Quadro 640 x 480, parada, sem texto no desenho."
+  },
+  {
+    "id": "cadeia-de-custodia",
+    "origem": "acervo",
+    "sourcePage": "https://lucide.dev",
+    "author": "Lucide Icons and Contributors (Copyright (c) 2026)",
+    "license": "ISC",
+    "licenseUrl": "https://lucide.dev/license",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "7e5b2ebe01c978965a52710dbeed350c5ffcf73477e0342829aa349842b003ae",
+    "modification": "Cinco ícones do Lucide v1.77.0 (cuboid, handshake, scan-line, notebook-pen, folder-lock), cada um intacto nos elementos: só o stroke currentColor trocado por cor da paleta do app, escala 2 e translação ao centro de um cartão; os cartões e as setas são desenho do projeto. O sha256Original é o da concatenação dos cinco SVG originais do pacote lucide-static 1.77.0, na ordem do fluxo (cada um está em scripts/content/figuras/vendor/lucide/README.md); a figura sai de scripts/content/figuras/fluxos/cadeia-de-custodia.mjs. Quadro 320 x 240, parada, sem texto."
+  },
+  {
+    "id": "fluxo-de-pesquisa",
+    "origem": "acervo",
+    "sourcePage": "https://lucide.dev",
+    "author": "Lucide Icons and Contributors (Copyright (c) 2026)",
+    "license": "ISC",
+    "licenseUrl": "https://lucide.dev/license",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "3477c8a2f2c66bef4d2df12919c9ca7e82d58ea62637e39e7e9024198dc7ac7c",
+    "modification": "Cinco ícones do Lucide v1.77.0 (file-check, file-signature, scan-line, eye-off, folder-lock), cada um intacto nos elementos: só o stroke currentColor trocado por cor da paleta do app, escala 2 e translação ao centro de um cartão; os cartões e as setas são desenho do projeto. O sha256Original é o da concatenação dos cinco SVG originais do pacote lucide-static 1.77.0, na ordem do fluxo (cada um está em scripts/content/figuras/vendor/lucide/README.md); a figura sai de scripts/content/figuras/fluxos/fluxo-de-pesquisa.mjs. Quadro 320 x 240, parada, sem texto."
+  },
+  {
+    "id": "fluxo-ris-pacs",
+    "origem": "acervo",
+    "sourcePage": "https://lucide.dev",
+    "author": "Lucide Icons and Contributors (Copyright (c) 2026)",
+    "license": "ISC",
+    "licenseUrl": "https://lucide.dev/license",
+    "retrievedAt": "2026-11-20",
+    "sha256Original": "5c43920612288ce021a534ccb921d89cd5cda02cd1257a8bb09cf4326929dde0",
+    "modification": "Cinco ícones do Lucide v1.77.0 (file-pen, list-checks, radiation, images, laptop-minimal-check), cada um intacto nos elementos: só o stroke currentColor trocado por cor da paleta do app, escala 2 e translação ao centro de um cartão; os cartões e as setas são desenho do projeto. O sha256Original é o da concatenação dos cinco SVG originais do pacote lucide-static 1.77.0, na ordem do fluxo (cada um está em scripts/content/figuras/vendor/lucide/README.md); a figura sai de scripts/content/figuras/fluxos/fluxo-ris-pacs.mjs. Quadro 320 x 240, parada, sem texto."
   }
 ]

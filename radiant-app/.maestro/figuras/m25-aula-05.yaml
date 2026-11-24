@@ -42,41 +42,57 @@ tags:
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Profissional de passagem, sem tarefa no exame'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Profissional de passagem, sem tarefa no exame'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Se afasta da área'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Se afasta da área'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Paciente do leito vizinho, que não pode sair'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Paciente do leito vizinho, que não pode sair'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Fica, com proteção'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Fica, com proteção'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Profissional que precisa ficar perto do leito'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Profissional que precisa ficar perto do leito'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Fica, com proteção'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Fica, com proteção'
 - scrollUntilVisible:
     element:
       id: 'categorize-item-Visitante da família do paciente'
+    direction: DOWN
+    centerElement: true
 - tapOn:
     id: 'categorize-item-Visitante da família do paciente'
 - scrollUntilVisible:
     element:
       id: 'categorize-group-Se afasta da área'
+    direction: UP
+    centerElement: true
 - tapOn:
     id: 'categorize-group-Se afasta da área'
 - tapOn: 'Conferir resposta'
@@ -98,6 +114,8 @@ tags:
 - scrollUntilVisible:
     element:
       text: 'Selecionar esta ordem'
+    direction: DOWN
+    centerElement: true
 - tapOn: 'Selecionar esta ordem'
 - tapOn: 'Continuar'
 - tapOn: 'Continuar'

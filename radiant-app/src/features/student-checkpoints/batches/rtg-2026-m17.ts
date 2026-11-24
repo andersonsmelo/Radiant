@@ -6,7 +6,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m17",
-  "materialSha256": "21962b7cbf9a179332b139118e0efe5b790e405fa14665e559dc06adfb65d80a",
+  "materialSha256": "fe7eeca9047ee454ff56deb825ed53322eeab94ca251344bc0cb373a47ba81a5",
   "trackId": "track:rtg-2026:m17",
   "unitId": "unit:rtg-2026:m17",
   "contentVersion": "rtg-2026-m17-v1",
@@ -208,29 +208,29 @@ export const RTG_2026_M17: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m17:aula-01:i2:1",
-                  "x": 0.419,
-                  "y": 0.6,
+                  "x": 0.3223,
+                  "y": 0.5237,
                   "where": "sobre o braço do paciente deitado, a faixa azul curta",
                   "correctLabelId": "label:rtg-2026:m17:aula-01:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m17:aula-01:i2:2",
-                  "x": 0.637,
-                  "y": 0.542,
+                  "x": 0.4862,
+                  "y": 0.3921,
                   "where": "na mão do profissional de pé, uma folha com linhas",
                   "correctLabelId": "label:rtg-2026:m17:aula-01:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m17:aula-01:i2:3",
-                  "x": 0.909,
-                  "y": 0.421,
+                  "x": 0.8581,
+                  "y": 0.3293,
                   "where": "alto, à direita, o painel azul em cima de um suporte",
                   "correctLabelId": "label:rtg-2026:m17:aula-01:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m17:aula-01:i2:4",
-                  "x": 0.156,
-                  "y": 0.575,
+                  "x": 0.16,
+                  "y": 0.3984,
                   "where": "à esquerda, a cabeça redonda apoiada na maca",
                   "correctLabelId": "label:rtg-2026:m17:aula-01:i2:4"
                 }
@@ -710,37 +710,37 @@ export const RTG_2026_M17: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m17:aula-02:i4:1",
                   "label": "Roda da maca com o bloco azul pousado",
-                  "x": 0.044,
-                  "y": 0.763,
-                  "width": 0.1,
-                  "height": 0.2,
+                  "x": 0.1459,
+                  "y": 0.6333,
+                  "width": 0.08,
+                  "height": 0.1479,
                   "explanation": "Com o bloco pousado, essa roda está travada: a maca não se afasta quando a pessoa se apoia."
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-02:i4:2",
                   "label": "Roda da maca com o bloco erguido",
-                  "x": 0.375,
-                  "y": 0.763,
-                  "width": 0.1,
-                  "height": 0.2,
+                  "x": 0.4787,
+                  "y": 0.6583,
+                  "width": 0.08,
+                  "height": 0.2125,
                   "explanation": "Com o bloco erguido a roda está solta: a maca pode se afastar quando a pessoa se apoia nela."
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-02:i4:3",
                   "label": "Prancha encostada no pedestal da mesa",
-                  "x": 0.734,
-                  "y": 0.646,
-                  "width": 0.12,
-                  "height": 0.25,
-                  "explanation": "Encostada no pedestal, fora da passagem e fora do chão, a prancha não atrapalha: ela só entra se o serviço a usar."
+                  "x": 0.7812,
+                  "y": 0.4021,
+                  "width": 0.1531,
+                  "height": 0.3208,
+                  "explanation": "Encostada no pedestal e fora da passagem, a prancha não atrapalha: ela só entra se o serviço a usar."
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-02:i4:4",
                   "label": "Linha do soro esticada até a paciente",
-                  "x": 0.602,
-                  "y": 0.371,
-                  "width": 0.14,
-                  "height": 0.1,
+                  "x": 0.1405,
+                  "y": 0.2746,
+                  "width": 0.08,
+                  "height": 0.08,
                   "explanation": "A linha esticada pode soltar o acesso quando a paciente se mexe: avise a equipe, sem mexer na linha."
                 }
               ],
@@ -1013,34 +1013,34 @@ export const RTG_2026_M17: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m17:aula-03:i3:1",
                   "label": "Roda sob a cabeceira da maca",
-                  "x": 0.044,
-                  "y": 0.763,
-                  "width": 0.1,
-                  "height": 0.2
+                  "x": 0.1459,
+                  "y": 0.6333,
+                  "width": 0.08,
+                  "height": 0.1479
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-03:i3:2",
                   "label": "Roda do lado dos pés da maca",
-                  "x": 0.375,
-                  "y": 0.763,
-                  "width": 0.1,
-                  "height": 0.2
+                  "x": 0.4787,
+                  "y": 0.6583,
+                  "width": 0.08,
+                  "height": 0.2125
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-03:i3:3",
                   "label": "Vão entre maca e mesa",
-                  "x": 0.463,
-                  "y": 0.533,
-                  "width": 0.08,
-                  "height": 0.15
+                  "x": 0.5203,
+                  "y": 0.3833,
+                  "width": 0.1609,
+                  "height": 0.0938
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-03:i3:4",
                   "label": "Prancha de transferência",
-                  "x": 0.734,
-                  "y": 0.646,
-                  "width": 0.12,
-                  "height": 0.25
+                  "x": 0.7812,
+                  "y": 0.4021,
+                  "width": 0.1531,
+                  "height": 0.3208
                 }
               ],
               "correctRegionIds": [
@@ -1292,42 +1292,42 @@ export const RTG_2026_M17: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m17:aula-04:i2:1",
                   "label": "Maçaneta da porta",
-                  "x": 0.069,
-                  "y": 0.573,
-                  "width": 0.1,
-                  "height": 0.12
+                  "x": 0.065,
+                  "y": 0.247,
+                  "width": 0.1133,
+                  "height": 0.125
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-04:i2:2",
                   "label": "Apoio do receptor vertical",
-                  "x": 0.328,
-                  "y": 0.357,
-                  "width": 0.12,
-                  "height": 0.12
+                  "x": 0.2137,
+                  "y": 0.3495,
+                  "width": 0.1971,
+                  "height": 0.1044
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-04:i2:3",
                   "label": "Mesa de exame",
-                  "x": 0.447,
-                  "y": 0.654,
-                  "width": 0.3,
-                  "height": 0.1
+                  "x": 0.3809,
+                  "y": 0.5824,
+                  "width": 0.3134,
+                  "height": 0.1706
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-04:i2:4",
                   "label": "Manopla do tubo",
-                  "x": 0.652,
-                  "y": 0.108,
-                  "width": 0.08,
-                  "height": 0.1
+                  "x": 0.4514,
+                  "y": 0.3858,
+                  "width": 0.1121,
+                  "height": 0.104
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-04:i2:5",
                   "label": "Teclado do comando",
-                  "x": 0.811,
-                  "y": 0.646,
-                  "width": 0.14,
-                  "height": 0.1
+                  "x": 0.7533,
+                  "y": 0.6218,
+                  "width": 0.1817,
+                  "height": 0.0971
                 }
               ],
               "correctRegionIds": [
@@ -1648,36 +1648,36 @@ export const RTG_2026_M17: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m17:aula-05:i2:1",
-                  "x": 0.119,
-                  "y": 0.575,
+                  "x": 0.1253,
+                  "y": 0.4532,
                   "where": "à esquerda, a abertura alta com seta amarela acima",
                   "correctLabelId": "label:rtg-2026:m17:aula-05:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m17:aula-05:i2:2",
-                  "x": 0.375,
-                  "y": 0.708,
+                  "x": 0.3229,
+                  "y": 0.6993,
                   "where": "no chão, o móvel com gavetas e rodas, peça azul em cima",
                   "correctLabelId": "label:rtg-2026:m17:aula-05:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m17:aula-05:i2:3",
-                  "x": 0.587,
-                  "y": 0.612,
-                  "where": "na parede, o painel quadrado com um círculo azul no meio",
+                  "x": 0.5245,
+                  "y": 0.4698,
+                  "where": "na parede, o painel quadrado com um círculo verde no meio",
                   "correctLabelId": "label:rtg-2026:m17:aula-05:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m17:aula-05:i2:4",
-                  "x": 0.769,
-                  "y": 0.408,
+                  "x": 0.6952,
+                  "y": 0.4311,
                   "where": "no alto, o disco amarelo com um cordão que pende",
                   "correctLabelId": "label:rtg-2026:m17:aula-05:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m17:aula-05:i2:5",
-                  "x": 0.906,
-                  "y": 0.68,
+                  "x": 0.867,
+                  "y": 0.5641,
                   "where": "à direita, o aparelho de teclas numéricas na parede",
                   "correctLabelId": "label:rtg-2026:m17:aula-05:i2:5"
                 }
@@ -2065,42 +2065,42 @@ export const RTG_2026_M17: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m17:aula-06:i2:1",
                   "label": "Porta de saída",
-                  "x": 0.034,
-                  "y": 0.325,
-                  "width": 0.17,
-                  "height": 0.5
+                  "x": 0.0481,
+                  "y": 0.1354,
+                  "width": 0.1582,
+                  "height": 0.6268
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-06:i2:2",
                   "label": "Carrinho de emergência",
-                  "x": 0.25,
-                  "y": 0.523,
-                  "width": 0.25,
-                  "height": 0.37
+                  "x": 0.2282,
+                  "y": 0.5052,
+                  "width": 0.1894,
+                  "height": 0.3882
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-06:i2:3",
                   "label": "Saída de oxigênio",
-                  "x": 0.537,
-                  "y": 0.542,
-                  "width": 0.1,
-                  "height": 0.14
+                  "x": 0.4423,
+                  "y": 0.3398,
+                  "width": 0.1643,
+                  "height": 0.2599
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-06:i2:4",
                   "label": "Botão de chamada",
-                  "x": 0.724,
-                  "y": 0.333,
-                  "width": 0.09,
-                  "height": 0.15
+                  "x": 0.6228,
+                  "y": 0.3044,
+                  "width": 0.1478,
+                  "height": 0.3948
                 },
                 {
                   "id": "region:rtg-2026:m17:aula-06:i2:5",
                   "label": "Telefone da parede",
-                  "x": 0.851,
-                  "y": 0.573,
-                  "width": 0.11,
-                  "height": 0.22
+                  "x": 0.7821,
+                  "y": 0.399,
+                  "width": 0.1698,
+                  "height": 0.3303
                 }
               ],
               "correctRegionIds": [
@@ -6819,7 +6819,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "21962b7cbf9a179332b139118e0efe5b790e405fa14665e559dc06adfb65d80a"
+      "materialSha256": "fe7eeca9047ee454ff56deb825ed53322eeab94ca251344bc0cb373a47ba81a5"
     },
     {
       "schemaVersion": 1,
@@ -6828,7 +6828,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "21962b7cbf9a179332b139118e0efe5b790e405fa14665e559dc06adfb65d80a"
+      "materialSha256": "fe7eeca9047ee454ff56deb825ed53322eeab94ca251344bc0cb373a47ba81a5"
     },
     {
       "schemaVersion": 1,
@@ -6837,7 +6837,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "21962b7cbf9a179332b139118e0efe5b790e405fa14665e559dc06adfb65d80a"
+      "materialSha256": "fe7eeca9047ee454ff56deb825ed53322eeab94ca251344bc0cb373a47ba81a5"
     },
     {
       "schemaVersion": 1,
@@ -6846,7 +6846,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "21962b7cbf9a179332b139118e0efe5b790e405fa14665e559dc06adfb65d80a"
+      "materialSha256": "fe7eeca9047ee454ff56deb825ed53322eeab94ca251344bc0cb373a47ba81a5"
     },
     {
       "schemaVersion": 1,
@@ -6855,7 +6855,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "21962b7cbf9a179332b139118e0efe5b790e405fa14665e559dc06adfb65d80a"
+      "materialSha256": "fe7eeca9047ee454ff56deb825ed53322eeab94ca251344bc0cb373a47ba81a5"
     },
     {
       "schemaVersion": 1,
@@ -6864,7 +6864,7 @@ export const RTG_2026_M17: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "21962b7cbf9a179332b139118e0efe5b790e405fa14665e559dc06adfb65d80a"
+      "materialSha256": "fe7eeca9047ee454ff56deb825ed53322eeab94ca251344bc0cb373a47ba81a5"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

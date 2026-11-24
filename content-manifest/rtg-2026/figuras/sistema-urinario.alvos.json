@@ -1,0 +1,8 @@
+[
+  {"nome":"Rim do lado direito do paciente","x":0.296,"y":0.047,"width":0.131,"height":0.265},
+  {"nome":"Rim do lado esquerdo do paciente","x":0.573,"y":0.038,"width":0.131,"height":0.265},
+  {"nome":"Ureter do lado direito do paciente","x":0.398,"y":0.151,"width":0.084,"height":0.585},
+  {"nome":"Ureter do lado esquerdo do paciente","x":0.5115,"y":0.293,"width":0.08,"height":0.451},
+  {"nome":"Bexiga","x":0.412,"y":0.673,"width":0.175,"height":0.2},
+  {"nome":"Uretra","x":0.4615,"y":0.875,"width":0.08,"height":0.115}
+]

@@ -1,0 +1,6 @@
+[
+  { "nome": "Fala do paciente (cabeça)", "rotulos": ["Fala do paciente"], "x": 0.1328, "y": 0.3528, "width": 0.08, "height": 0.1139 },
+  { "nome": "Pulseira no punho", "x": 0.2823, "y": 0.4566, "width": 0.08, "height": 0.08 },
+  { "nome": "Pedido impresso", "x": 0.4755, "y": 0.3705, "width": 0.0869, "height": 0.1637 },
+  { "nome": "Registro na tela", "x": 0.7687, "y": 0.2171, "width": 0.184, "height": 0.2158 }
+]

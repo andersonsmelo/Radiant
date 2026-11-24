@@ -99,6 +99,9 @@ describe('registro de diagramas', () => {
     expect(importedEntries.filter((entry) => !IMPORTED_IDS.includes(entry.id)).map((entry) => entry.id)).toEqual([]);
   });
 
+  // Exceção nomeada: dois desenhos completos do mesmo autor no mesmo quadro (ver docs/evidence/2026-11-19-figuras/lote-1E.md).
+  const TETO_POR_FIGURA: Record<string, number> = { 'respiracao-diafragma': 2 * 240 * 1024 };
+
   it.each(IMPORTED_IDS)('%s (importada): sem texto, imagem, script, link, CSS nem efeito que o react-native-svg ignora', (id) => {
     const spec = DIAGRAMS[id];
     expect(spec.layers.length).toBeGreaterThanOrEqual(1);
@@ -111,11 +114,12 @@ describe('registro de diagramas', () => {
       // Gradiente só por id local da própria camada (cada camada é um SvgXml separado).
       for (const [, ref] of layer.svg.matchAll(/url\(#([^)]+)\)/g)) expect(layer.svg).toContain(`id="${ref}"`);
       for (const [, value] of layer.svg.matchAll(/\b(?:fill|stroke|stop-color)="([^"]*)"/g)) {
-        expect(value).toMatch(/^(none|#[0-9a-f]{6}|url\(#[^)]+\))$/);
+        // Sem diferença de caixa: as cores da paleta do app (P.accent) vêm em maiúsculas, e o SvgXml aceita as duas.
+        expect(value).toMatch(/^(none|#[0-9a-f]{6}|url\(#[^)]+\))$/i);
       }
     }
     // Teto medido em 2026-11-19: crânio 75 KiB, leito 222 KiB de SVG. Arte acima disso vai para imagem.
-    expect(spec.layers.reduce((n, l) => n + l.svg.length, 0)).toBeLessThanOrEqual(240 * 1024);
+    expect(spec.layers.reduce((n, l) => n + l.svg.length, 0)).toBeLessThanOrEqual(TETO_POR_FIGURA[id] ?? 240 * 1024);
   });
 
   it('a soma do SVG de todas as figuras importadas cabe no orçamento do plano', () => {
@@ -146,9 +150,80 @@ describe('registro de diagramas', () => {
     expect(DIAGRAMS['sala-com-riscos'].periodMs).toBeUndefined();
   });
 
+  // Decisão do dono de 2026-11-20: figura de movimento entra parada. As duas cenas do tubo da M19 eram laços de código; a do leito da M25 tinha ciclo de 7 s na versão de acervo.
+  it.each(['tubo-emitindo', 'anodo-giratorio', 'raio-x-movel-no-leito'])('%s: cena isométrica parada, sem laço, sem camada móvel e sem quadro de pôster', (id) => {
+    const spec = DIAGRAMS[id];
+    expect(spec.art).toBe('imported');
+    expect(spec.periodMs).toBeUndefined();
+    expect(spec.posterAt).toBeUndefined();
+    expect(spec.layers.filter((layer) => layer.motion !== undefined)).toEqual([]);
+  });
+
+  // Fase 3 (gramática de gráficos, 2026-11-21): só a figura de `visual` de conceito se move, em laço de até 4 camadas móveis,
+  // com quadro de pôster; figura com área de toque, ou que a aula só rotula, fica parada.
+  const GRAFICOS_PARADOS = ['espectro-de-raios-x', 'circuito-do-gerador', 'dano-ao-dna', 'histograma-e-lut', 'compressao-de-imagem', 'ciclo-de-testes', 'coincidencia-de-campo', 'nivel-de-referencia'];
+  const GRAFICOS_EM_LACO = ['relaxacao-t1-t2', 'grandezas-de-dose', 'realce-e-suavizacao', 'retificacao-de-onda', 'fluoroscopia-pulsada', 'linha-do-tempo-tr-te'];
+  it.each(GRAFICOS_PARADOS)('%s: gráfico parado, sem laço, sem pôster e sem camada móvel', (id) => {
+    const spec = DIAGRAMS[id];
+    expect(spec.periodMs).toBeUndefined();
+    expect(spec.posterAt).toBeUndefined();
+    expect(spec.layers.filter((layer) => layer.motion !== undefined)).toEqual([]);
+  });
+  it.each(GRAFICOS_EM_LACO)('%s: laço com quadro de pôster dentro do ciclo e até 4 camadas móveis', (id) => {
+    const spec = DIAGRAMS[id];
+    expect(spec.periodMs).toBeGreaterThan(0);
+    expect(spec.posterAt).toBeGreaterThan(0);
+    expect(spec.posterAt).toBeLessThan(1);
+    const moving = spec.layers.filter((layer) => layer.motion !== undefined).length;
+    expect(moving).toBeGreaterThan(0);
+    expect(moving).toBeLessThanOrEqual(4);
+  });
+
+  // Laço sem corte (revisão da fase 3): em t = 0 as curvas ainda têm opacidade 1 sob a cortina, então a cortina tem de
+  // cobrir as pontas redondas (traço de 3,5, meio traço de 1,75 além da última coordenada) e o cursor que corre com ela
+  // tem de nascer em cima do eixo vertical. Difere e é válido: a cortina cobre E o cursor está sobre o eixo.
+  // Cortina que anda para a direita (os feixes de grandezas-de-dose descem: dy).
+  const isSweep = (layer: (typeof DIAGRAMS)[string]['layers'][number]) => layer.motion?.kind === 'translate' && layer.motion.dx > 0 && layer.motion.keys?.[1]?.[1] === 0;
+  it.each(GRAFICOS_EM_LACO)('%s: em t = 0 a cortina cobre as pontas das curvas', (id) => {
+    const { layers } = DIAGRAMS[id];
+    layers.forEach((layer, i) => {
+      if (!isSweep(layer)) return;
+      const ink = [...layers.slice(0, i)].reverse().find((l) => l.motion?.kind === 'fade');
+      const xs = [...(ink?.svg.matchAll(/points="([^"]+)"/g) ?? [])].flatMap((m) => m[1].trim().split(/\s+/).map((pair) => Number(pair.split(',')[0])));
+      if (xs.length === 0) return; // fluoroscopia: o sinal é desenhado em path; o cursor é conferido abaixo
+      const rect = /<rect x="([\d.-]+)" y="[\d.-]+" width="([\d.]+)"/.exec(layer.svg);
+      expect(rect).not.toBeNull();
+      const [left, right] = [Number(rect![1]), Number(rect![1]) + Number(rect![2])];
+      expect(left).toBeLessThanOrEqual(Math.min(...xs) - 1.75);
+      expect(right).toBeGreaterThanOrEqual(Math.max(...xs) + 1.75);
+    });
+  });
+  it.each(GRAFICOS_EM_LACO)('%s: o cursor da cortina parte de cima de um eixo vertical', (id) => {
+    const { layers } = DIAGRAMS[id];
+    const staticSvg = layers.filter((l) => !l.motion).map((l) => l.svg).join('');
+    for (const layer of layers.filter(isSweep)) {
+      for (const m of layer.svg.matchAll(/<line x1="([\d.-]+)" y1="[\d.-]+" x2="([\d.-]+)"/g)) {
+        expect(m[1]).toBe(m[2]);
+        expect(staticSvg).toContain(`M${m[1]} `);
+      }
+    }
+  });
+
   it('diagramRef e parseDiagramRef são inversas', () => {
     for (const id of DIAGRAM_IDS) expect(parseDiagramRef(diagramRef(id))).toBe(id);
     expect(parseDiagramRef('licensed-image-1')).toBeNull();
     expect(parseDiagramRef('diagram:')).toBeNull();
+  });
+});
+
+// O react-native-svg do iOS aborta (SIGABRT em RNSVGSvgView definePainter) ao registrar degradê sem id.
+describe('servidores de pintura', () => {
+  it.each(DIAGRAM_IDS)('%s: todo degradê tem id', (id) => {
+    const semId: string[] = [];
+    for (const layer of DIAGRAMS[id].layers) {
+      // Lê a abertura de cada elemento, não o texto solto: um comentário não casa.
+      for (const [open] of layer.svg.matchAll(/<(?:linear|radial)Gradient\b[^>]*>/g)) if (!/\sid="[^"]+"/.test(open)) semId.push(open);
+    }
+    expect(semId).toEqual([]);
   });
 });

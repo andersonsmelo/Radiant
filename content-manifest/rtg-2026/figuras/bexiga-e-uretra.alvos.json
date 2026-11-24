@@ -1,0 +1,6 @@
+[
+  { "nome": "Ureter do lado direito do paciente", "x": 0.306, "y": 0.058, "width": 0.08, "height": 0.133 },
+  { "nome": "Ureter do lado esquerdo do paciente", "x": 0.645, "y": 0.058, "width": 0.08, "height": 0.133 },
+  { "nome": "Bexiga", "x": 0.256, "y": 0.233, "width": 0.488, "height": 0.498 },
+  { "nome": "Uretra", "x": 0.45, "y": 0.7333, "width": 0.1, "height": 0.26 }
+]

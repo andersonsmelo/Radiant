@@ -76,8 +76,8 @@ const PAYLOAD_KEYS: Record<string, readonly string[]> = {
     bench: ['prompt', 'simulator', 'mode', 'controls', 'goal', 'phantomLabel', 'hints'],
     'parameter-lab': ['prompt', 'model', 'start', 'goal', 'hints'],
 };
-// Autorização do dono: CC0 ou CC BY, nunca SA, NC ou ND (ADR-2026-11-05, complemento de 2026-11-06).
-const ALLOWED_IMAGE_LICENSE = /^(CC0 1\.0|CC BY \d\.\d)$/;
+// Política de figuras do projeto: CC0, domínio público declarado ou CC BY.
+const ALLOWED_IMAGE_LICENSE = /^(CC0 1\.0|Domínio público|CC BY \d\.\d)$/;
 const SHA256 = /^[0-9a-f]{64}$/;
 const filled = (value: unknown): value is string => typeof value === 'string' && value.trim().length > 0;
 const https = (value: string) => { try { const url = new URL(value); return url.protocol === 'https:' && !url.username && !url.password; } catch { return false; } };

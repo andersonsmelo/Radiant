@@ -1,0 +1,7 @@
+[
+  { "nome": "Roda da maca com o bloco pousado (sob a cabeceira)", "x": 0.1459, "y": 0.6333, "width": 0.08, "height": 0.1479, "rotulos": ["Roda da maca com o bloco azul pousado","Roda sob a cabeceira da maca"] },
+  { "nome": "Roda da maca com o bloco erguido (do lado dos pés)", "x": 0.4787, "y": 0.6583, "width": 0.08, "height": 0.2125, "rotulos": ["Roda da maca com o bloco erguido","Roda do lado dos pés da maca"] },
+  { "nome": "Vão entre maca e mesa", "x": 0.5203, "y": 0.3833, "width": 0.1609, "height": 0.0938 },
+  { "nome": "Prancha de transferência encostada no pedestal", "x": 0.7812, "y": 0.4021, "width": 0.1531, "height": 0.3208, "rotulos": ["Prancha encostada no pedestal da mesa","Prancha de transferência"] },
+  { "nome": "Linha do soro esticada até a paciente", "x": 0.1405, "y": 0.2746, "width": 0.08, "height": 0.08 }
+]

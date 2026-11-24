@@ -122,6 +122,8 @@ a troca das figuras segue um
 (base técnica) feita na branch `claude/figuras-base`, sem merge. Lotes 5 e 6 da C, fase D
 (conversão) e fase E (integração): não iniciados. Estado no [`STATUS.md`](../STATUS.md).
 
+**Figuras da RTG-2026 (2026-11-23).** Piloto de radiografia real com artefato de colar integrado à M23.02 na branch `claude/figuras-fase-1`. O acompanhamento da frente segue no [`STATUS.md`](../STATUS.md). O [plano de fechamento de 2026-11-24](../superpowers/plans/2026-11-20-figuras-continuidade.md#plano-de-fechamento-por-criticidade-2026-11-24) registra a reconciliação da PR #97, a recuperação dos roteiros Maestro e as decisões de 2026-11-24 sobre a figura humana, os selos e os painéis de RM.
+
 ## 3. Estratégia
 
 1. **Local-first é o produto lançável.** A API não entra no caminho crítico do

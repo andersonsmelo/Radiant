@@ -4,7 +4,7 @@
     "id": "m28",
     "code": "M28",
     "title": "Anatomia seccional II: abdome, pelve, pescoço e coluna",
-    "summary": "Completa o mapa dos cortes axiais com abdome superior, pelve, pescoço e coluna em esquemas, e ensina a reconhecer os três planos e a altura de um corte em tomografias reais, só localizando, sem interpretar."
+    "summary": "Completa o mapa dos cortes axiais com abdome superior, pelve e pescoço em tomografias reais e a coluna em esquema, e ensina a reconhecer os três planos e a altura de um corte, só localizando, sem interpretar."
   },
   "sources": [
     {
@@ -140,14 +140,14 @@
       "code": "M28.01",
       "title": "Abdome superior em corte",
       "objective": "Hoje você vai conseguir localizar fígado, estômago, baço, pâncreas, rim e a coluna num corte axial do abdome superior.",
-      "competency": "Localizar as vísceras do abdome superior num corte axial esquemático e dizer o lado do paciente de cada uma.",
+      "competency": "Localizar as vísceras do abdome superior num corte axial de tomografia real e dizer o lado do paciente de cada uma.",
       "minutes": 5,
       "scene": {
         "setting": "Laboratório de imagem, estação de estudo",
         "lines": [
           {
             "speaker": "duda",
-            "text": "Abri o esquema de um corte do abdome superior e tem um monte de formas. Sei que o fígado é grande, mas e o resto?"
+            "text": "Abri a tomografia de um corte do abdome superior e tem um monte de formas. Sei que o fígado é grande, mas e o resto?"
           },
           {
             "speaker": "caio",
@@ -161,13 +161,12 @@
       },
       "concept": {
         "title": "Vizinhos do abdome superior",
-        "body": "Neste esquema de corte axial, visto dos pés, o fígado ocupa o lado direito do paciente. O estômago fica à frente, no lado esquerdo. O baço fica atrás, também à esquerda, preso à borda do estômago. O pâncreas é uma faixa atrás do estômago, que termina perto do baço. Os rins ficam atrás, ao lado da coluna. O esquema simplifica: o pâncreas inteiro cabe num só corte.",
+        "body": "Num corte axial real do abdome superior, visto dos pés, o fígado ocupa o lado direito do paciente, à esquerda da figura. O estômago fica à frente e passa da linha média para o lado esquerdo; cheio de líquido, ele é grande. O baço fica atrás, também à esquerda, encostado na parede. O pâncreas é uma faixa atrás do estômago, que termina perto do baço. Os rins ficam atrás, ao lado da coluna. Nem todo corte mostra o pâncreas inteiro.",
         "keyPoints": [
           "Fígado à direita do paciente; estômago e baço à esquerda.",
           "Pâncreas: faixa atrás do estômago, até perto do baço.",
           "Rins atrás, ao lado da coluna."
-        ],
-        "visual": "corte-abdome-superior"
+        ]
       },
       "interactions": [
         {
@@ -207,37 +206,37 @@
           "type": "label",
           "role": "practice",
           "prompt": "Rotule cinco estruturas do abdome superior, tocando na ficha e no ponto. Direita do paciente à esquerda da figura.",
-          "diagramId": "corte-abdome-superior",
+          "imageId": "image:rtg-2026:m28:tc-axial-abdome-superior-01",
           "points": [
             {
               "label": "Fígado",
-              "x": 0.25,
-              "y": 0.375,
-              "where": "grande massa à esquerda da figura, com ponta no meio"
+              "x": 0.1727,
+              "y": 0.4526,
+              "where": "massa cinza muito grande, na metade esquerda da figura"
             },
             {
               "label": "Estômago",
-              "x": 0.697,
-              "y": 0.287,
-              "where": "oval no alto, à direita do centro da figura"
+              "x": 0.7364,
+              "y": 0.4526,
+              "where": "oval grande de cinza mais escuro, à direita do centro"
             },
             {
               "label": "Baço",
-              "x": 0.856,
-              "y": 0.596,
-              "where": "faixa curva na borda direita da figura, atrás"
+              "x": 0.8955,
+              "y": 0.7053,
+              "where": "massa cinza na borda direita da figura, atrás"
             },
             {
               "label": "Pâncreas",
-              "x": 0.631,
-              "y": 0.512,
-              "where": "faixa horizontal e fina, no meio da figura"
+              "x": 0.5682,
+              "y": 0.4547,
+              "where": "faixa clara e inclinada, atrás da oval grande, ao centro"
             },
             {
               "label": "Rim direito do paciente",
-              "x": 0.331,
-              "y": 0.725,
-              "where": "oval pequeno atrás, à esquerda da vértebra"
+              "x": 0.3045,
+              "y": 0.7263,
+              "where": "oval muito clara, atrás, à esquerda da vértebra"
             }
           ],
           "distractors": [
@@ -257,7 +256,7 @@
           "id": "i3",
           "type": "matching",
           "role": "practice",
-          "prompt": "Ligue cada estrutura do esquema ao lugar em que ela aparece no corte.",
+          "prompt": "Ligue cada estrutura ao lugar em que ela aparece no corte.",
           "pairs": [
             {
               "left": "Estômago",
@@ -265,7 +264,7 @@
             },
             {
               "left": "Baço",
-              "right": "Atrás, à esquerda, junto à borda do estômago"
+              "right": "Atrás, à esquerda, encostado na parede"
             },
             {
               "left": "Pâncreas",
@@ -291,12 +290,12 @@
           "id": "i4",
           "type": "true-false",
           "role": "practice",
-          "prompt": "Julgue cada afirmação sobre o esquema do abdome superior.",
+          "prompt": "Julgue cada afirmação sobre o corte do abdome superior.",
           "statements": [
             {
               "text": "O estômago aparece à frente, do lado esquerdo do paciente.",
               "correct": true,
-              "feedback": "Certo: no esquema o estômago ocupa a frente à esquerda do paciente."
+              "feedback": "Certo: no corte o estômago ocupa a frente, do lado esquerdo do paciente."
             },
             {
               "text": "O baço aparece à frente do estômago, perto da parede da barriga.",
@@ -361,7 +360,7 @@
       ],
       "closing": {
         "title": "O que você consegue fazer agora",
-        "body": "Você consegue achar fígado, estômago, baço, pâncreas, rim e vértebra num corte esquemático do abdome superior, dizendo o lado do paciente e o vizinho de cada um. Localizar não é interpretar: aqui você só situa as estruturas.",
+        "body": "Você consegue achar fígado, estômago, baço, pâncreas, rim e vértebra num corte real do abdome superior, dizendo o lado do paciente e o vizinho de cada um. Localizar não é interpretar: aqui você só situa as estruturas.",
         "line": {
           "speaker": "lia",
           "text": "Primeiro o lado do paciente, depois o vizinho. Com esses dois, você se acha em qualquer corte."
@@ -369,7 +368,7 @@
       },
       "checkpoint": [
         {
-          "prompt": "Neste esquema, qual estrutura é uma faixa atrás do estômago, que termina perto do baço?",
+          "prompt": "Num corte do abdome superior, qual estrutura é uma faixa atrás do estômago, que termina perto do baço?",
           "options": [
             {
               "label": "Pâncreas",
@@ -397,7 +396,7 @@
           ]
         },
         {
-          "prompt": "Em que lado do paciente o esquema mostra o estômago, à frente?",
+          "prompt": "Em que lado do paciente fica a maior parte do estômago, à frente?",
           "options": [
             {
               "label": "No lado direito do paciente",
@@ -429,7 +428,7 @@
         "guided": {
           "hook": "Complete a frase: o fígado ocupa o lado … do paciente, e o estômago e o baço ficam no lado oposto.",
           "item": {
-            "prompt": "Do lado direito do paciente, ocupando grande parte do esquema, aparece qual órgão?",
+            "prompt": "Do lado direito do paciente, ocupando grande parte do corte, aparece qual órgão?",
             "options": [
               {
                 "label": "O baço",
@@ -494,15 +493,15 @@
       "id": "m28-02",
       "code": "M28.02",
       "title": "Pelve em corte",
-      "objective": "Hoje você vai conseguir localizar bexiga, reto, cabeças do fêmur e ossos da pelve num corte axial.",
-      "competency": "Localizar bexiga, reto, sínfise púbica, acetábulo e cabeça do fêmur num corte axial esquemático da pelve.",
+      "objective": "Hoje você vai conseguir localizar sínfise, cabeças do fêmur e cóccix num corte axial real da pelve e dizer a ordem de bexiga e reto.",
+      "competency": "Localizar sínfise púbica, acetábulo, cabeça do fêmur e cóccix num corte axial real da pelve e dizer a ordem de bexiga e reto na linha média.",
       "minutes": 5,
       "scene": {
         "setting": "Laboratório de imagem, estação de estudo",
         "lines": [
           {
             "speaker": "duda",
-            "text": "Agora o corte é da pelve. Tem dois círculos de osso nas laterais, uma forma oval na frente e um buraco no meio. Por onde começo?"
+            "text": "Agora o corte é da pelve. Tem duas bolas de osso nas laterais, dois arcos de osso na frente e um monte de formas no meio. Por onde começo?"
           },
           {
             "speaker": "caio",
@@ -516,13 +515,12 @@
       },
       "concept": {
         "title": "De frente para trás, pela linha média",
-        "body": "Neste esquema de corte axial da pelve, a sínfise púbica fica à frente, na linha média. Atrás do osso púbico está a bexiga e, mais atrás, o reto, na frente do sacro e do cóccix. De cada lado, a cabeça do fêmur encaixa no acetábulo. O espaço entre bexiga e reto fica vazio de propósito: os órgãos dali variam com o sexo. O esquema simplifica: o púbis e as cabeças aparecem no mesmo corte.",
+        "body": "Neste corte axial real da pelve, visto dos pés, a sínfise púbica fica à frente, na linha média. Atrás do osso púbico está a bexiga e, mais atrás, o reto, na frente do cóccix. De cada lado, a cabeça do fêmur encaixa no acetábulo. Neste corte, baixo na pelve, bexiga e reto aparecem só em parte, e entre eles há órgãos que variam com o sexo.",
         "keyPoints": [
           "Linha média, de frente para trás: sínfise, bexiga, reto, cóccix.",
           "A cabeça do fêmur encaixa no acetábulo.",
-          "O espaço entre bexiga e reto varia com o sexo."
-        ],
-        "visual": "corte-pelve"
+          "Entre bexiga e reto ficam órgãos que variam com o sexo."
+        ]
       },
       "interactions": [
         {
@@ -561,45 +559,39 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule cinco estruturas da pelve, tocando na ficha e no ponto. Direita do paciente à esquerda da figura.",
-          "diagramId": "corte-pelve",
+          "prompt": "Rotule quatro estruturas da pelve, tocando na ficha e no ponto. Direita do paciente à esquerda da figura.",
+          "imageId": "image:rtg-2026:m28:tc-axial-pelve-01",
           "points": [
             {
               "label": "Sínfise púbica",
-              "x": 0.5,
-              "y": 0.183,
-              "where": "ponto do osso no alto, onde os dois lados se encontram"
-            },
-            {
-              "label": "Bexiga",
-              "x": 0.5,
-              "y": 0.4,
-              "where": "oval grande, logo abaixo do osso do alto"
-            },
-            {
-              "label": "Reto",
-              "x": 0.5,
-              "y": 0.667,
-              "where": "círculo pequeno com um furo, perto do fundo da figura"
+              "x": 0.4882,
+              "y": 0.32,
+              "where": "junção dos dois ossos claros do alto, no meio da figura"
             },
             {
               "label": "Cabeça do fêmur",
-              "x": 0.181,
-              "y": 0.508,
-              "where": "bola redonda perto da borda esquerda da figura"
+              "x": 0.7818,
+              "y": 0.4824,
+              "where": "bola de osso muito clara, à direita da figura"
             },
             {
               "label": "Acetábulo",
-              "x": 0.731,
-              "y": 0.508,
-              "where": "concha curva de osso, junto à bola do lado direito da figura"
+              "x": 0.3,
+              "y": 0.5529,
+              "where": "osso curvo que abraça a bola do lado esquerdo da figura"
+            },
+            {
+              "label": "Cóccix",
+              "x": 0.4909,
+              "y": 0.8235,
+              "where": "pequeno osso claro, no meio, perto do fundo da figura"
             }
           ],
           "distractors": [
             "Fígado"
           ],
-          "feedbackCorrect": "Isso: ossos nas pontas e órgãos na linha média, de frente para trás.",
-          "feedbackIncorrect": "Alguma ficha ficou fora do lugar: ande pela linha média, de frente para trás, e ache os ossos das laterais.",
+          "feedbackCorrect": "Isso: você achou o osso da frente, o de trás e os das laterais.",
+          "feedbackIncorrect": "Alguma ficha ficou fora do lugar: comece pelos ossos, que são os mais claros, e confira o lado de cada um.",
           "help": "Na linha média, o primeiro é osso e fica no alto da figura.",
           "sourceIds": [
             "openstax-ap-25-2",
@@ -634,7 +626,7 @@
           "id": "i4",
           "type": "true-false",
           "role": "practice",
-          "prompt": "Julgue cada afirmação sobre o esquema da pelve.",
+          "prompt": "Julgue cada afirmação sobre a pelve.",
           "statements": [
             {
               "text": "A bexiga fica atrás do osso púbico e na frente do reto.",
@@ -652,9 +644,9 @@
               "feedback": "Errado: a cabeça do fêmur encaixa no acetábulo, na lateral do osso do quadril."
             },
             {
-              "text": "Neste esquema, o espaço entre bexiga e reto fica vazio de propósito.",
+              "text": "Entre a bexiga e o reto ficam órgãos que variam com o sexo.",
               "correct": true,
-              "feedback": "Certo: os órgãos dali variam com o sexo, e o esquema não os desenha."
+              "feedback": "Certo: os órgãos dali variam com o sexo, e não são iguais em todas as pessoas."
             }
           ],
           "feedbackCorrect": "Você separou a ordem na linha média do que fica nas laterais.",
@@ -701,15 +693,15 @@
       ],
       "closing": {
         "title": "O que você consegue fazer agora",
-        "body": "Você consegue andar pela linha média da pelve, de frente para trás, e achar também os ossos das laterais. Onde o esquema deixa um espaço vazio, você diz que a região varia com o sexo, sem inventar o que há nela.",
+        "body": "Você consegue andar pela linha média da pelve, de frente para trás, e achar também os ossos das laterais. Entre a bexiga e o reto, você diz que os órgãos variam com o sexo, sem inventar quais são.",
         "line": {
           "speaker": "lia",
-          "text": "Quando uma região varia entre pessoas, o esquema não adivinha. Você também não."
+          "text": "Quando uma região varia entre pessoas, você não adivinha o que há nela."
         }
       },
       "checkpoint": [
         {
-          "prompt": "Na linha média do esquema da pelve, o que fica logo atrás da bexiga?",
+          "prompt": "Na linha média da pelve, o que fica logo atrás da bexiga?",
           "options": [
             {
               "label": "O osso púbico",
@@ -770,7 +762,7 @@
         "guided": {
           "hook": "Complete a frase: na linha média, de frente para trás, vêm a sínfise púbica, a … e o reto.",
           "item": {
-            "prompt": "Na linha média do esquema, que estrutura fica entre a sínfise púbica e o reto?",
+            "prompt": "Na linha média da pelve, que estrutura fica entre a sínfise púbica e o reto?",
             "options": [
               {
                 "label": "O acetábulo",
@@ -800,7 +792,7 @@
         },
         "transfer": {
           "item": {
-            "prompt": "Num esquema, o espaço entre a bexiga e o reto está em branco. Duda pergunta o que há ali. O que você responde?",
+            "prompt": "Num esquema de outro material, o espaço entre a bexiga e o reto está em branco. Duda pergunta o que há ali. O que você responde?",
             "options": [
               {
                 "label": "Que os órgãos dali variam com o sexo e o esquema não os desenha",
@@ -834,8 +826,8 @@
       "id": "m28-03",
       "code": "M28.03",
       "title": "Pescoço em corte",
-      "objective": "Hoje você vai conseguir localizar via aérea, esôfago, tireoide, vasos e vértebra num corte axial do pescoço.",
-      "competency": "Localizar traqueia, tireoide, esôfago, carótida, jugular e vértebra cervical num corte axial esquemático do pescoço.",
+      "objective": "Hoje você vai conseguir localizar traqueia, vasos e vértebra num corte axial real do pescoço e situar a tireoide e o esôfago.",
+      "competency": "Localizar traqueia, carótida, jugular interna e vértebra cervical num corte axial real do pescoço e situar a tireoide e o esôfago em relação à traqueia.",
       "minutes": 5,
       "scene": {
         "setting": "Laboratório de imagem, estação de estudo",
@@ -856,13 +848,12 @@
       },
       "concept": {
         "title": "A traqueia como referência",
-        "body": "No esquema do corte axial do pescoço, a traqueia fica no meio, na frente, com ar dentro. A tireoide a abraça pela frente e pelos lados, como uma borboleta. O esôfago fica atrás da traqueia. De cada lado correm a carótida, uma artéria, e a jugular interna, uma veia, juntas. Atrás vêm a vértebra e, no canal dela, a medula. Neste esquema, a artéria é um círculo menor e a veia, uma oval maior.",
+        "body": "No corte axial real do pescoço, visto dos pés, a traqueia fica no meio, na frente, com ar dentro. A tireoide a abraça como uma borboleta: neste corte aparecem as duas asas, uma de cada lado, e o istmo, que as liga pela frente, fica em outro nível do pescoço. O esôfago fica atrás da traqueia, discreto. De cada lado correm a carótida, uma artéria, e a jugular interna, uma veia, juntas. Atrás vêm a vértebra e, no canal dela, a medula. Neste corte, a artéria é um círculo menor e a veia, uma oval maior.",
         "keyPoints": [
           "Traqueia no meio; tireoide em volta, esôfago atrás.",
           "Carótida e jugular interna correm juntas, de cada lado.",
           "Vértebra e canal da medula, atrás."
-        ],
-        "visual": "corte-pescoco"
+        ]
       },
       "interactions": [
         {
@@ -901,49 +892,37 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule seis estruturas do pescoço, tocando na ficha e no ponto. Direita do paciente à esquerda da figura.",
-          "diagramId": "corte-pescoco",
+          "prompt": "Rotule quatro estruturas do pescoço, tocando na ficha e no ponto. Direita do paciente à esquerda da figura.",
+          "imageId": "image:rtg-2026:m28:tc-axial-pescoco-01",
           "points": [
             {
               "label": "Traqueia",
-              "x": 0.5,
-              "y": 0.208,
-              "where": "círculo grande e escuro, no meio, perto do alto"
-            },
-            {
-              "label": "Tireoide",
-              "x": 0.337,
-              "y": 0.288,
-              "where": "massa em asa, ao lado esquerdo do círculo escuro"
-            },
-            {
-              "label": "Esôfago",
-              "x": 0.519,
-              "y": 0.421,
-              "where": "oval achatada logo abaixo do círculo escuro, com um traço"
+              "x": 0.4213,
+              "y": 0.2437,
+              "where": "círculo grande e preto, no meio, perto do alto"
             },
             {
               "label": "Carótida",
-              "x": 0.706,
-              "y": 0.483,
+              "x": 0.5833,
+              "y": 0.3287,
               "where": "círculo pequeno e claro, à direita, junto a uma oval"
             },
             {
               "label": "Jugular interna",
-              "x": 0.213,
-              "y": 0.504,
-              "where": "oval grande e mais escura, perto da borda esquerda da figura"
+              "x": 0.2574,
+              "y": 0.335,
+              "where": "oval grande e clara, perto da borda esquerda da figura"
             },
             {
               "label": "Vértebra",
-              "x": 0.42,
-              "y": 0.65,
-              "where": "lado do anel de osso que cerca um furo, embaixo"
+              "x": 0.4185,
+              "y": 0.475,
+              "where": "osso claro e largo, no meio, abaixo do círculo preto"
             }
           ],
-          "feedbackCorrect": "Isso: você achou a referência e depois quem a abraça, quem fica atrás e quem corre ao lado.",
-          "feedbackIncorrect": "Alguma ficha ficou fora do lugar: comece pelo círculo escuro e confira quem o abraça e quem fica atrás.",
-          "help": "Comece pelo círculo escuro do meio, que tem ar dentro.",
+          "feedbackCorrect": "Isso: você achou a referência e depois o que corre ao lado e o que fica atrás.",
+          "feedbackIncorrect": "Alguma ficha ficou fora do lugar: comece pelo círculo preto e confira o que corre ao lado e o que fica atrás.",
+          "help": "Comece pelo círculo preto do meio, que tem ar dentro.",
           "sourceIds": [
             "openstax-ap-22-1",
             "openstax-ap-17-4",
@@ -955,7 +934,7 @@
           "id": "i3",
           "type": "categorize",
           "role": "practice",
-          "prompt": "Classifique cada estrutura pela posição em relação à traqueia neste esquema.",
+          "prompt": "Classifique cada estrutura pela posição em relação à traqueia.",
           "categories": [
             "Abraça a traqueia por fora",
             "Fica atrás, na linha média",
@@ -1001,7 +980,7 @@
           "id": "i4",
           "type": "multi-select",
           "role": "practice",
-          "prompt": "Marque todas as estruturas que ficam atrás da traqueia, na linha média, neste esquema.",
+          "prompt": "Marque todas as estruturas que ficam atrás da traqueia, na linha média.",
           "options": [
             {
               "label": "Istmo da tireoide",
@@ -1079,7 +1058,7 @@
       ],
       "closing": {
         "title": "O que você consegue fazer agora",
-        "body": "Você consegue achar traqueia, tireoide, esôfago, vasos e vértebra num corte do pescoço, partindo da traqueia como referência. Localizar não é interpretar: aqui você só situa cada estrutura e fala da posição dela.",
+        "body": "Você consegue achar traqueia, vasos e vértebra num corte real do pescoço e situar a tireoide e o esôfago, partindo da traqueia como referência. Localizar não é interpretar: aqui você só situa cada estrutura e fala da posição dela.",
         "line": {
           "speaker": "lia",
           "text": "Escolha uma referência e descreva o resto em relação a ela: na frente, atrás, ao lado."
@@ -1087,7 +1066,7 @@
       },
       "checkpoint": [
         {
-          "prompt": "No esquema do pescoço, que par de estruturas corre junto, de cada lado, mais afastado da traqueia?",
+          "prompt": "Num corte do pescoço, que par de estruturas corre junto, de cada lado, mais afastado da traqueia?",
           "options": [
             {
               "label": "A traqueia e o esôfago",
@@ -1116,7 +1095,7 @@
           ]
         },
         {
-          "prompt": "Qual descrição combina com a tireoide neste esquema?",
+          "prompt": "Qual descrição combina com a tireoide num corte do pescoço?",
           "options": [
             {
               "label": "Abraça a traqueia pela frente e pelos lados",
@@ -1225,7 +1204,7 @@
           },
           {
             "speaker": "caio",
-            "text": "É a mesma coisa cortada em direções diferentes. A linha tracejada diz onde o corte axial passa."
+            "text": "É a mesma coisa cortada em direções diferentes. O sagital corta de cima a baixo e mostra a pilha inteira; o axial corta numa só altura."
           },
           {
             "speaker": "pixel",
@@ -1235,7 +1214,7 @@
       },
       "concept": {
         "title": "Pilha de lado, anel de cima",
-        "body": "No corte sagital, a coluna é uma pilha: corpos vertebrais com discos entre eles, e o canal atrás de todos. No corte axial na altura de um disco, o disco aparece na frente do canal, com um núcleo mole dentro. Na altura de um corpo, aparece a vértebra vista de cima, como na figura: corpo à frente, furo no meio, processo espinhoso atrás. No esquema de duas vistas, a axial é ampliada.",
+        "body": "No corte sagital, a coluna é uma pilha: corpos vertebrais com discos entre eles, e o canal atrás de todos. No corte axial na altura de um disco, o disco aparece na frente do canal, com um núcleo mole dentro. Na altura de um corpo, aparece a vértebra vista de cima, como na figura: corpo à frente, furo no meio, processo espinhoso atrás.",
         "keyPoints": [
           "Sagital: corpos e discos empilhados, canal atrás.",
           "Axial no disco: disco na frente, canal atrás dele.",
@@ -1280,49 +1259,41 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule seis partes da coluna lombar nas duas vistas, tocando na ficha e no ponto. A vista sagital está à esquerda e a axial, à direita.",
+          "prompt": "Rotule quatro partes da coluna lombar neste corte sagital, tocando na ficha e no ponto.",
           "diagramId": "coluna-sagital-e-axial",
           "points": [
             {
               "label": "Corpo vertebral",
-              "x": 0.175,
-              "y": 0.287,
-              "where": "bloco claro e quadrado na pilha da esquerda, à frente"
+              "alvo": "Corpo vertebral",
+              "x": 0.26,
+              "y": 0.47,
+              "where": "bloco grande e claro, com pintas, na pilha da esquerda"
             },
             {
-              "label": "Disco, vista sagital",
-              "x": 0.163,
-              "y": 0.55,
-              "where": "faixa fina com um oval, entre dois blocos da pilha"
+              "label": "Disco intervertebral",
+              "alvo": "Disco intervertebral",
+              "x": 0.29,
+              "y": 0.76,
+              "where": "faixa azul entre dois blocos, inclinada embaixo"
             },
             {
-              "label": "Canal, vista sagital",
-              "x": 0.284,
-              "y": 0.813,
-              "where": "espaço escuro e estreito atrás dos blocos, embaixo"
+              "label": "Canal vertebral",
+              "alvo": "Canal vertebral",
+              "x": 0.6,
+              "y": 0.62,
+              "where": "faixa em ciano atrás dos blocos, com fios finos"
             },
             {
               "label": "Processo espinhoso",
-              "x": 0.375,
-              "y": 0.292,
-              "where": "ponta que sai para trás, na altura de um bloco"
-            },
-            {
-              "label": "Disco, vista axial",
-              "x": 0.781,
-              "y": 0.262,
-              "where": "forma grande de rim, com um oval azul, na vista da direita"
-            },
-            {
-              "label": "Canal, vista axial",
-              "x": 0.781,
-              "y": 0.483,
-              "where": "espaço escuro em triângulo, abaixo da forma de rim"
+              "alvo": "Processo espinhoso",
+              "x": 0.77,
+              "y": 0.39,
+              "where": "peça clara em feijão, atrás do canal, ao lado de um bloco"
             }
           ],
-          "feedbackCorrect": "Isso: você achou cada parte nas duas vistas e não confundiu uma vista com a outra.",
-          "feedbackIncorrect": "Alguma ficha ficou fora do lugar: confira em qual das duas vistas cada parte aparece.",
-          "help": "Comece pela vista da esquerda, que é a pilha vista de lado.",
+          "feedbackCorrect": "Isso: você achou cada parte da coluna no corte de lado.",
+          "feedbackIncorrect": "Alguma ficha ficou fora do lugar: confira o que fica na pilha, o que fica entre os corpos e o que corre atrás.",
+          "help": "Olhe a pilha de lado: corpos grandes, discos azuis entre eles e o canal atrás.",
           "sourceIds": [
             "openstax-ap-7-3"
           ]
@@ -1331,7 +1302,7 @@
           "id": "i3",
           "type": "matching",
           "role": "practice",
-          "prompt": "Ligue cada parte e vista da coluna ao que aparece no esquema.",
+          "prompt": "Ligue cada parte e vista da coluna ao que se vê em cada corte.",
           "pairs": [
             {
               "left": "Disco, no corte sagital",
@@ -1379,7 +1350,7 @@
           "id": "i5",
           "type": "multiple-choice",
           "role": "transfer",
-          "prompt": "No esquema de duas vistas, imagine a linha tracejada descendo do disco para o meio do corpo vertebral de baixo. No novo corte axial, o que deixa de aparecer na frente do canal?",
+          "prompt": "Imagine um corte axial que passa pelo meio de um disco intervertebral e outro que passa pelo meio do corpo vertebral logo abaixo. No segundo corte, o que deixa de aparecer na frente do canal?",
           "options": [
             {
               "label": "O processo espinhoso",
@@ -1461,7 +1432,7 @@
             {
               "label": "Duas costelas, de cada lado",
               "correct": false,
-              "feedback": "Este esquema é da coluna lombar, sem costelas."
+              "feedback": "A coluna lombar não tem costelas."
             },
             {
               "label": "O canal de uma segunda vértebra",
@@ -1881,13 +1852,12 @@
       },
       "concept": {
         "title": "A altura pelas referências",
-        "body": "No tórax, os pulmões são grandes áreas escuras. O diafragma tem forma de cúpula: perto dele, as vísceras do abdome superior sobem no centro do corte, e as áreas escuras encolhem para as bordas. Isso vale do meio do tórax para baixo; no alto, perto do pescoço, os pulmões também são pequenos. Abaixo do diafragma não há pulmão, como no esquema ao lado. Da cabeça aos pés: pescoço, tórax, abdome superior, pelve.",
+        "body": "No tórax, os pulmões são grandes áreas escuras. O diafragma tem forma de cúpula: perto dele, as vísceras do abdome superior sobem no centro do corte, e as áreas escuras encolhem para as bordas. Isso vale do meio do tórax para baixo; no alto, perto do pescoço, os pulmões também são pequenos. Abaixo do diafragma não há pulmão: o corte do abdome superior da atividade não tem área escura de pulmão; as manchas pretas dele são gás dentro do intestino. Da cabeça aos pés: pescoço, tórax, abdome superior, pelve.",
         "keyPoints": [
           "Do meio do tórax para baixo: pulmão menor, corte mais baixo.",
           "Abaixo do diafragma o pulmão some; a referência diz a altura.",
           "Da cabeça aos pés: pescoço, tórax, abdome superior, pelve."
-        ],
-        "visual": "corte-abdome-superior"
+        ]
       },
       "interactions": [
         {
@@ -2010,43 +1980,36 @@
           "type": "hotspot",
           "role": "practice",
           "prompt": "Num corte sem pulmão, Duda procura o órgão que fica atrás, junto à parede, no lado esquerdo do paciente. Toque nele.",
-          "diagramId": "corte-abdome-superior",
+          "imageId": "image:rtg-2026:m28:tc-axial-abdome-superior-01",
           "regions": [
             {
               "label": "Fígado",
-              "x": 0.0938,
-              "y": 0.1667,
-              "width": 0.3125,
-              "height": 0.4167
+              "x": 0.0227,
+              "y": 0.2,
+              "width": 0.3682,
+              "height": 0.6526
             },
             {
               "label": "Baço",
-              "x": 0.7875,
-              "y": 0.4167,
-              "width": 0.1375,
-              "height": 0.3583,
+              "x": 0.8091,
+              "y": 0.5895,
+              "width": 0.1682,
+              "height": 0.2842,
               "correct": true
             },
             {
-              "label": "Rim direito do paciente",
-              "x": 0.275,
-              "y": 0.6417,
-              "width": 0.1125,
-              "height": 0.1667
-            },
-            {
               "label": "Rim esquerdo do paciente",
-              "x": 0.62,
-              "y": 0.64,
-              "width": 0.1,
-              "height": 0.16
+              "x": 0.6273,
+              "y": 0.6579,
+              "width": 0.1773,
+              "height": 0.1737
             },
             {
               "label": "Vértebra",
-              "x": 0.4313,
-              "y": 0.65,
-              "width": 0.1375,
-              "height": 0.2917
+              "x": 0.4273,
+              "y": 0.6211,
+              "width": 0.1409,
+              "height": 0.3053
             }
           ],
           "feedbackCorrect": "Isso: o baço fica atrás, junto à parede, à esquerda do paciente; o rim desse lado fica mais para dentro, ao lado da coluna.",

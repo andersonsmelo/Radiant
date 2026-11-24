@@ -6,7 +6,7 @@ export const RTG_2026_M32: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m32",
-  "materialSha256": "7ed470ee55bbdfd5cfb50f994a7640329099223b389047446d861e19d906a1ea",
+  "materialSha256": "1a1810df66b8699c1c54b8f2086ba77c070b0f93ba87efc0f21730a7f73be432",
   "trackId": "track:rtg-2026:m32",
   "unitId": "unit:rtg-2026:m32",
   "contentVersion": "rtg-2026-m32-v1",
@@ -211,28 +211,28 @@ export const RTG_2026_M32: ProductionBatchV1 = {
                 {
                   "id": "point:rtg-2026:m32:aula-01:i2:1",
                   "x": 0.15,
-                  "y": 0.54,
+                  "y": 0.5417,
                   "where": "à esquerda, o círculo amarelo grande com um visto",
                   "correctLabelId": "label:rtg-2026:m32:aula-01:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m32:aula-01:i2:2",
                   "x": 0.325,
-                  "y": 0.54,
+                  "y": 0.5417,
                   "where": "o primeiro ponto azul pequeno depois do círculo grande",
                   "correctLabelId": "label:rtg-2026:m32:aula-01:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m32:aula-01:i2:3",
-                  "x": 0.71,
-                  "y": 0.27,
+                  "x": 0.6938,
+                  "y": 0.275,
                   "where": "no alto à direita, a ferramenta de aperto sobre a linha",
                   "correctLabelId": "label:rtg-2026:m32:aula-01:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m32:aula-01:i2:4",
-                  "x": 0.82,
-                  "y": 0.54,
+                  "x": 0.8188,
+                  "y": 0.5417,
                   "where": "no fim da linha, o círculo ciano de tamanho médio",
                   "correctLabelId": "label:rtg-2026:m32:aula-01:i2:4"
                 }
@@ -575,36 +575,36 @@ export const RTG_2026_M32: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m32:aula-02:i2:1",
-                  "x": 0.5,
-                  "y": 0.12,
+                  "x": 0.4797,
+                  "y": 0.1437,
                   "where": "no alto, a caixa com um ponto amarelo dentro",
                   "correctLabelId": "label:rtg-2026:m32:aula-02:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m32:aula-02:i2:2",
-                  "x": 0.5,
-                  "y": 0.34,
+                  "x": 0.4813,
+                  "y": 0.3563,
                   "where": "logo abaixo da caixa de cima, de onde o feixe se abre",
                   "correctLabelId": "label:rtg-2026:m32:aula-02:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m32:aula-02:i2:3",
-                  "x": 0.5,
-                  "y": 0.58,
+                  "x": 0.4234,
+                  "y": 0.5687,
                   "where": "no meio do caminho do feixe, três faixas finas num suporte",
                   "correctLabelId": "label:rtg-2026:m32:aula-02:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m32:aula-02:i2:4",
-                  "x": 0.5,
-                  "y": 0.8,
+                  "x": 0.4266,
+                  "y": 0.7917,
                   "where": "sobre a mesa, o aparelho baixo que o feixe atinge",
                   "correctLabelId": "label:rtg-2026:m32:aula-02:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m32:aula-02:i2:5",
-                  "x": 0.825,
-                  "y": 0.65,
+                  "x": 0.6453,
+                  "y": 0.6792,
                   "where": "à direita, a tela com três barras de alturas diferentes",
                   "correctLabelId": "label:rtg-2026:m32:aula-02:i2:5"
                 }
@@ -940,42 +940,42 @@ export const RTG_2026_M32: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m32:aula-03:i2:1",
                   "label": "Faixa amarelada à esquerda",
-                  "x": 0.2813,
-                  "y": 0.4583,
-                  "width": 0.1,
-                  "height": 0.2083
+                  "x": 0.2,
+                  "y": 0.3167,
+                  "width": 0.1625,
+                  "height": 0.375
                 },
                 {
                   "id": "region:rtg-2026:m32:aula-03:i2:2",
                   "label": "Área escura no alto à direita",
-                  "x": 0.74,
-                  "y": 0.15,
-                  "width": 0.14,
-                  "height": 0.14
+                  "x": 0.6438,
+                  "y": 0.125,
+                  "width": 0.225,
+                  "height": 0.1667
                 },
                 {
                   "id": "region:rtg-2026:m32:aula-03:i2:3",
                   "label": "Área azul no centro",
-                  "x": 0.5125,
-                  "y": 0.4833,
-                  "width": 0.1625,
-                  "height": 0.2
+                  "x": 0.3781,
+                  "y": 0.3167,
+                  "width": 0.2438,
+                  "height": 0.375
                 },
                 {
                   "id": "region:rtg-2026:m32:aula-03:i2:4",
                   "label": "Faixa azul à direita",
-                  "x": 0.7219,
-                  "y": 0.4167,
-                  "width": 0.0969,
-                  "height": 0.25
+                  "x": 0.6375,
+                  "y": 0.3167,
+                  "width": 0.1625,
+                  "height": 0.375
                 },
                 {
                   "id": "region:rtg-2026:m32:aula-03:i2:5",
                   "label": "Área escura embaixo à esquerda",
-                  "x": 0.18,
-                  "y": 0.765,
-                  "width": 0.17,
-                  "height": 0.09
+                  "x": 0.1313,
+                  "y": 0.7333,
+                  "width": 0.2313,
+                  "height": 0.1417
                 }
               ],
               "correctRegionIds": [
@@ -1125,17 +1125,17 @@ export const RTG_2026_M32: ProductionBatchV1 = {
               "turns": [
                 {
                   "id": "turn:rtg-2026:m32:aula-03:i5:1",
-                  "line": "As marcas dos cantos da luz ficaram num lugar, e o retângulo exposto saiu mais para baixo delas. O que isso quer dizer?",
+                  "line": "As marcas dos cantos da luz ficaram num lugar, e o retângulo exposto saiu mais para o lado delas. O que isso quer dizer?",
                   "options": [
                     {
                       "id": "option:rtg-2026:m32:aula-03:i5:1a",
                       "label": "O feixe caiu fora do que a luz mostrava: os dois não coincidem.",
-                      "reply": "Então embaixo foi irradiado o que a luz não mostrava, e em cima faltou radiação."
+                      "reply": "Então de um lado foi irradiado o que a luz não mostrava, e do outro faltou radiação."
                     },
                     {
                       "id": "option:rtg-2026:m32:aula-03:i5:1b",
                       "label": "Nada: o retângulo exposto costuma sair um pouco maior que a luz mesmo.",
-                      "reply": "Hum, mas ele não ficou maior. Ele foi parar mais para baixo."
+                      "reply": "Hum, mas ele não ficou maior. Ele foi parar mais para o lado."
                     },
                     {
                       "id": "option:rtg-2026:m32:aula-03:i5:1c",
@@ -1152,7 +1152,7 @@ export const RTG_2026_M32: ProductionBatchV1 = {
                     {
                       "id": "option:rtg-2026:m32:aula-03:i5:2a",
                       "label": "Seguimos a agenda: um deslocamento pequeno assim não muda o exame.",
-                      "reply": "Mas a parte de baixo foi irradiada sem ninguém ver na luz."
+                      "reply": "Mas uma faixa foi irradiada sem ninguém ver na luz."
                     },
                     {
                       "id": "option:rtg-2026:m32:aula-03:i5:2b",
@@ -1602,7 +1602,7 @@ export const RTG_2026_M32: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Um valor para comparar salas",
-            "body": "Um nível de referência de diagnóstico ajuda a otimizar a proteção na exposição médica. Compara-se com ele o valor típico, a mediana, de uma sala ou serviço para um exame padrão, e nunca a dose de um paciente. Ele não é limite de dose e não separa prática boa de ruim. Num levantamento de radiografia, o valor típico de cada serviço foi a mediana do produto dose-área. No esquema, a linha deixa três quartos das salas abaixo dela, e acima dela se investigam as causas.",
+            "body": "Um nível de referência de diagnóstico ajuda a otimizar a proteção na exposição médica. Compara-se com ele o valor típico, a mediana, de uma sala ou serviço para um exame padrão, e nunca a dose de um paciente. Ele não é limite de dose e não separa prática boa de ruim. Num levantamento de radiografia, o valor típico de cada serviço foi a mediana do produto dose-área. No esquema, cada barra é uma sala, e a altura é o valor típico. A linha deixa três quartos das salas abaixo dela, e acima dela se investigam as causas.",
             "keyPoints": [
               "Compara o valor típico de uma sala, e não a dose de um paciente.",
               "Não é limite de dose.",
@@ -1682,29 +1682,29 @@ export const RTG_2026_M32: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m32:aula-05:i2:1",
-                  "x": 0.344,
-                  "y": 0.325,
+                  "x": 0.3125,
+                  "y": 0.375,
                   "where": "a linha tracejada que cruza o gráfico na horizontal",
                   "correctLabelId": "label:rtg-2026:m32:aula-05:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m32:aula-05:i2:2",
-                  "x": 0.808,
-                  "y": 0.215,
+                  "x": 0.8594,
+                  "y": 0.175,
                   "where": "as três barras amarelas, à direita",
                   "correctLabelId": "label:rtg-2026:m32:aula-05:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m32:aula-05:i2:3",
-                  "x": 0.511,
-                  "y": 0.6625,
+                  "x": 0.4219,
+                  "y": 0.625,
                   "where": "as barras azuis do meio, sob a linha tracejada",
                   "correctLabelId": "label:rtg-2026:m32:aula-05:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m32:aula-05:i2:4",
-                  "x": 0.2125,
-                  "y": 0.767,
+                  "x": 0.1656,
+                  "y": 0.775,
                   "where": "a primeira barra à esquerda, a mais curta",
                   "correctLabelId": "label:rtg-2026:m32:aula-05:i2:4"
                 }
@@ -2073,34 +2073,34 @@ export const RTG_2026_M32: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m32:aula-06:i2:1",
                   "label": "Círculo amarelo grande",
-                  "x": 0.0875,
-                  "y": 0.4583,
-                  "width": 0.125,
-                  "height": 0.1667
+                  "x": 0.0906,
+                  "y": 0.4625,
+                  "width": 0.1188,
+                  "height": 0.1583
                 },
                 {
                   "id": "region:rtg-2026:m32:aula-06:i2:2",
-                  "label": "Círculo azul pequeno",
-                  "x": 0.2844,
+                  "label": "Círculos azuis pequenos",
+                  "x": 0.2813,
                   "y": 0.4875,
-                  "width": 0.0813,
+                  "width": 0.35,
                   "height": 0.1083
                 },
                 {
                   "id": "region:rtg-2026:m32:aula-06:i2:3",
                   "label": "Chave de boca",
-                  "x": 0.6563,
-                  "y": 0.1833,
-                  "width": 0.1062,
-                  "height": 0.1667
+                  "x": 0.6219,
+                  "y": 0.1792,
+                  "width": 0.1438,
+                  "height": 0.1917
                 },
                 {
                   "id": "region:rtg-2026:m32:aula-06:i2:4",
                   "label": "Círculo ciano médio",
-                  "x": 0.775,
-                  "y": 0.4833,
-                  "width": 0.0875,
-                  "height": 0.1167
+                  "x": 0.7766,
+                  "y": 0.4854,
+                  "width": 0.0844,
+                  "height": 0.1125
                 }
               ],
               "correctRegionIds": [
@@ -6780,7 +6780,7 @@ export const RTG_2026_M32: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7ed470ee55bbdfd5cfb50f994a7640329099223b389047446d861e19d906a1ea"
+      "materialSha256": "1a1810df66b8699c1c54b8f2086ba77c070b0f93ba87efc0f21730a7f73be432"
     },
     {
       "schemaVersion": 1,
@@ -6789,7 +6789,7 @@ export const RTG_2026_M32: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7ed470ee55bbdfd5cfb50f994a7640329099223b389047446d861e19d906a1ea"
+      "materialSha256": "1a1810df66b8699c1c54b8f2086ba77c070b0f93ba87efc0f21730a7f73be432"
     },
     {
       "schemaVersion": 1,
@@ -6798,7 +6798,7 @@ export const RTG_2026_M32: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7ed470ee55bbdfd5cfb50f994a7640329099223b389047446d861e19d906a1ea"
+      "materialSha256": "1a1810df66b8699c1c54b8f2086ba77c070b0f93ba87efc0f21730a7f73be432"
     },
     {
       "schemaVersion": 1,
@@ -6807,7 +6807,7 @@ export const RTG_2026_M32: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7ed470ee55bbdfd5cfb50f994a7640329099223b389047446d861e19d906a1ea"
+      "materialSha256": "1a1810df66b8699c1c54b8f2086ba77c070b0f93ba87efc0f21730a7f73be432"
     },
     {
       "schemaVersion": 1,
@@ -6816,7 +6816,7 @@ export const RTG_2026_M32: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7ed470ee55bbdfd5cfb50f994a7640329099223b389047446d861e19d906a1ea"
+      "materialSha256": "1a1810df66b8699c1c54b8f2086ba77c070b0f93ba87efc0f21730a7f73be432"
     },
     {
       "schemaVersion": 1,
@@ -6825,7 +6825,7 @@ export const RTG_2026_M32: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "7ed470ee55bbdfd5cfb50f994a7640329099223b389047446d861e19d906a1ea"
+      "materialSha256": "1a1810df66b8699c1c54b8f2086ba77c070b0f93ba87efc0f21730a7f73be432"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

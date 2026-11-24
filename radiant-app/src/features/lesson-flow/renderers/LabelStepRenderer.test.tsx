@@ -137,4 +137,59 @@ describe('LabelStepRenderer', () => {
         fireEvent.press(screen.getByLabelText('Ponto 3, embaixo, sem rótulo'));
         expect(screen.getByTestId('label-chip-Fio').props.accessibilityHint).toMatch(/Põe esta ficha no ponto 3/);
     });
+
+    // E11: o marcador pequeno fica exatamente sobre o alvo e o número vai fora dele.
+    it('o marcador tem de 10 a 12 pt, centrado no ponto, e o número vai num selo fora do marcador', () => {
+        render(<Harness />);
+        measure();
+        label.payload.points.forEach((point, index) => {
+            const target = StyleSheet.flatten(screen.getByTestId(`label-point-${index + 1}`).props.style);
+            const dot = StyleSheet.flatten(screen.getByTestId(`label-point-marker-${index + 1}`).props.style);
+            expect(dot.width).toBeGreaterThanOrEqual(10);
+            expect(dot.width).toBeLessThanOrEqual(12);
+            expect(dot.height).toBe(dot.width);
+            // A caixa de toque, de 44 pt, continua centrada no ponto e o marcador, centrado nela.
+            expect(target.left + target.width / 2).toBeCloseTo(point.x * 280);
+            expect(target.top + target.height / 2).toBeCloseTo(point.y * 210);
+            // O selo é irmão do ponto: o estilo dele já vem em pontos do quadro.
+            const seal = StyleSheet.flatten(screen.getByTestId(`label-point-badge-${index + 1}`, { includeHiddenElements: true }).props.style);
+            const cx = point.x * 280, cy = point.y * 210;
+            const apart = seal.left >= cx + dot.width / 2 - 1e-9 || seal.left + seal.width <= cx - dot.width / 2 + 1e-9
+                || seal.top >= cy + dot.height / 2 - 1e-9 || seal.top + seal.height <= cy - dot.height / 2 + 1e-9;
+            expect(apart).toBe(true);
+            // Inteiro no quadro.
+            expect(seal.left).toBeGreaterThanOrEqual(0);
+            expect(seal.top).toBeGreaterThanOrEqual(0);
+            expect(seal.left + seal.width).toBeLessThanOrEqual(280);
+            expect(seal.top + seal.height).toBeLessThanOrEqual(210);
+        });
+    });
+
+    // Revoga a E13 (2026-11-20): o selo do número não recebe toque; o toque atravessa para o que estiver embaixo.
+    it('o selo do número não recebe toque e tocá-lo não põe nem tira a ficha do ponto dono', () => {
+        render(<Harness />);
+        measure();
+        for (let index = 1; index <= 3; index += 1) {
+            const badge = screen.getByTestId(`label-point-badge-${index}`, { includeHiddenElements: true });
+            expect(badge.props.pointerEvents).toBe('none');
+            expect(badge.props.onClick).toBeUndefined();
+            expect(badge.props.accessible).toBeFalsy();
+        }
+        fireEvent.press(screen.getByTestId('label-chip-Ânodo'));
+        fireEvent.press(screen.getByTestId('label-point-badge-2', { includeHiddenElements: true }));
+        expect(probe()).toBe('|false');
+        // O ponto em si continua sendo o alvo.
+        fireEvent.press(screen.getByTestId('label-point-2'));
+        expect(probe()).toBe('{"p2":"l-anodo"}|false');
+    });
+
+    it('depois de conferir, o número e o ícone do veredito cabem no selo de 36 pt, com a borda', () => {
+        render(<Harness submitted initial='{"p1":"l-catodo"}' />);
+        measure();
+        const badge = StyleSheet.flatten(screen.getByTestId('label-point-badge-1', { includeHiddenElements: true }).props.style);
+        let svg = screen.getByTestId('label-point-verdict-correct', { includeHiddenElements: true }).parent;
+        while (svg && svg.props.viewBox === undefined) svg = svg.parent;
+        // Um dígito de Sora Bold 16 mede até ~12 pt; 2 pt de borda de cada lado.
+        expect(2 * 2 + 12 + badge.gap + svg!.props.width).toBeLessThanOrEqual(badge.width);
+    });
 });

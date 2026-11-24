@@ -1,0 +1,82 @@
+appId: com.ascendcreative.radiant
+name: 'Figuras M27 aula-04'
+tags:
+  - figuras
+  - generated
+---
+# Gerado por scripts/qa/figuras-no-simulador.mjs a partir das aulas-fonte. Não edite à mão.
+# Entrada pelo link da rota /learn, como os roteiros da trilha, respondendo certo até o passo da figura. Não medido em aparelho.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
+    clearState: true
+    permissions:
+      all: deny
+- runFlow: ../subflows/dismiss-dev-client.yaml
+- runFlow: ../subflows/dismiss-first-run.yaml
+- assertVisible:
+    id: journey-trail
+- openLink: 'radiantapp://learn?blockId=activity%3Artg-2026%3Am27%3Aaula-04&nodeId=node%3Aactivity%3Artg-2026%3Am27%3Aaula-04'
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+- assertVisible: 'Passo 1 de 8'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 2 de 8'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 3 de 8'
+# interaction i1 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m27:aula-04:i1:a'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m27:aula-04:i1:a'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 4 de 8'
+# interaction i2 matching
+- scrollUntilVisible:
+    element:
+      text: 'Associar Audição reduzida a Falar de frente, devagar e sem gritar, confirmando que entendeu'
+- tapOn: 'Associar Audição reduzida a Falar de frente, devagar e sem gritar, confirmando que entendeu'
+- scrollUntilVisible:
+    element:
+      text: 'Associar Visão reduzida a Manter a sala iluminada no caminho até o receptor'
+- tapOn: 'Associar Visão reduzida a Manter a sala iluminada no caminho até o receptor'
+- scrollUntilVisible:
+    element:
+      text: 'Associar Pele frágil a Mover com cuidado, sem puxar, com a ajuda da equipe'
+- tapOn: 'Associar Pele frágil a Mover com cuidado, sem puxar, com a ajuda da equipe'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 5 de 8'
+# interaction i3 multi-select
+- scrollUntilVisible:
+    element:
+      id: 'multi-select-Ficar de frente para ela, para ela ver o seu rosto'
+- tapOn:
+    id: 'multi-select-Ficar de frente para ela, para ela ver o seu rosto'
+- scrollUntilVisible:
+    element:
+      id: 'multi-select-Falar devagar e fazer pausas'
+- tapOn:
+    id: 'multi-select-Falar devagar e fazer pausas'
+- scrollUntilVisible:
+    element:
+      id: 'multi-select-Usar palavras simples, em vez de termos técnicos'
+- tapOn:
+    id: 'multi-select-Usar palavras simples, em vez de termos técnicos'
+- scrollUntilVisible:
+    element:
+      id: 'multi-select-Pedir que avise se não estiver entendendo'
+- tapOn:
+    id: 'multi-select-Pedir que avise se não estiver entendendo'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 6 de 8'
+- takeScreenshot: 'figura-idoso-apoios-e-riscos-m27-aula-04'

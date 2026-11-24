@@ -6,7 +6,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m28",
-  "materialSha256": "937a7396e7c75a0e47eb8c2365c3389446d448ab8aba7ad727e8bef9c2048f11",
+  "materialSha256": "2cbd7e06c9aa4c0fe0d5a96fc521bf47de772414e4c087a6164f17ba270f62cd",
   "trackId": "track:rtg-2026:m28",
   "unitId": "unit:rtg-2026:m28",
   "contentVersion": "rtg-2026-m28-v1",
@@ -175,7 +175,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
               "lines": [
                 {
                   "speaker": "duda",
-                  "text": "Abri o esquema de um corte do abdome superior e tem um monte de formas. Sei que o fígado é grande, mas e o resto?"
+                  "text": "Abri a tomografia de um corte do abdome superior e tem um monte de formas. Sei que o fígado é grande, mas e o resto?"
                 },
                 {
                   "speaker": "caio",
@@ -195,13 +195,12 @@ export const RTG_2026_M28: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Vizinhos do abdome superior",
-            "body": "Neste esquema de corte axial, visto dos pés, o fígado ocupa o lado direito do paciente. O estômago fica à frente, no lado esquerdo. O baço fica atrás, também à esquerda, preso à borda do estômago. O pâncreas é uma faixa atrás do estômago, que termina perto do baço. Os rins ficam atrás, ao lado da coluna. O esquema simplifica: o pâncreas inteiro cabe num só corte.",
+            "body": "Num corte axial real do abdome superior, visto dos pés, o fígado ocupa o lado direito do paciente, à esquerda da figura. O estômago fica à frente e passa da linha média para o lado esquerdo; cheio de líquido, ele é grande. O baço fica atrás, também à esquerda, encostado na parede. O pâncreas é uma faixa atrás do estômago, que termina perto do baço. Os rins ficam atrás, ao lado da coluna. Nem todo corte mostra o pâncreas inteiro.",
             "keyPoints": [
               "Fígado à direita do paciente; estômago e baço à esquerda.",
               "Pâncreas: faixa atrás do estômago, até perto do baço.",
               "Rins atrás, ao lado da coluna."
-            ],
-            "visual": "corte-abdome-superior"
+            ]
           }
         },
         {
@@ -272,41 +271,41 @@ export const RTG_2026_M28: ProductionBatchV1 = {
             },
             "payload": {
               "prompt": "Rotule cinco estruturas do abdome superior, tocando na ficha e no ponto. Direita do paciente à esquerda da figura.",
-              "imageRef": "diagram:corte-abdome-superior",
+              "imageRef": "image:rtg-2026:m28:tc-axial-abdome-superior-01",
               "points": [
                 {
                   "id": "point:rtg-2026:m28:aula-01:i2:1",
-                  "x": 0.25,
-                  "y": 0.375,
-                  "where": "grande massa à esquerda da figura, com ponta no meio",
+                  "x": 0.1727,
+                  "y": 0.4526,
+                  "where": "massa cinza muito grande, na metade esquerda da figura",
                   "correctLabelId": "label:rtg-2026:m28:aula-01:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-01:i2:2",
-                  "x": 0.697,
-                  "y": 0.287,
-                  "where": "oval no alto, à direita do centro da figura",
+                  "x": 0.7364,
+                  "y": 0.4526,
+                  "where": "oval grande de cinza mais escuro, à direita do centro",
                   "correctLabelId": "label:rtg-2026:m28:aula-01:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-01:i2:3",
-                  "x": 0.856,
-                  "y": 0.596,
-                  "where": "faixa curva na borda direita da figura, atrás",
+                  "x": 0.8955,
+                  "y": 0.7053,
+                  "where": "massa cinza na borda direita da figura, atrás",
                   "correctLabelId": "label:rtg-2026:m28:aula-01:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-01:i2:4",
-                  "x": 0.631,
-                  "y": 0.512,
-                  "where": "faixa horizontal e fina, no meio da figura",
+                  "x": 0.5682,
+                  "y": 0.4547,
+                  "where": "faixa clara e inclinada, atrás da oval grande, ao centro",
                   "correctLabelId": "label:rtg-2026:m28:aula-01:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-01:i2:5",
-                  "x": 0.331,
-                  "y": 0.725,
-                  "where": "oval pequeno atrás, à esquerda da vértebra",
+                  "x": 0.3045,
+                  "y": 0.7263,
+                  "where": "oval muito clara, atrás, à esquerda da vértebra",
                   "correctLabelId": "label:rtg-2026:m28:aula-01:i2:5"
                 }
               ],
@@ -350,7 +349,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada estrutura do esquema ao lugar em que ela aparece no corte."
+              "label": "Associação: Ligue cada estrutura ao lugar em que ela aparece no corte."
             },
             "help": "Dois ficam à esquerda do paciente; um deles está atrás do outro.",
             "type": "matching",
@@ -359,7 +358,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
               "incorrect": "Confira de cada órgão o lado do paciente e o que fica na frente e atrás dele."
             },
             "payload": {
-              "prompt": "Ligue cada estrutura do esquema ao lugar em que ela aparece no corte.",
+              "prompt": "Ligue cada estrutura ao lugar em que ela aparece no corte.",
               "pairs": [
                 {
                   "id": "pair:rtg-2026:m28:aula-01:i3:1",
@@ -369,7 +368,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
                 {
                   "id": "pair:rtg-2026:m28:aula-01:i3:2",
                   "left": "Baço",
-                  "right": "Atrás, à esquerda, junto à borda do estômago"
+                  "right": "Atrás, à esquerda, encostado na parede"
                 },
                 {
                   "id": "pair:rtg-2026:m28:aula-01:i3:3",
@@ -396,7 +395,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Certo ou errado: Julgue cada afirmação sobre o esquema do abdome superior."
+              "label": "Certo ou errado: Julgue cada afirmação sobre o corte do abdome superior."
             },
             "help": "Pergunte de cada órgão: frente ou trás, direita ou esquerda?",
             "type": "true-false",
@@ -405,13 +404,13 @@ export const RTG_2026_M28: ProductionBatchV1 = {
               "incorrect": "Releia o conceito: o estômago está à frente, o baço atrás, e o fígado no lado direito do paciente."
             },
             "payload": {
-              "prompt": "Julgue cada afirmação sobre o esquema do abdome superior.",
+              "prompt": "Julgue cada afirmação sobre o corte do abdome superior.",
               "statements": [
                 {
                   "id": "statement:rtg-2026:m28:aula-01:i4:1",
                   "text": "O estômago aparece à frente, do lado esquerdo do paciente.",
                   "isTrue": true,
-                  "explanation": "Certo: no esquema o estômago ocupa a frente à esquerda do paciente."
+                  "explanation": "Certo: no corte o estômago ocupa a frente, do lado esquerdo do paciente."
                 },
                 {
                   "id": "statement:rtg-2026:m28:aula-01:i4:2",
@@ -488,7 +487,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "O que você consegue fazer agora",
-            "body": "Você consegue achar fígado, estômago, baço, pâncreas, rim e vértebra num corte esquemático do abdome superior, dizendo o lado do paciente e o vizinho de cada um. Localizar não é interpretar: aqui você só situa as estruturas.",
+            "body": "Você consegue achar fígado, estômago, baço, pâncreas, rim e vértebra num corte real do abdome superior, dizendo o lado do paciente e o vizinho de cada um. Localizar não é interpretar: aqui você só situa as estruturas.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -523,13 +522,13 @@ export const RTG_2026_M28: ProductionBatchV1 = {
           "role": "hook",
           "payload": {
             "title": "Pelve em corte",
-            "body": "Hoje você vai conseguir localizar bexiga, reto, cabeças do fêmur e ossos da pelve num corte axial.",
+            "body": "Hoje você vai conseguir localizar sínfise, cabeças do fêmur e cóccix num corte axial real da pelve e dizer a ordem de bexiga e reto.",
             "dialogue": {
               "setting": "Laboratório de imagem, estação de estudo",
               "lines": [
                 {
                   "speaker": "duda",
-                  "text": "Agora o corte é da pelve. Tem dois círculos de osso nas laterais, uma forma oval na frente e um buraco no meio. Por onde começo?"
+                  "text": "Agora o corte é da pelve. Tem duas bolas de osso nas laterais, dois arcos de osso na frente e um monte de formas no meio. Por onde começo?"
                 },
                 {
                   "speaker": "caio",
@@ -549,13 +548,12 @@ export const RTG_2026_M28: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "De frente para trás, pela linha média",
-            "body": "Neste esquema de corte axial da pelve, a sínfise púbica fica à frente, na linha média. Atrás do osso púbico está a bexiga e, mais atrás, o reto, na frente do sacro e do cóccix. De cada lado, a cabeça do fêmur encaixa no acetábulo. O espaço entre bexiga e reto fica vazio de propósito: os órgãos dali variam com o sexo. O esquema simplifica: o púbis e as cabeças aparecem no mesmo corte.",
+            "body": "Neste corte axial real da pelve, visto dos pés, a sínfise púbica fica à frente, na linha média. Atrás do osso púbico está a bexiga e, mais atrás, o reto, na frente do cóccix. De cada lado, a cabeça do fêmur encaixa no acetábulo. Neste corte, baixo na pelve, bexiga e reto aparecem só em parte, e entre eles há órgãos que variam com o sexo.",
             "keyPoints": [
               "Linha média, de frente para trás: sínfise, bexiga, reto, cóccix.",
               "A cabeça do fêmur encaixa no acetábulo.",
-              "O espaço entre bexiga e reto varia com o sexo."
-            ],
-            "visual": "corte-pelve"
+              "Entre bexiga e reto ficam órgãos que variam com o sexo."
+            ]
           }
         },
         {
@@ -616,52 +614,45 @@ export const RTG_2026_M28: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule cinco estruturas da pelve, tocando na ficha e no ponto. Direita do paciente à esquerda da figura."
+              "label": "Rotular a imagem: Rotule quatro estruturas da pelve, tocando na ficha e no ponto. Direita do paciente à esquerda da figura."
             },
             "help": "Na linha média, o primeiro é osso e fica no alto da figura.",
             "type": "label",
             "feedback": {
-              "correct": "Isso: ossos nas pontas e órgãos na linha média, de frente para trás.",
-              "incorrect": "Alguma ficha ficou fora do lugar: ande pela linha média, de frente para trás, e ache os ossos das laterais."
+              "correct": "Isso: você achou o osso da frente, o de trás e os das laterais.",
+              "incorrect": "Alguma ficha ficou fora do lugar: comece pelos ossos, que são os mais claros, e confira o lado de cada um."
             },
             "payload": {
-              "prompt": "Rotule cinco estruturas da pelve, tocando na ficha e no ponto. Direita do paciente à esquerda da figura.",
-              "imageRef": "diagram:corte-pelve",
+              "prompt": "Rotule quatro estruturas da pelve, tocando na ficha e no ponto. Direita do paciente à esquerda da figura.",
+              "imageRef": "image:rtg-2026:m28:tc-axial-pelve-01",
               "points": [
                 {
                   "id": "point:rtg-2026:m28:aula-02:i2:1",
-                  "x": 0.5,
-                  "y": 0.183,
-                  "where": "ponto do osso no alto, onde os dois lados se encontram",
+                  "x": 0.4882,
+                  "y": 0.32,
+                  "where": "junção dos dois ossos claros do alto, no meio da figura",
                   "correctLabelId": "label:rtg-2026:m28:aula-02:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-02:i2:2",
-                  "x": 0.5,
-                  "y": 0.4,
-                  "where": "oval grande, logo abaixo do osso do alto",
+                  "x": 0.7818,
+                  "y": 0.4824,
+                  "where": "bola de osso muito clara, à direita da figura",
                   "correctLabelId": "label:rtg-2026:m28:aula-02:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-02:i2:3",
-                  "x": 0.5,
-                  "y": 0.667,
-                  "where": "círculo pequeno com um furo, perto do fundo da figura",
+                  "x": 0.3,
+                  "y": 0.5529,
+                  "where": "osso curvo que abraça a bola do lado esquerdo da figura",
                   "correctLabelId": "label:rtg-2026:m28:aula-02:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-02:i2:4",
-                  "x": 0.181,
-                  "y": 0.508,
-                  "where": "bola redonda perto da borda esquerda da figura",
+                  "x": 0.4909,
+                  "y": 0.8235,
+                  "where": "pequeno osso claro, no meio, perto do fundo da figura",
                   "correctLabelId": "label:rtg-2026:m28:aula-02:i2:4"
-                },
-                {
-                  "id": "point:rtg-2026:m28:aula-02:i2:5",
-                  "x": 0.731,
-                  "y": 0.508,
-                  "where": "concha curva de osso, junto à bola do lado direito da figura",
-                  "correctLabelId": "label:rtg-2026:m28:aula-02:i2:5"
                 }
               ],
               "labels": [
@@ -670,23 +661,19 @@ export const RTG_2026_M28: ProductionBatchV1 = {
                   "label": "Sínfise púbica"
                 },
                 {
-                  "id": "label:rtg-2026:m28:aula-02:i2:5",
+                  "id": "label:rtg-2026:m28:aula-02:i2:4",
+                  "label": "Cóccix"
+                },
+                {
+                  "id": "label:rtg-2026:m28:aula-02:i2:3",
                   "label": "Acetábulo"
                 },
                 {
                   "id": "label:rtg-2026:m28:aula-02:i2:2",
-                  "label": "Bexiga"
-                },
-                {
-                  "id": "label:rtg-2026:m28:aula-02:i2:4",
                   "label": "Cabeça do fêmur"
                 },
                 {
-                  "id": "label:rtg-2026:m28:aula-02:i2:3",
-                  "label": "Reto"
-                },
-                {
-                  "id": "label:rtg-2026:m28:aula-02:i2:6",
+                  "id": "label:rtg-2026:m28:aula-02:i2:5",
                   "label": "Fígado"
                 }
               ]
@@ -765,7 +752,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Certo ou errado: Julgue cada afirmação sobre o esquema da pelve."
+              "label": "Certo ou errado: Julgue cada afirmação sobre a pelve."
             },
             "help": "Na linha média, quem vem primeiro, de frente para trás?",
             "type": "true-false",
@@ -774,7 +761,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
               "incorrect": "Releia o conceito: bexiga atrás do púbis, reto atrás da bexiga, cabeça do fêmur no acetábulo."
             },
             "payload": {
-              "prompt": "Julgue cada afirmação sobre o esquema da pelve.",
+              "prompt": "Julgue cada afirmação sobre a pelve.",
               "statements": [
                 {
                   "id": "statement:rtg-2026:m28:aula-02:i4:1",
@@ -796,9 +783,9 @@ export const RTG_2026_M28: ProductionBatchV1 = {
                 },
                 {
                   "id": "statement:rtg-2026:m28:aula-02:i4:4",
-                  "text": "Neste esquema, o espaço entre bexiga e reto fica vazio de propósito.",
+                  "text": "Entre a bexiga e o reto ficam órgãos que variam com o sexo.",
                   "isTrue": true,
-                  "explanation": "Certo: os órgãos dali variam com o sexo, e o esquema não os desenha."
+                  "explanation": "Certo: os órgãos dali variam com o sexo, e não são iguais em todas as pessoas."
                 }
               ]
             }
@@ -857,13 +844,13 @@ export const RTG_2026_M28: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "O que você consegue fazer agora",
-            "body": "Você consegue andar pela linha média da pelve, de frente para trás, e achar também os ossos das laterais. Onde o esquema deixa um espaço vazio, você diz que a região varia com o sexo, sem inventar o que há nela.",
+            "body": "Você consegue andar pela linha média da pelve, de frente para trás, e achar também os ossos das laterais. Entre a bexiga e o reto, você diz que os órgãos variam com o sexo, sem inventar quais são.",
             "tone": "positive",
             "dialogue": {
               "lines": [
                 {
                   "speaker": "lia",
-                  "text": "Quando uma região varia entre pessoas, o esquema não adivinha. Você também não."
+                  "text": "Quando uma região varia entre pessoas, você não adivinha o que há nela."
                 }
               ]
             }
@@ -892,7 +879,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
           "role": "hook",
           "payload": {
             "title": "Pescoço em corte",
-            "body": "Hoje você vai conseguir localizar via aérea, esôfago, tireoide, vasos e vértebra num corte axial do pescoço.",
+            "body": "Hoje você vai conseguir localizar traqueia, vasos e vértebra num corte axial real do pescoço e situar a tireoide e o esôfago.",
             "dialogue": {
               "setting": "Laboratório de imagem, estação de estudo",
               "lines": [
@@ -918,13 +905,12 @@ export const RTG_2026_M28: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "A traqueia como referência",
-            "body": "No esquema do corte axial do pescoço, a traqueia fica no meio, na frente, com ar dentro. A tireoide a abraça pela frente e pelos lados, como uma borboleta. O esôfago fica atrás da traqueia. De cada lado correm a carótida, uma artéria, e a jugular interna, uma veia, juntas. Atrás vêm a vértebra e, no canal dela, a medula. Neste esquema, a artéria é um círculo menor e a veia, uma oval maior.",
+            "body": "No corte axial real do pescoço, visto dos pés, a traqueia fica no meio, na frente, com ar dentro. A tireoide a abraça como uma borboleta: neste corte aparecem as duas asas, uma de cada lado, e o istmo, que as liga pela frente, fica em outro nível do pescoço. O esôfago fica atrás da traqueia, discreto. De cada lado correm a carótida, uma artéria, e a jugular interna, uma veia, juntas. Atrás vêm a vértebra e, no canal dela, a medula. Neste corte, a artéria é um círculo menor e a veia, uma oval maior.",
             "keyPoints": [
               "Traqueia no meio; tireoide em volta, esôfago atrás.",
               "Carótida e jugular interna correm juntas, de cada lado.",
               "Vértebra e canal da medula, atrás."
-            ],
-            "visual": "corte-pescoco"
+            ]
           }
         },
         {
@@ -985,85 +971,63 @@ export const RTG_2026_M28: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule seis estruturas do pescoço, tocando na ficha e no ponto. Direita do paciente à esquerda da figura."
+              "label": "Rotular a imagem: Rotule quatro estruturas do pescoço, tocando na ficha e no ponto. Direita do paciente à esquerda da figura."
             },
-            "help": "Comece pelo círculo escuro do meio, que tem ar dentro.",
+            "help": "Comece pelo círculo preto do meio, que tem ar dentro.",
             "type": "label",
             "feedback": {
-              "correct": "Isso: você achou a referência e depois quem a abraça, quem fica atrás e quem corre ao lado.",
-              "incorrect": "Alguma ficha ficou fora do lugar: comece pelo círculo escuro e confira quem o abraça e quem fica atrás."
+              "correct": "Isso: você achou a referência e depois o que corre ao lado e o que fica atrás.",
+              "incorrect": "Alguma ficha ficou fora do lugar: comece pelo círculo preto e confira o que corre ao lado e o que fica atrás."
             },
             "payload": {
-              "prompt": "Rotule seis estruturas do pescoço, tocando na ficha e no ponto. Direita do paciente à esquerda da figura.",
-              "imageRef": "diagram:corte-pescoco",
+              "prompt": "Rotule quatro estruturas do pescoço, tocando na ficha e no ponto. Direita do paciente à esquerda da figura.",
+              "imageRef": "image:rtg-2026:m28:tc-axial-pescoco-01",
               "points": [
                 {
                   "id": "point:rtg-2026:m28:aula-03:i2:1",
-                  "x": 0.5,
-                  "y": 0.208,
-                  "where": "círculo grande e escuro, no meio, perto do alto",
+                  "x": 0.4213,
+                  "y": 0.2437,
+                  "where": "círculo grande e preto, no meio, perto do alto",
                   "correctLabelId": "label:rtg-2026:m28:aula-03:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-03:i2:2",
-                  "x": 0.337,
-                  "y": 0.288,
-                  "where": "massa em asa, ao lado esquerdo do círculo escuro",
+                  "x": 0.5833,
+                  "y": 0.3287,
+                  "where": "círculo pequeno e claro, à direita, junto a uma oval",
                   "correctLabelId": "label:rtg-2026:m28:aula-03:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-03:i2:3",
-                  "x": 0.519,
-                  "y": 0.421,
-                  "where": "oval achatada logo abaixo do círculo escuro, com um traço",
+                  "x": 0.2574,
+                  "y": 0.335,
+                  "where": "oval grande e clara, perto da borda esquerda da figura",
                   "correctLabelId": "label:rtg-2026:m28:aula-03:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-03:i2:4",
-                  "x": 0.706,
-                  "y": 0.483,
-                  "where": "círculo pequeno e claro, à direita, junto a uma oval",
+                  "x": 0.4185,
+                  "y": 0.475,
+                  "where": "osso claro e largo, no meio, abaixo do círculo preto",
                   "correctLabelId": "label:rtg-2026:m28:aula-03:i2:4"
-                },
-                {
-                  "id": "point:rtg-2026:m28:aula-03:i2:5",
-                  "x": 0.213,
-                  "y": 0.504,
-                  "where": "oval grande e mais escura, perto da borda esquerda da figura",
-                  "correctLabelId": "label:rtg-2026:m28:aula-03:i2:5"
-                },
-                {
-                  "id": "point:rtg-2026:m28:aula-03:i2:6",
-                  "x": 0.42,
-                  "y": 0.65,
-                  "where": "lado do anel de osso que cerca um furo, embaixo",
-                  "correctLabelId": "label:rtg-2026:m28:aula-03:i2:6"
                 }
               ],
               "labels": [
-                {
-                  "id": "label:rtg-2026:m28:aula-03:i2:5",
-                  "label": "Jugular interna"
-                },
                 {
                   "id": "label:rtg-2026:m28:aula-03:i2:1",
                   "label": "Traqueia"
                 },
                 {
                   "id": "label:rtg-2026:m28:aula-03:i2:2",
-                  "label": "Tireoide"
-                },
-                {
-                  "id": "label:rtg-2026:m28:aula-03:i2:3",
-                  "label": "Esôfago"
-                },
-                {
-                  "id": "label:rtg-2026:m28:aula-03:i2:6",
-                  "label": "Vértebra"
+                  "label": "Carótida"
                 },
                 {
                   "id": "label:rtg-2026:m28:aula-03:i2:4",
-                  "label": "Carótida"
+                  "label": "Vértebra"
+                },
+                {
+                  "id": "label:rtg-2026:m28:aula-03:i2:3",
+                  "label": "Jugular interna"
                 }
               ]
             }
@@ -1080,7 +1044,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Classificação: Classifique cada estrutura pela posição em relação à traqueia neste esquema."
+              "label": "Classificação: Classifique cada estrutura pela posição em relação à traqueia."
             },
             "help": "A tireoide tem uma parte na frente e duas nos lados.",
             "type": "categorize",
@@ -1089,7 +1053,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
               "incorrect": "Pergunte de cada estrutura: ela envolve a traqueia, fica atrás dela ou corre ao lado, longe?"
             },
             "payload": {
-              "prompt": "Classifique cada estrutura pela posição em relação à traqueia neste esquema.",
+              "prompt": "Classifique cada estrutura pela posição em relação à traqueia.",
               "categories": [
                 {
                   "id": "group:rtg-2026:m28:aula-03:i3:a",
@@ -1150,7 +1114,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Marque todas as corretas: Marque todas as estruturas que ficam atrás da traqueia, na linha média, neste esquema."
+              "label": "Marque todas as corretas: Marque todas as estruturas que ficam atrás da traqueia, na linha média."
             },
             "help": "Ande da traqueia para as costas e marque tudo o que encontrar em fila.",
             "type": "multi-select",
@@ -1159,7 +1123,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
               "incorrect": "Releia o conceito: a tireoide abraça por fora e os vasos correm ao lado; atrás vêm esôfago, vértebra e canal."
             },
             "payload": {
-              "prompt": "Marque todas as estruturas que ficam atrás da traqueia, na linha média, neste esquema.",
+              "prompt": "Marque todas as estruturas que ficam atrás da traqueia, na linha média.",
               "options": [
                 {
                   "id": "option:rtg-2026:m28:aula-03:i4:a",
@@ -1253,7 +1217,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "O que você consegue fazer agora",
-            "body": "Você consegue achar traqueia, tireoide, esôfago, vasos e vértebra num corte do pescoço, partindo da traqueia como referência. Localizar não é interpretar: aqui você só situa cada estrutura e fala da posição dela.",
+            "body": "Você consegue achar traqueia, vasos e vértebra num corte real do pescoço e situar a tireoide e o esôfago, partindo da traqueia como referência. Localizar não é interpretar: aqui você só situa cada estrutura e fala da posição dela.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -1295,7 +1259,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
                 },
                 {
                   "speaker": "caio",
-                  "text": "É a mesma coisa cortada em direções diferentes. A linha tracejada diz onde o corte axial passa."
+                  "text": "É a mesma coisa cortada em direções diferentes. O sagital corta de cima a baixo e mostra a pilha inteira; o axial corta numa só altura."
                 },
                 {
                   "speaker": "pixel",
@@ -1311,7 +1275,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Pilha de lado, anel de cima",
-            "body": "No corte sagital, a coluna é uma pilha: corpos vertebrais com discos entre eles, e o canal atrás de todos. No corte axial na altura de um disco, o disco aparece na frente do canal, com um núcleo mole dentro. Na altura de um corpo, aparece a vértebra vista de cima, como na figura: corpo à frente, furo no meio, processo espinhoso atrás. No esquema de duas vistas, a axial é ampliada.",
+            "body": "No corte sagital, a coluna é uma pilha: corpos vertebrais com discos entre eles, e o canal atrás de todos. No corte axial na altura de um disco, o disco aparece na frente do canal, com um núcleo mole dentro. Na altura de um corpo, aparece a vértebra vista de cima, como na figura: corpo à frente, furo no meio, processo espinhoso atrás.",
             "keyPoints": [
               "Sagital: corpos e discos empilhados, canal atrás.",
               "Axial no disco: disco na frente, canal atrás dele.",
@@ -1378,85 +1342,63 @@ export const RTG_2026_M28: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule seis partes da coluna lombar nas duas vistas, tocando na ficha e no ponto. A vista sagital está à esquerda e a axial, à direita."
+              "label": "Rotular a imagem: Rotule quatro partes da coluna lombar neste corte sagital, tocando na ficha e no ponto."
             },
-            "help": "Comece pela vista da esquerda, que é a pilha vista de lado.",
+            "help": "Olhe a pilha de lado: corpos grandes, discos azuis entre eles e o canal atrás.",
             "type": "label",
             "feedback": {
-              "correct": "Isso: você achou cada parte nas duas vistas e não confundiu uma vista com a outra.",
-              "incorrect": "Alguma ficha ficou fora do lugar: confira em qual das duas vistas cada parte aparece."
+              "correct": "Isso: você achou cada parte da coluna no corte de lado.",
+              "incorrect": "Alguma ficha ficou fora do lugar: confira o que fica na pilha, o que fica entre os corpos e o que corre atrás."
             },
             "payload": {
-              "prompt": "Rotule seis partes da coluna lombar nas duas vistas, tocando na ficha e no ponto. A vista sagital está à esquerda e a axial, à direita.",
+              "prompt": "Rotule quatro partes da coluna lombar neste corte sagital, tocando na ficha e no ponto.",
               "imageRef": "diagram:coluna-sagital-e-axial",
               "points": [
                 {
                   "id": "point:rtg-2026:m28:aula-04:i2:1",
-                  "x": 0.175,
-                  "y": 0.287,
-                  "where": "bloco claro e quadrado na pilha da esquerda, à frente",
+                  "x": 0.26,
+                  "y": 0.47,
+                  "where": "bloco grande e claro, com pintas, na pilha da esquerda",
                   "correctLabelId": "label:rtg-2026:m28:aula-04:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-04:i2:2",
-                  "x": 0.163,
-                  "y": 0.55,
-                  "where": "faixa fina com um oval, entre dois blocos da pilha",
+                  "x": 0.29,
+                  "y": 0.76,
+                  "where": "faixa azul entre dois blocos, inclinada embaixo",
                   "correctLabelId": "label:rtg-2026:m28:aula-04:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-04:i2:3",
-                  "x": 0.284,
-                  "y": 0.813,
-                  "where": "espaço escuro e estreito atrás dos blocos, embaixo",
+                  "x": 0.6,
+                  "y": 0.62,
+                  "where": "faixa em ciano atrás dos blocos, com fios finos",
                   "correctLabelId": "label:rtg-2026:m28:aula-04:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m28:aula-04:i2:4",
-                  "x": 0.375,
-                  "y": 0.292,
-                  "where": "ponta que sai para trás, na altura de um bloco",
+                  "x": 0.77,
+                  "y": 0.39,
+                  "where": "peça clara em feijão, atrás do canal, ao lado de um bloco",
                   "correctLabelId": "label:rtg-2026:m28:aula-04:i2:4"
-                },
-                {
-                  "id": "point:rtg-2026:m28:aula-04:i2:5",
-                  "x": 0.781,
-                  "y": 0.262,
-                  "where": "forma grande de rim, com um oval azul, na vista da direita",
-                  "correctLabelId": "label:rtg-2026:m28:aula-04:i2:5"
-                },
-                {
-                  "id": "point:rtg-2026:m28:aula-04:i2:6",
-                  "x": 0.781,
-                  "y": 0.483,
-                  "where": "espaço escuro em triângulo, abaixo da forma de rim",
-                  "correctLabelId": "label:rtg-2026:m28:aula-04:i2:6"
                 }
               ],
               "labels": [
                 {
-                  "id": "label:rtg-2026:m28:aula-04:i2:5",
-                  "label": "Disco, vista axial"
+                  "id": "label:rtg-2026:m28:aula-04:i2:3",
+                  "label": "Canal vertebral"
                 },
                 {
                   "id": "label:rtg-2026:m28:aula-04:i2:4",
                   "label": "Processo espinhoso"
                 },
                 {
-                  "id": "label:rtg-2026:m28:aula-04:i2:6",
-                  "label": "Canal, vista axial"
+                  "id": "label:rtg-2026:m28:aula-04:i2:2",
+                  "label": "Disco intervertebral"
                 },
                 {
                   "id": "label:rtg-2026:m28:aula-04:i2:1",
                   "label": "Corpo vertebral"
-                },
-                {
-                  "id": "label:rtg-2026:m28:aula-04:i2:3",
-                  "label": "Canal, vista sagital"
-                },
-                {
-                  "id": "label:rtg-2026:m28:aula-04:i2:2",
-                  "label": "Disco, vista sagital"
                 }
               ]
             }
@@ -1473,7 +1415,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Associação: Ligue cada parte e vista da coluna ao que aparece no esquema."
+              "label": "Associação: Ligue cada parte e vista da coluna ao que se vê em cada corte."
             },
             "help": "No sagital as partes se repetem de cima para baixo; no axial há uma só altura.",
             "type": "matching",
@@ -1482,7 +1424,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
               "incorrect": "Pense no que o corte atravessa: no sagital a pilha inteira, no axial uma só altura."
             },
             "payload": {
-              "prompt": "Ligue cada parte e vista da coluna ao que aparece no esquema.",
+              "prompt": "Ligue cada parte e vista da coluna ao que se vê em cada corte.",
               "pairs": [
                 {
                   "id": "pair:rtg-2026:m28:aula-04:i3:1",
@@ -1567,7 +1509,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Múltipla escolha: No esquema de duas vistas, imagine a linha tracejada descendo do disco para o meio do corpo vertebral de baixo. No novo corte axial, o que deixa de aparecer na frente do canal?"
+              "label": "Múltipla escolha: Imagine um corte axial que passa pelo meio de um disco intervertebral e outro que passa pelo meio do corpo vertebral logo abaixo. No segundo corte, o que deixa de aparecer na frente do canal?"
             },
             "help": "Pense no que o corte atravessa em cada altura da pilha.",
             "type": "multiple-choice",
@@ -1576,7 +1518,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
               "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "prompt": "No esquema de duas vistas, imagine a linha tracejada descendo do disco para o meio do corpo vertebral de baixo. No novo corte axial, o que deixa de aparecer na frente do canal?",
+              "prompt": "Imagine um corte axial que passa pelo meio de um disco intervertebral e outro que passa pelo meio do corpo vertebral logo abaixo. No segundo corte, o que deixa de aparecer na frente do canal?",
               "options": [
                 {
                   "id": "option:rtg-2026:m28:aula-04:i5:a",
@@ -1979,13 +1921,12 @@ export const RTG_2026_M28: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "A altura pelas referências",
-            "body": "No tórax, os pulmões são grandes áreas escuras. O diafragma tem forma de cúpula: perto dele, as vísceras do abdome superior sobem no centro do corte, e as áreas escuras encolhem para as bordas. Isso vale do meio do tórax para baixo; no alto, perto do pescoço, os pulmões também são pequenos. Abaixo do diafragma não há pulmão, como no esquema ao lado. Da cabeça aos pés: pescoço, tórax, abdome superior, pelve.",
+            "body": "No tórax, os pulmões são grandes áreas escuras. O diafragma tem forma de cúpula: perto dele, as vísceras do abdome superior sobem no centro do corte, e as áreas escuras encolhem para as bordas. Isso vale do meio do tórax para baixo; no alto, perto do pescoço, os pulmões também são pequenos. Abaixo do diafragma não há pulmão: o corte do abdome superior da atividade não tem área escura de pulmão; as manchas pretas dele são gás dentro do intestino. Da cabeça aos pés: pescoço, tórax, abdome superior, pelve.",
             "keyPoints": [
               "Do meio do tórax para baixo: pulmão menor, corte mais baixo.",
               "Abaixo do diafragma o pulmão some; a referência diz a altura.",
               "Da cabeça aos pés: pescoço, tórax, abdome superior, pelve."
-            ],
-            "visual": "corte-abdome-superior"
+            ]
           }
         },
         {
@@ -2168,47 +2109,39 @@ export const RTG_2026_M28: ProductionBatchV1 = {
             },
             "payload": {
               "prompt": "Num corte sem pulmão, Duda procura o órgão que fica atrás, junto à parede, no lado esquerdo do paciente. Toque nele.",
-              "imageRef": "diagram:corte-abdome-superior",
+              "imageRef": "image:rtg-2026:m28:tc-axial-abdome-superior-01",
               "regions": [
                 {
                   "id": "region:rtg-2026:m28:aula-06:i4:1",
                   "label": "Fígado",
-                  "x": 0.0938,
-                  "y": 0.1667,
-                  "width": 0.3125,
-                  "height": 0.4167
+                  "x": 0.0227,
+                  "y": 0.2,
+                  "width": 0.3682,
+                  "height": 0.6526
                 },
                 {
                   "id": "region:rtg-2026:m28:aula-06:i4:2",
                   "label": "Baço",
-                  "x": 0.7875,
-                  "y": 0.4167,
-                  "width": 0.1375,
-                  "height": 0.3583
+                  "x": 0.8091,
+                  "y": 0.5895,
+                  "width": 0.1682,
+                  "height": 0.2842
                 },
                 {
                   "id": "region:rtg-2026:m28:aula-06:i4:3",
-                  "label": "Rim direito do paciente",
-                  "x": 0.275,
-                  "y": 0.6417,
-                  "width": 0.1125,
-                  "height": 0.1667
+                  "label": "Rim esquerdo do paciente",
+                  "x": 0.6273,
+                  "y": 0.6579,
+                  "width": 0.1773,
+                  "height": 0.1737
                 },
                 {
                   "id": "region:rtg-2026:m28:aula-06:i4:4",
-                  "label": "Rim esquerdo do paciente",
-                  "x": 0.62,
-                  "y": 0.64,
-                  "width": 0.1,
-                  "height": 0.16
-                },
-                {
-                  "id": "region:rtg-2026:m28:aula-06:i4:5",
                   "label": "Vértebra",
-                  "x": 0.4313,
-                  "y": 0.65,
-                  "width": 0.1375,
-                  "height": 0.2917
+                  "x": 0.4273,
+                  "y": 0.6211,
+                  "width": 0.1409,
+                  "height": 0.3053
                 }
               ],
               "correctRegionIds": [
@@ -2295,7 +2228,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:m28:aula-01"
         ],
-        "prompt": "Neste esquema, qual estrutura é uma faixa atrás do estômago, que termina perto do baço?",
+        "prompt": "Num corte do abdome superior, qual estrutura é uma faixa atrás do estômago, que termina perto do baço?",
         "options": [
           {
             "id": "option:rtg-2026:m28:aula-01:c1:a",
@@ -2328,7 +2261,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:m28:aula-01"
         ],
-        "prompt": "Em que lado do paciente o esquema mostra o estômago, à frente?",
+        "prompt": "Em que lado do paciente fica a maior parte do estômago, à frente?",
         "options": [
           {
             "id": "option:rtg-2026:m28:aula-01:c2:a",
@@ -2361,7 +2294,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:m28:aula-02"
         ],
-        "prompt": "Na linha média do esquema da pelve, o que fica logo atrás da bexiga?",
+        "prompt": "Na linha média da pelve, o que fica logo atrás da bexiga?",
         "options": [
           {
             "id": "option:rtg-2026:m28:aula-02:c1:a",
@@ -2428,7 +2361,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:m28:aula-03"
         ],
-        "prompt": "No esquema do pescoço, que par de estruturas corre junto, de cada lado, mais afastado da traqueia?",
+        "prompt": "Num corte do pescoço, que par de estruturas corre junto, de cada lado, mais afastado da traqueia?",
         "options": [
           {
             "id": "option:rtg-2026:m28:aula-03:c1:a",
@@ -2462,7 +2395,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
         "competencyIds": [
           "competency:rtg-2026:m28:aula-03"
         ],
-        "prompt": "Qual descrição combina com a tireoide neste esquema?",
+        "prompt": "Qual descrição combina com a tireoide num corte do pescoço?",
         "options": [
           {
             "id": "option:rtg-2026:m28:aula-03:c2:a",
@@ -3482,40 +3415,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m28:aula-02:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m28:openstax-ap-25-2",
-        "source:rtg-2026:m28:openstax-ap-23-5",
-        "source:rtg-2026:m28:openstax-ap-8-3",
-        "source:rtg-2026:m28:openstax-ap-8-4"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m28:aula-02:i2:1",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m28:openstax-ap-25-2",
-        "source:rtg-2026:m28:openstax-ap-23-5",
-        "source:rtg-2026:m28:openstax-ap-8-3",
-        "source:rtg-2026:m28:openstax-ap-8-4"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m28:aula-02:i2:5",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m28:openstax-ap-25-2",
-        "source:rtg-2026:m28:openstax-ap-23-5",
-        "source:rtg-2026:m28:openstax-ap-8-3",
-        "source:rtg-2026:m28:openstax-ap-8-4"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m28:aula-02:i2:2",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -3548,7 +3448,18 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "label:rtg-2026:m28:aula-02:i2:6",
+      "claimId": "label:rtg-2026:m28:aula-02:i2:2",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m28:openstax-ap-25-2",
+        "source:rtg-2026:m28:openstax-ap-23-5",
+        "source:rtg-2026:m28:openstax-ap-8-3",
+        "source:rtg-2026:m28:openstax-ap-8-4"
+      ]
+    },
+    {
+      "claimId": "label:rtg-2026:m28:aula-02:i2:5",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
@@ -4114,39 +4025,6 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m28:aula-03:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m28:openstax-ap-22-1",
-        "source:rtg-2026:m28:openstax-ap-17-4",
-        "source:rtg-2026:m28:wikipedia-carotid-sheath",
-        "source:rtg-2026:m28:openstax-ap-7-3"
-      ]
-    },
-    {
-      "claimId": "point:rtg-2026:m28:aula-03:i2:6",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m28:openstax-ap-22-1",
-        "source:rtg-2026:m28:openstax-ap-17-4",
-        "source:rtg-2026:m28:wikipedia-carotid-sheath",
-        "source:rtg-2026:m28:openstax-ap-7-3"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m28:aula-03:i2:5",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m28:openstax-ap-22-1",
-        "source:rtg-2026:m28:openstax-ap-17-4",
-        "source:rtg-2026:m28:wikipedia-carotid-sheath",
-        "source:rtg-2026:m28:openstax-ap-7-3"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m28:aula-03:i2:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -4169,29 +4047,18 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "label:rtg-2026:m28:aula-03:i2:3",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m28:openstax-ap-22-1",
-        "source:rtg-2026:m28:openstax-ap-17-4",
-        "source:rtg-2026:m28:wikipedia-carotid-sheath",
-        "source:rtg-2026:m28:openstax-ap-7-3"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m28:aula-03:i2:6",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m28:openstax-ap-22-1",
-        "source:rtg-2026:m28:openstax-ap-17-4",
-        "source:rtg-2026:m28:wikipedia-carotid-sheath",
-        "source:rtg-2026:m28:openstax-ap-7-3"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m28:aula-03:i2:4",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m28:openstax-ap-22-1",
+        "source:rtg-2026:m28:openstax-ap-17-4",
+        "source:rtg-2026:m28:wikipedia-carotid-sheath",
+        "source:rtg-2026:m28:openstax-ap-7-3"
+      ]
+    },
+    {
+      "claimId": "label:rtg-2026:m28:aula-03:i2:3",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4830,23 +4697,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m28:aula-04:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m28:openstax-ap-7-3"
-      ]
-    },
-    {
-      "claimId": "point:rtg-2026:m28:aula-04:i2:6",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m28:openstax-ap-7-3"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m28:aula-04:i2:5",
+      "claimId": "label:rtg-2026:m28:aula-04:i2:3",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4862,7 +4713,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "label:rtg-2026:m28:aula-04:i2:6",
+      "claimId": "label:rtg-2026:m28:aula-04:i2:2",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -4871,22 +4722,6 @@ export const RTG_2026_M28: ProductionBatchV1 = {
     },
     {
       "claimId": "label:rtg-2026:m28:aula-04:i2:1",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m28:openstax-ap-7-3"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m28:aula-04:i2:3",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m28:openstax-ap-7-3"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m28:aula-04:i2:2",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -6041,16 +5876,6 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "region:rtg-2026:m28:aula-06:i4:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m28:openstax-ap-21-1",
-        "source:rtg-2026:m28:openstax-ap-1-6",
-        "source:rtg-2026:m28:teachmeanatomy-baco"
-      ]
-    },
-    {
       "claimId": "interaction:rtg-2026:m28:aula-06:i4:answer",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -6422,7 +6247,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
           "competencyIds": [
             "competency:rtg-2026:m28:aula-01"
           ],
-          "prompt": "Do lado direito do paciente, ocupando grande parte do esquema, aparece qual órgão?",
+          "prompt": "Do lado direito do paciente, ocupando grande parte do corte, aparece qual órgão?",
           "options": [
             {
               "id": "option:rtg-2026:m28:aula-01:rg:a",
@@ -6493,7 +6318,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
           "competencyIds": [
             "competency:rtg-2026:m28:aula-02"
           ],
-          "prompt": "Na linha média do esquema, que estrutura fica entre a sínfise púbica e o reto?",
+          "prompt": "Na linha média da pelve, que estrutura fica entre a sínfise púbica e o reto?",
           "options": [
             {
               "id": "option:rtg-2026:m28:aula-02:rg:a",
@@ -6526,7 +6351,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
           "competencyIds": [
             "competency:rtg-2026:m28:aula-02"
           ],
-          "prompt": "Num esquema, o espaço entre a bexiga e o reto está em branco. Duda pergunta o que há ali. O que você responde?",
+          "prompt": "Num esquema de outro material, o espaço entre a bexiga e o reto está em branco. Duda pergunta o que há ali. O que você responde?",
           "options": [
             {
               "id": "option:rtg-2026:m28:aula-02:rt:a",
@@ -6840,6 +6665,51 @@ export const RTG_2026_M28: ProductionBatchV1 = {
     ],
     "images": [
       {
+        "id": "image:rtg-2026:m28:tc-axial-abdome-superior-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m28/tc-axial-abdome-superior-01.jpg",
+        "sourcePage": "https://github.com/andersonsmelo/Radiant/blob/main/docs/evidence/2026-11-19-figuras/imagens-vps.md",
+        "author": "Anderson Melo, acervo próprio, anonimizado",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "retrievedAt": "2026-11-22",
+        "sha256Original": "1eceb4f783388d4ea1e2e896a12b2e750a46b948fd1447b5095b219d01aa3627",
+        "sha256Asset": "1eceb4f783388d4ea1e2e896a12b2e750a46b948fd1447b5095b219d01aa3627",
+        "modification": "recorte do corte axial, janela de partes moles (centro 40, largura 350 HU), ampliação de 2,5 vezes e conversão para JPEG em tons de cinza; sem retoque",
+        "alt": "Tomografia computadorizada de um corte axial do abdome superior, em tons de cinza sobre fundo preto, em formato horizontal. A frente do corpo fica no alto, e a coluna aparece embaixo, no meio, entre costelas muito claras.",
+        "width": 1100,
+        "height": 950
+      },
+      {
+        "id": "image:rtg-2026:m28:tc-axial-pelve-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m28/tc-axial-pelve-01.jpg",
+        "sourcePage": "https://github.com/andersonsmelo/Radiant/blob/main/docs/evidence/2026-11-19-figuras/imagens-vps.md",
+        "author": "Anderson Melo, acervo próprio, anonimizado",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "retrievedAt": "2026-11-22",
+        "sha256Original": "7a5730f4fdefe0ba8b9d2c8d0a9bca1f0011a67775beb8813e8e081e738b9758",
+        "sha256Asset": "7a5730f4fdefe0ba8b9d2c8d0a9bca1f0011a67775beb8813e8e081e738b9758",
+        "modification": "recorte do corte axial, janela de partes moles (centro 40, largura 350 HU), ampliação de 2,5 vezes e conversão para JPEG em tons de cinza; sem retoque",
+        "alt": "Tomografia computadorizada de um corte axial da pelve, em tons de cinza sobre fundo preto, em formato horizontal. Os ossos aparecem muito claros e as partes moles, em tons de cinza.",
+        "width": 1100,
+        "height": 850
+      },
+      {
+        "id": "image:rtg-2026:m28:tc-axial-pescoco-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m28/tc-axial-pescoco-01.jpg",
+        "sourcePage": "https://github.com/andersonsmelo/Radiant/blob/main/docs/evidence/2026-11-19-figuras/imagens-vps.md",
+        "author": "Anderson Melo, acervo próprio, anonimizado",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "retrievedAt": "2026-11-22",
+        "sha256Original": "e203d39e96b0c00b207ea5a5012b7f0f19011b7bb968262d9a2a8f784ea84353",
+        "sha256Asset": "e203d39e96b0c00b207ea5a5012b7f0f19011b7bb968262d9a2a8f784ea84353",
+        "modification": "recorte do corte axial, janela de partes moles (centro 40, largura 350 HU), ampliação de 4 vezes e conversão para JPEG em tons de cinza; sem retoque",
+        "alt": "Tomografia computadorizada de um corte axial do pescoço, em tons de cinza sobre fundo preto, em formato horizontal. Há uma forma redonda preta no meio, perto do alto, e ossos muito claros embaixo.",
+        "width": 1080,
+        "height": 800
+      },
+      {
         "id": "image:rtg-2026:m28:tc-sagital-abdome-01",
         "file": "radiant-app/assets/content/rtg-2026/imagens/m28/tc-sagital-abdome-01.jpg",
         "sourcePage": "https://commons.wikimedia.org/wiki/File:CT_of_a_normal_abdomen_and_pelvis,_sagittal_plane_79.png",
@@ -6915,7 +6785,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "937a7396e7c75a0e47eb8c2365c3389446d448ab8aba7ad727e8bef9c2048f11"
+      "materialSha256": "2cbd7e06c9aa4c0fe0d5a96fc521bf47de772414e4c087a6164f17ba270f62cd"
     },
     {
       "schemaVersion": 1,
@@ -6924,7 +6794,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "937a7396e7c75a0e47eb8c2365c3389446d448ab8aba7ad727e8bef9c2048f11"
+      "materialSha256": "2cbd7e06c9aa4c0fe0d5a96fc521bf47de772414e4c087a6164f17ba270f62cd"
     },
     {
       "schemaVersion": 1,
@@ -6933,7 +6803,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "937a7396e7c75a0e47eb8c2365c3389446d448ab8aba7ad727e8bef9c2048f11"
+      "materialSha256": "2cbd7e06c9aa4c0fe0d5a96fc521bf47de772414e4c087a6164f17ba270f62cd"
     },
     {
       "schemaVersion": 1,
@@ -6942,7 +6812,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "937a7396e7c75a0e47eb8c2365c3389446d448ab8aba7ad727e8bef9c2048f11"
+      "materialSha256": "2cbd7e06c9aa4c0fe0d5a96fc521bf47de772414e4c087a6164f17ba270f62cd"
     },
     {
       "schemaVersion": 1,
@@ -6951,7 +6821,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "937a7396e7c75a0e47eb8c2365c3389446d448ab8aba7ad727e8bef9c2048f11"
+      "materialSha256": "2cbd7e06c9aa4c0fe0d5a96fc521bf47de772414e4c087a6164f17ba270f62cd"
     },
     {
       "schemaVersion": 1,
@@ -6960,7 +6830,7 @@ export const RTG_2026_M28: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "937a7396e7c75a0e47eb8c2365c3389446d448ab8aba7ad727e8bef9c2048f11"
+      "materialSha256": "2cbd7e06c9aa4c0fe0d5a96fc521bf47de772414e4c087a6164f17ba270f62cd"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

@@ -6,7 +6,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m18",
-  "materialSha256": "82b045ed374e7c32ffd134f37b2be9d0fede415e70a3e8e9dbdd38e4cf8d5fdb",
+  "materialSha256": "dd7290f708dd898143ce020afd12d1af37f8458ffa72ccd11da48e44d2c86a2d",
   "trackId": "track:rtg-2026:m18",
   "unitId": "unit:rtg-2026:m18",
   "contentVersion": "rtg-2026-m18-v1",
@@ -184,7 +184,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Eixo e membros",
-            "body": "O esqueleto se divide em dois grupos. O axial forma o eixo do corpo: crânio, coluna vertebral, com o sacro e o cóccix, e caixa torácica, com costelas e esterno. Ele protege encéfalo, medula espinal, coração e pulmões. O apendicular reúne os ossos dos membros e os das cinturas, que prendem cada membro ao esqueleto axial. Na figura, o eixo aparece numa cor e os membros em outra.",
+            "body": "O esqueleto se divide em dois grupos. O axial forma o eixo do corpo: crânio, coluna vertebral, com o sacro e o cóccix, e caixa torácica, com costelas e esterno. Ele protege encéfalo, medula espinal, coração e pulmões. O apendicular reúne os ossos dos membros e os das cinturas, que prendem cada membro ao esqueleto axial. Na figura, o eixo aparece em tons de azul e os membros, com as cinturas, em âmbar.",
             "keyPoints": [
               "Axial: crânio, coluna e caixa torácica.",
               "Apendicular: membros e cinturas.",
@@ -323,7 +323,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
             "type": "hotspot",
             "feedback": {
               "correct": "Isso: o osso do quadril faz parte da cintura pélvica e prende o membro inferior ao esqueleto axial.",
-              "incorrect": "Essa região é do eixo do corpo e não prende o membro. Procure o osso que fica entre a coluna e a coxa, do lado esquerdo do paciente."
+              "incorrect": "Essa região é do eixo do corpo ou do próprio membro, e não prende o membro ao esqueleto axial. Procure o osso entre a coluna e a coxa, do lado esquerdo do paciente."
             },
             "payload": {
               "prompt": "Toque no osso que prende o membro inferior ao esqueleto axial, do lado esquerdo do paciente.",
@@ -332,38 +332,38 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m18:aula-01:i3:1",
                   "label": "Crânio",
-                  "x": 0.4437,
-                  "y": 0.0334,
-                  "width": 0.1125,
-                  "height": 0.1667
+                  "x": 0.424,
+                  "y": 0.046,
+                  "width": 0.083,
+                  "height": 0.122
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-01:i3:2",
                   "label": "Caixa torácica",
-                  "x": 0.4063,
-                  "y": 0.2708,
-                  "width": 0.1875,
-                  "height": 0.125
+                  "x": 0.393,
+                  "y": 0.285,
+                  "width": 0.147,
+                  "height": 0.145
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-01:i3:3",
-                  "label": "Coluna lombar",
-                  "x": 0.46,
-                  "y": 0.4917,
+                  "label": "Osso do quadril",
+                  "x": 0.5,
+                  "y": 0.52,
                   "width": 0.08,
-                  "height": 0.125
+                  "height": 0.1
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-01:i3:4",
-                  "label": "Osso do quadril",
-                  "x": 0.51,
-                  "y": 0.75,
+                  "label": "Fêmur esquerdo",
+                  "x": 0.48,
+                  "y": 0.74,
                   "width": 0.08,
-                  "height": 0.0833
+                  "height": 0.12
                 }
               ],
               "correctRegionIds": [
-                "region:rtg-2026:m18:aula-01:i3:4"
+                "region:rtg-2026:m18:aula-01:i3:3"
               ]
             }
           }
@@ -512,7 +512,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
               "lines": [
                 {
                   "speaker": "caio",
-                  "text": "Cortei este fêmur de modelo ao meio para a turma ver por dentro."
+                  "text": "Trouxe este fêmur de modelo para a turma ver as partes."
                 },
                 {
                   "speaker": "duda",
@@ -663,67 +663,56 @@ export const RTG_2026_M18: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule quatro partes do osso longo, tocando na ficha e no ponto. A figura mostra o osso deitado, em corte."
+              "label": "Rotular a imagem: Rotule três partes do osso longo, tocando na ficha e no ponto. A figura mostra um fêmur inteiro, deitado, com a cabeça, que encaixa no quadril, à esquerda."
             },
-            "help": "Comece pelas pontas largas e vá em direção ao meio do osso.",
+            "help": "Comece pelas pontas largas e vá em direção ao corpo do osso, entre elas.",
             "type": "label",
             "feedback": {
               "correct": "Isso: cada ficha está sobre a parte certa do osso longo.",
-              "incorrect": "Alguma ficha está no ponto errado: a diáfise é o trecho do meio, e a epífise, a ponta larga."
+              "incorrect": "Alguma ficha está no ponto errado: a diáfise é o trecho do meio; as epífises são as pontas largas, e a proximal é a da cabeça, mais perto do tronco."
             },
             "payload": {
-              "prompt": "Rotule quatro partes do osso longo, tocando na ficha e no ponto. A figura mostra o osso deitado, em corte.",
+              "prompt": "Rotule três partes do osso longo, tocando na ficha e no ponto. A figura mostra um fêmur inteiro, deitado, com a cabeça, que encaixa no quadril, à esquerda.",
               "imageRef": "diagram:osso-longo",
               "points": [
                 {
                   "id": "point:rtg-2026:m18:aula-02:i3:1",
-                  "x": 0.119,
-                  "y": 0.4,
-                  "where": "à esquerda, a ponta larga e arredondada",
+                  "x": 0.23,
+                  "y": 0.41,
+                  "where": "à esquerda, na região dos trocanteres, antes do corpo",
                   "correctLabelId": "label:rtg-2026:m18:aula-02:i3:1"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-02:i3:2",
-                  "x": 0.2188,
-                  "y": 0.6333,
-                  "where": "faixa fina e vertical perto da ponta esquerda",
+                  "x": 0.5,
+                  "y": 0.48,
+                  "where": "no meio, o corpo longo e estreito do osso",
                   "correctLabelId": "label:rtg-2026:m18:aula-02:i3:2"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-02:i3:3",
-                  "x": 0.3906,
-                  "y": 0.425,
-                  "where": "no meio, a parede do trecho estreito e reto",
+                  "x": 0.85,
+                  "y": 0.61,
+                  "where": "à direita, na ponta larga, antes da capa ciano",
                   "correctLabelId": "label:rtg-2026:m18:aula-02:i3:3"
-                },
-                {
-                  "id": "point:rtg-2026:m18:aula-02:i3:4",
-                  "x": 0.9188,
-                  "y": 0.3667,
-                  "where": "à direita, no alto, a capa clara sobre a ponta",
-                  "correctLabelId": "label:rtg-2026:m18:aula-02:i3:4"
                 }
               ],
               "labels": [
                 {
                   "id": "label:rtg-2026:m18:aula-02:i3:3",
-                  "label": "Diáfise"
+                  "label": "Epífise distal"
                 },
                 {
                   "id": "label:rtg-2026:m18:aula-02:i3:1",
-                  "label": "Epífise"
+                  "label": "Epífise proximal"
                 },
                 {
                   "id": "label:rtg-2026:m18:aula-02:i3:4",
-                  "label": "Cartilagem articular"
-                },
-                {
-                  "id": "label:rtg-2026:m18:aula-02:i3:5",
                   "label": "Ligamento"
                 },
                 {
                   "id": "label:rtg-2026:m18:aula-02:i3:2",
-                  "label": "Placa de crescimento"
+                  "label": "Diáfise"
                 }
               ]
             }
@@ -842,7 +831,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Você nomeia as partes de um osso longo",
-            "body": "Agora você consegue classificar um osso pela forma e apontar, num osso longo, a diáfise, as epífises, a cartilagem articular e a placa de crescimento.",
+            "body": "Agora você consegue classificar um osso pela forma, apontar, num osso longo, a diáfise e as epífises, e reconhecer a cavidade medular, a cartilagem articular e a placa de crescimento.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -983,29 +972,29 @@ export const RTG_2026_M18: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m18:aula-03:i2:1",
-                  "x": 0.4531,
-                  "y": 0.1292,
+                  "x": 0.576,
+                  "y": 0.135,
                   "where": "no alto, o trecho mais curto e delgado",
                   "correctLabelId": "label:rtg-2026:m18:aula-03:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-03:i2:2",
-                  "x": 0.5369,
-                  "y": 0.3834,
+                  "x": 0.612,
+                  "y": 0.41,
                   "where": "o trecho longo, que se abaula para trás",
                   "correctLabelId": "label:rtg-2026:m18:aula-03:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-03:i2:3",
-                  "x": 0.455,
-                  "y": 0.6709,
+                  "x": 0.576,
+                  "y": 0.665,
                   "where": "o trecho de blocos maiores, que se abaula para a frente",
                   "correctLabelId": "label:rtg-2026:m18:aula-03:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-03:i2:4",
-                  "x": 0.525,
-                  "y": 0.8833,
+                  "x": 0.598,
+                  "y": 0.875,
                   "where": "na base, o bloco único em forma de cunha",
                   "correctLabelId": "label:rtg-2026:m18:aula-03:i2:4"
                 }
@@ -1328,52 +1317,38 @@ export const RTG_2026_M18: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule cinco partes da articulação sinovial, tocando na ficha e no ponto. A figura mostra a articulação em corte."
+              "label": "Rotular a imagem: Rotule três partes da articulação sinovial, tocando na ficha e no ponto. A figura mostra a articulação em corte."
             },
             "help": "Comece pelo osso, no alto, e desça até as pontas.",
             "type": "label",
             "feedback": {
               "correct": "Isso: cada ficha está sobre a parte certa da articulação sinovial.",
-              "incorrect": "Alguma ficha está no ponto errado: o ligamento fica por fora, e a cavidade, entre as pontas dos ossos."
+              "incorrect": "Alguma ficha está no ponto errado: a cápsula envolve o espaço por fora, e a cavidade fica entre as pontas dos ossos."
             },
             "payload": {
-              "prompt": "Rotule cinco partes da articulação sinovial, tocando na ficha e no ponto. A figura mostra a articulação em corte.",
+              "prompt": "Rotule três partes da articulação sinovial, tocando na ficha e no ponto. A figura mostra a articulação em corte.",
               "imageRef": "diagram:articulacao-sinovial",
               "points": [
                 {
                   "id": "point:rtg-2026:m18:aula-04:i2:1",
-                  "x": 0.5,
-                  "y": 0.15,
-                  "where": "no alto, o bloco que desce e se alarga",
+                  "x": 0.46,
+                  "y": 0.16,
+                  "where": "no alto, o bloco claro com poros que desce e se alarga",
                   "correctLabelId": "label:rtg-2026:m18:aula-04:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-04:i2:2",
-                  "x": 0.2656,
-                  "y": 0.4583,
-                  "where": "à esquerda, a faixa branca que envolve o espaço",
+                  "x": 0.205,
+                  "y": 0.52,
+                  "where": "à esquerda, a faixa azul viva que envolve o espaço",
                   "correctLabelId": "label:rtg-2026:m18:aula-04:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-04:i2:3",
-                  "x": 0.4313,
-                  "y": 0.5292,
-                  "where": "faixa clara que cobre a ponta de baixo",
+                  "x": 0.37,
+                  "y": 0.535,
+                  "where": "o espaço azul-petróleo entre as pontas",
                   "correctLabelId": "label:rtg-2026:m18:aula-04:i2:3"
-                },
-                {
-                  "id": "point:rtg-2026:m18:aula-04:i2:4",
-                  "x": 0.6,
-                  "y": 0.4917,
-                  "where": "o espaço escuro entre as pontas, à direita",
-                  "correctLabelId": "label:rtg-2026:m18:aula-04:i2:4"
-                },
-                {
-                  "id": "point:rtg-2026:m18:aula-04:i2:5",
-                  "x": 0.7719,
-                  "y": 0.4792,
-                  "where": "à direita, por fora de tudo, a faixa cinza curva",
-                  "correctLabelId": "label:rtg-2026:m18:aula-04:i2:5"
                 }
               ],
               "labels": [
@@ -1383,22 +1358,14 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                 },
                 {
                   "id": "label:rtg-2026:m18:aula-04:i2:3",
-                  "label": "Cartilagem articular"
-                },
-                {
-                  "id": "label:rtg-2026:m18:aula-04:i2:4",
                   "label": "Cavidade articular"
-                },
-                {
-                  "id": "label:rtg-2026:m18:aula-04:i2:5",
-                  "label": "Ligamento"
                 },
                 {
                   "id": "label:rtg-2026:m18:aula-04:i2:1",
                   "label": "Osso"
                 },
                 {
-                  "id": "label:rtg-2026:m18:aula-04:i2:6",
+                  "id": "label:rtg-2026:m18:aula-04:i2:4",
                   "label": "Tendão"
                 }
               ]
@@ -1570,12 +1537,18 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                 },
                 {
                   "id": "statement:rtg-2026:m18:aula-04:i5:6",
+                  "text": "A cartilagem articular cobre as pontas dos ossos dentro da cápsula.",
+                  "isTrue": true,
+                  "explanation": "Dentro da cápsula, a cartilagem cobre as pontas dos ossos e deixa o movimento liso."
+                },
+                {
+                  "id": "statement:rtg-2026:m18:aula-04:i5:7",
                   "text": "O tendão liga um osso a outro e limita o movimento excessivo.",
                   "isTrue": false,
                   "explanation": "Quem liga osso a osso é o ligamento; o tendão liga músculo a osso."
                 }
               ],
-              "passCount": 5
+              "passCount": 6
             }
           }
         },
@@ -1628,7 +1601,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
               "lines": [
                 {
                   "speaker": "duda",
-                  "text": "Nessa figura há pontos amarelos, mas eu só enxergo o contorno do corpo e uns ossos fracos."
+                  "text": "Nessa figura eu só enxergo os ossos do tronco e da pelve, e nenhuma legenda."
                 },
                 {
                   "speaker": "caio",
@@ -1636,7 +1609,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                 },
                 {
                   "speaker": "pixel",
-                  "text": "Quais desses pontos você já saberia apontar? Vamos conferir."
+                  "text": "Quais desses marcos você já saberia apontar? Vamos conferir."
                 }
               ]
             }
@@ -1715,73 +1688,58 @@ export const RTG_2026_M18: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule seis marcos de superfície, tocando na ficha e no ponto. A figura mostra o paciente de frente."
+              "label": "Rotular a imagem: Rotule cinco marcos de superfície, tocando na ficha e no ponto. A figura mostra o paciente de frente."
             },
             "help": "Comece pelo alto, na base do pescoço, e desça pelo corpo.",
             "type": "label",
             "feedback": {
               "correct": "Isso: cada marco está sobre o relevo certo, do pescoço até a coxa.",
-              "incorrect": "Algum marco ficou no lugar errado: lembre que crista, espinha e trocânter aparecem de um lado só nesta tarefa."
+              "incorrect": "Algum marco ficou no lugar errado: lembre que crista e trocânter aparecem de um lado só nesta tarefa."
             },
             "payload": {
-              "prompt": "Rotule seis marcos de superfície, tocando na ficha e no ponto. A figura mostra o paciente de frente.",
+              "prompt": "Rotule cinco marcos de superfície, tocando na ficha e no ponto. A figura mostra o paciente de frente.",
               "imageRef": "diagram:marcos-de-superficie",
               "points": [
                 {
                   "id": "point:rtg-2026:m18:aula-05:i2:1",
                   "x": 0.5,
-                  "y": 0.12,
+                  "y": 0.13,
                   "where": "no alto, o afundamento na base do pescoço",
                   "correctLabelId": "label:rtg-2026:m18:aula-05:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-05:i2:2",
                   "x": 0.5,
-                  "y": 0.404,
+                  "y": 0.358,
                   "where": "no centro do peito, a ponta de baixo do osso reto",
                   "correctLabelId": "label:rtg-2026:m18:aula-05:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-05:i2:3",
-                  "x": 0.65,
-                  "y": 0.65,
+                  "x": 0.615,
+                  "y": 0.645,
                   "where": "lado esquerdo do paciente, a borda curva da cintura",
                   "correctLabelId": "label:rtg-2026:m18:aula-05:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-05:i2:4",
-                  "x": 0.331,
-                  "y": 0.762,
-                  "where": "lado direito do paciente, a ponta arredondada do quadril",
+                  "x": 0.502,
+                  "y": 0.875,
+                  "where": "embaixo no centro, onde os dois ossos se encontram",
                   "correctLabelId": "label:rtg-2026:m18:aula-05:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m18:aula-05:i2:5",
-                  "x": 0.5,
+                  "x": 0.667,
                   "y": 0.875,
-                  "where": "embaixo no centro, onde os dois ossos se encontram",
-                  "correctLabelId": "label:rtg-2026:m18:aula-05:i2:5"
-                },
-                {
-                  "id": "point:rtg-2026:m18:aula-05:i2:6",
-                  "x": 0.719,
-                  "y": 0.867,
                   "where": "lado esquerdo do paciente, a saliência lateral da coxa",
-                  "correctLabelId": "label:rtg-2026:m18:aula-05:i2:6"
+                  "correctLabelId": "label:rtg-2026:m18:aula-05:i2:5"
                 }
               ],
               "labels": [
                 {
-                  "id": "label:rtg-2026:m18:aula-05:i2:1",
-                  "label": "Incisura jugular"
-                },
-                {
                   "id": "label:rtg-2026:m18:aula-05:i2:2",
                   "label": "Processo xifoide"
-                },
-                {
-                  "id": "label:rtg-2026:m18:aula-05:i2:6",
-                  "label": "Trocânter maior"
                 },
                 {
                   "id": "label:rtg-2026:m18:aula-05:i2:3",
@@ -1789,11 +1747,15 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                 },
                 {
                   "id": "label:rtg-2026:m18:aula-05:i2:4",
-                  "label": "Espinha ilíaca ântero-superior"
+                  "label": "Sínfise púbica"
                 },
                 {
                   "id": "label:rtg-2026:m18:aula-05:i2:5",
-                  "label": "Sínfise púbica"
+                  "label": "Trocânter maior"
+                },
+                {
+                  "id": "label:rtg-2026:m18:aula-05:i2:1",
+                  "label": "Incisura jugular"
                 }
               ]
             }
@@ -1828,39 +1790,39 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                   "x": 0.46,
                   "y": 0.08,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-05:i3:2",
                   "label": "Margem costal inferior",
-                  "x": 0.2975,
-                  "y": 0.506,
-                  "width": 0.08,
-                  "height": 0.08
+                  "x": 0.34,
+                  "y": 0.4,
+                  "width": 0.135,
+                  "height": 0.17
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-05:i3:3",
                   "label": "Crista ilíaca",
-                  "x": 0.61,
-                  "y": 0.61,
+                  "x": 0.575,
+                  "y": 0.585,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-05:i3:4",
                   "label": "Sínfise púbica",
-                  "x": 0.46,
-                  "y": 0.835,
+                  "x": 0.462,
+                  "y": 0.815,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-05:i3:5",
                   "label": "Trocânter maior",
-                  "x": 0.679,
-                  "y": 0.827,
+                  "x": 0.627,
+                  "y": 0.815,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 }
               ],
               "correctRegionIds": [
@@ -1969,7 +1931,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Você nomeia os marcos do tronco e da pelve",
-            "body": "Agora você consegue nomear e localizar, numa figura de frente, a incisura jugular, o processo xifoide, a margem costal, a crista ilíaca, a espinha ilíaca ântero-superior, a sínfise púbica e o trocânter maior.",
+            "body": "Agora você consegue nomear e localizar, numa figura de frente, a incisura jugular, o processo xifoide, a margem costal, a crista ilíaca, a sínfise púbica e o trocânter maior, e ligar a espinha ilíaca ântero-superior à ponta da frente da crista.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -2112,52 +2074,44 @@ export const RTG_2026_M18: ProductionBatchV1 = {
                   "x": 0.46,
                   "y": 0.08,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-06:i2:2",
-                  "label": "Margem costal inferior",
-                  "x": 0.2975,
-                  "y": 0.506,
+                  "label": "Processo xifoide",
+                  "x": 0.46,
+                  "y": 0.298,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-06:i2:3",
-                  "label": "Processo xifoide",
-                  "x": 0.46,
-                  "y": 0.364,
+                  "label": "Crista ilíaca",
+                  "x": 0.575,
+                  "y": 0.585,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-06:i2:4",
-                  "label": "Crista ilíaca",
-                  "x": 0.61,
-                  "y": 0.61,
+                  "label": "Sínfise púbica",
+                  "x": 0.462,
+                  "y": 0.815,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 },
                 {
                   "id": "region:rtg-2026:m18:aula-06:i2:5",
-                  "label": "Sínfise púbica",
-                  "x": 0.46,
-                  "y": 0.835,
-                  "width": 0.08,
-                  "height": 0.08
-                },
-                {
-                  "id": "region:rtg-2026:m18:aula-06:i2:6",
                   "label": "Trocânter maior",
-                  "x": 0.679,
-                  "y": 0.827,
+                  "x": 0.627,
+                  "y": 0.815,
                   "width": 0.08,
-                  "height": 0.08
+                  "height": 0.12
                 }
               ],
               "correctRegionIds": [
                 "region:rtg-2026:m18:aula-06:i2:1",
-                "region:rtg-2026:m18:aula-06:i2:3"
+                "region:rtg-2026:m18:aula-06:i2:2"
               ]
             }
           }
@@ -3520,14 +3474,6 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m18:aula-02:i3:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-6-3"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m18:aula-02:i3:3",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -3545,14 +3491,6 @@ export const RTG_2026_M18: ProductionBatchV1 = {
     },
     {
       "claimId": "label:rtg-2026:m18:aula-02:i3:4",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-6-3"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m18:aula-02:i3:5",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
@@ -4600,22 +4538,6 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m18:aula-04:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-9-4"
-      ]
-    },
-    {
-      "claimId": "point:rtg-2026:m18:aula-04:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-9-4"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m18:aula-04:i2:2",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -4632,22 +4554,6 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "label:rtg-2026:m18:aula-04:i2:4",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-9-4"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m18:aula-04:i2:5",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-9-4"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m18:aula-04:i2:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -4656,7 +4562,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "label:rtg-2026:m18:aula-04:i2:6",
+      "claimId": "label:rtg-2026:m18:aula-04:i2:4",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
@@ -4891,6 +4797,16 @@ export const RTG_2026_M18: ProductionBatchV1 = {
     },
     {
       "claimId": "statement:rtg-2026:m18:aula-04:i5:6",
+      "claimKind": "prompt",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m18:openstax-ap-9-1",
+        "source:rtg-2026:m18:openstax-ap-9-4",
+        "source:rtg-2026:m18:openstax-ap-9-5"
+      ]
+    },
+    {
+      "claimId": "statement:rtg-2026:m18:aula-04:i5:7",
       "claimKind": "distractor",
       "provenanceKind": "authorial-distractor",
       "sourceIds": []
@@ -5273,37 +5189,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "point:rtg-2026:m18:aula-05:i2:6",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-7-4",
-        "source:rtg-2026:m18:openstax-ap-8-3",
-        "source:rtg-2026:m18:openstax-ap-8-4"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m18:aula-05:i2:1",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-7-4",
-        "source:rtg-2026:m18:openstax-ap-8-3",
-        "source:rtg-2026:m18:openstax-ap-8-4"
-      ]
-    },
-    {
       "claimId": "label:rtg-2026:m18:aula-05:i2:2",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-7-4",
-        "source:rtg-2026:m18:openstax-ap-8-3",
-        "source:rtg-2026:m18:openstax-ap-8-4"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m18:aula-05:i2:6",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5334,6 +5220,16 @@ export const RTG_2026_M18: ProductionBatchV1 = {
     },
     {
       "claimId": "label:rtg-2026:m18:aula-05:i2:5",
+      "claimKind": "correct-answer",
+      "provenanceKind": "source-backed",
+      "sourceIds": [
+        "source:rtg-2026:m18:openstax-ap-7-4",
+        "source:rtg-2026:m18:openstax-ap-8-3",
+        "source:rtg-2026:m18:openstax-ap-8-4"
+      ]
+    },
+    {
+      "claimId": "label:rtg-2026:m18:aula-05:i2:1",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -5917,14 +5813,6 @@ export const RTG_2026_M18: ProductionBatchV1 = {
     },
     {
       "claimId": "region:rtg-2026:m18:aula-06:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m18:openstax-ap-7-4"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m18:aula-06:i2:6",
       "claimKind": "prompt",
       "provenanceKind": "source-backed",
       "sourceIds": [
@@ -6831,7 +6719,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "82b045ed374e7c32ffd134f37b2be9d0fede415e70a3e8e9dbdd38e4cf8d5fdb"
+      "materialSha256": "dd7290f708dd898143ce020afd12d1af37f8458ffa72ccd11da48e44d2c86a2d"
     },
     {
       "schemaVersion": 1,
@@ -6840,7 +6728,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "82b045ed374e7c32ffd134f37b2be9d0fede415e70a3e8e9dbdd38e4cf8d5fdb"
+      "materialSha256": "dd7290f708dd898143ce020afd12d1af37f8458ffa72ccd11da48e44d2c86a2d"
     },
     {
       "schemaVersion": 1,
@@ -6849,7 +6737,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "82b045ed374e7c32ffd134f37b2be9d0fede415e70a3e8e9dbdd38e4cf8d5fdb"
+      "materialSha256": "dd7290f708dd898143ce020afd12d1af37f8458ffa72ccd11da48e44d2c86a2d"
     },
     {
       "schemaVersion": 1,
@@ -6858,7 +6746,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "82b045ed374e7c32ffd134f37b2be9d0fede415e70a3e8e9dbdd38e4cf8d5fdb"
+      "materialSha256": "dd7290f708dd898143ce020afd12d1af37f8458ffa72ccd11da48e44d2c86a2d"
     },
     {
       "schemaVersion": 1,
@@ -6867,7 +6755,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "82b045ed374e7c32ffd134f37b2be9d0fede415e70a3e8e9dbdd38e4cf8d5fdb"
+      "materialSha256": "dd7290f708dd898143ce020afd12d1af37f8458ffa72ccd11da48e44d2c86a2d"
     },
     {
       "schemaVersion": 1,
@@ -6876,7 +6764,7 @@ export const RTG_2026_M18: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "82b045ed374e7c32ffd134f37b2be9d0fede415e70a3e8e9dbdd38e4cf8d5fdb"
+      "materialSha256": "dd7290f708dd898143ce020afd12d1af37f8458ffa72ccd11da48e44d2c86a2d"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

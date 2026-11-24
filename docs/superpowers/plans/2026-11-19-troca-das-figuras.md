@@ -2,6 +2,10 @@
 
 > **Para quem executa:** SUB-SKILL OBRIGATÓRIA: use superpowers:subagent-driven-development (recomendada) ou superpowers:executing-plans para executar este plano tarefa a tarefa. Os passos usam caixas (`- [ ]`) para acompanhamento.
 
+> **Estado em 2026-11-21:** feitas a fase 0, a fase 1 (23 figuras) e a fase 2 (22 cenas do kit, tarefas 9 e 10); a fase 5 fechou sem trocas (tarefa 14); as fases 3 e 4 têm amostra pronta e esperam o dono; da fase 6 (tarefa 15) estão feitos o guia e o `STATUS.md`. O que falta e as decisões tomadas pelo controlador estão no [plano de continuidade](2026-11-20-figuras-continuidade.md) e na [ADR](../../adr/ADR-2026-11-19-figuras-por-tipo.md). Caixas marcadas abaixo = feitas.
+
+> **Estado em 2026-11-20 e como continuar:** a fase 0 está feita (PR #96) e a fase 1 tem 19 figuras no app (PR #97). Leia primeiro o [plano de continuidade](2026-11-20-figuras-continuidade.md): ele diz o que falta, as decisões do dono tomadas depois deste plano, o passo a passo de um lote e os erros que se repetiram. Onde ele e este plano divergem, vale ele. Mudanças em relação ao texto abaixo: imagem gerada foi abandonada para anatomia; figuras de movimento de anatomia entram paradas; `corpo-inteiro-composicao` e os três cortes axiais saíram da fase 1 e esperam o método das fases 3 a 5; os briefs dos agentes estão em `scripts/content/figuras/briefs/`.
+
 **Objetivo:** trocar as figuras didáticas da trilha `rtg-2026`, reprovadas pelo dono em 2026-11-19, por arte feita com o método certo para cada tipo, sem reescrever as aulas.
 
 **Arquitetura:** o mecanismo do app não muda de forma: cada figura continua sendo um `DiagramSpec` em camadas de SVG com movimento por camada, apontado pelas aulas por `diagramId`. O que muda é a origem da arte (acervo aberto, skill `anatomy`, código redesenhado, imagem real), o conversor que a prepara para o `react-native-svg`, o registro de crédito e licença, e a guarda que prende cada área de toque à estrutura que ela nomeia.
@@ -206,19 +210,19 @@ A amostra mostrou gente como "manequins de cilindros e esferas" e uma hora de mo
 - Criar: `scripts/content/figuras/kit/` (módulos sobre o `kit/` da skill): `pessoa.mjs` (em pé, sentada, deitada; com e sem avental; adulto e criança), `tubo.mjs` (cabeçote, colimador, feixe), `detector.mjs`, `mesa.mjs`, `leito.mjs`, `bucky-mural.mjs`, `biombo.mjs`, `paleta.mjs` (os tons escuros que o piloto teve de reescrever)
 - Criar: `scripts/content/figuras/kit/kit.test.mjs`
 
-- [ ] Testes: cada peça devolve SVG que passa nas réguas de arte importada; a pessoa em pé cabe em 44 pt de largura mínima de toque no quadro; a paleta só usa os tons registrados.
-- [ ] Construir as peças; renderizar uma prancha com todas (`docs/evidence/2026-11-19-figuras/kit.png`).
-- [ ] **Portão do dono:** mandar a prancha, com atenção à figura humana. Sem aceite da pessoa, não há fase 2. Se a figura humana isométrica não convencer, a alternativa a propor é pessoa em silhueta de acervo aberto sobre equipamento isométrico.
+- [x] Testes: cada peça devolve SVG que passa nas réguas de arte importada; a pessoa em pé cabe em 44 pt de largura mínima de toque no quadro; a paleta só usa os tons registrados.
+- [x] Construir as peças; renderizar uma prancha com todas (`docs/evidence/2026-11-19-figuras/kit.png`). Feito em 2026-11-20; a prancha ficou na pasta de trabalho, e as 22 cenas estão em `fase-2.md`.
+- [ ] **Portão do dono:** mandar a prancha, com atenção à figura humana. Sem aceite da pessoa, não há fase 2. Se a figura humana isométrica não convencer, a alternativa a propor é pessoa em silhueta de acervo aberto sobre equipamento isométrico. Enviada sem espera em 2026-11-20; o aceite do dono continua pendente.
 
 ### Tarefa 10 (repetida por lote): um lote de cenas
 
 Lotes de cinco ou seis, na ordem das unidades: 2A `tubo-raios-x`, `tubo-emitindo`, `anodo-giratorio`, `conferencia-de-identidade`, `pontos-de-contato-da-sala`, `itens-de-emergencia-da-sala`; 2B `transferencia-maca-mesa`, `dosimetro-no-corpo`, `produto-dose-area`, `raio-x-movel-no-leito`, `trauma-raio-horizontal`; 2C `fluoroscopia-cadeia`, `sala-de-fluoroscopia-espalhada`, `contencao-pediatrica`, `colimacao-pediatrica`, `idoso-apoios-e-riscos`, `gestante-campo-e-feixe`; 2D `dxa-dois-feixes`, `dxa-posicionamento`, `radiografia-veterinaria`, `radiografia-de-objeto`, `teste-de-feixe`.
 
-- [ ] Para cada cena, listar os alvos que as aulas cobram, com o que cada um precisa mostrar (por exemplo, na M25.05: pessoa sem avental junto à cabeceira e leito vizinho no sentido do feixe). A cena só começa com a lista fechada.
-- [ ] Construir com o kit; conferir a técnica contra o texto da aula (posição do tubo, do detector, de quem fica na sala).
-- [ ] Converter, declarar alvos, prévia, verificador, testes, como na tarefa 8.
-- [ ] Onde a cena nova não puder ter um alvo antigo, reescrever o item e mandá-lo a um revisor independente, com parecer em `docs/evidence/2026-11-19-figuras/`.
-- [ ] Primeira cena do lote ao dono, no simulador; depois as demais; gate; commit; push.
+- [x] Para cada cena, listar os alvos que as aulas cobram, com o que cada um precisa mostrar (por exemplo, na M25.05: pessoa sem avental junto à cabeceira e leito vizinho no sentido do feixe). A cena só começa com a lista fechada.
+- [x] Construir com o kit; conferir a técnica contra o texto da aula (posição do tubo, do detector, de quem fica na sala).
+- [x] Converter, declarar alvos, prévia, verificador, testes, como na tarefa 8.
+- [x] Onde a cena nova não puder ter um alvo antigo, reescrever o item e mandá-lo a um revisor independente, com parecer em `docs/evidence/2026-11-19-figuras/`.
+- [x] Primeira cena do lote ao dono, no simulador; depois as demais; gate; commit; push. Feito em 2026-11-20 e 21 com o aceite do dono dispensado: a primeira peça de cada fase foi enviada sem espera (ADR, adendo de 2026-11-21).
 
 ---
 
@@ -258,9 +262,9 @@ São desenhos que imitam uma imagem de exame. A proposta é trocar por imagem re
 
 ### Tarefa 14: busca e decisão por figura
 
-- [ ] Para cada uma das nove, buscar imagem real; registrar achada ou não, com licença.
-- [ ] **Portão do dono:** a tabela de achadas e não achadas, com a proposta por figura. As aulas que rotulam anatomia fina sobre o esquema (por exemplo, `dxa-regioes-de-interesse`) continuam em desenho, porque IA não é fonte do que uma imagem real mostra.
-- [ ] Executar o que ele aceitar, com os itens das aulas ajustados e revisados.
+- [x] Para cada uma das nove, buscar imagem real; registrar achada ou não, com licença.
+- [ ] **Portão do dono:** a tabela de achadas e não achadas, com a proposta por figura. As aulas que rotulam anatomia fina sobre o esquema (por exemplo, `dxa-regioes-de-interesse`) continuam em desenho, porque IA não é fonte do que uma imagem real mostra. A tabela está em [fase-5](../../evidence/2026-11-19-figuras/fase-5.md); a ratificação do dono continua pendente.
+- [x] Executar o que ele aceitar, com os itens das aulas ajustados e revisados. Nada foi aceito para troca: a fase 5 fechou com 0 trocas em 2026-11-21 ([fase-5](../../evidence/2026-11-19-figuras/fase-5.md)).
 
 ---
 
@@ -268,9 +272,9 @@ São desenhos que imitam uma imagem de exame. A proposta é trocar por imagem re
 
 ### Tarefa 15: catálogo, guia e estado
 
-- [ ] Atualizar o catálogo do guia de autoria (origem de cada figura, alvos declarados, o brief novo de figura).
+- [x] Atualizar o catálogo do guia de autoria (origem de cada figura, alvos declarados, o brief novo de figura).
 - [ ] Reescrever `brief-diagramas.md` dos lotes como brief por tipo; aposentar a régua de paleta fechada para o que virou arte importada.
-- [ ] `STATUS.md`, roadmap, evidência com as capturas de todas as figuras, gates medidos.
+- [x] `STATUS.md`, roadmap, evidência com as capturas de todas as figuras, gates medidos. `STATUS.md` atualizado em 2026-11-21; as capturas das 22 cenas estão nos lotes 2A, 2B e 2CD, e a revisão final da branch está em curso.
 - [ ] Revisão final do branch inteiro por revisor independente no modelo mais capaz.
 
 ## O que fica com o dono

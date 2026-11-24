@@ -6,7 +6,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m31",
-  "materialSha256": "409a8a9a68e90be6783a7aac1f2048fbb68a8ce54b29b35e314646df07980fab",
+  "materialSha256": "e917b6bc63866d3826ec88aa285aeb9267367be383a0fede7c0695acefae3861",
   "trackId": "track:rtg-2026:m31",
   "unitId": "unit:rtg-2026:m31",
   "contentVersion": "rtg-2026-m31-v1",
@@ -242,7 +242,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Toque na imagem: Para que ninguém fique junto do feixe, a equipe pôs apoios no cão. Toque no apoio que sustenta o tronco dele de lado."
+              "label": "Toque na imagem: Para que as mãos fiquem fora do feixe, a equipe pôs apoios no cão. Toque no apoio que sustenta o tronco dele de lado."
             },
             "help": "Procure o que encosta no corpo do cão e não é uma pessoa.",
             "type": "hotspot",
@@ -251,40 +251,40 @@ export const RTG_2026_M31: ProductionBatchV1 = {
               "incorrect": "Essa região não é um apoio: procure o que fica sob o tronco do cão, no lugar de uma mão."
             },
             "payload": {
-              "prompt": "Para que ninguém fique junto do feixe, a equipe pôs apoios no cão. Toque no apoio que sustenta o tronco dele de lado.",
+              "prompt": "Para que as mãos fiquem fora do feixe, a equipe pôs apoios no cão. Toque no apoio que sustenta o tronco dele de lado.",
               "imageRef": "diagram:radiografia-veterinaria",
               "regions": [
                 {
                   "id": "region:rtg-2026:m31:aula-01:i2:1",
                   "label": "Pessoa sem avental ao lado da mesa",
-                  "x": 0.2062,
-                  "y": 0.45,
-                  "width": 0.1062,
-                  "height": 0.3417
+                  "x": 0.3334,
+                  "y": 0.4313,
+                  "width": 0.08,
+                  "height": 0.4688
                 },
                 {
                   "id": "region:rtg-2026:m31:aula-01:i2:2",
                   "label": "Mãos da pessoa de avental",
-                  "x": 0.8313,
-                  "y": 0.4833,
-                  "width": 0.0938,
-                  "height": 0.1167
+                  "x": 0.7022,
+                  "y": 0.584,
+                  "width": 0.08,
+                  "height": 0.08
                 },
                 {
                   "id": "region:rtg-2026:m31:aula-01:i2:3",
                   "label": "Calha de espuma",
-                  "x": 0.35,
-                  "y": 0.5417,
-                  "width": 0.3063,
-                  "height": 0.1167
+                  "x": 0.4641,
+                  "y": 0.5729,
+                  "width": 0.1938,
+                  "height": 0.1521
                 },
                 {
                   "id": "region:rtg-2026:m31:aula-01:i2:4",
                   "label": "Tubo de raios X",
-                  "x": 0.5234,
-                  "y": 0.0917,
-                  "width": 0.1406,
-                  "height": 0.1167
+                  "x": 0.5156,
+                  "y": 0.3604,
+                  "width": 0.1109,
+                  "height": 0.1333
                 }
               ],
               "correctRegionIds": [
@@ -606,34 +606,34 @@ export const RTG_2026_M31: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m31:aula-02:i2:1",
                   "label": "Pessoa sem avental junto à porta",
-                  "x": 0.0375,
-                  "y": 0.45,
-                  "width": 0.1,
-                  "height": 0.3417
+                  "x": 0.1547,
+                  "y": 0.1667,
+                  "width": 0.1203,
+                  "height": 0.475
                 },
                 {
                   "id": "region:rtg-2026:m31:aula-02:i2:2",
                   "label": "Pessoa sem avental ao lado da mesa",
-                  "x": 0.2062,
-                  "y": 0.45,
-                  "width": 0.1062,
-                  "height": 0.3417
+                  "x": 0.3334,
+                  "y": 0.4313,
+                  "width": 0.08,
+                  "height": 0.4688
                 },
                 {
                   "id": "region:rtg-2026:m31:aula-02:i2:3",
                   "label": "Mãos da pessoa de avental",
-                  "x": 0.8313,
-                  "y": 0.4833,
-                  "width": 0.0938,
-                  "height": 0.1167
+                  "x": 0.7022,
+                  "y": 0.584,
+                  "width": 0.08,
+                  "height": 0.08
                 },
                 {
                   "id": "region:rtg-2026:m31:aula-02:i2:4",
                   "label": "Calha de espuma",
-                  "x": 0.35,
-                  "y": 0.5417,
-                  "width": 0.3063,
-                  "height": 0.1167
+                  "x": 0.4641,
+                  "y": 0.5729,
+                  "width": 0.1938,
+                  "height": 0.1521
                 }
               ],
               "correctRegionIds": [
@@ -960,37 +960,37 @@ export const RTG_2026_M31: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m31:aula-03:i2:1",
-                  "x": 0.175,
-                  "y": 0.2917,
-                  "where": "no alto à esquerda, o pacote fechado com uma etiqueta",
+                  "x": 0.0813,
+                  "y": 0.1667,
+                  "where": "no alto à esquerda, a caixa fechada",
                   "correctLabelId": "label:rtg-2026:m31:aula-03:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-03:i2:2",
-                  "x": 0.5,
-                  "y": 0.2917,
-                  "where": "no alto ao centro, a folha na prancheta entre duas mãos",
+                  "x": 0.4063,
+                  "y": 0.1667,
+                  "where": "no alto ao centro, as duas mãos apertadas",
                   "correctLabelId": "label:rtg-2026:m31:aula-03:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-03:i2:3",
-                  "x": 0.825,
-                  "y": 0.2917,
-                  "where": "no alto à direita, o tubo sobre uma base",
+                  "x": 0.7313,
+                  "y": 0.1667,
+                  "where": "no alto à direita, o quadro âmbar com uma linha no meio",
                   "correctLabelId": "label:rtg-2026:m31:aula-03:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-03:i2:4",
-                  "x": 0.825,
-                  "y": 0.7083,
-                  "where": "embaixo à direita, as páginas abertas com um marcador",
+                  "x": 0.7313,
+                  "y": 0.5833,
+                  "where": "embaixo à direita, o caderno com uma caneta",
                   "correctLabelId": "label:rtg-2026:m31:aula-03:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-03:i2:5",
-                  "x": 0.5,
-                  "y": 0.7083,
-                  "where": "embaixo ao centro, a porta fechada com um cadeado",
+                  "x": 0.4063,
+                  "y": 0.5833,
+                  "where": "embaixo ao centro, a pasta com um cadeado",
                   "correctLabelId": "label:rtg-2026:m31:aula-03:i2:5"
                 }
               ],
@@ -1358,7 +1358,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
                 },
                 {
                   "id": "region:rtg-2026:m31:aula-04:i2:3",
-                  "label": "Aparelho de imagem",
+                  "label": "Aquisição da imagem",
                   "x": 0.7063,
                   "y": 0.15,
                   "width": 0.2375,
@@ -1366,7 +1366,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
                 },
                 {
                   "id": "region:rtg-2026:m31:aula-04:i2:4",
-                  "label": "Armário com cadeado",
+                  "label": "Armário trancado",
                   "x": 0.3812,
                   "y": 0.5667,
                   "width": 0.2375,
@@ -1374,7 +1374,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
                 },
                 {
                   "id": "region:rtg-2026:m31:aula-04:i2:5",
-                  "label": "Prancheta assinada",
+                  "label": "Entrega assinada",
                   "x": 0.3812,
                   "y": 0.15,
                   "width": 0.2375,
@@ -1636,7 +1636,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "O percurso de um estudo",
-            "body": "Em pesquisa, a imagem serve a uma pergunta de estudo, e o percurso protege o participante. Antes de tudo, um comitê de ética aprova o protocolo, e qualquer mudança nele volta ao comitê. A participação é voluntária, com consentimento do participante. Só então vem a aquisição, que segue o protocolo aprovado. Neste esquema, a ficha do dado leva o nome coberto, um dos cuidados com a privacidade, e o arquivo fica guardado com acesso limitado. O estudante não recruta e nunca muda o protocolo: diante de dúvida, avisa a equipe de pesquisa.",
+            "body": "Em pesquisa, a imagem serve a uma pergunta de estudo, e o percurso protege o participante. Antes de tudo, um comitê de ética aprova o protocolo, e qualquer mudança nele volta ao comitê. A participação é voluntária, com consentimento do participante. Só então vem a aquisição, que segue o protocolo aprovado. Neste esquema, o olho riscado marca a ficha do dado com o nome coberto, um dos cuidados com a privacidade, e o arquivo fica guardado com acesso limitado. O estudante não recruta e nunca muda o protocolo: diante de dúvida, avisa a equipe de pesquisa.",
             "keyPoints": [
               "O comitê de ética aprova o protocolo antes do estudo.",
               "O participante consente de forma voluntária.",
@@ -1716,37 +1716,37 @@ export const RTG_2026_M31: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m31:aula-05:i2:1",
-                  "x": 0.175,
-                  "y": 0.2917,
-                  "where": "no alto à esquerda, o papel com um selo de visto",
+                  "x": 0.0813,
+                  "y": 0.1667,
+                  "where": "no alto à esquerda, a folha com um visto",
                   "correctLabelId": "label:rtg-2026:m31:aula-05:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-05:i2:2",
-                  "x": 0.5,
-                  "y": 0.2917,
-                  "where": "no alto ao centro, a folha com uma caneta ao lado",
+                  "x": 0.4063,
+                  "y": 0.1667,
+                  "where": "no alto ao centro, a folha com uma caneta",
                   "correctLabelId": "label:rtg-2026:m31:aula-05:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-05:i2:3",
-                  "x": 0.825,
-                  "y": 0.2917,
-                  "where": "no alto à direita, o anel com a mesa à frente",
+                  "x": 0.7313,
+                  "y": 0.1667,
+                  "where": "no alto à direita, o quadro âmbar com uma linha no meio",
                   "correctLabelId": "label:rtg-2026:m31:aula-05:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-05:i2:4",
-                  "x": 0.825,
-                  "y": 0.7083,
-                  "where": "embaixo à direita, a folha com uma tarja no alto",
+                  "x": 0.7313,
+                  "y": 0.5833,
+                  "where": "embaixo à direita, o olho riscado",
                   "correctLabelId": "label:rtg-2026:m31:aula-05:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m31:aula-05:i2:5",
-                  "x": 0.5,
-                  "y": 0.7083,
-                  "where": "embaixo ao centro, o cilindro com um cadeado",
+                  "x": 0.4063,
+                  "y": 0.5833,
+                  "where": "embaixo ao centro, a pasta com um cadeado",
                   "correctLabelId": "label:rtg-2026:m31:aula-05:i2:5"
                 }
               ],
@@ -2116,50 +2116,50 @@ export const RTG_2026_M31: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m31:aula-06:i2:1",
                   "label": "Tubo de raios X",
-                  "x": 0.0313,
-                  "y": 0.375,
-                  "width": 0.15,
-                  "height": 0.1167
+                  "x": 0.4125,
+                  "y": 0.2958,
+                  "width": 0.1313,
+                  "height": 0.1104
                 },
                 {
                   "id": "region:rtg-2026:m31:aula-06:i2:2",
                   "label": "Triângulo de aviso",
-                  "x": 0.5625,
-                  "y": 0.3917,
-                  "width": 0.1125,
-                  "height": 0.1333
+                  "x": 0.4217,
+                  "y": 0.5208,
+                  "width": 0.08,
+                  "height": 0.1292
                 },
                 {
                   "id": "region:rtg-2026:m31:aula-06:i2:3",
                   "label": "Quadro no cavalete",
-                  "x": 0.2375,
-                  "y": 0.2917,
+                  "x": 0.2625,
+                  "y": 0.1604,
                   "width": 0.0875,
-                  "height": 0.3
+                  "height": 0.3063
                 },
                 {
                   "id": "region:rtg-2026:m31:aula-06:i2:4",
                   "label": "Cordão entre os postes",
-                  "x": 0.6,
-                  "y": 0.6667,
-                  "width": 0.1875,
-                  "height": 0.1667
+                  "x": 0.6031,
+                  "y": 0.5146,
+                  "width": 0.1,
+                  "height": 0.3417
                 },
                 {
                   "id": "region:rtg-2026:m31:aula-06:i2:5",
                   "label": "Detector atrás do quadro",
-                  "x": 0.4033,
-                  "y": 0.2583,
-                  "width": 0.081,
-                  "height": 0.3667
+                  "x": 0.0969,
+                  "y": 0.0583,
+                  "width": 0.0969,
+                  "height": 0.4083
                 },
                 {
                   "id": "region:rtg-2026:m31:aula-06:i2:6",
                   "label": "Pessoa ao lado do painel",
-                  "x": 0.875,
-                  "y": 0.45,
-                  "width": 0.0875,
-                  "height": 0.3417
+                  "x": 0.8156,
+                  "y": 0.3479,
+                  "width": 0.1047,
+                  "height": 0.5229
                 }
               ],
               "correctRegionIds": [
@@ -2261,7 +2261,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
                 },
                 {
                   "id": "option:rtg-2026:m31:aula-06:i4:b",
-                  "label": "Cordão em volta da área isolada",
+                  "label": "Cordão marcando o limite da área isolada",
                   "explanation": "O cordão delimita a área isolada, e a área é esvaziada antes da exposição."
                 },
                 {
@@ -6929,7 +6929,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "409a8a9a68e90be6783a7aac1f2048fbb68a8ce54b29b35e314646df07980fab"
+      "materialSha256": "e917b6bc63866d3826ec88aa285aeb9267367be383a0fede7c0695acefae3861"
     },
     {
       "schemaVersion": 1,
@@ -6938,7 +6938,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "409a8a9a68e90be6783a7aac1f2048fbb68a8ce54b29b35e314646df07980fab"
+      "materialSha256": "e917b6bc63866d3826ec88aa285aeb9267367be383a0fede7c0695acefae3861"
     },
     {
       "schemaVersion": 1,
@@ -6947,7 +6947,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "409a8a9a68e90be6783a7aac1f2048fbb68a8ce54b29b35e314646df07980fab"
+      "materialSha256": "e917b6bc63866d3826ec88aa285aeb9267367be383a0fede7c0695acefae3861"
     },
     {
       "schemaVersion": 1,
@@ -6956,7 +6956,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "409a8a9a68e90be6783a7aac1f2048fbb68a8ce54b29b35e314646df07980fab"
+      "materialSha256": "e917b6bc63866d3826ec88aa285aeb9267367be383a0fede7c0695acefae3861"
     },
     {
       "schemaVersion": 1,
@@ -6965,7 +6965,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "409a8a9a68e90be6783a7aac1f2048fbb68a8ce54b29b35e314646df07980fab"
+      "materialSha256": "e917b6bc63866d3826ec88aa285aeb9267367be383a0fede7c0695acefae3861"
     },
     {
       "schemaVersion": 1,
@@ -6974,7 +6974,7 @@ export const RTG_2026_M31: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "409a8a9a68e90be6783a7aac1f2048fbb68a8ce54b29b35e314646df07980fab"
+      "materialSha256": "e917b6bc63866d3826ec88aa285aeb9267367be383a0fede7c0695acefae3861"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

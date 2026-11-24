@@ -1,0 +1,7 @@
+[
+  { "nome": "Porta de saída", "x": 0.0481, "y": 0.1354, "width": 0.1582, "height": 0.6268 },
+  { "nome": "Carrinho de emergência", "x": 0.2282, "y": 0.5052, "width": 0.1894, "height": 0.3882 },
+  { "nome": "Saída de oxigênio", "x": 0.4423, "y": 0.3398, "width": 0.1643, "height": 0.2599 },
+  { "nome": "Botão de chamada", "x": 0.6228, "y": 0.3044, "width": 0.1478, "height": 0.3948 },
+  { "nome": "Telefone da parede", "rotulos": ["Telefone"], "x": 0.7821, "y": 0.399, "width": 0.1698, "height": 0.3303 }
+]

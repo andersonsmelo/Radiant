@@ -32,6 +32,7 @@ import { respiracaoDiafragma } from './specs/respiracao-diafragma';
 import { circulacaoDupla } from './specs/circulacao-dupla';
 import { tratoDigestivo } from './specs/trato-digestivo';
 import { sistemaUrinario } from './specs/sistema-urinario';
+import { bexigaEUretra } from './specs/bexiga-e-uretra';
 import { sistemaNervoso } from './specs/sistema-nervoso';
 import { danoAoDna } from './specs/dano-ao-dna';
 import { grandezasDeDose } from './specs/grandezas-de-dose';
@@ -49,6 +50,7 @@ import { ossosDoPe } from './specs/ossos-do-pe';
 import { joelhoFrenteEPerfil } from './specs/joelho-frente-e-perfil';
 import { femurProximalEQuadril } from './specs/femur-proximal-e-quadril';
 import { pelveDeFrente } from './specs/pelve-de-frente';
+import { pelveDeFrenteRecorte } from './specs/pelve-de-frente-recorte';
 import { vertebraTipica } from './specs/vertebra-tipica';
 import { corteAbdomeSuperior } from './specs/corte-abdome-superior';
 import { cortePelve } from './specs/corte-pelve';
@@ -65,6 +67,7 @@ import { gestanteCampoEFeixe } from './specs/gestante-campo-e-feixe';
 import { cranioDePerfilOssos } from './specs/cranio-de-perfil-ossos';
 import { linhasDoCranio } from './specs/linhas-do-cranio';
 import { seiosDaFace } from './specs/seios-da-face';
+import { seiosDaFaceFrente } from './specs/seios-da-face-frente';
 import { raioXMovelNoLeito } from './specs/raio-x-movel-no-leito';
 import { traumaRaioHorizontal } from './specs/trauma-raio-horizontal';
 import { cicloDeTestes } from './specs/ciclo-de-testes';
@@ -120,6 +123,7 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [circulacaoDupla.id]: circulacaoDupla,
   [tratoDigestivo.id]: tratoDigestivo,
   [sistemaUrinario.id]: sistemaUrinario,
+  [bexigaEUretra.id]: bexigaEUretra,
   [sistemaNervoso.id]: sistemaNervoso,
   [danoAoDna.id]: danoAoDna,
   [grandezasDeDose.id]: grandezasDeDose,
@@ -137,6 +141,7 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [joelhoFrenteEPerfil.id]: joelhoFrenteEPerfil,
   [femurProximalEQuadril.id]: femurProximalEQuadril,
   [pelveDeFrente.id]: pelveDeFrente,
+  [pelveDeFrenteRecorte.id]: pelveDeFrenteRecorte,
   [vertebraTipica.id]: vertebraTipica,
   [corteAbdomeSuperior.id]: corteAbdomeSuperior,
   [cortePelve.id]: cortePelve,
@@ -153,6 +158,7 @@ export const DIAGRAMS: Record<string, DiagramSpec> = {
   [cranioDePerfilOssos.id]: cranioDePerfilOssos,
   [linhasDoCranio.id]: linhasDoCranio,
   [seiosDaFace.id]: seiosDaFace,
+  [seiosDaFaceFrente.id]: seiosDaFaceFrente,
   [raioXMovelNoLeito.id]: raioXMovelNoLeito,
   [traumaRaioHorizontal.id]: traumaRaioHorizontal,
   [cicloDeTestes.id]: cicloDeTestes,

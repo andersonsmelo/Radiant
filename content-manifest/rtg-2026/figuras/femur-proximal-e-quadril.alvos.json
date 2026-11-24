@@ -1,0 +1,9 @@
+[
+  { "nome": "Cabeça do fêmur", "x": 0.34, "y": 0.12, "width": 0.17, "height": 0.2 },
+  { "nome": "Colo do fêmur", "x": 0.25, "y": 0.33, "width": 0.15, "height": 0.12 },
+  { "nome": "Trocânter maior", "x": 0.1, "y": 0.3, "width": 0.1, "height": 0.16 },
+  { "nome": "Trocânter menor", "x": 0.31, "y": 0.6, "width": 0.08, "height": 0.13 },
+  { "nome": "Diáfise do fêmur", "x": 0.22, "y": 0.78, "width": 0.12, "height": 0.18 },
+  { "nome": "Sínfise púbica", "x": 0.79, "y": 0.29, "width": 0.09, "height": 0.23 },
+  { "nome": "Forame obturado", "x": 0.56, "y": 0.33, "width": 0.1, "height": 0.18 }
+]

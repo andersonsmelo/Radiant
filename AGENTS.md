@@ -568,6 +568,103 @@ defeito que se queria pegar.
   leva um `grep` antes do "Salvar". Vale também para a nota de versão por plataforma:
   o Android não tem liga nem widgets.
 
+### Seis lições de 2026-11-19 e 20 (troca das figuras, cinco lotes de arte de acervo)
+
+- **Mostre uma amostra antes do volume.** 101 figuras foram desenhadas em SVG por
+  modelo antes de o dono ver uma, e ele reprovou todas. Arte nova, método novo ou
+  movimento novo: uma amostra pequena, no tamanho do app, e o aceite dele primeiro.
+- **O verificador verde não prova a figura; a medida prova.** Em cinco lotes seguidos,
+  todo defeito sério passou no verificador e só apareceu quando um revisor
+  independente mediu, por cor, o que havia sob cada área de toque. Três vezes o agente
+  inflou ou esticou a região para o fundo vazio só para a régua passar, e uma área
+  "certa" caía sobre a estrutura do erro que o item combatia.
+- **Contagem que bate não prova traço mantido.** Unir caminhos vizinhos para economizar
+  peso manteve 1503 de 1503 subcaminhos e apagou contornos na tela (20.936 px). Compare
+  o render com o do original; para reduzir peso, arredonde coordenadas por igual.
+- **Licença se lê na página inteira e no histórico.** Uma página dizia CC BY e a obra
+  tinha um coautor CC BY-SA; outra "versão sem rótulos" era redesenho de terceiro sem
+  licença. O Servier vale pela página de termos dele (CC BY 4.0), não pela cópia do
+  Commons (CC BY-SA 3.0).
+- **Imagem gerada erra anatomia com aparência de certa.** Duas tentativas da pelve
+  erraram posição e limite de osso, e a correção trocou um erro por outro. Foi
+  abandonada para anatomia em 2026-11-20. Imagem de exame nunca é gerada.
+- **Quem coordena abre a prévia.** Metade das primeiras entregas dos agentes de arte
+  foi devolvida depois de olhar o PNG: traço apagado, figura minúscula, arte pobre. O
+  relatório do agente dizia "entregue" em todas. O passo a passo de um lote e os
+  briefs estão em
+  [`docs/superpowers/plans/2026-11-20-figuras-continuidade.md`](docs/superpowers/plans/2026-11-20-figuras-continuidade.md).
+
+### Seis lições de 2026-11-20 e 21 (fase 2 das figuras, cenas do kit)
+
+- **Região do tamanho da área de toque é inflar.** Os construtores declararam a região
+  de objetos pequenos com 44 pt, e o verificador passou. Na prévia a caixa era maior que
+  o objeto, e a pergunta deixava de medir o que dizia. Região é a caixa justa do objeto
+  no desenho, com o mínimo de 0,08 do verificador. Se não couber, aproxime a câmera ou
+  aumente o objeto no desenho, dito na evidência; não estique a região.
+- **O selo e o marcador do app escondiam objeto pequeno, e o conserto foi no app.**
+  Medido por cor, o selo cobria 100% da maçaneta, da manopla e da pulseira. Aumentar o
+  objeto não bastou. O app passou a pôr o selo fora da região e fora da área de toque
+  dos outros alvos, posicionado em conjunto (sem selo sobre selo). Quando o defeito se
+  repete em toda figura, corrija o lugar que o produz, e meça de novo as figuras já
+  aprovadas: a posição nova também mexe nelas.
+- **A pessoa do kit é módulo único.** Dois construtores copiaram a pessoa e a
+  alteraram (cabeça da criança deitada, controle de pernas e pé). Duas pessoas
+  divergentes quebram a promessa de que trocar a pessoa regenera todas as cenas. Funda a
+  mudança em `kit/pessoa.mjs` na integração e confira que as cenas antigas regeneram
+  byte a byte (`cenas.test.mjs`).
+- **A lista do run precisa incluir os roteiros que o `figuras-no-simulador.mjs` cria.**
+  O 2B e o 2A fecharam sem validar por arquivo fora da lista (fixtures de teste e quatro
+  roteiros Maestro). Fechar o run e reabri-lo com a lista completa custa um ciclo.
+  Enumere os roteiros `aula-NN` das unidades antes de abrir, e não os crie nem edite
+  fora da lista.
+- **Técnica radiológica errada com prévia bonita: só o revisor independente viu.** Maca
+  em linha em vez de ao lado da mesa, saiote na ponta da mesa contra o checkpoint que diz
+  "lateral", pernas em V largo no DXA do fêmur, banco no caminho do idoso. A prévia e o
+  verificador passaram. Passe ao revisor o texto da aula e do checkpoint, e o desenho
+  segue a aula, não o contrário.
+- **Integrar dois lotes num run economiza um ciclo.** O 2C e o 2D foram integrados
+  juntos (11 cenas): um gate, uma revisão e um conjunto de correções em vez de dois.
+  Vale quando ambos estão prontos ao mesmo tempo e compartilham o módulo da pessoa; o
+  preço é um run maior, com lista de 146 caminhos.
+
+### Seis lições de 2026-11-22 (imagens reais, acervo do dono e um disco cheio)
+
+- **Figura desenhada por modelo foi reprovada de novo: "cara de conteudo feito por ia".**
+  Esquema em código e cena do kit não passaram, nem depois da segunda rodada. O que
+  passou foi imagem REAL, pelo caminho `imageId`: radiografia CC0 do Commons, figuras
+  CC BY de artigos abertos (PLoS, Orphanet/BMC via PMC, SciELO) e, por fim, o acervo
+  de RM e TC do dono. `concept.visual` só aceita diagrama, então o conceito perde o
+  visual; o cadastro só aceita `CC0 1.0` ou `CC BY x.y` (`EditorialWideContract.ts`).
+  Rótulo impresso na imagem (L1–L4, A/B) não pode entregar resposta de item.
+- **Exame do acervo do dono se anonimiza antes de sair do servidor.** Use só séries
+  sem nome, registro e nascimento no cabeçalho, contados sem imprimir valor. Traga só
+  as fatias usadas, apague o cabeçalho na chegada e troque os UIDs. Exporte JPEG sem
+  metadado, procure texto gravado nos pixels e apague os brutos. Nenhum valor de
+  cabeçalho vai para relatório, commit ou log. O dono licencia o que é dele, em CC BY
+  4.0 com o crédito dele.
+- **Antes de limpar o disco, tudo commitado e enviado.** Em 2026-11-22 o disco encheu
+  (`ENOSPC` derruba até o shell), e a worktree desta frente foi removida na limpeza.
+  Os commits sobreviveram porque a branch estava no repositório; a pasta de trabalho
+  `.superpowers/`, fora do git, se perdeu inteira. O que precisa sobreviver vai para
+  a evidência versionada.
+- **O Metro não segue `node_modules` por link simbólico.** Numa worktree recriada,
+  o link serve ao jest e aos validadores, mas o app abre com "Unable to resolve module
+  expo-router/entry". Clone a pasta com `cp -cR` (cópia APFS, sem espaço extra), depois
+  de conferir que o `package-lock.json` é igual ao da origem.
+- **Validador que estoura prazo pode ser a máquina de outro.** Um `npm install` alheio,
+  clonando o `devtools-frontend` com submódulos, ocupou mais de 300% da CPU por 25
+  minutos, e três `loop validate` seguidos reprovaram (dois por prazo, um por teste
+  intermitente). Ache o processo pelo `cwd` (`lsof -a -p <pid> -d cwd`), não encerre o
+  que não é seu, espere a carga cair abaixo de 5 e reproduza à mão a falha
+  intermitente antes de mexer em código. `noProgressCount` no `state.json` do run diz
+  quantas tentativas restam. Simulador ligado durante o disco cheio ficou com o driver
+  do Maestro travado: reinicie-o.
+- **Botão de bancada sob o rodapé fixo.** O `scrollUntilVisible` parava com o botão
+  "Diminuir" atrás de "Conferir resposta", e os toques caíam no rodapé. Desde
+  `f88b41d1`, o gerador centraliza o botão (`centerElement: true`). Mudança no gerador
+  regenera roteiros de outras unidades: rode `figuras-no-simulador.mjs --check` antes
+  de abrir o run, porque o `m26-aula-04.yaml` ficou de fora da lista e custou um ciclo.
+
 ### O que nunca fazer
 
 - Editar o vault do Obsidian diretamente (o cérebro só recebe conteúdo por

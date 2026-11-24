@@ -150,7 +150,7 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
   "batch:rtg-2026:m23": {
     "slug": "rtg-2026-m23",
     "title": "Leitura crítica da imagem: artefatos, repetição e correção",
-    "description": "Um roteiro de leitura de esquemas de tórax, artefatos de objeto e de equipamento, bancadas de exposição e de colimação e o registro da causa de imagens rejeitadas, sem diagnosticar.",
+    "description": "Um roteiro de leitura em radiografia real de tórax, exemplos radiográficos de artefatos de objeto, um esquema de artefatos de equipamento, bancadas de exposição e de colimação e o registro da causa de imagens rejeitadas.",
     "unitTitle": "Leitura crítica da imagem: artefatos, repetição e correção",
     "reward": {
       "id": "node:reward:rtg-2026:m23",
@@ -260,7 +260,7 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
   "batch:rtg-2026:m28": {
     "slug": "rtg-2026-m28",
     "title": "Anatomia seccional II: abdome, pelve, pescoço e coluna",
-    "description": "Completa o mapa dos cortes axiais com abdome superior, pelve, pescoço e coluna em esquemas, e ensina a reconhecer os três planos e a altura de um corte em tomografias reais, só localizando, sem interpretar.",
+    "description": "Completa o mapa dos cortes axiais com abdome superior, pelve e pescoço em tomografias reais e a coluna em esquema, e ensina a reconhecer os três planos e a altura de um corte, só localizando, sem interpretar.",
     "unitTitle": "Anatomia seccional II: abdome, pelve, pescoço e coluna",
     "reward": {
       "id": "node:reward:rtg-2026:m28",

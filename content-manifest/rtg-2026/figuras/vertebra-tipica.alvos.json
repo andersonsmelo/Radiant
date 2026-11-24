@@ -1,0 +1,9 @@
+[
+  { "nome": "Corpo vertebral", "x": 0.34, "y": 0.06, "width": 0.32, "height": 0.28 },
+  { "nome": "Forame vertebral", "x": 0.42, "y": 0.41, "width": 0.16, "height": 0.14 },
+  { "nome": "Pedículo", "x": 0.33, "y": 0.42, "width": 0.09, "height": 0.14 },
+  { "nome": "Processo transverso", "x": 0.7, "y": 0.5, "width": 0.15, "height": 0.12 },
+  { "nome": "Processo espinhoso", "x": 0.455, "y": 0.72, "width": 0.09, "height": 0.22 },
+  { "nome": "Lâmina", "x": 0.4, "y": 0.57, "width": 0.09, "height": 0.12 },
+  { "nome": "Processo articular", "x": 0.6, "y": 0.53, "width": 0.08, "height": 0.16 }
+]

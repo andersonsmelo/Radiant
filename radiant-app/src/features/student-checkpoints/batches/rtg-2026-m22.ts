@@ -6,7 +6,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m22",
-  "materialSha256": "9876410a5ef3c28310d2f8db59fa8fa32ad05c8fcecfaa8ad224b0e9c9112f8d",
+  "materialSha256": "7b7ec45631af1d52ce055b0274175dd320f52e173b94375d301e95f4b12a5734",
   "trackId": "track:rtg-2026:m22",
   "unitId": "unit:rtg-2026:m22",
   "contentVersion": "rtg-2026-m22-v1",
@@ -158,7 +158,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "O sistema procura a faixa da anatomia",
-            "body": "O sistema conta quantos pixels têm cada valor: é o histograma. Neste esquema, o valor do pixel cresce com a exposição. À esquerda fica o pico da área colimada, quase sem sinal. No meio, o grupo largo da anatomia: a faixa de interesse. À direita, o pico da radiação direta, fora do corpo. A curva em S converte essa faixa em brilho. Se o campo ou a região anatômica estão errados, a faixa pode sair errada.",
+            "body": "O histograma conta pixels por valor: a altura é quantos pixels; na horizontal, o valor. Neste esquema, o valor do pixel cresce com a exposição. À esquerda fica o pico da área colimada, quase sem sinal. No meio, o grupo largo da anatomia: a faixa de interesse. À direita, o pico da radiação direta, fora do corpo. A curva em S converte essa faixa em brilho. Se o campo ou a região anatômica estão errados, a faixa pode sair errada.",
             "keyPoints": [
               "Faixa de interesse: o grupo de valores da anatomia, sem a área colimada nem a radiação direta.",
               "O sentido do valor depende do sistema: onde ele cai com a exposição, as pontas se invertem.",
@@ -239,37 +239,37 @@ export const RTG_2026_M22: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m22:aula-01:i2:1",
-                  "x": 0.094,
-                  "y": 0.583,
+                  "x": 0.131,
+                  "y": 0.375,
                   "where": "na ponta esquerda do eixo, a barra estreita",
                   "correctLabelId": "label:rtg-2026:m22:aula-01:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m22:aula-01:i2:2",
-                  "x": 0.297,
-                  "y": 0.583,
+                  "x": 0.303,
+                  "y": 0.492,
                   "where": "no meio do eixo, o grupo largo de barras",
                   "correctLabelId": "label:rtg-2026:m22:aula-01:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m22:aula-01:i2:3",
-                  "x": 0.503,
-                  "y": 0.583,
+                  "x": 0.475,
+                  "y": 0.625,
                   "where": "na ponta direita do eixo, a barra estreita",
                   "correctLabelId": "label:rtg-2026:m22:aula-01:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m22:aula-01:i2:4",
-                  "x": 0.419,
-                  "y": 0.158,
+                  "x": 0.409,
+                  "y": 0.2,
                   "where": "no alto, a ponta direita do colchete azul",
                   "correctLabelId": "label:rtg-2026:m22:aula-01:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m22:aula-01:i2:5",
-                  "x": 0.775,
-                  "y": 0.475,
-                  "where": "no gráfico da direita, o traço amarelo em S",
+                  "x": 0.88,
+                  "y": 0.207,
+                  "where": "no gráfico da direita, o traço em S, junto ao patamar alto",
                   "correctLabelId": "label:rtg-2026:m22:aula-01:i2:5"
                 }
               ],
@@ -521,7 +521,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Cada filtro cobra um preço",
-            "body": "A figura mostra a mesma borda em três perfis. No de cima, o original, a transição é curta. No do meio, o realce de borda exagera a diferença junto da borda: o contorno fica mais marcado, e o ruído fica mais evidente. No de baixo, a suavização alarga a transição: o granulado diminui, mas detalhes finos vizinhos se fundem. O grau de cada filtro vem do protocolo do serviço.",
+            "body": "A figura mostra a mesma borda em três perfis. Eixo horizontal: posição na borda; vertical: valor do pixel. No de cima, o original, a transição é curta. No do meio, o realce de borda exagera a diferença junto da borda: o contorno fica mais marcado, e o ruído fica mais evidente. No de baixo, a suavização alarga a transição: o granulado diminui, mas detalhes finos vizinhos se fundem. O grau de cada filtro vem do protocolo do serviço.",
             "keyPoints": [
               "Realce: borda mais marcada, ruído mais evidente.",
               "Suavização: fundo mais liso, detalhe fino mais fundido.",
@@ -1320,37 +1320,37 @@ export const RTG_2026_M22: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m22:aula-04:i2:1",
-                  "x": 0.169,
-                  "y": 0.258,
-                  "where": "no alto à esquerda, o bloco com a prancheta",
+                  "x": 0.0813,
+                  "y": 0.1667,
+                  "where": "no alto à esquerda, a folha com uma caneta",
                   "correctLabelId": "label:rtg-2026:m22:aula-04:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m22:aula-04:i2:2",
-                  "x": 0.5,
-                  "y": 0.258,
-                  "where": "no alto, no meio, o bloco de linhas com marcadores",
+                  "x": 0.4063,
+                  "y": 0.1667,
+                  "where": "no alto, no meio, a lista com marcas de conferido",
                   "correctLabelId": "label:rtg-2026:m22:aula-04:i2:2"
                 },
                 {
                   "id": "point:rtg-2026:m22:aula-04:i2:3",
-                  "x": 0.831,
-                  "y": 0.258,
-                  "where": "no alto à direita, o bloco com o feixe sobre a mesa",
+                  "x": 0.7313,
+                  "y": 0.1667,
+                  "where": "no alto à direita, o símbolo de radiação, em âmbar",
                   "correctLabelId": "label:rtg-2026:m22:aula-04:i2:3"
                 },
                 {
                   "id": "point:rtg-2026:m22:aula-04:i2:4",
-                  "x": 0.831,
-                  "y": 0.717,
-                  "where": "embaixo à direita, o bloco com o cilindro",
+                  "x": 0.7313,
+                  "y": 0.5833,
+                  "where": "embaixo à direita, duas molduras de imagem sobrepostas",
                   "correctLabelId": "label:rtg-2026:m22:aula-04:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m22:aula-04:i2:5",
-                  "x": 0.5,
-                  "y": 0.717,
-                  "where": "embaixo, no meio, o bloco com a tela e a paisagem",
+                  "x": 0.4063,
+                  "y": 0.5833,
+                  "where": "embaixo, no meio, o notebook com um visto na tela",
                   "correctLabelId": "label:rtg-2026:m22:aula-04:i2:5"
                 }
               ],
@@ -2063,33 +2063,33 @@ export const RTG_2026_M22: ProductionBatchV1 = {
                 {
                   "id": "region:rtg-2026:m22:aula-06:i2:1",
                   "label": "Cadastro e pedido",
-                  "x": 0.0625,
-                  "y": 0.1167,
-                  "width": 0.2125,
+                  "x": 0.0563,
+                  "y": 0.15,
+                  "width": 0.2375,
                   "height": 0.2833
                 },
                 {
                   "id": "region:rtg-2026:m22:aula-06:i2:2",
                   "label": "Lista de trabalho",
-                  "x": 0.3937,
-                  "y": 0.1167,
-                  "width": 0.2125,
+                  "x": 0.3812,
+                  "y": 0.15,
+                  "width": 0.2375,
                   "height": 0.2833
                 },
                 {
                   "id": "region:rtg-2026:m22:aula-06:i2:3",
                   "label": "Equipamento de raios X",
-                  "x": 0.725,
-                  "y": 0.1167,
-                  "width": 0.2125,
+                  "x": 0.7063,
+                  "y": 0.15,
+                  "width": 0.2375,
                   "height": 0.2833
                 },
                 {
                   "id": "region:rtg-2026:m22:aula-06:i2:4",
                   "label": "Estação de visualização",
-                  "x": 0.3937,
-                  "y": 0.575,
-                  "width": 0.2125,
+                  "x": 0.3812,
+                  "y": 0.5667,
+                  "width": 0.2375,
                   "height": 0.2833
                 }
               ],
@@ -6834,7 +6834,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9876410a5ef3c28310d2f8db59fa8fa32ad05c8fcecfaa8ad224b0e9c9112f8d"
+      "materialSha256": "7b7ec45631af1d52ce055b0274175dd320f52e173b94375d301e95f4b12a5734"
     },
     {
       "schemaVersion": 1,
@@ -6843,7 +6843,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9876410a5ef3c28310d2f8db59fa8fa32ad05c8fcecfaa8ad224b0e9c9112f8d"
+      "materialSha256": "7b7ec45631af1d52ce055b0274175dd320f52e173b94375d301e95f4b12a5734"
     },
     {
       "schemaVersion": 1,
@@ -6852,7 +6852,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9876410a5ef3c28310d2f8db59fa8fa32ad05c8fcecfaa8ad224b0e9c9112f8d"
+      "materialSha256": "7b7ec45631af1d52ce055b0274175dd320f52e173b94375d301e95f4b12a5734"
     },
     {
       "schemaVersion": 1,
@@ -6861,7 +6861,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9876410a5ef3c28310d2f8db59fa8fa32ad05c8fcecfaa8ad224b0e9c9112f8d"
+      "materialSha256": "7b7ec45631af1d52ce055b0274175dd320f52e173b94375d301e95f4b12a5734"
     },
     {
       "schemaVersion": 1,
@@ -6870,7 +6870,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9876410a5ef3c28310d2f8db59fa8fa32ad05c8fcecfaa8ad224b0e9c9112f8d"
+      "materialSha256": "7b7ec45631af1d52ce055b0274175dd320f52e173b94375d301e95f4b12a5734"
     },
     {
       "schemaVersion": 1,
@@ -6879,7 +6879,7 @@ export const RTG_2026_M22: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "9876410a5ef3c28310d2f8db59fa8fa32ad05c8fcecfaa8ad224b0e9c9112f8d"
+      "materialSha256": "7b7ec45631af1d52ce055b0274175dd320f52e173b94375d301e95f4b12a5734"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

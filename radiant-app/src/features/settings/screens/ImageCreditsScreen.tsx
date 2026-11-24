@@ -28,6 +28,10 @@ export default function ImageCreditsScreen(): React.ReactElement {
           onPress={() => { void Linking.openURL(image.sourcePage).catch(() => undefined); }} style={styles.link}>
           <Text style={styles.linkLabel}>Ver a página de origem</Text>
         </Pressable>
+        <Pressable accessibilityRole="link" accessibilityLabel={`Abrir a licença da radiografia ${index + 1}`}
+          onPress={() => { void Linking.openURL(image.licenseUrl).catch(() => undefined); }} style={styles.link}>
+          <Text style={styles.linkLabel}>Ver a licença</Text>
+        </Pressable>
       </View>)}
       {RTG_FIGURE_CREDITS.map((figure, index) => <View key={figure.id} style={styles.card}>
         <Text style={styles.name}>Ilustração {index + 1}</Text>
@@ -38,6 +42,10 @@ export default function ImageCreditsScreen(): React.ReactElement {
         <Pressable accessibilityRole="link" accessibilityLabel={`Abrir a página de origem da ilustração ${index + 1}`}
           onPress={() => { void Linking.openURL(figure.sourcePage).catch(() => undefined); }} style={styles.link}>
           <Text style={styles.linkLabel}>Ver a página de origem</Text>
+        </Pressable>
+        <Pressable accessibilityRole="link" accessibilityLabel={`Abrir a licença da ilustração ${index + 1}`}
+          onPress={() => { void Linking.openURL(figure.licenseUrl).catch(() => undefined); }} style={styles.link}>
+          <Text style={styles.linkLabel}>Ver a licença</Text>
         </Pressable>
       </View>)}
     </ScrollView>

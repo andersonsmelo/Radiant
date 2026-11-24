@@ -502,12 +502,13 @@
       },
       "concept": {
         "title": "Quatro referências para alinhar a cabeça",
-        "body": "A linha orbitomeatal vai do canto externo do olho ao centro do meato acústico externo. A infraorbitomeatal parte da margem inferior da órbita e chega ao mesmo meato. A linha interpupilar liga as duas pupilas. O plano sagital mediano divide a cabeça em direita e esquerda. Segundo a referência, no perfil o plano sagital fica paralelo ao receptor e a interpupilar, perpendicular, o que confere que a cabeça não está inclinada; no PA, a orbitomeatal fica perpendicular. No perfil, a infraorbitomeatal se ajusta flexionando ou estendendo a cabeça.",
+        "body": "A linha orbitomeatal vai do canto externo do olho ao centro do meato acústico externo. A infraorbitomeatal parte da margem inferior da órbita e chega ao mesmo meato. A linha interpupilar liga as pupilas. O plano sagital mediano divide a cabeça em direita e esquerda. No perfil, o plano sagital fica paralelo ao receptor e a interpupilar, perpendicular, o que confere a inclinação; no PA, a orbitomeatal fica perpendicular. No perfil, a infraorbitomeatal ajusta a flexão ou extensão da cabeça.",
         "keyPoints": [
           "Orbitomeatal: do canto externo do olho ao meato.",
           "Infraorbitomeatal: da margem inferior da órbita ao meato.",
           "Interpupilar liga as pupilas; o plano sagital mediano separa direita e esquerda."
-        ]
+        ],
+        "visual": "linhas-do-cranio"
       },
       "interactions": [
         {
@@ -546,46 +547,37 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule cinco referências da cabeça, tocando na ficha e no ponto. À esquerda está a vista de perfil e à direita, a de frente.",
+          "prompt": "Rotule três referências da cabeça, tocando na ficha e no ponto. À esquerda está a vista de perfil e à direita, a de frente.",
           "diagramId": "linhas-do-cranio",
           "points": [
             {
-              "label": "Linha orbitomeatal",
-              "x": 0.0875,
-              "y": 0.392,
-              "where": "no perfil, a mais alta das duas linhas, na ponta da frente"
-            },
-            {
-              "label": "Linha infraorbitomeatal",
-              "x": 0.25,
-              "y": 0.454,
-              "where": "no perfil, a mais baixa das duas linhas, junto à bochecha"
-            },
-            {
               "label": "Meato acústico externo",
-              "x": 0.4125,
-              "y": 0.458,
-              "where": "no perfil, o pequeno anel onde as duas linhas terminam"
+              "x": 0.333,
+              "y": 0.583,
+              "where": "no perfil, o pequeno anel onde as duas linhas terminam",
+              "alvo": "Meato acústico externo"
             },
             {
               "label": "Linha interpupilar",
-              "x": 0.906,
-              "y": 0.408,
-              "where": "na vista de frente, a linha horizontal pelos dois olhos"
+              "x": 0.8803,
+              "y": 0.4813,
+              "where": "na vista de frente, a linha horizontal pelas duas órbitas",
+              "alvo": "Linha interpupilar"
             },
             {
               "label": "Plano sagital mediano",
-              "x": 0.7875,
-              "y": 0.125,
-              "where": "na vista de frente, a linha tracejada vertical no alto"
+              "x": 0.8038,
+              "y": 0.2083,
+              "where": "na vista de frente, a linha tracejada vertical no alto",
+              "alvo": "Plano sagital mediano"
             }
           ],
           "distractors": [
             "Plano coronal"
           ],
           "feedbackCorrect": "Isso mesmo: duas linhas partem do mesmo meato, uma une as pupilas e um plano divide a cabeça ao meio.",
-          "feedbackIncorrect": "Alguma referência ficou fora do lugar: lembre de onde cada linha parte e o que ela une.",
-          "help": "As duas linhas do perfil terminam no mesmo ponto; veja de onde cada uma parte.",
+          "feedbackIncorrect": "Alguma referência ficou fora do lugar: lembre onde as duas linhas do perfil terminam e o que cada uma das outras une.",
+          "help": "As duas linhas do perfil terminam no mesmo ponto, perto do ouvido.",
           "sourceIds": [
             "r101-cranio",
             "wiki-orbitomeatal"
@@ -628,9 +620,9 @@
           "prompt": "Julgue cada afirmação sobre as linhas da cabeça.",
           "statements": [
             {
-              "text": "As linhas orbitomeatal e infraorbitomeatal terminam no mesmo ponto, o meato.",
+              "text": "A infraorbitomeatal parte de um ponto mais baixo do que a orbitomeatal.",
               "correct": true,
-              "feedback": "Certo: as duas partem de pontos diferentes perto do olho e chegam ao mesmo meato."
+              "feedback": "Certo: a infraorbitomeatal parte da margem inferior da órbita, mais baixa que o canto externo do olho, de onde parte a orbitomeatal."
             },
             {
               "text": "A linha interpupilar liga o canto externo do olho ao meato acústico externo.",
@@ -1208,12 +1200,13 @@
       },
       "concept": {
         "title": "Quatro grupos de seios",
-        "body": "Os seios da face são espaços dentro dos ossos. O seio frontal fica no osso frontal, acima dos olhos e das sobrancelhas. Os etmoidais são várias câmaras pequenas de cada lado do osso etmoide, entre o nariz e a parede de dentro de cada órbita: de frente, ficam entre os olhos. Os maxilares ficam abaixo das órbitas e são os maiores. O esfenoidal fica na linha média, dentro do corpo do esfenoide, atrás dos olhos, e é o mais posterior. A órbita é o encaixe ósseo do olho.",
+        "body": "Os seios da face são espaços dentro dos ossos. O seio frontal fica no osso frontal, acima dos olhos e das sobrancelhas. Os etmoidais são várias câmaras pequenas de cada lado do etmoide, ao lado do nariz. Os maxilares ficam abaixo das órbitas e são os maiores. O esfenoidal fica na linha média, dentro do corpo do esfenoide, atrás dos olhos. A órbita é o encaixe ósseo do olho. No corte lateral, o frontal é azul e o esfenoidal, âmbar.",
         "keyPoints": [
           "Frontal, etmoidal, maxilar e esfenoidal.",
           "Frontal acima dos olhos; esfenoidal atrás deles, o mais posterior.",
           "Maxilares: abaixo das órbitas, os maiores."
-        ]
+        ],
+        "visual": "seios-da-face"
       },
       "interactions": [
         {
@@ -1252,41 +1245,32 @@
           "id": "i2",
           "type": "label",
           "role": "practice",
-          "prompt": "Rotule cinco partes do esquema da face, tocando na ficha e no ponto. À esquerda está a vista de frente e à direita, a de perfil.",
-          "diagramId": "seios-da-face",
+          "prompt": "Rotule três partes do esquema do rosto de frente, tocando na ficha e no ponto.",
+          "diagramId": "seios-da-face-frente",
           "points": [
             {
               "label": "Seio frontal",
-              "x": 0.25,
-              "y": 0.25,
-              "where": "de frente, o par de lóbulos no alto, acima dos olhos"
+              "alvo": "Seio frontal",
+              "x": 0.383,
+              "y": 0.281,
+              "where": "de frente, o lóbulo azul do alto, acima do olho"
             },
             {
               "label": "Seio etmoidal",
-              "x": 0.25,
-              "y": 0.466,
-              "where": "de frente, as câmaras em fileira entre os círculos grandes"
+              "alvo": "Seio etmoidal",
+              "x": 0.365,
+              "y": 0.565,
+              "where": "de frente, as câmaras ciano ao lado do nariz, junto ao olho"
             },
             {
               "label": "Seio maxilar",
-              "x": 0.131,
-              "y": 0.683,
-              "where": "na vista de frente, a massa à esquerda, sob o círculo grande"
-            },
-            {
-              "label": "Seio esfenoidal",
-              "x": 0.8313,
-              "y": 0.479,
-              "where": "no perfil, o bloco cinza sob a curva em U, atrás da fileira"
-            },
-            {
-              "label": "Órbita",
-              "x": 0.6625,
-              "y": 0.433,
-              "where": "no perfil, o círculo cinza na frente do rosto"
+              "alvo": "Seio maxilar",
+              "x": 0.344,
+              "y": 0.785,
+              "where": "de frente, a massa azul de baixo, abaixo do olho"
             }
           ],
-          "feedbackCorrect": "Isso mesmo: você achou os quatro grupos de seios e o encaixe do olho.",
+          "feedbackCorrect": "Isso mesmo: você achou os três grupos de seios vistos de frente.",
           "feedbackIncorrect": "Algum ponto ficou fora do lugar: releia onde cada grupo fica, da frente para trás.",
           "help": "Comece pelo que fica no alto e acima dos olhos.",
           "sourceIds": [
@@ -1355,36 +1339,32 @@
           "type": "hotspot",
           "role": "transfer",
           "prompt": "Um pedido de seios da face fala no maior dos quatro grupos de seios. Duda quer ver onde ele fica: toque num deles na vista de frente.",
-          "diagramId": "seios-da-face",
+          "diagramId": "seios-da-face-frente",
           "regions": [
             {
               "label": "Seio frontal",
-              "x": 0.1938,
-              "y": 0.1667,
-              "width": 0.1125,
-              "height": 0.1667
+              "alvo": "Seio frontal",
+              "x": 0.2,
+              "y": 0.12,
+              "width": 0.22,
+              "height": 0.21
             },
             {
               "label": "Seio etmoidal",
-              "x": 0.2062,
-              "y": 0.3917,
-              "width": 0.0875,
-              "height": 0.15
+              "alvo": "Seio etmoidal",
+              "x": 0.27,
+              "y": 0.335,
+              "width": 0.12,
+              "height": 0.2
             },
             {
               "label": "Seio maxilar",
-              "x": 0.0813,
-              "y": 0.6083,
-              "width": 0.1,
-              "height": 0.15,
+              "alvo": "Seio maxilar",
+              "x": 0.2,
+              "y": 0.56,
+              "width": 0.27,
+              "height": 0.29,
               "correct": true
-            },
-            {
-              "label": "Seio esfenoidal",
-              "x": 0.7813,
-              "y": 0.425,
-              "width": 0.1,
-              "height": 0.1083
             }
           ],
           "feedbackCorrect": "Isso: os maxilares ficam abaixo das órbitas e são os maiores dos quatro grupos.",
@@ -1665,48 +1645,53 @@
           "regions": [
             {
               "label": "Tubo alinhado com o detector",
-              "x": 0.2825,
-              "y": 0.475,
-              "width": 0.085,
-              "height": 0.1,
+              "x": 0.5969,
+              "y": 0.425,
+              "width": 0.0953,
+              "height": 0.0854,
               "risk": false,
-              "feedback": "O tubo aponta para a região pedida e para o detector atrás do paciente: esse é o arranjo esperado, e não um risco."
+              "feedback": "O tubo aponta para a região pedida e para o detector atrás do paciente: esse é o arranjo esperado, e não um risco.",
+              "alvo": "Tubo alinhado com o detector"
             },
             {
               "label": "Pessoa sem avental junto à cabeceira",
-              "x": 0.7063,
-              "y": 0.45,
-              "width": 0.0875,
-              "height": 0.4833,
+              "x": 0.2625,
+              "y": 0.3958,
+              "width": 0.0969,
+              "height": 0.3812,
               "risk": true,
-              "feedback": "Ela está perto do paciente, sem proteção, e o tracejado mostra a radiação espalhada chegando até ela. Sem função no exame, ela se afasta antes da exposição."
+              "feedback": "Ela está perto do paciente, sem proteção, e o tracejado mostra a radiação espalhada chegando até ela. Sem função no exame, ela se afasta antes da exposição.",
+              "alvo": "Pessoa sem avental junto à cabeceira"
             },
             {
               "label": "Operador de avental atrás do aparelho",
-              "x": 0.0437,
-              "y": 0.45,
-              "width": 0.0875,
-              "height": 0.4833,
+              "x": 0.8641,
+              "y": 0.3167,
+              "width": 0.1094,
+              "height": 0.3833,
               "risk": false,
-              "feedback": "Longe do aparelho e do feixe, com a proteção que o serviço define, é onde o operador fica; cerca de 2 m é comum, e a regra é do serviço."
+              "feedback": "Longe do aparelho e do feixe, com a proteção que o serviço define, é onde o operador fica; cerca de 2 m é comum, e a regra é do serviço.",
+              "alvo": "Operador de avental atrás do aparelho"
             },
             {
               "label": "Leito vizinho, no sentido do feixe",
-              "x": 0.8438,
-              "y": 0.6583,
-              "width": 0.15,
-              "height": 0.1667,
+              "x": 0,
+              "y": 0.3063,
+              "width": 0.2172,
+              "height": 0.3083,
               "risk": true,
-              "feedback": "Quem está no leito vizinho não pode sair: pede-se apoio da equipe, com distância, feixe para outro lado e barreira se o serviço definir."
+              "feedback": "Quem está no leito vizinho não pode sair: pede-se apoio da equipe, com distância, feixe para outro lado e barreira se o serviço definir.",
+              "alvo": "Leito vizinho, no sentido do feixe"
             },
             {
               "label": "Detector atrás do paciente",
-              "x": 0.5412,
-              "y": 0.5667,
+              "x": 0.4319,
+              "y": 0.425,
               "width": 0.08,
-              "height": 0.1667,
+              "height": 0.1521,
               "risk": false,
-              "feedback": "O detector atrás do paciente, alinhado com o tubo, faz parte do arranjo e não é um risco."
+              "feedback": "O detector atrás do paciente, alinhado com o tubo, faz parte do arranjo e não é um risco.",
+              "alvo": "Detector atrás do paciente"
             }
           ],
           "feedbackCorrect": "Isso mesmo: você achou quem está perto demais ou no sentido do feixe e deixou de fora o arranjo correto.",
@@ -1938,7 +1923,7 @@
       },
       "concept": {
         "title": "Mover o equipamento, e não o paciente",
-        "body": "Em trauma, a equipe médica coordena o cuidado e libera quando o paciente pode ser movido. O colar cervical e a prancha ficam no lugar: você não os retira, e a imagem se faz através deles. Em vez de virar o paciente, move-se o equipamento: o tubo fica de um lado, com o feixe na horizontal, e o detector fica em pé do outro, encostado ao ombro. A figura mostra a cena vista pela cabeceira, em corte na altura do pescoço: o anel em volta dele é o colar, sobre a prancha. Antes de expor, avise em voz alta, para quem não precisa ficar se afastar.",
+        "body": "Em trauma, a equipe médica coordena o cuidado e libera quando o paciente pode ser movido. O colar cervical e a prancha ficam no lugar: você não os retira, e a imagem se faz através deles. Em vez de virar o paciente, move-se o equipamento: o tubo fica de um lado, com o feixe na horizontal, e o detector fica em pé do outro, junto ao ombro. A figura mostra o paciente deitado de costas, em perspectiva: o colar é o anel claro em volta do pescoço, e a prancha está sob o corpo. Antes de expor, avise em voz alta, para quem não precisa ficar se afastar.",
         "keyPoints": [
           "A equipe decide quando mexer no paciente.",
           "Colar e prancha ficam no lugar.",
@@ -1982,37 +1967,41 @@
           "id": "i2",
           "type": "hotspot",
           "role": "practice",
-          "prompt": "Na figura, a cena é vista pela cabeceira, em corte no pescoço. Toque na parte que recebe o feixe horizontal depois que ele atravessa o pescoço.",
+          "prompt": "Na figura, o paciente está deitado de costas na prancha, com o colar no pescoço. Toque na parte que recebe o feixe horizontal depois que ele atravessa o pescoço.",
           "diagramId": "trauma-raio-horizontal",
           "regions": [
             {
               "label": "Colar cervical",
-              "x": 0.425,
-              "y": 0.3917,
-              "width": 0.15,
-              "height": 0.2
+              "x": 0.2281,
+              "y": 0.4479,
+              "width": 0.0828,
+              "height": 0.1125,
+              "alvo": "Colar cervical"
             },
             {
               "label": "Tubo",
-              "x": 0.075,
-              "y": 0.4417,
-              "width": 0.125,
-              "height": 0.1
+              "x": 0.5469,
+              "y": 0.5625,
+              "width": 0.2141,
+              "height": 0.2,
+              "alvo": "Tubo"
             },
             {
               "label": "Feixe horizontal",
-              "x": 0.2562,
-              "y": 0.45,
-              "width": 0.125,
-              "height": 0.0833
+              "x": 0.3972,
+              "y": 0.5104,
+              "width": 0.1351,
+              "height": 0.1518,
+              "alvo": "Feixe horizontal"
             },
             {
               "label": "Detector em pé",
-              "x": 0.6563,
-              "y": 0.2917,
-              "width": 0.0813,
-              "height": 0.3333,
-              "correct": true
+              "x": 0.0437,
+              "y": 0.2292,
+              "width": 0.1266,
+              "height": 0.3812,
+              "correct": true,
+              "alvo": "Detector em pé"
             }
           ],
           "feedbackCorrect": "Isso: o detector fica em pé, do lado oposto ao tubo, e recebe o feixe horizontal.",

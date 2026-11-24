@@ -6,7 +6,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m29",
-  "materialSha256": "53b764c0b475ac82c17bee2167c6a58543a1a69c8bde55b50a2356b718fdf2ad",
+  "materialSha256": "d7b9638552e991913ad75568cee00dee4b6c29e18b90abf49aa8a2a7797c0bbd",
   "trackId": "track:rtg-2026:m29",
   "unitId": "unit:rtg-2026:m29",
   "contentVersion": "rtg-2026-m29-v1",
@@ -81,6 +81,24 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "accessedAt": "2026-11-19",
       "use": "factual-reference",
       "licenseNote": "Página para o público; consultada para ruído e protetor auricular, campainha de chamada, intercomunicador, ficar parado e sensação de lugar fechado, sem reprodução de texto."
+    },
+    {
+      "id": "source:rtg-2026:m29:narai-2022-movimento-rm",
+      "title": "Movement-related artefacts (MR-ART) dataset of matched motion-corrupted and clean structural MRI brain scans",
+      "publisher": "Scientific Data",
+      "url": "https://doi.org/10.1038/s41597-022-01694-8",
+      "accessedAt": "2026-11-24",
+      "use": "factual-reference",
+      "licenseNote": "Artigo em CC BY 4.0. A figura 1 compara aquisições sem movimento e com movimento de cabeça, com os créditos dos recortes no registro de imagens."
+    },
+    {
+      "id": "source:rtg-2026:m29:santini-2007-dobramento-rm",
+      "title": "MRI Aliasing.jpg: duas aquisições de uma esfera de teste",
+      "publisher": "Francesco Santini, Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/w/index.php?title=File:MRI_Aliasing.jpg&oldid=1268911842",
+      "accessedAt": "2026-11-24",
+      "use": "factual-reference",
+      "licenseNote": "Exemplo de dobramento com campo reduzido. O autor dedicou a imagem ao domínio público e o crédito está no registro de imagens."
     }
   ],
   "activities": [
@@ -128,7 +146,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Subir e cair, rápido e devagar",
-            "body": "Depois do pulso, dois relógios correm. No gráfico da esquerda, a magnetização longitudinal se recupera: é o T1, e a curva sobe. No da direita, o sinal transversal se desfaz: é o T2, e a curva cai. Nos dois, a curva amarela é de um tecido de tempos curtos e a azul, de um de tempos longos, como o líquido. O esquema simplifica: as duas sobem ao mesmo patamar, e isso vale só para este desenho.",
+            "body": "Depois do pulso, dois relógios correm. Tempo na horizontal. No gráfico da esquerda, a magnetização longitudinal se recupera: é o T1, e a curva sobe. No da direita, o sinal transversal se desfaz: é o T2, e a curva cai. Nos dois, a curva amarela é de um tecido de tempos curtos e a azul, de um de tempos longos, como o líquido. O esquema simplifica: as duas sobem ao mesmo patamar, e isso vale só para este desenho.",
             "keyPoints": [
               "Curva que sobe: recuperação, T1. Curva que cai: perda de sinal, T2.",
               "Tempo curto: a curva chega depressa. Tempo longo: ela demora.",
@@ -209,15 +227,15 @@ export const RTG_2026_M29: ProductionBatchV1 = {
               "points": [
                 {
                   "id": "point:rtg-2026:m29:aula-01:i2:1",
-                  "x": 0.1157,
-                  "y": 0.5417,
+                  "x": 0.0938,
+                  "y": 0.6074,
                   "where": "à esquerda, a curva que sobe depressa até o topo",
                   "correctLabelId": "label:rtg-2026:m29:aula-01:i2:1"
                 },
                 {
                   "id": "point:rtg-2026:m29:aula-01:i2:2",
-                  "x": 0.4094,
-                  "y": 0.3625,
+                  "x": 0.3344,
+                  "y": 0.4065,
                   "where": "à esquerda, a curva que sobe devagar e fica abaixo do topo",
                   "correctLabelId": "label:rtg-2026:m29:aula-01:i2:2"
                 },
@@ -230,15 +248,15 @@ export const RTG_2026_M29: ProductionBatchV1 = {
                 },
                 {
                   "id": "point:rtg-2026:m29:aula-01:i2:4",
-                  "x": 0.6031,
-                  "y": 0.5208,
+                  "x": 0.5813,
+                  "y": 0.4629,
                   "where": "à direita, a curva que cai depressa até perto de zero",
                   "correctLabelId": "label:rtg-2026:m29:aula-01:i2:4"
                 },
                 {
                   "id": "point:rtg-2026:m29:aula-01:i2:5",
-                  "x": 0.8969,
-                  "y": 0.6625,
+                  "x": 0.7438,
+                  "y": 0.5411,
                   "where": "à direita, a curva que cai devagar e termina mais alta",
                   "correctLabelId": "label:rtg-2026:m29:aula-01:i2:5"
                 }
@@ -475,7 +493,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Dois intervalos contados a partir do pulso",
-            "body": "Cada repetição começa com um pulso de excitação, a barra amarela. O TE é o intervalo do pulso ao centro do eco: a chave curta. O TR é o intervalo de um pulso até o pulso seguinte: a chave longa. Na ordem: pulso de excitação, sinal que começa a se desfazer, centro do eco, que fecha o TE, e pulso seguinte, que fecha o TR. Os dois intervalos contam a partir do pulso.",
+            "body": "Cada repetição começa com um pulso de excitação, a barra amarela. O TE é o intervalo do pulso ao centro do eco: a chave curta. O TR é o intervalo de um pulso até o pulso seguinte: a chave longa. Na ordem: pulso de excitação, sinal que começa a se desfazer, centro do eco, que fecha o TE, e pulso seguinte, que fecha o TR. Os dois intervalos contam a partir do pulso. Tempo na horizontal; intensidade na vertical.",
             "keyPoints": [
               "TE: do pulso ao centro do eco. É a chave curta.",
               "TR: de um pulso ao pulso seguinte. É a chave longa."
@@ -798,13 +816,12 @@ export const RTG_2026_M29: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "O brilho conta a ponderação",
-            "body": "O mesmo corte da cabeça aparece em três imagens. Na ponderada em T1, o líquido dos ventrículos é escuro, a gordura é clara e a substância branca é mais clara que a cinzenta. Na ponderada em T2, o líquido é claro e a branca é mais escura que a cinzenta. A terceira é de base T2 com o líquido suprimido: líquido escuro, branca mais escura que a cinzenta. Você reconhece a imagem; a equipe decide o que ela significa.",
+            "body": "Na atividade, o mesmo corte da cabeça aparece em três imagens de ressonância. Na ponderada em T1, o líquido dos ventrículos é escuro, a gordura é clara e a substância branca é mais clara que a cinzenta. Na ponderada em T2, o líquido é claro e a branca é mais escura que a cinzenta. A terceira é de base T2 com o líquido suprimido: líquido escuro, branca mais escura que a cinzenta. Nesta imagem, a gordura do couro cabeludo também está escura, por uma técnica extra, a supressão de gordura, assunto da próxima aula. Você reconhece a imagem; a equipe decide o que ela significa.",
             "keyPoints": [
               "T1: líquido escuro, gordura clara, substância branca mais clara que a cinzenta.",
               "T2: líquido claro, substância branca mais escura que a cinzenta.",
               "Base T2 com líquido suprimido: líquido escuro e branca mais escura que a cinzenta."
-            ],
-            "visual": "ponderacoes-no-encefalo"
+            ]
           }
         },
         {
@@ -875,51 +892,35 @@ export const RTG_2026_M29: ProductionBatchV1 = {
             },
             "payload": {
               "prompt": "Toque nos ventrículos da imagem em que o líquido está escuro e a substância branca é mais escura que a cinzenta.",
-              "imageRef": "diagram:ponderacoes-no-encefalo",
+              "imageRef": "image:rtg-2026:m29:rm-ponderacoes-encefalo-01",
               "regions": [
                 {
                   "id": "region:rtg-2026:m29:aula-03:i2:1",
                   "label": "Ventrículos da primeira imagem",
-                  "x": 0.1187,
-                  "y": 0.3833,
-                  "width": 0.1,
-                  "height": 0.1417
+                  "x": 0.1233,
+                  "y": 0.3137,
+                  "width": 0.0867,
+                  "height": 0.3467
                 },
                 {
                   "id": "region:rtg-2026:m29:aula-03:i2:2",
-                  "label": "Gordura da primeira imagem",
-                  "x": 0.1187,
-                  "y": 0.1917,
-                  "width": 0.1,
-                  "height": 0.0833
+                  "label": "Ventrículos da segunda imagem",
+                  "x": 0.4708,
+                  "y": 0.3066,
+                  "width": 0.0892,
+                  "height": 0.3538
                 },
                 {
                   "id": "region:rtg-2026:m29:aula-03:i2:3",
-                  "label": "Ventrículos da segunda imagem",
-                  "x": 0.45,
-                  "y": 0.3833,
-                  "width": 0.1,
-                  "height": 0.1417
-                },
-                {
-                  "id": "region:rtg-2026:m29:aula-03:i2:4",
-                  "label": "Substância branca da segunda imagem",
-                  "x": 0.4594,
-                  "y": 0.6292,
-                  "width": 0.0813,
-                  "height": 0.0833
-                },
-                {
-                  "id": "region:rtg-2026:m29:aula-03:i2:5",
                   "label": "Ventrículos da terceira imagem",
-                  "x": 0.7813,
-                  "y": 0.3833,
-                  "width": 0.1,
-                  "height": 0.1417
+                  "x": 0.79,
+                  "y": 0.3184,
+                  "width": 0.0867,
+                  "height": 0.342
                 }
               ],
               "correctRegionIds": [
-                "region:rtg-2026:m29:aula-03:i2:5"
+                "region:rtg-2026:m29:aula-03:i2:3"
               ]
             }
           }
@@ -1153,7 +1154,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
                 },
                 {
                   "speaker": "lia",
-                  "text": "Compare as duas imagens do esquema e descreva o que mudou. Depois, o que sobrou claro."
+                  "text": "Compare as duas imagens do abdome e descreva o que mudou. Depois, pense no que pode atrapalhar essa mudança."
                 }
               ]
             }
@@ -1165,7 +1166,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Gordura clara, gordura apagada",
-            "body": "No esquema, a imagem da esquerda não tem supressão: a gordura sob a pele e a medula do osso são claras. Na da direita, com supressão de gordura, o sinal da gordura é apagado e esses tecidos escurecem. A supressão que separa a gordura pela frequência depende de um campo bem regular. Metal perto da região desnivela o campo, e ali a gordura pode escapar da supressão: sobra uma faixa clara junto ao objeto. Você descreve a faixa e o objeto à equipe; não refaz nem ajusta a série.",
+            "body": "Na atividade, duas imagens do mesmo corte do abdome diferem só pela supressão de gordura. Sem supressão, a gordura sob a pele é clara. Com supressão de gordura, o sinal da gordura é apagado e ela escurece. A supressão que separa a gordura pela frequência depende de um campo bem regular. Metal perto da região desnivela o campo, e ali a gordura pode escapar da supressão: sobra uma faixa clara junto ao objeto. Você descreve a faixa e o objeto à equipe; não refaz nem ajusta a série.",
             "keyPoints": [
               "Supressão de gordura: o sinal da gordura é apagado e ela escurece.",
               "Metal perto desnivela o campo, e a supressão pode falhar ali.",
@@ -1292,61 +1293,53 @@ export const RTG_2026_M29: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Toque na imagem: Toque no lugar da imagem da direita em que a supressão de gordura não funcionou."
+              "label": "Toque na imagem: Toque na gordura sob a pele da imagem em que a supressão de gordura foi usada."
             },
-            "help": "Na imagem da direita, onde ainda sobrou gordura com sinal?",
+            "help": "Procure a imagem em que a faixa de gordura sob a pele ficou escura.",
             "type": "hotspot",
             "feedback": {
-              "correct": "Isso mesmo: a faixa que ficou clara é gordura que a supressão não apagou, perto do objeto.",
-              "incorrect": "O objeto é a possível causa, e não o lugar da falha. Procure onde a gordura continua clara na imagem da direita."
+              "correct": "Isso mesmo: com a supressão, o sinal da gordura sob a pele é apagado e ela escurece.",
+              "incorrect": "Compare a gordura sob a pele nas duas imagens: onde ela continua clara, a supressão não foi usada."
             },
             "payload": {
-              "prompt": "Toque no lugar da imagem da direita em que a supressão de gordura não funcionou.",
-              "imageRef": "diagram:supressao-de-gordura",
+              "prompt": "Toque na gordura sob a pele da imagem em que a supressão de gordura foi usada.",
+              "imageRef": "image:rtg-2026:m29:rm-supressao-gordura-01",
               "regions": [
                 {
                   "id": "region:rtg-2026:m29:aula-04:i3:1",
-                  "label": "Gordura sob a pele, imagem da esquerda",
-                  "x": 0.1875,
-                  "y": 0.1708,
-                  "width": 0.1,
-                  "height": 0.0833
+                  "label": "Gordura sob a pele, imagem 1",
+                  "x": 0.25,
+                  "y": 0.09571,
+                  "width": 0.4834,
+                  "height": 0.08
                 },
                 {
                   "id": "region:rtg-2026:m29:aula-04:i3:2",
-                  "label": "Medula, imagem da esquerda",
-                  "x": 0.1969,
-                  "y": 0.425,
-                  "width": 0.0813,
-                  "height": 0.0833
+                  "label": "Gordura sob a pele, imagem 2",
+                  "x": 0.25,
+                  "y": 0.59571,
+                  "width": 0.4834,
+                  "height": 0.08
                 },
                 {
                   "id": "region:rtg-2026:m29:aula-04:i3:3",
-                  "label": "Gordura sob a pele, imagem da direita",
-                  "x": 0.6875,
-                  "y": 0.1708,
-                  "width": 0.1,
-                  "height": 0.0833
+                  "label": "Coluna, imagem 1",
+                  "x": 0.425,
+                  "y": 0.302558,
+                  "width": 0.1666,
+                  "height": 0.080467
                 },
                 {
                   "id": "region:rtg-2026:m29:aula-04:i3:4",
-                  "label": "Faixa clara da lateral, à direita",
-                  "x": 0.8688,
-                  "y": 0.4,
-                  "width": 0.0813,
-                  "height": 0.1
-                },
-                {
-                  "id": "region:rtg-2026:m29:aula-04:i3:5",
-                  "label": "Pequeno objeto na borda, à direita",
-                  "x": 0.7312,
-                  "y": 0.7167,
-                  "width": 0.0813,
-                  "height": 0.0917
+                  "label": "Coluna, imagem 2",
+                  "x": 0.425,
+                  "y": 0.802558,
+                  "width": 0.1666,
+                  "height": 0.080467
                 }
               ],
               "correctRegionIds": [
-                "region:rtg-2026:m29:aula-04:i3:4"
+                "region:rtg-2026:m29:aula-04:i3:2"
               ]
             }
           }
@@ -1362,7 +1355,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": true,
             "accessibility": {
-              "label": "Certo ou errado: Julgue o que você faz diante da faixa clara junto do objeto, na imagem da direita."
+              "label": "Certo ou errado: Julgue o que você faz diante de uma faixa clara de gordura junto de um objeto, numa série com supressão."
             },
             "help": "Pergunte de cada frase: é descrever e avisar, ou é decidir sozinho?",
             "type": "true-false",
@@ -1371,7 +1364,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
               "incorrect": "Releia o fim do conceito: você descreve a faixa e o objeto, e não ajusta, nem repete, nem conclui."
             },
             "payload": {
-              "prompt": "Julgue o que você faz diante da faixa clara junto do objeto, na imagem da direita.",
+              "prompt": "Julgue o que você faz diante de uma faixa clara de gordura junto de um objeto, numa série com supressão.",
               "statements": [
                 {
                   "id": "statement:rtg-2026:m29:aula-04:i4:1",
@@ -1462,7 +1455,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
           "role": "closing",
           "payload": {
             "title": "Você lê a supressão de gordura",
-            "body": "Agora você diz o que a supressão de gordura muda, a gordura sob a pele e a medula ficam escuras, e reconhece a faixa clara perto de metal como possível falha. E leva isso à equipe, sem ajustar nada.",
+            "body": "Agora você diz o que a supressão de gordura muda, a gordura sob a pele fica escura, e reconhece, numa série descrita, a faixa clara perto de metal como possível falha. E leva isso à equipe, sem ajustar nada.",
             "tone": "positive",
             "dialogue": {
               "lines": [
@@ -1485,7 +1478,9 @@ export const RTG_2026_M29: ProductionBatchV1 = {
         "contentVersion": "rtg-2026-m29-v1",
         "sourceIds": [
           "source:rtg-2026:m29:pmc-artefatos-de-metal-2024",
-          "source:rtg-2026:m29:krupa-2015-artefatos-rm"
+          "source:rtg-2026:m29:krupa-2015-artefatos-rm",
+          "source:rtg-2026:m29:narai-2022-movimento-rm",
+          "source:rtg-2026:m29:santini-2007-dobramento-rm"
         ]
       },
       "steps": [
@@ -1521,9 +1516,9 @@ export const RTG_2026_M29: ProductionBatchV1 = {
           "role": "concept",
           "payload": {
             "title": "Três marcas, três causas",
-            "body": "Movimento deixa cópias fracas da estrutura, os fantasmas, repetidas pelo corte; ficar parado ajuda a reduzi-los. Metal deixa um vazio de sinal, preto, com borda clara e torta ao redor. Dobra é a anatomia que ficou fora do campo de visão e aparece no lado oposto da imagem. Metal que ninguém esperava na imagem pede parar e avisar a equipe. Você descreve a marca e o lugar dela; a equipe avalia a causa e decide o que fazer. Você não repete a série por conta própria.",
+            "body": "O movimento pode borrar os contornos e deixar cópias fracas da estrutura repetidas pelo corte, os fantasmas. Ficar parado ajuda a reduzir esses artefatos. Metal deixa um vazio de sinal, preto, com borda clara e torta ao redor. Dobra é a anatomia que ficou fora do campo de visão e aparece no lado oposto da imagem. Metal que ninguém esperava na imagem pede parar e avisar a equipe. Você descreve a marca e o lugar dela; a equipe avalia a causa e decide o que fazer. Você não repete a série por conta própria.",
             "keyPoints": [
-              "Movimento: cópias fracas, os fantasmas.",
+              "Movimento: contornos borrados ou cópias fracas, os fantasmas.",
               "Metal: vazio de sinal com borda clara e torta. Pare e avise a equipe.",
               "Dobra: anatomia de fora do campo aparece no lado oposto."
             ]
@@ -1542,7 +1537,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
             "accessibility": {
               "label": "Múltipla escolha: Na aula anterior, o que pode acontecer com a supressão de gordura perto de um objeto de metal?"
             },
-            "help": "Lembre onde sobrou a faixa clara no esquema da aula anterior.",
+            "help": "Lembre o que a aula anterior disse da gordura clara junto ao metal.",
             "type": "multiple-choice",
             "feedback": {
               "correct": "Perto de metal o campo se distorce, e a supressão pode falhar, deixando gordura clara.",
@@ -1587,76 +1582,40 @@ export const RTG_2026_M29: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Rotular a imagem: Rotule as marcas do esquema, tocando na ficha e no ponto."
+              "label": "Comparação: Em qual imagem há uma área escura com perda de sinal e áreas muito claras ao redor, junto a um implante?"
             },
-            "help": "Comece pelo corte da esquerda, depois o do meio e por último o da direita.",
-            "type": "label",
+            "help": "Compare a distribuição das áreas claras e escuras e observe o que aparece ao redor de cada uma.",
+            "type": "comparison",
             "feedback": {
-              "correct": "Isso mesmo: cada marca ficou ligada ao ponto certo do esquema.",
-              "incorrect": "Alguma ficha está fora do lugar: procure cópias fracas, a mancha preta com a borda, a forma dentro da caixa e o que ficou fora dela."
+              "correct": "Isso. Na imagem B, o metal do implante distorce a imagem, com perda de sinal nas áreas escuras e acúmulo de sinal nas áreas claras.",
+              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "prompt": "Rotule as marcas do esquema, tocando na ficha e no ponto.",
-              "imageRef": "diagram:artefatos-de-rm",
-              "points": [
+              "prompt": "Em qual imagem há uma área escura com perda de sinal e áreas muito claras ao redor, junto a um implante?",
+              "options": [
                 {
-                  "id": "point:rtg-2026:m29:aula-05:i2:1",
-                  "x": 0.1625,
-                  "y": 0.1875,
-                  "where": "à esquerda, cópias fracas empilhadas acima do corte oval",
-                  "correctLabelId": "label:rtg-2026:m29:aula-05:i2:1"
+                  "id": "option:rtg-2026:m29:aula-05:i2:a",
+                  "label": "Imagem A",
+                  "explanation": "Na imagem A, o movimento borrou os contornos. Procure a perda de sinal com brilho concentrado ao redor.",
+                  "imageRef": "image:rtg-2026:m29:rm-artefato-movimento-axial-01",
+                  "imageAlt": "Corte axial do encéfalo em tons de cinza, com contornos internos pouco definidos e faixas difusas."
                 },
                 {
-                  "id": "point:rtg-2026:m29:aula-05:i2:2",
-                  "x": 0.4875,
-                  "y": 0.3667,
-                  "where": "no corte do meio, a grande mancha preta",
-                  "correctLabelId": "label:rtg-2026:m29:aula-05:i2:2"
+                  "id": "option:rtg-2026:m29:aula-05:i2:b",
+                  "label": "Imagem B",
+                  "explanation": "Isso. Na imagem B, o metal do implante distorce a imagem, com perda de sinal nas áreas escuras e acúmulo de sinal nas áreas claras.",
+                  "imageRef": "image:rtg-2026:m29:rm-artefato-metal-ombro-01",
+                  "imageAlt": "Corte sagital de um ombro em tons de cinza, com áreas muito claras agrupadas ao redor de pontos escuros."
                 },
                 {
-                  "id": "point:rtg-2026:m29:aula-05:i2:3",
-                  "x": 0.4875,
-                  "y": 0.5834,
-                  "where": "no corte do meio, a borda clara e torta abaixo da mancha",
-                  "correctLabelId": "label:rtg-2026:m29:aula-05:i2:3"
-                },
-                {
-                  "id": "point:rtg-2026:m29:aula-05:i2:4",
-                  "x": 0.6938,
-                  "y": 0.5,
-                  "where": "no corte da direita, o oval claro na borda esquerda da caixa",
-                  "correctLabelId": "label:rtg-2026:m29:aula-05:i2:4"
-                },
-                {
-                  "id": "point:rtg-2026:m29:aula-05:i2:5",
-                  "x": 0.9063,
-                  "y": 0.5,
-                  "where": "no corte da direita, o contorno tracejado além da caixa",
-                  "correctLabelId": "label:rtg-2026:m29:aula-05:i2:5"
+                  "id": "option:rtg-2026:m29:aula-05:i2:c",
+                  "label": "Imagem C",
+                  "explanation": "Na imagem C, partes da esfera se projetam sobre a borda oposta quando o campo é reduzido. É um exemplo de dobramento.",
+                  "imageRef": "image:rtg-2026:m29:rm-artefato-dobramento-esfera-01",
+                  "imageAlt": "Duas imagens em tons de cinza de uma esfera de teste. Na primeira, há um contorno arredondado isolado. Na segunda, partes claras da esfera aparecem em bordas opostas."
                 }
               ],
-              "labels": [
-                {
-                  "id": "label:rtg-2026:m29:aula-05:i2:2",
-                  "label": "Vazio de sinal"
-                },
-                {
-                  "id": "label:rtg-2026:m29:aula-05:i2:4",
-                  "label": "Parte dobrada"
-                },
-                {
-                  "id": "label:rtg-2026:m29:aula-05:i2:5",
-                  "label": "Anatomia de fora"
-                },
-                {
-                  "id": "label:rtg-2026:m29:aula-05:i2:1",
-                  "label": "Fantasmas"
-                },
-                {
-                  "id": "label:rtg-2026:m29:aula-05:i2:3",
-                  "label": "Borda distorcida"
-                }
-              ]
+              "correctOptionId": "option:rtg-2026:m29:aula-05:i2:b"
             }
           }
         },
@@ -1879,6 +1838,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
         "sourceIds": [
           "source:rtg-2026:m29:radiologyinfo-preparo-rm",
           "source:rtg-2026:m29:krupa-2015-artefatos-rm",
+          "source:rtg-2026:m29:narai-2022-movimento-rm",
           "source:rtg-2026:m29:radiologyinfo-rm-cabeca"
         ]
       },
@@ -1982,62 +1942,33 @@ export const RTG_2026_M29: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Toque na imagem: Dona Zuleica pergunta por que precisa ficar parada. Toque na marca que o movimento do paciente pode deixar na imagem."
+              "label": "Comparação: Dona Zuleica pergunta por que precisa ficar parada. Em qual imagem o movimento deixou os contornos menos nítidos?"
             },
-            "help": "Qual das marcas aparece como cópias da mesma estrutura?",
-            "type": "hotspot",
+            "help": "Compare a nitidez das bordas e dos sulcos nas duas imagens.",
+            "type": "comparison",
             "feedback": {
-              "correct": "Isso mesmo: o movimento deixa cópias fracas da estrutura, e é por isso que ficar parado importa.",
-              "incorrect": "Essa marca vem de outra causa. Procure as cópias fracas repetidas, que o movimento do paciente produz."
+              "correct": "Isso. Na imagem B, o movimento deixou os contornos menos definidos.",
+              "incorrect": "Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula."
             },
             "payload": {
-              "prompt": "Dona Zuleica pergunta por que precisa ficar parada. Toque na marca que o movimento do paciente pode deixar na imagem.",
-              "imageRef": "diagram:artefatos-de-rm",
-              "regions": [
+              "prompt": "Dona Zuleica pergunta por que precisa ficar parada. Em qual imagem o movimento deixou os contornos menos nítidos?",
+              "options": [
                 {
-                  "id": "region:rtg-2026:m29:aula-06:i2:1",
-                  "label": "Cópias fracas acima do corte",
-                  "x": 0.1125,
-                  "y": 0.1417,
-                  "width": 0.1,
-                  "height": 0.0917
+                  "id": "option:rtg-2026:m29:aula-06:i2:a",
+                  "label": "Imagem A",
+                  "explanation": "Observe o contorno do cérebro nas duas imagens. Na imagem B ele está mais borrado.",
+                  "imageRef": "image:rtg-2026:m29:rm-movimento-sagital-referencia-01",
+                  "imageAlt": "Corte sagital do encéfalo em tons de cinza. Linhas escuras de vários sulcos se distinguem do tecido cinza ao redor."
                 },
                 {
-                  "id": "region:rtg-2026:m29:aula-06:i2:2",
-                  "label": "Mancha preta do corte do meio",
-                  "x": 0.4375,
-                  "y": 0.3167,
-                  "width": 0.1,
-                  "height": 0.1
-                },
-                {
-                  "id": "region:rtg-2026:m29:aula-06:i2:3",
-                  "label": "Borda clara abaixo da mancha",
-                  "x": 0.4375,
-                  "y": 0.5417,
-                  "width": 0.1,
-                  "height": 0.0833
-                },
-                {
-                  "id": "region:rtg-2026:m29:aula-06:i2:4",
-                  "label": "Forma clara dentro do campo",
-                  "x": 0.6531,
-                  "y": 0.3917,
-                  "width": 0.0813,
-                  "height": 0.2167
-                },
-                {
-                  "id": "region:rtg-2026:m29:aula-06:i2:5",
-                  "label": "Contorno tracejado fora do campo",
-                  "x": 0.8656,
-                  "y": 0.3917,
-                  "width": 0.0813,
-                  "height": 0.2167
+                  "id": "option:rtg-2026:m29:aula-06:i2:b",
+                  "label": "Imagem B",
+                  "explanation": "Isso. Na imagem B, o movimento deixou os contornos menos definidos.",
+                  "imageRef": "image:rtg-2026:m29:rm-movimento-sagital-artefato-01",
+                  "imageAlt": "Corte sagital do encéfalo em tons de cinza. Vários sulcos se confundem com as regiões cinzas vizinhas."
                 }
               ],
-              "correctRegionIds": [
-                "region:rtg-2026:m29:aula-06:i2:1"
-              ]
+              "correctOptionId": "option:rtg-2026:m29:aula-06:i2:b"
             }
           }
         },
@@ -3828,24 +3759,6 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "region:rtg-2026:m29:aula-03:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:ucsd-fmri-estrutural",
-        "source:rtg-2026:m29:mrimaster-liquido-suprimido"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m29:aula-03:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:ucsd-fmri-estrutural",
-        "source:rtg-2026:m29:mrimaster-liquido-suprimido"
-      ]
-    },
-    {
       "claimId": "interaction:rtg-2026:m29:aula-03:i2:answer",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -4530,15 +4443,6 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "region:rtg-2026:m29:aula-04:i3:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024",
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm"
-      ]
-    },
-    {
       "claimId": "interaction:rtg-2026:m29:aula-04:i3:answer",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -4995,98 +4899,33 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024"
+        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024",
+        "source:rtg-2026:m29:narai-2022-movimento-rm",
+        "source:rtg-2026:m29:santini-2007-dobramento-rm"
       ]
     },
     {
-      "claimId": "point:rtg-2026:m29:aula-05:i2:1",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024"
-      ]
+      "claimId": "option:rtg-2026:m29:aula-05:i2:a",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
-      "claimId": "point:rtg-2026:m29:aula-05:i2:2",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024"
-      ]
-    },
-    {
-      "claimId": "point:rtg-2026:m29:aula-05:i2:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024"
-      ]
-    },
-    {
-      "claimId": "point:rtg-2026:m29:aula-05:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024"
-      ]
-    },
-    {
-      "claimId": "point:rtg-2026:m29:aula-05:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m29:aula-05:i2:2",
+      "claimId": "option:rtg-2026:m29:aula-05:i2:b",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024"
+        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024",
+        "source:rtg-2026:m29:narai-2022-movimento-rm",
+        "source:rtg-2026:m29:santini-2007-dobramento-rm"
       ]
     },
     {
-      "claimId": "label:rtg-2026:m29:aula-05:i2:4",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m29:aula-05:i2:5",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m29:aula-05:i2:1",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024"
-      ]
-    },
-    {
-      "claimId": "label:rtg-2026:m29:aula-05:i2:3",
-      "claimKind": "correct-answer",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024"
-      ]
+      "claimId": "option:rtg-2026:m29:aula-05:i2:c",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
       "claimId": "interaction:rtg-2026:m29:aula-05:i2:feedback:correct",
@@ -5094,7 +4933,9 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024"
+        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024",
+        "source:rtg-2026:m29:narai-2022-movimento-rm",
+        "source:rtg-2026:m29:santini-2007-dobramento-rm"
       ]
     },
     {
@@ -5103,7 +4944,9 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024"
+        "source:rtg-2026:m29:pmc-artefatos-de-metal-2024",
+        "source:rtg-2026:m29:narai-2022-movimento-rm",
+        "source:rtg-2026:m29:santini-2007-dobramento-rm"
       ]
     },
     {
@@ -5373,7 +5216,9 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m29:pmc-artefatos-de-metal-2024",
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm"
+        "source:rtg-2026:m29:krupa-2015-artefatos-rm",
+        "source:rtg-2026:m29:narai-2022-movimento-rm",
+        "source:rtg-2026:m29:santini-2007-dobramento-rm"
       ]
     },
     {
@@ -5382,7 +5227,9 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m29:pmc-artefatos-de-metal-2024",
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm"
+        "source:rtg-2026:m29:krupa-2015-artefatos-rm",
+        "source:rtg-2026:m29:narai-2022-movimento-rm",
+        "source:rtg-2026:m29:santini-2007-dobramento-rm"
       ]
     },
     {
@@ -5391,7 +5238,9 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m29:pmc-artefatos-de-metal-2024",
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm"
+        "source:rtg-2026:m29:krupa-2015-artefatos-rm",
+        "source:rtg-2026:m29:narai-2022-movimento-rm",
+        "source:rtg-2026:m29:santini-2007-dobramento-rm"
       ]
     },
     {
@@ -5658,61 +5507,24 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:radiologyinfo-preparo-rm"
+        "source:rtg-2026:m29:radiologyinfo-preparo-rm",
+        "source:rtg-2026:m29:narai-2022-movimento-rm"
       ]
     },
     {
-      "claimId": "region:rtg-2026:m29:aula-06:i2:1",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:radiologyinfo-preparo-rm"
-      ]
+      "claimId": "option:rtg-2026:m29:aula-06:i2:a",
+      "claimKind": "distractor",
+      "provenanceKind": "authorial-distractor",
+      "sourceIds": []
     },
     {
-      "claimId": "region:rtg-2026:m29:aula-06:i2:2",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:radiologyinfo-preparo-rm"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m29:aula-06:i2:3",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:radiologyinfo-preparo-rm"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m29:aula-06:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:radiologyinfo-preparo-rm"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m29:aula-06:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:radiologyinfo-preparo-rm"
-      ]
-    },
-    {
-      "claimId": "interaction:rtg-2026:m29:aula-06:i2:answer",
+      "claimId": "option:rtg-2026:m29:aula-06:i2:b",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:radiologyinfo-preparo-rm"
+        "source:rtg-2026:m29:radiologyinfo-preparo-rm",
+        "source:rtg-2026:m29:narai-2022-movimento-rm"
       ]
     },
     {
@@ -5721,7 +5533,8 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:radiologyinfo-preparo-rm"
+        "source:rtg-2026:m29:radiologyinfo-preparo-rm",
+        "source:rtg-2026:m29:narai-2022-movimento-rm"
       ]
     },
     {
@@ -5730,7 +5543,8 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "provenanceKind": "source-backed",
       "sourceIds": [
         "source:rtg-2026:m29:krupa-2015-artefatos-rm",
-        "source:rtg-2026:m29:radiologyinfo-preparo-rm"
+        "source:rtg-2026:m29:radiologyinfo-preparo-rm",
+        "source:rtg-2026:m29:narai-2022-movimento-rm"
       ]
     },
     {
@@ -5978,6 +5792,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m29:radiologyinfo-preparo-rm",
         "source:rtg-2026:m29:krupa-2015-artefatos-rm",
+        "source:rtg-2026:m29:narai-2022-movimento-rm",
         "source:rtg-2026:m29:radiologyinfo-rm-cabeca"
       ]
     },
@@ -5988,6 +5803,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m29:radiologyinfo-preparo-rm",
         "source:rtg-2026:m29:krupa-2015-artefatos-rm",
+        "source:rtg-2026:m29:narai-2022-movimento-rm",
         "source:rtg-2026:m29:radiologyinfo-rm-cabeca"
       ]
     },
@@ -5998,6 +5814,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "sourceIds": [
         "source:rtg-2026:m29:radiologyinfo-preparo-rm",
         "source:rtg-2026:m29:krupa-2015-artefatos-rm",
+        "source:rtg-2026:m29:narai-2022-movimento-rm",
         "source:rtg-2026:m29:radiologyinfo-rm-cabeca"
       ]
     },
@@ -6636,6 +6453,113 @@ export const RTG_2026_M29: ProductionBatchV1 = {
           ]
         }
       }
+    ],
+    "images": [
+      {
+        "id": "image:rtg-2026:m29:rm-ponderacoes-encefalo-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-ponderacoes-encefalo-01.jpg",
+        "sourcePage": "https://github.com/andersonsmelo/Radiant/blob/main/docs/evidence/2026-11-19-figuras/imagens-vps.md",
+        "author": "Anderson Melo, acervo próprio, anonimizado",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "retrievedAt": "2026-11-22",
+        "sha256Original": "c1460a3ab86633836c0365e5e76587ec6aba4383c79cf660b88bacabf00c7079",
+        "sha256Asset": "c1460a3ab86633836c0365e5e76587ec6aba4383c79cf660b88bacabf00c7079",
+        "modification": "o T2 axial é a imagem nativa; o T1 e o FLAIR, adquiridos em volume no plano sagital, foram reformatados (MPR, interpolação linear) no plano exato do corte do T2; recorte centrado na cabeça em cada painel, janela por percentis (0,5 a 99,7) em cada painel, redução para 1200 x 424 e conversão para JPEG em tons de cinza; sem retoque",
+        "alt": "Três imagens de ressonância magnética de um mesmo corte axial da cabeça, lado a lado, em tons de cinza sobre fundo preto, com brilhos diferentes entre as três.",
+        "width": 1200,
+        "height": 424
+      },
+      {
+        "id": "image:rtg-2026:m29:rm-supressao-gordura-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-supressao-gordura-01.jpg",
+        "sourcePage": "https://github.com/andersonsmelo/Radiant/blob/main/docs/evidence/2026-11-19-figuras/imagens-vps.md",
+        "author": "Anderson Melo, acervo próprio, anonimizado",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "retrievedAt": "2026-11-22",
+        "sha256Original": "1556193fd930bee412cec4bb7cbf6ddcdb04e8ceac41a87035e638092dca0728",
+        "sha256Asset": "fd7dff7a5df27ca3f4857697143f8da73b3c15e4d3dcbde3cc9ac3ee826bbedd",
+        "modification": "imagens nativas, sem reformatação; mesmo recorte e janela de 0 ao percentil 99,5 em cada painel; painéis originais de 600 x 434 empilhados com faixas numeradas; recompostos em JPEG de tons de cinza",
+        "alt": "Dois cortes axiais de ressonância magnética do abdome superior, empilhados em tons de cinza, com brilhos diferentes em alguns tecidos.",
+        "width": 600,
+        "height": 932
+      },
+      {
+        "id": "image:rtg-2026:m29:rm-artefato-movimento-axial-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-artefato-movimento-axial-01.jpg",
+        "sourcePage": "https://www.nature.com/articles/s41597-022-01694-8#Fig1",
+        "author": "Ádám Nárai, Petra Hermann, Tibor Auer, Péter Kemenczky, János Szalma, István Homolya, Eszter Somogyi, Pál Vakli, Béla Weiss e Zoltán Vidnyánszky, Scientific Data",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "retrievedAt": "2026-11-24",
+        "sha256Original": "88d3272122e6fc4fea3abfde378daf45c6b35f9bcc6037b9c40b9d3b83b245f0",
+        "sha256Asset": "77844829b481b2e1d8921d81b84aee5966493ab2f31644bb835905ebfa448f96",
+        "modification": "Recorte para separar o painel, sem redimensionamento; codificação JPEG em tons de cinza.",
+        "alt": "Corte axial do encéfalo em tons de cinza, com contornos internos pouco definidos e faixas difusas.",
+        "width": 218,
+        "height": 172
+      },
+      {
+        "id": "image:rtg-2026:m29:rm-artefato-metal-ombro-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-artefato-metal-ombro-01.jpg",
+        "sourcePage": "https://link.springer.com/article/10.1007/s00256-024-04624-4#Fig1",
+        "author": "Georg C. Feuerriegel e Reto Sutter, Skeletal Radiology",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "retrievedAt": "2026-11-24",
+        "sha256Original": "d3b678b02420c0f408f41325af93ea0343e85da85b2a1fa68f5beedc3c1feb18",
+        "sha256Asset": "66cf78506e4af7ab3c7ac8c732730862b07234d34f983a8195ae677fa77b7614",
+        "modification": "Recorte para separar o painel, sem redimensionamento; codificação JPEG em tons de cinza.",
+        "alt": "Corte sagital de um ombro em tons de cinza, com áreas muito claras agrupadas ao redor de pontos escuros.",
+        "width": 636,
+        "height": 602
+      },
+      {
+        "id": "image:rtg-2026:m29:rm-artefato-dobramento-esfera-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-artefato-dobramento-esfera-01.jpg",
+        "sourcePage": "https://commons.wikimedia.org/w/index.php?title=File:MRI_Aliasing.jpg&oldid=1268911842",
+        "author": "Francesco Santini",
+        "license": "Domínio público",
+        "licenseUrl": "https://commons.wikimedia.org/w/index.php?title=File:MRI_Aliasing.jpg&oldid=1268911842#Licensing",
+        "retrievedAt": "2026-11-24",
+        "sha256Original": "349f935a6c9cde71c390b35e550e67d2252ad7e88c3e062d79601007e1bf0916",
+        "sha256Asset": "97cf448fc327a87169e4d3b0d42401ebd998535645efdfac9525c2c08b47acbb",
+        "modification": "Recorte das duas aquisições para excluir a legenda impressa; codificação JPEG em tons de cinza, sem redimensionamento.",
+        "alt": "Duas imagens em tons de cinza de uma esfera de teste. Na primeira, há um contorno arredondado isolado. Na segunda, partes claras da esfera aparecem em bordas opostas.",
+        "width": 256,
+        "height": 123
+      },
+      {
+        "id": "image:rtg-2026:m29:rm-movimento-sagital-referencia-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-movimento-sagital-referencia-01.jpg",
+        "sourcePage": "https://www.nature.com/articles/s41597-022-01694-8#Fig1",
+        "author": "Ádám Nárai, Petra Hermann, Tibor Auer, Péter Kemenczky, János Szalma, István Homolya, Eszter Somogyi, Pál Vakli, Béla Weiss e Zoltán Vidnyánszky, Scientific Data",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "retrievedAt": "2026-11-24",
+        "sha256Original": "88d3272122e6fc4fea3abfde378daf45c6b35f9bcc6037b9c40b9d3b83b245f0",
+        "sha256Asset": "68c439f723bed716d12a441ea2974ba4cc324307973a009f02c0a15840f20e71",
+        "modification": "Recorte para separar o painel, sem redimensionamento; codificação JPEG em tons de cinza.",
+        "alt": "Corte sagital do encéfalo em tons de cinza. Linhas escuras de vários sulcos se distinguem do tecido cinza ao redor.",
+        "width": 218,
+        "height": 207
+      },
+      {
+        "id": "image:rtg-2026:m29:rm-movimento-sagital-artefato-01",
+        "file": "radiant-app/assets/content/rtg-2026/imagens/m29/rm-movimento-sagital-artefato-01.jpg",
+        "sourcePage": "https://www.nature.com/articles/s41597-022-01694-8#Fig1",
+        "author": "Ádám Nárai, Petra Hermann, Tibor Auer, Péter Kemenczky, János Szalma, István Homolya, Eszter Somogyi, Pál Vakli, Béla Weiss e Zoltán Vidnyánszky, Scientific Data",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "retrievedAt": "2026-11-24",
+        "sha256Original": "88d3272122e6fc4fea3abfde378daf45c6b35f9bcc6037b9c40b9d3b83b245f0",
+        "sha256Asset": "8899e246162c7408540833b90711d3255efb0bc5cfefdc36957799c68e24f635",
+        "modification": "Recorte para separar o painel, sem redimensionamento; codificação JPEG em tons de cinza.",
+        "alt": "Corte sagital do encéfalo em tons de cinza. Vários sulcos se confundem com as regiões cinzas vizinhas.",
+        "width": 218,
+        "height": 207
+      }
     ]
   },
   "schemaRefs": {
@@ -6652,7 +6576,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "53b764c0b475ac82c17bee2167c6a58543a1a69c8bde55b50a2356b718fdf2ad"
+      "materialSha256": "d7b9638552e991913ad75568cee00dee4b6c29e18b90abf49aa8a2a7797c0bbd"
     },
     {
       "schemaVersion": 1,
@@ -6661,7 +6585,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "53b764c0b475ac82c17bee2167c6a58543a1a69c8bde55b50a2356b718fdf2ad"
+      "materialSha256": "d7b9638552e991913ad75568cee00dee4b6c29e18b90abf49aa8a2a7797c0bbd"
     },
     {
       "schemaVersion": 1,
@@ -6670,7 +6594,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "53b764c0b475ac82c17bee2167c6a58543a1a69c8bde55b50a2356b718fdf2ad"
+      "materialSha256": "d7b9638552e991913ad75568cee00dee4b6c29e18b90abf49aa8a2a7797c0bbd"
     },
     {
       "schemaVersion": 1,
@@ -6679,7 +6603,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "53b764c0b475ac82c17bee2167c6a58543a1a69c8bde55b50a2356b718fdf2ad"
+      "materialSha256": "d7b9638552e991913ad75568cee00dee4b6c29e18b90abf49aa8a2a7797c0bbd"
     },
     {
       "schemaVersion": 1,
@@ -6688,7 +6612,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "53b764c0b475ac82c17bee2167c6a58543a1a69c8bde55b50a2356b718fdf2ad"
+      "materialSha256": "d7b9638552e991913ad75568cee00dee4b6c29e18b90abf49aa8a2a7797c0bbd"
     },
     {
       "schemaVersion": 1,
@@ -6697,7 +6621,7 @@ export const RTG_2026_M29: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "53b764c0b475ac82c17bee2167c6a58543a1a69c8bde55b50a2356b718fdf2ad"
+      "materialSha256": "d7b9638552e991913ad75568cee00dee4b6c29e18b90abf49aa8a2a7797c0bbd"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",
