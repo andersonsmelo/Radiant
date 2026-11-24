@@ -1,0 +1,47 @@
+## 1. credito: gerador ainda sem a lista de creditos das figuras
+ok 1 - o registro real passa
+ok 2 - figura importada sem entrada reprova
+ok 3 - entrada de acervo sem licença aberta reprova, com a licença do crânio tirada
+ok 4 - entrada gerada sem conferidaPor reprova
+ok 5 - entrada que aponta para figura inexistente reprova
+not ok 6 - licença CC BY sem crédito na lista gerada reprova; com a lista gerada, passa
+    +   'figura a: crédito ausente na lista gerada (Autora)',
+    +   'figura a: crédito ausente na lista gerada (CC BY 4.0)'
+    0: 'figura a: crédito ausente na lista gerada (Autora)'
+    1: 'figura a: crédito ausente na lista gerada (CC BY 4.0)'
+
+## 2. validador sem as regras de licenca aberta, campo de licenca e entrada obrigatoria
+ok 1 - o registro real passa
+not ok 2 - figura importada sem entrada reprova
+not ok 3 - entrada de acervo sem licença aberta reprova, com a licença do crânio tirada
+ok 4 - entrada gerada sem conferidaPor reprova
+ok 5 - entrada que aponta para figura inexistente reprova
+not ok 6 - licença CC BY sem crédito na lista gerada reprova; com a lista gerada, passa
+
+## 3. validador sem conferidaPor e sem a checagem de figura inexistente
+ok 1 - o registro real passa
+ok 2 - figura importada sem entrada reprova
+ok 3 - entrada de acervo sem licença aberta reprova, com a licença do crânio tirada
+not ok 4 - entrada gerada sem conferidaPor reprova
+not ok 5 - entrada que aponta para figura inexistente reprova
+not ok 6 - licença CC BY sem crédito na lista gerada reprova; com a lista gerada, passa
+
+## 4. jest do registro: figura importada (cranio) sem entrada em figuras.json
+  ● registro de diagramas › toda figura importada tem entrada em figuras.json, e toda entrada importada aponta para uma figura que existe
+    - Expected  - 1
+    + Received  + 3
+    - Array []
+    + Array [
+    +   "cranio-de-perfil-ossos",
+    + ]
+Tests:       1 failed, 359 passed, 360 total
+
+## 5. jest do registro: entrada anatomy que aponta para figura inexistente (cranio presente)
+  ● registro de diagramas › toda figura importada tem entrada em figuras.json, e toda entrada importada aponta para uma figura que existe
+    - Expected  - 1
+    + Received  + 3
+    - Array []
+    + Array [
+    +   "fantasma",
+    + ]
+Tests:       1 failed, 359 passed, 360 total

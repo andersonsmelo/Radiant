@@ -5,11 +5,49 @@ import type { DiagramLayer, DiagramSpec, LayerState } from './diagramTypes';
  * ou, em `once`, o próprio progresso sem dar a volta. `once` é para diagrama
  * dirigido por um controle: no valor máximo (progresso 1) o `loop` voltaria ao começo.
  */
+/** Suavização inOut (smoothstep): 0 e 1 nos extremos, derivada zero neles. */
+function smoothstep(x: number): number {
+  'worklet';
+  return x * x * (3 - 2 * x);
+}
+
 function fractionAt(motion: NonNullable<DiagramLayer['motion']>, progress: number): number {
   'worklet';
-  if (motion.mode === 'once') return Math.min(1, Math.max(0, progress + (motion.phase ?? 0)));
   const t = (((progress + (motion.phase ?? 0)) % 1) + 1) % 1;
-  return motion.mode === 'pingpong' ? 1 - Math.abs(2 * t - 1) : t;
+  const f =
+    motion.mode === 'once'
+      ? Math.min(1, Math.max(0, progress + (motion.phase ?? 0)))
+      : motion.mode === 'pingpong'
+        ? 1 - Math.abs(2 * t - 1)
+        : t;
+  const r = motion.range ? Math.min(1, Math.max(0, (f - motion.range[0]) / (motion.range[1] - motion.range[0]))) : f;
+  const keys = motion.keys;
+  if (!keys || keys.length < 2) return motion.ease === 'inOut' ? smoothstep(r) : r;
+  if (r <= keys[0][0]) return keys[0][1];
+  for (let i = 1; i < keys.length; i++) {
+    const [t1, v1] = keys[i];
+    if (r <= t1) {
+      const [t0, v0] = keys[i - 1];
+      const local = (r - t0) / (t1 - t0);
+      return v0 + (v1 - v0) * (motion.ease === 'inOut' ? smoothstep(local) : local);
+    }
+  }
+  return keys[keys.length - 1][1];
+}
+
+/** Erro de `range` (0 <= a < b <= 1) ou de `keys` (ordem estrita, tempo e valor de 0 a 1, ao menos duas), ou null. O registro chama isto. */
+export function motionKeysError(motion: DiagramLayer['motion']): string | null {
+  const range = motion?.range;
+  if (range && !(range[0] >= 0 && range[0] < range[1] && range[1] <= 1)) return 'range fora de 0 <= a < b <= 1';
+  const keys = motion?.keys;
+  if (!keys) return null;
+  if (keys.length < 2) return 'keys precisa de ao menos duas chaves';
+  for (let i = 0; i < keys.length; i++) {
+    const [t, v] = keys[i];
+    if (!(t >= 0 && t <= 1 && v >= 0 && v <= 1)) return `keys[${i}] fora de 0 a 1`;
+    if (i > 0 && t <= keys[i - 1][0]) return `keys[${i}] fora de ordem crescente`;
+  }
+  return null;
 }
 
 /** Estado da camada no progresso dado. Roda no thread de UI (worklet). */

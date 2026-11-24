@@ -158,37 +158,43 @@
               "label": "Frontal",
               "x": 0.325,
               "y": 0.242,
-              "where": "na frente do alto, acima do furo do olho"
+              "where": "na frente do alto, acima do furo do olho",
+              "alvo": "Frontal"
             },
             {
               "label": "Parietal",
               "x": 0.594,
               "y": 0.2,
-              "where": "no meio do alto da calota, a área mais larga"
+              "where": "no meio do alto da calota, a área mais larga",
+              "alvo": "Parietal"
             },
             {
               "label": "Occipital",
-              "x": 0.84,
-              "y": 0.417,
-              "where": "na parte de trás, a curva que fecha o crânio"
+              "x": 0.75,
+              "y": 0.6,
+              "where": "na parte de trás, a curva que fecha o crânio",
+              "alvo": "Occipital"
             },
             {
               "label": "Temporal",
-              "x": 0.6375,
-              "y": 0.4625,
-              "where": "abaixo do alto da calota, junto ao orifício do ouvido"
+              "x": 0.5,
+              "y": 0.47,
+              "where": "abaixo do alto da calota, junto ao orifício do ouvido",
+              "alvo": "Temporal"
             },
             {
               "label": "Maxila",
-              "x": 0.2656,
-              "y": 0.6,
-              "where": "abaixo do furo do olho, a peça que segura os dentes de cima"
+              "x": 0.22,
+              "y": 0.63,
+              "where": "abaixo do furo do olho, a peça que segura os dentes de cima",
+              "alvo": "Maxila"
             },
             {
               "label": "Mandíbula",
-              "x": 0.4219,
-              "y": 0.8167,
-              "where": "embaixo, a peça escura que segura os dentes de baixo"
+              "x": 0.28,
+              "y": 0.85,
+              "where": "embaixo, a peça escura que segura os dentes de baixo",
+              "alvo": "Mandíbula"
             }
           ],
           "feedbackCorrect": "Isso mesmo: cada osso ocupa o seu território na lateral, da testa ao queixo.",
@@ -252,37 +258,42 @@
               "x": 0.2625,
               "y": 0.15,
               "width": 0.125,
-              "height": 0.1833
+              "height": 0.1833,
+              "alvo": "Frontal"
             },
             {
               "label": "Maxila",
-              "x": 0.2188,
-              "y": 0.5333,
-              "width": 0.0938,
-              "height": 0.1333,
-              "correct": true
+              "x": 0.18,
+              "y": 0.57,
+              "width": 0.1,
+              "height": 0.13,
+              "correct": true,
+              "alvo": "Maxila"
             },
             {
               "label": "Occipital",
-              "x": 0.8,
-              "y": 0.3083,
-              "width": 0.0813,
-              "height": 0.2167
+              "x": 0.7,
+              "y": 0.57,
+              "width": 0.09,
+              "height": 0.09,
+              "alvo": "Occipital"
             },
             {
               "label": "Mandíbula",
-              "x": 0.3125,
-              "y": 0.7583,
-              "width": 0.2188,
-              "height": 0.1167,
-              "correct": true
+              "x": 0.2,
+              "y": 0.82,
+              "width": 0.2,
+              "height": 0.1,
+              "correct": true,
+              "alvo": "Mandíbula"
             },
             {
               "label": "Temporal",
-              "x": 0.575,
-              "y": 0.3917,
-              "width": 0.125,
-              "height": 0.1417
+              "x": 0.42,
+              "y": 0.4,
+              "width": 0.16,
+              "height": 0.14,
+              "alvo": "Temporal"
             }
           ],
           "feedbackCorrect": "Isso: a maxila segura os dentes de cima e a mandíbula, os de baixo.",

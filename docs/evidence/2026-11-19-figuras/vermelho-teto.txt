@@ -1,0 +1,389 @@
+# 2026-11-19, HEAD f8ed69d1 + teste novo, TETO_TOTAL baixado de 8_116_109 para 300_000 (soma de hoje: 300.591)
+# npx jest src/ui/diagrams/diagramRegistry.test.ts -t 'soma do SVG' (Node v20.20.2)
+FAIL src/ui/diagrams/diagramRegistry.test.ts
+  paleta dos diagramas
+    ○ skipped bg copia o token de origem
+    ○ skipped fill copia o token de origem
+    ○ skipped line copia o token de origem
+    ○ skipped muted copia o token de origem
+    ○ skipped accent copia o token de origem
+    ○ skipped beam copia o token de origem
+    ○ skipped electron copia o token de origem
+    ○ skipped traço line tem 3:1 contra o fundo
+    ○ skipped traço muted tem 3:1 contra o fundo
+    ○ skipped traço accent tem 3:1 contra o fundo
+    ○ skipped traço beam tem 3:1 contra o fundo
+    ○ skipped traço electron tem 3:1 contra o fundo
+  registro de diagramas
+    ✕ a soma do SVG de todas as figuras importadas cabe no orçamento do plano (2 ms)
+    ○ skipped guarda ao menos os dois diagramas de semente
+    ○ skipped tubo-raios-x: id, quadro e alt válidos
+    ○ skipped colimador-abrindo: id, quadro e alt válidos
+    ○ skipped tubo-emitindo: id, quadro e alt válidos
+    ○ skipped feixe-atenuando: id, quadro e alt válidos
+    ○ skipped radiacao-espalhada: id, quadro e alt válidos
+    ○ skipped grade-antidifusora: id, quadro e alt válidos
+    ○ skipped foco-e-penumbra: id, quadro e alt válidos
+    ○ skipped corte-tomografico-girando: id, quadro e alt válidos
+    ○ skipped precessao-rm: id, quadro e alt válidos
+    ○ skipped eco-ultrassom: id, quadro e alt válidos
+    ○ skipped detector-convertendo: id, quadro e alt válidos
+    ○ skipped compressao-mama: id, quadro e alt válidos
+    ○ skipped sala-com-riscos: id, quadro e alt válidos
+    ○ skipped inverso-do-quadrado: id, quadro e alt válidos
+    ○ skipped blindagem-camadas: id, quadro e alt válidos
+    ○ skipped decaimento-radioativo: id, quadro e alt válidos
+    ○ skipped conferencia-de-identidade: id, quadro e alt válidos
+    ○ skipped transferencia-maca-mesa: id, quadro e alt válidos
+    ○ skipped pontos-de-contato-da-sala: id, quadro e alt válidos
+    ○ skipped itens-de-emergencia-da-sala: id, quadro e alt válidos
+    ○ skipped circuito-do-gerador: id, quadro e alt válidos
+    ○ skipped retificacao-de-onda: id, quadro e alt válidos
+    ○ skipped anodo-giratorio: id, quadro e alt válidos
+    ○ skipped espectro-de-raios-x: id, quadro e alt válidos
+    ○ skipped esqueleto-axial-apendicular: id, quadro e alt válidos
+    ○ skipped osso-longo: id, quadro e alt válidos
+    ○ skipped coluna-regioes: id, quadro e alt válidos
+    ○ skipped articulacao-sinovial: id, quadro e alt válidos
+    ○ skipped marcos-de-superficie: id, quadro e alt válidos
+    ○ skipped respiracao-diafragma: id, quadro e alt válidos
+    ○ skipped circulacao-dupla: id, quadro e alt válidos
+    ○ skipped trato-digestivo: id, quadro e alt válidos
+    ○ skipped sistema-urinario: id, quadro e alt válidos
+    ○ skipped sistema-nervoso: id, quadro e alt válidos
+    ○ skipped dano-ao-dna: id, quadro e alt válidos
+    ○ skipped grandezas-de-dose: id, quadro e alt válidos
+    ○ skipped dosimetro-no-corpo: id, quadro e alt válidos
+    ○ skipped produto-dose-area: id, quadro e alt válidos
+    ○ skipped histograma-e-lut: id, quadro e alt válidos
+    ○ skipped realce-e-suavizacao: id, quadro e alt válidos
+    ○ skipped monitor-e-padrao-de-teste: id, quadro e alt válidos
+    ○ skipped fluxo-ris-pacs: id, quadro e alt válidos
+    ○ skipped compressao-de-imagem: id, quadro e alt válidos
+    ○ skipped radiografia-roteiro: id, quadro e alt válidos
+    ○ skipped artefatos-de-objeto: id, quadro e alt válidos
+    ○ skipped artefatos-do-detector: id, quadro e alt válidos
+    ○ skipped ossos-do-pe: id, quadro e alt válidos
+    ○ skipped joelho-frente-e-perfil: id, quadro e alt válidos
+    ○ skipped femur-proximal-e-quadril: id, quadro e alt válidos
+    ○ skipped pelve-de-frente: id, quadro e alt válidos
+    ○ skipped vertebra-tipica: id, quadro e alt válidos
+    ○ skipped corte-abdome-superior: id, quadro e alt válidos
+    ○ skipped corte-pelve: id, quadro e alt válidos
+    ○ skipped corte-pescoco: id, quadro e alt válidos
+    ○ skipped coluna-sagital-e-axial: id, quadro e alt válidos
+    ○ skipped contraste-no-corpo: id, quadro e alt válidos
+    ○ skipped fluoroscopia-cadeia: id, quadro e alt válidos
+    ○ skipped fluoroscopia-pulsada: id, quadro e alt válidos
+    ○ skipped sala-de-fluoroscopia-espalhada: id, quadro e alt válidos
+    ○ skipped contencao-pediatrica: id, quadro e alt válidos
+    ○ skipped idoso-apoios-e-riscos: id, quadro e alt válidos
+    ○ skipped colimacao-pediatrica: id, quadro e alt válidos
+    ○ skipped gestante-campo-e-feixe: id, quadro e alt válidos
+    ○ skipped cranio-de-perfil-ossos: id, quadro e alt válidos
+    ○ skipped linhas-do-cranio: id, quadro e alt válidos
+    ○ skipped seios-da-face: id, quadro e alt válidos
+    ○ skipped raio-x-movel-no-leito: id, quadro e alt válidos
+    ○ skipped trauma-raio-horizontal: id, quadro e alt válidos
+    ○ skipped ciclo-de-testes: id, quadro e alt válidos
+    ○ skipped teste-de-feixe: id, quadro e alt válidos
+    ○ skipped coincidencia-de-campo: id, quadro e alt válidos
+    ○ skipped nivel-de-referencia: id, quadro e alt válidos
+    ○ skipped cadeia-de-custodia: id, quadro e alt válidos
+    ○ skipped fluxo-de-pesquisa: id, quadro e alt válidos
+    ○ skipped radiografia-de-objeto: id, quadro e alt válidos
+    ○ skipped radiografia-veterinaria: id, quadro e alt válidos
+    ○ skipped relaxacao-t1-t2: id, quadro e alt válidos
+    ○ skipped linha-do-tempo-tr-te: id, quadro e alt válidos
+    ○ skipped ponderacoes-no-encefalo: id, quadro e alt válidos
+    ○ skipped supressao-de-gordura: id, quadro e alt válidos
+    ○ skipped artefatos-de-rm: id, quadro e alt válidos
+    ○ skipped dxa-dois-feixes: id, quadro e alt válidos
+    ○ skipped dxa-regioes-de-interesse: id, quadro e alt válidos
+    ○ skipped dxa-posicionamento: id, quadro e alt válidos
+    ○ skipped dxa-interferencias: id, quadro e alt válidos
+    ○ skipped corpo-inteiro-composicao: id, quadro e alt válidos
+    ○ skipped tubo-raios-x: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped colimador-abrindo: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped tubo-emitindo: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped feixe-atenuando: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped radiacao-espalhada: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped grade-antidifusora: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped foco-e-penumbra: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped corte-tomografico-girando: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped precessao-rm: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped eco-ultrassom: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped detector-convertendo: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped compressao-mama: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped sala-com-riscos: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped inverso-do-quadrado: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped blindagem-camadas: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped decaimento-radioativo: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped conferencia-de-identidade: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped transferencia-maca-mesa: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped pontos-de-contato-da-sala: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped itens-de-emergencia-da-sala: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped circuito-do-gerador: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped retificacao-de-onda: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped anodo-giratorio: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped espectro-de-raios-x: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped esqueleto-axial-apendicular: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped osso-longo: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped coluna-regioes: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped articulacao-sinovial: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped marcos-de-superficie: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped respiracao-diafragma: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped circulacao-dupla: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped trato-digestivo: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped sistema-urinario: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped sistema-nervoso: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped dano-ao-dna: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped grandezas-de-dose: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped dosimetro-no-corpo: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped produto-dose-area: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped histograma-e-lut: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped realce-e-suavizacao: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped monitor-e-padrao-de-teste: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped fluxo-ris-pacs: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped compressao-de-imagem: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped radiografia-roteiro: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped artefatos-de-objeto: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped artefatos-do-detector: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped ossos-do-pe: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped joelho-frente-e-perfil: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped femur-proximal-e-quadril: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped pelve-de-frente: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped vertebra-tipica: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped corte-abdome-superior: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped corte-pelve: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped corte-pescoco: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped coluna-sagital-e-axial: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped contraste-no-corpo: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped fluoroscopia-cadeia: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped fluoroscopia-pulsada: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped sala-de-fluoroscopia-espalhada: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped contencao-pediatrica: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped idoso-apoios-e-riscos: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped colimacao-pediatrica: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped gestante-campo-e-feixe: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped linhas-do-cranio: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped seios-da-face: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped trauma-raio-horizontal: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped ciclo-de-testes: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped teste-de-feixe: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped coincidencia-de-campo: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped nivel-de-referencia: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped cadeia-de-custodia: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped fluxo-de-pesquisa: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped radiografia-de-objeto: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped radiografia-veterinaria: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped relaxacao-t1-t2: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped linha-do-tempo-tr-te: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped ponderacoes-no-encefalo: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped supressao-de-gordura: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped artefatos-de-rm: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped dxa-dois-feixes: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped dxa-regioes-de-interesse: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped dxa-posicionamento: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped dxa-interferencias: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped corpo-inteiro-composicao: sem texto, imagem, script nem link e só com cores da paleta
+    ○ skipped toda figura importada tem entrada em figuras.json, e toda entrada importada aponta para uma figura que existe
+    ○ skipped cranio-de-perfil-ossos (importada): sem texto, imagem, script, link, CSS nem efeito que o react-native-svg ignora
+    ○ skipped raio-x-movel-no-leito (importada): sem texto, imagem, script, link, CSS nem efeito que o react-native-svg ignora
+    ○ skipped tubo-raios-x: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped colimador-abrindo: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped tubo-emitindo: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped feixe-atenuando: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped radiacao-espalhada: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped grade-antidifusora: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped foco-e-penumbra: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped corte-tomografico-girando: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped precessao-rm: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped eco-ultrassom: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped detector-convertendo: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped compressao-mama: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped sala-com-riscos: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped inverso-do-quadrado: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped blindagem-camadas: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped decaimento-radioativo: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped conferencia-de-identidade: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped transferencia-maca-mesa: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped pontos-de-contato-da-sala: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped itens-de-emergencia-da-sala: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped circuito-do-gerador: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped retificacao-de-onda: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped anodo-giratorio: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped espectro-de-raios-x: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped esqueleto-axial-apendicular: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped osso-longo: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped coluna-regioes: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped articulacao-sinovial: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped marcos-de-superficie: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped respiracao-diafragma: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped circulacao-dupla: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped trato-digestivo: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped sistema-urinario: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped sistema-nervoso: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped dano-ao-dna: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped grandezas-de-dose: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped dosimetro-no-corpo: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped produto-dose-area: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped histograma-e-lut: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped realce-e-suavizacao: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped monitor-e-padrao-de-teste: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped fluxo-ris-pacs: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped compressao-de-imagem: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped radiografia-roteiro: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped artefatos-de-objeto: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped artefatos-do-detector: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped ossos-do-pe: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped joelho-frente-e-perfil: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped femur-proximal-e-quadril: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped pelve-de-frente: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped vertebra-tipica: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped corte-abdome-superior: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped corte-pelve: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped corte-pescoco: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped coluna-sagital-e-axial: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped contraste-no-corpo: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped fluoroscopia-cadeia: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped fluoroscopia-pulsada: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped sala-de-fluoroscopia-espalhada: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped contencao-pediatrica: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped idoso-apoios-e-riscos: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped colimacao-pediatrica: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped gestante-campo-e-feixe: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped cranio-de-perfil-ossos: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped linhas-do-cranio: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped seios-da-face: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped raio-x-movel-no-leito: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped trauma-raio-horizontal: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped ciclo-de-testes: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped teste-de-feixe: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped coincidencia-de-campo: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped nivel-de-referencia: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped cadeia-de-custodia: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped fluxo-de-pesquisa: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped radiografia-de-objeto: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped radiografia-veterinaria: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped relaxacao-t1-t2: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped linha-do-tempo-tr-te: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped ponderacoes-no-encefalo: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped supressao-de-gordura: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped artefatos-de-rm: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped dxa-dois-feixes: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped dxa-regioes-de-interesse: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped dxa-posicionamento: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped dxa-interferencias: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped corpo-inteiro-composicao: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1
+    ○ skipped tubo-raios-x: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped colimador-abrindo: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped tubo-emitindo: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped feixe-atenuando: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped radiacao-espalhada: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped grade-antidifusora: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped foco-e-penumbra: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped corte-tomografico-girando: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped precessao-rm: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped eco-ultrassom: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped detector-convertendo: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped compressao-mama: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped sala-com-riscos: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped inverso-do-quadrado: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped blindagem-camadas: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped decaimento-radioativo: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped conferencia-de-identidade: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped transferencia-maca-mesa: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped pontos-de-contato-da-sala: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped itens-de-emergencia-da-sala: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped circuito-do-gerador: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped retificacao-de-onda: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped anodo-giratorio: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped espectro-de-raios-x: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped esqueleto-axial-apendicular: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped osso-longo: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped coluna-regioes: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped articulacao-sinovial: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped marcos-de-superficie: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped respiracao-diafragma: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped circulacao-dupla: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped trato-digestivo: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped sistema-urinario: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped sistema-nervoso: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped dano-ao-dna: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped grandezas-de-dose: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped dosimetro-no-corpo: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped produto-dose-area: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped histograma-e-lut: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped realce-e-suavizacao: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped monitor-e-padrao-de-teste: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped fluxo-ris-pacs: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped compressao-de-imagem: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped radiografia-roteiro: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped artefatos-de-objeto: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped artefatos-do-detector: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped ossos-do-pe: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped joelho-frente-e-perfil: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped femur-proximal-e-quadril: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped pelve-de-frente: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped vertebra-tipica: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped corte-abdome-superior: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped corte-pelve: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped corte-pescoco: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped coluna-sagital-e-axial: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped contraste-no-corpo: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped fluoroscopia-cadeia: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped fluoroscopia-pulsada: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped sala-de-fluoroscopia-espalhada: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped contencao-pediatrica: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped idoso-apoios-e-riscos: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped colimacao-pediatrica: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped gestante-campo-e-feixe: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped cranio-de-perfil-ossos: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped linhas-do-cranio: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped seios-da-face: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped raio-x-movel-no-leito: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped trauma-raio-horizontal: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped ciclo-de-testes: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped teste-de-feixe: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped coincidencia-de-campo: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped nivel-de-referencia: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped cadeia-de-custodia: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped fluxo-de-pesquisa: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped radiografia-de-objeto: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped radiografia-veterinaria: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped relaxacao-t1-t2: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped linha-do-tempo-tr-te: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped ponderacoes-no-encefalo: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped supressao-de-gordura: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped artefatos-de-rm: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped dxa-dois-feixes: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped dxa-regioes-de-interesse: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped dxa-posicionamento: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped dxa-interferencias: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped corpo-inteiro-composicao: keys do movimento em ordem crescente e de 0 a 1
+    ○ skipped o colimador tem laço, e o tubo e a sala com riscos são parados
+    ○ skipped diagramRef e parseDiagramRef são inversas
+
+  ● registro de diagramas › a soma do SVG de todas as figuras importadas cabe no orçamento do plano
+
+    expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 300000
+    Received:    300591
+
+      123 |     const TETO_TOTAL = 300_000;
+      124 |     const soma = IMPORTED_IDS.reduce((n, id) => n + DIAGRAMS[id].layers.reduce((m, l) => m + l.svg.length, 0), 0);
+    > 125 |     expect(soma).toBeLessThanOrEqual(TETO_TOTAL);
+          |                  ^
+      126 |   });
+      127 |
+      128 |   it.each(DIAGRAM_IDS)('%s: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1', (id) => {
+
+      at Object.toBeLessThanOrEqual (src/ui/diagrams/diagramRegistry.test.ts:125:18)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 360 skipped, 361 total
+Snapshots:   0 total
+Time:        1.562 s, estimated 2 s
+Ran all test suites matching /src\/ui\/diagrams\/diagramRegistry.test.ts/i with tests matching "soma do SVG".

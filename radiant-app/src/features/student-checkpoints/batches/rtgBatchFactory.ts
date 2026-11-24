@@ -35,9 +35,9 @@ export type RtgInteractionSource = RtgInteractionBase & (
     | { type: 'categorize'; categories: string[]; items: { label: string; category: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
     | { type: 'multi-select'; options: RtgOption[]; feedbackCorrect: string; feedbackIncorrect: string }
     // Fase B: figura por imagem licenciada ou diagrama em código (exatamente um), e regiões em coordenadas 0 a 1.
-    | { type: 'hotspot'; imageId?: string; diagramId?: string; regions: { label: string; x: number; y: number; width: number; height: number; correct?: true }[]; feedbackCorrect: string; feedbackIncorrect: string }
-    | { type: 'label'; imageId?: string; diagramId?: string; points: { label: string; x: number; y: number; where: string }[]; distractors?: string[]; feedbackCorrect: string; feedbackIncorrect: string }
-    | { type: 'risk-hunt'; imageId?: string; diagramId?: string; regions: { label: string; x: number; y: number; width: number; height: number; risk: boolean; feedback: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
+    | { type: 'hotspot'; imageId?: string; diagramId?: string; regions: { label: string; x: number; y: number; width: number; height: number; correct?: true; alvo?: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
+    | { type: 'label'; imageId?: string; diagramId?: string; points: { label: string; x: number; y: number; where: string; alvo?: string }[]; distractors?: string[]; feedbackCorrect: string; feedbackIncorrect: string }
+    | { type: 'risk-hunt'; imageId?: string; diagramId?: string; regions: { label: string; x: number; y: number; width: number; height: number; risk: boolean; feedback: string; alvo?: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
     // Fase B: rodada rápida de verdadeiro ou falso (de 6 a 8 afirmações; passa quem erra no máximo uma).
     | { type: 'blitz'; statements: { text: string; correct: boolean; feedback: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
     // Fase B: conversa com um personagem (sem o Pixel; o paciente leva nome).
@@ -239,7 +239,7 @@ export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLice
                 interaction = { ...base, type: 'multi-select', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
                     payload: { prompt: source.prompt, options, correctOptionIds: options.filter((_, index) => source.options[index].correct).map(option => option.id) } };
             } else if (source.type === 'hotspot') {
-                const regions = source.regions.map(({ correct, ...region }, index) => ({ id: id('region', slug, source.id, String(index + 1)), ...region }));
+                const regions = source.regions.map(({ correct, alvo: _alvo, ...region }, index) => ({ id: id('region', slug, source.id, String(index + 1)), ...region }));
                 // Imagem licenciada entra pelo cadastro e conta como usada; diagrama entra pelo registro do app.
                 const imageRef = source.diagramId !== undefined ? diagramRef(source.diagramId) : licensedImage(source.imageId ?? '').id;
                 interaction = { ...base, type: 'hotspot', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
@@ -254,7 +254,7 @@ export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLice
                     payload: { prompt: source.prompt, imageRef, points: points.map((point, index) => ({ ...point, correctLabelId: answers[index] })),
                         labels: labelBankOrder(labels, answers, interactionId) } };
             } else if (source.type === 'risk-hunt') {
-                const regions = source.regions.map(({ risk, feedback, ...region }, index) => ({ id: id('region', slug, source.id, String(index + 1)), ...region, explanation: feedback }));
+                const regions = source.regions.map(({ risk, feedback, alvo: _alvo, ...region }, index) => ({ id: id('region', slug, source.id, String(index + 1)), ...region, explanation: feedback }));
                 const imageRef = source.diagramId !== undefined ? diagramRef(source.diagramId) : licensedImage(source.imageId ?? '').id;
                 interaction = { ...base, type: 'risk-hunt', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
                     payload: { prompt: source.prompt, imageRef, regions, riskRegionIds: regions.filter((_, index) => source.regions[index].risk).map(region => region.id) } };

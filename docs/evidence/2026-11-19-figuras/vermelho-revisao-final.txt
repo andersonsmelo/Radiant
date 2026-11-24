@@ -1,0 +1,818 @@
+# Vermelho de 2026-11-19 (revisão final): rtg-lesson-lint.mjs sem a regra figure-target-label-mismatch nem a validação de rotulos; os 4 testes novos reprovam, os 142 antigos passam.
+
+TAP version 13
+# Subtest: a unidade de teste passa no verificador e tem a forma do guia
+ok 1 - a unidade de teste passa no verificador e tem a forma do guia
+  ---
+  duration_ms: 17.4545
+  ...
+# Subtest: reprova correct que não seja true ou false, numa questão e numa conferência
+ok 2 - reprova correct que não seja true ou false, numa questão e numa conferência
+  ---
+  duration_ms: 11.150334
+  ...
+# Subtest: reprova a correta mais longa que 1,2 vez o maior distrator
+ok 3 - reprova a correta mais longa que 1,2 vez o maior distrator
+  ---
+  duration_ms: 8.938584
+  ...
+# Subtest: reprova a unidade com a correta sempre na mesma posição (acima de 40%)
+ok 4 - reprova a unidade com a correta sempre na mesma posição (acima de 40%)
+  ---
+  duration_ms: 9.753334
+  ...
+# Subtest: reprova a conferência que nunca usa uma das quatro posições, mesmo abaixo de 40%
+ok 5 - reprova a conferência que nunca usa uma das quatro posições, mesmo abaixo de 40%
+  ---
+  duration_ms: 8.70825
+  ...
+# Subtest: reprova retorno repetido entre alternativas
+ok 6 - reprova retorno repetido entre alternativas
+  ---
+  duration_ms: 9.326208
+  ...
+# Subtest: reprova a conferência de resposta constante
+ok 7 - reprova a conferência de resposta constante
+  ---
+  duration_ms: 8.279708
+  ...
+# Subtest: reprova item sem fonte e fonte que a unidade não declara
+ok 8 - reprova item sem fonte e fonte que a unidade não declara
+  ---
+  duration_ms: 27.233792
+  ...
+# Subtest: reprova travessão com espaços em texto do aluno
+ok 9 - reprova travessão com espaços em texto do aluno
+  ---
+  duration_ms: 15.173333
+  ...
+# Subtest: reprova texto do aluno todo em caixa alta, e aceita sigla só como nome de editora
+ok 10 - reprova texto do aluno todo em caixa alta, e aceita sigla só como nome de editora
+  ---
+  duration_ms: 24.880375
+  ...
+# Subtest: reprova fala de paciente sem nome, aula sem as cinco interações e raiz que não é objeto
+ok 11 - reprova fala de paciente sem nome, aula sem as cinco interações e raiz que não é objeto
+  ---
+  duration_ms: 16.134958
+  ...
+# Subtest: a linha de comando sai com 0 na unidade válida e com 1 no JSON quebrado
+ok 12 - a linha de comando sai com 0 na unidade válida e com 1 no JSON quebrado
+  ---
+  duration_ms: 736.117125
+  ...
+# Subtest: aceita comparação com duas imagens registradas
+ok 13 - aceita comparação com duas imagens registradas
+  ---
+  duration_ms: 4.741041
+  ...
+# Subtest: reprova comparação com imagem fora do registro
+ok 14 - reprova comparação com imagem fora do registro
+  ---
+  duration_ms: 4.587833
+  ...
+# Subtest: reprova comparação sem imagem na alternativa
+ok 15 - reprova comparação sem imagem na alternativa
+  ---
+  duration_ms: 4.293
+  ...
+# Subtest: reprova comparação sem exatamente uma correta
+ok 16 - reprova comparação sem exatamente uma correta
+  ---
+  duration_ms: 4.389208
+  ...
+# Subtest: reprova comparação com uma imagem só
+ok 17 - reprova comparação com uma imagem só
+  ---
+  duration_ms: 4.446792
+  ...
+# Subtest: reprova a mesma imagem duas vezes na comparação
+ok 18 - reprova a mesma imagem duas vezes na comparação
+  ---
+  duration_ms: 4.243583
+  ...
+# Subtest: reprova retorno repetido na comparação
+ok 19 - reprova retorno repetido na comparação
+  ---
+  duration_ms: 4.163875
+  ...
+# Subtest: role safety e criticalSafety true andam juntos
+ok 20 - role safety e criticalSafety true andam juntos
+  ---
+  duration_ms: 16.980291
+  ...
+# Subtest: famílias da 1.6: a aula com cloze, true-false, categorize e multi-select passa
+ok 21 - famílias da 1.6: a aula com cloze, true-false, categorize e multi-select passa
+  ---
+  duration_ms: 5.228792
+  ...
+# Subtest: famílias da 1.6: reprova cloze sem marcador de lacuna para cada resposta
+ok 22 - famílias da 1.6: reprova cloze sem marcador de lacuna para cada resposta
+  ---
+  duration_ms: 8.178
+  ...
+# Subtest: famílias da 1.6: reprova cloze com três lacunas
+ok 23 - famílias da 1.6: reprova cloze com três lacunas
+  ---
+  duration_ms: 8.880584
+  ...
+# Subtest: famílias da 1.6: reprova cloze com um distrator só
+ok 24 - famílias da 1.6: reprova cloze com um distrator só
+  ---
+  duration_ms: 8.061125
+  ...
+# Subtest: famílias da 1.6: reprova cloze com palavra repetida no banco
+ok 25 - famílias da 1.6: reprova cloze com palavra repetida no banco
+  ---
+  duration_ms: 8.001875
+  ...
+# Subtest: famílias da 1.6: reprova cloze com resposta mais longa
+ok 26 - famílias da 1.6: reprova cloze com resposta mais longa
+  ---
+  duration_ms: 8.182333
+  ...
+# Subtest: famílias da 1.6: reprova true-false com veredito constante
+ok 27 - famílias da 1.6: reprova true-false com veredito constante
+  ---
+  duration_ms: 8.048875
+  ...
+# Subtest: famílias da 1.6: reprova true-false com afirmação certa mais longa
+ok 28 - famílias da 1.6: reprova true-false com afirmação certa mais longa
+  ---
+  duration_ms: 7.600125
+  ...
+# Subtest: famílias da 1.6: reprova true-false com veredito em texto
+ok 29 - famílias da 1.6: reprova true-false com veredito em texto
+  ---
+  duration_ms: 8.488875
+  ...
+# Subtest: famílias da 1.6: reprova true-false com duas afirmações
+ok 30 - famílias da 1.6: reprova true-false com duas afirmações
+  ---
+  duration_ms: 7.551916
+  ...
+# Subtest: famílias da 1.6: reprova categorize com item de grupo desconhecido
+ok 31 - famílias da 1.6: reprova categorize com item de grupo desconhecido
+  ---
+  duration_ms: 8.332833
+  ...
+# Subtest: famílias da 1.6: reprova categorize com grupo vazio
+ok 32 - famílias da 1.6: reprova categorize com grupo vazio
+  ---
+  duration_ms: 7.84725
+  ...
+# Subtest: famílias da 1.6: reprova categorize com item que entrega o grupo
+ok 33 - famílias da 1.6: reprova categorize com item que entrega o grupo
+  ---
+  duration_ms: 9.011
+  ...
+# Subtest: famílias da 1.6: reprova categorize com três itens
+ok 34 - famílias da 1.6: reprova categorize com três itens
+  ---
+  duration_ms: 8.034166
+  ...
+# Subtest: famílias da 1.6: reprova multi-select com uma correta só
+ok 35 - famílias da 1.6: reprova multi-select com uma correta só
+  ---
+  duration_ms: 8.6515
+  ...
+# Subtest: famílias da 1.6: reprova multi-select com corretas no topo
+ok 36 - famílias da 1.6: reprova multi-select com corretas no topo
+  ---
+  duration_ms: 8.102333
+  ...
+# Subtest: famílias da 1.6: reprova multi-select com correta mais longa
+ok 37 - famílias da 1.6: reprova multi-select com correta mais longa
+  ---
+  duration_ms: 8.407083
+  ...
+# Subtest: famílias da 1.6: reprova retorno de erro igual ao de acerto
+ok 38 - famílias da 1.6: reprova retorno de erro igual ao de acerto
+  ---
+  duration_ms: 7.9145
+  ...
+# Subtest: famílias da 1.6: reprova unidade com a mesma contagem de certas em todos os true-false
+ok 39 - famílias da 1.6: reprova unidade com a mesma contagem de certas em todos os true-false
+  ---
+  duration_ms: 8.664916
+  ...
+# Subtest: referência nacional reprova no conceito
+ok 40 - referência nacional reprova no conceito
+  ---
+  duration_ms: 9.514084
+  ...
+# Subtest: referência nacional reprova no retorno de uma alternativa da conferência
+ok 41 - referência nacional reprova no retorno de uma alternativa da conferência
+  ---
+  duration_ms: 10.201958
+  ...
+# Subtest: referência nacional reprova no título de uma fonte
+ok 42 - referência nacional reprova no título de uma fonte
+  ---
+  duration_ms: 8.331625
+  ...
+# Subtest: referência nacional reprova em campo que nenhuma outra régua lê
+ok 43 - referência nacional reprova em campo que nenhuma outra régua lê
+  ---
+  duration_ms: 8.80125
+  ...
+# Subtest: lei física e endereço de fonte não contam como referência nacional
+ok 44 - lei física e endereço de fonte não contam como referência nacional
+  ---
+  duration_ms: 4.022084
+  ...
+# Subtest: hotspot: aceita figura por diagramId e por imageId registrada
+ok 45 - hotspot: aceita figura por diagramId e por imageId registrada
+  ---
+  duration_ms: 8.488291
+  ...
+# Subtest: hotspot: exige exatamente um de imageId e diagramId, e que existam no registro
+ok 46 - hotspot: exige exatamente um de imageId e diagramId, e que existam no registro
+  ---
+  duration_ms: 16.18875
+  ...
+# Subtest: hotspot: a régua de 3 a 6 alvos, chamada sozinha, sem as regras do hotspot por cima
+ok 47 - hotspot: a régua de 3 a 6 alvos, chamada sozinha, sem as regras do hotspot por cima
+  ---
+  duration_ms: 0.188708
+  ...
+# Subtest: hotspot: a régua do hotspot repete a contagem pelo verificador inteiro
+ok 48 - hotspot: a régua do hotspot repete a contagem pelo verificador inteiro
+  ---
+  duration_ms: 3.994542
+  ...
+# Subtest: hotspot: região dentro do quadro, a cada eixo
+ok 49 - hotspot: região dentro do quadro, a cada eixo
+  ---
+  duration_ms: 16.525834
+  ...
+# Subtest: hotspot: a área de toque de 44 pt, centrada, tem de caber na figura (borda direita)
+ok 50 - hotspot: a área de toque de 44 pt, centrada, tem de caber na figura (borda direita)
+  ---
+  duration_ms: 3.902084
+  ...
+# Subtest: hotspot: as áreas de toque não se sobrepõem, mesmo com região baixa ou dentro de outra região
+ok 51 - hotspot: as áreas de toque não se sobrepõem, mesmo com região baixa ou dentro de outra região
+  ---
+  duration_ms: 16.598583
+  ...
+# Subtest: hotspot: a medição usa a proporção da figura (imagem alta fica mais folgada na vertical)
+ok 52 - hotspot: a medição usa a proporção da figura (imagem alta fica mais folgada na vertical)
+  ---
+  duration_ms: 8.317042
+  ...
+# Subtest: hotspot: largura e altura mínimas só quando o alvo tem tamanho
+ok 53 - hotspot: largura e altura mínimas só quando o alvo tem tamanho
+  ---
+  duration_ms: 11.977334
+  ...
+# Subtest: hotspot: exige width e height em todo alvo; ponto não vale
+ok 54 - hotspot: exige width e height em todo alvo; ponto não vale
+  ---
+  duration_ms: 9.253167
+  ...
+# Subtest: hotspot: alvo nulo ou com coordenada que não é número vira erro de forma, sem exceção
+ok 55 - hotspot: alvo nulo ou com coordenada que não é número vira erro de forma, sem exceção
+  ---
+  duration_ms: 8.683375
+  ...
+# Subtest: hotspot: rótulos únicos, de 2 a 40 caracteres
+ok 56 - hotspot: rótulos únicos, de 2 a 40 caracteres
+  ---
+  duration_ms: 12.993375
+  ...
+# Subtest: hotspot: uma ou duas regiões certas e ao menos duas erradas
+ok 57 - hotspot: uma ou duas regiões certas e ao menos duas erradas
+  ---
+  duration_ms: 22.471625
+  ...
+# Subtest: hotspot: recusa chave fora da lista, na região e no item
+ok 58 - hotspot: recusa chave fora da lista, na região e no item
+  ---
+  duration_ms: 8.710917
+  ...
+# Subtest: hotspot: retorno de erro igual ao de acerto reprova, como nas outras famílias
+ok 59 - hotspot: retorno de erro igual ao de acerto reprova, como nas outras famílias
+  ---
+  duration_ms: 3.980083
+  ...
+# Subtest: hotspot: diagramId não é texto de aula para a varredura de referência nacional
+ok 60 - hotspot: diagramId não é texto de aula para a varredura de referência nacional
+  ---
+  duration_ms: 8.791792
+  ...
+# Subtest: label: aceita figura por diagramId e por imageId registrada
+ok 61 - label: aceita figura por diagramId e por imageId registrada
+  ---
+  duration_ms: 13.772291
+  ...
+# Subtest: label: exige exatamente um de imageId e diagramId, existente no registro
+ok 62 - label: exige exatamente um de imageId e diagramId, existente no registro
+  ---
+  duration_ms: 8.195417
+  ...
+# Subtest: label: de 3 a 6 pontos
+ok 63 - label: de 3 a 6 pontos
+  ---
+  duration_ms: 12.811917
+  ...
+# Subtest: label: o ponto não tem largura nem altura
+ok 64 - label: o ponto não tem largura nem altura
+  ---
+  duration_ms: 4.063792
+  ...
+# Subtest: label: where é obrigatório, de 8 a 60 caracteres, e entra na lista de chaves
+ok 65 - label: where é obrigatório, de 8 a 60 caracteres, e entra na lista de chaves
+  ---
+  duration_ms: 12.488167
+  ...
+# Subtest: label: where não nomeia a parte, a do próprio ponto nem a de outro, sem acento e sem caixa
+ok 66 - label: where não nomeia a parte, a do próprio ponto nem a de outro, sem acento e sem caixa
+  ---
+  duration_ms: 12.38075
+  ...
+# Subtest: label: where repetido entre os pontos reprova
+ok 67 - label: where repetido entre os pontos reprova
+  ---
+  duration_ms: 7.965834
+  ...
+# Subtest: label: ponto dentro do quadro, a cada eixo
+ok 68 - label: ponto dentro do quadro, a cada eixo
+  ---
+  duration_ms: 8.129209
+  ...
+# Subtest: label: a área de toque de 44 pt, centrada no ponto, tem de caber na figura
+ok 69 - label: a área de toque de 44 pt, centrada no ponto, tem de caber na figura
+  ---
+  duration_ms: 11.723
+  ...
+# Subtest: label: as áreas de toque dos pontos não se sobrepõem
+ok 70 - label: as áreas de toque dos pontos não se sobrepõem
+  ---
+  duration_ms: 11.90775
+  ...
+# Subtest: label: rótulos únicos entre pontos e distratores, de 2 a 40 caracteres
+ok 71 - label: rótulos únicos entre pontos e distratores, de 2 a 40 caracteres
+  ---
+  duration_ms: 19.085
+  ...
+# Subtest: label: de 0 a 2 distratores, em lista
+ok 72 - label: de 0 a 2 distratores, em lista
+  ---
+  duration_ms: 11.900916
+  ...
+# Subtest: label: recusa chave fora da lista, no ponto e no item
+ok 73 - label: recusa chave fora da lista, no ponto e no item
+  ---
+  duration_ms: 7.832875
+  ...
+# Subtest: label: retorno de erro igual ao de acerto reprova, como nas outras famílias
+ok 74 - label: retorno de erro igual ao de acerto reprova, como nas outras famílias
+  ---
+  duration_ms: 4.124917
+  ...
+# Subtest: risk-hunt: aceita figura por diagramId e por imageId registrada
+ok 75 - risk-hunt: aceita figura por diagramId e por imageId registrada
+  ---
+  duration_ms: 7.941125
+  ...
+# Subtest: risk-hunt: exige exatamente um de imageId e diagramId, existente no registro
+ok 76 - risk-hunt: exige exatamente um de imageId e diagramId, existente no registro
+  ---
+  duration_ms: 7.986708
+  ...
+# Subtest: risk-hunt: de 4 a 6 regiões
+ok 77 - risk-hunt: de 4 a 6 regiões
+  ---
+  duration_ms: 11.632542
+  ...
+# Subtest: risk-hunt: toda região tem width e height; ponto não vale
+ok 78 - risk-hunt: toda região tem width e height; ponto não vale
+  ---
+  duration_ms: 3.900458
+  ...
+# Subtest: risk-hunt: região dentro do quadro e com a área de toque de 44 pt dentro da figura
+ok 79 - risk-hunt: região dentro do quadro e com a área de toque de 44 pt dentro da figura
+  ---
+  duration_ms: 7.842458
+  ...
+# Subtest: risk-hunt: as áreas de toque das regiões não se sobrepõem
+ok 80 - risk-hunt: as áreas de toque das regiões não se sobrepõem
+  ---
+  duration_ms: 7.4515
+  ...
+# Subtest: risk-hunt: risk é booleano em toda região, e de 2 a n-1 são de risco
+ok 81 - risk-hunt: risk é booleano em toda região, e de 2 a n-1 são de risco
+  ---
+  duration_ms: 19.633667
+  ...
+# Subtest: risk-hunt: os riscos todos no topo da lista entregam a resposta pela posição
+ok 82 - risk-hunt: os riscos todos no topo da lista entregam a resposta pela posição
+  ---
+  duration_ms: 7.732208
+  ...
+# Subtest: risk-hunt: o retorno de cada região tem de 25 a 260 caracteres e não se repete
+ok 83 - risk-hunt: o retorno de cada região tem de 25 a 260 caracteres e não se repete
+  ---
+  duration_ms: 7.8875
+  ...
+# Subtest: risk-hunt: rótulos únicos, de 2 a 40 caracteres
+ok 84 - risk-hunt: rótulos únicos, de 2 a 40 caracteres
+  ---
+  duration_ms: 11.476209
+  ...
+# Subtest: risk-hunt: recusa chave fora da lista, na região e no item
+ok 85 - risk-hunt: recusa chave fora da lista, na região e no item
+  ---
+  duration_ms: 7.8365
+  ...
+# Subtest: risk-hunt: retorno de erro igual ao de acerto reprova, como nas outras famílias
+ok 86 - risk-hunt: retorno de erro igual ao de acerto reprova, como nas outras famílias
+  ---
+  duration_ms: 3.759417
+  ...
+# Subtest: conversation: aceita 2 ou 3 turnos, com e sem name, com 2 ou 3 respostas
+ok 87 - conversation: aceita 2 ou 3 turnos, com e sem name, com 2 ou 3 respostas
+  ---
+  duration_ms: 13.792375
+  ...
+# Subtest: conversation: o paciente exige name, e o Pixel não pode ser o interlocutor
+ok 88 - conversation: o paciente exige name, e o Pixel não pode ser o interlocutor
+  ---
+  duration_ms: 12.247833
+  ...
+# Subtest: conversation: 2 ou 3 turnos e de 2 a 3 respostas por turno
+ok 89 - conversation: 2 ou 3 turnos e de 2 a 3 respostas por turno
+  ---
+  duration_ms: 17.032917
+  ...
+# Subtest: conversation: exatamente uma correta por turno, booleana
+ok 90 - conversation: exatamente uma correta por turno, booleana
+  ---
+  duration_ms: 12.311625
+  ...
+# Subtest: conversation: a correta não é a mais longa do turno
+ok 91 - conversation: a correta não é a mais longa do turno
+  ---
+  duration_ms: 4.217166
+  ...
+# Subtest: conversation: a posição da correta varia entre os turnos
+ok 92 - conversation: a posição da correta varia entre os turnos
+  ---
+  duration_ms: 4.058958
+  ...
+# Subtest: conversation: limites de texto da fala, da reação e da resposta
+ok 93 - conversation: limites de texto da fala, da reação e da resposta
+  ---
+  duration_ms: 17.304
+  ...
+# Subtest: conversation: respostas e reações repetidas no turno reprovam
+ok 94 - conversation: respostas e reações repetidas no turno reprovam
+  ---
+  duration_ms: 8.637833
+  ...
+# Subtest: conversation: recusa chave fora da lista, no item, no turno e na resposta
+ok 95 - conversation: recusa chave fora da lista, no item, no turno e na resposta
+  ---
+  duration_ms: 13.562208
+  ...
+# Subtest: conversation: retorno de erro igual ao de acerto reprova, como nas outras famílias
+ok 96 - conversation: retorno de erro igual ao de acerto reprova, como nas outras famílias
+  ---
+  duration_ms: 4.56375
+  ...
+# Subtest: conversation: referência nacional na fala do personagem reprova
+ok 97 - conversation: referência nacional na fala do personagem reprova
+  ---
+  duration_ms: 4.9855
+  ...
+# Subtest: blitz: aceita de 6 a 8 afirmações
+ok 98 - blitz: aceita de 6 a 8 afirmações
+  ---
+  duration_ms: 9.47075
+  ...
+# Subtest: blitz: de 6 a 8 afirmações, e correct booleano
+ok 99 - blitz: de 6 a 8 afirmações, e correct booleano
+  ---
+  duration_ms: 12.63125
+  ...
+# Subtest: blitz: de 2 a n-2 verdadeiras
+ok 100 - blitz: de 2 a n-2 verdadeiras
+  ---
+  duration_ms: 21.689583
+  ...
+# Subtest: blitz: três iguais seguidas no começo reprovam, e duas não
+ok 101 - blitz: três iguais seguidas no começo reprovam, e duas não
+  ---
+  duration_ms: 9.825834
+  ...
+# Subtest: blitz: texto de 15 a 110 caracteres e retorno de 25 a 260
+ok 102 - blitz: texto de 15 a 110 caracteres e retorno de 25 a 260
+  ---
+  duration_ms: 18.735208
+  ...
+# Subtest: blitz: afirmação ou retorno repetido reprova
+ok 103 - blitz: afirmação ou retorno repetido reprova
+  ---
+  duration_ms: 8.762667
+  ...
+# Subtest: blitz: recusa chave fora da lista, no item e na afirmação
+ok 104 - blitz: recusa chave fora da lista, no item e na afirmação
+  ---
+  duration_ms: 8.399792
+  ...
+# Subtest: blitz: retorno de erro igual ao de acerto reprova, como nas outras famílias
+ok 105 - blitz: retorno de erro igual ao de acerto reprova, como nas outras famílias
+  ---
+  duration_ms: 4.375667
+  ...
+# Subtest: visual: um diagrama do registro passa; id fora do registro reprova
+ok 106 - visual: um diagrama do registro passa; id fora do registro reprova
+  ---
+  duration_ms: 12.910791
+  ...
+# Subtest: visual: chave do conceito fora de title, body, keyPoints e visual reprova
+ok 107 - visual: chave do conceito fora de title, body, keyPoints e visual reprova
+  ---
+  duration_ms: 12.828792
+  ...
+# Subtest: visual: o limite de 80 palavras vale para unidade nova e só com visual
+ok 108 - visual: o limite de 80 palavras vale para unidade nova e só com visual
+  ---
+  duration_ms: 16.979
+  ...
+# Subtest: visual: unidade antiga com visual mantém 110 palavras
+ok 109 - visual: unidade antiga com visual mantém 110 palavras
+  ---
+  duration_ms: 8.479917
+  ...
+# Subtest: bench: aceita exposição e colimação, nos três modos
+ok 110 - bench: aceita exposição e colimação, nos três modos
+  ---
+  duration_ms: 21.634083
+  ...
+# Subtest: bench: simulador e modo conhecidos
+ok 111 - bench: simulador e modo conhecidos
+  ---
+  duration_ms: 8.61675
+  ...
+# Subtest: bench: recusa chave fora da lista, no item, no controle, no alvo e nas dicas
+ok 112 - bench: recusa chave fora da lista, no item, no controle, no alvo e nas dicas
+  ---
+  duration_ms: 16.630041
+  ...
+# Subtest: bench: controles presentes, do simulador, com faixa e ponto de partida válidos
+ok 113 - bench: controles presentes, do simulador, com faixa e ponto de partida válidos
+  ---
+  duration_ms: 32.382541
+  ...
+# Subtest: bench: o alvo aponta um controle da bancada, com limite dentro da faixa, e não se cumpre sozinho
+ok 114 - bench: o alvo aponta um controle da bancada, com limite dentro da faixa, e não se cumpre sozinho
+  ---
+  duration_ms: 28.306875
+  ...
+# Subtest: bench: algum passo do controle cai dentro do alvo
+ok 115 - bench: algum passo do controle cai dentro do alvo
+  ---
+  duration_ms: 7.686
+  ...
+# Subtest: bench: dois controles de mesmo id reprovam
+ok 116 - bench: dois controles de mesmo id reprovam
+  ---
+  duration_ms: 4.340917
+  ...
+# Subtest: bench: o passo arredondado e o extremo contam para o alcance do alvo
+ok 117 - bench: o passo arredondado e o extremo contam para o alcance do alvo
+  ---
+  duration_ms: 7.510084
+  ...
+# Subtest: bench: o match só vale no desafio e não pode valer no ponto de partida
+ok 118 - bench: o match só vale no desafio e não pode valer no ponto de partida
+  ---
+  duration_ms: 15.545333
+  ...
+# Subtest: bench: o match só vale na exposição, com referência numérica e tolerância positiva
+ok 119 - bench: o match só vale na exposição, com referência numérica e tolerância positiva
+  ---
+  duration_ms: 15.691583
+  ...
+# Subtest: bench: o fantoma tem de 3 a 60 caracteres
+ok 120 - bench: o fantoma tem de 3 a 60 caracteres
+  ---
+  duration_ms: 11.366625
+  ...
+# Subtest: bench: as dicas por lado têm de 25 a 260 caracteres e são distintas
+ok 121 - bench: as dicas por lado têm de 25 a 260 caracteres e são distintas
+  ---
+  duration_ms: 15.252584
+  ...
+# Subtest: bench: texto com travessão, caixa alta ou palavra reservada reprova, como nas outras famílias
+ok 122 - bench: texto com travessão, caixa alta ou palavra reservada reprova, como nas outras famílias
+  ---
+  duration_ms: 11.465084
+  ...
+# Subtest: parameter-lab: aceita os três modelos, com meta aberta de um lado ou faixa
+ok 123 - parameter-lab: aceita os três modelos, com meta aberta de um lado ou faixa
+  ---
+  duration_ms: 15.928292
+  ...
+# Subtest: parameter-lab: modelo registrado e chaves exatas
+ok 124 - parameter-lab: modelo registrado e chaves exatas
+  ---
+  duration_ms: 19.746667
+  ...
+# Subtest: parameter-lab: partida e limites na grade do modelo
+ok 125 - parameter-lab: partida e limites na grade do modelo
+  ---
+  duration_ms: 19.559625
+  ...
+# Subtest: parameter-lab: a meta tem ao menos um limite, na ordem certa, e não se cumpre sozinha
+ok 126 - parameter-lab: a meta tem ao menos um limite, na ordem certa, e não se cumpre sozinha
+  ---
+  duration_ms: 19.047583
+  ...
+# Subtest: parameter-lab: as dicas por lado têm de 25 a 260 caracteres e são distintas
+ok 127 - parameter-lab: as dicas por lado têm de 25 a 260 caracteres e são distintas
+  ---
+  duration_ms: 18.879292
+  ...
+# Subtest: aula sem múltipla escolha reprova, e o caso com decisão não conta como uma
+ok 128 - aula sem múltipla escolha reprova, e o caso com decisão não conta como uma
+  ---
+  duration_ms: 7.598709
+  ...
+# Subtest: uma só múltipla escolha basta
+ok 129 - uma só múltipla escolha basta
+  ---
+  duration_ms: 7.738125
+  ...
+# Subtest: M05.06, publicada sem múltipla escolha, é a única isenta
+ok 130 - M05.06, publicada sem múltipla escolha, é a única isenta
+  ---
+  duration_ms: 9.978917
+  ...
+# Subtest: blitz: a alternância perfeita do começo ao fim reprova
+ok 131 - blitz: a alternância perfeita do começo ao fim reprova
+  ---
+  duration_ms: 8.033667
+  ...
+# Subtest: conversation: reação com palavra de veredito reprova, por palavra inteira e sem acento nem caixa
+ok 132 - conversation: reação com palavra de veredito reprova, por palavra inteira e sem acento nem caixa
+  ---
+  duration_ms: 22.935917
+  ...
+# Subtest: alvos: região da aula com o centro dentro da região declarada passa
+ok 133 - alvos: região da aula com o centro dentro da região declarada passa
+  ---
+  duration_ms: 3.877
+  ...
+# Subtest: alvos: figure-target-off-region quando o centro do alvo da aula cai fora da região declarada
+ok 134 - alvos: figure-target-off-region quando o centro do alvo da aula cai fora da região declarada
+  ---
+  duration_ms: 4.266083
+  ...
+# Subtest: alvos: label com ponto fora da região declarada reprova, dentro passa
+ok 135 - alvos: label com ponto fora da região declarada reprova, dentro passa
+  ---
+  duration_ms: 7.5665
+  ...
+# Subtest: alvos: figure-target-unknown para alvo que a figura não declara
+ok 136 - alvos: figure-target-unknown para alvo que a figura não declara
+  ---
+  duration_ms: 3.714125
+  ...
+# Subtest: alvos: figure-target-unlinked quando a figura tem alvos e o ponto não tem alvo
+ok 137 - alvos: figure-target-unlinked quando a figura tem alvos e o ponto não tem alvo
+  ---
+  duration_ms: 4.418375
+  ...
+# Subtest: alvos: a região declarada precisa estar dentro do quadro, mesmo com o centro da aula dentro dela
+ok 138 - alvos: a região declarada precisa estar dentro do quadro, mesmo com o centro da aula dentro dela
+  ---
+  duration_ms: 3.7555
+  ...
+# Subtest: alvos: figura sem arquivo de alvos não é cobrada, e o campo alvo continua aceito
+ok 139 - alvos: figura sem arquivo de alvos não é cobrada, e o campo alvo continua aceito
+  ---
+  duration_ms: 7.575
+  ...
+# Subtest: alvos: o mesmo alvo ligado a dois pontos da mesma interação reprova
+ok 140 - alvos: o mesmo alvo ligado a dois pontos da mesma interação reprova
+  ---
+  duration_ms: 3.958292
+  ...
+# Subtest: alvos: o arquivo de alvos é validado sozinho
+ok 141 - alvos: o arquivo de alvos é validado sozinho
+  ---
+  duration_ms: 0.113417
+  ...
+# Subtest: alvos: arquivo de alvos ilegível ou inválido derruba com o nome do arquivo
+ok 142 - alvos: arquivo de alvos ilegível ou inválido derruba com o nome do arquivo
+  ---
+  duration_ms: 3.434666
+  ...
+# Subtest: alvos: figure-target-label-mismatch quando duas regiões trocam de alvo e de lugar mas o rótulo fica
+not ok 143 - alvos: figure-target-label-mismatch quando duas regiões trocam de alvo e de lugar mas o rótulo fica
+  ---
+  duration_ms: 4.257167
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-dobrada/scripts/content/rtg-lesson-lint.test.mjs:980:1'
+  failureType: 'testCodeFailure'
+  error: 'o defeito passou sem erro'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    expectOnly (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-dobrada/scripts/content/rtg-lesson-lint.test.mjs:26:10)
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-dobrada/scripts/content/rtg-lesson-lint.test.mjs:987:3)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: alvos: `rotulos` aceita um rótulo descritivo, e só ele
+not ok 144 - alvos: `rotulos` aceita um rótulo descritivo, e só ele
+  ---
+  duration_ms: 7.76975
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-dobrada/scripts/content/rtg-lesson-lint.test.mjs:991:1'
+  failureType: 'testCodeFailure'
+  error: 'o defeito passou sem erro'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    expectOnly (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-dobrada/scripts/content/rtg-lesson-lint.test.mjs:26:10)
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-dobrada/scripts/content/rtg-lesson-lint.test.mjs:994:3)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: alvos: `rotulos` é validado no arquivo de alvos
+not ok 145 - alvos: `rotulos` é validado no arquivo de alvos
+  ---
+  duration_ms: 0.530791
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-dobrada/scripts/content/rtg-lesson-lint.test.mjs:997:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /rotulos deve ser uma lista/. Input:
+    
+    ''
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: ''
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-dobrada/scripts/content/rtg-lesson-lint.test.mjs:1006:13)
+    Test.runInAsyncScope (node:async_hooks:206:9)
+    Test.run (node:internal/test_runner/test:796:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+    Test.postRun (node:internal/test_runner/test:889:19)
+    Test.run (node:internal/test_runner/test:835:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+# Subtest: alvos: na M25 real, trocar Occipital e Parietal (ponto) ou Maxila e Temporal (região) reprova
+not ok 146 - alvos: na M25 real, trocar Occipital e Parietal (ponto) ou Maxila e Temporal (região) reprova
+  ---
+  duration_ms: 89.738125
+  location: '/Users/anderson/Developer/Radiant/.claude/worktrees/trilha-dobrada/scripts/content/rtg-lesson-lint.test.mjs:1008:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The input did not match the regular expression /figure-target-label-mismatch.*"Occipital".*"Parietal"/. Input:
+    
+    ''
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual: ''
+  operator: 'match'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/anderson/Developer/Radiant/.claude/worktrees/trilha-dobrada/scripts/content/rtg-lesson-lint.test.mjs:1021:10)
+    async Test.run (node:internal/test_runner/test:797:9)
+    async Test.processPendingSubtests (node:internal/test_runner/test:526:7)
+  ...
+1..146
+# tests 146
+# suites 0
+# pass 142
+# fail 4
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2722.233083
+
+# Vermelho do range (diagramMotion.test.ts, motionKeysError sem validar range): os três casos de range inválido reprovam, o válido passa.
+      ✕ recusa range de largura zero (0/0 daria NaN) (1 ms)
+      ✕ recusa range invertido
+      ✕ recusa range fora de 0 a 1
+Tests:       3 failed, 31 passed, 34 total

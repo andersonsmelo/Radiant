@@ -54,6 +54,21 @@ describe('índice gerado da trilha rtg-2026', () => {
         expect(positions).toEqual([...positions].sort((a, b) => a - b));
     });
 
+    // `alvo` liga a aula à figura só no verificador; no app seria dado morto (e vazaria o nome da região).
+    it('nenhum lote gerado carrega a chave alvo em ponto ou região', () => {
+        const found: string[] = [];
+        const walk = (node: unknown, at: string): void => {
+            if (Array.isArray(node)) { node.forEach((item, index) => walk(item, `${at}[${index}]`)); return; }
+            if (!node || typeof node !== 'object') return;
+            for (const [key, value] of Object.entries(node)) {
+                if (key === 'alvo') found.push(at);
+                walk(value, `${at}.${key}`);
+            }
+        };
+        RTG_2026_BATCHES.forEach(batch => walk(batch, batch.batchId));
+        expect(found).toEqual([]);
+    });
+
     it('cada lote gerado passa na mesma validação do lote promovido e tem apresentação', () => {
         for (const batch of RTG_2026_BATCHES) {
             expect({ batchId: batch.batchId, issues: validatePromotedProductionBatch(batch) }).toEqual({ batchId: batch.batchId, issues: [] });

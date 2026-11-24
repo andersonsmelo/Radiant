@@ -79,7 +79,7 @@ describe('HotspotStepRenderer', () => {
     });
 
     it('mantém o índice legível sobre imagem clara e fora do centro da região', () => {
-        const { getByLabelText, getByTestId, queryByText } = render(
+        const { getByTestId, queryByText } = render(
             <HotspotStepRenderer
                 payload={payload}
                 accessibilityLabel="Geometria simplificada do feixe de raios X"
@@ -95,9 +95,8 @@ describe('HotspotStepRenderer', () => {
         expect(strokes.length).toBeGreaterThan(0);
         expect(strokes.every((stroke: string | undefined) => stroke === semanticColors.galaxy.textPrimary)).toBe(true);
         expect(queryByText('✓')).toBeNull();
-        const region = StyleSheet.flatten(getByLabelText('Selecionar Fonte de raios X na imagem').props.style);
-        expect(region.alignItems).toBe('flex-start');
-        expect(region.justifyContent).toBe('flex-start');
+        // O selo é absoluto, ancorado no canto: a região baixa não o corta (ver badgeBox).
+        expect(badge.position).toBe('absolute');
     });
 
     it('uma região menor que 44 pt ganha folga igual nos dois lados, e o rótulo da interação vale para o diagrama', () => {

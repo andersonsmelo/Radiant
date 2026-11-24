@@ -1,0 +1,144 @@
+FAIL src/ui/diagrams/diagramMotion.test.ts
+  layerStateAt
+    ✓ sem movimento devolve a identidade (2 ms)
+    ✓ translate em loop vai de 0 a dx e volta a 0 no progresso 1 (1 ms)
+    ✓ translate em once chega a dx no progresso 1 e não dá a volta (1 ms)
+    ✓ translate em pingpong passa por dx em 0,5 e volta
+    ✓ phase desloca o ciclo, inclusive para valor negativo
+    ✓ range restringe o movimento ao trecho a..b da fração e segura fora dele (1 ms)
+    ✓ rotate dá degrees vezes o progresso (1 ms)
+    ✓ fade e scale interpolam
+  diagramSvgAt
+    ✓ aplica o estado da camada no instante pedido (1 ms)
+    ✓ declara o quadro do desenho
+  camada ampliada na tela
+    ✓ rotate: um ponto vai onde diagramSvgAt o põe, em duas larguras de tela (4 ms)
+    ✓ scale: um ponto vai onde diagramSvgAt o põe, em duas larguras de tela (4 ms)
+    ✓ translate: um ponto vai onde diagramSvgAt o põe, em duas larguras de tela (2 ms)
+    ✓ rotate: o centro (cx, cy) fica fixo
+    ✓ scale: o centro (cx, cy) fica fixo (1 ms)
+    ✓ a view ampliada cobre uma largura e uma altura de cada lado
+    ✓ groupLayers junta as paradas contíguas e deixa cada móvel sozinha
+  keys e ease
+    ✕ keys desenham acende, segura e apaga dentro de um ciclo (2 ms)
+    ✕ ease inOut atrasa o começo do trecho; linear não
+    ✕ ease inOut vale por trecho de keys e preserva os nós
+    ✕ motionKeysError aceita keys válidas e nomeia o defeito das inválidas (1 ms)
+
+  ● keys e ease › keys desenham acende, segura e apaga dentro de um ciclo
+
+    expect(received).toBeCloseTo(expected)
+
+    Expected: 1
+    Received: 0.44999999999999996
+
+    Expected precision:    2
+    Expected difference: < 0.005
+    Received difference:   0.55
+
+      176 |   it('keys desenham acende, segura e apaga dentro de um ciclo', () => {
+      177 |     expect(layerStateAt(pulse, 0).opacity).toBeCloseTo(0);
+    > 178 |     expect(layerStateAt(pulse, 0.45).opacity).toBeCloseTo(1);
+          |                                               ^
+      179 |     expect(layerStateAt(pulse, 0.7).opacity).toBeCloseTo(0.5);
+      180 |     expect(layerStateAt(pulse, 0.9).opacity).toBeCloseTo(0);
+      181 |   });
+
+      at Object.toBeCloseTo (src/ui/diagrams/diagramMotion.test.ts:178:47)
+
+  ● keys e ease › ease inOut atrasa o começo do trecho; linear não
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 25
+    Received:   25
+
+      184 |     const base = { kind: 'translate', dx: 100, dy: 0, mode: 'once' } as const;
+      185 |     expect(layerStateAt(motion(base), 0.25).translateX).toBeCloseTo(25);
+    > 186 |     expect(layerStateAt(motion({ ...base, ease: 'inOut' }), 0.25).translateX).toBeLessThan(25);
+          |                                                                               ^
+      187 |     expect(layerStateAt(motion({ ...base, ease: 'inOut' }), 0.5).translateX).toBeCloseTo(50);
+      188 |   });
+      189 |
+
+      at Object.toBeLessThan (src/ui/diagrams/diagramMotion.test.ts:186:79)
+
+  ● keys e ease › ease inOut vale por trecho de keys e preserva os nós
+
+    expect(received).toBeCloseTo(expected)
+
+    Expected: 1
+    Received: 0.5
+
+    Expected precision:    2
+    Expected difference: < 0.005
+    Received difference:   0.5
+
+      191 |     const m = motion({ kind: 'fade', from: 0, to: 1, mode: 'loop', keys: [[0, 0], [0.5, 1], [1, 0]], ease: 'inOut' });
+      192 |     expect(layerStateAt(m, 0.125).opacity).toBeLessThan(0.25);
+    > 193 |     expect(layerStateAt(m, 0.5).opacity).toBeCloseTo(1);
+          |                                          ^
+      194 |   });
+      195 |
+      196 |   it('motionKeysError aceita keys válidas e nomeia o defeito das inválidas', () => {
+
+      at Object.toBeCloseTo (src/ui/diagrams/diagramMotion.test.ts:193:42)
+
+  ● keys e ease › motionKeysError aceita keys válidas e nomeia o defeito das inválidas
+
+    TypeError: (0 , _diagramMotion.motionKeysError) is not a function
+
+      195 |
+      196 |   it('motionKeysError aceita keys válidas e nomeia o defeito das inválidas', () => {
+    > 197 |     expect(motionKeysError(pulse)).toBeNull();
+          |                           ^
+      198 |     expect(motionKeysError(motion({ kind: 'fade', from: 0, to: 1, mode: 'loop' }))).toBeNull();
+      199 |     const bad = (keys: [number, number][]) => motionKeysError(motion({ kind: 'fade', from: 0, to: 1, mode: 'loop', keys }));
+      200 |     expect(bad([[0, 0], [0.6, 1], [0.3, 0]])).toMatch(/ordem/);
+
+      at Object.<anonymous> (src/ui/diagrams/diagramMotion.test.ts:197:27)
+
+Test Suites: 1 failed, 1 total
+Tests:       4 failed, 17 passed, 21 total
+Snapshots:   0 total
+Time:        2.253 s
+Ran all test suites matching /src\/ui\/diagrams\/diagramMotion.test.ts/i.
+
+## Rodada 1: vermelho por mutação específica (código restaurado depois de cada uma)
+
+### ease ignorado dentro de keys  (smoothstep(local) : local  ->  local : local)
+    ✕ ease inOut vale por trecho de keys: smoothstep em cada um e nós preservados (1 ms)
+Tests:       1 failed, 29 passed, 30 total
+
+### ease ignorado na rampa sem keys  (? smoothstep(r) : r;  ->  ? r : r;)
+    ✕ ease inOut: smoothstep da rampa, com valor numérico (1 ms)
+Tests:       1 failed, 29 passed, 30 total
+
+### ordem não estrita  (t <= keys[i - 1][0]  ->  t < keys[i - 1][0])
+      ✕ recusa tempo repetido (ordem estrita) (1 ms)
+Tests:       1 failed, 29 passed, 30 total
+
+### sem a checagem de tempo negativo  (t >= 0 &&   ->  )
+      ✕ recusa tempo negativo (1 ms)
+Tests:       1 failed, 29 passed, 30 total
+
+### sem a checagem de valor negativo  (v >= 0 &&   ->  )
+      ✕ recusa valor fora de 0 a 1 (1 ms)
+Tests:       1 failed, 29 passed, 30 total
+
+### sem o teto do valor  ( && v <= 1  ->  )
+      ✕ recusa valor acima de 1 (1 ms)
+Tests:       1 failed, 29 passed, 30 total
+
+### sem o teto do tempo  (t <= 1 &&   ->  )
+      ✕ recusa tempo fora de 0 a 1
+Tests:       1 failed, 29 passed, 30 total
+
+### NaN passa (comparação invertida)  (!(t >= 0 && t <= 1 && v >= 0 && v <= 1)  ->  (t < 0 || t > 1 || v < 0 || v > 1))
+      ✕ recusa NaN (2 ms)
+Tests:       1 failed, 29 passed, 30 total
+
+### mínimo de duas chaves removido  (keys.length < 2) return 'keys  ->  keys.length < 0) return 'keys)
+      ✕ recusa um ponto só (1 ms)
+      ✕ recusa lista vazia
+Tests:       2 failed, 28 passed, 30 total

@@ -1,0 +1,170 @@
+appId: com.ascendcreative.radiant
+name: 'Figuras M25 aula-01'
+tags:
+  - figuras
+  - generated
+---
+# Gerado por scripts/qa/figuras-no-simulador.mjs a partir das aulas-fonte. Não edite à mão.
+# Entrada pelo link da rota /learn, como os roteiros da trilha, respondendo certo até o passo da figura. Não medido em aparelho.
+- launchApp:
+    arguments:
+      radiantReduceMotion: '1'
+    clearState: true
+    permissions:
+      all: deny
+- runFlow: ../subflows/dismiss-dev-client.yaml
+- runFlow: ../subflows/dismiss-first-run.yaml
+- assertVisible:
+    id: journey-trail
+- openLink: 'radiantapp://learn?blockId=activity%3Artg-2026%3Am25%3Aaula-01&nodeId=node%3Aactivity%3Artg-2026%3Am25%3Aaula-01'
+- runFlow:
+    when:
+      visible: 'Open'
+    commands:
+      - tapOn: 'Open'
+- assertVisible: 'Passo 1 de 8'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 2 de 8'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 3 de 8'
+# interaction i1 multiple-choice
+- scrollUntilVisible:
+    element:
+      id: 'lesson-option-option:rtg-2026:m25:aula-01:i1:c'
+- tapOn:
+    id: 'lesson-option-option:rtg-2026:m25:aula-01:i1:c'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 4 de 8'
+- takeScreenshot: 'figura-cranio-de-perfil-ossos-m25-aula-01-passo4'
+# interaction i2 label
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 1, na frente do alto, acima do furo do olho, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 1, na frente do alto, acima do furo do olho, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Frontal'
+- tapOn:
+    id: 'label-chip-Frontal'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 2, no meio do alto da calota, a área mais larga, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 2, no meio do alto da calota, a área mais larga, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Parietal'
+- tapOn:
+    id: 'label-chip-Parietal'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 3, na parte de trás, a curva que fecha o crânio, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 3, na parte de trás, a curva que fecha o crânio, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Occipital'
+- tapOn:
+    id: 'label-chip-Occipital'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 4, abaixo do alto da calota, junto ao orifício do ouvido, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 4, abaixo do alto da calota, junto ao orifício do ouvido, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Temporal'
+- tapOn:
+    id: 'label-chip-Temporal'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 5, abaixo do furo do olho, a peça que segura os dentes de cima, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 5, abaixo do furo do olho, a peça que segura os dentes de cima, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Maxila'
+- tapOn:
+    id: 'label-chip-Maxila'
+- scrollUntilVisible:
+    element:
+      text: 'Ponto 6, embaixo, a peça escura que segura os dentes de baixo, sem rótulo'
+    direction: UP
+- tapOn: 'Ponto 6, embaixo, a peça escura que segura os dentes de baixo, sem rótulo'
+- scrollUntilVisible:
+    element:
+      id: 'label-chip-Mandíbula'
+- tapOn:
+    id: 'label-chip-Mandíbula'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 5 de 8'
+# interaction i3 categorize
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Maxila'
+- tapOn:
+    id: 'categorize-item-Maxila'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Face'
+- tapOn:
+    id: 'categorize-group-Face'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Mandíbula'
+- tapOn:
+    id: 'categorize-item-Mandíbula'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Face'
+- tapOn:
+    id: 'categorize-group-Face'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Temporal'
+- tapOn:
+    id: 'categorize-item-Temporal'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Caixa craniana'
+- tapOn:
+    id: 'categorize-group-Caixa craniana'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Parietal'
+- tapOn:
+    id: 'categorize-item-Parietal'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Caixa craniana'
+- tapOn:
+    id: 'categorize-group-Caixa craniana'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Zigomático'
+- tapOn:
+    id: 'categorize-item-Zigomático'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Face'
+- tapOn:
+    id: 'categorize-group-Face'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-item-Esfenoide'
+- tapOn:
+    id: 'categorize-item-Esfenoide'
+- scrollUntilVisible:
+    element:
+      id: 'categorize-group-Caixa craniana'
+- tapOn:
+    id: 'categorize-group-Caixa craniana'
+- tapOn: 'Conferir resposta'
+- tapOn: 'Continuar'
+- assertVisible: 'Passo 6 de 8'
+- takeScreenshot: 'figura-cranio-de-perfil-ossos-m25-aula-01-passo6'

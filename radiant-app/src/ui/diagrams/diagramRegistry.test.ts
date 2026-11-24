@@ -1,6 +1,8 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { parse } from 'react-native-svg';
 import { galaxyColors, hudIconTones, pixelColors } from '../theme';
-import { diagramSvgAt } from './diagramMotion';
+import { diagramSvgAt, motionKeysError } from './diagramMotion';
 import { P } from './diagramPalette';
 import { DIAGRAMS, DIAGRAM_IDS, diagramRef, parseDiagramRef } from './diagramRegistry';
 
@@ -14,6 +16,9 @@ const SOURCES: Record<keyof typeof P, string> = {
   beam: hudIconTones.bolt.face,
   electron: pixelColors.glow,
 };
+
+const IMPORTED_IDS = DIAGRAM_IDS.filter((id) => DIAGRAMS[id].art === 'imported');
+const DRAWN_IDS = DIAGRAM_IDS.filter((id) => DIAGRAMS[id].art !== 'imported');
 
 const luminance = (hex: string) => {
   const [r, g, b] = [1, 3, 5].map((i) => {
@@ -64,7 +69,8 @@ describe('registro de diagramas', () => {
     expect(spec.alt.length).toBeLessThanOrEqual(160);
   });
 
-  it.each(DIAGRAM_IDS)('%s: sem texto, imagem, script nem link e só com cores da paleta', (id) => {
+  // Arte importada (acervo aberto, gerador externo) tem cores próprias: réguas em IMPORTED_IDS.
+  it.each(DRAWN_IDS)('%s: sem texto, imagem, script nem link e só com cores da paleta', (id) => {
     const palette = new Set(Object.values(P).map((c) => c.toLowerCase()));
     for (const layer of DIAGRAMS[id].layers) {
       expect(layer.svg).not.toMatch(/<(text|image|script|foreignObject)|href/i);
@@ -80,6 +86,45 @@ describe('registro de diagramas', () => {
     }
   });
 
+  // Registro de origem (content-manifest/rtg-2026/figuras.json): a arte importada não entra sem proveniência.
+  const figuras: { id: string; origem: string }[] = JSON.parse(
+    fs.readFileSync(path.resolve(__dirname, '../../../../content-manifest/rtg-2026/figuras.json'), 'utf8'),
+  );
+
+  it('toda figura importada tem entrada em figuras.json, e toda entrada importada aponta para uma figura que existe', () => {
+    expect(IMPORTED_IDS.filter((id) => !figuras.some((entry) => entry.id === id))).toEqual([]);
+    // Arte importada declarada como "codigo" escaparia da régua de licença e do crédito.
+    expect(IMPORTED_IDS.filter((id) => !['acervo', 'anatomy', 'gerada'].includes(figuras.find((entry) => entry.id === id)?.origem ?? ''))).toEqual([]);
+    const importedEntries = figuras.filter((entry) => ['acervo', 'anatomy', 'gerada'].includes(entry.origem));
+    expect(importedEntries.filter((entry) => !IMPORTED_IDS.includes(entry.id)).map((entry) => entry.id)).toEqual([]);
+  });
+
+  it.each(IMPORTED_IDS)('%s (importada): sem texto, imagem, script, link, CSS nem efeito que o react-native-svg ignora', (id) => {
+    const spec = DIAGRAMS[id];
+    expect(spec.layers.length).toBeGreaterThanOrEqual(1);
+    expect(spec.layers.length).toBeLessThanOrEqual(8);
+    expect([spec.width, spec.height]).toEqual([320, 240]);
+    for (const layer of spec.layers) {
+      expect(layer.svg).not.toMatch(/<(text|image|script|foreignObject|style|filter|mask|clipPath|use|pattern)\b|href/i);
+      // CSS não chega ao SvgXml: classe, estilo inline, variável, animação e vector-effect ficam de fora.
+      expect(layer.svg).not.toMatch(/\s(class|style|filter|mask|clip-path|vector-effect)=|var\(|@keyframes|='/);
+      // Gradiente só por id local da própria camada (cada camada é um SvgXml separado).
+      for (const [, ref] of layer.svg.matchAll(/url\(#([^)]+)\)/g)) expect(layer.svg).toContain(`id="${ref}"`);
+      for (const [, value] of layer.svg.matchAll(/\b(?:fill|stroke|stop-color)="([^"]*)"/g)) {
+        expect(value).toMatch(/^(none|#[0-9a-f]{6}|url\(#[^)]+\))$/);
+      }
+    }
+    // Teto medido em 2026-11-19: crânio 75 KiB, leito 222 KiB de SVG. Arte acima disso vai para imagem.
+    expect(spec.layers.reduce((n, l) => n + l.svg.length, 0)).toBeLessThanOrEqual(240 * 1024);
+  });
+
+  it('a soma do SVG de todas as figuras importadas cabe no orçamento do plano', () => {
+    // (24 x 75.211 do crânio + 22 x 225.380 do leito) x 1,2 = 8.116.109 bytes, medido em 2026-11-19 (docs/evidence/2026-11-19-figuras/orcamento.md).
+    const TETO_TOTAL = 8_116_109;
+    const soma = IMPORTED_IDS.reduce((n, id) => n + DIAGRAMS[id].layers.reduce((m, l) => m + l.svg.length, 0), 0);
+    expect(soma).toBeLessThanOrEqual(TETO_TOTAL);
+  });
+
   it.each(DIAGRAM_IDS)('%s: diagramSvgAt devolve XML bem formado em 0, 0,5 e 1', (id) => {
     for (const progress of [0, 0.5, 1]) {
       const xml = diagramSvgAt(DIAGRAMS[id], progress);
@@ -89,6 +134,10 @@ describe('registro de diagramas', () => {
       // O parser que o aparelho usa: não pode lançar nem devolver nulo.
       expect(parse(xml)).not.toBeNull();
     }
+  });
+
+  it.each(DIAGRAM_IDS)('%s: keys do movimento em ordem crescente e de 0 a 1', (id) => {
+    for (const layer of DIAGRAMS[id].layers) expect(motionKeysError(layer.motion)).toBeNull();
   });
 
   it('o colimador tem laço, e o tubo e a sala com riscos são parados', () => {

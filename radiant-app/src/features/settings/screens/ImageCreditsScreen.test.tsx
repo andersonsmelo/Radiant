@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react-native';
 import ImageCreditsScreen from './ImageCreditsScreen';
-import { RTG_IMAGES } from '../../student-checkpoints/batches/rtgImages';
+import { RTG_FIGURE_CREDITS, RTG_IMAGES } from '../../student-checkpoints/batches/rtgImages';
 
 jest.mock('expo-router', () => ({ router: { back: jest.fn() } }));
 jest.mock('react-native-safe-area-context', () => {
@@ -18,6 +18,15 @@ describe('ImageCreditsScreen', () => {
             expect(screen.getAllByText(new RegExp(`Autoria: ${image.author}`)).length).toBeGreaterThan(0);
             expect(screen.getAllByText(new RegExp(`Licença: ${image.license.replace(/\./g, '\\.')}`)).length).toBeGreaterThan(0);
         }
-        expect(screen.getAllByRole('link')).toHaveLength(RTG_IMAGES.length);
+        expect(screen.getAllByRole('link')).toHaveLength(RTG_IMAGES.length + RTG_FIGURE_CREDITS.length);
+    });
+
+    it('credita a arte de terceiros das figuras desenhadas', () => {
+        expect(RTG_FIGURE_CREDITS.length).toBeGreaterThan(0);
+        render(<ImageCreditsScreen />);
+        for (const figure of RTG_FIGURE_CREDITS) {
+            expect(screen.getAllByText(new RegExp(`Autoria: ${figure.author.replace(/[()]/g, '\\$&')}`)).length).toBeGreaterThan(0);
+            expect(screen.getAllByText(`Licença: ${figure.license}`).length).toBeGreaterThan(0);
+        }
     });
 });
