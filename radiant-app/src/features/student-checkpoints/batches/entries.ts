@@ -150,7 +150,7 @@ export const RTG_2026_PRESENTATIONS: Readonly<Record<string, ProductionCatalogEn
   "batch:rtg-2026:m23": {
     "slug": "rtg-2026-m23",
     "title": "Leitura crítica da imagem: artefatos, repetição e correção",
-    "description": "Um roteiro de leitura aplicado a uma radiografia real de tórax, artefatos de objeto e de equipamento em esquemas, bancadas de exposição e de colimação e o registro da causa de imagens rejeitadas.",
+    "description": "Um roteiro de leitura em radiografia real de tórax, exemplos radiográficos de artefatos de objeto, um esquema de artefatos de equipamento, bancadas de exposição e de colimação e o registro da causa de imagens rejeitadas.",
     "unitTitle": "Leitura crítica da imagem: artefatos, repetição e correção",
     "reward": {
       "id": "node:reward:rtg-2026:m23",
