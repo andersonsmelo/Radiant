@@ -14,7 +14,8 @@ import {
     type ProductionBatchV1,
 } from '../ProductionBatch';
 import type { ProductionCatalogEntry } from '../createProductionCurriculumCatalog';
-import type { EvidenceKind, LearningActivityV2, LearningInteractionV2, LearningStepV2, LessonDialogueLine } from '../../../types/learningActivity';
+import { diagramRef } from '../../../ui/diagrams/diagramRegistry';
+import type { BenchControl, BenchGoal, BenchPayload, EvidenceKind, ParameterLabPayload, LearningActivityV2, LearningInteractionV2, LearningStepV2, LessonCastId, LessonDialogueLine } from '../../../types/learningActivity';
 
 type RtgOption = { label: string; correct: boolean; feedback: string };
 type RtgChoiceItem = { prompt: string; options: RtgOption[]; sourceIds: string[] };
@@ -32,11 +33,23 @@ export type RtgInteractionSource = RtgInteractionBase & (
     | { type: 'cloze'; text: string; answers: string[]; distractors: string[]; feedbackCorrect: string; feedbackIncorrect: string }
     | { type: 'true-false'; statements: { text: string; correct: boolean; feedback: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
     | { type: 'categorize'; categories: string[]; items: { label: string; category: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
-    | { type: 'multi-select'; options: RtgOption[]; feedbackCorrect: string; feedbackIncorrect: string });
+    | { type: 'multi-select'; options: RtgOption[]; feedbackCorrect: string; feedbackIncorrect: string }
+    // Fase B: figura por imagem licenciada ou diagrama em código (exatamente um), e regiões em coordenadas 0 a 1.
+    | { type: 'hotspot'; imageId?: string; diagramId?: string; regions: { label: string; x: number; y: number; width: number; height: number; correct?: true }[]; feedbackCorrect: string; feedbackIncorrect: string }
+    | { type: 'label'; imageId?: string; diagramId?: string; points: { label: string; x: number; y: number; where: string }[]; distractors?: string[]; feedbackCorrect: string; feedbackIncorrect: string }
+    | { type: 'risk-hunt'; imageId?: string; diagramId?: string; regions: { label: string; x: number; y: number; width: number; height: number; risk: boolean; feedback: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
+    // Fase B: rodada rápida de verdadeiro ou falso (de 6 a 8 afirmações; passa quem erra no máximo uma).
+    | { type: 'blitz'; statements: { text: string; correct: boolean; feedback: string }[]; feedbackCorrect: string; feedbackIncorrect: string }
+    // Fase B: conversa com um personagem (sem o Pixel; o paciente leva nome).
+    // Fase B: bancada de exposição ou de colimação, com os mesmos campos de `BenchPayload` (o conteudista escreve o que o app lê).
+    | { type: 'bench'; simulator: BenchPayload['simulator']; mode: BenchPayload['mode']; controls: BenchControl[]; goal: BenchGoal; phantomLabel: string; hints: BenchPayload['hints']; feedbackCorrect: string; feedbackIncorrect: string }
+    // Fase B: controle sobre um modelo registrado, com os mesmos campos de `ParameterLabPayload`.
+    | ({ type: 'parameter-lab'; feedbackCorrect: string; feedbackIncorrect: string } & Omit<ParameterLabPayload, 'prompt'>)
+    | { type: 'conversation'; speaker: LessonCastId; name?: string; turns: { line: string; options: { label: string; correct: boolean; reply: string }[] }[]; feedbackCorrect: string; feedbackIncorrect: string });
 export type RtgLessonSource = {
     id: string; code: string; title: string; objective: string; competency: string; minutes?: number;
     scene: { setting: string; lines: LessonDialogueLine[] };
-    concept: { title: string; body: string; keyPoints: string[] };
+    concept: { title: string; body: string; keyPoints: string[]; visual?: string };
     interactions: RtgInteractionSource[];
     closing: { title: string; body: string; line?: LessonDialogueLine };
     checkpoint: RtgChoiceItem[];
@@ -72,8 +85,9 @@ export const RTG_REVIEW = {
 const PROMOTION = { promotedAt: RTG_REVIEW.decidedAt, promotionRef: 'ADR-2026-11-05-delegacao-de-decisao-e-producao-ampla' };
 // A conferência e a recuperação não têm retorno por alternativa no contrato do item.
 const TRY_AGAIN = 'Ainda não. Releia o enunciado e compare cada alternativa com o conceito da aula.';
-const FAMILY_LABEL = { comparison: 'Comparação', 'multiple-choice': 'Múltipla escolha', 'case-decision': 'Caso com decisão', ordering: 'Ordenação', matching: 'Associação',
-    cloze: 'Completar a frase', 'true-false': 'Certo ou errado', categorize: 'Classificação', 'multi-select': 'Marque todas as corretas' } as const;
+export const FAMILY_LABEL = { comparison: 'Comparação', 'multiple-choice': 'Múltipla escolha', 'case-decision': 'Caso com decisão', ordering: 'Ordenação', matching: 'Associação',
+    cloze: 'Completar a frase', 'true-false': 'Certo ou errado', categorize: 'Classificação', 'multi-select': 'Marque todas as corretas',
+    hotspot: 'Toque na imagem', label: 'Rotular a imagem', 'risk-hunt': 'Encontre os riscos', conversation: 'Conversa', blitz: 'Rodada rápida', bench: 'Bancada', 'parameter-lab': 'Ajuste o controle' } as const;
 const EVIDENCE: Record<RtgInteractionBase['role'], EvidenceKind> = {
     prerequisite: 'independent-recall', prediction: 'guided-practice', practice: 'guided-practice',
     safety: 'guided-practice', transfer: 'applied-transfer',
@@ -118,6 +132,19 @@ export function categorizeDisplayOrder<T>(values: readonly T[], group: (value: T
 export function clozeBankOrder<T extends { id: string }>(tokens: readonly T[], answers: readonly string[], seed: string): T[] {
     const shown = seededDisplayOrder(tokens, seed);
     return answers.every((tokenId, index) => shown[index]?.id === tokenId) ? [...shown.slice(1), shown[0]] : shown;
+}
+
+/**
+ * Fichas do rotular embaralhadas pela semente. As fichas certas, na ordem em que
+ * aparecem, nunca repetem a ordem dos pontos (a posição entregaria a resposta);
+ * as sementes derivadas só entram no raro caso de a primeira cair nela.
+ */
+export function labelBankOrder<T extends { id: string }>(labels: readonly T[], answers: readonly string[], seed: string): T[] {
+    for (let attempt = 0; attempt < 50; attempt += 1) {
+        const shown = seededDisplayOrder(labels, attempt ? `${seed}#${attempt}` : seed);
+        if (shown.filter(entry => answers.includes(entry.id)).map(entry => entry.id).join() !== answers.join()) return shown;
+    }
+    throw new Error(`rtg-label-order:${seed}`);
 }
 
 export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLicensedImageV1[] = []): RtgBatchBuild {
@@ -211,9 +238,52 @@ export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLice
                 const options = source.options.map((option, index) => ({ id: id('option', slug, source.id, LETTERS[index]), label: option.label, explanation: option.feedback }));
                 interaction = { ...base, type: 'multi-select', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
                     payload: { prompt: source.prompt, options, correctOptionIds: options.filter((_, index) => source.options[index].correct).map(option => option.id) } };
-            } else {
+            } else if (source.type === 'hotspot') {
+                const regions = source.regions.map(({ correct, ...region }, index) => ({ id: id('region', slug, source.id, String(index + 1)), ...region }));
+                // Imagem licenciada entra pelo cadastro e conta como usada; diagrama entra pelo registro do app.
+                const imageRef = source.diagramId !== undefined ? diagramRef(source.diagramId) : licensedImage(source.imageId ?? '').id;
+                interaction = { ...base, type: 'hotspot', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, imageRef, regions, correctRegionIds: regions.filter((_, index) => source.regions[index].correct).map(region => region.id) } };
+            } else if (source.type === 'label') {
+                const points = source.points.map((point, index) => ({ id: id('point', slug, source.id, String(index + 1)), x: point.x, y: point.y, where: point.where }));
+                const labels = [...source.points.map(point => point.label), ...(source.distractors ?? [])]
+                    .map((text, index) => ({ id: id('label', slug, source.id, String(index + 1)), label: text }));
+                const answers = points.map((_, index) => labels[index].id);
+                const imageRef = source.diagramId !== undefined ? diagramRef(source.diagramId) : licensedImage(source.imageId ?? '').id;
+                interaction = { ...base, type: 'label', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, imageRef, points: points.map((point, index) => ({ ...point, correctLabelId: answers[index] })),
+                        labels: labelBankOrder(labels, answers, interactionId) } };
+            } else if (source.type === 'risk-hunt') {
+                const regions = source.regions.map(({ risk, feedback, ...region }, index) => ({ id: id('region', slug, source.id, String(index + 1)), ...region, explanation: feedback }));
+                const imageRef = source.diagramId !== undefined ? diagramRef(source.diagramId) : licensedImage(source.imageId ?? '').id;
+                interaction = { ...base, type: 'risk-hunt', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, imageRef, regions, riskRegionIds: regions.filter((_, index) => source.regions[index].risk).map(region => region.id) } };
+            } else if (source.type === 'blitz') {
+                const statements = source.statements.map((statement, index) => ({
+                    id: id('statement', slug, source.id, String(index + 1)), text: statement.text, isTrue: statement.correct, explanation: statement.feedback }));
+                interaction = { ...base, type: 'blitz', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, statements, passCount: statements.length - 1 } };
+            } else if (source.type === 'conversation') {
+                const turns = source.turns.map((turn, turnIndex) => {
+                    const options = turn.options.map((option, index) => ({ id: id('option', slug, source.id, `${turnIndex + 1}${LETTERS[index]}`), label: option.label, reply: option.reply }));
+                    return { id: id('turn', slug, source.id, String(turnIndex + 1)), line: turn.line, options,
+                        correctOptionId: options[turn.options.findIndex(option => option.correct)]?.id ?? '' };
+                });
+                interaction = { ...base, type: 'conversation', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, speaker: source.speaker, ...(source.name ? { name: source.name } : {}), turns } };
+            } else if (source.type === 'bench') {
+                const { simulator, mode, controls, goal, phantomLabel, hints } = source;
+                interaction = { ...base, type: 'bench', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, simulator, mode, controls, goal, phantomLabel, hints } };
+            } else if (source.type === 'parameter-lab') {
+                const { model, start, goal, hints } = source;
+                interaction = { ...base, type: 'parameter-lab', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
+                    payload: { prompt: source.prompt, model, start, goal, hints } };
+            } else if (source.type === 'matching') {
                 interaction = { ...base, type: 'matching', feedback: { correct: source.feedbackCorrect, incorrect: source.feedbackIncorrect },
                     payload: { prompt: source.prompt, pairs: source.pairs.map((pair, index) => ({ id: id('pair', slug, source.id, String(index + 1)), ...pair })) } };
+            } else {
+                throw new Error(`rtg-batch-unknown-type:${(source as { type: string }).type}`);
             }
             // A afirmação cita a fonte do próprio item, que é um subconjunto das fontes da aula.
             claims.push(...wideInteractionClaims(interaction, source.sourceIds.map(sourceId)));
@@ -228,6 +298,7 @@ export function buildRtgBatch(doc: RtgUnitSource, images: readonly EditorialLice
             } },
             { kind: 'presentation', id: id('step', slug, 'conceito'), role: 'concept', payload: {
                 title: lesson.concept.title, body: lesson.concept.body, keyPoints: lesson.concept.keyPoints,
+                ...(lesson.concept.visual !== undefined ? { visual: lesson.concept.visual } : {}),
             } },
             ...interactionSteps,
             { kind: 'presentation', id: id('step', slug, 'fecho'), role: 'closing', payload: {

@@ -37,7 +37,7 @@ Falas de até 200 caracteres. A cena de abertura cria a situação concreta da a
 
 1. `objective`: "Hoje você vai conseguir …" (uma frase, ação observável).
 2. `scene`: abertura em diálogo (2 a 4 falas) num cenário (`setting`).
-3. `concept`: título + corpo de até 110 palavras + 2 ou 3 `keyPoints` curtos. Ensina antes de cobrar.
+3. `concept`: título + corpo de até 110 palavras + 2 ou 3 `keyPoints` curtos. Ensina antes de cobrar. Opcional: `visual`, o id de um diagrama do catálogo (seção 3b); em unidade nova, o corpo com `visual` tem até 80 palavras.
 4. `interactions`: **exatamente 5**, com **ao menos 3 tipos diferentes**, nesta progressão:
    - i1 `role: "prerequisite"`: recupera algo de aula anterior (na primeira aula da trilha, um conhecimento do cotidiano).
    - i2 `prediction` ou `practice`; i3 `practice`; i4 `practice` ou `safety`; i5 `transfer` (situação nova, sem dica).
@@ -54,6 +54,7 @@ Tipos de interação:
 - `comparison`: `prompt`, `options[2 a 4]` (`label` neutro, `imageId`, `correct`, `feedback`), `help`. Cada `imageId` existe em `content-manifest/rtg-2026/imagens.json`, com licença CC0 ou CC BY conferida. O item só afirma o que a descrição da imagem no acervo sustenta.
 
 - `cloze`, `true-false`, `categorize`, `multi-select`: famílias da 1.6, descritas na seção 3a.
+- `hotspot`, `label`, `risk-hunt`, `conversation`, `blitz`, `bench`, `parameter-lab`: formatos da trilha dobrada, descritos na seção 3b, com a regra de figura e o catálogo de diagramas.
 
 `help` é uma pista que orienta o raciocínio sem entregar a resposta.
 
@@ -169,8 +170,581 @@ lista"); só uma correta ("de 2 a 3 corretas").
 
 Continua valendo: 5 interações, ao menos 3 tipos, i1 `prerequisite`. Em M01 a M03 a meta
 da 1.6 é ao menos duas famílias novas por aula, nenhuma família três vezes seguidas e a
-i1 em múltipla escolha, porque a tela de revisão só sabe mostrar múltipla escolha. Para
-unidades novas, mantenha ao menos uma múltipla escolha por aula pelo mesmo motivo.
+i1 em múltipla escolha, porque a tela de revisão só sabe mostrar múltipla escolha. Desde
+2026-11-19 o verificador exige ao menos uma `multiple-choice` em toda aula (seção 3b).
+
+## 3b. Formatos da trilha dobrada (ADR-2026-11-19)
+
+Decisões e porquês em
+[`docs/adr/ADR-2026-11-19-formatos-da-trilha-dobrada.md`](../adr/ADR-2026-11-19-formatos-da-trilha-dobrada.md).
+São sete formatos de interação (`hotspot`, `label`, `risk-hunt`, `conversation`,
+`blitz`, `bench`, `parameter-lab`) e o `visual` do conceito. **Cada um só entra se o
+aluno recupera ou decide algo com ele.** Formato novo usado como enfeite, sem pedir
+que o aluno lembre ou decida, é o fracasso que a especificação da trilha dobrada
+nomeia: um `hotspot` para tocar numa parte que o conceito acabou de nomear, sem
+pergunta que a localize, é exatamente isso. Antes de escolher, responda: o que o
+aluno precisa lembrar ou decidir aqui, e este formato cobra isso melhor que uma
+múltipla escolha?
+
+As garantias abaixo são as do verificador (`scripts/content/rtg-lesson-lint.mjs`).
+Onde o guia diz "o verificador exige", há uma linha lá que exige; o que depende do
+autor e o verificador não confere vem marcado como **cuidado do autor**.
+
+Valem para os sete: `prompt` de 20 a 300 caracteres, `help` de 15 a 200,
+`feedbackCorrect` e `feedbackIncorrect` de 25 a 260 **e diferentes entre si**,
+`sourceIds` com fonte da unidade, `role: "safety"` junto com `criticalSafety: true`
+(e só nesse caso). Nos sete, chave que não está na lista de cada formato reprova
+("campo desconhecido").
+
+### Figura: imagem ou diagrama
+
+`hotspot`, `label` e `risk-hunt` mostram uma figura. Use **exatamente um** de
+`imageId` (imagem licenciada de `content-manifest/rtg-2026/imagens.json`, com licença
+CC0 ou CC BY conferida) ou `diagramId` (um dos 16 diagramas da tabela abaixo). Os dois
+juntos, ou nenhum, reprovam; id fora do acervo ou do catálogo também.
+
+**Régua de toque.** Todo alvo (ponto ou região) tem uma área de toque de 44 pt:
+o alvo é ampliado em torno do centro até 44 pt de lado, se for menor. O verificador
+mede a figura com 280 pt de largura e exige duas coisas: a área de toque **cabe
+inteira dentro da figura** (nenhum alvo colado na borda) e **não se sobrepõe à de
+outro alvo** (dois alvos nunca ficam colados; encostar na borda não conta como
+sobreposição). A régua antiga do plano, "0,16 entre centros", foi trocada por esta;
+vale o verificador.
+
+Numa figura 4:3, como os 16 diagramas (280 × 210 pt na régua), 44 pt são 0,157 da
+largura e 0,21 da altura. Na prática:
+
+- **ponto** (`label`): `x` de 0,08 a 0,92 e `y` de 0,11 a 0,89; dois pontos só ficam
+  bem se os centros distam 0,16 ou mais em `x`, ou 0,21 ou mais em `y`;
+- **região** (`hotspot`, `risk-hunt`): `width` e `height` de 0,08 ou mais, `x + width`
+  e `y + height` até 1; numa região maior que 44 pt a área de toque é a própria
+  região, então duas regiões vizinhas precisam de centros afastados por metade da
+  soma dos tamanhos;
+- imagem com outra proporção: o verificador usa `width` e `height` do cadastro dela.
+
+Rótulo de alvo: de 2 a 40 caracteres, sem repetir dentro da interação.
+
+**Cuidado do autor.** Em `hotspot`, `label` e `risk-hunt` a figura lê o rótulo da
+própria interação, e não o `alt` do acervo nem o do catálogo, para a descrição não
+entregar a resposta; a informação de posição chega ao leitor de tela pelos rótulos dos
+alvos e pelo `where`, então escreva-os para serem entendidos sem ver a figura. Só o
+`visual` do conceito lê o `alt` do catálogo: confira que ele não entrega a resposta de
+nenhuma interação da aula. Os alvos não acompanham movimento: para `hotspot`, `label` e
+`risk-hunt`, prefira diagrama parado.
+
+### Catálogo de diagramas
+
+Texto do `alt` resumido. **Parado** não tem movimento. **Laço** repete sozinho; com
+"reduzir movimento" o aluno vê um quadro só. **Dirigido** só se move por um controle
+(`parameter-lab`); fora dele aparece parado, no quadro inicial. Nenhum diagrama tem
+texto dentro: o rótulo vem do conteúdo.
+
+| id | Tipo | O que mostra |
+| --- | --- | --- |
+| `tubo-raios-x` | parado | Tubo de raios X: o filamento do cátodo emite elétrons para o ânodo, e o feixe sai pela janela. |
+| `sala-com-riscos` | parado | Sala de raios X de frente: porta aberta sob a lâmpada acesa, tubo com campo de luz sobre o paciente, acompanhante, operador atrás do biombo e avental. |
+| `colimador-abrindo` | laço | Duas lâminas abaixo do tubo se afastam e o campo de luz sobre o receptor se alarga. |
+| `tubo-emitindo` | laço | Elétrons correm do filamento ao alvo do ânodo e, do ponto de impacto, fótons saem pela janela. |
+| `feixe-atenuando` | laço | Feixe atravessa tecido mole com um osso: atrás do osso chegam poucos fótons e o receptor fica menos exposto. |
+| `radiacao-espalhada` | laço | O feixe primário atravessa o paciente até o receptor; dentro do corpo, fótons mudam de direção e saem para os lados, mais fracos. |
+| `grade-antidifusora` | laço | Fótons primários retos passam entre as lâminas da grade; os espalhados, oblíquos, param nelas. |
+| `foco-e-penumbra` | laço | O ponto focal alterna entre pequeno e grande, e a faixa borrada na borda da sombra alarga e estreita. |
+| `corte-tomografico-girando` | laço | Tomógrafo de frente: o paciente fica parado no centro do anel, e o tubo e o arco de detectores giram juntos. |
+| `precessao-rm` | laço | Próton com o eixo inclinado em relação ao campo B0; na vista de cima, a ponta do eixo gira em círculo. |
+| `eco-ultrassom` | laço | O transdutor emite um pulso que desce; na interface entre dois tecidos, parte volta como eco e parte segue mais fraca. |
+| `detector-convertendo` | laço | Detector digital indireto em corte: raios X descem ao cintilador, que os converte em luz; o fotodiodo a converte em carga, lida pela matriz. |
+| `compressao-mama` | laço | Mamografia de perfil: a bandeja desce e achata a mama; as estruturas internas se separam. |
+| `inverso-do-quadrado` | dirigido | Fonte emite um feixe em cone; o detector se afasta e a área iluminada por ele cresce. Modelo `inverse-square`. |
+| `blindagem-camadas` | dirigido | Feixe atravessa placas de blindagem; a cada placa a intensidade cai à metade. Modelo `shielding`. |
+| `decaimento-radioativo` | dirigido | Sessenta e quatro átomos; a cada meia-vida, metade dos que restavam apaga. Modelo `decay`. |
+
+### `hotspot` (tocar na região)
+
+**O aluno** toca na região da figura que responde à pergunta.
+**Use** quando a competência é localizar algo pela posição ou pela função: onde os
+elétrons batem, qual parte recebe o feixe. **Não use** quando o conceito já deu a
+localização em texto e a pergunta só a repete, nem para nomear partes (isso é `label`).
+
+Verificador: de 3 a 6 regiões, todas com `width` e `height`; de 1 a 2 regiões com
+`"correct": true` (o valor é sempre `true`, nunca `false`) e ao menos 2 sem a marca;
+chaves aceitas: `label`, `x`, `y`, `width`, `height`, `correct`, mais as comuns,
+`imageId`/`diagramId`; régua de toque acima.
+
+**Cuidado do autor.** O app oferece uma lista textual com o rótulo de cada região
+("Selecionar <rótulo> na lista"): é o que o leitor de tela ouve. O rótulo nomeia a
+parte, sem julgar nem dizer o que ela faz na pergunta ("Ânodo", e não "Ânodo, onde o
+feixe nasce").
+
+```json
+{
+  "id": "i2",
+  "type": "hotspot",
+  "role": "practice",
+  "prompt": "Toque na parte do tubo onde os elétrons batem e o feixe de raios X nasce.",
+  "diagramId": "tubo-raios-x",
+  "regions": [
+    { "label": "Cátodo com filamento", "x": 0.24, "y": 0.32, "width": 0.15, "height": 0.23 },
+    { "label": "Ânodo", "x": 0.66, "y": 0.32, "width": 0.13, "height": 0.24, "correct": true },
+    { "label": "Janela de saída", "x": 0.61, "y": 0.66, "width": 0.15, "height": 0.09 },
+    { "label": "Ampola de vidro", "x": 0.09, "y": 0.25, "width": 0.09, "height": 0.38 }
+  ],
+  "feedbackCorrect": "Isso mesmo: os elétrons batem no ânodo, e é dali que sai o feixe útil.",
+  "feedbackIncorrect": "Essa parte não recebe o impacto: procure onde os elétrons do cátodo chegam.",
+  "help": "Procure onde os elétrons chegam depois de saírem do filamento.",
+  "sourceIds": ["iaea-ssg46-2018"]
+}
+```
+
+### `label` (rotular pontos)
+
+**O aluno** liga fichas de nome aos pontos da figura, tocando na ficha e no ponto.
+**Use** para nomear as partes de um esquema que a aula ensinou. **Não use** com mais
+de seis partes, nem quando os pontos só se distinguem por um detalhe que o aluno não
+consegue ver.
+
+Verificador: de 3 a 6 `points` com `label`, `x`, `y` e `where`; de 0 a 2 `distractors`
+(fichas a mais, sem ponto); nenhum rótulo repetido entre pontos e distratores. `where`
+tem de 8 a 60 caracteres, é único por ponto e **não pode conter o rótulo de nenhum
+ponto** (a conferência ignora acento e caixa).
+
+**Cuidado do autor.** Quem usa leitor de tela não vê a figura: ouve "Ponto N,
+<where>, rótulo X". Por isso o `where` descreve **posição ou forma**, sem nomear a
+parte ("à direita, o bloco inclinado atingido pelos elétrons", e não "o ânodo"), e
+nenhum `where` julga a situação. O verificador só barra o rótulo escrito por inteiro dentro do `where`; uma descrição
+que entrega a função por outro caminho passa, e é você quem a evita.
+
+```json
+{
+  "id": "i3",
+  "type": "label",
+  "role": "practice",
+  "prompt": "Rotule as quatro partes do tubo de raios X, tocando na ficha e no ponto.",
+  "diagramId": "tubo-raios-x",
+  "points": [
+    {
+      "label": "Cátodo com filamento",
+      "x": 0.28,
+      "y": 0.44,
+      "where": "à esquerda, a espiral dentro da capa"
+    },
+    {
+      "label": "Ânodo",
+      "x": 0.72,
+      "y": 0.44,
+      "where": "à direita, o bloco inclinado atingido pelos elétrons"
+    },
+    {
+      "label": "Janela de saída",
+      "x": 0.68,
+      "y": 0.71,
+      "where": "embaixo à direita, a abertura no vidro"
+    },
+    {
+      "label": "Ampola de vidro",
+      "x": 0.375,
+      "y": 0.71,
+      "where": "a parede curva que envolve todo o conjunto"
+    }
+  ],
+  "distractors": ["Fio de aterramento"],
+  "feedbackCorrect": "Isso mesmo: cada parte do tubo tem uma função própria.",
+  "feedbackIncorrect": "Alguma parte está no lugar errado: releia o que cada uma faz no tubo.",
+  "help": "Comece pela parte que emite os elétrons.",
+  "sourceIds": ["esr-efrs-seguranca-2019"]
+}
+```
+
+### `risk-hunt` (caça ao erro)
+
+**O aluno** marca **todas** as regiões de risco de uma cena e confere.
+**Use** para reconhecer situação insegura numa cena de rotina (sala, preparo, uso de
+material). Costuma ser `role: "safety"`, com `criticalSafety: true`. **Não use** se a
+cena não tem pelo menos duas situações de risco distintas, nem para pedir conduta
+clínica: o aluno reconhece o risco e, diante dele, avisa a equipe (regra 3).
+
+Verificador: de 4 a 6 regiões com `label`, `x`, `y`, `width`, `height`, `risk`
+(booleano) e `feedback`; de 2 a n−1 com `risk: true` (ao menos uma região sem risco,
+senão marcar tudo acerta); **as primeiras regiões da lista não podem ser todas de
+risco** (intercale); `feedback` de 25 a 260 caracteres e diferente em cada região.
+
+**Cuidado do autor.** O rótulo descreve a situação sem julgar ("Porta da sala
+aberta", e não "Porta aberta, perigo"). O `feedback` de cada região, com risco ou
+sem, explica por que aquela situação é ou não um risco, pois o retorno diz ao aluno
+o que faltou marcar e o que foi marcado a mais.
+
+```json
+{
+  "id": "i4",
+  "type": "risk-hunt",
+  "role": "safety",
+  "criticalSafety": true,
+  "prompt": "Toque em todas as situações de risco que você vê na sala de raios X.",
+  "diagramId": "sala-com-riscos",
+  "regions": [
+    {
+      "label": "Porta da sala aberta",
+      "x": 0.02,
+      "y": 0.08,
+      "width": 0.15,
+      "height": 0.82,
+      "risk": true,
+      "feedback": "A porta aberta com a lâmpada acesa expõe o corredor à radiação espalhada: a porta fica fechada na exposição."
+    },
+    {
+      "label": "Operador atrás do biombo",
+      "x": 0.7,
+      "y": 0.43,
+      "width": 0.17,
+      "height": 0.47,
+      "risk": false,
+      "feedback": "Atrás do biombo o operador fica protegido do espalhamento e acompanha o paciente pelo vidro."
+    },
+    {
+      "label": "Campo de luz sobre o paciente inteiro",
+      "x": 0.18,
+      "y": 0.26,
+      "width": 0.33,
+      "height": 0.4,
+      "risk": true,
+      "feedback": "Um campo que cobre o paciente inteiro expõe tecido sem necessidade: o campo se fecha até a região de interesse."
+    },
+    {
+      "label": "Acompanhante ao lado da mesa",
+      "x": 0.56,
+      "y": 0.45,
+      "width": 0.1,
+      "height": 0.45,
+      "risk": true,
+      "feedback": "Quem fica ao lado da mesa na exposição recebe radiação espalhada: sem necessidade, sai da sala ou se protege."
+    },
+    {
+      "label": "Avental no suporte",
+      "x": 0.85,
+      "y": 0.17,
+      "width": 0.11,
+      "height": 0.24,
+      "risk": false,
+      "feedback": "O avental guardado no suporte não expõe ninguém: o cuidado é pendurá-lo para não dobrar nem rachar."
+    }
+  ],
+  "feedbackCorrect": "Isso mesmo: você achou os riscos da sala e deixou de fora o que está certo.",
+  "feedbackIncorrect": "Releia a cena: algum risco ficou de fora, ou uma situação correta foi marcada.",
+  "help": "Procure quem ou o que fica ao alcance do feixe e do espalhamento durante a exposição.",
+  "sourceIds": ["esr-efrs-seguranca-2019"]
+}
+```
+
+### `conversation` (conduzir uma conversa)
+
+**O aluno** responde a um personagem em 2 ou 3 turnos, escolhendo a fala certa em
+cada um.
+**Use** para situações de comunicação: orientar, pedir ajuda, avisar a supervisão,
+tranquilizar sem prometer o que não cabe ao estudante. **Não use** para cobrar um
+fato isolado (isso é múltipla escolha) nem para o personagem entregar o conteúdo em
+fala: a resposta certa é uma decisão, não a repetição do conceito.
+
+Verificador: `speaker` é `lia`, `caio`, `duda` ou `paciente` (o `pixel` é o guia, não
+interlocutor); `name` é obrigatório se for `paciente` e leva nome fictício; de 2 a 3
+`turns`, cada um com `line` (até 200 caracteres) e de 2 a 3 `options`, **exatamente
+uma correta**, com `label` (até 120), `correct` e `reply` (até 200). Em cada turno:
+rótulos diferentes, `reply` diferente em cada opção e a correta **não é a mais longa
+do turno** (empate passa). A resposta correta não cai na mesma posição em todos os
+turnos. Chaves do item: `speaker`, `name`, `turns`, mais as comuns.
+
+**Cuidado do autor.** A `reply` é cena, e não veredito. O verificador barra
+"certo", "errado", "correto", "incorreto", "acertou" e "errou" na reação, mas nada
+impede "Perfeito, era isso!" ou "Hum, não sei". Escreva a reação como o personagem
+reagiria sem saber a resposta: ele entende, hesita, pergunta de volta. O rosto do
+personagem é igual para escolha certa e errada até a conferência (ADR, decisão 6);
+a reação escrita precisa manter essa regra.
+
+```json
+{
+  "id": "i2",
+  "type": "conversation",
+  "role": "practice",
+  "speaker": "duda",
+  "prompt": "Duda está no primeiro dia de estágio. Ajude-a a conduzir o turno com o dosímetro individual.",
+  "turns": [
+    {
+      "line": "Cheguei na sala e não sei onde prender o meu dosímetro individual. Onde ele fica?",
+      "options": [
+        {
+          "label": "Qualquer lugar serve, o importante é estar com você no turno.",
+          "correct": false,
+          "reply": "Então fico tranquila e deixo no bolso."
+        },
+        {
+          "label": "Prenda na altura do tronco, como o plano do setor manda.",
+          "correct": true,
+          "reply": "Entendi, vou prender aí agora."
+        },
+        {
+          "label": "Deixe guardado no armário durante todo o exame.",
+          "correct": false,
+          "reply": "Mas eu queria conferir a leitura depois."
+        }
+      ]
+    },
+    {
+      "line": "E se eu esquecer o dosímetro em casa? Posso entrar na sala assim mesmo?",
+      "options": [
+        {
+          "label": "Avise a supervisão antes: sem dosímetro, não entre.",
+          "correct": true,
+          "reply": "Combinado, falo com a supervisão agora."
+        },
+        {
+          "label": "Entre sem ele e anote depois que esqueceu em casa.",
+          "correct": false,
+          "reply": "Tá, então eu anoto no fim do turno."
+        },
+        {
+          "label": "Pegue o de um colega só por hoje, para não atrasar.",
+          "correct": false,
+          "reply": "Vou pedir emprestado, então."
+        }
+      ]
+    }
+  ],
+  "feedbackCorrect": "Isso mesmo: o dosímetro fica no tronco, e sem ele você avisa antes de entrar.",
+  "feedbackIncorrect": "Reveja o turno: o uso segue o plano do setor, e a falta do dosímetro se avisa antes.",
+  "help": "Pense no que o plano de proteção do setor pede de cada pessoa.",
+  "sourceIds": ["iaea-ssg46-2018"]
+}
+```
+
+### `blitz` (rodada rápida)
+
+**O aluno** responde verdadeiro ou falso a uma sequência de afirmações curtas, uma por
+vez, com retorno logo após cada toque.
+**Use** para recuperar com agilidade o que a aula já ensinou e separar ideias que se
+confundem. **Não use** para conteúdo novo, nem com afirmação cujo valor "depende":
+em tempo curto não há espaço para a nuance.
+
+Verificador: de 6 a 8 `statements` com `text` (de 15 a 110 caracteres), `correct`
+(booleano) e `feedback` (de 25 a 260); de 2 a n−2 verdadeiras; **as três primeiras não
+podem ter a mesma resposta**; as respostas **não podem alternar do começo ao fim**;
+afirmação e retorno sem repetir. Chaves: `statements`, mais as comuns.
+
+**Cuidado do autor.** O relógio é do app: não se escreve tempo no JSON. Ele desliga
+sozinho com leitor de tela e com "reduzir movimento", e o aluno pode desligá-lo; por
+isso a afirmação precisa ser legível sem pressa. O `blitz` não cobra vida, mas é
+barrado para quem está sem vidas, como os outros formatos.
+
+```json
+{
+  "id": "i3",
+  "type": "blitz",
+  "role": "practice",
+  "prompt": "Responda verdadeiro ou falso a cada afirmação sobre a proteção no turno.",
+  "statements": [
+    {
+      "text": "Quanto maior a distância da fonte, menor é a dose recebida.",
+      "correct": true,
+      "feedback": "Longe da fonte a dose cai, porque a radiação se espalha por uma área maior."
+    },
+    {
+      "text": "O dosímetro individual reduz a dose que a pessoa recebe.",
+      "correct": false,
+      "feedback": "O dosímetro só registra a dose; quem a reduz é a distância, o tempo e a blindagem."
+    },
+    {
+      "text": "O avental de chumbo protege o tronco da radiação espalhada.",
+      "correct": true,
+      "feedback": "O avental cobre o tronco e atenua a radiação que se espalha na sala."
+    },
+    {
+      "text": "Material com rachadura sai de uso e a supervisão é avisada.",
+      "correct": true,
+      "feedback": "Material danificado não protege direito e o aviso evita que o problema se esconda."
+    },
+    {
+      "text": "Quanto mais tempo na sala durante a exposição, menor é a dose.",
+      "correct": false,
+      "feedback": "Mais tempo de exposição aumenta a dose; reduzir o tempo reduz a dose."
+    },
+    {
+      "text": "Registrar o uso do dosímetro é opcional em turnos curtos.",
+      "correct": false,
+      "feedback": "O registro vale em todo turno, porque mostra o uso e o desgaste do material."
+    }
+  ],
+  "feedbackCorrect": "Isso mesmo: você separou o que protege do que expõe, no ritmo da rodada.",
+  "feedbackIncorrect": "Reveja as afirmações: cada uma tem a própria explicação no retorno.",
+  "help": "Leia cada afirmação com calma antes de responder.",
+  "sourceIds": ["esr-efrs-seguranca-2019"]
+}
+```
+
+### `bench` (bancada)
+
+**O aluno** move um ou dois controles de um simulador e vê o efeito na imagem do
+fantoma, até cumprir a meta.
+**Use** para a relação entre um ajuste e a imagem (tensão e contraste, tamanho do
+campo e área exposta). **Não use** para o aluno escolher a técnica de um paciente: a
+bancada é demonstração, e a regra 3 continua valendo.
+
+Verificador:
+
+- `simulator`: `exposure` (controles `kv` e `mas`) ou `collimation` (`fieldWidth` e
+  `fieldHeight`); `mode`: `explore`, `challenge` ou `correct`;
+- `phantomLabel` de 3 a 60 caracteres;
+- de 1 a 2 `controls`, cada um com `id` do simulador escolhido, `label` (2 a 40),
+  `unit` (até 12), `min` menor que `max`, `step` positivo e `initial` dentro da faixa;
+  sem controle repetido;
+- `hints.tooLow` e `hints.tooHigh`, de 25 a 260 caracteres e diferentes: cada lado do
+  erro tem a dica própria;
+- `goal` de um destes dois tipos. **`reach`**: `control`, e `atLeast` e/ou `atMost`,
+  dentro da faixa do controle; a meta **não pode valer no ponto de partida** e algum
+  passo do controle precisa cair dentro dela. **`match`**: só em `exposure` e só em
+  `mode: "challenge"` (único que mostra a imagem de referência), com `reference`
+  (`kv` e `mas`) e `tolerance` positiva; a referência não pode já ser igual ao ponto
+  de partida.
+
+```json
+{
+  "id": "i2",
+  "type": "bench",
+  "role": "practice",
+  "prompt": "Suba a tensão do tubo até 90 kV e veja o contraste do fantoma mudar.",
+  "simulator": "exposure",
+  "mode": "challenge",
+  "controls": [
+    {
+      "id": "kv",
+      "label": "Tensão",
+      "unit": "kV",
+      "min": 40,
+      "max": 120,
+      "step": 10,
+      "initial": 60
+    }
+  ],
+  "goal": { "kind": "reach", "control": "kv", "atLeast": 90 },
+  "phantomLabel": "Fantoma simulado",
+  "hints": {
+    "tooLow": "Ainda falta tensão: suba o kV até o contraste aparecer.",
+    "tooHigh": "Passou do ponto: desça o kV até o alvo."
+  },
+  "feedbackCorrect": "Isso mesmo: com 90 kV o feixe atravessa o fantoma e o contraste aparece.",
+  "feedbackIncorrect": "Ainda não chegou: observe a imagem enquanto muda o kV e compare com o alvo.",
+  "help": "Veja se a medida acompanha a pessoa ou fica no lugar.",
+  "sourceIds": ["iaea-ssg46-2018"]
+}
+```
+
+O `help` deste exemplo e o do `parameter-lab` abaixo vêm da unidade sintética e não
+falam do controle. No seu, o `help` orienta o raciocínio sobre o ajuste, sem dar o
+valor.
+
+### `parameter-lab` (laboratório de parâmetros)
+
+**O aluno** move um controle e vê, no desenho e em leituras relativas, o efeito de um
+modelo simplificado, até chegar à meta.
+**Use** para uma relação contínua entre uma grandeza e seu efeito: distância e
+intensidade, camadas de blindagem e radiação que passa, meias-vidas e atividade.
+**Não use** para dose de paciente (nunca) nem para relação que o modelo não cobre.
+
+Verificador: `model` é `inverse-square` (Distância, 1 a 4 m, de 0,5 em 0,5), `shielding`
+(camadas semirredutoras, 0 a 5, de 1 em 1) ou `decay` (meias-vidas, 0 a 6, de 1 em 1).
+`start` e os limites da `goal` precisam estar nessa grade. A `goal` tem `atLeast`
+e/ou `atMost` (chaves só essas; `atLeast` não passa de `atMost`) e **não pode valer
+no `start`**. `hints.tooLow` e `hints.tooHigh` como na bancada. Chaves: `model`, `start`,
+`goal`, `hints`, mais as comuns.
+
+**Cuidado do autor.** As leituras são porcentagens do modelo ("Intensidade relativa",
+"Radiação que passa", "Atividade restante"): diga no conceito que **vale só para este
+esquema** (regra 8). Combine o enunciado com a meta: com `atLeast: 2`, qualquer
+distância de 2 m para cima vale; se o enunciado pede "um quarto", use `atLeast` e
+`atMost` iguais a 2.
+
+```json
+{
+  "id": "i3",
+  "type": "parameter-lab",
+  "role": "practice",
+  "prompt": "Afaste a fonte até a intensidade cair a um quarto da inicial.",
+  "model": "inverse-square",
+  "start": 1,
+  "goal": { "atLeast": 2 },
+  "hints": {
+    "tooLow": "Ainda perto demais: afaste mais a fonte do ponto de medida.",
+    "tooHigh": "Afastou além do necessário: aproxime um pouco a fonte."
+  },
+  "feedbackCorrect": "Isso mesmo: dobrando a distância, a intensidade cai a um quarto.",
+  "feedbackIncorrect": "Ainda não chegou: observe a leitura enquanto muda a distância.",
+  "help": "Leia cada afirmação com calma antes de julgar.",
+  "sourceIds": ["esr-efrs-seguranca-2019"]
+}
+```
+
+### `visual` do conceito
+
+`concept.visual` aceita o id de um diagrama do catálogo. O diagrama aparece no
+conceito, e o verificador confere só que o id existe. **Use** quando o movimento ou a
+disposição espacial explica o que o texto sozinho não explica, e o corpo diz o que o
+diagrama mostra. **Não use** como ilustração solta: se tirar o diagrama e nada se
+perde, ele era enfeite. Prefira o que explica a ideia também parado, porque com
+"reduzir movimento" o aluno vê um quadro só.
+
+**Em unidade nova, o corpo do conceito com `visual` tem até 80 palavras** (o
+diagrama assume parte da explicação). Sem `visual`, ou nas 24 unidades de hoje
+(lista `LEGACY_UNITS` no verificador), o limite segue 110. O `keyPoints` não muda.
+
+```json
+{
+  "title": "Como cuidar do colimador",
+  "body": "Cuidar do colimador começa por conferir o estado do material. Depois você compara com o plano de proteção do setor, anota o uso e guarda no lugar certo. Quando algo não bate, a atitude certa é avisar a supervisão, sem esconder o problema.",
+  "keyPoints": ["Conferir vem antes de usar.", "Dano se avisa, não se esconde."],
+  "visual": "colimador-abrindo"
+}
+```
+
+### Réguas novas que valem para toda aula
+
+- **Toda aula tem ao menos uma `multiple-choice`** (a `case-decision` não conta).
+  A tela de revisão espaçada só sabe mostrar múltipla escolha, e a medição mostrou
+  que uma aula sem nenhuma deixa cartas de revisão que nunca são limpas; a conta está
+  em
+  [`docs/evidence/2026-11-19-formatos/medicao-revisao-espacada.md`](../evidence/2026-11-19-formatos/medicao-revisao-espacada.md).
+  Só a M05.06, já publicada assim, é isenta.
+- **Conceito com `visual` em unidade nova: até 80 palavras** (acima).
+- Figura com exatamente um de `imageId` e `diagramId`, e alvos que passam na régua de
+  toque de 44 pt (acima).
+
+### As metas da trilha dobrada e como você as ajuda a cumprir
+
+Mede-se tudo com `node scripts/content/rtg-inventory.mjs` (com `--metas`, o comando
+sai com erro se alguma meta falhar). O inventário lê `content-manifest/rtg-2026/aulas/`:
+a unidade precisa estar lá. Os números abaixo foram medidos em 2026-11-19, antes de
+qualquer unidade nova.
+
+- **Meta 2, menos texto: texto e formatos antigos até 50% dos passos.** Cada aula
+  tem 8 passos: abertura, conceito, fecho e 5 interações. Contam como texto a abertura,
+  o fecho e o conceito sem `visual`, e como antigos a `multiple-choice` e a
+  `case-decision`. Regra de bolso por aula: com `visual` no conceito, até 2 interações
+  de múltipla escolha ou decisão de caso; sem ele, até 1. A meta é da trilha toda,
+  então uma aula acima compensa-se com outra abaixo, mas a régua da múltipla escolha
+  acima já fixa o piso de 1. Hoje: 77,4%.
+- **Meta 3, algo para ver: toda aula de unidade nova tem um passo visual.** Passo
+  visual é conceito com `visual` ou interação `hotspot`, `label`, `risk-hunt`,
+  `comparison`, `bench` ou `parameter-lab`. `conversation` e `blitz` não contam. O
+  inventário lista as unidades novas com aula sem visual. Hoje: 1 de 157 aulas.
+- **Meta 4, variedade: 4 ou mais famílias além de múltipla escolha e decisão de caso
+  por unidade.** Conta tipo diferente de interação na unidade inteira; `ordering`,
+  `matching` e as famílias da 1.6 contam. Hoje: 17 unidades abaixo de 4.
+
+A meta 1 (48 unidades, de 300 a 320 aulas) é da produção, não do autor de uma
+unidade.
+
+### O que ainda não foi visto
+
+Nenhum dos formatos novos, nem os diagramas em movimento, foi visto em simulador ou
+aparelho até 2026-11-19: as telas têm teste de componente e história no Storybook, e
+os laços foram revisados em quadros parados. Som, toque real, VoiceOver e TalkBack
+ficam para a fase E e para o dono. Quando o guia diz "o aluno vê", ele descreve o
+que o código faz, e não o que alguém conferiu em aparelho.
 
 ## 4. Formato do arquivo
 
@@ -215,6 +789,8 @@ unidades novas, mantenha ao menos uma múltipla escolha por aula pelo mesmo moti
 }
 ```
 
+`concept` aceita ainda `visual` (seção 3b). Os formatos novos têm a forma própria descrita lá; os exemplos saem da unidade sintética `scripts/content/fixtures/unidade-formatos.json`, que passa no verificador.
+
 `sources[].use`: `factual-reference` (consulta de fatos, redação própria; vale para normas, páginas institucionais e material com licença restrita) ou `cc-by-4.0` (material CC BY 4.0, com atribuição em `licenseNote`). Fontes preferidas: Anvisa, CNEN, CONTER, Planalto, INCA, Ministério da Saúde, IAEA (RPOP e Human Health Campus), ICRP, NIBIB/NIH, RadiologyInfo, Virginia Tech Applied Human Anatomy (CC BY 4.0), OpenStax University Physics (CC BY 4.0), artigos de acesso aberto. Não use a Wikipédia como fonte única de um fato de segurança.
 
 ## 5. Antes de entregar
@@ -226,6 +802,8 @@ node scripts/content/rtg-lesson-lint.mjs content-manifest/rtg-2026/aulas/<unidad
 ```
 
 O verificador confere forma, não verdade. A exatidão dos fatos é sua responsabilidade: na dúvida, corte o fato.
+
+Depois de a unidade entrar em `content-manifest/rtg-2026/aulas/`, confira as metas da trilha dobrada com `node scripts/content/rtg-inventory.mjs` (seção 3b).
 
 ## 6. Lições da primeira onda (M01 a M07), de 2026-11-06
 
@@ -308,6 +886,8 @@ run loop, git, Metro, tests or simulators. Do not spawn other agents.
 Final reply (max 8 lines): output path; number of lessons; linter result; number of
 sources; any fact you were unsure about or cut; what a reviewer should check first.
 ```
+
+O modelo acima é o da primeira onda, só com texto. Numa unidade da trilha dobrada, troque o item 2: diga quais formatos novos a unidade deve usar, em que aulas, e mande ler a seção 3b.
 
 Os pontos que o autor pede para conferir entram no prompt do revisor. Os de M08 a M14
 estão no [índice dos pareceres](../evidence/2026-11-06-rtg-2026-revisao/README.md).

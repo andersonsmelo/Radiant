@@ -463,11 +463,18 @@ Entrou em 2026-11-15, pelas PRs #71 a #78
   `resolveTrackAccess`, em `journey/services/JourneyTrackUnlockService.ts`, abre
   também a unidade já concluída ou iniciada e a que fica antes da mais avançada
   que o aluno iniciou: unidade inserida no meio não tira acesso de ninguém.
-- **Interações.** O tocador aceita 13 tipos
-  (`radiant-app/src/types/learningActivity.ts`); os quatro novos são `cloze`,
-  `true-false`, `categorize` e `multi-select`. O contrato `wide` aceita nove:
-  `multiple-choice`, `case-decision`, `ordering`, `matching`, `comparison` e os
-  quatro novos ([ADR](adr/ADR-2026-11-13-familias-de-interacao-da-1-6.md)).
+- **Interações.** O tocador aceita 16 tipos
+  (`radiant-app/src/types/learningActivity.ts`); os quatro da 1.6 são `cloze`,
+  `true-false`, `categorize` e `multi-select`
+  ([ADR](adr/ADR-2026-11-13-familias-de-interacao-da-1-6.md)). **Na branch
+  `claude/trilha-dobrada-fase-b`, sem merge (2026-11-19)**, entram `label`,
+  `conversation` e `blitz`, e `hotspot`, `risk-hunt`, `bench` e `parameter-lab` passam
+  a ser aceitos na aula-fonte e no contrato `wide`, junto com 16 diagramas em código
+  (`src/ui/diagrams/`) e o `visual` do conceito
+  ([ADR](adr/ADR-2026-11-19-formatos-da-trilha-dobrada.md); guia em
+  `docs/content/2026-11-05-guia-de-autoria-rtg-2026.md`, seção 3b). O contrato `wide`
+  aceita as 16 famílias. Nenhuma aula publicada usa formato novo ainda, e nenhum foi
+  visto em aparelho.
 - **Personagens.** Elenco de cinco em `src/ui/characters/cast/castRegistry.ts`
   (Pixel, Profa. Lia, Caio, Duda e Paciente), com as expressões `neutro`,
   `feliz`, `pensativo`, `preocupado` e `comemorando`

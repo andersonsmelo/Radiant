@@ -1,6 +1,7 @@
 import type { BenchControl, LearningInteractionV2 } from '../../../types/learningActivity';
 import { isExposureReference } from '../../../types/learningActivity';
 import { exposureModel, subjectContrast } from '../../bench/exposureModel';
+import { isOnLabGrid } from '../../parameter-lab/labModels';
 
 /**
  * O contrato do player transporta uma resposta como `string`. Interações com
@@ -135,6 +136,22 @@ export function benchDirection(
     return kv < goal.reference.kv ? 'tooLow' : 'tooHigh';
 }
 
+/** O valor do controle do laboratório, ou `null` se não for um número na grade do modelo. */
+function labValue(interaction: Extract<LearningInteractionV2, { type: 'parameter-lab' }>, value: string | undefined): number | null {
+    const parsed = value === undefined || value.trim() === '' ? Number.NaN : Number(value);
+    return isOnLabGrid(interaction.payload.model, parsed) ? parsed : null;
+}
+
+/** Para que lado o aluno do laboratório parou: abaixo ou acima da meta. Dentro dela, e fora do contrato, é `ok`. */
+export function labDirection(interaction: LearningInteractionV2, value: string | undefined): 'ok' | 'tooLow' | 'tooHigh' {
+    if (interaction.type !== 'parameter-lab') return 'ok';
+    const current = labValue(interaction, value);
+    const { atLeast, atMost } = interaction.payload.goal;
+    if (current === null) return 'ok';
+    if (atLeast !== undefined && current < atLeast) return 'tooLow';
+    return atMost !== undefined && current > atMost ? 'tooHigh' : 'ok';
+}
+
 function isExactPermutation(actual: string[], expected: string[]): boolean {
     if (actual.length !== expected.length || new Set(actual).size !== actual.length) {
         return false;
@@ -156,6 +173,16 @@ export function decodeTrueFalseValue(value: string | undefined): boolean[] {
     try {
         const parsed: unknown = value ? JSON.parse(value) : [];
         return Array.isArray(parsed) && parsed.every(item => typeof item === 'boolean') ? parsed : [];
+    } catch {
+        return [];
+    }
+}
+
+/** Respostas da rodada rápida, na ordem das afirmações: `true`, `false` ou `null` (tempo esgotado); `[]` para valor inválido. */
+export function decodeBlitzValue(value: string | undefined): (boolean | null)[] {
+    try {
+        const parsed: unknown = value ? JSON.parse(value) : [];
+        return Array.isArray(parsed) && parsed.every(item => item === null || typeof item === 'boolean') ? parsed as (boolean | null)[] : [];
     } catch {
         return [];
     }
@@ -193,6 +220,8 @@ export function isCompleteInteractionValue(
             );
         case 'bench':
             return parseBenchObject(value) !== null;
+        case 'parameter-lab':
+            return labValue(interaction, value) !== null;
         case 'cloze': {
             // Uma posição por lacuna; '' é lacuna vazia.
             const ids = decodeInteractionIdSequence(value);
@@ -209,6 +238,23 @@ export function isCompleteInteractionValue(
         case 'multi-select': {
             const ids = decodeInteractionIdSequence(value);
             return ids.length > 0 && isDistinctSubset(ids, interaction.payload.options.map(option => option.id));
+        }
+        case 'risk-hunt': {
+            const ids = decodeInteractionIdSequence(value);
+            return ids.length > 0 && isDistinctSubset(ids, interaction.payload.regions.map(region => region.id));
+        }
+        case 'blitz':
+            return decodeBlitzValue(value).length === interaction.payload.statements.length;
+        case 'conversation': {
+            // Um id válido por turno: a conversa só fecha com todos os turnos respondidos.
+            const ids = decodeInteractionIdSequence(value);
+            const { turns } = interaction.payload;
+            return ids.length === turns.length && turns.every((turn, index) => turn.options.some(option => option.id === ids[index]));
+        }
+        case 'label': {
+            // Mapa ponto → rótulo: todo ponto rotulado, com rótulo do banco e sem repetir.
+            const assigned = decodeCategorizeValue(value);
+            return isDistinctSubset(interaction.payload.points.map(point => assigned[point.id] ?? ''), interaction.payload.labels.map(entry => entry.id));
         }
         default:
             return false;
@@ -240,6 +286,8 @@ export function isCorrectInteractionValue(
             );
         case 'bench':
             return isBenchGoalMet(interaction, value);
+        case 'parameter-lab':
+            return labDirection(interaction, value) === 'ok';
         case 'cloze':
             return decodeInteractionIdSequence(value).every((id, index) => id === interaction.payload.blanks[index]?.correctTokenId);
         case 'true-false':
@@ -252,6 +300,23 @@ export function isCorrectInteractionValue(
             const ids = decodeInteractionIdSequence(value);
             return ids.length === interaction.payload.correctOptionIds.length
                 && interaction.payload.correctOptionIds.every(id => ids.includes(id));
+        }
+        case 'risk-hunt': {
+            const ids = decodeInteractionIdSequence(value);
+            return ids.length === interaction.payload.riskRegionIds.length && interaction.payload.riskRegionIds.every(id => ids.includes(id));
+        }
+        case 'blitz': {
+            // O tempo esgotado (`null`) nunca é acerto.
+            const given = decodeBlitzValue(value);
+            return interaction.payload.statements.filter((statement, index) => given[index] === statement.isTrue).length >= interaction.payload.passCount;
+        }
+        case 'conversation': {
+            const ids = decodeInteractionIdSequence(value);
+            return interaction.payload.turns.every((turn, index) => ids[index] === turn.correctOptionId);
+        }
+        case 'label': {
+            const assigned = decodeCategorizeValue(value);
+            return interaction.payload.points.every(point => assigned[point.id] === point.correctLabelId);
         }
         default:
             return false;

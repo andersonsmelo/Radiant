@@ -16,9 +16,10 @@ import { readRtgImages, readRtgSources } from '../content/build-rtg-batches.mjs'
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const OUTPUT = path.join(root, 'radiant-app/.maestro/rtg-2026');
 const factory = appContract.loadAppContract('features/student-checkpoints/batches/rtgBatchFactory.ts');
+const { LAB_MODELS } = appContract.loadAppContract('features/parameter-lab/labModels.ts');
 const APP_ID = 'com.ascendcreative.radiant';
 // Os mesmos rótulos de LessonFlowScreen (CHECKED_FAMILIES e confirmationLabel).
-const CHECKED = new Set(['multiple-choice', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select']);
+const CHECKED = new Set(['multiple-choice', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz', 'bench', 'parameter-lab']);
 
 /** O seletor do Maestro é regex de casamento total: todo metacaractere de um rótulo literal leva barra. */
 export const escapeMaestro = text => String(text).replace(/[.?()[\]+*^$|{}\\]/g, '\\$&');
@@ -26,7 +27,7 @@ const quote = text => `'${String(text).replace(/'/g, "''")}'`;
 const text = label => `- tapOn: ${quote(escapeMaestro(label))}`;
 const id = value => `- tapOn:\n    id: ${quote(escapeMaestro(value))}`;
 // Sem `visibilityPercentage`: o contrato só admite uma régua por seletor e esta não mede nenhuma.
-const scrollTo = (kind, value) => `- scrollUntilVisible:\n    element:\n      ${kind}: ${quote(escapeMaestro(value))}`;
+const scrollTo = (kind, value, direction) => `- scrollUntilVisible:\n    element:\n      ${kind}: ${quote(escapeMaestro(value))}${direction ? `\n    direction: ${direction}` : ''}`;
 const tapText = label => [scrollTo('text', label), text(label)];
 const tapId = value => [scrollTo('id', value), id(value)];
 
@@ -75,6 +76,56 @@ function answerCommands(interaction) {
     }
     case 'multi-select':
       return payload.options.filter(option => payload.correctOptionIds.includes(option.id)).flatMap(option => tapId(`multi-select-${option.label}`));
+    case 'hotspot': {
+      // O mesmo rótulo acessível que o HotspotStepRenderer dá à região sobre a figura.
+      const correct = payload.regions.find(region => payload.correctRegionIds.includes(region.id));
+      return tapText(`Selecionar ${correct.label} na imagem`);
+    }
+    case 'risk-hunt':
+      // As mesmas caixas da lista que acompanha a figura (RiskHuntStepRenderer).
+      return payload.regions.filter(region => payload.riskRegionIds.includes(region.id)).flatMap(region => tapId(`risk-hunt-${region.label}`));
+    case 'blitz':
+      // O relógio nasce ligado, salvo com "reduzir movimento" (o launchApp do roteiro o liga) ou leitor de tela; sem ele não há botão. O avanço é sozinho.
+      return [
+        `- runFlow:\n    when:\n      visible: ${quote('Sem tempo')}\n    commands:\n      - tapOn: ${quote('Sem tempo')}`,
+        ...payload.statements.flatMap((statement, index) => [
+          ...(index ? [`- assertVisible: ${quote(`Afirmação ${index + 1} de ${payload.statements.length}`)}`] : []),
+          ...tapId(statement.isTrue ? 'blitz-verdadeiro' : 'blitz-falso'),
+        ]),
+      ];
+    case 'conversation':
+      // Cada resposta certa, na ordem dos turnos; o turno seguinte só aparece depois da escolha.
+      return payload.turns.flatMap(turn => tapId(`conversation-option-${turn.options.find(option => option.id === turn.correctOptionId).label}`));
+    case 'bench': {
+      // O alvo de alcance se cumpre pelos botões Aumentar ou Diminuir do controle, um passo por toque (BenchControlRow); o alvo é
+      // sempre alcançável, porque o limite cabe na faixa e o botão para no extremo. O `match` mede uma imagem e fica fora.
+      const { controls, goal } = payload;
+      if (goal.kind !== 'reach') throw new Error(`rtg-maestro-bench-manual:${interaction.id}`);
+      const control = controls.find(candidate => candidate.id === goal.control);
+      const up = goal.atLeast !== undefined && control.initial < goal.atLeast;
+      const gap = up ? goal.atLeast - control.initial : control.initial - goal.atMost;
+      const label = `${up ? 'Aumentar' : 'Diminuir'} ${control.label}`;
+      return [scrollTo('text', label), ...Array.from({ length: Math.ceil(gap / control.step - 1e-9) }, () => text(label))];
+    }
+    case 'parameter-lab': {
+      // Como na bancada: um passo por toque nos botões Aumentar ou Diminuir. Partida e limites caem na grade do modelo
+      // (o verificador confere), então o botão chega à meta, e a meta nunca vale na partida.
+      const { label, step } = LAB_MODELS[payload.model].parameter;
+      const { start, goal } = payload;
+      const up = goal.atLeast !== undefined && start < goal.atLeast;
+      const gap = up ? goal.atLeast - start : start - goal.atMost;
+      const button = `${up ? 'Aumentar' : 'Diminuir'} ${label}`;
+      return [scrollTo('text', button), ...Array.from({ length: Math.ceil(gap / step - 1e-9) }, () => text(button))];
+    }
+    case 'label': {
+      // Ponto e ficha, na ordem dos pontos. Os pontos ficam acima das fichas: depois de rolar até uma ficha,
+      // o ponto seguinte pede rolagem para cima. shortcut: sem medir em aparelho, trocar se a figura couber junto das fichas.
+      const names = new Map(payload.labels.map(entry => [entry.id, entry.label]));
+      return payload.points.flatMap((point, index) => {
+        const name = `Ponto ${index + 1}, ${point.where}, sem rótulo`;
+        return [scrollTo('text', name, 'UP'), text(name), ...tapId(`label-chip-${names.get(point.correctLabelId)}`)];
+      });
+    }
     default:
       throw new Error(`rtg-maestro-unsupported-family:${type}`);
   }

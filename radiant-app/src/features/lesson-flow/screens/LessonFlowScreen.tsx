@@ -32,6 +32,7 @@ import { COMBO_START, nextCombo, type ComboMilestone } from '../services/lessonC
 import { AnswerFeedbackSheet, revealOffset } from '../components/AnswerFeedbackSheet';
 import { ComboBadge } from '../components/ComboBadge';
 import { DialogueScene, dialogueLineLabel } from '../components/DialogueScene';
+import { ConceptVisual } from '../components/ConceptVisual';
 import { KeyPointsList } from '../components/KeyPointsList';
 import { LessonHelpButton } from '../components/LessonHelpButton';
 import { useShakeError } from '../../../ui/motion';
@@ -69,6 +70,7 @@ import { resolveNodeTheme } from '../../journey/services/resolveNodeTheme';
 import { LessonCatalogService } from '../../content/services/LessonCatalogService';
 import { JourneyDefinitionService } from '../../journey/services/JourneyDefinitionService';
 import { isBenchLessonId } from '../../bench/lessons/BenchLessonCatalog';
+import { labGoalText } from '../../parameter-lab/labModels';
 import { heartLossAnnouncement } from '../../hearts/heartLossAnnouncement';
 import { useUnlimitedExpiry } from '../../conversion/useConversionInvite';
 import type { HeartsSnapshot } from '../../hearts/hearts.types';
@@ -92,18 +94,18 @@ const DEFAULT_HEARTS: HeartsSnapshot = {
 const HEART_LOSS_DELAY_MS = 320;
 
 /** Famílias em que o botão confere a resposta; nas outras, o botão segue (ADR-2026-11-13 acrescenta as quatro da 1.6). */
-const CHECKED_FAMILIES = new Set<LearningInteractionV2['type']>(['multiple-choice', 'bench', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select']);
+const CHECKED_FAMILIES = new Set<LearningInteractionV2['type']>(['multiple-choice', 'bench', 'parameter-lab', 'case-decision', 'cloze', 'true-false', 'categorize', 'multi-select', 'hotspot', 'label', 'risk-hunt', 'conversation', 'blitz']);
 // Rodízio da frase de aula sem erro entre as aulas da mesma abertura do app (F3).
 let perfectLessonTurn = 0;
 // Famílias em que o gesto põe ou tira uma ficha (F3): o mapa decide o som.
-const TOKEN_FAMILIES = new Set<LearningInteractionV2['type']>(['cloze', 'categorize']);
+const TOKEN_FAMILIES = new Set<LearningInteractionV2['type']>(['cloze', 'categorize', 'label']);
 
 /**
  * A resposta certa em texto, para a folha de retorno no erro. Vale também nos
  * formatos que marcam a certa na tela: com enunciado longo, a alternativa certa
  * fica atrás da folha (Tarefa 11). Categorizar já mostra o grupo certo em cada
- * ficha; bancada, laboratório e caça ao risco não têm uma resposta curta e
- * única, e o retorno autoral explica.
+ * ficha; a bancada não tem uma resposta curta e única, e o retorno
+ * autoral explica.
  */
 export function correctAnswerText(interaction: LearningInteractionV2): string | undefined {
     switch (interaction.type) {
@@ -129,6 +131,20 @@ export function correctAnswerText(interaction: LearningInteractionV2): string | 
             const { regions, correctRegionIds } = interaction.payload;
             return correctRegionIds.map(id => regions.find(region => region.id === id)?.label ?? id).join(', ');
         }
+        case 'risk-hunt': {
+            const { regions, riskRegionIds } = interaction.payload;
+            return regions.filter(region => riskRegionIds.includes(region.id)).map(region => region.label).join('; ');
+        }
+        case 'label': {
+            const { points, labels } = interaction.payload;
+            return points.map((point, index) => `${index + 1}: ${labels.find(entry => entry.id === point.correctLabelId)?.label ?? ''}`).join('; ');
+        }
+        case 'blitz':
+            return interaction.payload.statements.map(statement => `${statementStem(statement.text)}: ${statement.isTrue ? 'verdadeiro' : 'falso'}`).join('; ');
+        case 'parameter-lab':
+            return labGoalText(interaction.payload.model, interaction.payload.goal);
+        case 'conversation':
+            return interaction.payload.turns.map(turn => turn.options.find(option => option.id === turn.correctOptionId)?.label ?? '').join('; ');
         case 'cloze': {
             const { blanks, tokens } = interaction.payload;
             return blanks.map(blank => tokens.find(token => token.id === blank.correctTokenId)?.label ?? '').join('; ');
@@ -493,8 +509,10 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
         // Sem vidas, o bloqueio vem antes de responder um item que custa vida.
         // Depois do feedback de um débito, seguir é livre: a última vida perdida
         // no último retorno conclui a lição (ADR de 2026-10-18, régua e última vida).
-        const costsHeart = !isReview && (!hybrid || player.isRetry);
-        if (costsHeart && hearts.status === 'empty' && currentInteraction && !player.showingFeedback) {
+        // A rodada rápida nunca tira vida: o tempo e o ritmo dela já são a pressão.
+        const gated = !isReview && (!hybrid || player.isRetry);
+        const costsHeart = gated && currentInteraction?.type !== 'blitz';
+        if (gated && hearts.status === 'empty' && currentInteraction && !player.showingFeedback) {
             setHeartsSheetInvites(false);
             setHeartsSheetVisible(true);
             return;
@@ -917,6 +935,7 @@ function LessonFlowAttempt({ blockId, nodeId, resumeCheckpointId, resumeCursorId
                                     title: currentStep.payload.title,
                                     body: currentStep.payload.body ?? '',
                                 }} />
+                                {currentStep.payload.visual ? <ConceptVisual id={currentStep.payload.visual} /> : null}
                                 {currentStep.payload.keyPoints?.length ? <KeyPointsList points={currentStep.payload.keyPoints} /> : null}
                             </>
                         ) : null}

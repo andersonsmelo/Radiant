@@ -12,6 +12,12 @@ import { MultipleChoiceStepRenderer } from './MultipleChoiceStepRenderer';
 import { OrderingStepRenderer } from './OrderingStepRenderer';
 import { CategorizeStepRenderer } from './CategorizeStepRenderer';
 import { ClozeStepRenderer } from './ClozeStepRenderer';
+import { BlitzStepRenderer } from './BlitzStepRenderer';
+import { ConversationStepRenderer } from './ConversationStepRenderer';
+import { LabelStepRenderer } from './LabelStepRenderer';
+import { RiskHuntStepRenderer } from './RiskHuntStepRenderer';
+import { LAB_MODELS } from '../../parameter-lab/labModels';
+import { ParameterLabStepRenderer } from './ParameterLabStepRenderer';
 import { MultiSelectStepRenderer } from './MultiSelectStepRenderer';
 import { TrueFalseStepRenderer } from './TrueFalseStepRenderer';
 
@@ -152,13 +158,18 @@ function CaseDecisionInteraction({ interaction, value, onChange, submitted, conf
 }
 
 /** Famílias da 1.6: o mesmo contrato `interaction / value / onChange`, com o retorno pós-conferência dentro do componente. */
-function NewFamilyInteraction({ interaction, value, onChange, submitted, confirmationLabel }: InteractionRendererProps) {
+function NewFamilyInteraction({ interaction, value, onChange, submitted, confirmationLabel, resolveImageSource }: InteractionRendererProps) {
     const shared = { value, onChange, submitted, confirmationLabel };
     switch (interaction.type) {
         case 'cloze': return <ClozeStepRenderer payload={interaction.payload} {...shared} />;
         case 'true-false': return <TrueFalseStepRenderer payload={interaction.payload} value={value} onChange={onChange} submitted={submitted} />;
         case 'categorize': return <CategorizeStepRenderer key={interaction.id} payload={interaction.payload} {...shared} />;
         case 'multi-select': return <MultiSelectStepRenderer payload={interaction.payload} {...shared} />;
+        case 'risk-hunt': return <RiskHuntStepRenderer payload={interaction.payload} accessibilityLabel={interaction.accessibility.label} resolveImageSource={resolveImageSource} {...shared} />;
+        case 'label': return <LabelStepRenderer key={interaction.id} payload={interaction.payload} accessibilityLabel={interaction.accessibility.label} resolveImageSource={resolveImageSource} {...shared} />;
+        case 'conversation': return <ConversationStepRenderer key={interaction.id} payload={interaction.payload} {...shared} />;
+        case 'blitz': return <BlitzStepRenderer key={interaction.id} payload={interaction.payload} {...shared} />;
+        case 'parameter-lab': return !Object.hasOwn(LAB_MODELS, interaction.payload.model) ? <UnsupportedInteraction interaction={interaction} /> : <ParameterLabStepRenderer key={interaction.id} payload={interaction.payload} value={value} onChange={onChange} submitted={submitted} />;
         default: return <UnsupportedInteraction interaction={interaction} />;
     }
 }
@@ -175,6 +186,11 @@ const RENDERERS: Partial<Record<InteractionType, InteractionRenderer>> = {
     'true-false': NewFamilyInteraction,
     categorize: NewFamilyInteraction,
     'multi-select': NewFamilyInteraction,
+    label: NewFamilyInteraction,
+    'risk-hunt': NewFamilyInteraction,
+    conversation: NewFamilyInteraction,
+    blitz: NewFamilyInteraction,
+    'parameter-lab': NewFamilyInteraction,
 };
 
 export const REGISTERED_INTERACTION_TYPES = Object.keys(RENDERERS) as InteractionType[];

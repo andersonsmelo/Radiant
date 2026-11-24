@@ -36,7 +36,7 @@ for p in health ready v1/content/catalog; do curl -s -o /dev/null -w "$p %{http_
 
 O estado do Play só se mede abrindo o Play Console; não há comando.
 
-## Trilha dobrada (1.7) — fase A na branch, medido em 2026-11-18
+## Trilha dobrada (1.7) — fases A e B em branches, medido em 2026-11-19
 
 O dono pediu em 2026-11-18 a trilha `rtg-2026` com o dobro do tamanho (cerca de 48
 unidades e 310 aulas), sem lei brasileira nem código de ética e com menos texto.
@@ -51,11 +51,39 @@ item mudou de identificador, tipo, papel ou marca de segurança (105 itens de se
 antes e depois). Quatro revisões independentes, 63 correções aplicadas.
 [Plano](superpowers/plans/2026-11-18-trilha-dobrada-fase-a-base-internacional.md),
 [evidência](evidence/2026-11-18-base-internacional/README.md). **Nada foi visto em
-aparelho. As fases B a E não começaram.**
+aparelho.** PR #89, em rascunho.
+
+**Fase B, na branch `claude/trilha-dobrada-fase-b`, empilhada na A, sem merge (medido em
+2026-11-19):** a aula-fonte passa a aceitar `hotspot`, `label`, `risk-hunt`,
+`parameter-lab`, `conversation`, `blitz`, `bench` e o `visual` do conceito, cada um
+com tela, regra de acerto, verificador, gerador e roteiro do Maestro. São 16 tipos de
+interação e um catálogo de 16 diagramas em código (11 laços, 3 dirigidos por controle,
+2 parados). O verificador ganhou a régua "toda aula tem ao menos uma múltipla escolha".
+Os 24 lotes gerados não mudaram: nenhuma aula publicada usa formato novo ainda.
+Gate do app: 4.123 testes, saída 0; testes de conteúdo 407 de 408 (a
+falha, `register-source`, é da worktree, que não tem o arquivo local do livro piloto).
+[Plano](superpowers/plans/2026-11-19-trilha-dobrada-fase-b-formatos.md),
+[ADR](adr/ADR-2026-11-19-formatos-da-trilha-dobrada.md),
+[evidência](evidence/2026-11-19-formatos/README.md). PR #90, em rascunho. **Nenhum
+formato novo foi visto em simulador ou aparelho; os laços foram revisados em quadros
+parados.**
+
+**Decisão aberta para o dono, medida em 2026-11-19:** com 310 aulas concluídas, o
+armazenamento da revisão espaçada fica em 1,64 MiB no caso comum, abaixo do teto de
+1,9 MiB medido no emulador Android, mas passa do teto se todas as conferências forem
+reprovadas uma vez (1,98 MiB). A régua da múltipla escolha afasta o pior caso de
+conteúdo; o resto depende de mudar o armazenamento
+([medição](evidence/2026-11-19-formatos/medicao-revisao-espacada.md)).
+
+**As fases C, D e E não começaram.** O inventário das metas mede hoje 24 unidades, 157
+aulas, 77,4% dos passos em texto ou formato antigo, 1 aula com passo visual e 17
+unidades abaixo de quatro famílias.
 
 ```bash
 for f in content-manifest/rtg-2026/aulas/*.json; do node scripts/content/rtg-lesson-lint.mjs "$f"; done
 uv run python docs/evidence/2026-11-18-base-internacional/compara-identidade.py origin/main
+node scripts/content/rtg-inventory.mjs
+cd radiant-app && EXPO_NO_DOTENV=1 npm run quality   # Node 20
 ```
 
 ## Atualização 1.6 — na `main`, com build no EAS (medido em 2026-11-16)

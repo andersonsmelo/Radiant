@@ -176,3 +176,32 @@ test('recusa imagem cujo arquivo não bate com o hash registrado, e arquivo ause
   assert.equal((await readRtgImages(registry, dir)).length, 1);
   assert.deepEqual(await readRtgImages(path.join(dir, 'nao-existe.json'), dir), []);
 });
+
+// Orçamento de imagem (fase B): 150 KiB por arquivo e 15 MiB somados.
+test('recusa imagem acima de 150 KiB e cadastro acima de 15 MiB somados', async t => {
+  const dir = await mkdtemp(path.join(tmpdir(), 'rtg-budget-'));
+  t.after(() => rm(dir, { recursive: true, force: true }));
+  const folder = path.join(dir, 'radiant-app/assets/content/rtg-2026/imagens/m01');
+  await mkdir(folder, { recursive: true });
+  const registry = path.join(dir, 'imagens.json');
+  const entry = (name, bytes) => imageEntry({ id: `image:rtg-2026:m01:${name}`, file: `radiant-app/assets/content/rtg-2026/imagens/m01/${name}.jpg`,
+    sha256Asset: createHash('sha256').update(bytes).digest('hex') });
+  const write = async (name, size) => { const bytes = Buffer.alloc(size, 1); await writeFile(path.join(folder, `${name}.jpg`), bytes); return entry(name, bytes); };
+
+  await writeFile(registry, JSON.stringify([await write('limite', 150 * 1024)]));
+  assert.equal((await readRtgImages(registry, dir)).length, 1, 'exatamente 150 KiB passa');
+  await writeFile(registry, JSON.stringify([await write('grande', 150 * 1024 + 1)]));
+  await assert.rejects(readRtgImages(registry, dir), /rtg-image-too-large:image:rtg-2026:m01:grande/);
+
+  // 102 arquivos de 150 KiB somam 14,94 MiB; o 103º passa de 15 MiB sem nenhum deles estourar sozinho.
+  const many = [];
+  for (let n = 0; n < 103; n += 1) many.push(await write(`n${n}`, 150 * 1024));
+  await writeFile(registry, JSON.stringify(many.slice(0, 102)));
+  assert.equal((await readRtgImages(registry, dir)).length, 102, 'abaixo de 15 MiB somados passa');
+  await writeFile(registry, JSON.stringify(many));
+  await assert.rejects(readRtgImages(registry, dir), /rtg-images-over-budget/);
+});
+
+test('as duas imagens reais cabem no orçamento', async () => {
+  assert.equal((await readRtgImages()).length >= 2, true);
+});

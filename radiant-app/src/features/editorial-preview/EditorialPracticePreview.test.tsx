@@ -42,7 +42,7 @@ describe('PC06-B practice preview integration', () => {
         render(<EditorialPracticePreview material={realEditorialPilotEnvelope()} activityId={id('m02-01-a')} />);
         next(); next();
         expect(screen.UNSAFE_getByType(Image).props.source).toBe(EDITORIAL_LOCAL_DIAGRAMS[0].source);
-        expect(StyleSheet.flatten(screen.getByTestId('hotspot-image-frame').props.style).aspectRatio).toBe(0.8);
+        expect(StyleSheet.flatten(screen.getByTestId('interaction-figure').props.style).aspectRatio).toBe(0.8);
         const region = screen.getByRole('button', { name: 'Selecionar Região A: à esquerda da tela na lista' });
         fireEvent.press(region);
         expect(region.props.accessibilityState.selected).toBe(true);

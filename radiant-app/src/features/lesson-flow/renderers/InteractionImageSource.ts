@@ -1,6 +1,7 @@
 import type { ImageSourcePropType } from 'react-native';
 
-export type ResolvedInteractionImage = Readonly<{ source: ImageSourcePropType; width: number; height: number }>;
+/** `alt` é o texto alternativo do cadastro da imagem; quem chama pode trazer o próprio. */
+export type ResolvedInteractionImage = Readonly<{ source: ImageSourcePropType; width: number; height: number; alt?: string }>;
 /** Explicit resolver: null refuses an image; never fall back to its remote URI. */
 export type InteractionImageResolver = (ref: string) => ResolvedInteractionImage | null;
 /** Dimensions determine the image frame and normalized hit regions. */

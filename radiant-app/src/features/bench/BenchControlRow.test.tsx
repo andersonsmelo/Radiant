@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { fireEvent, render } from '@testing-library/react-native';
 
 import type { BenchControl } from '../../types/learningActivity';
-import { BenchControlRow } from './BenchControlRow';
+import { BenchControlRow, formatBenchValue } from './BenchControlRow';
 
 // A linha de controle da bancada: rótulo, valor, o Slider e os botões − e +.
 // O Slider nativo não é o único caminho: quem não consegue arrastar usa os
@@ -53,6 +53,22 @@ describe('BenchControlRow', () => {
 
         expect(getByText('Tensão')).toBeTruthy();
         expect(getByText('70 kV')).toBeTruthy();
+    });
+
+    it('escreve o valor com vírgula decimal e só as casas do passo, no texto e no valor acessível', () => {
+        const DISTANCE: BenchControl = { id: 'kv', label: 'Distância', unit: 'm', min: 0.5, max: 4, step: 0.5, initial: 1.5 };
+        const { getByText, getByLabelText, getByRole } = render(<Harness control={DISTANCE} initial={1.5} onChange={jest.fn()} />);
+        expect(getByText('1,5 m')).toBeTruthy();
+        expect(getByRole('adjustable').props.accessibilityValue.text).toBe('1,5 m');
+        expect(getByLabelText('Aumentar Distância').props.accessibilityHint).toBe('Soma um passo de 0,5 m.');
+        fireEvent.press(getByLabelText('Aumentar Distância'));
+        expect(getByText('2 m')).toBeTruthy();
+        expect(formatBenchValue(0.30000000000000004, 0.1)).toBe('0,3');
+        expect(formatBenchValue(70, 10)).toBe('70');
+        // o valor fora da grade do passo mantém as próprias casas, até 6, sem zeros à direita
+        expect(formatBenchValue(2.5, 1)).toBe('2,5');
+        expect(formatBenchValue(2.125, 1)).toBe('2,125');
+        expect(formatBenchValue(1.1234567, 1)).toBe('1,123457');
     });
 
     it('sobe de passo em passo ao tocar + três vezes, e o rótulo acompanha', () => {
@@ -235,4 +251,22 @@ describe('BenchControlRow', () => {
         } finally { dimensions.mockRestore(); }
     });
 
+    it('usa a unidade no singular com o valor 1, no texto, no valor acessível e na dica do passo', () => {
+        const LAYERS: BenchControl = { id: 'kv', label: 'Camadas', unit: 'camadas', min: 0, max: 5, step: 1, initial: 0 };
+        const row = (value: number) => render(<BenchControlRow control={LAYERS} unitSingular="camada" value={value} onChange={jest.fn()} />);
+        const one = row(1);
+        expect(one.getByText('1 camada')).toBeTruthy();
+        expect(one.getByRole('adjustable').props.accessibilityValue.text).toBe('1 camada');
+        // o passo é 1: a dica fala "1 camada" mesmo com o valor em 3
+        const three = row(3);
+        expect(three.getByText('3 camadas')).toBeTruthy();
+        expect(three.getByLabelText('Aumentar Camadas').props.accessibilityHint).toBe('Soma um passo de 1 camada.');
+    });
+
+    it('um valor fora da grade do passo não é arredondado no texto nem no valor acessível', () => {
+        const MAS: BenchControl = { id: 'mas', label: 'Carga', unit: 'mAs', min: 1, max: 40, step: 1, initial: 2.5 };
+        const { getByText, getByRole } = render(<BenchControlRow control={MAS} value={2.5} onChange={jest.fn()} />);
+        expect(getByText('2,5 mAs')).toBeTruthy();
+        expect(getByRole('adjustable').props.accessibilityValue.text).toBe('2,5 mAs');
+    });
 });

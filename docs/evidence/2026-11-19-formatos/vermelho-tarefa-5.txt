@@ -1,0 +1,191 @@
+# Vermelho da tarefa 5 (risk-hunt), antes da implementação (node v20.20.2)
+# O diagrama sala-com-riscos e o registro dele já existiam nesta execução (a imagem foi revisada antes dos testes); o resto ainda não.
+
+## jest
+  ● ActivityRendererRegistry › declara os treze tipos com renderer, incluindo Q6, as quatro famílias da 1.6, o rotular e a caça ao erro
+  ● InteractionAnswerValue: famílias da 1.6 › risk-hunt: completa com ao menos uma região marcada, e acerta só com o conjunto exato de riscos
+  ● RiskHuntStepRenderer › a figura leva o rótulo da interação, e não a descrição do diagrama
+  ● RiskHuntStepRenderer › cada região é um checkbox sobre a figura e na lista, com o rótulo, e o contador começa em zero
+  ● RiskHuntStepRenderer › depois de conferir, cada região diz o que era, com ícone, e não aceita mais toque
+  ● RiskHuntStepRenderer › marcar pela figura ou pela lista alterna a mesma região, e o contador acompanha
+  ● RiskHuntStepRenderer › o alvo sobre a figura passa de 44 pt por hitSlop simétrico e a região marcada ganha borda e marca
+  ● contrato amplo (wide) › risk-hunt (fase B) › aceita caça ao erro sobre diagrama, com a explicação em cada região e os riscos por id
+  ● contrato amplo (wide) › risk-hunt (fase B) › invalid-wide-shape: região a menos, rótulo duplicado, explicação vazia ou repetida, risco fora das regiões
+  ● contrato amplo (wide) › risk-hunt (fase B) › mantém as chaves exatas do payload, exige texto e figura registrada
+  ● contrato amplo (wide) › risk-hunt (fase B) › wide-constant-answer: todas as regiões de risco, ou menos de duas
+  ● contrato amplo (wide) › risk-hunt (fase B) › wide-feedback-not-distinct: o retorno de erro precisa de explicação própria
+  ● famílias de interação › risk-hunt: tela, validação, acerto, erro e retornos
+  ● feedbackFor: famílias da 1.6 › risk-hunt: o erro diz o que faltou e o que sobrou, com a explicação da primeira divergência na ordem da cena
+  ● registro de diagramas › sala-com-riscos: id, quadro e alt válidos
+  ● validateLearningActivity › aceita os oito tipos de interação da biblioteca
+FAIL src/features/lesson-flow/renderers/ActivityRendererRegistry.test.tsx
+FAIL src/features/lesson-flow/renderers/InteractionAnswerValue.test.ts
+FAIL src/features/lesson-flow/renderers/RiskHuntStepRenderer.test.tsx
+FAIL src/features/lesson-flow/renderers/interactionFamilies.contract.test.ts
+FAIL src/features/lesson-flow/services/LessonFlowService.test.ts
+FAIL src/features/lesson-flow/services/feedbackFor.test.ts
+FAIL src/features/student-checkpoints/EditorialWideContract.test.ts
+FAIL src/ui/diagrams/diagramRegistry.test.ts
+Test Suites: 8 failed, 8 total
+Tests:       16 failed, 312 passed, 328 total
+
+## node --test rtg-lesson-lint.test.mjs rtg-formatos.test.mjs
+not ok 1 - a unidade sintética passa no verificador, sem nenhum erro
+not ok 3 - a unidade usa todos os tipos da aula-fonte, menos os que exigem imagem
+not ok 4 - a fábrica gera o lote com um tipo de interação para cada tipo da aula-fonte
+not ok 5 - o gerador Maestro tem roteiro de resposta para todo tipo da unidade
+not ok 6 - o hotspot sobre diagrama chega ao lote com imageRef diagram:<id> e região com id gerado
+not ok 7 - o roteiro Maestro toca o hotspot pelo rótulo acessível da região certa e confere
+not ok 8 - o rotular sobre diagrama chega ao lote com pontos, fichas embaralhadas e ids gerados
+not ok 9 - o roteiro Maestro rotula cada ponto pela ficha certa, rolando para cima até o ponto
+not ok 10 - a caça ao erro sobre diagrama chega ao lote com regiões que levam a explicação e os riscos por id
+not ok 11 - o roteiro Maestro marca cada região de risco pela lista e confere
+not ok 84 - risk-hunt: aceita figura por diagramId e por imageId registrada
+not ok 85 - risk-hunt: exige exatamente um de imageId e diagramId, existente no registro
+not ok 86 - risk-hunt: de 4 a 6 regiões
+not ok 87 - risk-hunt: toda região tem width e height; ponto não vale
+not ok 88 - risk-hunt: região dentro do quadro e com a área de toque de 44 pt dentro da figura
+not ok 89 - risk-hunt: as áreas de toque das regiões não se sobrepõem
+not ok 90 - risk-hunt: risk é booleano em toda região, e de 2 a n-1 são de risco
+not ok 91 - risk-hunt: o retorno de cada região tem de 25 a 260 caracteres e não se repete
+not ok 92 - risk-hunt: rótulos únicos, de 2 a 40 caracteres
+not ok 93 - risk-hunt: recusa chave fora da lista, na região e no item
+not ok 94 - risk-hunt: retorno de erro igual ao de acerto reprova, como nas outras famílias
+# tests 94
+# pass 73
+# fail 21
+
+# Defeitos específicos, vistos falhando (mutação no código, arquivo restaurado em seguida)
+
+## Defeito: régua de sobreposição das regiões desligada
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `if (touchRectsOverlap(a.rect, b.rect)) found.push` por `if (false && touchRectsOverlap(a.rect, b.rect)) found.push`
+- saída (reprovações):
+  not ok 77 - risk-hunt: as áreas de toque das regiões não se sobrepõem
+
+## Defeito: área de toque de 44 pt pode sair da figura
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `if (!touchRectInside(rect, frame)) add(at,` por `if (false && !touchRectInside(rect, frame)) add(at,`
+- saída (reprovações):
+  not ok 76 - risk-hunt: região dentro do quadro e com a área de toque de 44 pt dentro da figura
+
+## Defeito: região sem width e height passa (ponto vale)
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `sized: true, ratio: figure(where, item) });
+      const regions = Array.isArray(item.regio` por `sized: false, ratio: figure(where, item) });
+      const regions = Array.isArray(item.regi`
+- saída (reprovações):
+  not ok 75 - risk-hunt: toda região tem width e height; ponto não vale
+
+## Defeito: todas as regiões podem ser de risco
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `if (risks < 2 || risks > regions.length - 1) err(` por `if (risks < 2) err(`
+- saída (reprovações):
+  not ok 78 - risk-hunt: risk é booleano em toda região, e de 2 a n-1 são de risco
+
+## Defeito: de 4 a 6 regiões vira de 2 a 9
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `{ allowed: ['label', 'x', 'y', 'width', 'height', 'risk', 'feedback'], min: 4, max: 6,` por `{ allowed: ['label', 'x', 'y', 'width', 'height', 'risk', 'feedback'], min: 2, max: 9,`
+- saída (reprovações):
+  not ok 74 - risk-hunt: de 4 a 6 regiões
+
+## Defeito: retornos das regiões podem se repetir
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `if (new Set(regions.map((region) => norm(region?.feedback))).size !== regions.length) err(` por `if (false) err(where, 'risk-hunt: retornos repetidos`
+- saída (reprovações):
+  not ok 79 - risk-hunt: o retorno de cada região tem de 25 a 260 caracteres e não se repete
+
+## Defeito: contrato wide aceita resposta constante (todas de risco)
+- arquivo: radiant-app/src/features/student-checkpoints/EditorialWideContract.ts
+- troca: `if (riskRegionIds.length < 2 || riskRegionIds.length > regions.length - 1) codes.push('wid` por `if (riskRegionIds.length < 2) codes.push('wide-constant-answer');`
+- saída (reprovações):
+  ● contrato amplo (wide) › risk-hunt (fase B) › wide-constant-answer: todas as regiões de risco, ou menos de duas
+
+## Defeito: contrato wide aceita explicação repetida entre regiões
+- arquivo: radiant-app/src/features/student-checkpoints/EditorialWideContract.ts
+- troca: `|| regions.some(region => !filled(region.explanation)) || new Set(regions.map(region => no` por `|| regions.some(region => !filled(region.explanation))`
+- saída (reprovações):
+  ● contrato amplo (wide) › risk-hunt (fase B) › invalid-wide-shape: região a menos, rótulo duplicado, explicação vazia ou repetida, risco fora das regiões
+
+## Defeito: acerto aceita marcar riscos a mais (só confere que os riscos estão marcados)
+- arquivo: radiant-app/src/features/lesson-flow/renderers/InteractionAnswerValue.ts
+- troca: `return ids.length === interaction.payload.riskRegionIds.length && interaction.payload.risk` por `return interaction.payload.riskRegionIds.every(id => ids.includes(id));`
+- saída (reprovações):
+  ● InteractionAnswerValue: famílias da 1.6 › risk-hunt: completa com ao menos uma região marcada, e acerta só com o conjunto exato de riscos
+
+## Defeito: completa aceita id fora das regiões ou repetido
+- arquivo: radiant-app/src/features/lesson-flow/renderers/InteractionAnswerValue.ts
+- troca: `return ids.length > 0 && isDistinctSubset(ids, interaction.payload.regions.map(region => r` por `return ids.length > 0;`
+- saída (reprovações):
+  ● InteractionAnswerValue: famílias da 1.6 › risk-hunt: completa com ao menos uma região marcada, e acerta só com o conjunto exato de riscos
+
+## Defeito: retorno aponta a explicação da última divergência, não da primeira
+- arquivo: radiant-app/src/features/lesson-flow/services/feedbackFor.ts
+- troca: `const first = entries.find(entry => missing.includes(entry) || extra.includes(entry));` por `const first = [...entries].reverse().find(entry => missing.includes(entry) || extra.includ`
+- saída (reprovações):
+  ● feedbackFor: famílias da 1.6 › multi-select: o erro diz quais faltaram e quais sobraram, com a explicação da primeira divergência
+  ● feedbackFor: famílias da 1.6 › risk-hunt: o erro diz o que faltou e o que sobrou, com a explicação da primeira divergência na ordem da cena
+
+## Defeito: alvo da região sem ampliar a 44 pt (hitSlop zerado)
+- arquivo: radiant-app/src/features/lesson-flow/renderers/RiskHuntStepRenderer.tsx
+- troca: `hitSlop={touchSlop(region, frame)}` por `hitSlop={{ left: 0, right: 0, top: 0, bottom: 0 }}`
+- saída (reprovações):
+  ● RiskHuntStepRenderer › o alvo sobre a figura passa de 44 pt por hitSlop simétrico e a região marcada ganha borda e marca
+
+## Defeito: região da figura sem papel de checkbox (botão)
+- arquivo: radiant-app/src/features/lesson-flow/renderers/RiskHuntStepRenderer.tsx
+- troca: `accessibilityRole="checkbox"
+                            accessibilityLabel={`${region.lab` por `accessibilityRole="button"
+                            accessibilityLabel={`${region.label`
+- saída (reprovações):
+  ● RiskHuntStepRenderer › cada região é um checkbox sobre a figura e na lista, com o rótulo, e o contador começa em zero
+
+## Defeito (mutação só da guarda do toggle): sobreviveu
+- a guarda `if (submitted) return` é redundante com `disabled={submitted}` do Pressable, que o RNTL respeita; por isso a mutação abaixo remove as duas.
+
+## Defeito: região da figura continua tocável depois de conferir (sem `disabled` e sem a guarda do toggle; a mutação anterior, só da guarda, sobreviveu porque `disabled` sozinho já barra o toque)
+- arquivo: radiant-app/src/features/lesson-flow/renderers/RiskHuntStepRenderer.tsx
+- saída (reprovações):
+  ● RiskHuntStepRenderer › depois de conferir, cada região diz o que era, com ícone, e não aceita mais toque
+
+## Defeito: situação correta deixada em branco ganha veredito de erro (ícone onde não houve marca)
+- arquivo: radiant-app/src/features/lesson-flow/renderers/RiskHuntStepRenderer.tsx
+- troca: `(submitted && (chosen.includes(id) || isRisk(id)) ?` por `(submitted ?`
+- saída (reprovações):
+  ● RiskHuntStepRenderer › depois de conferir, cada região diz o que era, com ícone, e não aceita mais toque
+
+## Defeito: contador fixo no plural
+- arquivo: radiant-app/src/features/lesson-flow/renderers/RiskHuntStepRenderer.tsx
+- troca: `{chosen.length === 1 ? '1 marcada' : `${chosen.length} marcadas`}` por `{`${chosen.length} marcadas`}`
+- saída (reprovações):
+  ● RiskHuntStepRenderer › marcar pela figura ou pela lista alterna a mesma região, e o contador acompanha
+
+## Defeito: Maestro marca todas as regiões, não só as de risco
+- arquivo: scripts/qa/generate-rtg-maestro.mjs
+- troca: `return payload.regions.filter(region => payload.riskRegionIds.includes(region.id)).flatMap` por `return payload.regions.flatMap(region => tapId(`risk-hunt-${region.label}`));`
+- saída (reprovações):
+  not ok 11 - o roteiro Maestro marca cada região de risco pela lista e confere
+
+
+# Rodada 1 (correções da revisão): defeitos específicos, vistos falhando por mutação
+
+## Defeito: verificador aceita os riscos todos no topo da lista
+- arquivo: scripts/content/rtg-lesson-lint.mjs
+- troca: `else if (regions.slice(0, risks).every((region) => region.risk)) err(` por `else if (false) err(`
+- saída (reprovações):
+  not ok 82 - risk-hunt: os riscos todos no topo da lista entregam a resposta pela posição
+
+## Defeito: contrato wide aceita os riscos todos no topo da lista
+- arquivo: radiant-app/src/features/student-checkpoints/EditorialWideContract.ts
+- troca: `else if (regions.slice(0, riskRegionIds.length).every(region => riskRegionIds.includes(reg` por ``
+- saída (reprovações):
+  ● contrato amplo (wide) › risk-hunt (fase B) › wide-answer-position-bias: os riscos todos no topo da lista entregam a resposta
+
+## Defeito: região sobre a figura volta à árvore de acessibilidade (leitura dupla)
+- arquivo: radiant-app/src/features/lesson-flow/renderers/RiskHuntStepRenderer.tsx
+- troca: `accessible={false}
+                            accessibilityElementsHidden
+               ` por ``
+- saída (reprovações):
+  ● RiskHuntStepRenderer › cada região é um checkbox sobre a figura e na lista, com o rótulo, e o contador começa em zero
+

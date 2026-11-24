@@ -19,6 +19,9 @@ const DEFAULT_SOURCE = path.join(root, 'content-manifest/rtg-2026/aulas');
 const DEFAULT_OUTPUT = path.join(root, 'radiant-app/src/features/student-checkpoints/batches');
 const DEFAULT_IMAGES = path.join(root, 'content-manifest/rtg-2026/imagens.json');
 const HEADER = '// Gerado por scripts/content/build-rtg-batches.mjs a partir de content-manifest/rtg-2026/aulas.\n// Não edite à mão: mude a aula-fonte e rode o gerador.\n';
+// Orçamento de imagem real (fase B): o app carrega todo o cadastro no bundle.
+const IMAGE_MAX_BYTES = 150 * 1024;
+const IMAGES_MAX_BYTES = 15 * 1024 * 1024;
 const GENERATED = /^(rtg-2026-.+|index|entries)\.ts$/;
 const factory = appContract.loadAppContract('features/student-checkpoints/batches/rtgBatchFactory.ts');
 const { createProductionCurriculumCatalog } = appContract.loadAppContract('features/student-checkpoints/createProductionCurriculumCatalog.ts');
@@ -83,7 +86,7 @@ export const RTG_IMAGES: readonly RtgImageCredit[] = [${entries.length ? `\n${en
 
 export function resolveRtgImage(ref: string): ResolvedInteractionImage | null {
   const image = RTG_IMAGES.find(entry => entry.id === ref);
-  return image ? { source: image.source, width: image.width, height: image.height } : null;
+  return image ? { source: image.source, width: image.width, height: image.height, alt: image.alt } : null;
 }
 `;
 }
@@ -93,11 +96,15 @@ export async function readRtgImages(registry = DEFAULT_IMAGES, baseDir = root) {
   let images;
   try { images = JSON.parse(await readFile(registry, 'utf8')); }
   catch (error) { if (error?.code === 'ENOENT') return []; throw error; }
+  let total = 0;
   for (const image of images) {
     const bytes = await readFile(path.join(baseDir, image.file)).catch(() => null);
     if (!bytes) throw new Error(`rtg-image-missing:${image.id}`);
     if (createHash('sha256').update(bytes).digest('hex') !== image.sha256Asset) throw new Error(`rtg-image-sha:${image.id}`);
+    if (bytes.length > IMAGE_MAX_BYTES) throw new Error(`rtg-image-too-large:${image.id}`);
+    total += bytes.length;
   }
+  if (total > IMAGES_MAX_BYTES) throw new Error('rtg-images-over-budget');
   return images;
 }
 

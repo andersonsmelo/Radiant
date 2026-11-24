@@ -119,6 +119,26 @@ describe('feedbackFor', () => {
         });
     });
 
+    describe('parameter-lab', () => {
+        const lab = (hints: { tooLow: string; tooHigh: string }): LearningInteractionV2 => ({
+            ...base,
+            type: 'parameter-lab',
+            payload: { prompt: 'Ajuste.', model: 'shielding', start: 0, goal: { atLeast: 2, atMost: 3 }, hints },
+        });
+        const hints = { tooLow: 'Poucas camadas: ainda passa muita radiação.', tooHigh: 'Camadas demais para esta meta.' };
+
+        it('o erro devolve a dica do lado em que o aluno parou', () => {
+            expect(feedbackFor(lab(hints), '1', false)).toBe(hints.tooLow);
+            expect(feedbackFor(lab(hints), '5', false)).toBe(hints.tooHigh);
+        });
+
+        it('o acerto usa feedback.correct; dica em branco ou valor fora do contrato cai em feedback.incorrect', () => {
+            expect(feedbackFor(lab(hints), '2', true)).toBe('Isso mesmo.');
+            expect(feedbackFor(lab({ tooLow: ' ', tooHigh: hints.tooHigh }), '1', false)).toBe('Reveja o conceito.');
+            expect(feedbackFor(lab(hints), undefined, false)).toBe('Reveja o conceito.');
+        });
+    });
+
     describe('qualquer outro erro', () => {
         it('devolve feedback.incorrect em hotspot, ordering e matching', () => {
             const hotspot: LearningInteractionV2 = {
@@ -215,5 +235,51 @@ describe('feedbackFor: famílias da 1.6', () => {
         const cloze: LearningInteractionV2 = { ...base, type: 'cloze', payload: { prompt: 'Complete.', segments: ['A ', '.'],
             blanks: [{ id: 'b1', correctTokenId: 't1' }], tokens: [{ id: 't1', label: 'x' }, { id: 't2', label: 'y' }] } };
         expect(feedbackFor(cloze, '["t2"]', false)).toBe('Reveja o conceito.');
+    });
+
+    it('label: o erro acrescenta o rótulo certo do primeiro ponto errado, na ordem dos pontos', () => {
+        const interaction: LearningInteractionV2 = { ...base, type: 'label', payload: { prompt: 'Rotule.', imageRef: 'diagram:tubo-raios-x',
+            points: [{ id: 'p1', x: 0.3, y: 0.4, where: 'posição 1 da figura', correctLabelId: 'l1' }, { id: 'p2', x: 0.7, y: 0.4, where: 'posição 2 da figura', correctLabelId: 'l2' }, { id: 'p3', x: 0.7, y: 0.7, where: 'posição 3 da figura', correctLabelId: 'l3' }],
+            labels: [{ id: 'l3', label: 'Janela' }, { id: 'l1', label: 'Cátodo' }, { id: 'l2', label: 'Ânodo' }] } };
+        expect(feedbackFor(interaction, JSON.stringify({ p1: 'l1', p2: 'l3', p3: 'l2' }), false)).toBe('Reveja o conceito. Ponto 2 é Ânodo.');
+        expect(feedbackFor(interaction, JSON.stringify({ p1: 'l2', p2: 'l1', p3: 'l3' }), false)).toBe('Reveja o conceito. Ponto 1 é Cátodo.');
+        expect(feedbackFor(interaction, JSON.stringify({ p1: 'l1', p2: 'l2', p3: 'l3' }), true)).toBe('Isso mesmo.');
+    });
+
+    it('risk-hunt: o erro diz o que faltou e o que sobrou, com a explicação da primeira divergência na ordem da cena', () => {
+        const interaction: LearningInteractionV2 = { ...base, type: 'risk-hunt', payload: { prompt: 'Marque os riscos.', imageRef: 'diagram:sala-com-riscos',
+            riskRegionIds: ['a', 'c'], regions: [
+                { id: 'a', label: 'Porta aberta', x: 0.02, y: 0.08, width: 0.15, height: 0.8, explanation: 'A porta aberta expõe o corredor.' },
+                { id: 'b', label: 'Operador atrás do biombo', x: 0.7, y: 0.43, width: 0.17, height: 0.47, explanation: 'O biombo protege o operador.' },
+                { id: 'c', label: 'Campo grande', x: 0.18, y: 0.26, width: 0.33, height: 0.4, explanation: 'O campo grande expõe tecido à toa.' },
+            ] } };
+        expect(feedbackFor(interaction, '["a","b"]', false))
+            .toBe('Faltou marcar: Campo grande. Marcou a mais: Operador atrás do biombo. O biombo protege o operador.');
+        expect(feedbackFor(interaction, '["a"]', false)).toBe('Faltou marcar: Campo grande. O campo grande expõe tecido à toa.');
+        expect(feedbackFor(interaction, '["a","c"]', true)).toBe('Isso mesmo.');
+    });
+
+    it('conversation: o erro acrescenta a resposta que cabia no primeiro turno errado', () => {
+        const interaction: LearningInteractionV2 = { ...base, type: 'conversation', payload: { prompt: 'Conduza.', speaker: 'duda',
+            turns: [
+                { id: 't1', line: 'Como começo?', correctOptionId: 'a2', options: [{ id: 'a1', label: 'Pela pressa.', reply: 'Hum.' }, { id: 'a2', label: 'Conferindo o pedido.', reply: 'Faz sentido.' }] },
+                { id: 't2', line: 'E o avental?', correctOptionId: 'b1', options: [{ id: 'b1', label: 'Vestir antes.', reply: 'Certo.' }, { id: 'b2', label: 'Deixar de lado.', reply: 'Tá.' }] },
+            ] } };
+        expect(feedbackFor(interaction, '["a2","b2"]', false)).toBe('Reveja o conceito. No turno 2, a resposta era: Vestir antes.');
+        expect(feedbackFor(interaction, '["a1","b2"]', false)).toBe('Reveja o conceito. No turno 1, a resposta era: Conferindo o pedido.');
+        expect(feedbackFor(interaction, '["a2","b1"]', true)).toBe('Isso mesmo.');
+    });
+
+    it('blitz: o erro diz quantas acertou e traz a explicação da primeira que errou (o tempo esgotado também conta como errada)', () => {
+        const statements = [
+            { id: 's1', text: 'Um.', isTrue: true, explanation: 'Um é certa porque a fonte diz.' },
+            { id: 's2', text: 'Dois.', isTrue: false, explanation: 'Dois é errada: o dosímetro não protege.' },
+            { id: 's3', text: 'Três.', isTrue: true, explanation: 'Três é certa: cobre o tronco.' },
+            { id: 's4', text: 'Quatro.', isTrue: false, explanation: 'Quatro é errada.' },
+        ];
+        const interaction: LearningInteractionV2 = { ...base, type: 'blitz', payload: { prompt: 'Rodada.', passCount: 3, statements } };
+        expect(feedbackFor(interaction, '[true,true,true,true]', false)).toBe('Reveja o conceito. Você acertou 2 de 4; para passar eram 3. Dois é errada: o dosímetro não protege.');
+        expect(feedbackFor(interaction, '[null,false,false,false]', false)).toBe('Reveja o conceito. Você acertou 2 de 4; para passar eram 3. Um é certa porque a fonte diz.');
+        expect(feedbackFor(interaction, '[true,false,true,true]', true)).toBe('Isso mesmo.');
     });
 });
