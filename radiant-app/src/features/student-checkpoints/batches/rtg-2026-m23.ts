@@ -6,7 +6,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
   "schemaVersion": 1,
   "state": "promoted",
   "batchId": "batch:rtg-2026:m23",
-  "materialSha256": "88e7bbfc0ce2c4abc7533e71e7d2bf6ed93ac46556245b1c19ca71be8a5a161e",
+  "materialSha256": "6a3419c0f02f175f367f03d1ef5668fa7a3eafda190d31ce911efb6f433ec4ff",
   "trackId": "track:rtg-2026:m23",
   "unitId": "unit:rtg-2026:m23",
   "contentVersion": "rtg-2026-m23-v1",
@@ -2018,70 +2018,45 @@ export const RTG_2026_M23: ProductionBatchV1 = {
             "completionRule": "confirmed",
             "criticalSafety": false,
             "accessibility": {
-              "label": "Toque na imagem: A ficha de rejeição pede a causa. Toque nas marcas que são adorno ou roupa e que o preparo resolve antes da exposição."
+              "label": "Toque na imagem: Você vai preencher a ficha de uma radiografia de tórax rejeitada. Toque na marca que deve ser registrada como objeto externo."
             },
-            "help": "Pense no que o paciente veste ou usa no pescoço e no que está ligado a ele por fio.",
+            "help": "Pense se o traço acompanha a anatomia ou cruza as estruturas do tórax.",
             "type": "hotspot",
             "feedback": {
-              "correct": "Isso: colar e botão são adorno e roupa, e o preparo resolve antes da exposição.",
-              "incorrect": "Essa marca não é adorno nem roupa, ou é parte do corpo. Procure o adorno de metal e a peça de roupa."
+              "correct": "Isso: a marca em V é de um colar. Registre objeto externo sobre o tórax e deixe a decisão de repetir com a equipe.",
+              "incorrect": "O ombro e o coração fazem parte do corpo. Procure a marca que cruza a parte alta do tórax sem acompanhar a anatomia."
             },
             "payload": {
-              "prompt": "A ficha de rejeição pede a causa. Toque nas marcas que são adorno ou roupa e que o preparo resolve antes da exposição.",
-              "imageRef": "diagram:artefatos-de-objeto",
+              "prompt": "Você vai preencher a ficha de uma radiografia de tórax rejeitada. Toque na marca que deve ser registrada como objeto externo.",
+              "imageRef": "image:rtg-2026:m23:torax-artefato-colar-01",
               "regions": [
                 {
                   "id": "region:rtg-2026:m23:aula-06:i2:1",
-                  "label": "Colar com pingente",
-                  "x": 0.428,
-                  "y": 0.058,
-                  "width": 0.144,
-                  "height": 0.25
+                  "label": "Região do ombro",
+                  "x": 0.07,
+                  "y": 0.09,
+                  "width": 0.16,
+                  "height": 0.14
                 },
                 {
                   "id": "region:rtg-2026:m23:aula-06:i2:2",
-                  "label": "Clavícula",
-                  "x": 0.606,
-                  "y": 0.167,
-                  "width": 0.125,
-                  "height": 0.1
+                  "label": "Marca em V no centro superior",
+                  "x": 0.36,
+                  "y": 0.22,
+                  "width": 0.16,
+                  "height": 0.16
                 },
                 {
                   "id": "region:rtg-2026:m23:aula-06:i2:3",
-                  "label": "Botão de roupa",
-                  "x": 0.279,
-                  "y": 0.46,
-                  "width": 0.08,
-                  "height": 0.08
-                },
-                {
-                  "id": "region:rtg-2026:m23:aula-06:i2:4",
-                  "label": "Trança de cabelo",
-                  "x": 0.263,
-                  "y": 0.013,
-                  "width": 0.113,
-                  "height": 0.375
-                },
-                {
-                  "id": "region:rtg-2026:m23:aula-06:i2:5",
-                  "label": "Coração",
-                  "x": 0.453,
-                  "y": 0.6,
-                  "width": 0.219,
-                  "height": 0.209
-                },
-                {
-                  "id": "region:rtg-2026:m23:aula-06:i2:6",
-                  "label": "Eletrodo com fio",
-                  "x": 0.697,
-                  "y": 0.45,
-                  "width": 0.081,
-                  "height": 0.083
+                  "label": "Sombra do coração",
+                  "x": 0.51,
+                  "y": 0.44,
+                  "width": 0.17,
+                  "height": 0.15
                 }
               ],
               "correctRegionIds": [
-                "region:rtg-2026:m23:aula-06:i2:1",
-                "region:rtg-2026:m23:aula-06:i2:3"
+                "region:rtg-2026:m23:aula-06:i2:2"
               ]
             }
           }
@@ -5805,33 +5780,6 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       ]
     },
     {
-      "claimId": "region:rtg-2026:m23:aula-06:i2:4",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m23:radiologyinfo-torax",
-        "source:rtg-2026:m23:pmc-rejeicao-radiografia-digital"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m23:aula-06:i2:5",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m23:radiologyinfo-torax",
-        "source:rtg-2026:m23:pmc-rejeicao-radiografia-digital"
-      ]
-    },
-    {
-      "claimId": "region:rtg-2026:m23:aula-06:i2:6",
-      "claimKind": "prompt",
-      "provenanceKind": "source-backed",
-      "sourceIds": [
-        "source:rtg-2026:m23:radiologyinfo-torax",
-        "source:rtg-2026:m23:pmc-rejeicao-radiografia-digital"
-      ]
-    },
-    {
       "claimId": "interaction:rtg-2026:m23:aula-06:i2:answer",
       "claimKind": "correct-answer",
       "provenanceKind": "source-backed",
@@ -6858,7 +6806,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "88e7bbfc0ce2c4abc7533e71e7d2bf6ed93ac46556245b1c19ca71be8a5a161e"
+      "materialSha256": "6a3419c0f02f175f367f03d1ef5668fa7a3eafda190d31ce911efb6f433ec4ff"
     },
     {
       "schemaVersion": 1,
@@ -6867,7 +6815,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "88e7bbfc0ce2c4abc7533e71e7d2bf6ed93ac46556245b1c19ca71be8a5a161e"
+      "materialSha256": "6a3419c0f02f175f367f03d1ef5668fa7a3eafda190d31ce911efb6f433ec4ff"
     },
     {
       "schemaVersion": 1,
@@ -6876,7 +6824,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "88e7bbfc0ce2c4abc7533e71e7d2bf6ed93ac46556245b1c19ca71be8a5a161e"
+      "materialSha256": "6a3419c0f02f175f367f03d1ef5668fa7a3eafda190d31ce911efb6f433ec4ff"
     },
     {
       "schemaVersion": 1,
@@ -6885,7 +6833,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "88e7bbfc0ce2c4abc7533e71e7d2bf6ed93ac46556245b1c19ca71be8a5a161e"
+      "materialSha256": "6a3419c0f02f175f367f03d1ef5668fa7a3eafda190d31ce911efb6f433ec4ff"
     },
     {
       "schemaVersion": 1,
@@ -6894,7 +6842,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "88e7bbfc0ce2c4abc7533e71e7d2bf6ed93ac46556245b1c19ca71be8a5a161e"
+      "materialSha256": "6a3419c0f02f175f367f03d1ef5668fa7a3eafda190d31ce911efb6f433ec4ff"
     },
     {
       "schemaVersion": 1,
@@ -6903,7 +6851,7 @@ export const RTG_2026_M23: ProductionBatchV1 = {
       "reviewerRole": "ai-review-delegated",
       "reviewerRef": "claude-fable-5.1:ADR-2026-11-05",
       "decidedAt": "2026-11-06T00:00:00.000Z",
-      "materialSha256": "88e7bbfc0ce2c4abc7533e71e7d2bf6ed93ac46556245b1c19ca71be8a5a161e"
+      "materialSha256": "6a3419c0f02f175f367f03d1ef5668fa7a3eafda190d31ce911efb6f433ec4ff"
     }
   ],
   "promotedAt": "2026-11-06T00:00:00.000Z",

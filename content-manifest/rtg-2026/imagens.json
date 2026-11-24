@@ -188,7 +188,8 @@
     "region": "tórax",
     "descriptionFromSource": "Figura 2, painel C: radiografia de tórax com artefato por colar.",
     "usedIn": [
-      "m23-02"
+      "m23-02",
+      "m23-06"
     ]
   },
   {

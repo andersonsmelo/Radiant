@@ -1996,57 +1996,35 @@
      "id": "i2",
      "type": "hotspot",
      "role": "practice",
-     "prompt": "A ficha de rejeição pede a causa. Toque nas marcas que são adorno ou roupa e que o preparo resolve antes da exposição.",
-     "diagramId": "artefatos-de-objeto",
+     "prompt": "Você vai preencher a ficha de uma radiografia de tórax rejeitada. Toque na marca que deve ser registrada como objeto externo.",
+     "imageId": "image:rtg-2026:m23:torax-artefato-colar-01",
      "regions": [
       {
-       "label": "Colar com pingente",
-       "x": 0.428,
-       "y": 0.058,
-       "width": 0.144,
-       "height": 0.25,
+       "label": "Região do ombro",
+       "x": 0.07,
+       "y": 0.09,
+       "width": 0.16,
+       "height": 0.14
+      },
+      {
+       "label": "Marca em V no centro superior",
+       "x": 0.36,
+       "y": 0.22,
+       "width": 0.16,
+       "height": 0.16,
        "correct": true
       },
       {
-       "label": "Clavícula",
-       "x": 0.606,
-       "y": 0.167,
-       "width": 0.125,
-       "height": 0.1
-      },
-      {
-       "label": "Botão de roupa",
-       "x": 0.279,
-       "y": 0.46,
-       "width": 0.08,
-       "height": 0.08,
-       "correct": true
-      },
-      {
-       "label": "Trança de cabelo",
-       "x": 0.263,
-       "y": 0.013,
-       "width": 0.113,
-       "height": 0.375
-      },
-      {
-       "label": "Coração",
-       "x": 0.453,
-       "y": 0.6,
-       "width": 0.219,
-       "height": 0.209
-      },
-      {
-       "label": "Eletrodo com fio",
-       "x": 0.697,
-       "y": 0.45,
-       "width": 0.081,
-       "height": 0.083
+       "label": "Sombra do coração",
+       "x": 0.51,
+       "y": 0.44,
+       "width": 0.17,
+       "height": 0.15
       }
      ],
-     "feedbackCorrect": "Isso: colar e botão são adorno e roupa, e o preparo resolve antes da exposição.",
-     "feedbackIncorrect": "Essa marca não é adorno nem roupa, ou é parte do corpo. Procure o adorno de metal e a peça de roupa.",
-     "help": "Pense no que o paciente veste ou usa no pescoço e no que está ligado a ele por fio.",
+     "feedbackCorrect": "Isso: a marca em V é de um colar. Registre objeto externo sobre o tórax e deixe a decisão de repetir com a equipe.",
+     "feedbackIncorrect": "O ombro e o coração fazem parte do corpo. Procure a marca que cruza a parte alta do tórax sem acompanhar a anatomia.",
+     "help": "Pense se o traço acompanha a anatomia ou cruza as estruturas do tórax.",
      "sourceIds": [
       "radiologyinfo-torax",
       "pmc-rejeicao-radiografia-digital"
