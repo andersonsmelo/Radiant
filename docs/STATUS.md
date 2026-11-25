@@ -21,11 +21,9 @@ remede**. Contagem envelhece e comando não: remeça antes de decidir.
 
 | Frente | Estado | Medido em |
 | --- | --- | --- |
-| **App Store, aprovada** | **`1.6.0 (18)` aprovada pela Apple em 2026-11-18**, com o placar `radiant.liga.semanal.xp` no mesmo envio (`87cd4e73`); e-mail "Review of your submission is complete" recebido pelo dono às 14:53 (America/Bahia). Lançamento automático após a aprovação. **A consulta pública da App Store brasileira ainda devolvia a 1.5.0** na tarde de 2026-11-18; a Apple avisa que pode levar até 24 horas. | 2026-11-18 |
-| **App Store, no ar na última consulta** | **`1.5.0 (14)` aprovada e liberada em 2026-11-11.** A Apple mandou o e-mail de aprovação às 18h44 (America/Bahia), e a consulta pública da App Store brasileira (`itunes.apple.com/lookup?id=6797078156&country=br`) mostrou a versão 1.5.0, liberada às 18h47, com as novidades aprovadas pelo dono, medido às 19h59. Envio `cf9045f1`, liberação automática para todos de uma vez. Build compilada do `6c11140`; a PR #69 entrou na `main` em `20dd593`. O agente montou a versão no App Store Connect a pedido do dono e conferiu tudo pela API interna. **A descrição da página continua a da 1.4.0** e cita "Fundamentos", "Tórax e Abdome" e estudantes de medicina. **Não verificado:** o app no aparelho pelo TestFlight e o estado interno do App Store Connect depois da aprovação; o conteúdo foi revisado só por IA. | 2026-11-11 |
-| **App Store, anterior** | **`1.4.0 (12)` aprovada e liberada em 2026-10-12, às 08:47 (America/Bahia), para o Brasil; "Pronto para distribuição" no App Store Connect.** Os dois produtos e o grupo "Radiant Ilimitado" também foram aprovados (submissão `a5e5a094`). Binário = `main` em `221e2ec`. A página pública brasileira já mostra **`1.4.0` às 08:50**, com mensal de R$ 19,90 e anual de R$ 149,90. [Evidência](evidence/2026-10-12-radiant-liberacao-1-4-0.md). | 2026-10-12 |
+| **App Store** | **`1.6.0 (18)` no ar no Brasil**, após aprovação da Apple em 2026-11-18. A consulta pública devolveu `1.6.0`, com data de liberação em 2026-11-18 às 18h UTC. | 2026-11-25 |
 | **Atualização OTA** | Nenhuma no canal `production`: o que roda é exatamente o binário. | 2026-09-23 |
-| **Google Play** | **Produção inativa; acesso de produção ainda não liberado.** Lido no Play Console em 2026-11-18: o teste fechado `alpha` tem a `1.3.0 (4)` no ar (publicada em 2026-07-31) e **5 testadores participando**, dos 12 que o Google exige por 14 dias antes de liberar "Solicitar a produção". A **`1.6.0 (7)` foi enviada à revisão do teste fechado em 2026-11-18** pelo agente, por ordem do dono; estado lido logo depois: "Alterações em análise". Publicação gerenciada desativada: aprovada, ela vai direto aos testadores. Há um aviso do console para declarar o status de comerciante até fevereiro de 2027. | 2026-11-18 |
+| **Google Play** | **`1.6.0 (7)` disponível para os testadores selecionados da faixa fechada `alpha`**. A produção está inativa e o Play Console mostra cinco testadores participando. | 2026-11-25 |
 | **API pública** | Inativa: HTTP 502 em `/health` e `/ready`, reconfirmado em 2026-10-14. DNS medido `143.95.208.237`; SSH no VPS histórico recusado, sem identificar origem atual nem mudar configuração. Sync remoto permanece desligado. [Remediação local](evidence/2026-10-14-qa-remediacao.md). O código da API na PR #69 recebeu correções de segurança e de sincronização em 2026-11-10, sem deploy ([auditoria](evidence/2026-11-10-auditoria.md)). | 2026-10-14 |
 
 ```bash
@@ -35,6 +33,19 @@ for p in health ready v1/content/catalog; do curl -s -o /dev/null -w "$p %{http_
 ```
 
 O estado do Play só se mede abrindo o Play Console; não há comando.
+
+## Radiant 1.7.0 — enviado às lojas
+
+As builds de distribuição foram geradas no EAS a partir do commit `7a67ee08`
+da `main`. Estado nas lojas medido em 2026-11-25.
+
+- **App Store Connect, `1.7.0 (19)`.** A versão foi enviada à revisão e aparece
+  como **Aguardando revisão**. A liberação na App Store foi configurada como
+  manual após a aprovação. Envio `1e82762c` no App Store Connect.
+- **Google Play, `1.7.0 (9)`.** A mudança para o teste fechado `alpha` aparece
+  em **Alterações em análise**. A publicação gerenciada está desativada e a
+  versão vai aos testadores selecionados após a aprovação. Estado consultado na
+  Visão geral da publicação do Play Console.
 
 ## Trilha dobrada (1.7) — fases A, B e lotes 1 a 4 da C em branches; figuras em troca, medido em 2026-11-19
 
