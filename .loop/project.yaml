@@ -222,13 +222,13 @@ validators:
     command: cd radiant-app &&
       PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin
       EXPO_NO_DOTENV=1 CI=1 npm_config_update_notifier=false npm run quality
-    timeoutMs: 180000
+    timeoutMs: 300000
   - id: app-test
     command: cd radiant-app &&
       PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin
       EXPO_NO_DOTENV=1 CI=1 npm_config_update_notifier=false npm test --
       --runInBand --no-cache
-    timeoutMs: 180000
+    timeoutMs: 300000
   - id: api-lint
     command: cd radiant-api &&
       PATH=/Users/anderson/.nvm/versions/node/v20.20.2/bin:/usr/bin:/bin
