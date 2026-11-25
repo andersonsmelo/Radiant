@@ -23,7 +23,7 @@ remede**. Contagem envelhece e comando não: remeça antes de decidir.
 | --- | --- | --- |
 | **App Store** | **`1.6.0 (18)` no ar no Brasil**, após aprovação da Apple em 2026-11-18. A consulta pública devolveu `1.6.0`, com data de liberação em 2026-11-18 às 18h UTC. | 2026-11-25 |
 | **Atualização OTA** | Nenhuma no canal `production`: o que roda é exatamente o binário. | 2026-09-23 |
-| **Google Play** | **`1.6.0 (7)` disponível para os testadores selecionados da faixa fechada `alpha`**. A produção está inativa e o Play Console mostra cinco testadores participando. | 2026-11-25 |
+| **Google Play** | **`1.7.0 (9)` disponível aos testadores selecionados da faixa fechada `alpha`**, com lançamento em 2026-11-25 às 10h31 (America/Bahia). A produção pública segue inativa. O painel registrou cinco testadores participando na última contagem do dia. | 2026-11-25 |
 | **API pública** | Inativa: HTTP 502 em `/health` e `/ready`, reconfirmado em 2026-10-14. DNS medido `143.95.208.237`; SSH no VPS histórico recusado, sem identificar origem atual nem mudar configuração. Sync remoto permanece desligado. [Remediação local](evidence/2026-10-14-qa-remediacao.md). O código da API na PR #69 recebeu correções de segurança e de sincronização em 2026-11-10, sem deploy ([auditoria](evidence/2026-11-10-auditoria.md)). | 2026-10-14 |
 
 ```bash
@@ -34,7 +34,7 @@ for p in health ready v1/content/catalog; do curl -s -o /dev/null -w "$p %{http_
 
 O estado do Play só se mede abrindo o Play Console; não há comando.
 
-## Radiant 1.7.0 — enviado às lojas
+## Radiant 1.7.0 — revisão no iOS e disponível no Alpha
 
 As builds de distribuição foram geradas no EAS a partir do commit `7a67ee08`
 da `main`. Estado nas lojas medido em 2026-11-25.
@@ -42,220 +42,44 @@ da `main`. Estado nas lojas medido em 2026-11-25.
 - **App Store Connect, `1.7.0 (19)`.** A versão foi enviada à revisão e aparece
   como **Aguardando revisão**. A liberação na App Store foi configurada como
   manual após a aprovação. Envio `1e82762c` no App Store Connect.
-- **Google Play, `1.7.0 (9)`.** A mudança para o teste fechado `alpha` aparece
-  em **Alterações em análise**. A publicação gerenciada está desativada e a
-  versão vai aos testadores selecionados após a aprovação. Estado consultado na
-  Visão geral da publicação do Play Console.
+- **Google Play, `1.7.0 (9)`.** O Play Console confirmou o lançamento às 10h31
+  (America/Bahia) no teste fechado `alpha`. A faixa mostra a versão disponível
+  para testadores selecionados.
 
-## Trilha dobrada (1.7) — fases A, B e lotes 1 a 4 da C em branches; figuras em troca, medido em 2026-11-19
+## Trilha RTG-2026 na versão 1.7.0
 
-O dono pediu em 2026-11-18 a trilha `rtg-2026` com o dobro do tamanho (cerca de 48
-unidades e 310 aulas), sem lei brasileira nem código de ética e com menos texto.
-[Desenho aprovado](superpowers/specs/2026-11-18-trilha-dobrada-design.md),
-[ADR](adr/ADR-2026-11-18-trilha-internacional-e-dobrada.md). São cinco fases: A base
-internacional, B formatos, C unidades irmãs, D conversão das aulas atuais, E integração.
+**Medido em 2026-11-25 no commit de build `7a67ee08`.** A pilha foi integrada à
+`main` em ordem de dependência. A base internacional entrou pela PR #89, os
+formatos pela #90 e os quatro lotes da fase C pelas #91, #93, #94 e #95.
+A base das figuras e a rodada aprovada entraram pelas #96 e #97, e a versão
+`1.7.0` pela #98. Passaram os dois checks do commit de build.
+[Conteúdo](https://github.com/andersonsmelo/Radiant/actions/runs/45603287281) ·
+[Qualidade do app](https://github.com/andersonsmelo/Radiant/actions/runs/45603287285)
 
-**Fase A, na branch `claude/trilha-dobrada`, sem merge:** as 24 unidades passam no
-verificador com a régua nova de referência nacional (eram 260 ocorrências, 130 no
-texto das aulas); 17 unidades foram reescritas ou tiveram fontes trocadas; nenhum
-item mudou de identificador, tipo, papel ou marca de segurança (105 itens de segurança
-antes e depois). Quatro revisões independentes, 63 correções aplicadas.
-[Plano](superpowers/plans/2026-11-18-trilha-dobrada-fase-a-base-internacional.md),
-[evidência](evidence/2026-11-18-base-internacional/README.md). **Nada foi visto em
-aparelho.** PR #89, em rascunho.
-
-**Fase B, na branch `claude/trilha-dobrada-fase-b`, empilhada na A, sem merge (medido em
-2026-11-19):** a aula-fonte passa a aceitar `hotspot`, `label`, `risk-hunt`,
-`parameter-lab`, `conversation`, `blitz`, `bench` e o `visual` do conceito, cada um
-com tela, regra de acerto, verificador, gerador e roteiro do Maestro. São 16 tipos de
-interação e um catálogo de 16 diagramas em código (11 laços, 3 dirigidos por controle,
-2 parados). O verificador ganhou a régua "toda aula tem ao menos uma múltipla escolha".
-Os 24 lotes gerados não mudaram: nenhuma aula publicada usa formato novo ainda.
-Gate do app: 4.123 testes, saída 0; testes de conteúdo 407 de 408 (a
-falha, `register-source`, é da worktree, que não tem o arquivo local do livro piloto).
-[Plano](superpowers/plans/2026-11-19-trilha-dobrada-fase-b-formatos.md),
-[ADR](adr/ADR-2026-11-19-formatos-da-trilha-dobrada.md),
-[evidência](evidence/2026-11-19-formatos/README.md). PR #90, em rascunho. **Nenhum
-formato novo foi visto em simulador ou aparelho; os laços foram revisados em quadros
-parados.**
-
-**Fase C, lote 1, na branch `claude/trilha-dobrada-fase-c-lote-1`, empilhada na B, sem
-merge (medido em 2026-11-19):** quatro unidades irmãs, 24 aulas: M17 (segurança do
-paciente na sala, depois da M01), M18 (esqueleto, articulações e marcos, depois da
-M02), M19 (eletricidade, tubo e gerador, depois da M03) e M20 (sistemas do corpo,
-depois da M15). O catálogo ganhou 18 diagramas e tem 34. O inventário mede 28 unidades
-e 181 aulas; as quatro novas têm de 47,9% a 50,0% de passos de texto ou formato antigo,
-passo visual em 6 de 6 aulas e 9 ou 10 famílias de interação. A trilha inteira segue em
-73,7%, porque as 24 unidades anteriores esperam a fase D. Cada unidade tem parecer de
-revisão independente por IA (71 correções ao todo), não por profissional da área. Na
-M19, quatro das sete fontes são Wikipedia ou Wikibooks, para fatos de física. Um
-defeito da fase B foi consertado aqui: a figura tocável animava o laço sob alvos
-parados. Gate do app: 4.179 testes, saída 0; testes de conteúdo e de roteiros 407 de
-408 (a mesma falha de ambiente da fase B).
-[Plano](superpowers/plans/2026-11-19-trilha-dobrada-fase-c-unidades-irmas.md),
-[evidência](evidence/2026-11-19-unidades-irmas/README.md). PR #91, em rascunho. **Nada
-foi visto em simulador ou aparelho; os diagramas foram conferidos em quadros parados.**
-Faltavam cinco lotes.
-
-**Fase C, lote 2, na branch `claude/trilha-dobrada-fase-c-lote-2`, empilhada no lote 1,
-sem merge (medido em 2026-11-19):** mais quatro unidades irmãs, 24 aulas: M21
-(radiobiologia e dosimetria, depois da M04), M22 (processamento, exibição e
-informática da imagem, depois da M05), M23 (leitura crítica da imagem, depois da M06)
-e M24 (membro inferior, pelve e coluna, depois da M07). O catálogo ganhou 17 diagramas
-e tem 51; três deles são esquemas desenhados de radiografia de tórax, não imagens
-reais. O inventário mede 32 unidades e 205 aulas; as quatro novas têm de 47,9% a 50,0%
-de passos de texto ou formato antigo, passo visual em 6 de 6 aulas e 10 ou 11 famílias
-de interação. São as primeiras unidades a usar o laboratório de parâmetros (M21) e a
-bancada (M23). Cada unidade tem parecer de revisão independente por IA (70 correções
-ao todo). Gate do app: 4.230 testes, saída 0; testes de conteúdo e de roteiros 407 de
-408 (a mesma falha de ambiente).
-[Evidência](evidence/2026-11-19-unidades-irmas/README.md). PR #93, em rascunho. **Nada
-foi visto em simulador ou aparelho.** Faltavam quatro lotes.
-
-**Fase C, lote 3, na branch `claude/trilha-dobrada-fase-c-lote-3`, empilhada no lote 2,
-sem merge (medido em 2026-11-19):** mais quatro unidades irmãs, 24 aulas: M25 (crânio,
-face e exames no leito, depois da M08), M26 (exames contrastados e fluoroscopia, depois
-da M09), M27 (criança, idoso e gestante na aquisição, depois da M16) e M28 (anatomia
-seccional II, depois da M10). O catálogo ganhou 17 diagramas e tem 68. É o primeiro
-lote com imagens reais novas, por decisão do dono em 2026-11-19 ("Radiografias reais"):
-cinco, do Wikimedia Commons, uma radiografia de crânio de perfil (CC BY 3.0) e quatro
-tomografias de um mesmo exame (CC0). Sobre a imagem real os itens só perguntam a
-projeção, o plano e qual corte está mais alto; a anatomia fina fica nos diagramas. Não
-se achou, com licença aceita, crânio de frente, exame com bário nem mão de criança e
-de adulto. O inventário mede 36 unidades e 229 aulas; as quatro novas têm de 47,9% a
-50,0% de passos de texto ou formato antigo, passo visual em 6 de 6 aulas e 9 a 11
-famílias de interação. Cada unidade tem parecer de revisão independente por IA (70
-correções ao todo). Gate do app: 4.281 testes, saída 0; testes de conteúdo e de
-roteiros 407 de 408 (a mesma falha de ambiente). A linha de base do contrato de texto
-ganhou um teto para `rtgImages.ts`, porque a licença "CC BY 3.0" conta como rótulo em
-maiúsculas.
-[Evidência](evidence/2026-11-19-unidades-irmas/README.md). **Nada foi visto em
-simulador ou aparelho.** Faltavam três lotes.
-
-**Fase C, lote 4, na branch `claude/trilha-dobrada-fase-c-lote-4`, empilhada no lote 3,
-sem merge (medido em 2026-11-19):** as quatro últimas unidades irmãs do núcleo, 24
-aulas: M29 (sequências, contraste e artefatos básicos de RM, depois da M11), M30
-(densitometria óssea e composição corporal, depois da M12), M31 (outros campos:
-veterinária, forense e pesquisa, depois da M13) e M32 (controle de qualidade de
-equipamentos e níveis de referência, depois da M14). O catálogo ganhou 18 diagramas e
-tem 86. Este lote não tem imagem real nova. O inventário mede 40 unidades e 253 aulas;
-as quatro novas têm 50,0% de passos de texto ou formato antigo, passo visual em 6 de 6
-aulas e 9 ou 10 famílias de interação. Cada unidade tem parecer de revisão independente
-por IA (68 correções ao todo). Gate do app: 4.335 testes, saída 0; testes de conteúdo e
-de roteiros 407 de 408 (a mesma falha de ambiente).
-[Evidência](evidence/2026-11-19-unidades-irmas/README.md). **Nada foi visto em
-simulador ou aparelho.** Faltavam dois lotes, as oito irmãs das especializações.
-
-**Figuras reprovadas e em troca (2026-11-19).** O dono viu as figuras em código e as
-reprovou. O lote 5 da fase C parou antes de qualquer aula ser escrita. Por uma amostra e
-um piloto no app, ele escolheu um método por tipo: acervo aberto para anatomia e a skill
-`anatomy` para equipamento e cena
-([ADR](adr/ADR-2026-11-19-figuras-por-tipo.md),
-[plano](superpowers/plans/2026-11-19-troca-das-figuras.md)). A base técnica (fase 0 do
-plano) está na branch `claude/figuras-base`, sobre o lote 4, sem merge: movimento com
-fases e curva, conversor de arte versionado, registro de origem e crédito das figuras,
-regra do verificador que prende as áreas de toque de cada figura que tem arquivo de
-alvos (hoje, só o crânio) à estrutura que nomeiam e ao rótulo que a aula mostra,
-gerador de roteiros de prova e orçamento de peso. **Uma figura está na arte nova no app
-(2026-11-19): o crânio de perfil (acervo, domínio público), na M25.01, com os alvos
-remarcados e presos.** A cena do raio X móvel no leito, feita com a `anatomy`, foi
-provada no piloto e medida, mas **saiu do app em 2026-11-19**: ela não tem dois dos cinco
-alvos que a M25.05 cobra (a pessoa sem avental junto à cabeceira e o leito vizinho), e a
-aula voltou à figura antiga, com os alvos que sempre bateram com ela. A cena volta
-refeita na fase 2, com esses alvos. Os números de peso, medidos em 2026-11-19 com as
-duas figuras, continuam valendo como medição: o bundle JS passou de 13,38 para
-13,67 MiB, e a projeção para as 72 figuras usadas é de 6,71 MiB de figuras (6,47 MiB a
-mais no bundle), numa faixa de 3,5 a 10,3 MiB de figuras; no emulador Android o leito
-apareceu menos de 0,3 s depois do toque
-([orçamento](evidence/2026-11-19-figuras/orcamento.md)). **Visto rodando em 2026-11-19: o
-crânio no simulador de iPhone e no emulador Android; o leito novo só no piloto e no
-Android, e hoje fora do app. Não visto: aparelho físico, uma cena animando numa aula
-real, e as 70 figuras restantes.** Três
-defeitos dos roteiros de prova no Android ficaram pendentes (o roteiro que fecha o menu
-do dev client e a rolagem dos grupos de classificar); a prova usou contornos
-temporários. As PRs #89 a #95 seguem com a arte antiga. Esperam o dono: o método para
-gráficos, fluxos e esquemas de radiografia, o destino da pilha de PRs e a retomada dos
-lotes 5 e 6.
-
-**Figuras: fase 1 (anatomia por acervo) e fase 2 (cenas do kit), medido em 2026-11-20 e 21.** Na branch
-`claude/figuras-fase-1`, PR #97 em rascunho sobre a #96, sem merge. **23 figuras estão
-no app em arte de acervo** (19 até o lote 1E e 4 do lote 1F) (Servier Medical Art, DBCLS/Togopic, LadyofHats e outros,
-todas CC BY ou domínio público), com crédito, alvos presos e aulas ajustadas. Onze
-entraram nos lotes 1A a 1D: crânio de perfil, esqueleto, articulação sinovial, linhas
-do crânio, regiões da coluna, vértebra típica, joelho, ossos do pé, trato digestivo,
-marcos de superfície e sistema nervoso. Oito entraram no lote 1E, depois de o dono
-decidir, em 2026-11-20, o que fazer com as que o acervo não cobria
-([ADR, adendo de 2026-11-20](adr/ADR-2026-11-19-figuras-por-tipo.md)): fêmur e quadril
-(composição de duas peças do mesmo autor, com a posição medida pela linha de Shenton),
-respiração e circulação dupla (paradas; a respiração traz dois estados lado a lado),
-seios da face em duas figuras (corte e frente), sistema urinário, o recorte ampliado de
-bexiga e uretra para a M26.06 e o contraste no corpo em dois painéis. **Quatro entraram
-no lote 1F em 2026-11-20** ([1F](evidence/2026-11-19-figuras/lote-1F.md)): a pelve de
-frente inteira (Servier) para o rotular da M24.04, agora com três fichas (acetábulo e
-sínfise saíram: a arte não desenha o primeiro e o marcador esconde 97% da segunda); o
-recorte ampliado `pelve-de-frente-recorte` para o tocar do forame obturado; o osso longo
-como o **fêmur inteiro do Servier**, por escolha do dono em 2026-11-20 depois de ver lado
-a lado essa arte e a do Pbroks13 em corte (só uma ponta). O rotular da M18.02 ficou com
-epífise proximal, diáfise e epífise distal; a cavidade, o osso esponjoso, a placa de
-crescimento e a cartilagem ficam no texto da aula, e o marcador esconde cerca de um quarto
-de cada epífise. A fala do Caio na cena da M18.02 passou, por decisão do dono, a "Trouxe
-este fêmur de modelo para a turma ver as partes.", que combina com a figura inteira; e a
-coluna, agora **só em corte
-sagital** (Servier), porque a vista axial disponível era um disco em perspectiva, e não
-um corte. **No lote 1F, a arte anterior do osso longo derrubava o app no iOS** (SIGABRT no
-`react-native-svg`, degradê sem `id`): o conversor passou a remover degradê sem
-referência, e uma guarda no teste do registro barra qualquer spec com degradê sem `id`.
-**Ficam com a figura antiga:** os três cortes axiais da m28 (sem
-arte aberta; método a decidir junto com gráficos e esquemas) e a composição do corpo
-inteiro (é esquema de exame, passa à fase dos esquemas). **Imagem gerada foi testada e
-abandonada para anatomia em 2026-11-20:** duas tentativas da pelve de frente erraram
-posição e limite de osso. Cada lote teve integração, revisão independente por IA e
-correções ([1A](evidence/2026-11-19-figuras/lote-1A.md),
-[1B](evidence/2026-11-19-figuras/lote-1B.md), [1C](evidence/2026-11-19-figuras/lote-1C.md),
-[1D](evidence/2026-11-19-figuras/lote-1D.md), [1E](evidence/2026-11-19-figuras/lote-1E.md),
-[1F](evidence/2026-11-19-figuras/lote-1F.md)).
-Gate do app em `442a8e7e`, Node 20.20.2: 297 suítes, 4.547 testes, saída 0. **Fase 3 (2026-11-21): produzida (14 gráficos pela gramática aprovada pelo dono), revisada, corrigida e vista no iPhone; gate em `70327d47` com 297 suítes e 4.611 testes; a frase de eixos da retificação entrou no corpo do conceito em 2026-11-22, com 80 palavras** ([fase-3](evidence/2026-11-19-figuras/fase-3.md)). **Acervo próprio (2026-11-22, noite):** cinco figuras passaram a exame real do acervo do dono, anonimizado e em CC BY 4.0 com o crédito dele: os cortes axiais de abdome superior, pelve e pescoço da m28, por TC; e as ponderações T1, T2 e FLAIR e a supressão de gordura da m29, por RM. Foram revisadas por IA, corrigidas e vistas no iPhone. O gate de `bdc9fc3a`, no Node 20.20.2, deu 297 suítes, 4.612 testes e saída 0 ([imagens-vps](evidence/2026-11-19-figuras/imagens-vps.md)). O gerador de roteiros Maestro passou a centralizar o botão da bancada, e a M23.05 foi capturada. Ficam com o desenho as figuras de artefato de objeto, do detector e de RM e a do monitor. **Imagens reais (2026-11-22):** o dono achou "pessimas" as 13 figuras que a fase 5 tinha mantido e reprovou duas rodadas de amostra desenhada em código e no kit, por terem "cara de conteudo feito por ia". Quatro dessas figuras passaram a imagem real de exame com licença aberta, pelo caminho `imageId`: a radiografia de tórax da M23 (CC0) e três imagens de DXA da M30 (CC BY: quadril e coluna, coluna com cimento, corpo inteiro). Foram revisadas, corrigidas e vistas no iPhone, 5 de 6 telas; o gate de `d60265c1`, no Node 20.20.2, deu 297 suítes, 4.612 testes e saída 0 ([imagens-reais](evidence/2026-11-19-figuras/imagens-reais.md)). Os três cortes axiais ficam, por decisão do dono. Seis figuras ficam sem solução aberta: os artefatos de objeto, do detector e de RM, o monitor, as ponderações e a supressão de gordura. **Fase 4 (2026-11-21 e 22): feita.** São 3 fluxos com ícones do Lucide. O dono aceitou a licença ISC em 2026-11-21, só para ícones; para arte, a regra continua CC0, domínio público ou CC BY. Os fluxos foram revisados e corrigidos: quatro ícones com desenho herdado do Feather foram trocados. Desde 2026-11-22, a tela de créditos liga cada imagem ao texto da licença. As 5 telas foram vistas no iPhone em 2026-11-22, e o gate de 2026-11-22, Node 20.20.2, deu 297 suítes, 4.612 testes e saída 0 ([fase-4](evidence/2026-11-19-figuras/fase-4.md)). Itens de aula
-adaptados pela política "adaptar o item" em m18, m20, m24, m25, m26 e m28. As 23 figuras
-somam 2.900.381 bytes de SVG (medido em `368029c3`), contra o teto de 8.116.109 do teste;
-a respiração tem uma exceção
-nomeada de peso (401 KiB, teto de 480 só para ela), não medida no Android
-([orçamento, seção 7](evidence/2026-11-19-figuras/orcamento.md), medido com 11 figuras).
-**Visto no simulador de iPhone em 2026-11-20: as 23 figuras, em pelo menos um passo de
-aula cada. Não visto: Android e aparelho físico para essas figuras.** O roteiro
-`m18-aula-02` reprova no passo de classificar (a rolagem não leva ficha e grupo à tela),
-e a captura do osso longo saiu por uma cópia fora do repositório. Nos itens de
-rotular e de tocar, o selo numerado cobria parte da estrutura que nomeia (cuboide,
-marcos da m18, encéfalo, bexiga); **em 2026-11-20 o app passou a pôr o selo FORA da região
-e do ponto, sem pisar na área de toque dos outros alvos (decisões E11 a E13 do lote 2A, medido
-nos 89 itens das 40 unidades, em [lote-2A](evidence/2026-11-19-figuras/lote-2A.md)); ainda
-sobra selo sobre a estrutura de OUTRO ponto de rotular (o app não recebe a caixa do alvo), e a
-exceção provisória da coluna precisa ser revista no simulador**; o corpo inteiro fica pequeno no quadro 4:3 (esqueleto, sistema
-nervoso, circulação). Os roteiros `m18-aula-05` e `m25-aula-04` reprovam no "Continuar"
-depois do passo de rotular: é o defeito conhecido do roteiro (a rolagem acha os pontos
-sob o cabeçalho fixo), e as figuras saíram certas antes disso. **Fase 2, feita em 2026-11-20 e 21 (medido em 2026-11-21): 22 cenas isométricas do kit** `scripts/content/figuras/kit/` (equipamento e pessoas, geometria da skill `anatomy`, MIT, arte própria do projeto) entraram nos lotes 2A, 2B, 2C e 2D, para as unidades m17, m19, m21, m25, m26, m27, m30, m31 e m32. Cada lote teve integração, revisão independente por IA, correções e gate; as 22 foram vistas no simulador de iPhone em 2026-11-20 e 21 ([fase-2](evidence/2026-11-19-figuras/fase-2.md), [2A](evidence/2026-11-19-figuras/lote-2A.md), [2B](evidence/2026-11-19-figuras/lote-2B.md), [2CD](evidence/2026-11-19-figuras/lote-2CD.md)). **O app mudou: o selo do número fica fora do objeto e fora da área de toque dos outros alvos, e o ponto de rotular tem 12 pt com o número num selo ao lado** (vale para todas as figuras, não só as 22; decisões R14 e R15 do controlador). A pessoa do kit é módulo único (`kit/pessoa.mjs`). **Fase 5 sem trocas:** a busca de imagem real achou 3 de 13 e nenhuma serviu à aula (rótulos impressos, forma pintada sobre arte de acervo, esquema que a imagem real não tem) ([fase-5](evidence/2026-11-19-figuras/fase-5.md)). **Fases 3 e 4 liberadas pelo dono em 2026-11-21 ("Sim, produza" e "Aceito a ISC") e feitas** (ver acima). Gate mais recente, em 2026-11-21 depois das correções do 2CD, Node 20.20.2: 297 suítes, 4.584 testes, saída 0; as 45 figuras importadas somam 4.132.420 bytes, contra o teto de 8.116.109. **Não visto: Android, aparelho físico e VoiceOver.** Os roteiros Maestro versionados `m25-aula-05` e `m17-aula-02` (2B) e quatro do 2CD reprovam no passo de classificar ou na rolagem; as capturas saíram de cópias fora do repositório. A revisão final da branch inteira está em curso (`evidence/2026-11-19-figuras/revisoes/final.md`). **Quem continua esta frente começa pelo [plano de continuidade](superpowers/plans/2026-11-20-figuras-continuidade.md)**, atualizado em 2026-11-21, e pelo [adendo da ADR](adr/ADR-2026-11-19-figuras-por-tipo.md) com as decisões que o controlador tomou por delegação do dono. A pessoa do kit e os selos foram aprovados em 2026-11-24. Continuam com o dono a ratificação da fase 5 sem trocas, o merge da pilha de PRs e a retomada dos lotes 5 e 6 da fase C. **Correção do selo, 2026-11-21 (revoga a E13):** o selo numerado de tocar e de caça ao risco e o selo do número de rotular deixaram de receber toque (`pointerEvents="none"`), porque, na M18.01 `i3`, o selo do quadril esquerdo cobria 85% do quadril direito e quem errava o lado acertava ao tocar nele; a área de toque dos alvos e a posição dos selos não mudaram ([correção](evidence/2026-11-19-figuras/correcao-final.md)).
-
-**Fechamento das figuras (2026-11-24).** Launcher Android, rolagem da classificação e botão de ordenação corrigidos no Maestro. M23.02 (colar), M24.04 (rotulagem da pelve) e M25.05 (classificação e cena do leito) exercitadas no RadiantPlay e no Radiant F7. O diafragma foi medido em três gravações Android e os bundles Hermes foram reexportados. M28.01 i2 e M28.06 i4 ganharam prévias individuais. Anderson aprovou os selos e a figura humana atuais em 2026-11-24. A M29.03 permaneceu lado a lado e passou no RadiantPlay. A M29.04 foi empilhada e validada em RadiantPlay e Radiant F7 com o alvo correto, o distrator e o avanço. Anderson aprovou manter o detector em esquema na M23.03 e na M32.04 e manter o padrão de teste em esquema na M22.03. A M29.05 e a M29.06 usam as comparações aprovadas de artefatos de RM. Os acertos e os erros testados passaram no RadiantPlay e no Radiant F7, no conteúdo de `2a45f960`. A bateria Android confirmou 70 figuras em 108 usos de 77 aulas, com evidência por passo. Os bundles Hermes finais foram reexportados e medidos na mesma árvore. [Inventário e retestes](evidence/2026-11-19-figuras/orcamento.md#11-bateria-final-de-figuras-e-bundle-2026-11-24). [Provas nativas e medições](evidence/2026-11-19-figuras/orcamento.md#9-medição-na-árvore-reconciliada-2026-11-24) · [Prévias do abdome](evidence/2026-11-19-figuras/revisoes/imagens-vps.md#3-achados).
-
-**Piloto de artefato de objeto (2026-11-23, branch `claude/figuras-fase-1`).** A M23.02 usa uma radiografia real de tórax para localizar a marca do colar; botão, trança e eletrodo continuam nos exercícios textuais e no conceito. Em 2026-11-24, Anderson aprovou a mesma radiografia para a ficha de rejeição na M23.06, com o botão no exercício de classificação textual. O toque no colar e a conclusão da aula passaram no Radiant F7 e no RadiantPlay. [Evidência e crédito](evidence/2026-11-19-figuras/imagens-reais.md#piloto-de-artefato-de-objeto-2026-11-23).
-
-**Reconciliação da frente de figuras (2026-11-24).** A base `fc298957` e o commit `a433f4a2`, que já é ancestral do piloto, têm a mesma árvore. O commit de reconciliação `52e9c468` preserva o código e os conteúdos validados em `120587fc`. A PR #97 está em rascunho e ficou sem conflitos. Loop 15/15, Radiant App Quality e Content Scripts passaram em `52e9c468` e no commit de automação e evidências `8d82ed3c`. [Plano e prova](superpowers/plans/2026-11-20-figuras-continuidade.md#p0--destravar-a-pr-97).
-
-**Decisão aberta para o dono, medida em 2026-11-19:** com 310 aulas concluídas, o
-armazenamento da revisão espaçada fica em 1,64 MiB no caso comum, abaixo do teto de
-1,9 MiB medido no emulador Android, mas passa do teto se todas as conferências forem
-reprovadas uma vez (1,98 MiB). A régua da múltipla escolha afasta o pior caso de
-conteúdo; o resto depende de mudar o armazenamento
-([medição](evidence/2026-11-19-formatos/medicao-revisao-espacada.md)).
-
-**As fases C, D e E não começaram.** O inventário das metas mede hoje 24 unidades, 157
-aulas, 77,4% dos passos em texto ou formato antigo, 1 aula com passo visual e 17
-unidades abaixo de quatro famílias.
+- **Currículo.** O inventário mede 40 unidades e 253 aulas. A fase C acrescentou
+  16 unidades irmãs (M17 a M32) e 96 aulas nos lotes 1 a 4. A trilha tem passo
+  visual em 97 aulas e 67,0% dos passos ainda usam texto ou formatos antigos.
+  [Desenho](superpowers/specs/2026-11-18-trilha-dobrada-design.md) ·
+  [Evidência dos lotes](evidence/2026-11-19-unidades-irmas/README.md)
+- **Figuras.** A bateria Android de 2026-11-24 confirmou 70 figuras em 108 usos
+  de 77 aulas. Os retestes selecionados no iOS cobriram a radiografia do colar e
+  as comparações de RM. A M29.03 ficou lado a lado e a M29.04, empilhada. A
+  M29.05 e a M29.06 usam as comparações aprovadas. A M23.06 usa a radiografia
+  do colar com a classificação do botão em texto. Os esquemas de M23.03,
+  M32.04 e M22.03, a figura humana do kit e os selos foram aceitos por Anderson.
+  VoiceOver ficou fora da rodada.
+  [Fechamento](superpowers/plans/2026-11-20-figuras-continuidade.md#plano-de-fechamento-por-criticidade-2026-11-24) ·
+  [Bateria e medições](evidence/2026-11-19-figuras/orcamento.md#11-bateria-final-de-figuras-e-bundle-2026-11-24)
+- **Continuidade.** Os lotes 5 e 6 da fase C, a conversão das aulas atuais
+  (fase D) e a integração final da expansão (fase E) seguem pendentes. A
+  retomada depende da decisão do dono. O teste de armazenamento de 2026-11-19
+  para a meta de 310 aulas mediu 1,64 MiB no caso comum e 1,98 MiB no pior caso
+  simulado, para um teto de 1,9 MiB.
+  [Roadmap](plans/2026-07-27-radiant-launch-roadmap.md) ·
+  [Medição](evidence/2026-11-19-formatos/medicao-revisao-espacada.md)
 
 ```bash
-for f in content-manifest/rtg-2026/aulas/*.json; do node scripts/content/rtg-lesson-lint.mjs "$f"; done
-uv run python docs/evidence/2026-11-18-base-internacional/compara-identidade.py origin/main
 node scripts/content/rtg-inventory.mjs
-cd radiant-app && EXPO_NO_DOTENV=1 npm run quality   # Node 20
 ```
 
 ## Atualização 1.6 — na `main`, com build no EAS (medido em 2026-11-16)

@@ -10,7 +10,12 @@
 
 **Objetivo.** Deixar a frente de figuras da RTG-2026 revisada, com evidência de funcionamento no iOS e no Android, pronta para a decisão de merge. Escopo de acessibilidade deste plano: manter as alternativas textuais e a semântica dos controles. VoiceOver está fora desta rodada, a pedido de Anderson. Merge, build de loja, envio e gastos dependem do dono.
 
-**Ponto de partida verificado em 2026-11-24.** O piloto M23.02 está no commit `120587fc` e tem prova no Radiant F7 e Loop 15/15. A PR #97 está em rascunho, com 10 conflitos preexistentes com `claude/figuras-base` (`fc298957`) e zero checks no commit do piloto. A ordem de dependências medida no GitHub é `#89 → #90 → #91 → #93 → #94 → #95 → #96 → #97`, da base ao topo. As sete PRs abaixo da #97 aparecem sem conflito com suas bases imediatas. A #92 é uma frente separada de contas de loja. A ordem abaixo orienta a próxima execução; as seções seguintes preservam o histórico e o método. [Estado vivo](../../STATUS.md) · [Piloto e captura](../../evidence/2026-11-19-figuras/imagens-reais.md#piloto-de-artefato-de-objeto-2026-11-23) · [PR #97](https://github.com/andersonsmelo/Radiant/pull/97).
+**Fechamento conferido em 2026-11-25.** As oito PRs da pilha entraram na
+`main`. A #97 foi integrada em `7245ff2e`, com a mesma árvore de `7d550009`.
+A #98 preparou a versão `1.7.0`. A atualização das figuras desta rodada chegou
+às builds iOS 19 e Android 9. [Estado nas lojas](../../STATUS.md#radiant-170--revisão-no-ios-e-disponível-no-alpha)
+
+**Ponto de partida em 2026-11-24, antes da reconciliação.** O piloto M23.02 está no commit `120587fc` e tem prova no Radiant F7 e Loop 15/15. A PR #97 está em rascunho, com 10 conflitos preexistentes com `claude/figuras-base` (`fc298957`) e zero checks no commit do piloto. A ordem de dependências medida no GitHub é `#89 → #90 → #91 → #93 → #94 → #95 → #96 → #97`, da base ao topo. As sete PRs abaixo da #97 aparecem sem conflito com suas bases imediatas. A #92 é uma frente separada de contas de loja. A ordem abaixo foi usada no fechamento. As seções seguintes preservam o histórico e o método. [Estado vivo](../../STATUS.md) · [Piloto e captura](../../evidence/2026-11-19-figuras/imagens-reais.md#piloto-de-artefato-de-objeto-2026-11-23) · [PR #97](https://github.com/andersonsmelo/Radiant/pull/97).
 
 ### P0 — Destravar a PR #97
 
@@ -69,7 +74,11 @@ Ferreira et al. têm um conjunto adicional sob CC BY 2.0, com recortes candidato
 
 - [x] **Selos e marcadores.** Anderson aprovou os atuais em 2026-11-24 após ver a amostra da M24.04. A bateria final usa essa configuração.
 - [x] **Figura humana do kit.** Anderson aprovou a versão atual em 2026-11-24 após ver o modelo isolado e a cena do leito. [Decisões registradas](../../adr/ADR-2026-11-19-figuras-por-tipo.md#o-que-o-dono-precisa-confirmar).
-- [ ] **No fechamento.** Levar ao dono o pacote com diffs, checks, capturas e lacunas editoriais. Com cada elo apto, o dono decide o merge na ordem da pilha. Conferir o estado no GitHub após cada etapa e medir a base do elo seguinte. A retomada dos lotes 5 e 6 da fase C é uma decisão posterior ao fechamento das figuras.
+- [x] **Fechamento da pilha.** Os elos #89, #90, #91, #93, #94, #95, #96 e #97
+  entraram na `main` em ordem de dependência após autorização de Anderson.
+  A integração foi conferida no GitHub em 2026-11-25.
+- [ ] **Retomada da expansão.** A decisão de iniciar os lotes 5 e 6 da fase C
+  segue com Anderson.
 
 Usar **Loop** para escopo e validação, **Git e GitHub** para reconciliar a pilha, **Maestro** para o fluxo nos emuladores e **Serena** para localizar os componentes e contratos de toque. O Radar de Skills serviu como referência de ferramentas. O conjunto já disponível cobre as etapas do plano.
 
@@ -112,7 +121,7 @@ Todas de Anderson, com data. Não reabra nenhuma; se uma situação nova não co
 
 Nunca, em nenhuma hipótese: imagem de exame gerada por modelo; forma pintada sobre arte de acervo; divisa entre estruturas que o autor não desenhou; traço do autor apagado de dentro do quadro; merge, build ou envio a loja sem ordem do dono.
 
-## 3. O que falta, na ordem
+## 3. Histórico da execução e decisões de continuidade
 
 ### 3.1 Lote 1F: três figuras de anatomia (FEITO em 2026-11-20)
 
@@ -128,14 +137,22 @@ Nunca, em nenhuma hipótese: imagem de exame gerada por modelo; forma pintada so
 
 > O dono disse "continue precisamos finalizar o planejamento sem interrupções" e, depois, "Eu estou indo dormir você deve trabalhar a noite toda, tem autonomia nas tomadas decisão". O controlador decidiu cada ponto abaixo e registrou na [ADR, adendo de 2026-11-21](../../adr/ADR-2026-11-19-figuras-por-tipo.md). O que continua com o dono está marcado "dono".
 
-1. **Figura humana da fase 2. Decidido (R1, R17):** kit isométrico da `anatomy` com a pessoa melhorada, módulo único `kit/pessoa.mjs`; a fase 2 foi feita com ela. **Dono:** aceitar a pessoa ou pedir outra (custo: regenerar as 22 cenas).
+1. **Figura humana da fase 2 (R1, R17).** As 22 cenas usam a pessoa do kit
+   isométrico, definida no módulo `kit/pessoa.mjs`. Anderson aprovou a pessoa
+   em 2026-11-24.
 2. **Método das fases 3, 4 e 5. Decidido (R2, R3, R8, R20, R21, R23):** fase 5 fechou com 0 trocas; o dono liberou as fases 3 ("Sim, produza") e 4 ("Aceito a ISC") em 2026-11-21, e as duas estão feitas. **Dono:** nada. A decisão cobria os 14 gráficos, os 3 fluxos e os esquemas de radiografia, mais os três cortes axiais (`corte-abdome-superior`, `corte-pelve`, `corte-pescoco`) e `corpo-inteiro-composicao`; a busca da fase 5 está em [fase-5](../../evidence/2026-11-19-figuras/fase-5.md) e as amostras em [amostras-fases-3-4](../../evidence/2026-11-19-figuras/amostras-fases-3-4/README.md).
 3. **Exceção provisória da coluna** (`coluna-regioes`, m18-03). **Decidido (R4):** mantida como está e definitiva até haver arte nova.
 4. **Enquadramento do corpo inteiro. Decidido (R5):** mantido; ampliar exige recorte que perde o corpo inteiro que a aula ensina. Figuras pequenas continuam.
 5. **Peso. Decidido (R6):** o teto não muda; cada lote mediu a soma (4.132.420 bytes das 45 importadas, longe do teto). A exceção da `respiracao-diafragma` (401 KiB) segue sem medida no Android. **Dono:** nada.
-6. **Pilha de PRs #89 a #97 e fase C. Decidido (R7):** sem merge (é do dono); os lotes 5 e 6 da fase C ficam para depois das figuras. **Dono:** o merge e a retomada.
+6. **Pilha de PRs #89 a #97 e fase C (R7).** A pilha foi integrada após
+   autorização de Anderson, conforme o fechamento acima. A retomada dos lotes
+   5 e 6 da fase C segue com Anderson.
 
-### 3.3 Dívidas técnicas que qualquer sessão pode pagar
+### 3.3 Dívidas técnicas registradas em 2026-11-21
+
+Os roteiros de prova, a bateria Android, o diafragma e o bundle foram
+retomados na [rodada de fechamento](#plano-de-fechamento-por-criticidade-2026-11-24).
+Os apontamentos abaixo registram o diagnóstico anterior.
 
 - **Roteiros de prova (ainda pendente em 2026-11-21; mais roteiros reprovam no 2B e no 2CD):** três defeitos no Android (o roteiro que fecha o menu do dev client usa `localhost` em vez de `10.0.2.2` e o botão `Close`; a rolagem dos grupos de classificar no gerador) e um no iPhone (depois de um passo de rotular, o toque em "Continuar" não é achado, porque a rolagem encontra os pontos sob o cabeçalho fixo: `m18-aula-05`, `m25-aula-04`, `m25-aula-01`). Enquanto não forem consertados, o passo de rotular dessas aulas não está provado de ponta a ponta.
 - **Android:** capturar as 45 figuras novas no emulador `RadiantPlay` e medir o tempo de `respiracao-diafragma`.
@@ -224,7 +241,7 @@ Do lado de quem coordena:
 
 ## 7. Quando parar e perguntar ao dono
 
-- Qualquer coisa das decisões pendentes da seção 3.2.
+- Início dos lotes 5 e 6 da fase C.
 - Uma figura que só entra quebrando uma regra da seção 2.
 - Uma segunda exceção de peso, ou mexer no teto da soma.
 - Composição com peças de autores diferentes.
