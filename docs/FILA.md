@@ -1252,13 +1252,13 @@ aparelho.
 
 ### 5. F2 — os opt-ins do closed test. **É o caminho crítico inteiro.**
 
-**Estado:** release `Ativo` no track `alpha`, build `1.3.0 (4)`; a `1.6.0 (7)`
-está em revisão desde 2026-11-18. **Bloqueio:** humano. **Dono:** dono.
+**Estado em 2026-11-25:** a build `1.7.0 (9)` está disponível no teste fechado
+`alpha`. A solicitação de acesso à produção depende dos opt-ins. **Dono:** Anderson.
+[Estado das lojas](STATUS.md#produção--o-que-o-usuário-tem-hoje)
 
-> **Remedido em 2026-11-18**, pelo agente, lendo o painel do app no Play Console:
-> **5 testadores participando**, de 12; "Solicitar a produção" indisponível;
-> produção inativa. É o mesmo número de 2026-09-25: **o relógio de 14 dias segue
-> parado e faltam 7 aceites.**
+> **Remedido em 2026-11-25** no painel do Play Console: **5 testadores
+> participando** de 12, com "Solicitar a produção" indisponível. Faltam sete
+> participantes para cumprir a quantidade mínima e iniciar os 14 dias.
 
 > **Remedido em 2026-09-25**, por capturas do Play Console, pelo dono na
 > sessão na nuvem
@@ -1319,25 +1319,23 @@ respondida hoje.**
 
 ---
 
-### 8. Atualização 1.6 — depois do envio
+### 8. Atualizações 1.6 e 1.7 — conferências nas lojas
 
-**Estado em 2026-11-18:** a `1.6.0 (18)` foi **aprovada pela Apple** nesse dia, com
-o placar da liga no mesmo envio; lançamento automático, chegada à loja **não
-confirmada**. A `1.6.0 (7)` do Android foi **enviada à revisão do teste fechado**
-do Play. Decisões e como foi feito:
-[ADR](adr/ADR-2026-11-18-envio-da-1-6-e-decisoes-do-refinamento.md) e
-[preparo do envio](store/2026-11-17-preparo-envio-1-6.md). **Bloqueio:** humano.
-**Dono:** dono, salvo onde diz AGENTE.
+Acompanhar o estado no [`STATUS.md`](STATUS.md#radiant-170--revisão-no-ios-e-disponível-no-alpha).
+O [preparo da 1.6](store/2026-11-17-preparo-envio-1-6.md) e a
+[ADR do envio](adr/ADR-2026-11-18-envio-da-1-6-e-decisoes-do-refinamento.md)
+registram as decisões anteriores.
 
 Falta:
 
-1. **Dono:** confirmar a 1.6.0 no ar e abrir no iPhone: aulas novas, sons, liga
-   (o placar começa em 2026-11-23, 00:00 UTC), widgets, notificação e decorações.
-   **Ninguém viu a build 18 em aparelho antes do envio.**
-2. **Dono:** compra em sandbox com os convites de assinatura ligados. Também não
-   foi feita antes do envio.
-3. **Dono:** acompanhar a revisão do Play (até 7 dias, pelo console). Aprovada,
-   a 1.6.0 vai direto aos testadores do `alpha`.
+1. **Dono:** acompanhar a revisão do iOS `1.7.0 (19)` e decidir quando liberar
+   manualmente após a aprovação.
+2. **Dono:** compra em sandbox com os convites de assinatura ligados. A
+   verificação ficou pendente no envio da 1.6.
+3. **Dono:** exercitar as builds de distribuição no iPhone via TestFlight e
+   no Android pelo Alpha. Conferir acesso às aulas e as figuras novas, além de
+   sons, liga, widgets no iOS, notificações e decorações que ficaram pendentes
+   da conferência em aparelho da 1.6.
 4. **AGENTE, antes da build que for à produção do Play:** marcar
    `android.hardware.screen.portrait` como opcional no manifesto. O problema foi
    dispensado no console com "Vou resolver esse problema em breve".

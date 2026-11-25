@@ -105,24 +105,17 @@ aprofundamentos, a prova completa no simulador e as imagens. Plano:
 [trilha ampla e engajamento](2026-11-05-radiant-trilha-ampla-e-engajamento.md);
 relatório: [2026-11-06](../superpowers/handoffs/2026-11-06-trilha-ampla-relatorio.md).
 
-**Atualização de 2026-11-18 — trilha dobrada (1.7).** Fora das ondas A a H, por pedido
-do dono: dobrar a trilha, tirar lei brasileira e diversificar a entrega, em cinco fases
-([desenho](../superpowers/specs/2026-11-18-trilha-dobrada-design.md)). **Fase A (base
-internacional): feita na branch `claude/trilha-dobrada` em 2026-11-18, sem merge (PR
-#89). Fase B (formatos): feita na branch `claude/trilha-dobrada-fase-b` em 2026-11-19,
-empilhada na A, sem merge (PR #90). Fase C (unidades irmãs): lote 1 de 6 feito em
-2026-11-19 (M17 a M20), na branch `claude/trilha-dobrada-fase-c-lote-1`, sem merge (PR
-#91); lote 2 feito em 2026-11-19 (M21 a M24), na branch
-`claude/trilha-dobrada-fase-c-lote-2`, sem merge (PR #93); lote 3 feito em 2026-11-19
-(M25 a M28), na branch `claude/trilha-dobrada-fase-c-lote-3`, sem merge (PR #94); lote 4
-feito em 2026-11-19 (M29 a M32), na branch `claude/trilha-dobrada-fase-c-lote-4`, sem
-merge (PR #95).** Em 2026-11-19 o dono reprovou as figuras em código e o lote 5 parou;
-a troca das figuras segue um
-[plano próprio](../superpowers/plans/2026-11-19-troca-das-figuras.md), com a fase 0
-(base técnica) feita na branch `claude/figuras-base`, sem merge. Lotes 5 e 6 da C, fase D
-(conversão) e fase E (integração): não iniciados. Estado no [`STATUS.md`](../STATUS.md).
-
-**Figuras da RTG-2026 (2026-11-23).** Piloto de radiografia real com artefato de colar integrado à M23.02 na branch `claude/figuras-fase-1`. O acompanhamento da frente segue no [`STATUS.md`](../STATUS.md). O [plano de fechamento de 2026-11-24](../superpowers/plans/2026-11-20-figuras-continuidade.md#plano-de-fechamento-por-criticidade-2026-11-24) registra a reconciliação da PR #97, a recuperação dos roteiros Maestro e as decisões de 2026-11-24 sobre a figura humana, os selos e os painéis de RM.
+**Trilha dobrada (1.7), marco conferido em 2026-11-25.** O
+[desenho aprovado](../superpowers/specs/2026-11-18-trilha-dobrada-design.md)
+prevê cinco fases. As fases A (base internacional) e B (formatos) entraram na
+`main` pelas PRs #89 e #90. Os lotes 1 a 4 da fase C (M17 a M32) entraram
+pelas #91, #93, #94 e #95. As figuras desta rodada entraram pelas #96 e #97,
+com os aceites e a bateria registrados no
+[plano de fechamento](../superpowers/plans/2026-11-20-figuras-continuidade.md#plano-de-fechamento-por-criticidade-2026-11-24).
+A PR #98 preparou a versão `1.7.0` e o commit `7a67ee08` foi usado nas duas
+builds. Restam os lotes 5 e 6 da fase C, a fase D (conversão) e a fase E
+(integração). O estado das lojas e a medição da trilha ficam no
+[`STATUS.md`](../STATUS.md#radiant-170--revisão-no-ios-e-disponível-no-alpha).
 
 ## 3. Estratégia
 
